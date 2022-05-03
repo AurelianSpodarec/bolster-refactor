@@ -1,66 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import moment from 'moment';
 
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
-import {
-    createManufacturerOptionList,
-    createOptionValuesList,
-    createPreselectedManufacturersList,
-    createPreselectedOptionValuesList,
-    createHierarchyPreselectedManufacturersList,
-    removeUnusedManufacturerDefaults,
-} from 'helpers/manufacturers';
-import {
-    PIN_OPTION_TYPES,
-    DROPDOWN_OPTION_MANUFACTURER_ENABLED,
-} from 'constants/companyAdmin/enums';
-import fetchAllOptionValues from 'actions/companyAdmin/manufacturers/async/fetchAllOptionValues';
-import fetchManufacturersByPinOptionType from 'actions/companyAdmin/manufacturers/async/fetchManufacturersByPinOptionType';
 import editBuilding from 'actions/companyAdmin/buildings/async/editBuilding';
 
 import BuildingEditForm from '../presentational/EditBuildingForm';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import {
-    createPreselectedItemOptionValuesList,
-    formatDropdownOptions,
-    getPreselectedItemTypes,
-} from 'helpers/itemTypes';
-import fetchAllDropdownOptions from 'actions/companyAdmin/dropdownOptions/async/fetchAllDropdownOptions';
 
 class BuildingEditFormContainer extends Component {
     state = {
         name: '',
         location: '',
-        isAlertShowing: false,
-        message: '',
-        dateToSend: '',
-        isManufacturingInherited: false,
-        setManufacturersForHierarchy: false,
-        manufacturerOptions: [],
-        selectedManufacturerOptions: [],
-        selectedOptionValues: [],
-        optionValuesOptions: {},
-        areOptionsLoaded: false,
-        showManufacturingOptions: true,
-        manufacturingInheritedFrom: '',
-        showDropdownOptions: true,
-        isDropdownOptionsInherited: false,
-        setDropdownOptionsForHierarchy: false,
-        selectedDropdownOptions: [],
-        dropdownOptions: [],
     };
 
     render() {
         const { isUsingBolsterLabels, error } = this.props;
-        const { areOptionsLoaded, showManufacturingOptions, showDropdownOptions } = this.state;
         return (
-            <BlockContainer
-                isEmpty={!areOptionsLoaded}
-                isFetching={!areOptionsLoaded}
-                error={error}
-                contentClass="no-padding"
-            >
+            <BlockContainer error={error} contentClass="no-padding">
                 <BuildingEditForm
                     {...this.state}
                     handleInputChange={this.handleInputChange}
@@ -69,38 +25,14 @@ class BuildingEditFormContainer extends Component {
                     buildingID={this.props.buildingID}
                     hideModal={this.props.hideModal}
                     isUsingBolsterLabels={isUsingBolsterLabels}
-                    handleShowManufacturingOptions={this.handleShowManufacturingOptions}
-                    showManufacturingOptions={showManufacturingOptions}
-                    showDropdownOptions={showDropdownOptions}
-                    handleShowDropdownOptions={this.handleShowDropdownOptions}
                 />
             </BlockContainer>
         );
     }
 
     componentDidMount = async () => {
-        const {
-            building,
-            fetchManufacturersByPinOptionType,
-            fetchAllOptionValues,
-            fetchAllDropdownOptions,
-        } = this.props;
-
+        const { building } = this.props;
         // ** Only do a fetch for the manufacturers of a specific type if manufacturing is enabled. Wait for them to resolve before editing a building
-        const pinOptionTypes = Object.keys(PIN_OPTION_TYPES).filter(option => {
-            return DROPDOWN_OPTION_MANUFACTURER_ENABLED[option];
-        });
-
-        const fn = function fetchManufacturers(pinOptionType) {
-            return fetchManufacturersByPinOptionType(pinOptionType);
-        };
-
-        const actions = pinOptionTypes.map(fn);
-
-        await fetchAllDropdownOptions(2);
-        await Promise.all(actions).then(() => {
-            fetchAllOptionValues();
-        });
 
         if (building.id > 0) {
             this._setFormDetails();
@@ -108,84 +40,11 @@ class BuildingEditFormContainer extends Component {
     };
 
     componentDidUpdate = prevProps => {
-        const { building, isFetching, optionValues, subscriptionServiceIDs, manufacturers } =
-            this.props;
-
-        if (prevProps.isFetching && !isFetching) {
-            const initialOptions = {
-                isManufacturingInherited: building.isManufacturingInherited,
-                setManufacturersForHierarchy: building.isManufacturingEnabled,
-                manufacturerOptions: [],
-                selectedManufacturerOptions: [],
-                selectedOptionValues: [],
-                optionValuesOptions: {},
-                areOptionsLoaded: true,
-                manufacturingInheritedFrom: building.manufacturingInheritedFrom,
-            };
-
-            const initialDropdownOptions = {
-                isDropdownOptionsInherited: building.isDropDownOptionsInherited,
-                setDropdownOptionsForHierarchy: building.isDropDownOptionsEnabled,
-                selectedDropdownOptions: [],
-                dropdownOptions: [],
-                isDropDownOptionsInheritedFrom: building.isDropDownOptionsInheritedFrom,
-            };
-
-            initialOptions.optionValuesOptions = createOptionValuesList(
-                optionValues,
-                subscriptionServiceIDs,
-            );
-            initialOptions.manufacturerOptions = createManufacturerOptionList(manufacturers);
-
-            if (building.isManufacturingEnabled) {
-                // prefill options from building already saved
-                initialOptions.selectedOptionValues = building.optionValueIDs.map(id => String(id));
-                const selectedOptions = createHierarchyPreselectedManufacturersList(
-                    initialOptions.manufacturerOptions,
-                    optionValues,
-                    initialOptions.selectedOptionValues,
-                );
-
-                initialOptions.selectedManufacturerOptions = selectedOptions;
-                if (building.manufacturingInheritedFrom) {
-                    this.setState({ showManufacturingOptions: false });
-                }
-            } else {
-                //prefill from company settings in anticipation of isManufacturingEnabled being set to true
-                initialOptions.selectedOptionValues = createPreselectedOptionValuesList(
-                    initialOptions.optionValuesOptions,
-                );
-                initialOptions.selectedManufacturerOptions = createPreselectedManufacturersList(
-                    initialOptions.manufacturerOptions,
-                );
-            }
-
-            //dropdown options
-            initialDropdownOptions.selectedDropdownOptions = building.dropDownOptionIDs
-                ? createPreselectedItemOptionValuesList(building.dropDownOptionIDs)
-                : getPreselectedItemTypes(this.props.dropdownOptions);
-
-            initialDropdownOptions.dropdownOptions = formatDropdownOptions(
-                this.props.dropdownOptions,
-            );
-
-            if (building.isDropDownOptionsInherited) {
-                this.setState({ showDropdownOptions: false });
-            }
-
-            this.setState(initialOptions);
-            this.setState(initialDropdownOptions);
-        }
+        const { building } = this.props;
 
         if (!prevProps.building.id && !!building.id) {
             this._setFormDetails();
         }
-    };
-    handleShowManufacturingOptions = () => {
-        this.setState({ showManufacturingOptions: true });
-    };
-    handleShowDropdownOptions = () => {
-        this.setState({ showDropdownOptions: true });
     };
 
     handleInputChange = (name, value) => {
@@ -217,50 +76,9 @@ class BuildingEditFormContainer extends Component {
         e.preventDefault();
         const { building, editBuilding, hideModal } = this.props;
 
-        const {
-            name,
-            location,
-            isAlertShowing,
-            message,
-            dateToSend,
-            setManufacturersForHierarchy,
-            isManufacturingInherited,
-            isDropdownOptionsInherited,
-            setDropdownOptionsForHierarchy,
-            selectedDropdownOptions,
-        } = this.state;
+        const { name, location } = this.state;
 
-        const manufacturingEnabledOptions = isManufacturingInherited
-            ? {}
-            : {
-                  isManufacturingEnabled: setManufacturersForHierarchy,
-                  optionValueIDs: removeUnusedManufacturerDefaults(this.state),
-              };
-        const dropdownEnabledOptions = isDropdownOptionsInherited
-            ? {}
-            : {
-                  isDropDownOptionsEnabled: setDropdownOptionsForHierarchy,
-                  dropDownOptionIDs: selectedDropdownOptions,
-              };
-
-        let postBody = {};
-        if (isAlertShowing) {
-            postBody = {
-                name,
-                location,
-                message: message,
-                dateToSend: moment(dateToSend).format(),
-                ...manufacturingEnabledOptions,
-                ...dropdownEnabledOptions,
-            };
-        } else {
-            postBody = {
-                name,
-                location,
-                ...manufacturingEnabledOptions,
-                ...dropdownEnabledOptions,
-            };
-        }
+        const postBody = { name, location };
         editBuilding(building.id, postBody);
         hideModal();
     };
@@ -272,38 +90,21 @@ const mapStateToProps = ({
         companySettingsReducer: {
             companySettings: { isUsingBolsterLabels, useManufacturingByDefault },
         },
-        dropdownOptionsReducer: { dropdownOptions, isFetching: isFetchingDropdownOptions },
-        manufacturersReducer: {
-            manufacturers,
-            isFetching: isFetchingManufacturers,
-            error: manufacturersError,
-        },
-        manufacturersOptionValuesReducer: {
-            manufacturersOptionValues,
-            isFetching: isFetchingOptionValues,
-            error: optionValuesError,
-        },
+
         subscriptionsReducer: {
             subscriptions: { serviceIDs: subscriptionServiceIDs },
         },
     },
 }) => ({
     isUsingBolsterLabels,
-    error: buildingError || manufacturersError || optionValuesError,
-    manufacturers,
-    optionValues: manufacturersOptionValues,
-    isFetching: isFetchingManufacturers || isFetchingOptionValues || isFetchingDropdownOptions,
+    error: buildingError,
     useManufacturingByDefault,
     subscriptionServiceIDs,
-    dropdownOptions: Object.values(dropdownOptions),
 });
 
 const mapDispatchToProps = {
     editBuilding,
     hideModal,
-    fetchManufacturersByPinOptionType,
-    fetchAllOptionValues,
-    fetchAllDropdownOptions,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BuildingEditFormContainer);
