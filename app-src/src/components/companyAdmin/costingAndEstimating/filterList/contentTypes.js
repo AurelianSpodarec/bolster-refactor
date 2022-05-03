@@ -27,7 +27,8 @@ export const TopLevel = ({ item, isSelected, handleToggleAllItems }) => {
 };
 
 export const Building = ({ item, isSelected, handleToggleItem, isExpanded, setIsExpanded }) => {
-    const building = useSelector(state => selectBuilding(state, item.id));
+    const building = useSelector(state => selectBuilding(state, item.buildingID));
+
     return (
         <>
             <ListItemControls
@@ -45,7 +46,7 @@ export const Building = ({ item, isSelected, handleToggleItem, isExpanded, setIs
     );
 };
 export const Floor = ({ item, isSelected, handleToggleItem, isExpanded, setIsExpanded }) => {
-    const floor = useSelector(state => selectFloor(state, item.id));
+    const floor = useSelector(state => selectFloor(state, item.floorID));
     return (
         <>
             <ListItemControls
@@ -63,7 +64,7 @@ export const Floor = ({ item, isSelected, handleToggleItem, isExpanded, setIsExp
     );
 };
 export const Drawing = ({ item, isSelected, handleToggleItem, isExpanded, setIsExpanded }) => {
-    const drawing = useSelector(state => selectDrawing(state, item.id));
+    const drawing = useSelector(state => selectDrawing(state, item.drawingID));
     return (
         <>
             <ListItemControls
