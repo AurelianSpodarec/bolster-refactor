@@ -54,7 +54,9 @@ class NumberInputContainer extends Component {
         if (error) removeFieldError(name);
     };
 
-    handleChange = ({ target: { name, value } }) => this.props.handleChange(name, value);
+    handleChange = ({ target: { name, value } }) => {
+        this.props.handleChange(name, value.replace(/e/g, ''));
+    };
 
     handleBlur = () => this.setState({ showFieldError: true });
 
