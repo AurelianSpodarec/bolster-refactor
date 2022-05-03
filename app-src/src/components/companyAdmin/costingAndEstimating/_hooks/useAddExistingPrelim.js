@@ -1,20 +1,35 @@
-import fetchAllPrelims from 'actions/companyAdmin/prelims/async/fetchAllPrelims';
-import { PRELIMS_ENUM } from 'constants/companyAdmin/enums';
-import { convertArrToObj, convertEnumToDropdownOptions } from 'helpers/generic';
-import { useForm } from 'helpers/hooks';
+import { useForm, usePrevious } from 'helpers/hooks';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectPrelimsArr } from 'selectors/companyAdmin/prelims';
+import useCurrentHierarchyID from './useCurrentHierarchyID';
+import useCurrentHierarchyType from './useCurrentHierarchyType';
+
+import fetchAllPrelims from 'actions/companyAdmin/prelims/async/fetchAllPrelims';
+import linkPrelim from '../../../../actions/companyAdmin/costingAndEstimating/linkPrelim';
+
+import { selectPrelimPostSuccess, selectPrelimsArr } from 'selectors/companyAdmin/prelims';
+
+import { PRELIMS_ENUM } from 'constants/companyAdmin/enums';
+import { convertArrToObj } from 'helpers/generic';
+import { selectJWTData } from '../../../../selectors/shared/decodeJWT';
+import { hideModal } from '../../../../actions/shared/generic/modals/sync/hideModal';
 
 const useAddExistingPrelim = () => {
     const dispatch = useDispatch();
+
+    const hierarchyID = useCurrentHierarchyID();
+    const hierarchyType = useCurrentHierarchyType();
+
+    const { companyID } = useSelector(selectJWTData);
+    const postSuccess = useSelector(selectPrelimPostSuccess);
+    const prevPostSuccess = usePrevious(postSuccess);
 
     const formatArrForDropdown = arr => {
         const options = arr
             .filter(val => val)
             .map(({ name, id, type, value }) => ({
                 value: id,
-                text: `${name}(${PRELIMS_ENUM[type] === 'Percent' ? value + '%' : '£' + value})`,
+                text: `${name} - (${PRELIMS_ENUM[type] === 'Percent' ? value + '%' : '£' + value})`,
             }));
 
         return convertArrToObj(options, 'value');
@@ -24,18 +39,24 @@ const useAddExistingPrelim = () => {
     const prelimsOptions = formatArrForDropdown(allPrelims);
     const isPosting = false;
     const [form, handleChange] = useForm({
-        prelim: null,
+        prelimID: '',
     });
 
     const handleSubmit = () => {
-        const postBody = {
-            ...form,
-        };
+        const postBody = { ...form, hierarchyID, hierarchyType, companyID };
+
+        dispatch(linkPrelim(postBody));
     };
 
     useEffect(() => {
         dispatch(fetchAllPrelims());
     }, [dispatch]);
+
+    useEffect(() => {
+        if (postSuccess && !prevPostSuccess) {
+            dispatch(hideModal());
+        }
+    }, [postSuccess, prevPostSuccess]);
 
     return {
         form,
