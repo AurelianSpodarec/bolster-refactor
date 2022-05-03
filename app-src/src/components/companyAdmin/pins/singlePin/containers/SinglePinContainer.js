@@ -7,12 +7,11 @@ import fetchPinTemplates from 'actions/companyAdmin/pins/async/fetchPinTemplates
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 import SinglePin from '../presentational/SinglePin';
 import fetchDrawingTemplates from 'actions/companyAdmin/drawings/async/fetchDrawingTemplates';
-import fetchDrawingDropdownOptions from 'actions/companyAdmin/drawings/async/fetchDrawingDropdownOptions';
 import fetchAllPinsForDrawing from 'actions/companyAdmin/pins/async/fetchAllPinsForDrawing';
-import fetchAllOptionValues from 'actions/companyAdmin/manufacturers/async/fetchAllOptionValues';
 import fetchZonesByDrawingID from 'actions/companyAdmin/zones/async/fetchZonesByDrawingID';
 import { componentDidMount } from '../../../../../helpers/generic';
 import { selectPin } from '../../../../../selectors/companyAdmin/pins';
+import fetchPinOptionVersions from '../../../../../actions/companyAdmin/pinOptions/async/fetchPinOptionVersions';
 
 const SinglePinContainer = ({ singlePinTasks }) => {
     const dispatch = useDispatch();
@@ -40,8 +39,7 @@ const SinglePinContainer = ({ singlePinTasks }) => {
     function fetchPin() {
         let drawingID = null;
 
-        dispatch(fetchAllOptionValues());
-
+        dispatch(fetchPinOptionVersions());
         dispatch(fetchSinglePin(pinID))
             .then(({ payload }) => {
                 drawingID = payload.pin.drawingID;
@@ -52,7 +50,6 @@ const SinglePinContainer = ({ singlePinTasks }) => {
                         dispatch(fetchPinTemplates(pinID)),
                         dispatch(fetchCompanyUsers()),
                         dispatch(fetchDrawingTemplates(drawingID)),
-                        dispatch(fetchDrawingDropdownOptions(drawingID)),
                         dispatch(fetchZonesByDrawingID(drawingID)),
                     ]);
                 }
