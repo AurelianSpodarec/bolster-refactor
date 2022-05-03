@@ -12,7 +12,7 @@ import useCostingAndEstimatingPrelimsSetActions from '../_hooks/useCostingAndEst
 const CostingCartPrelimSummary = ({ title, total, prelims = [], customPrelims = [] }) => {
     const [isExpanded, setIsExpanded] = useState(false);
 
-    const dataToShow = [...prelims.map(id => dummyPrelims[id]), ...customPrelims];
+    const dataToShow = [...prelims, ...customPrelims];
 
     const { showExistingPrelimModal, showAddCustomPrelimModal, showEditCustomPrelimModal } =
         useCostingAndEstimatingPrelimsSetActions();

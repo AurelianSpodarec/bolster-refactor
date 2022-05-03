@@ -6,9 +6,9 @@ import { PRELIMS_ENUM } from 'constants/companyAdmin/enums';
 import { convertEnumToDropdownOptions } from 'helpers/generic';
 import { useForm, usePrevious } from 'helpers/hooks';
 import {
-    selectCostingAndEstimatingPrelimIsPosting,
-    selectCostingAndEstimatingPrelimPostError,
-    selectCostingAndEstimatingPrelimPostSuccess,
+    selectCostingAndEstimatingIsPosting,
+    selectCostingAndEstimatingPostError,
+    selectCostingAndEstimatingPostSuccess,
 } from 'selectors/companyAdmin/costingAndEstimating';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import { ERROR_MODAL } from 'constants/shared/modalTypes';
@@ -16,9 +16,9 @@ import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 
 const useEditCostingAndEstimatingPrelim = prelim => {
     const dispatch = useDispatch();
-    const isPosting = useSelector(selectCostingAndEstimatingPrelimIsPosting);
-    const postError = useSelector(selectCostingAndEstimatingPrelimPostError);
-    const postSuccess = useSelector(selectCostingAndEstimatingPrelimPostSuccess);
+    const isPosting = useSelector(selectCostingAndEstimatingIsPosting);
+    const postError = useSelector(selectCostingAndEstimatingPostError);
+    const postSuccess = useSelector(selectCostingAndEstimatingPostSuccess);
     const prevProps = usePrevious({ postError, postSuccess });
     const prelimsOptions = convertEnumToDropdownOptions(PRELIMS_ENUM);
 
