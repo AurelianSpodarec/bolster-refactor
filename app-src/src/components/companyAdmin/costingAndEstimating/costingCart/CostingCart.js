@@ -1,6 +1,7 @@
 import { formatCurrency } from 'helpers/generic';
 import React from 'react';
 import BlockContainer from '../../../shared/generic/block/containers/BlockContainer';
+import CartReportButton from './CartReportButton';
 import CostingCartPinSummary from './CostingCartPinSummary';
 import CostingCartPrelimSummary from './CostingCartPrelimSummary';
 
@@ -27,6 +28,8 @@ const CostingCart = ({ data }) => {
                     <h3>Total exc VAT:</h3>
                     <h1>{`£${formatCurrency(cartTotal)}`}</h1>
                 </div>
+
+                <CartReportButton />
             </BlockContainer>
         </div>
     );
