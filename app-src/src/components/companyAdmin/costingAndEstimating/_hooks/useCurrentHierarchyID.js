@@ -1,8 +1,7 @@
-import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 const useCurrentHierarchyID = () => {
-    const { pathname } = useLocation();
-    const id = pathname.split('/').pop();
+    const { id } = useParams();
     return +id;
 };
 
