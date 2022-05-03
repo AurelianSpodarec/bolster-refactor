@@ -7,6 +7,13 @@ import DropdownContainer from 'components/shared/generic/form/containers/Dropdow
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import ImageVisualContainer from '../containers/ImageVisualContainer';
 import useColourTheme from 'hooks/useColourTheme';
+import OptionPod from '../../../../../shared/generic/form/presentational/OptionPod';
+
+import { ReactComponent as PdfIcon } from '_content/images/icons/PDF-Outline.svg';
+import { ReactComponent as FloorplanIcon } from '_content/images/icons/pin-floorplan.svg';
+import { ReactComponent as CsvIcon } from '_content/images/icons/CSV-Outline.svg';
+import { ReactComponent as DocIcon } from '_content/images/icons/doc-Outline.svg';
+import FlexWrapper from '../../../../../shared/generic/flexWrapper/FlexWrapper';
 
 const OutputSettings = ({
     handleSubmit,
@@ -38,37 +45,49 @@ const OutputSettings = ({
                     <div className="generic-form">
                         <div className="size-lg-6 size-md-12">
                             <Field name="Report formats">
-                                <div className="checkbox-list size-lg-12">
-                                    <CheckboxContainer
-                                        checked={isPDFGeneration}
-                                        handleChange={handleFilterChange}
-                                        name="isPDFGeneration"
-                                        text="PDF"
-                                    />
-                                    <CheckboxContainer
-                                        checked={isCSVGeneration}
-                                        handleChange={handleFilterChange}
-                                        name="isCSVGeneration"
-                                        text="CSV"
-                                    />
-                                    <CheckboxContainer
-                                        checked={isFloorplanGeneration}
-                                        handleChange={handleFilterChange}
-                                        name="isFloorplanGeneration"
-                                        text="Floor plan"
-                                    />
-                                    <CheckboxContainer
-                                        checked={isOAndMManualGeneration}
-                                        handleChange={(name, value) => {
-                                            handleFilterChange(name, value);
-                                            if (value) {
-                                                handleShowOandMModal();
-                                            }
-                                        }}
-                                        name="isOAndMManualGeneration"
-                                        text="Include O&M Manuals?"
-                                    />
-                                </div>
+                                <FlexWrapper gap={15} wrap="wrap">
+                                    <FlexWrapper width={3}>
+                                        <OptionPod
+                                            checked={isPDFGeneration}
+                                            onChange={handleFilterChange}
+                                            name="isPDFGeneration"
+                                            svgIconComponent={PdfIcon}
+                                        />
+                                    </FlexWrapper>
+
+                                    <FlexWrapper width={3}>
+                                        <OptionPod
+                                            checked={isCSVGeneration}
+                                            onChange={handleFilterChange}
+                                            name="isCSVGeneration"
+                                            svgIconComponent={CsvIcon}
+                                        />
+                                    </FlexWrapper>
+
+                                    <FlexWrapper width={3}>
+                                        <OptionPod
+                                            checked={isFloorplanGeneration}
+                                            onChange={handleFilterChange}
+                                            name="isFloorplanGeneration"
+                                            svgIconComponent={FloorplanIcon}
+                                            pathStroke
+                                        />
+                                    </FlexWrapper>
+
+                                    <FlexWrapper width={3}>
+                                        <OptionPod
+                                            checked={isOAndMManualGeneration}
+                                            onChange={(name, value) => {
+                                                handleFilterChange(name, value);
+                                                if (value) {
+                                                    handleShowOandMModal();
+                                                }
+                                            }}
+                                            name="isOAndMManualGeneration"
+                                            svgIconComponent={DocIcon}
+                                        />
+                                    </FlexWrapper>
+                                </FlexWrapper>
                             </Field>
                             {isPDFGeneration && (
                                 <>
@@ -79,7 +98,6 @@ const OutputSettings = ({
                                                 colourTheme === 'dark'
                                                     ? {
                                                           backgroundColor: 'transparent',
-                                                          border: '1px solid var(--positive-stroke)',
                                                       }
                                                     : {}
                                             }
