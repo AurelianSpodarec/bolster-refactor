@@ -27,7 +27,7 @@ const OptionPodContainer = ({
 
     useEffect(() => {
         if (checked !== prevChecked) validate();
-    }, []);
+    }, [checked, prevChecked]);
 
     const validate = () => {
         if (required && !checked) {
