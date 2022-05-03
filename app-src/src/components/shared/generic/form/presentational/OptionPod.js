@@ -8,7 +8,6 @@ const OptionPod = ({
     svgIconComponent: SvgIconComponent,
     pathStroke = false,
     error,
-    errorsVisible = true,
 }) => {
     const iconClass = `icon fa fa-${icon}`;
 

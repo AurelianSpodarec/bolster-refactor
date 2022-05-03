@@ -45,7 +45,6 @@ const OptionPodContainer = ({
             icon={icon}
             pathStroke={pathStroke}
             error={errorMessage}
-            errorsVisible={errorsVisible}
             svgIconComponent={SvgIconComponent}
         />
     );
