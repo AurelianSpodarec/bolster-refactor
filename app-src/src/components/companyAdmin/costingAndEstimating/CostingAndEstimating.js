@@ -24,13 +24,20 @@ const CostingAndEstimating = () => {
         onThisWeek,
         onPrevWeek,
         onNextWeek,
+        isFetchingCart,
+        isFetchingMainData,
+        fetchError,
     } = useCostingAndEstimating();
 
     return (
         <GridWrapper gap={30} containerClass="costing-wrapper">
-            <CostingAndEstimatingPods data={keyStatistics} />
+            <CostingAndEstimatingPods
+                data={keyStatistics}
+                isFetching={isFetchingMainData}
+                fetchError={fetchError}
+            />
 
-            <CostingCart data={costingCart} />
+            <CostingCart data={costingCart} isFetching={isFetchingCart} fetchError={fetchError} />
 
             <CostingAndEstimatingGraph
                 graph={graph}
@@ -39,6 +46,8 @@ const CostingAndEstimating = () => {
                 onThisWeek={onThisWeek}
                 onPrevWeek={onPrevWeek}
                 onNextWeek={onNextWeek}
+                isFetching={isFetchingMainData}
+                fetchError={fetchError}
             />
 
             <CostingAndEstimatingFilterList
@@ -48,6 +57,8 @@ const CostingAndEstimating = () => {
                 handleToggleItem={handleToggleItem}
                 handleToggleAllItems={handleToggleAllItems}
                 isAnythingSelected={isAnythingSelected}
+                isFetching={isFetchingMainData}
+                fetchError={fetchError}
             />
         </GridWrapper>
     );

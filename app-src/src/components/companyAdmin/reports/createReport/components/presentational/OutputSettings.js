@@ -4,9 +4,15 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import Field from 'components/shared/generic/form/presentational/Field';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
-import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import ImageVisualContainer from '../containers/ImageVisualContainer';
-import useColourTheme from 'hooks/useColourTheme';
+import OptionPod from '../../../../../shared/generic/form/presentational/OptionPod';
+
+import { ReactComponent as PdfIcon } from '_content/images/icons/PDF-Outline.svg';
+import { ReactComponent as FloorplanIcon } from '_content/images/icons/pin-floorplan.svg';
+import { ReactComponent as CsvIcon } from '_content/images/icons/CSV-Outline.svg';
+import { ReactComponent as DocIcon } from '_content/images/icons/doc-Outline.svg';
+import FlexWrapper from '../../../../../shared/generic/flexWrapper/FlexWrapper';
+import Tickbox from '../../../../../shared/generic/form/presentational/Tickbox';
 
 const OutputSettings = ({
     handleSubmit,
@@ -24,8 +30,8 @@ const OutputSettings = ({
     handleShowOandMModal,
     includeFloorplanZones,
     hasZones = false,
+    includeCostingData,
 }) => {
-    const colourTheme = useColourTheme();
     return (
         <div className="size-lg-12">
             <BlockContainer>
@@ -37,127 +43,115 @@ const OutputSettings = ({
                     <div className="generic-form">
                         <div className="size-lg-6 size-md-12">
                             <Field name="Report formats">
-                                <div className="checkbox-list size-lg-12">
-                                    <CheckboxContainer
+                                <FlexWrapper gap={15} wrap="wrap" extraClasses="option-wrapper">
+                                    <OptionPod
                                         checked={isPDFGeneration}
-                                        handleChange={handleFilterChange}
+                                        onChange={handleFilterChange}
                                         name="isPDFGeneration"
-                                        text="PDF"
+                                        svgIconComponent={PdfIcon}
                                     />
-                                    <CheckboxContainer
+
+                                    <OptionPod
                                         checked={isCSVGeneration}
-                                        handleChange={handleFilterChange}
+                                        onChange={handleFilterChange}
                                         name="isCSVGeneration"
-                                        text="CSV"
+                                        svgIconComponent={CsvIcon}
                                     />
-                                    <CheckboxContainer
+
+                                    <OptionPod
                                         checked={isFloorplanGeneration}
-                                        handleChange={handleFilterChange}
+                                        onChange={handleFilterChange}
                                         name="isFloorplanGeneration"
-                                        text="Floor plan"
+                                        svgIconComponent={FloorplanIcon}
+                                        pathStroke
                                     />
-                                    <CheckboxContainer
+
+                                    <OptionPod
                                         checked={isOAndMManualGeneration}
-                                        handleChange={(name, value) => {
+                                        onChange={(name, value) => {
                                             handleFilterChange(name, value);
                                             if (value) {
                                                 handleShowOandMModal();
                                             }
                                         }}
                                         name="isOAndMManualGeneration"
-                                        text="Include O&M Manuals?"
+                                        svgIconComponent={DocIcon}
                                     />
-                                </div>
+                                </FlexWrapper>
                             </Field>
-                            {isPDFGeneration && (
-                                <>
-                                    <div className="size-lg-12 " style={{ marginBottom: '10px' }}>
-                                        <div
-                                            className="size-lg-10 size-md-12 options-container"
-                                            style={
-                                                colourTheme === 'dark'
-                                                    ? {
-                                                          backgroundColor: 'transparent',
-                                                          border: '1px solid var(--positive-stroke)',
-                                                      }
-                                                    : {}
-                                            }
-                                        >
-                                            <BlockHeading title="Additional PDF Settings" />
-                                            <Field
-                                                sizeClasses="size-lg-6 size-md-12"
-                                                name="Include Pin Location?"
-                                            >
-                                                <CheckboxContainer
-                                                    classes="with-subtext"
+                            <>
+                                <div className="size-lg-12 ">
+                                    <BlockHeading title="Include:" />
+                                    {isPDFGeneration && (
+                                        <>
+                                            <Field sizeClasses="size-lg-3 size-md-12">
+                                                <Tickbox
+                                                    classes="large-text"
                                                     checked={
                                                         isPDFGeneration
                                                             ? includePinLocation
                                                             : isPDFGeneration
                                                     }
-                                                    handleChange={handleFilterChange}
                                                     name="includePinLocation"
+                                                    handleChange={handleFilterChange}
+                                                    label="Pin Locations"
                                                 />
-                                                <p className="sub-text" />
                                             </Field>
-                                            <Field
-                                                sizeClasses="size-lg-6 size-md-12"
-                                                name="Include Floorplan?"
-                                            >
-                                                <CheckboxContainer
-                                                    classes="with-subtext"
+                                            <Field sizeClasses="size-lg-3 size-md-12">
+                                                <Tickbox
+                                                    classes="large-text"
                                                     checked={
                                                         isPDFGeneration
                                                             ? includeFloorplan
                                                             : isPDFGeneration
                                                     }
-                                                    handleChange={handleFilterChange}
                                                     name="includeFloorplan"
+                                                    handleChange={handleFilterChange}
+                                                    label="Floorplan"
                                                 />
-                                                <p className="sub-text" />
                                             </Field>
-                                        </div>
-                                    </div>
-                                </>
-                            )}
+
+                                            <Field sizeClasses="size-lg-3 size-md-12">
+                                                <Tickbox
+                                                    classes="large-text"
+                                                    checked={includeCostingData}
+                                                    name="includeCostingData"
+                                                    handleChange={handleFilterChange}
+                                                    label="Cost Per Pin"
+                                                />
+                                            </Field>
+                                        </>
+                                    )}
+                                    <Field sizeClasses="size-lg-3 size-md-12">
+                                        <Tickbox
+                                            classes="large-text"
+                                            checked={showHidden}
+                                            name="showHidden"
+                                            handleChange={handleOptionChange}
+                                            label="Hidden"
+                                        />
+                                    </Field>
+                                </div>
+                            </>
                             {hasZones &&
                                 ((isPDFGeneration && includeFloorplan) ||
                                     isFloorplanGeneration) && (
                                     <>
-                                        <div
-                                            className="size-lg-12 "
-                                            style={{ marginBottom: '10px' }}
-                                        >
-                                            <div
-                                                className="size-lg-10 size-md-12 options-container"
-                                                style={
-                                                    colourTheme === 'dark'
-                                                        ? {
-                                                              backgroundColor: 'transparent',
-                                                              border: '1px solid var(--positive-stroke)',
-                                                          }
-                                                        : {}
-                                                }
-                                            >
-                                                <BlockHeading title="Additional floor plan Settings" />
-                                                <Field
-                                                    sizeClasses="size-lg-6 size-md-12"
-                                                    name="Include zones?"
-                                                >
-                                                    <CheckboxContainer
-                                                        classes="with-subtext"
-                                                        checked={includeFloorplanZones}
-                                                        handleChange={handleFilterChange}
-                                                        name="includeFloorplanZones"
-                                                    />
-                                                    <p className="sub-text" />
-                                                </Field>
-                                            </div>
+                                        <div className="size-lg-12">
+                                            <BlockHeading title="Additional floor plan Settings" />
+                                            <Field sizeClasses="size-lg-3 size-md-12">
+                                                <Tickbox
+                                                    classes="large-text"
+                                                    checked={includeFloorplanZones}
+                                                    name="includeFloorplanZones"
+                                                    handleChange={handleFilterChange}
+                                                    label="Include Zones:"
+                                                />
+                                            </Field>
                                         </div>
                                     </>
                                 )}
-
-                            <Field name="Sort by">
+                            <Field name="Sort">
                                 <DropdownContainer
                                     name="sortBy"
                                     options={sortByOptions}
@@ -167,18 +161,6 @@ const OutputSettings = ({
                                     selectedOption={selectSortBy}
                                     withoutPlaceholder
                                 />
-                            </Field>
-
-                            <Field name="Show hidden?">
-                                <CheckboxContainer
-                                    classes="with-subtext"
-                                    checked={showHidden}
-                                    handleChange={handleOptionChange}
-                                    name="showHidden"
-                                />
-                                <p className="sub-text">
-                                    - Check to include questions that are hidden on the templates?
-                                </p>
                             </Field>
                         </div>
                         <div className="size-lg-6 size-md-12">

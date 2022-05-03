@@ -47,17 +47,17 @@ const CompanyReportsListItem = ({
         <tr>
             <td>
                 {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
-                {queueItem.friendlyName}
+                {queueItem.name}
             </td>
             <td>
                 {' '}
                 {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
-                {queueItem.createdByUserName}
+                {queueItem.createdBy}
             </td>
             <td>
                 {' '}
                 {onMobile && <span className="mobile-table-heading">{headers[2]}</span>}
-                {typeArr.join(', ')}
+                {queueItem.type}
             </td>
             <td>
                 {' '}

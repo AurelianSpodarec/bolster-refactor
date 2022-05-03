@@ -57,7 +57,7 @@
   &.drawings {
     grid-template-columns: 6em 1fr 10em;
   }
-  &.pins {
+  &.histories {
     grid-template-columns: 6em 1fr 1fr 2fr 10em;
   }
   &.installations {
@@ -114,6 +114,20 @@
     @include bodyText;
   }
 
+  .loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 10;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   .divider {
     display: block;
     height: 1px;
@@ -150,6 +164,12 @@
 
   .cursor-pointer {
     cursor: pointer;
+  }
+
+  .custom-button {
+    span {
+      font-size: 15px!important;
+    }
   }
 }
 
@@ -220,6 +240,19 @@
 
 .costing-cart {
   grid-area: cart;
+
+  .content-container {
+    &.fullheight {
+      height: calc(100% - 10px);
+      padding-bottom: 30px;
+    }
+  }
+
+  .cart-report-button {
+    position: absolute;
+    bottom: 15px;
+    width: calc(100% - 30px);
+  }
 
   .summary-item {
     padding: 10px 0 0;

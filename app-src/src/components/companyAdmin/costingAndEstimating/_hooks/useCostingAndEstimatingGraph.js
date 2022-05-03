@@ -35,7 +35,7 @@ const useCostingAndEstimatingGraph = graph => {
         gradient.addColorStop(1, '#00000000');
 
         return {
-            labels: graph.labels,
+            labels: graph?.labels || [],
             datasets: [
                 {
                     backgroundColor: gradient, // Put the gradient here as a fill color
@@ -47,7 +47,7 @@ const useCostingAndEstimatingGraph = graph => {
                     // pointHighlightFill: '#fff',
                     // pointHighlightStroke: '#ff6c23',
                     label: '',
-                    data: graph.datasets[0].data,
+                    data: graph?.datasets?.[0].data || [],
                 },
             ],
         };

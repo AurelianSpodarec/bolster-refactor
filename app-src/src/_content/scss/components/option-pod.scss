@@ -1,0 +1,39 @@
+.option-pod {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 10px 0;
+  border: 2px solid var(--typography-default);
+  border-radius: 7.5px;
+  background-color: transparent;
+
+  .icon {
+    font-size: 200%;
+    color: var(--typography-default)
+  }
+
+  .svg-icon {
+    width: auto;
+    height: 30px;
+
+    &.path-stroke {
+      path {
+      stroke: var(--typography-default);
+      }
+    }
+
+    &.path-fill {
+      path {
+        fill: var(--typography-default);
+      }
+    }
+
+    + .text {
+      margin-left: 8px;
+    }
+  }
+  &.selected {
+    border-color: var(--positive-stroke);
+  }
+}

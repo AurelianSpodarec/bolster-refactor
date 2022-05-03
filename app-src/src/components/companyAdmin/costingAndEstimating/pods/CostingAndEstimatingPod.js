@@ -27,6 +27,7 @@ const CostingAndEstimatingPod = ({ pod }) => {
     };
 
     const dataToShow = solo ? solo : isFlipped ? lowest : highest;
+    const valueIsCurrency = dataToShow?.valueCurrency !== null;
 
     return (
         <BlockContainer
@@ -49,9 +50,15 @@ const CostingAndEstimatingPod = ({ pod }) => {
 
             <div className="content-wrapper">
                 <span>{dataToShow.subtitle}</span>
-                <p>{`${dataToShow.valueCurrency || '£'}${formatCurrency(
-                    dataToShow.valueNumerical,
-                )}`}</p>
+                <p>{`${
+                    valueIsCurrency
+                        ? `£${
+                              !Number.isNaN(dataToShow?.valueCurrency)
+                                  ? formatCurrency(dataToShow?.valueCurrency)
+                                  : ''
+                          }`
+                        : dataToShow.valueNumerical
+                }`}</p>
             </div>
         </BlockContainer>
     );

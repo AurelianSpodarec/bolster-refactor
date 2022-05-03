@@ -1,39 +1,76 @@
+import moment from 'moment';
+
+import { batch, useDispatch, useSelector } from 'react-redux';
+import { useEffect, useMemo } from 'react';
+import { useForm } from 'helpers/hooks';
+import usePrevious from 'hooks/usePrevious';
+import useCurrentHierarchyID from './useCurrentHierarchyID';
+import useCurrentHierarchyType from './useCurrentHierarchyType';
+
+import fetchAllSites from 'actions/companyAdmin/sites/async/fetchAllSites';
+import fetchAllFloors from 'actions/companyAdmin/floors/async/fetchAllFloors';
+import fetchAllDrawings from 'actions/companyAdmin/drawings/async/fetchAllDrawings';
 import fetchAllBuildings from 'actions/companyAdmin/buildings/async/fetchAllBuildings';
 import fetchCostingAndEstimatingData from 'actions/companyAdmin/costingAndEstimating/fetchCostingAndEstimatingData';
-import fetchAllDrawings from 'actions/companyAdmin/drawings/async/fetchAllDrawings';
-import fetchAllFloors from 'actions/companyAdmin/floors/async/fetchAllFloors';
-import fetchAllSites from 'actions/companyAdmin/sites/async/fetchAllSites';
-import { useEffect } from 'react';
-import { batch, useDispatch, useSelector } from 'react-redux';
-import * as dummyData from '../dummyData';
-import { useForm } from 'helpers/hooks';
-import moment from 'moment';
+import fetchCostingAndEstimatingCart from 'actions/companyAdmin/costingAndEstimating/fetchCostingAndEstimatingCart';
+
+import { selectHierarchySelectedTab } from '../../../../selectors/shared/tabs';
+import {
+    selectCostingAndEstimatingCart,
+    selectCostingAndEstimatingData,
+    selectCostingAndEstimatingDataIsFetching,
+    selectCostingAndEstimatingCartIsFetching,
+    selectCostingAndEstimatingFetchError,
+} from 'selectors/companyAdmin/costingAndEstimating';
+
 import {
     getItemType,
     getSelectionKeyForItem,
     isItemSelected,
     getDataKeyFromItem,
 } from '../_helpers/helpers';
-import useCurrentHierarchyID from './useCurrentHierarchyID';
-import useCurrentHierarchyType from './useCurrentHierarchyType';
-import usePrevious from 'hooks/usePrevious';
-import { selectCostingAndEstimatingCart } from 'selectors/companyAdmin/costingAndEstimating';
-import fetchCostingAndEstimatingCart from 'actions/companyAdmin/costingAndEstimating/fetchCostingAndEstimatingCart';
+// import * as dummyData from '../dummyData';
+import { costingAndEstimatingType } from '../../../../constants/companyAdmin/enums';
 
 const useCostingAndEstimating = () => {
-    const costingCart = useSelector(selectCostingAndEstimatingCart);
-    const { dummyMain, dummyCart } = dummyData;
-    const { keyStatistics, graph, allSites } = dummyMain;
+    const _costingCart = useSelector(selectCostingAndEstimatingCart);
+    const mainData = useSelector(selectCostingAndEstimatingData);
+    // const mainData = dummyData.dummyMain;
+    // const costingCart = dummyData.dummyCart;
+    const isFetchingMainData = useSelector(selectCostingAndEstimatingDataIsFetching);
+    const isFetchingCart = useSelector(selectCostingAndEstimatingCartIsFetching);
+    const fetchError = useSelector(selectCostingAndEstimatingFetchError);
+    const prevData = usePrevious({
+        _costingCart,
+        mainData,
+        isFetchingMainData,
+        isFetchingCart,
+        fetchError,
+    });
+
+    const { keyStatistics, graph, allSites } = useMemo(() => {
+        if (!isFetchingMainData && prevData.isFetchingMainData) return mainData;
+        else return prevData.mainData;
+    }, [isFetchingMainData, prevData]);
+
+    const costingCart = useMemo(() => {
+        if (!isFetchingCart && prevData.isFetchingCart) return _costingCart;
+        else return prevData._costingCart;
+    }, [isFetchingCart, prevData]);
+
     const dispatch = useDispatch();
     const hierarchyID = useCurrentHierarchyID();
     const hierarchyType = useCurrentHierarchyType();
+
+    const selectedTab = useSelector(selectHierarchySelectedTab);
+    const selectedTabType = costingAndEstimatingType[selectedTab.toUpperCase()];
 
     const buildInitialSelectedItems = (data = []) => {
         const selectedItems = {
             buildings: [],
             floors: [],
             drawings: [],
-            pins: [],
+            histories: [],
             installations: [],
             operatives: [],
             services: [],
@@ -59,7 +96,7 @@ const useCostingAndEstimating = () => {
                 buildings: [],
                 floors: [],
                 drawings: [],
-                pins: [],
+                histories: [],
                 installations: [],
                 operatives: [],
                 services: [],
@@ -76,7 +113,7 @@ const useCostingAndEstimating = () => {
         maxPrice: 0,
     };
     const [formData, onChange] = useForm(initialFormData);
-    const prevProps = usePrevious({ formData });
+    const prevProps = usePrevious({ formData, selectedTabType });
 
     const isAnythingSelected = Object.keys(formData.selectedItems).reduce((acc, curr) => {
         if (formData.selectedItems[curr].length) acc = true;
@@ -101,8 +138,8 @@ const useCostingAndEstimating = () => {
                     case 'drawings':
                         selectedItems.drawings.push(itemKey);
                         break;
-                    case 'pins':
-                        selectedItems.pins.push(itemKey);
+                    case 'histories':
+                        selectedItems.histories.push(itemKey);
                         break;
                     case 'installations':
                         selectedItems.installations.push(itemKey);
@@ -123,8 +160,10 @@ const useCostingAndEstimating = () => {
                             id => id !== itemKey,
                         );
                         break;
-                    case 'pins':
-                        selectedItems.pins = selectedItems.pins.filter(pinID => pinID !== itemKey);
+                    case 'histories':
+                        selectedItems.histories = selectedItems.histories.filter(
+                            pinCode => pinCode !== itemKey,
+                        );
                         break;
                     case 'installations':
                         selectedItems.installations = selectedItems.installations.filter(
@@ -174,14 +213,15 @@ const useCostingAndEstimating = () => {
         });
     };
 
-    const fetchAllData = () => {
-        // Fetch all data necessary - costing & estimating, sites, buildings, drawings, prelims, pins
-        const cAndEPostBody = {
-            hierarchyID,
-            hierarchyType,
-            fromDate: moment(formData.startDate).format('YYYY-MM-DD'),
-            toDate: moment(formData.endDate).format('YYYY-MM-DD'),
-        };
+    const cAndEPostBody = {
+        hierarchyID,
+        hierarchyType,
+        fromDate: moment(formData.startDate).subtract(3, 'months').format('YYYY-MM-DD'),
+        toDate: moment(formData.endDate).format('YYYY-MM-DD'),
+        costEstType: selectedTabType,
+    };
+
+    useEffect(() => {
         batch(() => {
             dispatch(fetchAllBuildings());
             dispatch(fetchAllSites());
@@ -190,18 +230,21 @@ const useCostingAndEstimating = () => {
             dispatch(fetchCostingAndEstimatingData(cAndEPostBody));
             dispatch(fetchCostingAndEstimatingCart(cAndEPostBody));
         });
-    };
-
-    useEffect(() => {
-        fetchAllData();
     }, []); // Fetch all data on page load
 
     useEffect(() => {
-        if (formData !== prevProps.formData) fetchAllData();
-    }, [formData, prevProps.formData]); // Fetch all data on filter change
+        if (formData !== prevProps.formData || selectedTabType !== prevProps.selectedTabType) {
+            batch(() => {
+                batch(() => {
+                    dispatch(fetchCostingAndEstimatingData(cAndEPostBody));
+                    dispatch(fetchCostingAndEstimatingCart(cAndEPostBody));
+                });
+            });
+        }
+    }, [formData, prevProps.formData, prevProps.selectedTabType, selectedTabType]); // Fetch all data on filter change
 
     return {
-        costingCart: dummyCart,
+        costingCart,
         graph,
         keyStatistics,
         allSites,
@@ -215,6 +258,9 @@ const useCostingAndEstimating = () => {
         onNextWeek,
         hierarchyID,
         hierarchyType,
+        isFetchingCart,
+        isFetchingMainData,
+        fetchError,
     };
 };
 

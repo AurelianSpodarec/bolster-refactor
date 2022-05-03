@@ -791,6 +791,47 @@ export const MEASUREMENT_VALUES = {
     7: 'Radius',
 };
 
+export const MEASUREMENT_UNITS = {
+    MILLIMETRE: 1,
+    CENTIMETRE: 2,
+    METRE: 3,
+    INCH: 4,
+    FOOT: 5,
+    MILLILITRE: 6,
+    LITRE: 7,
+    GALLON: 8,
+};
+
+export const MEASUREMENT_UNIT_OUTPUTS = {
+    [MEASUREMENT_UNITS.MILLIMETRE]: 'mm',
+    [MEASUREMENT_UNITS.CENTIMETRE]: 'cm',
+    [MEASUREMENT_UNITS.METRE]: 'M',
+    [MEASUREMENT_UNITS.INCH]: 'In.',
+    [MEASUREMENT_UNITS.FOOT]: 'Foot',
+    [MEASUREMENT_UNITS.MILLILITRE]: 'ml',
+    [MEASUREMENT_UNITS.LITRE]: 'L',
+    [MEASUREMENT_UNITS.GALLON]: 'Gal.',
+};
+
+export const UNIT_OPTIONS = {
+    DISTANCE: [
+        MEASUREMENT_UNITS.MILLIMETRE,
+        MEASUREMENT_UNITS.CENTIMETRE,
+        MEASUREMENT_UNITS.METRE,
+        MEASUREMENT_UNITS.INCH,
+        MEASUREMENT_UNITS.FOOT,
+    ].map(unit => ({
+        value: unit,
+        label: MEASUREMENT_UNIT_OUTPUTS[unit],
+    })),
+    VOLUME: [MEASUREMENT_UNITS.MILLIMETRE, MEASUREMENT_UNITS.LITRE, MEASUREMENT_UNITS.GALLON].map(
+        unit => ({
+            value: unit,
+            label: MEASUREMENT_UNIT_OUTPUTS[unit],
+        }),
+    ),
+};
+
 export const CURRENCIES = {
     GBP: 0,
     NZD: 1,
@@ -819,4 +860,14 @@ export const COSTING_GRAPH_FILTER_VALUES = {
     1: 'services',
     2: 'installations',
     4: 'price',
+};
+
+export const costingAndEstimatingType = {
+    COSTING: 0,
+    ESTIMATING: 1,
+};
+
+export const costingAndEstimatingNames = {
+    0: 'Costing',
+    1: 'Estimating',
 };
