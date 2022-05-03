@@ -89,6 +89,7 @@
 .costing-wrapper {
   grid-template-areas: "pods pods cart" "graph graph cart" "filters filters cart";
   grid-template-columns: repeat(3, 1fr);
+  padding-top: 15px;
 
   h1 {
     @include h1title;
@@ -251,7 +252,7 @@
 
   .content-container {
     &.fullheight {
-      height: calc(100% - 10px);
+      height: calc(100% + 19px);
       padding-bottom: 30px;
     }
   }
@@ -307,7 +308,7 @@
   .graph-total {
     position: absolute;
     right: 1.5em;
-    bottom: 1.5em;
+    bottom: 4em;
     text-align: right;
 
     h1, h3 {

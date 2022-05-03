@@ -69,7 +69,7 @@ const useCostingAndEstimatingGraph = graph => {
                         tickMarkLength: false,
                     },
                     ticks: {
-                        display: false,
+                        // display: false,
                         beginAtZero: true,
                     },
                 },
@@ -84,7 +84,7 @@ const useCostingAndEstimatingGraph = graph => {
                         tickMarkLength: false,
                     },
                     ticks: {
-                        display: false,
+                        // display: false,
                         beginAtZero: true,
                     },
                 },
