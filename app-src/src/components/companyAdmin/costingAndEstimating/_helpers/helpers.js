@@ -6,7 +6,7 @@ export const itemTypeIDs = {
     floors: 'floorID',
     drawings: 'drawingID',
     histories: 'pinHistoryID',
-    installations: 'representsPinHistoryAnswerValueIDs', // will be an array - compare with JSON.stringify
+    installations: 'representsPinHistoryAnswerValueIDs', // will be an array - store as JSON.stringify
 };
 
 export const getContentTypeFromItem = item => {
