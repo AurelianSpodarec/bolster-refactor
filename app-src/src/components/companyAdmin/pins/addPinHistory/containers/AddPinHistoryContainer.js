@@ -10,6 +10,7 @@ import fetchPinOptions from 'actions/companyAdmin/pinOptions/async/fetchPinOptio
 import { componentDidMount } from 'helpers/generic';
 import { useAddPinOptions } from '../../../../shared/pins/addPin/fieldTypes/helpers';
 import fetchPinOptionTypes from '../../../../../actions/companyAdmin/pinOptions/async/fetchPinOptionTypes';
+import fetchPinOptionSets from '../../../../../actions/companyAdmin/pinOptions/async/fetchPinOptionSets';
 
 const AddPinHistoryContainer = () => {
     const dispatch = useDispatch();
@@ -18,6 +19,7 @@ const AddPinHistoryContainer = () => {
     const pinID = params.id;
     componentDidMount(() => {
         dispatch(fetchPinOptionTypes());
+        dispatch(fetchPinOptionSets());
         dispatch(fetchPinOptions());
         dispatch(fetchPinOptionVersions());
         dispatch(fetchSinglePin(pinID, true));

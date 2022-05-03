@@ -11,6 +11,7 @@ import fetchPinOptions from '../../../../../actions/companyAdmin/pinOptions/asyn
 import fetchPinOptionVersions from '../../../../../actions/companyAdmin/pinOptions/async/fetchPinOptionVersions';
 import { useAddPinOptions } from '../../../../shared/pins/addPin/fieldTypes/helpers';
 import fetchPinOptionTypes from '../../../../../actions/companyAdmin/pinOptions/async/fetchPinOptionTypes';
+import fetchPinOptionSets from '../../../../../actions/companyAdmin/pinOptions/async/fetchPinOptionSets';
 
 const EditPinHistoryContainer = () => {
     const dispatch = useDispatch();
@@ -21,6 +22,7 @@ const EditPinHistoryContainer = () => {
 
     componentDidMount(() => {
         dispatch(fetchPinOptionTypes());
+        dispatch(fetchPinOptionSets());
         dispatch(fetchPinOptions());
         dispatch(fetchPinOptionVersions());
         dispatch(fetchSinglePin(pinID, true));

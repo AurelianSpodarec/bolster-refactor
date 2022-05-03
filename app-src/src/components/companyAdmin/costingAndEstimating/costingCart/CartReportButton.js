@@ -41,7 +41,7 @@ const CartReportButton = ({ formData }) => {
         dispatch(
             showModal(GENERATE_COSTING_ESTIMATING_REPORT_MODAL, {
                 error,
-                hideModal: dispatch(hideModal()),
+                hideModal: dispatch(hideModal),
                 isPosting,
                 postSuccess,
             }),
