@@ -1,22 +1,31 @@
+import React from 'react';
+
 import ActionMenu from 'components/shared/actionMenu/ActionMenu';
 import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
 import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
+import { PRELIMS_ENUM } from 'constants/companyAdmin/enums';
 import { formatCurrency } from 'helpers/generic';
-import React from 'react';
+import useCostingAndEstimatingPrelimsSetActions from '../_hooks/useCostingAndEstimatingPrelimsSetActions';
 
-const CostingCartPrelimSummaryItem = ({ prelim }, showEditCustomPrelimModal) => {
-    const { name, markup, cost } = prelim;
+const CostingCartPrelimSummaryItem = ({ prelim }) => {
+    const { prelimName, cost, type, isCustom } = prelim;
+    const { showEditCustomPrelimModal } = useCostingAndEstimatingPrelimsSetActions();
 
     return (
         <FlexWrapper direction="row" justify="between" align="center" width="12">
-            <span>{name}</span>
+            <span>{prelimName}</span>
             <FlexWrapper direction="row" justify="end" align="center" width="3">
-                <span>{cost ? `£${formatCurrency(cost)}` : `${markup}%`}</span>
+                <span>{`£${formatCurrency(cost)}`}</span>
                 <ActionMenu>
-                    <ActionMenuActionButton
-                        text="Edit"
-                        onClick={() => showEditCustomPrelimModal(prelim)}
-                    />
+                    {isCustom && (
+                        <ActionMenuActionButton
+                            text="Edit"
+                            onClick={() => {
+                                showEditCustomPrelimModal(prelim);
+                            }}
+                        />
+                    )}
+
                     <ActionMenuActionButton text="Delete" onClick={() => {}} isNegative />
                 </ActionMenu>
             </FlexWrapper>

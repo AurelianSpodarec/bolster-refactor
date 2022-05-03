@@ -280,9 +280,10 @@ import AdminEditOptionSetModal from 'components/superAdmin/pinOptions/optionSets
 import EditSitePinOptionSetsModal from '../../../../companyAdmin/sites/editSitePinOptionSets/presentational/EditSitePinOptionSetsModal';
 import AddLinkPrelimModal from 'components/companyAdmin/costingAndEstimating/modals/AddLinkPrelimModal';
 import CreateCostingAndEstimatingPrelimModal from 'components/companyAdmin/costingAndEstimating/modals/CreateCostingAndEstimatingPrelimModal';
-import EditLinkPrelimModal from 'components/companyAdmin/costingAndEstimating/modals/DeleteCostingAndEstimatingPrelimModal';
+
 import DeleteLinkPrelimModal from 'components/companyAdmin/costingAndEstimating/modals/DeleteLinkPrelimModal';
 import DeleteCostingAndEstimatingPrelimModal from 'components/companyAdmin/costingAndEstimating/modals/DeleteCostingAndEstimatingPrelimModal';
+import EditLinkPrelimModal from 'components/companyAdmin/costingAndEstimating/modals/EditLinkPrelimModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,

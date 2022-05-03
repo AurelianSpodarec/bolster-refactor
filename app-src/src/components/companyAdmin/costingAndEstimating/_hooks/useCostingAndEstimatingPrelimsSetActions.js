@@ -33,8 +33,8 @@ const useCostingAndEstimatingPrelimsSetActions = () => {
         dispatch(showModal(CREATE_COSTING_AND_ESTIMATING_PRELIM_MODAL));
     };
 
-    const showEditCustomPrelimModal = () => {
-        dispatch(showModal(EDIT_LINK_PRELIM_MODAL));
+    const showEditCustomPrelimModal = prelim => {
+        dispatch(showModal(EDIT_LINK_PRELIM_MODAL, { prelim }));
     };
 
     const showDeleteCustomPrelimModal = () => {
