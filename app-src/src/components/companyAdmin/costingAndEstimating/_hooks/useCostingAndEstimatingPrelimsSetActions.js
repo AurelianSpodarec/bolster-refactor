@@ -1,0 +1,49 @@
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { usePrevious } from 'helpers/hooks';
+
+import showModal from 'actions/shared/generic/modals/sync/showModal';
+
+import hideModal from 'actions/shared/generic/modals/sync/hideModal';
+import {
+    selectCostingAndEstimatingPrelimPostError,
+    selectCostingAndEstimatingPrelimPostSuccess,
+} from 'selectors/companyAdmin/costingAndEstimating';
+import {
+    ADD_LINK_PRELIM_MODAL,
+    CREATE_COSTING_AND_ESTIMATING_PRELIM_MODAL,
+    ERROR_MODAL,
+    EDIT_LINK_PRELIM_MODAL,
+} from 'constants/shared/modalTypes';
+
+const useCostingAndEstimatingPrelimsSetActions = () => {
+    const dispatch = useDispatch();
+    const postError = useSelector(selectCostingAndEstimatingPrelimPostError);
+    const postSuccess = useSelector(selectCostingAndEstimatingPrelimPostSuccess);
+    const prevProps = usePrevious({ postError, postSuccess });
+
+    const showExistingPrelimModal = () => {
+        dispatch(showModal(ADD_LINK_PRELIM_MODAL));
+    };
+
+    const showAddCustomPrelimModal = () => {
+        dispatch(showModal(CREATE_COSTING_AND_ESTIMATING_PRELIM_MODAL));
+    };
+
+    const showEditCustomPrelimModal = () => {
+        dispatch(showModal(EDIT_LINK_PRELIM_MODAL));
+    };
+
+    useEffect(() => {
+        if (postError && !prevProps.postError) dispatch(showModal(ERROR_MODAL));
+    }, [postError, prevProps.postError]);
+
+    useEffect(() => {
+        if (postSuccess && !prevProps.postSuccess) dispatch(hideModal());
+    }, [postSuccess, prevProps.postSuccess]);
+
+    return { showExistingPrelimModal, showAddCustomPrelimModal, showEditCustomPrelimModal };
+};
+
+export default useCostingAndEstimatingPrelimsSetActions;
