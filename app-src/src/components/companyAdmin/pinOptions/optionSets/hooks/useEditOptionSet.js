@@ -14,14 +14,17 @@ import {
     selectPinOptionSetsPostSuccess,
 } from 'selectors/companyAdmin/pinOptionSets';
 import { selectServicesArr } from 'selectors/companyAdmin/services';
+import { selectSubscriptions } from '../../../../../selectors/superAdmin/companySubscription';
 
 const useEditOptionSet = set => {
     const dispatch = useDispatch();
     const isPosting = useSelector(selectPinOptionSetsIsPosting);
     const postError = useSelector(selectPinOptionSetsPostError);
     const postSuccess = useSelector(selectPinOptionSetsPostSuccess);
-
-    const services = useSelector(selectServicesArr);
+    const { serviceIDs } = useSelector(selectSubscriptions);
+    const services = useSelector(selectServicesArr).filter(service =>
+        serviceIDs.includes(service.id),
+    );
     const serviceOptions = formatCheckboxListOptions(services);
 
     const prevProps = usePrevious({ postError, postSuccess });
