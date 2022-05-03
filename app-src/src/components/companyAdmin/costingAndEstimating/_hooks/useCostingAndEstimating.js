@@ -201,15 +201,15 @@ const useCostingAndEstimating = () => {
         });
     };
 
-    const fetchAllData = () => {
-        // Fetch all data necessary - costing & estimating, sites, buildings, drawings, prelims, pins
-        const cAndEPostBody = {
-            hierarchyID,
-            hierarchyType,
-            fromDate: moment(formData.startDate).subtract(3, 'months').format('YYYY-MM-DD'),
-            toDate: moment(formData.endDate).format('YYYY-MM-DD'),
-            costEstType: selectedTabType,
-        };
+    const cAndEPostBody = {
+        hierarchyID,
+        hierarchyType,
+        fromDate: moment(formData.startDate).subtract(3, 'months').format('YYYY-MM-DD'),
+        toDate: moment(formData.endDate).format('YYYY-MM-DD'),
+        costEstType: selectedTabType,
+    };
+
+    useEffect(() => {
         batch(() => {
             dispatch(fetchAllBuildings());
             dispatch(fetchAllSites());
@@ -218,14 +218,16 @@ const useCostingAndEstimating = () => {
             dispatch(fetchCostingAndEstimatingData(cAndEPostBody));
             dispatch(fetchCostingAndEstimatingCart(cAndEPostBody));
         });
-    };
-
-    useEffect(() => {
-        fetchAllData();
     }, []); // Fetch all data on page load
 
     useEffect(() => {
-        if (formData !== prevProps.formData) fetchAllData();
+        if (formData !== prevProps.formData)
+            batch(() => {
+                batch(() => {
+                    dispatch(fetchCostingAndEstimatingData(cAndEPostBody));
+                    dispatch(fetchCostingAndEstimatingCart(cAndEPostBody));
+                });
+            });
     }, [formData, prevProps.formData]); // Fetch all data on filter change
 
     return {
