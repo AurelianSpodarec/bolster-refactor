@@ -29,14 +29,11 @@ import {
     isItemSelected,
     getDataKeyFromItem,
 } from '../_helpers/helpers';
-// import * as dummyData from '../dummyData';
 import { costingAndEstimatingType } from '../../../../constants/companyAdmin/enums';
 
 const useCostingAndEstimating = () => {
     const _costingCart = useSelector(selectCostingAndEstimatingCart);
     const mainData = useSelector(selectCostingAndEstimatingData);
-    // const mainData = dummyData.dummyMain;
-    // const costingCart = dummyData.dummyCart;
     const isFetchingMainData = useSelector(selectCostingAndEstimatingDataIsFetching);
     const isFetchingCart = useSelector(selectCostingAndEstimatingCartIsFetching);
     const fetchError = useSelector(selectCostingAndEstimatingFetchError);
@@ -57,8 +54,6 @@ const useCostingAndEstimating = () => {
         if (!isFetchingCart && prevData.isFetchingCart) return _costingCart;
         else return prevData._costingCart;
     }, [isFetchingCart, prevData]);
-
-    console.log(mainData);
 
     const dispatch = useDispatch();
     const hierarchyID = useCurrentHierarchyID();

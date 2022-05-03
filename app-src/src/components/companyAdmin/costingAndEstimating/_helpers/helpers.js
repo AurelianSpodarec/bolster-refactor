@@ -36,7 +36,6 @@ export const getItemType = item => {
 };
 export const isItemSelected = (item, selectedItems) => {
     const itemType = getItemType(item);
-
     if (itemType === 'buildings')
         return selectedItems.buildings.includes(item[itemTypeIDs[itemType]]);
     if (itemType === 'floors') return selectedItems.floors.includes(item[itemTypeIDs[itemType]]);
