@@ -114,7 +114,7 @@ const useCostingAndEstimating = () => {
         maxPrice: 0,
     };
     const [formData, onChange] = useForm(initialFormData);
-    const prevProps = usePrevious({ formData });
+    const prevProps = usePrevious({ formData, selectedTabType });
 
     const isAnythingSelected = Object.keys(formData.selectedItems).reduce((acc, curr) => {
         if (formData.selectedItems[curr].length) acc = true;
@@ -234,14 +234,15 @@ const useCostingAndEstimating = () => {
     }, []); // Fetch all data on page load
 
     useEffect(() => {
-        if (formData !== prevProps.formData)
+        if (formData !== prevProps.formData || selectedTabType !== prevProps.selectedTabType) {
             batch(() => {
                 batch(() => {
                     dispatch(fetchCostingAndEstimatingData(cAndEPostBody));
                     dispatch(fetchCostingAndEstimatingCart(cAndEPostBody));
                 });
             });
-    }, [formData, prevProps.formData]); // Fetch all data on filter change
+        }
+    }, [formData, prevProps.formData, prevProps.selectedTabType, selectedTabType]); // Fetch all data on filter change
 
     return {
         costingCart,
