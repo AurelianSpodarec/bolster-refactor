@@ -55,7 +55,7 @@ const FilterList = ({
                     hierarchyLevel={hierarchyLevel}
                     selectedItems={selectedItems}
                     handleToggleItem={handleToggleItem}
-                    nestingLevel={nestingLevel}
+                    nestingLevel={nestingLevel + 1}
                 />
             ))}
         </>
@@ -64,7 +64,6 @@ const FilterList = ({
 
 const ListItem = ({ item, hierarchyLevel, selectedItems, handleToggleItem, nestingLevel }) => {
     // hierarchyLevel defines level of this item
-    // const itemType = getItemType(item);
     const [isExpanded, setIsExpanded] = useState(false);
     const SpecificContent = getContentTypeFromItem(item);
     const dataKey = getDataKeyFromItem(item);
@@ -95,7 +94,7 @@ const ListItem = ({ item, hierarchyLevel, selectedItems, handleToggleItem, nesti
                         headers={headers}
                         selectedItems={selectedItems}
                         handleToggleItem={handleToggleItem}
-                        nestingLevel={nestingLevel + 1}
+                        nestingLevel={nestingLevel}
                     />
                 </div>
             )}
@@ -148,7 +147,7 @@ const CostingAndEstimatingFilterList = ({
                                 selectedItems={selectedItems}
                                 handleToggleItem={handleToggleItem}
                                 headers={headers}
-                                nestingLevel={currentHierarchyLevel - 1}
+                                nestingLevel={0}
                             />
                         )}
                     </>

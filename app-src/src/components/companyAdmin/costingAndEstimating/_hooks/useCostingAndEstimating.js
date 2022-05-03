@@ -108,7 +108,7 @@ const useCostingAndEstimating = () => {
 
     const initialFormData = {
         dateRange: {
-            startDate: moment().subtract(3, 'months').toDate(),
+            startDate: moment().subtract(7, 'days').toDate(),
             endDate: moment().toDate(),
         },
         selectedItems: buildInitialSelectedItems(allSites), // TODO - makes the first fetch happen twice
@@ -202,6 +202,10 @@ const useCostingAndEstimating = () => {
     };
 
     const onPrevWeek = () => {
+        console.log(formData.dateRange, {
+            startDate: moment(formData.dateRange.startDate).subtract(7, 'days').toDate(),
+            endDate: moment(formData.dateRange.endDate).subtract(7, 'days').toDate(),
+        });
         onChange('dateRange', {
             startDate: moment(formData.dateRange.startDate).subtract(7, 'days').toDate(),
             endDate: moment(formData.dateRange.endDate).subtract(7, 'days').toDate(),
