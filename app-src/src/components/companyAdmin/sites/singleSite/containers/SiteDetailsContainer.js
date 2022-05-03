@@ -39,7 +39,6 @@ class SiteDetailsContainer extends Component {
             filteredStats,
             filteredStatsBool,
             currentCompanyID,
-            isCostingEnabled,
         } = this.props;
         const { serviceID, companyID } = this.state;
         const filteredServices = services.filter(service => serviceIDs.includes(service.id));
@@ -89,7 +88,6 @@ class SiteDetailsContainer extends Component {
                     companyID={companyID}
                     companyOptions={companiesForDropdown}
                     filteredStatsBool={filteredStatsBool}
-                    isCostingEnabled={isCostingEnabled}
                 />
             </BlockContainer>
         );
