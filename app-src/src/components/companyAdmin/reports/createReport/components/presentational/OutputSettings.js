@@ -7,6 +7,13 @@ import DropdownContainer from 'components/shared/generic/form/containers/Dropdow
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import ImageVisualContainer from '../containers/ImageVisualContainer';
 import useColourTheme from 'hooks/useColourTheme';
+import OptionPod from '../../../../../shared/generic/form/presentational/OptionPod';
+
+import { ReactComponent as PdfIcon } from '_content/images/icons/PDF-Outline.svg';
+import { ReactComponent as FloorplanIcon } from '_content/images/icons/pin-floorplan.svg';
+import { ReactComponent as CsvIcon } from '_content/images/icons/CSV-Outline.svg';
+import { ReactComponent as DocIcon } from '_content/images/icons/doc-Outline.svg';
+import FlexWrapper from '../../../../../shared/generic/flexWrapper/FlexWrapper';
 
 const OutputSettings = ({
     handleSubmit,
@@ -38,37 +45,41 @@ const OutputSettings = ({
                     <div className="generic-form">
                         <div className="size-lg-6 size-md-12">
                             <Field name="Report formats">
-                                <div className="checkbox-list size-lg-12">
-                                    <CheckboxContainer
+                                <FlexWrapper gap={15} wrap="wrap" extraClasses="option-wrapper">
+                                    <OptionPod
                                         checked={isPDFGeneration}
-                                        handleChange={handleFilterChange}
+                                        onChange={handleFilterChange}
                                         name="isPDFGeneration"
-                                        text="PDF"
+                                        svgIconComponent={PdfIcon}
                                     />
-                                    <CheckboxContainer
+
+                                    <OptionPod
                                         checked={isCSVGeneration}
-                                        handleChange={handleFilterChange}
+                                        onChange={handleFilterChange}
                                         name="isCSVGeneration"
-                                        text="CSV"
+                                        svgIconComponent={CsvIcon}
                                     />
-                                    <CheckboxContainer
+
+                                    <OptionPod
                                         checked={isFloorplanGeneration}
-                                        handleChange={handleFilterChange}
+                                        onChange={handleFilterChange}
                                         name="isFloorplanGeneration"
-                                        text="Floor plan"
+                                        svgIconComponent={FloorplanIcon}
+                                        pathStroke
                                     />
-                                    <CheckboxContainer
+
+                                    <OptionPod
                                         checked={isOAndMManualGeneration}
-                                        handleChange={(name, value) => {
+                                        onChange={(name, value) => {
                                             handleFilterChange(name, value);
                                             if (value) {
                                                 handleShowOandMModal();
                                             }
                                         }}
                                         name="isOAndMManualGeneration"
-                                        text="Include O&M Manuals?"
+                                        svgIconComponent={DocIcon}
                                     />
-                                </div>
+                                </FlexWrapper>
                             </Field>
                             {isPDFGeneration && (
                                 <>
@@ -79,7 +90,6 @@ const OutputSettings = ({
                                                 colourTheme === 'dark'
                                                     ? {
                                                           backgroundColor: 'transparent',
-                                                          border: '1px solid var(--positive-stroke)',
                                                       }
                                                     : {}
                                             }

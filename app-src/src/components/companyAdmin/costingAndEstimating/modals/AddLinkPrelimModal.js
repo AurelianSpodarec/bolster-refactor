@@ -11,7 +11,7 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import useAddExistingPrelim from '../_hooks/useAddExistingPrelim';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 
-const AddCostingAndEstimatingPrelimModal = () => {
+const AddLinkPrelimModal = () => {
     const { form, handleChange, handleSubmit, isPosting, prelimsOptions } = useAddExistingPrelim();
 
     return (
@@ -52,4 +52,4 @@ const AddCostingAndEstimatingPrelimModal = () => {
     );
 };
 
-export default AddCostingAndEstimatingPrelimModal;
+export default AddLinkPrelimModal;
