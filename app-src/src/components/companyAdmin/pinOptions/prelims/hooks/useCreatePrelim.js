@@ -1,8 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
-
 import { useForm } from 'helpers/hooks';
+
 import { selectPrelimIsPosting } from 'selectors/companyAdmin/prelims';
-import createPrelim from 'actions/companyAdmin/prelims/async/createPrelim';
+
+import createHierarchyPrelim from '../../../../../actions/companyAdmin/costingAndEstimating/createHierarchyPrelim';
+
 import { convertEnumToDropdownOptions } from 'helpers/generic';
 import { PRELIMS_ENUM } from 'constants/companyAdmin/enums';
 
@@ -12,6 +14,8 @@ const useCreatePrelim = () => {
     const prelimsOptions = convertEnumToDropdownOptions(PRELIMS_ENUM);
 
     const [form, handleChange] = useForm({
+        hierarchyID: '',
+        hierarchyType: '',
         name: '',
         type: null,
         value: null,
@@ -22,7 +26,7 @@ const useCreatePrelim = () => {
             ...form,
         };
 
-        dispatch(createPrelim(postBody));
+        dispatch(createHierarchyPrelim(postBody));
     };
 
     return { form, handleChange, handleSubmit, isPosting, prelimsOptions };
