@@ -57,7 +57,7 @@ const useCostingAndEstimating = () => {
             buildings: [],
             floors: [],
             drawings: [],
-            pins: [],
+            histories: [],
             installations: [],
             operatives: [],
             services: [],
@@ -65,6 +65,7 @@ const useCostingAndEstimating = () => {
         const addAllChildren = (item, selectedItems) => {
             const itemType = getItemType(item);
             const dataKey = getDataKeyFromItem(item);
+            console.log({ item, itemType, selectedItems });
             if (itemType !== 'sites') selectedItems[itemType].push(getSelectionKeyForItem(item));
             const children = item[dataKey] || [];
             if (children.length)
@@ -83,7 +84,7 @@ const useCostingAndEstimating = () => {
                 buildings: [],
                 floors: [],
                 drawings: [],
-                pins: [],
+                histories: [],
                 installations: [],
                 operatives: [],
                 services: [],
@@ -125,8 +126,8 @@ const useCostingAndEstimating = () => {
                     case 'drawings':
                         selectedItems.drawings.push(itemKey);
                         break;
-                    case 'pins':
-                        selectedItems.pins.push(itemKey);
+                    case 'histories':
+                        selectedItems.histories.push(itemKey);
                         break;
                     case 'installations':
                         selectedItems.installations.push(itemKey);
@@ -147,8 +148,10 @@ const useCostingAndEstimating = () => {
                             id => id !== itemKey,
                         );
                         break;
-                    case 'pins':
-                        selectedItems.pins = selectedItems.pins.filter(pinID => pinID !== itemKey);
+                    case 'histories':
+                        selectedItems.histories = selectedItems.histories.filter(
+                            pinCode => pinCode !== itemKey,
+                        );
                         break;
                     case 'installations':
                         selectedItems.installations = selectedItems.installations.filter(

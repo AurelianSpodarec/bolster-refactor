@@ -14,11 +14,12 @@ const tableHeaders = {
     buildings: ['', 'Name', 'Cost'],
     floors: ['', 'Name', 'Cost'],
     drawings: ['', 'Name', 'Cost'],
-    pins: ['', 'Pin ID', 'Date Created', 'Comment', 'Cost'],
+    histories: ['', 'Pin Code', 'Date Created', 'Comment', 'Cost'],
     installations: ['', 'Installation Name', 'Installation Type', 'Comment', 'Cost'],
 };
 
 const FilterList = ({ data, hierarchyLevel, headers = [], selectedItems, handleToggleItem }) => {
+    console.log({ data, headers });
     // hierarchyLevel defines level of items in list
     const marginClass = `margin-${hierarchyLevel - 1}`;
     return (
@@ -102,7 +103,7 @@ const CostingAndEstimatingFilterList = ({
         if (currentHierarchyLevel === hierarchyTypes.floors)
             return sites[0].buildings[0].floors[0].drawings;
         if (currentHierarchyLevel === hierarchyTypes.drawings)
-            return sites[0].buildings[0].floors[0].drawings[0].pins;
+            return sites[0].buildings[0].floors[0].drawings[0].histories;
     };
 
     return (

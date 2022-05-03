@@ -20,7 +20,9 @@ export const TopLevel = ({ item, isSelected, handleToggleAllItems }) => {
                 </div>
             </div>
             <div />
-            <div className="table-cell">{`£${formatCurrency(item.total)}`}</div>
+            <div className="table-cell">
+                {!Number.isNaN(item.total) ? `£${formatCurrency(item.total)}` : ''}
+            </div>
         </>
     );
 };
@@ -37,7 +39,9 @@ export const Building = ({ item, isSelected, handleToggleItem, isExpanded, setIs
                 item={item}
             />
             <div className="table-cell">{`${building?.name}`}</div>
-            <div className="table-cell">{`£${formatCurrency(item.total)}`}</div>
+            <div className="table-cell">
+                {!Number.isNaN(item.totalCost) ? `£${formatCurrency(item.totalCost)}` : ''}
+            </div>
         </>
     );
 };
@@ -53,7 +57,9 @@ export const Floor = ({ item, isSelected, handleToggleItem, isExpanded, setIsExp
                 item={item}
             />
             <div className="table-cell">{`${floor?.name}`}</div>
-            <div className="table-cell">{`£${formatCurrency(item.total)}`}</div>
+            <div className="table-cell">
+                {!Number.isNaN(item.totalCost) ? `£${formatCurrency(item.totalCost)}` : ''}
+            </div>
         </>
     );
 };
@@ -69,12 +75,14 @@ export const Drawing = ({ item, isSelected, handleToggleItem, isExpanded, setIsE
                 item={item}
             />
             <div className="table-cell">{`${drawing?.name}`}</div>
-            <div className="table-cell">{`£${formatCurrency(item.total)}`}</div>
+            <div className="table-cell">
+                {!Number.isNaN(item.totalCost) ? `£${formatCurrency(item.totalCost)}` : ''}
+            </div>
         </>
     );
 };
-export const Pin = ({ item, isSelected, handleToggleItem, isExpanded, setIsExpanded }) => {
-    const { pinID, dateCreated, comment, installations } = item;
+export const History = ({ item, isSelected, handleToggleItem, isExpanded, setIsExpanded }) => {
+    const { pinCode, dateCreated, comment } = item;
     return (
         <>
             <ListItemControls
@@ -84,12 +92,14 @@ export const Pin = ({ item, isSelected, handleToggleItem, isExpanded, setIsExpan
                 setIsExpanded={setIsExpanded}
                 item={item}
             />
-            <div className="table-cell">{`${pinID}`}</div>
+            <div className="table-cell">{`${pinCode}`}</div>
             <div className="table-cell">
                 <DateTimeContainer date={dateCreated} format="DD/MM/YYYY" className="date" />
             </div>
             <div className="table-cell">{`${comment}`}</div>
-            <div className="table-cell">{`£${formatCurrency(item.total)}`}</div>
+            <div className="table-cell">
+                {!Number.isNaN(item.totalCost) ? `£${formatCurrency(item.totalCost)}` : ''}
+            </div>
         </>
     );
 };
@@ -107,7 +117,9 @@ export const Installation = ({ item, isSelected, handleToggleItem, isExpanded, s
             <div className="table-cell">{`${item.name}`}</div>
             <div className="table-cell">{`${item.type}`}</div>
             <div className="table-cell">{`${item.measurement}`}</div>
-            <div className="table-cell">{`£${formatCurrency(item.cost)}`}</div>
+            <div className="table-cell">
+                {!Number.isNaN(item.cost) ? `£${formatCurrency(item.cost)}` : ''}
+            </div>
         </>
     );
 };
@@ -117,6 +129,6 @@ export default {
     Building,
     Floor,
     Drawing,
-    Pin,
+    History,
     Installation,
 };
