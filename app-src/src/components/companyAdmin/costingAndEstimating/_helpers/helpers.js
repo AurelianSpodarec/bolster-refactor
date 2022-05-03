@@ -1,5 +1,14 @@
 import contentTypes from '../filterList/contentTypes';
 
+export const itemTypeIDs = {
+    sites: 'siteID',
+    buildings: 'buildingID',
+    floors: 'floorID',
+    drawings: 'drawingID',
+    histories: 'pinHistoryID',
+    installations: 'representsPinHistoryAnswerValueIDs', // will be an array - compare with JSON.stringify
+};
+
 export const getContentTypeFromItem = item => {
     if (Object.prototype.hasOwnProperty.call(item, 'floors')) return contentTypes.Building;
     if (Object.prototype.hasOwnProperty.call(item, 'drawings')) return contentTypes.Floor;
@@ -28,13 +37,20 @@ export const getItemType = item => {
 export const isItemSelected = (item, selectedItems) => {
     const itemType = getItemType(item);
 
-    if (itemType === 'buildings') return selectedItems.buildings.includes(item.id);
-    if (itemType === 'floors') return selectedItems.floors.includes(item.id);
-    if (itemType === 'drawings') return selectedItems.drawings.includes(item.id);
-    if (itemType === 'histories') return selectedItems.histories.includes(item.pinCode);
-    if (itemType === 'installations') return selectedItems.installations.includes(item.name);
+    if (itemType === 'buildings')
+        return selectedItems.buildings.includes(item[itemTypeIDs[itemType]]);
+    if (itemType === 'floors') return selectedItems.floors.includes(item[itemTypeIDs[itemType]]);
+    if (itemType === 'drawings')
+        return selectedItems.drawings.includes(item[itemTypeIDs[itemType]]);
+    if (itemType === 'histories')
+        return selectedItems.histories.includes(item[itemTypeIDs[itemType]]);
+    if (itemType === 'installations')
+        return selectedItems.installations.includes(item[itemTypeIDs[itemType]]);
     return false;
 };
+
 export const getSelectionKeyForItem = item => {
-    return item.id ? item.id : item.pinCode ? item.pinCode : item.name;
+    const itemType = getItemType(item);
+    if (itemType === 'installations') return JSON.stringify(item[itemTypeIDs[itemType]]);
+    return item[itemTypeIDs[itemType]];
 };

@@ -58,6 +58,8 @@ const useCostingAndEstimating = () => {
         else return prevData._costingCart;
     }, [isFetchingCart, prevData]);
 
+    console.log(mainData);
+
     const dispatch = useDispatch();
     const hierarchyID = useCurrentHierarchyID();
     const hierarchyType = useCurrentHierarchyType();
@@ -162,12 +164,18 @@ const useCostingAndEstimating = () => {
                         break;
                     case 'histories':
                         selectedItems.histories = selectedItems.histories.filter(
-                            pinCode => pinCode !== itemKey,
+                            pinHistoryID => pinHistoryID !== itemKey,
                         );
                         break;
                     case 'installations':
                         selectedItems.installations = selectedItems.installations.filter(
-                            name => name !== itemKey,
+                            idString => {
+                                console.log(idString);
+                                return (
+                                    idString !==
+                                    JSON.stringify(item.representsPinHistoryAnswerValueIDs)
+                                );
+                            },
                         );
                         break;
                 }
