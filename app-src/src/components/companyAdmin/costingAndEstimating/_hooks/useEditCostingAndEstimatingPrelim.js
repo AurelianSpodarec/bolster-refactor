@@ -1,50 +1,35 @@
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { useForm } from 'helpers/hooks';
-import useCurrentHierarchyID from './useCurrentHierarchyID';
-import useCurrentHierarchyType from './useCurrentHierarchyType';
-
-import { convertEnumToDropdownOptions } from '../../../../helpers/generic';
-import { PRELIMS_ENUM } from '../../../../constants/companyAdmin/enums';
-import createCostingAndEstimatingPrelim from 'actions/companyAdmin/costingAndEstimating/createCostingAndEstimatingPrelim';
-import { useEffect } from 'react';
+import editLinkPrelim from 'actions/companyAdmin/costingAndEstimating/editLinkPrelim';
+import { PRELIMS_ENUM } from 'constants/companyAdmin/enums';
+import { convertEnumToDropdownOptions } from 'helpers/generic';
+import { useForm, usePrevious } from 'helpers/hooks';
 import {
     selectCostingAndEstimatingIsPosting,
     selectCostingAndEstimatingPostError,
     selectCostingAndEstimatingPostSuccess,
 } from 'selectors/companyAdmin/costingAndEstimating';
-import usePrevious from 'hooks/usePrevious';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import { ERROR_MODAL } from 'constants/shared/modalTypes';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 
-const useCreateCostingAndEstimatingPrelim = () => {
+const useEditCostingAndEstimatingPrelim = prelim => {
     const dispatch = useDispatch();
-    const prelimsOptions = convertEnumToDropdownOptions(PRELIMS_ENUM);
-    const hierarchyID = useCurrentHierarchyID();
-    const hierarchyType = useCurrentHierarchyType();
-
     const isPosting = useSelector(selectCostingAndEstimatingIsPosting);
     const postError = useSelector(selectCostingAndEstimatingPostError);
     const postSuccess = useSelector(selectCostingAndEstimatingPostSuccess);
     const prevProps = usePrevious({ postError, postSuccess });
+    const prelimsOptions = convertEnumToDropdownOptions(PRELIMS_ENUM);
 
     const [form, handleChange] = useForm({
-        name: '',
-        value: null,
-        type: null,
+        name: prelim?.name,
+        type: prelim?.type,
+        value: prelim?.value,
     });
 
     const handleSubmit = () => {
-        form.value = parseInt(form.value);
-        const postBody = {
-            ...form,
-
-            hierarchyID,
-            hierarchyType,
-        };
-
-        dispatch(createCostingAndEstimatingPrelim(postBody));
+        dispatch(editLinkPrelim(prelim.id, form));
     };
 
     useEffect(() => {
@@ -55,7 +40,13 @@ const useCreateCostingAndEstimatingPrelim = () => {
         if (postSuccess && !prevProps.postSuccess) dispatch(hideModal());
     }, [postSuccess, prevProps.postSuccess]);
 
-    return { form, handleChange, handleSubmit, isPosting, prelimsOptions };
+    return {
+        form,
+        handleChange,
+        isPosting,
+        handleSubmit,
+        prelimsOptions,
+    };
 };
 
-export default useCreateCostingAndEstimatingPrelim;
+export default useEditCostingAndEstimatingPrelim;

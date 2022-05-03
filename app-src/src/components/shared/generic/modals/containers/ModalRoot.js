@@ -143,6 +143,7 @@ import {
     EDIT_LINK_PRELIM_MODAL,
     DELETE_LINK_PRELIM_MODAL,
     DELETE_COSTING_AND_ESTIMATING_PRELIM_MODAL,
+    GENERATE_COSTING_ESTIMATING_REPORT_MODAL,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -285,6 +286,7 @@ import CreateCostingAndEstimatingPrelimModal from 'components/companyAdmin/costi
 import EditLinkPrelimModal from 'components/companyAdmin/costingAndEstimating/modals/DeleteCostingAndEstimatingPrelimModal';
 import DeleteLinkPrelimModal from 'components/companyAdmin/costingAndEstimating/modals/DeleteLinkPrelimModal';
 import DeleteCostingAndEstimatingPrelimModal from 'components/companyAdmin/costingAndEstimating/modals/DeleteCostingAndEstimatingPrelimModal';
+import GenerateCostingEstimatingReportModal from '../presentational/GenerateCostingEstimatingReportModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -428,6 +430,7 @@ const MODAL_COMPONENTS = {
     [EDIT_LINK_PRELIM_MODAL]: EditLinkPrelimModal,
     [DELETE_COSTING_AND_ESTIMATING_PRELIM_MODAL]: DeleteCostingAndEstimatingPrelimModal,
     [DELETE_LINK_PRELIM_MODAL]: DeleteLinkPrelimModal,
+    [GENERATE_COSTING_ESTIMATING_REPORT_MODAL]: GenerateCostingEstimatingReportModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

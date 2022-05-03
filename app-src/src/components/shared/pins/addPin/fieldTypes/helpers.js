@@ -26,7 +26,7 @@ export const useAddPinOptions = serviceID => {
     const pinOptionVersions = useSelector(selectPinOptionVersions);
     return useMemo(() => {
         const pinOptionsForService = Object.values(pinOptions).filter(
-            ({ serviceIDs }) => !serviceIDs || serviceIDs.includes(serviceID),
+            ({ serviceIDs }) => !serviceIDs || serviceIDs.includes(+serviceID),
         );
         const pinOptionVersionsGroupedByOptionID = Object.values(pinOptionVersions).reduce(
             (acc, version) => ({
@@ -64,17 +64,19 @@ export const useFilterPinOptions = (
             options.filter(option => {
                 if (type?.hasSiteLinks) {
                     const setsForType = drawing?.pinOptionSetIDsByType?.[type?.id];
-                    if (!setsForType || !setsForType.length) {
+                    if (!setsForType?.length) {
                         if (!option.isDefault) return false;
                     } else if (!setsForType.includes(option.pinOptionSetID)) {
                         return false;
                     }
                 }
                 // remove deleted option if not already selected
-                if (questionValue?.pinOptionVersionID !== option.id && option.isDeleted) {
+                if (
+                    questionValue?.pinOptionVersionID !== option.id &&
+                    (option.isDeleted || option.isDisabled)
+                ) {
                     return false;
                 }
-                // todo usage rules - currently user company & global
                 if (option.companyID !== companyID && option.companyID !== null) {
                     return false;
                 }

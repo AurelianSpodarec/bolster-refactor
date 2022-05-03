@@ -22,6 +22,9 @@ import {
     DELETE_COSTING_AND_ESTIMATING_PRELIM_FAILURE,
     DELETE_LINK_PRELIM_FAILURE,
     DELETE_LINK_PRELIM_SUCCESS,
+    CREATE_COSTING_AND_ESTIMATING_REPORT_REQUEST,
+    CREATE_COSTING_AND_ESTIMATING_REPORT_SUCCESS,
+    CREATE_COSTING_AND_ESTIMATING_REPORT_FAILURE,
 } from 'constants/actionTypes/costingAndEstimating';
 import { removeObjItem, updateObj } from 'helpers/generic';
 
@@ -69,6 +72,7 @@ function isPostingReducer(state = false, action) {
         case EDIT_LINK_PRELIM_REQUEST:
         case DELETE_LINK_PRELIM_REQUEST:
         case DELETE_COSTING_AND_ESTIMATING_PRELIM_REQUEST:
+        case CREATE_COSTING_AND_ESTIMATING_REPORT_REQUEST:
             return true;
         case CREATE_COSTING_AND_ESTIMATING_PRELIM_SUCCESS:
         case CREATE_COSTING_AND_ESTIMATING_PRELIM_FAILURE:
@@ -80,6 +84,8 @@ function isPostingReducer(state = false, action) {
         case DELETE_COSTING_AND_ESTIMATING_PRELIM_FAILURE:
         case DELETE_LINK_PRELIM_FAILURE:
         case DELETE_LINK_PRELIM_SUCCESS:
+        case CREATE_COSTING_AND_ESTIMATING_REPORT_SUCCESS:
+        case CREATE_COSTING_AND_ESTIMATING_REPORT_FAILURE:
             return false;
         default:
             return state;
@@ -108,6 +114,7 @@ function postSuccessReducer(state = false, action) {
         case EDIT_LINK_PRELIM_SUCCESS:
         case DELETE_LINK_PRELIM_SUCCESS:
         case DELETE_COSTING_AND_ESTIMATING_PRELIM_SUCCESS:
+        case CREATE_COSTING_AND_ESTIMATING_REPORT_SUCCESS:
             return true;
         case CREATE_COSTING_AND_ESTIMATING_PRELIM_REQUEST:
         case CREATE_COSTING_AND_ESTIMATING_PRELIM_FAILURE:
@@ -144,6 +151,8 @@ function errorReducer(state = null, action) {
         case EDIT_LINK_PRELIM_REQUEST:
         case DELETE_LINK_PRELIM_REQUEST:
         case DELETE_COSTING_AND_ESTIMATING_PRELIM_REQUEST:
+        case CREATE_COSTING_AND_ESTIMATING_REPORT_REQUEST:
+        case CREATE_COSTING_AND_ESTIMATING_REPORT_SUCCESS:
             return null;
         case FETCH_COSTING_AND_ESTIMATING_DATA_FAILURE:
         case FETCH_COSTING_AND_ESTIMATING_CART_FAILURE:
@@ -151,6 +160,7 @@ function errorReducer(state = null, action) {
         case EDIT_LINK_PRELIM_FAILURE:
         case DELETE_LINK_PRELIM_FAILURE:
         case DELETE_COSTING_AND_ESTIMATING_PRELIM_FAILURE:
+        case CREATE_COSTING_AND_ESTIMATING_REPORT_FAILURE:
             return action.error;
         default:
             return state;
