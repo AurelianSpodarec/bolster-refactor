@@ -274,6 +274,7 @@ $box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
   --pin-inspected: #3364DD;
   --pin-no-action: #EFC206;
   --pin-other: #990099;
+  --semi-transparent-overlay: rgba(255, 255, 255, 0.5);
 
   // others not in palette (designs)
   // --input-default:  #E5E5E5;
@@ -313,6 +314,8 @@ $box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
   --typography-search-header: #494C5B;
   --typography-search: #F9FAFA;
   --container-greyed-out: #696C7C;
+  --typography-greyed-out: #696C7C;
+  --semi-transparent-overlay: rgba(0, 0, 0, 0.5);
 
     --background-button-hover: #59595F;
     --background-button-stroke: #59595F;
