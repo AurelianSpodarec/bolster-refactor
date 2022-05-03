@@ -24,7 +24,6 @@ export const fetchCostingAndEstimatingCartFailure = error => ({
 
 export default postBody => dispatch => {
     dispatch(fetchCostingAndEstimatingCartRequest());
-    console.log(postBody);
 
     return axios
         .post(`${API_URL}/costingandestimating/costingcart`, postBody, getHeaders())
