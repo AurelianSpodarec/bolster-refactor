@@ -7,8 +7,8 @@ import {
 } from '../_hooks/useCurrentHierarchyLevel';
 import { getContentTypeFromItem, getDataKeyFromItem, isItemSelected } from '../_helpers/helpers';
 import { TopLevel } from './contentTypes';
-import Loading from 'components/shared/generic/misc/presentational/Loading';
 import Error from 'components/shared/generic/misc/presentational/Error';
+import LoadingOverlay from '../LoadingOverlay';
 
 const tableHeaders = {
     buildings: ['', 'Name', 'Cost'],
@@ -94,7 +94,7 @@ const CostingAndEstimatingFilterList = ({
     isFetching,
     fetchError,
 }) => {
-    const title = hierarchyNames[currentHierarchyLevel + 1] || 'Pins';
+    const title = hierarchyNames[currentHierarchyLevel + 1] || 'Pin Histories';
 
     const getListData = () => {
         if (!sites || !sites.length) return [];
@@ -109,8 +109,7 @@ const CostingAndEstimatingFilterList = ({
     return (
         <div className="filters-list-wrapper">
             <BlockContainer contentClass="border">
-                {isFetching && !fetchError && <Loading />}
-                {!isFetching && !fetchError && (
+                {sites.length && !fetchError && (
                     <>
                         <h3>{title}</h3>
                         <div className="filter-list-row toplevel">
@@ -129,6 +128,7 @@ const CostingAndEstimatingFilterList = ({
                     </>
                 )}
                 {!isFetching && fetchError && <Error>{fetchError}</Error>}
+                {/* {isFetching && !fetchError && <LoadingOverlay />} */}
             </BlockContainer>
         </div>
     );

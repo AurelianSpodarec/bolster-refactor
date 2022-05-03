@@ -142,7 +142,6 @@ import {
     EDIT_COSTING_AND_ESTIMATING_PRELIM_MODAL,
     EDIT_LINK_PRELIM_MODAL,
     DELETE_COSTING_AND_ESTIMATING_PRELIM_MODAL,
-    DELETE_LINK_PRELIM_MODAL,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -423,7 +422,6 @@ const MODAL_COMPONENTS = {
     // [EDIT_COSTING_AND_ESTIMATING_PRELIM_MODAL]: EditCostingAndEstimatingPrelimModal,
     // [EDIT_LINK_PRELIM_MODAL]: EditLinkPrelimModal,
     // [DELETE_COSTING_AND_ESTIMATING_PRELIM_MODAL]: DeleteCostingAndEstimatingPrelimModal,
-    // [DELETE_LINK_PRELIM_MODAL]: DeleteLinkPrelimModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

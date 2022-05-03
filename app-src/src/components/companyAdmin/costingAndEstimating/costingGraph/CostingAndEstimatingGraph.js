@@ -10,8 +10,8 @@ import FlexWrapper from '../../../shared/generic/flexWrapper/FlexWrapper';
 import ActionButton from '../../../shared/generic/button/presentational/ActionButton';
 import CostingGraphFilters from './CostingGraphFilters';
 import ButtonContainer from '../../../shared/generic/button/containers/ButtonContainer';
-import Loading from 'components/shared/generic/misc/presentational/Loading';
 import Error from 'components/shared/generic/misc/presentational/Error';
+import LoadingOverlay from '../LoadingOverlay';
 
 const CostingAndEstimatingGraph = ({
     graph,
@@ -31,8 +31,7 @@ const CostingAndEstimatingGraph = ({
     return (
         <div className="graph-wrapper" ref={graphRef}>
             <BlockContainer contentClass="border">
-                {isFetching && !fetchError && <Loading />}
-                {!isFetching && !fetchError && (
+                {!fetchError && (
                     <>
                         <FlexWrapper extraClasses="graph-filters">
                             <FlexWrapper align="center" justify="between" width={4}>
@@ -88,6 +87,7 @@ const CostingAndEstimatingGraph = ({
                     </>
                 )}
                 {!isFetching && fetchError && <Error>{fetchError}</Error>}
+                {isFetching && !fetchError && <LoadingOverlay />}
             </BlockContainer>
         </div>
     );
