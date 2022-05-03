@@ -2,7 +2,6 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PinAnswer from '../presentational/PinAnswer';
-import { convertManufacturersOptionsToObject } from 'helpers/manufacturers';
 
 const PinAnswersContainer = ({
     questionType,
@@ -31,7 +30,6 @@ const mapStateToProps = (
         client: {
             pinAnswersReducer: { answers },
             templateQuestionsReducer: { questions },
-            manufacturersOptionValuesReducer: { manufacturersOptionValues },
         },
     },
     { questionID, pinHistory },
@@ -47,7 +45,6 @@ const mapStateToProps = (
                     answer.templateQuestionID === questionID &&
                     answer.pinHistoryID === pinHistory.id,
             ) || {},
-        optionValuesLookup: convertManufacturersOptionsToObject(manufacturersOptionValues),
     };
 };
 
