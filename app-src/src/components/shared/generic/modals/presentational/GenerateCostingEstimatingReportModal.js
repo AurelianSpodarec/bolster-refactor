@@ -5,22 +5,34 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import Error from '../../misc/presentational/Error';
 import ButtonWrapper from '../../button/presentational/ButtonWrapper';
 import ActionButton from '../../button/presentational/ActionButton';
+import Loading from '../../misc/presentational/Loading';
 
 const GenerateCostingEstimatingReportModal = ({
     hideModal,
     title = 'Generate Report',
     submitButtonText = 'OK',
     error = null,
+    isPosting = false,
+    postSuccess = false,
 }) => (
     <ModalOuterContainer>
         <BlockHeading title={title} />
-        <p className="generic-text intro-text size-lg-12">Your report is now being generated</p>
+        {isPosting && (
+            <>
+                <p className="generic-text intro-text size-lg-12">
+                    Your report is now being generated
+                </p>
+                <Loading />
+            </>
+        )}
         {error && <Error>{error}</Error>}
-        <BlockButtonWrapper>
-            <ButtonWrapper alignment="right">
-                <ActionButton text={submitButtonText} onClick={hideModal} size="small" />
-            </ButtonWrapper>
-        </BlockButtonWrapper>
+        {postSuccess && (
+            <BlockButtonWrapper>
+                <ButtonWrapper alignment="right">
+                    <ActionButton text={submitButtonText} onClick={hideModal} size="small" />
+                </ButtonWrapper>
+            </BlockButtonWrapper>
+        )}
     </ModalOuterContainer>
 );
 
