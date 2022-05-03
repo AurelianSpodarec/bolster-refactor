@@ -53,14 +53,14 @@ const CostingAndEstimatingGraph = ({
                     </FlexWrapper>
 
                     <FlexWrapper align="center" justify="end" width={8}>
-                        <ActionButton
-                            icon="filter"
-                            text="Filter"
-                            iconRight
-                            source="secondary"
-                            ambient="positive"
-                            onClick={() => setShowFilterOptions(!showFilterOptions)}
-                        />
+                        {/*<ActionButton UN COMMENT WHEN READY TO BE PLUGGED IN */}
+                        {/*    icon="filter"*/}
+                        {/*    text="Filter"*/}
+                        {/*    iconRight*/}
+                        {/*    source="secondary"*/}
+                        {/*    ambient="positive"*/}
+                        {/*    onClick={() => setShowFilterOptions(!showFilterOptions)}*/}
+                        {/*/>*/}
 
                         {showFilterOptions && (
                             <CostingGraphFilters
