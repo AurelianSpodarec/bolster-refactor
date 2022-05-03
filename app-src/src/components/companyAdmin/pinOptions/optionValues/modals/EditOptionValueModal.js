@@ -91,7 +91,6 @@ const EditOptionValueModal = ({ option }) => {
                                         measurementDropdownOptions[form.costMeasurementType]
                                     }
                                     handleChange={handleChange}
-                                    withoutPlaceholder
                                     required
                                 />
                             </Field>
