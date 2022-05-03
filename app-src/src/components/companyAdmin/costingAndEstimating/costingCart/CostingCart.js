@@ -30,7 +30,9 @@ const CostingCart = ({ data, isFetching, fetchError }) => {
 
                         <div className="grand-total">
                             <h3>Total exc VAT:</h3>
-                            <h1>{`£${data.cartTotal ? formatCurrency(data.cartTotal) : '-'}`}</h1>
+                            <h1>{`£${
+                                data.cartTotal ? formatCurrency(data.cartTotal) : formatCurrency(0)
+                            }`}</h1>
                         </div>
 
                         <CartReportButton />
