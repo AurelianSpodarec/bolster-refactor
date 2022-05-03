@@ -140,8 +140,8 @@ import {
     EDIT_SITE_PIN_OPTION_SETS,
     CREATE_COSTING_AND_ESTIMATING_PRELIM_MODAL,
     ADD_LINK_PRELIM_MODAL,
-    EDIT_COSTING_AND_ESTIMATING_PRELIM_MODAL,
     EDIT_LINK_PRELIM_MODAL,
+    DELETE_LINK_PRELIM_MODAL,
     DELETE_COSTING_AND_ESTIMATING_PRELIM_MODAL,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
@@ -282,6 +282,9 @@ import AdminEditOptionSetModal from 'components/superAdmin/pinOptions/optionSets
 import EditSitePinOptionSetsModal from '../../../../companyAdmin/sites/editSitePinOptionSets/presentational/EditSitePinOptionSetsModal';
 import AddLinkPrelimModal from 'components/companyAdmin/costingAndEstimating/modals/AddLinkPrelimModal';
 import CreateCostingAndEstimatingPrelimModal from 'components/companyAdmin/costingAndEstimating/modals/CreateCostingAndEstimatingPrelimModal';
+import EditLinkPrelimModal from 'components/companyAdmin/costingAndEstimating/modals/DeleteCostingAndEstimatingPrelimModal';
+import DeleteLinkPrelimModal from 'components/companyAdmin/costingAndEstimating/modals/DeleteLinkPrelimModal';
+import DeleteCostingAndEstimatingPrelimModal from 'components/companyAdmin/costingAndEstimating/modals/DeleteCostingAndEstimatingPrelimModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -422,9 +425,9 @@ const MODAL_COMPONENTS = {
     [EDIT_SITE_PIN_OPTION_SETS]: EditSitePinOptionSetsModal,
     [CREATE_COSTING_AND_ESTIMATING_PRELIM_MODAL]: CreateCostingAndEstimatingPrelimModal,
     [ADD_LINK_PRELIM_MODAL]: AddLinkPrelimModal,
-    // [EDIT_COSTING_AND_ESTIMATING_PRELIM_MODAL]: EditCostingAndEstimatingPrelimModal,
-    // [EDIT_LINK_PRELIM_MODAL]: EditLinkPrelimModal,
-    // [DELETE_COSTING_AND_ESTIMATING_PRELIM_MODAL]: DeleteCostingAndEstimatingPrelimModal,
+    [EDIT_LINK_PRELIM_MODAL]: EditLinkPrelimModal,
+    [DELETE_COSTING_AND_ESTIMATING_PRELIM_MODAL]: DeleteCostingAndEstimatingPrelimModal,
+    [DELETE_LINK_PRELIM_MODAL]: DeleteLinkPrelimModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

@@ -5,7 +5,7 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import Field from 'components/shared/generic/form/presentational/Field';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import ImageVisualContainer from '../containers/ImageVisualContainer';
-import OptionPod from '../../../../../shared/generic/form/presentational/OptionPod';
+import OptionPodContainer from '../../../../../shared/generic/form/containers/OptionPodContainer';
 
 import { ReactComponent as PdfIcon } from '_content/images/icons/PDF-Outline.svg';
 import { ReactComponent as FloorplanIcon } from '_content/images/icons/pin-floorplan.svg';
@@ -44,21 +44,21 @@ const OutputSettings = ({
                         <div className="size-lg-6 size-md-12">
                             <Field name="Report formats">
                                 <FlexWrapper gap={15} wrap="wrap" extraClasses="option-wrapper">
-                                    <OptionPod
+                                    <OptionPodContainer
                                         checked={isPDFGeneration}
                                         onChange={handleFilterChange}
                                         name="isPDFGeneration"
                                         svgIconComponent={PdfIcon}
                                     />
 
-                                    <OptionPod
+                                    <OptionPodContainer
                                         checked={isCSVGeneration}
                                         onChange={handleFilterChange}
                                         name="isCSVGeneration"
                                         svgIconComponent={CsvIcon}
                                     />
 
-                                    <OptionPod
+                                    <OptionPodContainer
                                         checked={isFloorplanGeneration}
                                         onChange={handleFilterChange}
                                         name="isFloorplanGeneration"
@@ -66,7 +66,7 @@ const OutputSettings = ({
                                         pathStroke
                                     />
 
-                                    <OptionPod
+                                    <OptionPodContainer
                                         checked={isOAndMManualGeneration}
                                         onChange={(name, value) => {
                                             handleFilterChange(name, value);

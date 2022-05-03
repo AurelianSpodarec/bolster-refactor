@@ -8,7 +8,7 @@ import {
 import { getContentTypeFromItem, getDataKeyFromItem, isItemSelected } from '../_helpers/helpers';
 import { TopLevel } from './contentTypes';
 import Error from 'components/shared/generic/misc/presentational/Error';
-import LoadingOverlay from '../LoadingOverlay';
+// import LoadingOverlay from '../LoadingOverlay';
 
 const tableHeaders = {
     buildings: ['', 'Name', 'Cost'],
@@ -19,7 +19,6 @@ const tableHeaders = {
 };
 
 const FilterList = ({ data, hierarchyLevel, headers = [], selectedItems, handleToggleItem }) => {
-    console.log({ data, headers });
     // hierarchyLevel defines level of items in list
     const marginClass = `margin-${hierarchyLevel - 1}`;
     return (

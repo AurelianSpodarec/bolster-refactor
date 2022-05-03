@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
-import { formatAnswers, getSortedDropdownOptions } from 'helpers/addPin';
+import { formatAnswers, getSortedPinOptions } from 'helpers/addPin';
 import { useFilterPinOptions } from './helpers';
 import { useSelector } from 'react-redux';
 import CostingMeasurement from './CostingMeasurement';
@@ -44,7 +44,7 @@ const MultiDropdownOptions = ({
     // ! If a user is editing a pin that has a dropdown option that's no longer available,
     //    this needs to be kept as an option.
 
-    const options = getSortedDropdownOptions(formattedOpts, defaultDropdownSorting);
+    const options = getSortedPinOptions(formattedOpts, defaultDropdownSorting);
     const shouldShowCosting = isCostingEnabled && type.hasCosting && !!questionValue?.length;
     return (
         <>

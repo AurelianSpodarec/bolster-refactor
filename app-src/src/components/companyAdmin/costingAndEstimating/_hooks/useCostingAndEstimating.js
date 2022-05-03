@@ -58,6 +58,8 @@ const useCostingAndEstimating = () => {
         else return prevData._costingCart;
     }, [isFetchingCart, prevData]);
 
+    console.log({ mainData, _costingCart });
+
     const dispatch = useDispatch();
     const hierarchyID = useCurrentHierarchyID();
     const hierarchyType = useCurrentHierarchyType();
@@ -261,6 +263,7 @@ const useCostingAndEstimating = () => {
         isFetchingCart,
         isFetchingMainData,
         fetchError,
+        selectedTab,
     };
 };
 
