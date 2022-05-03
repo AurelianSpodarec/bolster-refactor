@@ -14,6 +14,7 @@ import {
 } from 'selectors/companyAdmin/pinOptionSets';
 import { selectServicesArr } from 'selectors/companyAdmin/services';
 import { selectPinOptionType } from 'selectors/companyAdmin/pinOptionTypes';
+import { selectSubscriptions } from '../../../../../selectors/superAdmin/companySubscription';
 
 const useCreateOptionSet = pinOptionTypeID => {
     const [newSetID, setNewSetID] = useState(null);
@@ -23,7 +24,10 @@ const useCreateOptionSet = pinOptionTypeID => {
     const isPosting = useSelector(selectPinOptionSetsIsPosting);
     const postError = useSelector(selectPinOptionSetsPostError);
 
-    const services = useSelector(selectServicesArr);
+    const { serviceIDs } = useSelector(selectSubscriptions);
+    const services = useSelector(selectServicesArr).filter(service =>
+        serviceIDs.includes(service.id),
+    );
     const serviceOptions = formatCheckboxListOptions(services);
 
     const pinOptionType = useSelector(state => selectPinOptionType(state, pinOptionTypeID));
