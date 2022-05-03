@@ -39,7 +39,9 @@ const EditSitePinOptionSetsContainer = ({ site }) => {
         if (!isFetching && prevProps.isFetching) {
             const selectedTypes = {};
             Object.values(sets).forEach(set => {
-                selectedTypes[set.pinOptionTypeID] = true;
+                if (site.pinOptionSetIDsByType[set.pinOptionTypeID]?.length) {
+                    selectedTypes[set.pinOptionTypeID] = true;
+                }
             });
             setSelectedPinOptionSets(site.pinOptionSetIDsByType);
             setSelectedPinOptionTypes(selectedTypes);

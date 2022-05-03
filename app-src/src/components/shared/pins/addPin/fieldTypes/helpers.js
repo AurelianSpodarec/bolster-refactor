@@ -71,7 +71,10 @@ export const useFilterPinOptions = (
                     }
                 }
                 // remove deleted option if not already selected
-                if (questionValue?.pinOptionVersionID !== option.id && option.isDeleted) {
+                if (
+                    questionValue?.pinOptionVersionID !== option.id &&
+                    (option.isDeleted || option.isDisabled)
+                ) {
                     return false;
                 }
                 // todo usage rules - currently user company & global
