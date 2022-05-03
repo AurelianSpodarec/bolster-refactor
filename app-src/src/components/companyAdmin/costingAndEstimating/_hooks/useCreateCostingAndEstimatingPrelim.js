@@ -9,9 +9,9 @@ import { PRELIMS_ENUM } from '../../../../constants/companyAdmin/enums';
 import createCostingAndEstimatingPrelim from 'actions/companyAdmin/costingAndEstimating/createCostingAndEstimatingPrelim';
 import { useEffect } from 'react';
 import {
-    selectCostingAndEstimatingPrelimIsPosting,
-    selectCostingAndEstimatingPrelimPostError,
-    selectCostingAndEstimatingPrelimPostSuccess,
+    selectCostingAndEstimatingIsPosting,
+    selectCostingAndEstimatingPostError,
+    selectCostingAndEstimatingPostSuccess,
 } from 'selectors/companyAdmin/costingAndEstimating';
 import usePrevious from 'hooks/usePrevious';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
@@ -24,9 +24,9 @@ const useCreateCostingAndEstimatingPrelim = () => {
     const hierarchyID = useCurrentHierarchyID();
     const hierarchyType = useCurrentHierarchyType();
 
-    const isPosting = useSelector(selectCostingAndEstimatingPrelimIsPosting);
-    const postError = useSelector(selectCostingAndEstimatingPrelimPostError);
-    const postSuccess = useSelector(selectCostingAndEstimatingPrelimPostSuccess);
+    const isPosting = useSelector(selectCostingAndEstimatingIsPosting);
+    const postError = useSelector(selectCostingAndEstimatingPostError);
+    const postSuccess = useSelector(selectCostingAndEstimatingPostSuccess);
     const prevProps = usePrevious({ postError, postSuccess });
 
     const [form, handleChange] = useForm({

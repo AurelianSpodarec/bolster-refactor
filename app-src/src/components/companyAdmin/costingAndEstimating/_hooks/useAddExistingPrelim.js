@@ -13,7 +13,7 @@ import { PRELIMS_ENUM } from 'constants/companyAdmin/enums';
 import { convertArrToObj } from 'helpers/generic';
 import { selectJWTData } from '../../../../selectors/shared/decodeJWT';
 import { hideModal } from '../../../../actions/shared/generic/modals/sync/hideModal';
-import { selectCostingAndEstimatingPrelimPostSuccess } from 'selectors/companyAdmin/costingAndEstimating';
+import { selectCostingAndEstimatingPostSuccess } from 'selectors/companyAdmin/costingAndEstimating';
 
 const useAddExistingPrelim = () => {
     const dispatch = useDispatch();
@@ -22,7 +22,7 @@ const useAddExistingPrelim = () => {
     const hierarchyType = useCurrentHierarchyType();
 
     const { companyID } = useSelector(selectJWTData);
-    const postSuccess = useSelector(selectCostingAndEstimatingPrelimPostSuccess);
+    const postSuccess = useSelector(selectCostingAndEstimatingPostSuccess);
     const prevPostSuccess = usePrevious(postSuccess);
 
     const formatArrForDropdown = arr => {
