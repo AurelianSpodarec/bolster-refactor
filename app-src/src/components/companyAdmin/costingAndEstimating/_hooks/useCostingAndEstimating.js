@@ -222,7 +222,7 @@ const useCostingAndEstimating = () => {
         fromDate: moment(formData.dateRange.startDate).format('YYYY-MM-DD'),
         toDate: moment(formData.dateRange.endDate).format('YYYY-MM-DD'),
         costEstType: selectedTabType,
-        selectedInstallations: formData.selectedItems.installations.reduce((acc, curr) => {
+        pinHistoryAnswerValueIDs: formData.selectedItems.installations.reduce((acc, curr) => {
             try {
                 const arr = JSON.parse(curr);
                 acc = acc.concat(arr);
