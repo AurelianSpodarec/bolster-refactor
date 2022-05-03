@@ -26,7 +26,7 @@ export default postBody => async dispatch => {
     dispatch(createHierarchyPrelimRequest());
 
     return axios
-        .post(`${API_URL}/CreatePrelim`, postBody, getHeaders())
+        .post(`${API_URL}/Prelims`, postBody, getHeaders())
         .then(res => dispatch(createHierarchyPrelimSuccess(res.data)))
         .catch(err => dispatch(createHierarchyPrelimFailure(err.message)));
 };
