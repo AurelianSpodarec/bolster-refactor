@@ -151,6 +151,12 @@
   .cursor-pointer {
     cursor: pointer;
   }
+
+  .custom-button {
+    span {
+      font-size: 15px!important;
+    }
+  }
 }
 
 .pods {

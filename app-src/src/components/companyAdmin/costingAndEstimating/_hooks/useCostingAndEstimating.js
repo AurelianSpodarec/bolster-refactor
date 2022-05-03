@@ -1,24 +1,30 @@
+import moment from 'moment';
+
+import { batch, useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useForm } from 'helpers/hooks';
+import usePrevious from 'hooks/usePrevious';
+import useCurrentHierarchyID from './useCurrentHierarchyID';
+import useCurrentHierarchyType from './useCurrentHierarchyType';
+
+import fetchAllSites from 'actions/companyAdmin/sites/async/fetchAllSites';
+import fetchAllFloors from 'actions/companyAdmin/floors/async/fetchAllFloors';
+import fetchAllDrawings from 'actions/companyAdmin/drawings/async/fetchAllDrawings';
 import fetchAllBuildings from 'actions/companyAdmin/buildings/async/fetchAllBuildings';
 import fetchCostingAndEstimatingData from 'actions/companyAdmin/costingAndEstimating/fetchCostingAndEstimatingData';
-import fetchAllDrawings from 'actions/companyAdmin/drawings/async/fetchAllDrawings';
-import fetchAllFloors from 'actions/companyAdmin/floors/async/fetchAllFloors';
-import fetchAllSites from 'actions/companyAdmin/sites/async/fetchAllSites';
-import { useEffect } from 'react';
-import { batch, useDispatch, useSelector } from 'react-redux';
-import * as dummyData from '../dummyData';
-import { useForm } from 'helpers/hooks';
-import moment from 'moment';
+import fetchCostingAndEstimatingCart from 'actions/companyAdmin/costingAndEstimating/fetchCostingAndEstimatingCart';
+
+import { selectHierarchySelectedTab } from '../../../../selectors/shared/tabs';
+import { selectCostingAndEstimatingCart } from 'selectors/companyAdmin/costingAndEstimating';
+
 import {
     getItemType,
     getSelectionKeyForItem,
     isItemSelected,
     getDataKeyFromItem,
 } from '../_helpers/helpers';
-import useCurrentHierarchyID from './useCurrentHierarchyID';
-import useCurrentHierarchyType from './useCurrentHierarchyType';
-import usePrevious from 'hooks/usePrevious';
-import { selectCostingAndEstimatingCart } from 'selectors/companyAdmin/costingAndEstimating';
-import fetchCostingAndEstimatingCart from 'actions/companyAdmin/costingAndEstimating/fetchCostingAndEstimatingCart';
+import * as dummyData from '../dummyData';
+import { costingAndEstimatingType } from '../../../../constants/companyAdmin/enums';
 
 const useCostingAndEstimating = () => {
     const costingCart = useSelector(selectCostingAndEstimatingCart);
@@ -27,6 +33,9 @@ const useCostingAndEstimating = () => {
     const dispatch = useDispatch();
     const hierarchyID = useCurrentHierarchyID();
     const hierarchyType = useCurrentHierarchyType();
+
+    const selectedTab = useSelector(selectHierarchySelectedTab);
+    const selectedTabType = costingAndEstimatingType[selectedTab.toUpperCase()];
 
     const buildInitialSelectedItems = (data = []) => {
         const selectedItems = {
@@ -181,6 +190,7 @@ const useCostingAndEstimating = () => {
             hierarchyType,
             fromDate: moment(formData.startDate).subtract(3, 'months').format('YYYY-MM-DD'),
             toDate: moment(formData.endDate).format('YYYY-MM-DD'),
+            costEstType: selectedTabType,
         };
         batch(() => {
             dispatch(fetchAllBuildings());
