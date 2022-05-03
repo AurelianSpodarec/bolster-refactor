@@ -28,6 +28,64 @@
   font-weight: 400;
 }
 
+@mixin expandable() {
+  .expandable {
+    overflow-y: hidden;
+    transition: all 0.4s ease-in-out;
+    max-height: 0;
+
+    &.active {
+      max-height: 100vh;
+    }
+  }
+}
+
+@mixin tableCols() {
+  display: grid;
+  grid-template-columns: 6em 1fr 10em;
+
+  &.toplevel {
+    grid-template-columns: 10em 1fr 10em;
+  }
+
+  &.buildings {
+    grid-template-columns: 6em 1fr 10em;
+  }
+  &.floors {
+    grid-template-columns: 6em 1fr 10em;
+  }
+  &.drawings {
+    grid-template-columns: 6em 1fr 10em;
+  }
+  &.pins {
+    grid-template-columns: 6em 1fr 1fr 2fr 10em;
+  }
+  &.installations {
+    grid-template-columns: 6em 1fr 1fr 2fr 10em;
+  }
+}
+
+@mixin listMargin() {
+  &.margin-1 {
+    margin-left: calc(1 * 2em)
+  }
+  &.margin-2 {
+    margin-left: calc(2 * 2em)
+  }
+  &.margin-3 {
+    margin-left: calc(3 * 2em)
+  }
+  &.margin-4 {
+    margin-left: calc(4 * 2em)
+  }
+  &.margin-5 {
+    margin-left: calc(5 * 2em)
+  }
+  &.margin-5 {
+    margin-left: calc(5 * 2em)
+  }
+}
+
 .costing-wrapper {
   grid-template-areas: "pods pods cart" "graph graph cart" "filters filters cart";
   grid-template-columns: repeat(3, 1fr);
@@ -179,15 +237,7 @@
       padding-right: 15px;
     }
 
-    .expandable {
-      overflow-y: hidden;
-      transition: all 0.4s ease-in-out;
-      max-height: 0;
-
-      &.active {
-        max-height: 100vh;
-      }
-    }
+    @include expandable();
   }
 
   .grand-total {
@@ -309,19 +359,25 @@
       .far {
         font-size: 110%;
         color: var(--typography-default);
+        transition: all 0.3s ease-out;
+        &.active {
+          transform: rotate(-180deg);
+        }
       }
     }
 
     .graph-filter-options {
+      visibility: hidden;
+      opacity: 0;
       position: absolute;
       background-color: var(--background-container);
       z-index: 2;
       width: 100%;
-      height: 100%;
-      overflow: hidden;
+      max-height: 100%;
+      padding: 10px;
       border-radius: 5px;
       overflow-y: scroll;
-      padding: 10px;
+      transition: visibility 0s, opacity 0.1s linear;
 
       .options-wrapper {
         .option {
@@ -335,16 +391,59 @@
           }
         }
       }
+
+      &.active {
+        visibility: visible;
+        opacity: 1;
+      }
+    }
+
+    .slider-container {
+      padding: 10px;
     }
   }
 }
 
+
 .filters-list-wrapper {
   grid-area: filters;
+  @include expandable();
 
-  .filter-list-item {
-    padding: 10px 0;
+  .header-row {
+    padding: 8px 0;
     @include bodyText;
+    font-weight: 500;
+    border-bottom: 1px solid $dark-grey;
+    pointer-events: none;
+    
+    @include tableCols();
+    @include listMargin();
+  }
+  
+  .filter-list-row {
+    padding: 15px 0;
+    @include bodyText;
+    @include tableCols();
+    border-bottom: 1px solid $dark-grey;
+    @include listMargin();
+
+    .table-cell {
+      flex: 1;
+
+      .date {
+        @include bodyText();
+        font-size: 13px;
+      }
+
+    }
+  }
+  .table-cell-controls {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    
+    p {
+      font-size: 14px;
+    }
   }
 }
 

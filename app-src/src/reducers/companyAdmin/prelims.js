@@ -16,6 +16,9 @@ import {
     FETCH_PRELIM_FAILURE,
     FETCH_PRELIM_REQUEST,
     FETCH_PRELIM_SUCCESS,
+    CREATE_HIERARCHY_PRELIM_REQUEST,
+    CREATE_HIERARCHY_PRELIM_SUCCESS,
+    CREATE_HIERARCHY_PRELIM_FAILURE,
 } from 'constants/actionTypes/prelims';
 
 export default combineReducers({
@@ -49,6 +52,7 @@ function isPostingReducer(state = false, action) {
         case CREATE_PRELIM_REQUEST:
         case EDIT_PRELIM_REQUEST:
         case DELETE_PRELIM_REQUEST:
+        case CREATE_HIERARCHY_PRELIM_REQUEST:
             return true;
         case CREATE_PRELIM_FAILURE:
         case CREATE_PRELIM_SUCCESS:
@@ -56,6 +60,8 @@ function isPostingReducer(state = false, action) {
         case EDIT_PRELIM_SUCCESS:
         case DELETE_PRELIM_FAILURE:
         case DELETE_PRELIM_SUCCESS:
+        case CREATE_HIERARCHY_PRELIM_SUCCESS:
+        case CREATE_HIERARCHY_PRELIM_FAILURE:
             return false;
         default:
             return state;
@@ -80,10 +86,12 @@ function postSuccessReducer(state = false, action) {
         case CREATE_PRELIM_FAILURE:
         case EDIT_PRELIM_REQUEST:
         case DELETE_PRELIM_REQUEST:
+        case CREATE_HIERARCHY_PRELIM_REQUEST:
             return false;
         case CREATE_PRELIM_SUCCESS:
         case DELETE_PRELIM_SUCCESS:
         case EDIT_PRELIM_SUCCESS:
+        case CREATE_HIERARCHY_PRELIM_SUCCESS:
             return true;
         default:
             return state;
@@ -107,11 +115,13 @@ function errorReducer(state = null, action) {
         case EDIT_PRELIM_REQUEST:
         case DELETE_PRELIM_REQUEST:
         case FETCH_PRELIM_REQUEST:
+        case CREATE_HIERARCHY_PRELIM_REQUEST:
             return null;
         case FETCH_ALL_PRELIMS_FAILURE:
         case EDIT_PRELIM_FAILURE:
         case DELETE_PRELIM_FAILURE:
         case FETCH_PRELIM_FAILURE:
+        case CREATE_HIERARCHY_PRELIM_FAILURE:
             return action.error;
         default:
             return state;
@@ -136,6 +146,7 @@ function prelimsReducer(state = {}, action) {
         case FETCH_PRELIM_SUCCESS:
         case EDIT_PRELIM_SUCCESS:
         case CREATE_PRELIM_SUCCESS:
+        case CREATE_HIERARCHY_PRELIM_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
         case DELETE_PRELIM_SUCCESS:
             return removeObjItem(state, action.id);

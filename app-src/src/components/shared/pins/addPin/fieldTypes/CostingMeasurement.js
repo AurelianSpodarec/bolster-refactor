@@ -43,7 +43,7 @@ const measurementInfo = {
     [RADIUS]: { fieldNames: ['radius'] },
     [SQUARE]: { fieldNames: ['length', 'width'] },
     [CUBIC]: { fieldNames: ['length', 'width', 'height'] },
-    [VOLUME]: { fieldNames: ['length', 'width', 'height'] },
+    [VOLUME]: { fieldNames: ['volume'] },
     [NUMBER]: { fieldNames: [] },
     [FIXED]: { fieldNames: [] },
 };

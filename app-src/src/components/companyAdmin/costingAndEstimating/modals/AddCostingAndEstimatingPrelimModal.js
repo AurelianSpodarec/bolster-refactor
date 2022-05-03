@@ -1,0 +1,59 @@
+import React from 'react';
+
+import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
+import Form from 'components/shared/generic/form/containers/Form';
+import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import ModalHeading from 'components/shared/generic/modals/presentational/ModalHeading';
+import hideModal from 'actions/shared/generic/modals/sync/hideModal';
+import Field from 'components/shared/generic/form/presentational/Field';
+import useAddExistingPrelim from '../_hooks/useAddExistingPrelim';
+import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
+import { convertEnumToDropdownOptions } from 'helpers/generic';
+import { PRELIMS_ENUM } from 'constants/companyAdmin/enums';
+
+const AddCostingAndEstimatingPrelimModal = () => {
+    const { form, handleChange, handleSubmit, isPosting, prelimsOptions } = useAddExistingPrelim();
+
+    console.log(form);
+
+    return (
+        <ModalOuterContainer hideCloseButton>
+            <ModalHeading title={'Add prelim'} />
+
+            <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
+                <Field name="" required>
+                    <DropdownContainer
+                        name="prelim"
+                        options={Object.values(prelimsOptions)}
+                        value={prelimsOptions[form.prelim]}
+                        selectedOption={prelimsOptions[form.prelim]}
+                        handleChange={handleChange}
+                        required
+                    />
+                </Field>
+                <BlockButtonWrapper>
+                    <ButtonWrapper alignment="right">
+                        <ActionButton
+                            text="Cancel"
+                            onClick={hideModal}
+                            source="secondary"
+                            size="small"
+                        />
+                        <ActionButton
+                            text="Confirm"
+                            icon={isPosting ? 'spinner' : 'save'}
+                            iconSpin={isPosting}
+                            size="small"
+                            disabled={isPosting}
+                            type="submit"
+                        />
+                    </ButtonWrapper>
+                </BlockButtonWrapper>
+            </Form>
+        </ModalOuterContainer>
+    );
+};
+
+export default AddCostingAndEstimatingPrelimModal;

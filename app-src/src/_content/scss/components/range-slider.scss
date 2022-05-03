@@ -1,0 +1,29 @@
+.slide-container {
+  width: 100%;
+}
+
+.slider {
+  -webkit-appearance: none;
+  -webkit-transition: .2s;
+  appearance: none;
+  width: 100%;
+  height: 12px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 1;
+  transition: opacity .2s;
+  border: 2px solid var(--background-container-switched);
+  border-radius: 10px;
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb, .slider::-moz-range-thumb{
+  -webkit-appearance: none;
+  appearance: none;
+  display: none;
+  cursor: pointer;
+  opacity:0;
+}

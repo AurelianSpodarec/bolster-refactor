@@ -1406,3 +1406,18 @@
   flex-direction: row;
   margin: 5px 0;
 }
+
+.costing-input-container {
+  display: flex;
+  flex-direction: row;
+  align-content: space-between;
+}
+
+.costing-input-text {
+  width: 85%;
+  margin-right: 2em;
+}
+
+.costing-input-unit-picker {
+  width: 15%;
+}

@@ -1,8 +1,27 @@
-const useCostingAndEstimatingGraph = graph => {
-    // TODO - hide numbers & grid lines, implement hover states on tooltips
+import useColourTheme from 'hooks/useColourTheme';
+import { useEffect, useRef, useState } from 'react';
 
-    const width = 600;
-    const height = 300;
+const useCostingAndEstimatingGraph = graph => {
+    const colourTheme = useColourTheme();
+    const graphRef = useRef(null);
+
+    const [width, setWidth] = useState(600);
+    const [height, setHeight] = useState(300);
+
+    useEffect(() => {
+        const updateSize = () => {
+            if (graphRef.current) {
+                if (graphRef.current.clientWidth !== width) setWidth(graphRef.current.clientWidth);
+                if (graphRef.current.clientHeight !== height)
+                    setHeight(graphRef.current.clientHeight);
+            }
+        };
+        window.addEventListener('resize', updateSize);
+
+        return () => {
+            window.removeEventListener('resize', updateSize);
+        };
+    }, [graphRef.current]);
 
     const data = canvas => {
         const ctx = canvas.getContext('2d');
@@ -42,21 +61,31 @@ const useCostingAndEstimatingGraph = graph => {
         scales: {
             xAxes: [
                 {
+                    display: true,
                     gridLines: {
-                        display: false,
+                        display: true,
+                        zeroLineColor: colourTheme === 'dark' ? '#494c5b' : '#F2F2F2',
+                        color: 'transparent',
+                        tickMarkLength: false,
                     },
                     ticks: {
                         display: false,
+                        beginAtZero: true,
                     },
                 },
             ],
             yAxes: [
                 {
+                    display: true,
                     gridLines: {
-                        display: false,
+                        display: true,
+                        zeroLineColor: colourTheme === 'dark' ? '#494c5b' : '#F2F2F2',
+                        color: 'transparent',
+                        tickMarkLength: false,
                     },
                     ticks: {
                         display: false,
+                        beginAtZero: true,
                     },
                 },
             ],
@@ -67,7 +96,7 @@ const useCostingAndEstimatingGraph = graph => {
         tooltip: {}, // TODO
     };
 
-    return { data, options };
+    return { data, options, graphRef };
 };
 
 export default useCostingAndEstimatingGraph;

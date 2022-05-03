@@ -52,6 +52,7 @@ const dummyListSite = [
                                         pinID: '0001:03',
                                         dateCreated: '2021-05-26 12:33:44',
                                         comment: 'Fire stop around pipe in cavity',
+                                        total: 100,
                                         installations: [
                                             {
                                                 name: '### Installation 1 ###',
@@ -87,6 +88,7 @@ const dummyListSite = [
                                         pinID: '0001:03',
                                         dateCreated: '2021-05-26 12:33:44',
                                         comment: 'Fire stop around pipe in cavity',
+                                        total: 100,
                                         installations: [
                                             {
                                                 name: '### Installation 1 ###',
@@ -116,6 +118,7 @@ const dummyListSite = [
                                         pinID: '0001:03',
                                         dateCreated: '2021-05-26 12:33:44',
                                         comment: 'Fire stop around pipe in cavity',
+                                        total: 100,
                                         installations: [
                                             {
                                                 name: '### Installation 1 ###',
@@ -157,6 +160,7 @@ const dummyListSite = [
                                         pinID: '0001:03',
                                         dateCreated: '2021-05-26 12:33:44',
                                         comment: 'Fire stop around pipe in cavity',
+                                        total: 100,
                                         installations: [
                                             {
                                                 name: '### Installation 1 ###',
@@ -189,11 +193,11 @@ const dummyListSite = [
                 total: 19999,
                 floors: [
                     {
-                        id: 0,
+                        id: 1,
                         total: 19999,
                         drawings: [
                             {
-                                id: 0,
+                                id: 1,
                                 total: 19999,
                                 pins: [
                                     {
@@ -204,6 +208,7 @@ const dummyListSite = [
                                         pinID: '0001:03',
                                         dateCreated: '2021-05-26 12:33:44',
                                         comment: 'Fire stop around pipe in cavity',
+                                        total: 100,
                                         installations: [
                                             {
                                                 name: '### Installation 1 ###',
@@ -236,11 +241,11 @@ const dummyListSite = [
                 total: 19999,
                 floors: [
                     {
-                        id: 0,
+                        id: 1,
                         total: 19999,
                         drawings: [
                             {
-                                id: 0,
+                                id: 1,
                                 total: 19999,
                                 pins: [
                                     {
@@ -251,6 +256,7 @@ const dummyListSite = [
                                         pinID: '0001:03',
                                         dateCreated: '2021-05-26 12:33:44',
                                         comment: 'Fire stop around pipe in cavity',
+                                        total: 100,
                                         installations: [
                                             {
                                                 name: '### Installation 1 ###',
@@ -285,29 +291,29 @@ const dummyListSite = [
 export const dummyCart = {
     buildingCosts: [
         {
-            buildingID: 1,
+            buildingID: 14,
             cost: 9308.39,
             drawings: [
                 {
-                    drawingID: 1,
+                    drawingID: 3226,
                     cost: 5000.27,
                 },
                 {
-                    drawingID: 2,
+                    drawingID: 13734,
                     cost: 4308.12,
                 },
             ],
         },
         {
-            buildingID: 2,
+            buildingID: 1288,
             cost: 9308.39,
             drawings: [
                 {
-                    drawingID: 3,
+                    drawingID: 14825,
                     cost: 5000.27,
                 },
                 {
-                    drawingID: 4,
+                    drawingID: 15121,
                     cost: 4308.12,
                 },
             ],
@@ -461,5 +467,49 @@ export const dummyOperatives = [
     {
         id: 10,
         name: 'Jenny Doe',
+    },
+];
+
+export const dummyServices = [
+    {
+        id: 1,
+        name: 'Fire Stopping',
+    },
+    {
+        id: 2,
+        name: 'Fire doors',
+    },
+    {
+        id: 3,
+        name: 'Water Management',
+    },
+    {
+        id: 4,
+
+        name: 'Electrical',
+    },
+];
+
+export const dummyInstallationTypes = [
+    {
+        id: 1,
+        name: 'Fire Batt',
+    },
+    {
+        id: 2,
+        name: '50mm Duct',
+    },
+    {
+        id: 3,
+        name: '100mmm Duct',
+    },
+    {
+        id: 4,
+
+        name: 'Pipes',
+    },
+    {
+        id: 5,
+        name: 'Fire Extinguisher',
     },
 ];

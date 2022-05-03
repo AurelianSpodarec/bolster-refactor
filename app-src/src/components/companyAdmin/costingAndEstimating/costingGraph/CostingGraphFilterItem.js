@@ -1,15 +1,23 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 
 import FlexWrapper from '../../../shared/generic/flexWrapper/FlexWrapper';
 import FilterInput from '../../../shared/filters/FilterInput';
-import Checkbox from '../../../shared/generic/form/presentational/Checkbox';
+import Tickbox from '../../../shared/generic/form/presentational/Tickbox';
+import RangeSlider from '../../../shared/generic/form/presentational/RangeSlider';
+import { COSTING_GRAPH_FILTER_VALUES } from '../../../../constants/companyAdmin/enums';
 
-const CostingGraphFilterItem = ({ option: { id, name, options }, expandedId, setExpandedId }) => {
+const CostingGraphFilterItem = ({
+    option: { id, name, options, type },
+    expandedId,
+    setExpandedId,
+    filterFormData,
+    onChange,
+}) => {
     const [searchTerm, setSearchTerm] = useState('');
 
     const isOptionExpanded = id === expandedId;
 
-    const filteredOptions = useMemo(() => {
+    const filteredOptions = () => {
         if (searchTerm) {
             return options.filter(option =>
                 option.name.toLowerCase().includes(searchTerm.toLowerCase()),
@@ -17,7 +25,23 @@ const CostingGraphFilterItem = ({ option: { id, name, options }, expandedId, set
         } else {
             return options;
         }
-    }, [searchTerm]);
+    };
+    const selectedOptions = filterFormData.selectedItems[COSTING_GRAPH_FILTER_VALUES[type]];
+
+    const handleChange = value => {
+        if (selectedOptions.includes(value)) {
+            const newSelectedOptions = selectedOptions.filter(option => option !== value);
+            onChange('selectedItems', {
+                ...filterFormData.selectedItems,
+                [COSTING_GRAPH_FILTER_VALUES[type]]: [...newSelectedOptions],
+            });
+        } else {
+            onChange('selectedItems', {
+                ...filterFormData.selectedItems,
+                [COSTING_GRAPH_FILTER_VALUES[type]]: [...selectedOptions, value],
+            });
+        }
+    };
 
     return (
         <>
@@ -28,26 +52,49 @@ const CostingGraphFilterItem = ({ option: { id, name, options }, expandedId, set
                 >
                     <p>{name}</p>
 
-                    <i className={`far fa-chevron-${isOptionExpanded ? 'up' : 'down'}`} />
+                    <i className={`far fa-chevron-down ${isOptionExpanded ? 'active' : ''}`} />
                 </button>
             </FlexWrapper>
 
-            {isOptionExpanded && (
-                <div className="graph-filter-options border">
-                    <FilterInput
-                        value={searchTerm}
-                        handleChange={(_, value) => setSearchTerm(value)}
+            <div className={`graph-filter-options border ${isOptionExpanded ? 'active' : ''}`}>
+                {type !== 4 ? (
+                    <>
+                        <FilterInput
+                            value={searchTerm}
+                            handleChange={(_, value) => setSearchTerm(value)}
+                        />
+                        <FlexWrapper direction="column" extraClasses="options-wrapper">
+                            {filteredOptions()?.map(option => {
+                                const isSelected = selectedOptions?.length
+                                    ? selectedOptions?.includes(option.id)
+                                    : true;
+                                return (
+                                    <FlexWrapper
+                                        key={option.id}
+                                        align="center"
+                                        extraClasses="option"
+                                    >
+                                        <Tickbox
+                                            label={option.name}
+                                            name="tickbox"
+                                            checked={isSelected}
+                                            handleChange={() => handleChange(option.id)}
+                                        />
+                                    </FlexWrapper>
+                                );
+                            })}
+                        </FlexWrapper>
+                    </>
+                ) : (
+                    <RangeSlider
+                        min={0}
+                        max={1000}
+                        name="maxPrice"
+                        handleChange={onChange}
+                        value={filterFormData.maxPrice}
                     />
-
-                    <FlexWrapper direction="column" extraClasses="options-wrapper">
-                        {filteredOptions?.map(option => (
-                            <FlexWrapper key={option.id} align="center" extraClasses="option">
-                                <p>{option.name}</p>
-                            </FlexWrapper>
-                        ))}
-                    </FlexWrapper>
-                </div>
-            )}
+                )}
+            </div>
         </>
     );
 };

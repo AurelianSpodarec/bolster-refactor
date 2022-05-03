@@ -1,6 +1,6 @@
-import useColourTheme from 'hooks/useColourTheme';
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
+import useColourTheme from 'hooks/useColourTheme';
 
 const DashboardBarChart = ({ data, isDaily }) => {
     const colourTheme = useColourTheme();
