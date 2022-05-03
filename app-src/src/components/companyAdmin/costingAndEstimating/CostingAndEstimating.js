@@ -43,6 +43,7 @@ const CostingAndEstimating = () => {
                 isFetching={isFetchingCart}
                 fetchError={fetchError}
                 selectedTab={selectedTab}
+                formData={filterFormData}
             />
 
             <CostingAndEstimatingGraph

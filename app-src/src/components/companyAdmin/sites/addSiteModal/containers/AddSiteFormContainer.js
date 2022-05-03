@@ -33,6 +33,7 @@ class AddSiteFormContainer extends Component {
             types,
             sets,
             isCostingEnabled,
+            subscriptionServiceIDs,
         } = this.props;
 
         const typesToDisplay = Object.values(types).filter(type => type.hasSiteLinks);
@@ -40,7 +41,19 @@ class AddSiteFormContainer extends Component {
         const typeSets = Object.values(sets)
             .filter(set => typeIDs.includes(set.pinOptionTypeID))
             .reduce((acc, set) => {
-                acc[set.pinOptionTypeID] = (acc[set.pinOptionTypeID] || []).concat(set);
+                // only services company has access to
+                if (
+                    set.serviceIDs &&
+                    !set.serviceIDs.some(id => subscriptionServiceIDs.includes(id))
+                ) {
+                    return acc;
+                }
+                if (
+                    this.state.selectedPinOptionSets[set.pinOptionTypeID]?.includes(set.ID) ||
+                    !set.isDisabled
+                ) {
+                    acc[set.pinOptionTypeID] = (acc[set.pinOptionTypeID] || []).concat(set);
+                }
                 return acc;
             }, {});
 

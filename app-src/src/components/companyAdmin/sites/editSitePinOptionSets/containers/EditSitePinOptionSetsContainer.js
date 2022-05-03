@@ -16,6 +16,7 @@ import {
 } from '../../../../../selectors/companyAdmin/pinOptionSets';
 import { hideModal } from '../../../../../actions/shared/generic/modals/sync/hideModal';
 import editSitePinOptionSets from '../../../../../actions/companyAdmin/sites/async/editSitePinOptionSets';
+import { selectSubscriptions } from '../../../../../selectors/superAdmin/companySubscription';
 
 const EditSitePinOptionSetsContainer = ({ site }) => {
     const [selectedPinOptionTypes, setSelectedPinOptionTypes] = useState({});
@@ -27,6 +28,7 @@ const EditSitePinOptionSetsContainer = ({ site }) => {
     const isFetchingTypes = useSelector(selectPinOptionTypesIsFetching);
     const isFetching = isFetchingSets || isFetchingTypes;
     const prevProps = usePrevious({ isFetching });
+    const { serviceIDs } = useSelector(selectSubscriptions);
 
     const dispatch = useDispatch();
     componentDidMount(() => {
@@ -39,7 +41,9 @@ const EditSitePinOptionSetsContainer = ({ site }) => {
         if (!isFetching && prevProps.isFetching) {
             const selectedTypes = {};
             Object.values(sets).forEach(set => {
-                selectedTypes[set.pinOptionTypeID] = true;
+                if (site.pinOptionSetIDsByType[set.pinOptionTypeID]?.length) {
+                    selectedTypes[set.pinOptionTypeID] = true;
+                }
             });
             setSelectedPinOptionSets(site.pinOptionSetIDsByType);
             setSelectedPinOptionTypes(selectedTypes);
@@ -70,7 +74,13 @@ const EditSitePinOptionSetsContainer = ({ site }) => {
     const typeSets = Object.values(sets)
         .filter(set => typeIDs.includes(set.pinOptionTypeID))
         .reduce((acc, set) => {
-            acc[set.pinOptionTypeID] = (acc[set.pinOptionTypeID] || []).concat(set);
+            // only services company has access to
+            if (set.serviceIDs && !set.serviceIDs.some(id => serviceIDs.includes(id))) {
+                return acc;
+            }
+            if (selectedPinOptionSets[set.pinOptionTypeID]?.includes(set.ID) || !set.isDisabled) {
+                acc[set.pinOptionTypeID] = (acc[set.pinOptionTypeID] || []).concat(set);
+            }
             return acc;
         }, {});
     return (

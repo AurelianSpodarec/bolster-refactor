@@ -15,9 +15,9 @@ export const selectPrelimsArr = state =>
 export const selectSinglePrelim = (state, id) =>
     state.companyAdmin.costingAndEstimatingReducer.costingAndEstimatingPrelims[id];
 
-export const selectCostingAndEstimatingPrelimIsPosting = state =>
+export const selectCostingAndEstimatingIsPosting = state =>
     state.companyAdmin.costingAndEstimatingReducer.isPosting;
-export const selectCostingAndEstimatingPrelimPostError = state =>
+export const selectCostingAndEstimatingPostError = state =>
     state.companyAdmin.costingAndEstimatingReducer.postError;
-export const selectCostingAndEstimatingPrelimPostSuccess = state =>
+export const selectCostingAndEstimatingPostSuccess = state =>
     state.companyAdmin.costingAndEstimatingReducer.postSuccess;

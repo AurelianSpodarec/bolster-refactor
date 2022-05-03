@@ -5,6 +5,7 @@ import { selectPinOptions } from '../../../../../selectors/companyAdmin/pinOptio
 import { useSelector } from 'react-redux';
 import { selectPinOptionVersions } from '../../../../../selectors/companyAdmin/pinOptionVersions';
 import uuid from 'uuid/v4';
+import { selectPinOptionSets } from '../../../../../selectors/companyAdmin/pinOptionSets';
 
 export const useDropdownOpts = (options, optionConfigurations) => {
     const opts = useMemo(() => {
@@ -21,13 +22,15 @@ export const useDropdownOpts = (options, optionConfigurations) => {
 };
 
 export const useAddPinOptions = serviceID => {
-    // todo filter with site sets too
+    const pinOptionSets = useSelector(selectPinOptionSets);
     const pinOptions = useSelector(selectPinOptions);
     const pinOptionVersions = useSelector(selectPinOptionVersions);
     return useMemo(() => {
-        const pinOptionsForService = Object.values(pinOptions).filter(
-            ({ serviceIDs }) => !serviceIDs || serviceIDs.includes(serviceID),
-        );
+        const pinOptionsForService = Object.values(pinOptions).filter(option => {
+            const set = pinOptionSets[option.pinOptionSetID];
+            const serviceIDs = option.serviceIDs || set?.serviceIDs;
+            return !serviceIDs || serviceIDs.includes(+serviceID);
+        });
         const pinOptionVersionsGroupedByOptionID = Object.values(pinOptionVersions).reduce(
             (acc, version) => ({
                 ...acc,
@@ -64,17 +67,19 @@ export const useFilterPinOptions = (
             options.filter(option => {
                 if (type?.hasSiteLinks) {
                     const setsForType = drawing?.pinOptionSetIDsByType?.[type?.id];
-                    if (!setsForType || !setsForType.length) {
+                    if (!setsForType?.length) {
                         if (!option.isDefault) return false;
                     } else if (!setsForType.includes(option.pinOptionSetID)) {
                         return false;
                     }
                 }
                 // remove deleted option if not already selected
-                if (questionValue?.pinOptionVersionID !== option.id && option.isDeleted) {
+                if (
+                    questionValue?.pinOptionVersionID !== option.id &&
+                    (option.isDeleted || option.isDisabled)
+                ) {
                     return false;
                 }
-                // todo usage rules - currently user company & global
                 if (option.companyID !== companyID && option.companyID !== null) {
                     return false;
                 }

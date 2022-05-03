@@ -29,14 +29,11 @@ import {
     isItemSelected,
     getDataKeyFromItem,
 } from '../_helpers/helpers';
-// import * as dummyData from '../dummyData';
 import { costingAndEstimatingType } from '../../../../constants/companyAdmin/enums';
 
 const useCostingAndEstimating = () => {
     const _costingCart = useSelector(selectCostingAndEstimatingCart);
     const mainData = useSelector(selectCostingAndEstimatingData);
-    // const mainData = dummyData.dummyMain;
-    // const costingCart = dummyData.dummyCart;
     const isFetchingMainData = useSelector(selectCostingAndEstimatingDataIsFetching);
     const isFetchingCart = useSelector(selectCostingAndEstimatingCartIsFetching);
     const fetchError = useSelector(selectCostingAndEstimatingFetchError);
@@ -161,12 +158,18 @@ const useCostingAndEstimating = () => {
                         break;
                     case 'histories':
                         selectedItems.histories = selectedItems.histories.filter(
-                            pinCode => pinCode !== itemKey,
+                            pinHistoryID => pinHistoryID !== itemKey,
                         );
                         break;
                     case 'installations':
                         selectedItems.installations = selectedItems.installations.filter(
-                            name => name !== itemKey,
+                            idString => {
+                                console.log(idString);
+                                return (
+                                    idString !==
+                                    JSON.stringify(item.representsPinHistoryAnswerValueIDs)
+                                );
+                            },
                         );
                         break;
                 }
@@ -199,10 +202,6 @@ const useCostingAndEstimating = () => {
     };
 
     const onPrevWeek = () => {
-        console.log(formData.dateRange, {
-            startDate: moment(formData.dateRange.startDate).subtract(7, 'days').toDate(),
-            endDate: moment(formData.dateRange.endDate).subtract(7, 'days').toDate(),
-        });
         onChange('dateRange', {
             startDate: moment(formData.dateRange.startDate).subtract(7, 'days').toDate(),
             endDate: moment(formData.dateRange.endDate).subtract(7, 'days').toDate(),
@@ -222,6 +221,15 @@ const useCostingAndEstimating = () => {
         fromDate: moment(formData.dateRange.startDate).format('YYYY-MM-DD'),
         toDate: moment(formData.dateRange.endDate).format('YYYY-MM-DD'),
         costEstType: selectedTabType,
+        pinHistoryAnswerValueIDs: formData.selectedItems.installations.reduce((acc, curr) => {
+            try {
+                const arr = JSON.parse(curr);
+                acc = acc.concat(arr);
+            } catch {
+                acc.push(curr);
+            }
+            return acc;
+        }, []),
     };
 
     useEffect(() => {

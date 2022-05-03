@@ -7,8 +7,8 @@ import showModal from 'actions/shared/generic/modals/sync/showModal';
 
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 import {
-    selectCostingAndEstimatingPrelimPostError,
-    selectCostingAndEstimatingPrelimPostSuccess,
+    selectCostingAndEstimatingPostError,
+    selectCostingAndEstimatingPostSuccess,
 } from 'selectors/companyAdmin/costingAndEstimating';
 import {
     ADD_LINK_PRELIM_MODAL,
@@ -21,8 +21,8 @@ import {
 
 const useCostingAndEstimatingPrelimsSetActions = () => {
     const dispatch = useDispatch();
-    const postError = useSelector(selectCostingAndEstimatingPrelimPostError);
-    const postSuccess = useSelector(selectCostingAndEstimatingPrelimPostSuccess);
+    const postError = useSelector(selectCostingAndEstimatingPostError);
+    const postSuccess = useSelector(selectCostingAndEstimatingPostSuccess);
     const prevProps = usePrevious({ postError, postSuccess });
 
     const showExistingPrelimModal = () => {

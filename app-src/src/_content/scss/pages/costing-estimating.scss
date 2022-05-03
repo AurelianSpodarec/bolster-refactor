@@ -89,6 +89,7 @@
 .costing-wrapper {
   grid-template-areas: "pods pods cart" "graph graph cart" "filters filters cart";
   grid-template-columns: repeat(3, 1fr);
+  padding-top: 15px;
 
   h1 {
     @include h1title;
@@ -120,7 +121,7 @@
     left: 0;
     bottom: 0;
     right: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: var(--semi-transparent-overlay);
     z-index: 10;
 
     display: flex;
@@ -184,7 +185,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: var(--container-greyed-out);
+      background-color: var(--typography-greyed-out);
       height: 45px;
       width: 45px;
       border-radius: 11px;
@@ -203,20 +204,28 @@
       width: 30px;
       border-radius: 11px;
       background-color: var(--background-stroke);
+      transform-style: preserve-3d;
+      transition: all 0.4s ease;
+
+      &.asc {
+        transform: rotateX(0deg);
+
+        i{
+          color: var(--positive-default);
+        }
+      }
+
+      &.desc {
+        transform: rotateX(180deg);
+
+        i{
+          color: var(--negative-default);
+        }
+      }
 
       i {
         font-size: 16px;
-        transition: all 0.4s ease;
 
-        &.asc {
-          transform: rotate(0deg);
-          color: var(--positive-default);
-        }
-
-        &.desc {
-          transform: rotate(180deg);
-          color: var(--negative-default);
-        }
       }
     }
   }
@@ -243,7 +252,7 @@
 
   .content-container {
     &.fullheight {
-      height: calc(100% - 10px);
+      height: calc(100% + 19px);
       padding-bottom: 30px;
     }
   }
@@ -299,7 +308,7 @@
   .graph-total {
     position: absolute;
     right: 1.5em;
-    bottom: 1.5em;
+    bottom: 4em;
     text-align: right;
 
     h1, h3 {

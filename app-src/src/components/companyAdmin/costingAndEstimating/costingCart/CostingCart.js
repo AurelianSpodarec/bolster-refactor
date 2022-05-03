@@ -39,7 +39,7 @@ const CostingCart = ({ data, isFetching, fetchError, selectedTab }) => {
                             }`}</h1>
                         </div>
 
-                        <CartReportButton />
+                        <CartReportButton formData={formData} />
                     </>
                 )}
                 {!isFetching && fetchError && <Error>{fetchError}</Error>}
