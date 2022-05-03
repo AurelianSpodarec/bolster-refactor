@@ -64,7 +64,7 @@ export const useFilterPinOptions = (
             options.filter(option => {
                 if (type?.hasSiteLinks) {
                     const setsForType = drawing?.pinOptionSetIDsByType?.[type?.id];
-                    if (!setsForType || !setsForType.length) {
+                    if (!setsForType?.length) {
                         if (!option.isDefault) return false;
                     } else if (!setsForType.includes(option.pinOptionSetID)) {
                         return false;
