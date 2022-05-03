@@ -108,7 +108,7 @@ const useCostingAndEstimating = () => {
 
     const initialFormData = {
         dateRange: {
-            startDate: moment().subtract(7, 'days').toDate(),
+            startDate: moment().subtract(3, 'months').toDate(),
             endDate: moment().toDate(),
         },
         selectedItems: buildInitialSelectedItems(allSites), // TODO - makes the first fetch happen twice
@@ -218,8 +218,8 @@ const useCostingAndEstimating = () => {
     const cAndEPostBody = {
         hierarchyID,
         hierarchyType,
-        fromDate: moment(formData.startDate).subtract(3, 'months').format('YYYY-MM-DD'),
-        toDate: moment(formData.endDate).format('YYYY-MM-DD'),
+        fromDate: moment(formData.dateRange.startDate).format('YYYY-MM-DD'),
+        toDate: moment(formData.dateRange.endDate).format('YYYY-MM-DD'),
         costEstType: selectedTabType,
     };
 
