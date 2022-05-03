@@ -64,7 +64,6 @@ const FilterList = ({
 
 const ListItem = ({ item, hierarchyLevel, selectedItems, handleToggleItem, nestingLevel }) => {
     // hierarchyLevel defines level of this item
-    const itemType = getItemType(item);
     const [isExpanded, setIsExpanded] = useState(false);
     const SpecificContent = getContentTypeFromItem(item);
     const dataKey = getDataKeyFromItem(item);
