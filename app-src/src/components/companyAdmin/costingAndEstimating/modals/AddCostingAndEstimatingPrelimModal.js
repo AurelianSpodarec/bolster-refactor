@@ -10,13 +10,9 @@ import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 import Field from 'components/shared/generic/form/presentational/Field';
 import useAddExistingPrelim from '../_hooks/useAddExistingPrelim';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
-import { convertEnumToDropdownOptions } from 'helpers/generic';
-import { PRELIMS_ENUM } from 'constants/companyAdmin/enums';
 
 const AddCostingAndEstimatingPrelimModal = () => {
     const { form, handleChange, handleSubmit, isPosting, prelimsOptions } = useAddExistingPrelim();
-
-    console.log(form);
 
     return (
         <ModalOuterContainer hideCloseButton>
@@ -25,10 +21,10 @@ const AddCostingAndEstimatingPrelimModal = () => {
             <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
                 <Field name="" required>
                     <DropdownContainer
-                        name="prelim"
+                        name="prelimID"
                         options={Object.values(prelimsOptions)}
-                        value={prelimsOptions[form.prelim]}
-                        selectedOption={prelimsOptions[form.prelim]}
+                        value={prelimsOptions[form.prelimID]}
+                        selectedOption={prelimsOptions[form.prelimID]}
                         handleChange={handleChange}
                         required
                     />

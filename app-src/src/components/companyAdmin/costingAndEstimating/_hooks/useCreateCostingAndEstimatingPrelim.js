@@ -1,10 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useForm } from 'helpers/hooks';
+import useCurrentHierarchyID from './useCurrentHierarchyID';
+import useCurrentHierarchyType from './useCurrentHierarchyType';
+
 import { convertEnumToDropdownOptions } from '../../../../helpers/generic';
 import { PRELIMS_ENUM } from '../../../../constants/companyAdmin/enums';
 import createCostingAndEstimatingPrelim from 'actions/companyAdmin/costingAndEstimating/createCostingAndEstimatingPrelim';
-import useCostingAndEstimating from './useCostingAndEstimating';
 import { useEffect } from 'react';
 import {
     selectCostingAndEstimatingPrelimIsPosting,
@@ -19,7 +21,8 @@ import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 const useCreateCostingAndEstimatingPrelim = () => {
     const dispatch = useDispatch();
     const prelimsOptions = convertEnumToDropdownOptions(PRELIMS_ENUM);
-    const { hierarchyID, hierarchyType } = useCostingAndEstimating();
+    const hierarchyID = useCurrentHierarchyID();
+    const hierarchyType = useCurrentHierarchyType();
 
     const isPosting = useSelector(selectCostingAndEstimatingPrelimIsPosting);
     const postError = useSelector(selectCostingAndEstimatingPrelimPostError);
