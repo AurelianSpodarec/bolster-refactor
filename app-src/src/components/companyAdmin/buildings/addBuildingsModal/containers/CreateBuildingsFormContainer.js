@@ -2,9 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import fetchAllOptionValues from 'actions/companyAdmin/manufacturers/async/fetchAllOptionValues';
-import fetchManufacturersByPinOptionType from 'actions/companyAdmin/manufacturers/async/fetchManufacturersByPinOptionType';
-
 import CreateBuildingsForm from '../presentational/CreateBuildingsForm';
 import createBuildings from 'actions/companyAdmin/buildings/async/createBuildings';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';

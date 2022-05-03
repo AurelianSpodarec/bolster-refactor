@@ -6,16 +6,11 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import { RAW_S3_STORAGE_URL } from 'config';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import DatePickerPresentational from 'components/shared/generic/form/presentational/DatePicker';
-import { FLOORPLAN_STATES, PIN_OPTION_TYPES } from 'constants/companyAdmin/enums';
-import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
-import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
+import { FLOORPLAN_STATES } from 'constants/companyAdmin/enums';
 import ActionButton from '../../../../shared/generic/button/presentational/ActionButton';
 import ButtonWrapper from '../../../../shared/generic/button/presentational/ButtonWrapper';
 
@@ -31,22 +26,6 @@ const EditDrawingModal = ({
     drawing: { doesRequireCreditToReplaceFloorplan, tilesetS3KeyOrig, latestFloorplanState },
     isUsingBolsterLabels,
     startDate,
-    isManufacturingInherited,
-    setManufacturersForHierarchy,
-    manufacturerOptions,
-    selectedManufacturerOptions,
-    selectedOptionValues,
-    optionValuesOptions,
-    handleShowManufacturingOptions,
-    showManufacturingOptions,
-    manufacturingInheritedFrom,
-    showDropdownOptions,
-    setDropdownOptionsForHierarchy,
-    isDropdownOptionsInherited,
-    selectedDropdownOptions,
-    dropdownOptions,
-    isDropDownOptionsInheritedFrom,
-    handleShowDropdownOptions,
     drawingNotStarted,
 }) => {
     return (
@@ -118,135 +97,7 @@ const EditDrawingModal = ({
                         </Field>
                     )}
                 </div>
-                {showManufacturingOptions ? (
-                    <>
-                        <div className="size-lg-12">
-                            <div className="size-lg-6 size-md-12">
-                                <Field
-                                    labelClasses="no-capitalise"
-                                    name="Set manufacturer(s) for drawing?"
-                                >
-                                    <CheckboxContainer
-                                        checked={setManufacturersForHierarchy}
-                                        name="setManufacturersForHierarchy"
-                                        text=""
-                                        handleChange={handleChange}
-                                        disabled={isManufacturingInherited}
-                                    />
-                                </Field>
-                            </div>
-                        </div>
-                        {setManufacturersForHierarchy && (
-                            <div className="size-lg-12">
-                                <Field labelClasses="no-capitalise" name="Manufacturer(s)" required>
-                                    <CheckboxListContainer
-                                        name="selectedManufacturerOptions"
-                                        text=""
-                                        handleChange={handleChange}
-                                        selectedOptions={selectedManufacturerOptions}
-                                        options={manufacturerOptions}
-                                        allOptionsDisabled={isManufacturingInherited}
-                                        required
-                                    />
-                                </Field>
-                            </div>
-                        )}
 
-                        {setManufacturersForHierarchy &&
-                            manufacturerOptions
-                                .filter(man => selectedManufacturerOptions.includes(`${man.id}`))
-                                .map(man => {
-                                    return (
-                                        <div className="size-lg-12" key={man.id}>
-                                            <Field
-                                                labelClasses="no-capitalise"
-                                                name={`${man.name} ${
-                                                    PIN_OPTION_TYPES[man.pinOptionType].name
-                                                }
-                              `}
-                                            >
-                                                <CheckboxListContainer
-                                                    name="selectedOptionValues"
-                                                    text=""
-                                                    handleChange={handleChange}
-                                                    selectedOptions={selectedOptionValues}
-                                                    options={optionValuesOptions[man.id] || []}
-                                                    allOptionsDisabled={isManufacturingInherited}
-                                                />
-                                            </Field>
-                                        </div>
-                                    );
-                                })}
-                    </>
-                ) : (
-                    <>
-                        <FieldOutput fieldClass="center-align">
-                            <div className="form-field size-lg-12">
-                                <p>
-                                    Manufacturers already set at {manufacturingInheritedFrom}.
-                                    <br /> This cannot be overridden at this level, click{' '}
-                                    <span onClick={() => handleShowManufacturingOptions()}>
-                                        here
-                                    </span>{' '}
-                                    to see the settings.
-                                </p>
-                            </div>
-                        </FieldOutput>
-                    </>
-                )}{' '}
-                {showDropdownOptions ? (
-                    <>
-                        <div className="size-lg-12">
-                            <div className="size-lg-6 size-md-12">
-                                <Field
-                                    labelClasses="no-capitalise"
-                                    name="Set item types for drawing?"
-                                >
-                                    <CheckboxContainer
-                                        checked={setDropdownOptionsForHierarchy}
-                                        name="setDropdownOptionsForHierarchy"
-                                        text=""
-                                        handleChange={handleChange}
-                                        disabled={isDropdownOptionsInherited}
-                                    />
-                                </Field>
-                            </div>
-                        </div>
-                        {setDropdownOptionsForHierarchy && (
-                            <div className="size-lg-12">
-                                <Field labelClasses="no-capitalise" name="Item type(s)">
-                                    <CheckboxListContainer
-                                        name="selectedDropdownOptions"
-                                        text=""
-                                        handleChange={handleChange}
-                                        selectedOptions={selectedDropdownOptions}
-                                        options={dropdownOptions}
-                                        allOptionsDisabled={isDropdownOptionsInherited}
-                                    />
-                                </Field>
-                            </div>
-                        )}
-                    </>
-                ) : (
-                    <>
-                        <FieldOutput fieldClass="center-align">
-                            <div className="form-field size-lg-12">
-                                <p>
-                                    Item types already set at {isDropDownOptionsInheritedFrom}.
-                                    <br /> This cannot be overridden at this level, click{' '}
-                                    <span
-                                        onClick={() => {
-                                            handleShowDropdownOptions();
-                                        }}
-                                    >
-                                        here
-                                    </span>{' '}
-                                    to see the settings.
-                                </p>
-                            </div>
-                        </FieldOutput>
-                    </>
-                )}
                 <div className="size-lg-12">
                     <ButtonWrapper alignment="right">
                         <ActionButton

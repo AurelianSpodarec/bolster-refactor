@@ -129,25 +129,25 @@ const PinAnswer = ({ trimmedAnswer, type, answers, question }) => {
     }
 
     let measurementOutputs = [];
-    // todo
-    // curAnswer.measurements?.forEach(measurement => {
-    //     const answerValue = curAnswerValues.find(
-    //         ({ id }) => id === measurement.pinHistoryAnswerValueID,
-    //     );
-    //     const measurementOutput = (
-    //         <div key={measurement.id} className="pin-answer-measurements">
-    //             <p className="pin-answer-measurements-heading">
-    //                 {answerValue.textValue} measurements:
-    //             </p>
-    //             {measurement.length && <p>Length: {measurement.length}</p>}
-    //             {measurement.width && <p>Width: {measurement.width}</p>}
-    //             {measurement.height && <p>Height: {measurement.height}</p>}
-    //             {measurement.radius && <p>Radius: {measurement.radius}</p>}
-    //             {measurement.volume && <p>Volume: {measurement.volume}</p>}
-    //         </div>
-    //     );
-    //     measurementOutputs.push(measurementOutput);
-    // });
+
+    curAnswer.measurements?.forEach(measurement => {
+        const answerValue = curAnswerValues.find(
+            ({ id }) => id === measurement.pinHistoryAnswerValueID,
+        );
+        const measurementOutput = (
+            <div key={measurement.id} className="pin-answer-measurements">
+                <p className="pin-answer-measurements-heading">
+                    {answerValue.textValue} measurements:
+                </p>
+                {measurement.length && <p>Length: {measurement.length}</p>}
+                {measurement.width && <p>Width: {measurement.width}</p>}
+                {measurement.height && <p>Height: {measurement.height}</p>}
+                {measurement.radius && <p>Radius: {measurement.radius}</p>}
+                {measurement.volume && <p>Volume: {measurement.volume}</p>}
+            </div>
+        );
+        measurementOutputs.push(measurementOutput);
+    });
     return (
         <FieldOutput
             title={question.name}
