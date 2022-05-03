@@ -27,6 +27,7 @@ const CostingAndEstimating = () => {
         isFetchingCart,
         isFetchingMainData,
         fetchError,
+        selectedTab,
     } = useCostingAndEstimating();
 
     return (
@@ -37,7 +38,12 @@ const CostingAndEstimating = () => {
                 fetchError={fetchError}
             />
 
-            <CostingCart data={costingCart} isFetching={isFetchingCart} fetchError={fetchError} />
+            <CostingCart
+                data={costingCart}
+                isFetching={isFetchingCart}
+                fetchError={fetchError}
+                selectedTab={selectedTab}
+            />
 
             <CostingAndEstimatingGraph
                 graph={graph}

@@ -1,4 +1,5 @@
 import Error from 'components/shared/generic/misc/presentational/Error';
+import { costingAndEstimatingType } from 'constants/companyAdmin/enums';
 import { formatCurrency } from 'helpers/generic';
 import React from 'react';
 import BlockContainer from '../../../shared/generic/block/containers/BlockContainer';
@@ -7,12 +8,17 @@ import CartReportButton from './CartReportButton';
 import CostingCartPinSummary from './CostingCartPinSummary';
 import CostingCartPrelimSummary from './CostingCartPrelimSummary';
 
-const CostingCart = ({ data, isFetching, fetchError }) => {
+const CostingCart = ({ data, isFetching, fetchError, selectedTab }) => {
     // const { buildingCosts, prePrelimCost, prelimIDs, customPrelims, prelimTotal, cartTotal } = data;
+    const selectedTabType = costingAndEstimatingType[selectedTab.toUpperCase()];
+    const title = `${
+        selectedTabType === costingAndEstimatingType.COSTING ? 'Costing' : 'Estimating'
+    } Cart`;
+
     return (
         <div className="costing-cart">
             <BlockContainer contentClass="border" containerClass="fullheight">
-                <h2>Costing cart</h2>
+                <h2>{title}</h2>
 
                 {!fetchError && data && (
                     <>

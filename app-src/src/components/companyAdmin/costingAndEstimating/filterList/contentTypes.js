@@ -16,7 +16,7 @@ export const TopLevel = ({ item, isSelected, handleToggleAllItems }) => {
                     <Tickbox name="" checked={isSelected} handleChange={handleToggleAllItems} />
                 </div>
                 <div>
-                    <p>Unselect all</p>
+                    <p>{isSelected ? 'Unselect all' : 'Select all'}</p>
                 </div>
             </div>
             <div />
