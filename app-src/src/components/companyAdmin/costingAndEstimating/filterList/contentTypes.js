@@ -20,7 +20,7 @@ export const TopLevel = ({ item, isSelected, handleToggleAllItems }) => {
                 <p>{isSelected ? 'Unselect all' : 'Select all'}</p>
             </div>
             <div className="table-cell">
-                {!Number.isNaN(item.total) ? `£${formatCurrency(item.total)}` : ''}
+                <h4>{!Number.isNaN(item.total) ? `£${formatCurrency(item.total)}` : ''}</h4>
             </div>
         </>
     );
