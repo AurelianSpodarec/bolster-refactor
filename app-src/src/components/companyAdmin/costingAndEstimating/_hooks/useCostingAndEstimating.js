@@ -179,7 +179,7 @@ const useCostingAndEstimating = () => {
         const cAndEPostBody = {
             hierarchyID,
             hierarchyType,
-            fromDate: moment(formData.startDate).format('YYYY-MM-DD'),
+            fromDate: moment(formData.startDate).subtract(3, 'months').format('YYYY-MM-DD'),
             toDate: moment(formData.endDate).format('YYYY-MM-DD'),
         };
         batch(() => {
