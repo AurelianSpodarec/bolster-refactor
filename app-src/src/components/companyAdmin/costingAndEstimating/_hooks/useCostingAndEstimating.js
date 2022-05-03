@@ -33,8 +33,8 @@ const useCostingAndEstimating = () => {
     const hierarchyID = useCurrentHierarchyID();
     const hierarchyType = useCurrentHierarchyType();
 
-    const selectedTab = useSelector(selectHierarchySelectedTab);
-    console.log(selectedTab);
+    const selectedTab = useSelector(selectHierarchySelectedTab).toUpperCase();
+
     const buildInitialSelectedItems = (data = []) => {
         const selectedItems = {
             buildings: [],
@@ -188,6 +188,7 @@ const useCostingAndEstimating = () => {
             hierarchyType,
             fromDate: moment(formData.startDate).format('YYYY-MM-DD'),
             toDate: moment(formData.endDate).format('YYYY-MM-DD'),
+            costEstType: selectedTab,
         };
         batch(() => {
             dispatch(fetchAllBuildings());

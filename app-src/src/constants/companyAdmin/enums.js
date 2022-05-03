@@ -820,3 +820,13 @@ export const COSTING_GRAPH_FILTER_VALUES = {
     2: 'installations',
     4: 'price',
 };
+
+export const CostingAndEstimatingType = {
+    COSTING: 0,
+    ESTIMATING: 1,
+};
+
+export const CostingAndEstimatingNames = {
+    0: 'Costing',
+    1: 'Estimating',
+};
