@@ -1,8 +1,8 @@
 import React from 'react';
 
-const Tickbox = ({ checked = true, handleChange, name, value, classes = '', label }) => {
+const Tickbox = ({ checked, handleChange, name, value, classes = '', label }) => {
     return (
-        <label className="tickbox">
+        <label className={`tickbox ${classes}`}>
             <input
                 type="checkbox"
                 checked={checked}
