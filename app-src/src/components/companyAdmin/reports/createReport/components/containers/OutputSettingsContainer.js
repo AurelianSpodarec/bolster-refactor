@@ -35,6 +35,7 @@ class OutputSettingsContainer extends Component {
                 includeFloorplan,
                 isOAndMManualGeneration,
                 includeFloorplanZones,
+                includeCostingData,
             },
             options: { showHidden, sortBy },
             furtherFiltrationOption,
@@ -45,25 +46,26 @@ class OutputSettingsContainer extends Component {
 
         return (
             <>
-            <OutputSettings
-                includePinLocation={includePinLocation}
-                isCSVGeneration={isCSVGeneration}
-                isFloorplanGeneration={isFloorplanGeneration}
-                isPDFGeneration={isPDFGeneration}
-                includeFloorplan={includeFloorplan}
-                isOAndMManualGeneration={isOAndMManualGeneration}
-                sortByOptions={Object.values(sortByOptions)}
-                selectSortBy={sortByOptions[sortBy]}
-                showHidden={showHidden}
-                handleFilterChange={this.handleFilterChange}
-                handleOptionChange={this.handleOptionChange}
-                handleSubmit={this.handleSubmit}
-                handleShowOandMModal={this.handleShowOandMModal}
-                isZoneFilter={+furtherFiltrationOption === FURTHER_FILTRATION_OPTIONS.ZONES}
-                includeFloorplanZones={includeFloorplanZones}
-                hasZones={hasZones}
-            />
-            <CreateReportReloadOptions />
+                <OutputSettings
+                    includePinLocation={includePinLocation}
+                    isCSVGeneration={isCSVGeneration}
+                    isFloorplanGeneration={isFloorplanGeneration}
+                    isPDFGeneration={isPDFGeneration}
+                    includeFloorplan={includeFloorplan}
+                    isOAndMManualGeneration={isOAndMManualGeneration}
+                    sortByOptions={Object.values(sortByOptions)}
+                    selectSortBy={sortByOptions[sortBy]}
+                    showHidden={showHidden}
+                    handleFilterChange={this.handleFilterChange}
+                    handleOptionChange={this.handleOptionChange}
+                    handleSubmit={this.handleSubmit}
+                    handleShowOandMModal={this.handleShowOandMModal}
+                    isZoneFilter={+furtherFiltrationOption === FURTHER_FILTRATION_OPTIONS.ZONES}
+                    includeFloorplanZones={includeFloorplanZones}
+                    hasZones={hasZones}
+                    includeCostingData={includeCostingData}
+                />
+                <CreateReportReloadOptions />
             </>
         );
     }

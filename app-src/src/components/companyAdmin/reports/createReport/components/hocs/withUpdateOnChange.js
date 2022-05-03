@@ -270,6 +270,7 @@ export default function (ProtectedComponent) {
                     includeFloorplanZones,
                     includeTime,
                     isQuestionFilterExact,
+                    includeCostingData,
                 },
                 furtherFiltrationOption,
                 excludedPinIDs,
@@ -361,6 +362,7 @@ export default function (ProtectedComponent) {
                 includeFloorplanZones,
                 includeTime,
                 isQuestionFilterExact,
+                includeCostingData,
             };
             return body;
         };

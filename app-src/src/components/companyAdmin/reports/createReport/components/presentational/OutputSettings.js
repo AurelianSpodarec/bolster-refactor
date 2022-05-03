@@ -24,6 +24,7 @@ const OutputSettings = ({
     handleShowOandMModal,
     includeFloorplanZones,
     hasZones = false,
+    includeCostingData,
 }) => {
     const colourTheme = useColourTheme();
     return (
@@ -113,6 +114,18 @@ const OutputSettings = ({
                                                     }
                                                     handleChange={handleFilterChange}
                                                     name="includeFloorplan"
+                                                />
+                                                <p className="sub-text" />
+                                            </Field>
+                                            <Field
+                                                sizeClasses="size-lg-6 size-md-12"
+                                                name="Cost Per Pin?"
+                                            >
+                                                <CheckboxContainer
+                                                    classes="with-subtext"
+                                                    checked={includeCostingData}
+                                                    handleChange={handleFilterChange}
+                                                    name="includeCostingData"
                                                 />
                                                 <p className="sub-text" />
                                             </Field>
