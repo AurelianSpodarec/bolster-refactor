@@ -9,8 +9,12 @@ import CostingCartDrawingItem from './CostingCartDrawingItem';
 const CostingCartPinSummaryItem = ({ building }) => {
     const [isExpanded, setIsExpanded] = useState(false);
 
-    const { buildingID, cost, drawings } = building;
+    const { buildingID, cost, floors } = building;
     const { specificBuilding } = useCostingCart(buildingID);
+    const drawings = floors.reduce((acc, curr) => {
+        acc.push(...curr.drawings);
+        return acc;
+    }, []);
 
     return (
         <div className="summary-item">

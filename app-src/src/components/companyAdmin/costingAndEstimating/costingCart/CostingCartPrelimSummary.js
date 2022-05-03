@@ -10,18 +10,18 @@ import ActionButton from 'components/shared/generic/button/presentational/Action
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import {
-    ADD_COSTING_AND_ESTIMATING_PRELIM_MODAL,
+    ADD_LINK_PRELIM_MODAL,
     CREATE_COSTING_AND_ESTIMATING_PRELIM_MODAL,
 } from 'constants/shared/modalTypes';
 
-const CostingCartPrelimSummary = ({ title, total, prelimIDs, customPrelims }) => {
+const CostingCartPrelimSummary = ({ title, total, prelimIDs = [], customPrelims = [] }) => {
     const dispatch = useDispatch();
     const [isExpanded, setIsExpanded] = useState(false);
 
     const dataToShow = [...prelimIDs.map(id => dummyPrelims[id]), ...customPrelims];
 
     const showExistingPrelimModal = () => {
-        dispatch(showModal(ADD_COSTING_AND_ESTIMATING_PRELIM_MODAL));
+        dispatch(showModal(ADD_LINK_PRELIM_MODAL));
     };
 
     const showAddCustomPrelimModal = () => {
@@ -60,7 +60,7 @@ const CostingCartPrelimSummary = ({ title, total, prelimIDs, customPrelims }) =>
                 <div className="divider" />
             </div>
             <div className="total">
-                <h3>{`£${formatCurrency(total)}`}</h3>
+                <h3>{`£${total ? formatCurrency(total) : '-'}`}</h3>
             </div>
             <div className="divider" />
         </div>

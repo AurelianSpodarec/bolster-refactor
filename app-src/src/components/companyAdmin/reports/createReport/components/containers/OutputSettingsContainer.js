@@ -147,7 +147,6 @@ class OutputSettingsContainer extends Component {
         if (!isEmpty(fieldErrors)) showFieldErrors();
         else if (isFloorplanGeneration || (isPDFGeneration && includeFloorplan)) {
             const drawingForPinScale = this._getDrawingForPinScale();
-            console.log(isFloorplanGeneration, drawingForPinScale);
 
             if (!drawingForPinScale) {
                 showModal(ERROR_MODAL, {

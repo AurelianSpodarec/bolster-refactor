@@ -28,7 +28,6 @@ export default postBody => dispatch => {
     return axios
         .post(`${API_URL}/costingandestimating/costingcart`, postBody, getHeaders())
         .then(res => {
-            console.log(res);
             dispatch(fetchCostingAndEstimatingCartSuccess(res.data));
         })
         .catch(err => dispatch(fetchCostingAndEstimatingCartFailure(err.message)));

@@ -10,6 +10,8 @@ import FlexWrapper from '../../../shared/generic/flexWrapper/FlexWrapper';
 import ActionButton from '../../../shared/generic/button/presentational/ActionButton';
 import CostingGraphFilters from './CostingGraphFilters';
 import ButtonContainer from '../../../shared/generic/button/containers/ButtonContainer';
+import Error from 'components/shared/generic/misc/presentational/Error';
+import LoadingOverlay from '../LoadingOverlay';
 
 const CostingAndEstimatingGraph = ({
     graph,
@@ -18,6 +20,8 @@ const CostingAndEstimatingGraph = ({
     onThisWeek,
     onPrevWeek,
     onNextWeek,
+    isFetching,
+    fetchError,
 }) => {
     const [showFilterOptions, setShowFilterOptions] = useState(false);
 
@@ -27,55 +31,63 @@ const CostingAndEstimatingGraph = ({
     return (
         <div className="graph-wrapper" ref={graphRef}>
             <BlockContainer contentClass="border">
-                <FlexWrapper extraClasses="graph-filters">
-                    <FlexWrapper align="center" justify="between" width={4}>
-                        <div className="date-period-buttons">
-                            <button onClick={onPrevWeek}>
-                                <i className="far fa-chevron-left" />
-                            </button>
-                            <button onClick={onNextWeek}>
-                                <i className="far fa-chevron-right" />
-                            </button>
-                        </div>
+                {!fetchError && (
+                    <>
+                        <FlexWrapper extraClasses="graph-filters">
+                            <FlexWrapper align="center" justify="between" width={4}>
+                                <div className="date-period-buttons">
+                                    <button onClick={onPrevWeek}>
+                                        <i className="far fa-chevron-left" />
+                                    </button>
+                                    <button onClick={onNextWeek}>
+                                        <i className="far fa-chevron-right" />
+                                    </button>
+                                </div>
 
-                        <ButtonContainer setColour="transparent" handleClick={onThisWeek}>
-                            Last 7 Days
-                        </ButtonContainer>
+                                <ButtonContainer setColour="transparent" handleClick={onThisWeek}>
+                                    Last 7 Days
+                                </ButtonContainer>
 
-                        <div className="calendar-select border">
-                            <DateRangePicker
-                                name="dateRange"
-                                value={dateRange}
-                                onChange={onChange}
-                                text="Calendar"
-                            />
-                        </div>
-                    </FlexWrapper>
+                                <div className="calendar-select border">
+                                    <DateRangePicker
+                                        name="dateRange"
+                                        value={dateRange}
+                                        onChange={onChange}
+                                        text="Calendar"
+                                    />
+                                </div>
+                            </FlexWrapper>
 
-                    <FlexWrapper align="center" justify="end" width={8}>
-                        {/*<ActionButton UN COMMENT WHEN READY TO BE PLUGGED IN */}
-                        {/*    icon="filter"*/}
-                        {/*    text="Filter"*/}
-                        {/*    iconRight*/}
-                        {/*    source="secondary"*/}
-                        {/*    ambient="positive"*/}
-                        {/*    onClick={() => setShowFilterOptions(!showFilterOptions)}*/}
-                        {/*/>*/}
+                            <FlexWrapper align="center" justify="end" width={8}>
+                                {/*<ActionButton UN COMMENT WHEN READY TO BE PLUGGED IN */}
+                                {/*    icon="filter"*/}
+                                {/*    text="Filter"*/}
+                                {/*    iconRight*/}
+                                {/*    source="secondary"*/}
+                                {/*    ambient="positive"*/}
+                                {/*    onClick={() => setShowFilterOptions(!showFilterOptions)}*/}
+                                {/*/>*/}
 
-                        {showFilterOptions && (
-                            <CostingGraphFilters
-                                filterFormData={filterFormData}
-                                onChange={onChange}
-                            />
+                                {showFilterOptions && (
+                                    <CostingGraphFilters
+                                        filterFormData={filterFormData}
+                                        onChange={onChange}
+                                    />
+                                )}
+                            </FlexWrapper>
+                        </FlexWrapper>
+
+                        <Line data={data} options={options} />
+                        {graph?.total && (
+                            <div className="graph-total">
+                                <h3>Total:</h3>
+                                <h1>{`£${formatCurrency(graph.total)}`}</h1>
+                            </div>
                         )}
-                    </FlexWrapper>
-                </FlexWrapper>
-
-                <Line data={data} options={options} />
-                <div className="graph-total">
-                    <h3>Total:</h3>
-                    <h1>{`£${formatCurrency(graph.total)}`}</h1>
-                </div>
+                    </>
+                )}
+                {!isFetching && fetchError && <Error>{fetchError}</Error>}
+                {isFetching && !fetchError && <LoadingOverlay />}
             </BlockContainer>
         </div>
     );

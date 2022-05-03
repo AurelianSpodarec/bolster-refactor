@@ -1,12 +1,16 @@
+import Error from 'components/shared/generic/misc/presentational/Error';
 import React from 'react';
+import LoadingOverlay from '../LoadingOverlay';
 import CostingAndEstimatingPod from './CostingAndEstimatingPod';
 
-const CostingAndEstimatingPods = ({ data }) => {
+const CostingAndEstimatingPods = ({ data = [], isFetching, fetchError }) => {
     return (
         <div className="pods">
-            {data.map((pod, i) => (
-                <CostingAndEstimatingPod pod={pod} key={i} />
-            ))}
+            {data.length &&
+                !fetchError &&
+                data.map((pod, i) => <CostingAndEstimatingPod pod={pod} key={i} />)}
+            {fetchError && <Error>{fetchError}</Error>}
+            {isFetching && !fetchError && <LoadingOverlay />}
         </div>
     );
 };
