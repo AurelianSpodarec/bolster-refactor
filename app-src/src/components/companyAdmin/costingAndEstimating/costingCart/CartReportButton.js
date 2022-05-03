@@ -1,8 +1,12 @@
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { GENERATE_COSTING_ESTIMATING_REPORT_MODAL } from 'constants/shared/modalTypes';
+import {
+    ERROR_MODAL,
+    GENERATE_COSTING_ESTIMATING_REPORT_MODAL,
+    GENERATE_COSTING_ESTIMATING_REPORT_SUCCESS_MODAL,
+} from 'constants/shared/modalTypes';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 import {
     selectCostingAndEstimatingIsPosting,
@@ -15,18 +19,32 @@ import useCurrentHierarchyType from '../_hooks/useCurrentHierarchyType';
 import moment from 'moment';
 import { selectHierarchySelectedTab } from 'selectors/shared/tabs';
 import { costingAndEstimatingType } from 'constants/companyAdmin/enums';
+import { usePrevious } from 'helpers/hooks';
 
 const CartReportButton = ({ formData }) => {
     const dispatch = useDispatch();
     const hierarchyID = useCurrentHierarchyID();
     const hierarchyType = useCurrentHierarchyType();
 
-    const isPosting = useSelector(selectCostingAndEstimatingIsPosting);
     const postSuccess = useSelector(selectCostingAndEstimatingPostSuccess);
     const error = useSelector(selectCostingAndEstimatingPostError);
+    const prevProps = usePrevious({ postSuccess, error });
 
     const selectedTab = useSelector(selectHierarchySelectedTab);
     const selectedTabType = costingAndEstimatingType[selectedTab.toUpperCase()];
+
+    useEffect(() => {
+        if (postSuccess && !prevProps.postSuccess) {
+            dispatch(hideModal());
+            dispatch(showModal(GENERATE_COSTING_ESTIMATING_REPORT_SUCCESS_MODAL), {
+                hideModal: dispatch(hideModal),
+            });
+        }
+        if (error && !prevProps.error) {
+            dispatch(hideModal());
+            dispatch(showModal(ERROR_MODAL, { message: error }));
+        }
+    }, [postSuccess, prevProps.postSuccess, prevProps.error, error]);
 
     const cAndEPostBody = {
         hierarchyID,
@@ -38,15 +56,9 @@ const CartReportButton = ({ formData }) => {
 
     const handleClick = () => {
         dispatch(createCostingAndEstimatingReport(cAndEPostBody));
-        dispatch(
-            showModal(GENERATE_COSTING_ESTIMATING_REPORT_MODAL, {
-                error,
-                hideModal: dispatch(hideModal()),
-                isPosting,
-                postSuccess,
-            }),
-        );
+        dispatch(showModal(GENERATE_COSTING_ESTIMATING_REPORT_MODAL));
     };
+
     return (
         <ActionButton
             text="Generate Report"
