@@ -4,12 +4,12 @@ import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 import { formatCurrency } from 'helpers/generic';
 import React from 'react';
 
-const CostingCartPrelimSummaryItem = ({ prelim }, showEditCustomPrelimModal) => {
-    const { name, markup, cost } = prelim;
+const CostingCartPrelimSummaryItem = ({ prelim, showEditCustomPrelimModal }) => {
+    const { prelimName, markup, cost } = prelim;
 
     return (
         <FlexWrapper direction="row" justify="between" align="center" width="12">
-            <span>{name}</span>
+            <span>{prelimName}</span>
             <FlexWrapper direction="row" justify="end" align="center" width="3">
                 <span>{cost ? `£${formatCurrency(cost)}` : `${markup}%`}</span>
                 <ActionMenu>
