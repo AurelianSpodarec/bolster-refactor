@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 import { batch, useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useForm } from 'helpers/hooks';
 import usePrevious from 'hooks/usePrevious';
 import useCurrentHierarchyID from './useCurrentHierarchyID';
@@ -33,17 +33,30 @@ import * as dummyData from '../dummyData';
 import { costingAndEstimatingType } from '../../../../constants/companyAdmin/enums';
 
 const useCostingAndEstimating = () => {
-    const costingCart = useSelector(selectCostingAndEstimatingCart);
+    const _costingCart = useSelector(selectCostingAndEstimatingCart);
     const mainData = useSelector(selectCostingAndEstimatingData);
     // const mainData = dummyData.dummyMain;
     // const costingCart = dummyData.dummyCart;
     const isFetchingMainData = useSelector(selectCostingAndEstimatingDataIsFetching);
     const isFetchingCart = useSelector(selectCostingAndEstimatingCartIsFetching);
     const fetchError = useSelector(selectCostingAndEstimatingFetchError);
+    const prevData = usePrevious({
+        _costingCart,
+        mainData,
+        isFetchingMainData,
+        isFetchingCart,
+        fetchError,
+    });
 
-    const { keyStatistics, graph, allSites } = mainData;
+    const { keyStatistics, graph, allSites } = useMemo(() => {
+        if (!isFetchingMainData && prevData.isFetchingMainData) return mainData;
+        else return prevData.mainData;
+    }, [isFetchingMainData, prevData]);
 
-    console.log({ mainData, costingCart });
+    const costingCart = useMemo(() => {
+        if (!isFetchingCart && prevData.isFetchingCart) return _costingCart;
+        else return prevData._costingCart;
+    }, [isFetchingCart, prevData]);
 
     const dispatch = useDispatch();
     const hierarchyID = useCurrentHierarchyID();
