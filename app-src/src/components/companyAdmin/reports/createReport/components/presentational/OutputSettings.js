@@ -45,48 +45,40 @@ const OutputSettings = ({
                     <div className="generic-form">
                         <div className="size-lg-6 size-md-12">
                             <Field name="Report formats">
-                                <FlexWrapper gap={15} wrap="wrap">
-                                    <FlexWrapper width={3}>
-                                        <OptionPod
-                                            checked={isPDFGeneration}
-                                            onChange={handleFilterChange}
-                                            name="isPDFGeneration"
-                                            svgIconComponent={PdfIcon}
-                                        />
-                                    </FlexWrapper>
+                                <FlexWrapper gap={15} wrap="wrap" extraClasses="option-wrapper">
+                                    <OptionPod
+                                        checked={isPDFGeneration}
+                                        onChange={handleFilterChange}
+                                        name="isPDFGeneration"
+                                        svgIconComponent={PdfIcon}
+                                    />
 
-                                    <FlexWrapper width={3}>
-                                        <OptionPod
-                                            checked={isCSVGeneration}
-                                            onChange={handleFilterChange}
-                                            name="isCSVGeneration"
-                                            svgIconComponent={CsvIcon}
-                                        />
-                                    </FlexWrapper>
+                                    <OptionPod
+                                        checked={isCSVGeneration}
+                                        onChange={handleFilterChange}
+                                        name="isCSVGeneration"
+                                        svgIconComponent={CsvIcon}
+                                    />
 
-                                    <FlexWrapper width={3}>
-                                        <OptionPod
-                                            checked={isFloorplanGeneration}
-                                            onChange={handleFilterChange}
-                                            name="isFloorplanGeneration"
-                                            svgIconComponent={FloorplanIcon}
-                                            pathStroke
-                                        />
-                                    </FlexWrapper>
+                                    <OptionPod
+                                        checked={isFloorplanGeneration}
+                                        onChange={handleFilterChange}
+                                        name="isFloorplanGeneration"
+                                        svgIconComponent={FloorplanIcon}
+                                        pathStroke
+                                    />
 
-                                    <FlexWrapper width={3}>
-                                        <OptionPod
-                                            checked={isOAndMManualGeneration}
-                                            onChange={(name, value) => {
-                                                handleFilterChange(name, value);
-                                                if (value) {
-                                                    handleShowOandMModal();
-                                                }
-                                            }}
-                                            name="isOAndMManualGeneration"
-                                            svgIconComponent={DocIcon}
-                                        />
-                                    </FlexWrapper>
+                                    <OptionPod
+                                        checked={isOAndMManualGeneration}
+                                        onChange={(name, value) => {
+                                            handleFilterChange(name, value);
+                                            if (value) {
+                                                handleShowOandMModal();
+                                            }
+                                        }}
+                                        name="isOAndMManualGeneration"
+                                        svgIconComponent={DocIcon}
+                                    />
                                 </FlexWrapper>
                             </Field>
                             {isPDFGeneration && (
