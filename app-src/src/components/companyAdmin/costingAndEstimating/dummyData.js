@@ -55,18 +55,24 @@ const dummyListSite = [
                                         total: 100,
                                         installations: [
                                             {
+                                                installationID: null,
+                                                installationIDs: [1, 2],
                                                 name: '### Installation 1 ###',
                                                 type: 'Collar',
                                                 measurement: '50mm',
                                                 cost: 200,
                                             },
                                             {
+                                                installationID: 3,
+                                                installationIDs: null,
                                                 name: '### Installation 2 ###',
                                                 type: 'Collar',
                                                 measurement: '50mm',
                                                 cost: 100,
                                             },
                                             {
+                                                installationID: 5,
+                                                installationIDs: null,
                                                 name: '### Installation 3 ###',
                                                 type: 'Collar',
                                                 measurement: '50mm',
