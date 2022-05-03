@@ -10,7 +10,7 @@ import linkPrelim from '../../../../actions/companyAdmin/costingAndEstimating/li
 import { selectPrelimsArr } from 'selectors/companyAdmin/prelims';
 
 import { PRELIMS_ENUM } from 'constants/companyAdmin/enums';
-import { convertArrToObj } from 'helpers/generic';
+import { convertArrToObj, formatCurrency } from 'helpers/generic';
 import { selectJWTData } from '../../../../selectors/shared/decodeJWT';
 import { hideModal } from '../../../../actions/shared/generic/modals/sync/hideModal';
 import { selectCostingAndEstimatingPrelimPostSuccess } from 'selectors/companyAdmin/costingAndEstimating';
@@ -30,7 +30,9 @@ const useAddExistingPrelim = () => {
             .filter(val => val)
             .map(({ name, id, type, value }) => ({
                 value: id,
-                text: `${name} - (${PRELIMS_ENUM[type] === 'Percent' ? value + '%' : '£' + value})`,
+                text: `${name} - (${
+                    PRELIMS_ENUM[type] === 'Percent' ? value + '%' : '£' + formatCurrency(value)
+                })`,
             }));
 
         return convertArrToObj(options, 'value');
