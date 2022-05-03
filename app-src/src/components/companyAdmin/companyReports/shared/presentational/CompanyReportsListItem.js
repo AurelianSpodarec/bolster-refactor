@@ -85,21 +85,18 @@ const CompanyReportsListItem = ({
                     //         <i className="fa fa-envelope" /> Report will be e-mailed
                     //     </button>
                     // ) :
-                    <button
-                        className="button red"
-                        onClick={() => retryCompanyReport(+queueItem.id)}
-                    >
+                    <button className="button red" onClick={() => retryCompanyReport(queueItem.id)}>
                         <i className="fa fa-times" /> Failed - Retry?
                     </button>
                 ) : isRetryAvailable ? (
-                    <button className="button" onClick={() => retryCompanyReport(+queueItem.id)}>
+                    <button className="button" onClick={() => retryCompanyReport(queueItem.id)}>
                         <LoadingIcon />
                         Generating... (retry?)
                     </button>
                 ) : queueItem.state === DELETED ? (
                     <button
                         className="button blue"
-                        onClick={() => retryCompanyReport(+queueItem.id)}
+                        onClick={() => retryCompanyReport(queueItem.id)}
                     >
                         <i className="fa fa-redo-alt"></i> Regenerate
                     </button>
