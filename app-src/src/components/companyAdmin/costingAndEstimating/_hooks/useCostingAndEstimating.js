@@ -29,7 +29,7 @@ import {
     isItemSelected,
     getDataKeyFromItem,
 } from '../_helpers/helpers';
-import * as dummyData from '../dummyData';
+// import * as dummyData from '../dummyData';
 import { costingAndEstimatingType } from '../../../../constants/companyAdmin/enums';
 
 const useCostingAndEstimating = () => {
@@ -78,7 +78,6 @@ const useCostingAndEstimating = () => {
         const addAllChildren = (item, selectedItems) => {
             const itemType = getItemType(item);
             const dataKey = getDataKeyFromItem(item);
-            console.log({ item, itemType, selectedItems });
             if (itemType !== 'sites') selectedItems[itemType].push(getSelectionKeyForItem(item));
             const children = item[dataKey] || [];
             if (children.length)
