@@ -3,6 +3,7 @@ import ActionButton from 'components/shared/generic/button/presentational/Action
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+    ERROR_MODAL,
     GENERATE_COSTING_ESTIMATING_REPORT_MODAL,
     GENERATE_COSTING_ESTIMATING_REPORT_SUCCESS_MODAL,
 } from 'constants/shared/modalTypes';
@@ -25,20 +26,25 @@ const CartReportButton = ({ formData }) => {
     const hierarchyID = useCurrentHierarchyID();
     const hierarchyType = useCurrentHierarchyType();
 
-    const isPosting = useSelector(selectCostingAndEstimatingIsPosting);
     const postSuccess = useSelector(selectCostingAndEstimatingPostSuccess);
-    const prevSuccess = usePrevious(postSuccess);
     const error = useSelector(selectCostingAndEstimatingPostError);
+    const prevProps = usePrevious({ postSuccess, error });
 
     const selectedTab = useSelector(selectHierarchySelectedTab);
     const selectedTabType = costingAndEstimatingType[selectedTab.toUpperCase()];
 
     useEffect(() => {
-        if (postSuccess && !prevSuccess) {
+        if (postSuccess && !prevProps.postSuccess) {
             dispatch(hideModal());
-            dispatch(showModal(GENERATE_COSTING_ESTIMATING_REPORT_SUCCESS_MODAL), {});
+            dispatch(showModal(GENERATE_COSTING_ESTIMATING_REPORT_SUCCESS_MODAL), {
+                hideModal: dispatch(hideModal),
+            });
         }
-    }, [postSuccess, prevSuccess]);
+        if (error && !prevProps.error) {
+            dispatch(hideModal());
+            dispatch(showModal(ERROR_MODAL, { message: error }));
+        }
+    }, [postSuccess, prevProps.postSuccess, prevProps.error, error]);
 
     const cAndEPostBody = {
         hierarchyID,
