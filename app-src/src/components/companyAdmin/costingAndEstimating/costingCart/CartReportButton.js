@@ -66,6 +66,7 @@ const CartReportButton = ({ formData }) => {
             text="Generate Costing Report"
             extraClasses="center cart-report-button"
             onClick={handleClick}
+            size="medium"
         />
     );
 };
