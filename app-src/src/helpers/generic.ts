@@ -188,8 +188,12 @@ export const capitaliseWords = (words: string) => words.split(' ').map(capitalis
 export const formatNumber = (num: number | string) => Number(num).toLocaleString('en-us');
 
 // for decimal .00
-export const formatCurrency = (num: number): string =>
-    num.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+export const formatCurrency = (num: number): string => {
+    if (!num) return '';
+    else {
+        return num.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+    }
+};
 
 const getOffsetValue = ({ offset }) => Number(offset.slice(4, 10).replace(':', '')) || 0;
 const sortByOffset = (a, b) => getOffsetValue(a) - getOffsetValue(b);

@@ -7,13 +7,12 @@ import useCurrentHierarchyType from './useCurrentHierarchyType';
 import fetchAllPrelims from 'actions/companyAdmin/prelims/async/fetchAllPrelims';
 import linkPrelim from '../../../../actions/companyAdmin/costingAndEstimating/linkPrelim';
 
-import { selectPrelimsArr } from 'selectors/companyAdmin/prelims';
+import { selectPrelimPostSuccess, selectPrelimsArr } from 'selectors/companyAdmin/prelims';
 
 import { PRELIMS_ENUM } from 'constants/companyAdmin/enums';
 import { convertArrToObj, formatCurrency } from 'helpers/generic';
 import { selectJWTData } from '../../../../selectors/shared/decodeJWT';
 import { hideModal } from '../../../../actions/shared/generic/modals/sync/hideModal';
-import { selectCostingAndEstimatingPostSuccess } from 'selectors/companyAdmin/costingAndEstimating';
 
 const useLinkPrelim = () => {
     const dispatch = useDispatch();
@@ -22,7 +21,7 @@ const useLinkPrelim = () => {
     const hierarchyType = useCurrentHierarchyType();
 
     const { companyID } = useSelector(selectJWTData);
-    const postSuccess = useSelector(selectCostingAndEstimatingPostSuccess);
+    const postSuccess = useSelector(selectPrelimPostSuccess);
     const prevPostSuccess = usePrevious(postSuccess);
 
     const formatArrForDropdown = arr => {

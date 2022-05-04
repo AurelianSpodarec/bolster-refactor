@@ -7,7 +7,7 @@ import {
     EDIT_LINK_PRELIM_FAILURE,
     EDIT_LINK_PRELIM_REQUEST,
     EDIT_LINK_PRELIM_SUCCESS,
-} from 'constants/actionTypes/costingAndEstimating';
+} from 'constants/actionTypes/prelims';
 
 export const editLinkPrelimRequest = () => ({
     type: EDIT_LINK_PRELIM_REQUEST,
