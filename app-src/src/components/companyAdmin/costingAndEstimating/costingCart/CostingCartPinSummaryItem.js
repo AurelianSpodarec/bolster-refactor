@@ -7,7 +7,7 @@ import useCostingCart from '../_hooks/useCostingCart';
 import CostingCartDrawingItem from './CostingCartDrawingItem';
 
 const CostingCartPinSummaryItem = ({ building }) => {
-    const [isExpanded, setIsExpanded] = useState(false);
+    const [isExpanded, setIsExpanded] = useState(true);
 
     const { buildingID, cost, floors } = building;
     const { specificBuilding } = useCostingCart(buildingID);

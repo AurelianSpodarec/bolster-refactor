@@ -1,28 +1,29 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
 import { usePrevious } from 'helpers/hooks';
 
 import showModal from 'actions/shared/generic/modals/sync/showModal';
-
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
+
 import {
-    selectCostingAndEstimatingPostError,
-    selectCostingAndEstimatingPostSuccess,
-} from 'selectors/companyAdmin/costingAndEstimating';
+    selectPrelimPostError,
+    selectPrelimPostSuccess,
+} from '../../../../selectors/companyAdmin/prelims';
+import deleteLinkPrelim from '../../../../actions/companyAdmin/costingAndEstimating/deletePrelimLink';
+
 import {
     LINK_PRELIM_MODAL,
     CREATE_COSTING_AND_ESTIMATING_PRELIM_MODAL,
     ERROR_MODAL,
     EDIT_LINK_PRELIM_MODAL,
-    DELETE_LINK_PRELIM_MODAL,
-    DELETE_COSTING_AND_ESTIMATING_PRELIM_MODAL,
 } from 'constants/shared/modalTypes';
+import { CONFIRM_DELETE } from 'constants/shared/modalTypes';
 
 const useCostingAndEstimatingPrelimsSetActions = () => {
     const dispatch = useDispatch();
-    const postError = useSelector(selectCostingAndEstimatingPostError);
-    const postSuccess = useSelector(selectCostingAndEstimatingPostSuccess);
+    const postError = useSelector(selectPrelimPostError);
+    const postSuccess = useSelector(selectPrelimPostSuccess);
+
     const prevProps = usePrevious({ postError, postSuccess });
 
     const showExistingPrelimModal = () => {
@@ -37,20 +38,29 @@ const useCostingAndEstimatingPrelimsSetActions = () => {
         dispatch(showModal(EDIT_LINK_PRELIM_MODAL, { prelim }));
     };
 
-    const showDeleteCustomPrelimModal = () => {
-        dispatch(showModal(DELETE_LINK_PRELIM_MODAL));
+    const showDeleteCustomPrelimModal = id => {
+        dispatch(
+            showModal(CONFIRM_DELETE, {
+                message: 'Are you sure you want to delete this prelim?',
+                handleDelete: () => dispatch(deleteLinkPrelim(id)),
+            }),
+        );
     };
 
     const showDeleteExistingPrelimModal = () => {
-        dispatch(showModal(DELETE_COSTING_AND_ESTIMATING_PRELIM_MODAL));
+        dispatch(showModal(CONFIRM_DELETE));
     };
 
     useEffect(() => {
-        if (postError && !prevProps.postError) dispatch(showModal(ERROR_MODAL));
+        if (postError && !prevProps.postError) {
+            dispatch(showModal(ERROR_MODAL));
+        }
     }, [postError, prevProps.postError]);
 
     useEffect(() => {
-        if (postSuccess && !prevProps.postSuccess) dispatch(hideModal());
+        if (postSuccess && !prevProps.postSuccess) {
+            dispatch(hideModal());
+        }
     }, [postSuccess, prevProps.postSuccess]);
 
     return {

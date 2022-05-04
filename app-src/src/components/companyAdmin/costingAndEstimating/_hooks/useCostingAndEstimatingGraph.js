@@ -47,7 +47,7 @@ const useCostingAndEstimatingGraph = graph => {
                     // pointHighlightFill: '#fff',
                     // pointHighlightStroke: '#ff6c23',
                     label: '',
-                    data: graph?.datasets?.[0].data || [],
+                    data: graph?.dataSets?.[0].data || [],
                 },
             ],
         };
@@ -93,7 +93,33 @@ const useCostingAndEstimatingGraph = graph => {
         legend: {
             display: false,
         },
-        tooltip: {}, // TODO
+        tooltip: {
+            // enabled: true,
+            // callbacks: {
+            //     title: function (tooltipItem, data) {
+            //         return data['labels'][tooltipItem[0]['index']];
+            //     },
+            //     label: function (tooltipItem, data) {
+            //         return data['datasets'][0]['data'][tooltipItem['index']];
+            //     },
+            //     afterLabel: function (tooltipItem, data) {
+            //         var dataset = data['datasets'][0];
+            //         var percent = Math.round(
+            //             (dataset['data'][tooltipItem['index']] / dataset['_meta'][0]['total']) *
+            //                 100,
+            //         );
+            //         return '(' + percent + '%)';
+            //     },
+            // },
+            // backgroundColor: '#FFF',
+            // titleFontSize: 16,
+            // titleFontColor: '#0066ff',
+            // bodyFontColor: '#000',
+            // bodyFontSize: 14,
+            // // displayColors: false,
+            // position: 'nearest',
+            // intersect: true,
+        },
     };
 
     return { data, options, graphRef };
