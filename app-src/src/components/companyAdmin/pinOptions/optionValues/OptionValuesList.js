@@ -66,14 +66,14 @@ const OptionValuesList = ({ forwardRef, hasFetched }) => {
                 />
 
                 <ButtonWrapper alignment="right">
-                    <ActionButton
+                    {/* <ActionButton
                         icon="filter"
                         iconOnly
                         source="secondary"
                         size="medium"
                         iconEqualSize
                         onClick={() => console.log('open filters')}
-                    />
+                    /> */}
 
                     {isCompanySet && (
                         <>

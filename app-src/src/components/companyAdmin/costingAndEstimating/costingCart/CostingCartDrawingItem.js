@@ -18,7 +18,7 @@ const CostingCartDrawingItem = ({ drawing }) => {
     return (
         <FlexWrapper direction="row" justify="between" align="center" extraClasses="sub-item">
             <span>{specificDrawing?.name}</span>
-            <span>{`£${!Number.isNaN(cost) ? formatCurrency(cost) : formatCurrency(0)}`}</span>
+            <span>{`£${!Number.isNaN(cost) ? formatCurrency(cost) : '0.00'}`}</span>
         </FlexWrapper>
     );
 };
