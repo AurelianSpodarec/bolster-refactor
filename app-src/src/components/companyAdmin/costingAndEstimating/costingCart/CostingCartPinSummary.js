@@ -25,7 +25,7 @@ const CostingCartPinSummary = ({ title, total, data = [] }) => {
                 <div className="divider" />
             </div>
             <div className="total">
-                <h3>{`£${total ? formatCurrency(total) : formatCurrency(0)}`}</h3>
+                <h3>{`£${total ? formatCurrency(total) : '0.00'}`}</h3>
             </div>
             <div className="divider" />
         </div>
