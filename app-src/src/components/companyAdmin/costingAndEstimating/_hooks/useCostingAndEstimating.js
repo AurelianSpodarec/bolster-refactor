@@ -30,6 +30,7 @@ import {
     getDataKeyFromItem,
 } from '../_helpers/helpers';
 import { costingAndEstimatingType } from '../../../../constants/companyAdmin/enums';
+import { selectPrelimPostSuccess } from '../../../../selectors/companyAdmin/prelims';
 
 const useCostingAndEstimating = () => {
     const _costingCart = useSelector(selectCostingAndEstimatingCart);
@@ -37,12 +38,15 @@ const useCostingAndEstimating = () => {
     const isFetchingMainData = useSelector(selectCostingAndEstimatingDataIsFetching);
     const isFetchingCart = useSelector(selectCostingAndEstimatingCartIsFetching);
     const fetchError = useSelector(selectCostingAndEstimatingFetchError);
+    const prelimPostSuccess = useSelector(selectPrelimPostSuccess);
+
     const prevData = usePrevious({
         _costingCart,
         mainData,
         isFetchingMainData,
         isFetchingCart,
         fetchError,
+        prelimPostSuccess,
     });
 
     const { keyStatistics, graph, allSites } = useMemo(() => {
@@ -251,6 +255,12 @@ const useCostingAndEstimating = () => {
             });
         }
     }, [formData, prevProps.formData, prevProps.selectedTabType, selectedTabType]); // Fetch all data on filter change
+
+    useEffect(() => {
+        if (prelimPostSuccess && !prevData.prelimPostSuccess) {
+            dispatch(fetchCostingAndEstimatingCart(cAndEPostBody));
+        }
+    }, [prelimPostSuccess, prevData.prelimPostSuccess]); // Re-fetch cart data on prelim post success
 
     return {
         costingCart,
