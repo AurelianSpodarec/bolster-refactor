@@ -283,8 +283,6 @@ import AdminCreateOptionSetModal from 'components/superAdmin/pinOptions/optionSe
 import AdminEditOptionSetModal from 'components/superAdmin/pinOptions/optionSets/modals/EditOptionSetModal';
 import EditSitePinOptionSetsModal from '../../../../companyAdmin/sites/editSitePinOptionSets/presentational/EditSitePinOptionSetsModal';
 import CreateCostingAndEstimatingPrelimModal from 'components/companyAdmin/costingAndEstimating/modals/CreateCostingAndEstimatingPrelimModal';
-import DeleteLinkPrelimModal from 'components/companyAdmin/costingAndEstimating/modals/DeleteLinkPrelimModal';
-import DeleteCostingAndEstimatingPrelimModal from 'components/companyAdmin/costingAndEstimating/modals/DeleteCostingAndEstimatingPrelimModal';
 import GenerateCostingEstimatingReportModal from '../presentational/GenerateCostingEstimatingReportModal';
 import GenerateCostingEstimatingReportSuccessModal from '../presentational/GenerateCostingEstimatingReportSuccessModal';
 import EditLinkPrelimModal from 'components/companyAdmin/costingAndEstimating/modals/EditLinkPrelimModal';
@@ -430,8 +428,6 @@ const MODAL_COMPONENTS = {
     [CREATE_COSTING_AND_ESTIMATING_PRELIM_MODAL]: CreateCostingAndEstimatingPrelimModal,
     [LINK_PRELIM_MODAL]: LinkPrelimModal,
     [EDIT_LINK_PRELIM_MODAL]: EditLinkPrelimModal,
-    [DELETE_COSTING_AND_ESTIMATING_PRELIM_MODAL]: DeleteCostingAndEstimatingPrelimModal,
-    [DELETE_LINK_PRELIM_MODAL]: DeleteLinkPrelimModal,
     [GENERATE_COSTING_ESTIMATING_REPORT_MODAL]: GenerateCostingEstimatingReportModal,
     [GENERATE_COSTING_ESTIMATING_REPORT_SUCCESS_MODAL]: GenerateCostingEstimatingReportSuccessModal,
 };

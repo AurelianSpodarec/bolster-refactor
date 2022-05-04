@@ -5,7 +5,7 @@ import {
     DELETE_COSTING_AND_ESTIMATING_PRELIM_FAILURE,
     DELETE_COSTING_AND_ESTIMATING_PRELIM_REQUEST,
     DELETE_COSTING_AND_ESTIMATING_PRELIM_SUCCESS,
-} from 'constants/actionTypes/costingAndEstimating';
+} from 'constants/actionTypes/prelims';
 import { getHeaders } from 'helpers/api';
 
 export const deleteCostingAndEstimatingPrelimRequest = () => ({
