@@ -52,9 +52,9 @@ const CostingAndEstimatingPod = ({ pod }) => {
                 <span>{dataToShow.subtitle}</span>
                 <p>{`${
                     valueIsCurrency
-                        ? `£${
+                        ? `${dataToShow?.valueCurrency < 0 ? '-' : ''}£${
                               !Number.isNaN(dataToShow?.valueCurrency)
-                                  ? formatCurrency(dataToShow?.valueCurrency)
+                                  ? formatCurrency(dataToShow?.valueCurrency, false)
                                   : ''
                           }`
                         : dataToShow.valueNumerical

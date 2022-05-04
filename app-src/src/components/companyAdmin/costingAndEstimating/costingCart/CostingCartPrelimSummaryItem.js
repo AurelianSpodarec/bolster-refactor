@@ -18,8 +18,8 @@ const CostingCartPrelimSummaryItem = ({ prelim }) => {
     return (
         <FlexWrapper direction="row" justify="between" align="center" width="12">
             <span>{prelimName}</span>
-            <FlexWrapper direction="row" justify="end" align="center" width="3">
-                <span>{`£${cost ? formatCurrency(cost) : '0.00'}`}</span>
+            <FlexWrapper direction="row" justify="end" align="center" width="4">
+                <span>{`${cost < 0 ? '-' : ''}£${formatCurrency(cost, false)}`}</span>
                 <ActionMenu>
                     {isCustom && (
                         <ActionMenuActionButton

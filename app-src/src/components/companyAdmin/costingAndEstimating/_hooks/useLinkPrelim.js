@@ -35,7 +35,9 @@ const useLinkPrelim = () => {
             .map(({ name, id, type, value }) => ({
                 value: id,
                 text: `${name} - (${
-                    PRELIMS_ENUM[type] === 'Percent' ? value + '%' : '£' + formatCurrency(value)
+                    PRELIMS_ENUM[type] === 'Percent'
+                        ? value + '%'
+                        : `${value < 0 ? '-' : ''}£` + formatCurrency(value, false)
                 })`,
             }));
 

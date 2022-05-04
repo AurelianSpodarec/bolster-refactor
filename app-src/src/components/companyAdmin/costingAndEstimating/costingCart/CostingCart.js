@@ -34,8 +34,8 @@ const CostingCart = ({ data, isFetching, fetchError, selectedTab, formData }) =>
 
                         <div className="grand-total">
                             <h3>Total exc VAT:</h3>
-                            <h1>{`£${
-                                data.cartTotal ? formatCurrency(data.cartTotal) : '0.00'
+                            <h1>{`${data.cartTotal < 0 ? '-' : ''}£${
+                                data.cartTotal ? formatCurrency(data.cartTotal, false) : '0.00'
                             }`}</h1>
                         </div>
 
