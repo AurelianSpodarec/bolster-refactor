@@ -89,6 +89,7 @@
 .costing-wrapper {
   grid-template-areas: "pods pods cart" "graph graph cart" "filters filters cart";
   grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 203.44px 473px 1fr;
   padding-top: 15px;
 
   h1 {
