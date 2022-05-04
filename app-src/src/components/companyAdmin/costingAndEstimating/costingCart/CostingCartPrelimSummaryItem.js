@@ -11,8 +11,6 @@ const CostingCartPrelimSummaryItem = ({ prelim }) => {
     const { showEditCustomPrelimModal, showDeletePrelimLinkModal } =
         useCostingAndEstimatingPrelimsSetActions();
 
-    console.log(prelim);
-
     const id = isCustom ? prelimID : linkID;
 
     return (
@@ -31,7 +29,7 @@ const CostingCartPrelimSummaryItem = ({ prelim }) => {
                     )}
 
                     <ActionMenuActionButton
-                        text="Delete"
+                        text="Remove"
                         onClick={() => showDeletePrelimLinkModal(id, prelimName)}
                         isNegative
                     />

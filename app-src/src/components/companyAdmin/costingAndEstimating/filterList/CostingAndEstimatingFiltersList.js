@@ -20,7 +20,7 @@ const tableHeaders = {
     floors: ['', 'Name', 'Cost'],
     drawings: ['', 'Name', 'Cost'],
     histories: ['', 'Pin Code', 'Date Created', 'Comment', 'Cost'],
-    installations: ['', 'Installation Name', 'Installation Type', 'Measurement', 'Cost'],
+    installations: ['', 'Question', 'Installation Type', 'Measurement', 'Cost'],
 };
 
 const FilterList = ({

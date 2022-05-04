@@ -22,7 +22,7 @@ import { measurementDropdownOptions } from '../../../../../constants/shared/drop
 
 const EditOptionValueModal = ({ option }) => {
     const pinOptionType = useSelector(state => selectPinOptionType(state, option.pinOptionTypeID));
-    const [showJustToCheckModal, setShowJustToCheckModal] = useState(true);
+    const [showJustToCheckModal, setShowJustToCheckModal] = useState(false);
     const canEditMeasurement = option.costMeasurementType === null;
 
     const {

@@ -46,6 +46,7 @@ const useEditOptionValue = option => {
             };
         });
 
+        priceBreaks.sort((a, b) => a.value - b.value);
         priceBreaks.push(emptyPriceBreak);
 
         return priceBreaks;

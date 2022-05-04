@@ -8,16 +8,16 @@ import { convertEnumToDropdownOptions } from '../../../../helpers/generic';
 import { PRELIMS_ENUM } from '../../../../constants/companyAdmin/enums';
 import createCostingAndEstimatingPrelim from 'actions/companyAdmin/costingAndEstimating/createCostingAndEstimatingPrelim';
 import { useEffect } from 'react';
-import {
-    selectCostingAndEstimatingIsPosting,
-    selectCostingAndEstimatingPostError,
-    selectCostingAndEstimatingPostSuccess,
-} from 'selectors/companyAdmin/costingAndEstimating';
+
 import usePrevious from 'hooks/usePrevious';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import { ERROR_MODAL } from 'constants/shared/modalTypes';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
-import { selectPrelimPostSuccess } from '../../../../selectors/companyAdmin/prelims';
+import {
+    selectPrelimIsPosting,
+    selectPrelimPostError,
+    selectPrelimPostSuccess,
+} from '../../../../selectors/companyAdmin/prelims';
 
 const useCreateCostingAndEstimatingPrelim = () => {
     const dispatch = useDispatch();
@@ -25,8 +25,8 @@ const useCreateCostingAndEstimatingPrelim = () => {
     const hierarchyID = useCurrentHierarchyID();
     const hierarchyType = useCurrentHierarchyType();
 
-    const isPosting = useSelector(selectCostingAndEstimatingIsPosting);
-    const postError = useSelector(selectCostingAndEstimatingPostError);
+    const isPosting = useSelector(selectPrelimIsPosting);
+    const postError = useSelector(selectPrelimPostError);
     const postSuccess = useSelector(selectPrelimPostSuccess);
     const prevProps = usePrevious({ postError, postSuccess });
 
