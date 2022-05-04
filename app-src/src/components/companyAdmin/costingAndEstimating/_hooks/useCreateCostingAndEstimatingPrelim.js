@@ -19,7 +19,7 @@ import { ERROR_MODAL } from 'constants/shared/modalTypes';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 import { selectPrelimPostSuccess } from '../../../../selectors/companyAdmin/prelims';
 
-const useCreateCostingAndEstimatingPrelim = () => {
+const useCreateCostingAndEstimatingPrelim = cAndEPostBody => {
     const dispatch = useDispatch();
     const prelimsOptions = convertEnumToDropdownOptions(PRELIMS_ENUM);
     const hierarchyID = useCurrentHierarchyID();
