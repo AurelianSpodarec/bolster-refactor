@@ -4,7 +4,7 @@ import {
     CREATE_COSTING_AND_ESTIMATING_PRELIM_REQUEST,
     CREATE_COSTING_AND_ESTIMATING_PRELIM_SUCCESS,
     CREATE_COSTING_AND_ESTIMATING_PRELIM_FAILURE,
-} from 'constants/actionTypes/costingAndEstimating';
+} from 'constants/actionTypes/prelims';
 import { API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
 

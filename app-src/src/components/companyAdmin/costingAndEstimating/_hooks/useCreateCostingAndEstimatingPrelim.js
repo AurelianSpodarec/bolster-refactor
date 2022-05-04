@@ -17,6 +17,7 @@ import usePrevious from 'hooks/usePrevious';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import { ERROR_MODAL } from 'constants/shared/modalTypes';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
+import { selectPrelimPostSuccess } from '../../../../selectors/companyAdmin/prelims';
 
 const useCreateCostingAndEstimatingPrelim = () => {
     const dispatch = useDispatch();
@@ -26,7 +27,7 @@ const useCreateCostingAndEstimatingPrelim = () => {
 
     const isPosting = useSelector(selectCostingAndEstimatingIsPosting);
     const postError = useSelector(selectCostingAndEstimatingPostError);
-    const postSuccess = useSelector(selectCostingAndEstimatingPostSuccess);
+    const postSuccess = useSelector(selectPrelimPostSuccess);
     const prevProps = usePrevious({ postError, postSuccess });
 
     const [form, handleChange] = useForm({

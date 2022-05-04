@@ -4,7 +4,7 @@ import {
     LINK_PRELIM_REQUEST,
     LINK_PRELIM_SUCCESS,
     LINK_PRELIM_FAILURE,
-} from 'constants/actionTypes/costingAndEstimating';
+} from 'constants/actionTypes/prelims';
 
 import { API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
