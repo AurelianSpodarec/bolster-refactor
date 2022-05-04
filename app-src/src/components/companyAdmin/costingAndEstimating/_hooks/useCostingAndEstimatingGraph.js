@@ -1,3 +1,4 @@
+import { formatCurrency } from 'helpers/generic';
 import useColourTheme from 'hooks/useColourTheme';
 import { useEffect, useRef, useState } from 'react';
 
@@ -42,6 +43,7 @@ const useCostingAndEstimatingGraph = graph => {
                     borderColor: '#0047FF',
                     borderWidth: 4,
                     pointRadius: 0,
+                    hitRadius: 500,
                     // pointColor: '#fff',
                     // pointStrokeColor: '#ff6c23',
                     // pointHighlightFill: '#fff',
@@ -69,7 +71,7 @@ const useCostingAndEstimatingGraph = graph => {
                         tickMarkLength: false,
                     },
                     ticks: {
-                        // display: false,
+                        display: false,
                         beginAtZero: true,
                     },
                 },
@@ -84,7 +86,7 @@ const useCostingAndEstimatingGraph = graph => {
                         tickMarkLength: false,
                     },
                     ticks: {
-                        // display: false,
+                        display: false,
                         beginAtZero: true,
                     },
                 },
@@ -93,32 +95,20 @@ const useCostingAndEstimatingGraph = graph => {
         legend: {
             display: false,
         },
-        tooltip: {
-            // enabled: true,
-            // callbacks: {
-            //     title: function (tooltipItem, data) {
-            //         return data['labels'][tooltipItem[0]['index']];
-            //     },
-            //     label: function (tooltipItem, data) {
-            //         return data['datasets'][0]['data'][tooltipItem['index']];
-            //     },
-            //     afterLabel: function (tooltipItem, data) {
-            //         var dataset = data['datasets'][0];
-            //         var percent = Math.round(
-            //             (dataset['data'][tooltipItem['index']] / dataset['_meta'][0]['total']) *
-            //                 100,
-            //         );
-            //         return '(' + percent + '%)';
-            //     },
-            // },
-            // backgroundColor: '#FFF',
-            // titleFontSize: 16,
-            // titleFontColor: '#0066ff',
-            // bodyFontColor: '#000',
-            // bodyFontSize: 14,
-            // // displayColors: false,
-            // position: 'nearest',
-            // intersect: true,
+        tooltips: {
+            backgroundColor: '#FAFAFA',
+            borderColor: '#222222',
+            borderWidth: 2,
+            titleFontColor: 'black',
+            titleFontStyle: 'normal',
+            displayColors: false,
+            bodyFontColor: 'black',
+            callbacks: {
+                label: tooltipItem => {
+                    const { yLabel } = tooltipItem;
+                    return `£${yLabel > 0 ? formatCurrency(yLabel) : '0.00'}`;
+                },
+            },
         },
     };
 
