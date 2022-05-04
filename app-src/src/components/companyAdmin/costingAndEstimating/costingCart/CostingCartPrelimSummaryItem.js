@@ -11,13 +11,15 @@ const CostingCartPrelimSummaryItem = ({ prelim }) => {
     const { showEditCustomPrelimModal, showDeletePrelimLinkModal } =
         useCostingAndEstimatingPrelimsSetActions();
 
+    console.log(prelim);
+
     const id = isCustom ? prelimID : linkID;
 
     return (
         <FlexWrapper direction="row" justify="between" align="center" width="12">
             <span>{prelimName}</span>
             <FlexWrapper direction="row" justify="end" align="center" width="3">
-                <span>{`£${formatCurrency(cost)}`}</span>
+                <span>{`£${cost ? formatCurrency(cost) : '0.00'}`}</span>
                 <ActionMenu>
                     {isCustom && (
                         <ActionMenuActionButton
