@@ -31,7 +31,7 @@ const CostingCartPrelimSummaryItem = ({ prelim }) => {
                     )}
 
                     <ActionMenuActionButton
-                        text="Delete"
+                        text="Remove"
                         onClick={() => showDeletePrelimLinkModal(id, prelimName)}
                         isNegative
                     />
