@@ -9,7 +9,7 @@ import {
     selectPrelimPostError,
     selectPrelimPostSuccess,
 } from '../../../../selectors/companyAdmin/prelims';
-import deleteLinkPrelim from '../../../../actions/companyAdmin/costingAndEstimating/deleteLinkPrelim';
+import deleteLinkPrelim from '../../../../actions/companyAdmin/costingAndEstimating/deletePrelimLink';
 
 import {
     LINK_PRELIM_MODAL,
