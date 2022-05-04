@@ -9,7 +9,6 @@ import CostingCartPinSummary from './CostingCartPinSummary';
 import CostingCartPrelimSummary from './CostingCartPrelimSummary';
 
 const CostingCart = ({ data, isFetching, fetchError, selectedTab, formData }) => {
-    // const { buildingCosts, prePrelimCost, prelimIDs, customPrelims, prelimTotal, cartTotal } = data;
     const selectedTabType = costingAndEstimatingType[selectedTab.toUpperCase()];
     const title = `${
         selectedTabType === costingAndEstimatingType.COSTING ? 'Costing' : 'Estimating'
@@ -31,7 +30,6 @@ const CostingCart = ({ data, isFetching, fetchError, selectedTab, formData }) =>
                             title="Prelims"
                             total={data.prelimTotal}
                             prelims={data.prelims}
-                            customPrelims={data.customPrelims}
                         />
 
                         <div className="grand-total">

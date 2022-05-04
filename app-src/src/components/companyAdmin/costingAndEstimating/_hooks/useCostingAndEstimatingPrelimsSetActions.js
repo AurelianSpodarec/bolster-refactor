@@ -11,7 +11,7 @@ import {
     selectCostingAndEstimatingPostSuccess,
 } from 'selectors/companyAdmin/costingAndEstimating';
 import {
-    ADD_LINK_PRELIM_MODAL,
+    LINK_PRELIM_MODAL,
     CREATE_COSTING_AND_ESTIMATING_PRELIM_MODAL,
     ERROR_MODAL,
     EDIT_LINK_PRELIM_MODAL,
@@ -26,15 +26,15 @@ const useCostingAndEstimatingPrelimsSetActions = () => {
     const prevProps = usePrevious({ postError, postSuccess });
 
     const showExistingPrelimModal = () => {
-        dispatch(showModal(ADD_LINK_PRELIM_MODAL));
+        dispatch(showModal(LINK_PRELIM_MODAL));
     };
 
     const showAddCustomPrelimModal = () => {
         dispatch(showModal(CREATE_COSTING_AND_ESTIMATING_PRELIM_MODAL));
     };
 
-    const showEditCustomPrelimModal = () => {
-        dispatch(showModal(EDIT_LINK_PRELIM_MODAL));
+    const showEditCustomPrelimModal = prelim => {
+        dispatch(showModal(EDIT_LINK_PRELIM_MODAL, { prelim }));
     };
 
     const showDeleteCustomPrelimModal = () => {

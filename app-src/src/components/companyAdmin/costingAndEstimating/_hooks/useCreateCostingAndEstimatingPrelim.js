@@ -52,10 +52,14 @@ const useCreateCostingAndEstimatingPrelim = () => {
     }, [postError, prevProps.postError]);
 
     useEffect(() => {
-        if (postSuccess && !prevProps.postSuccess) dispatch(hideModal());
+        if (postSuccess && !prevProps.postSuccess) closeModal();
     }, [postSuccess, prevProps.postSuccess]);
 
-    return { form, handleChange, handleSubmit, isPosting, prelimsOptions };
+    const closeModal = () => {
+        dispatch(hideModal());
+    };
+
+    return { form, handleChange, handleSubmit, isPosting, prelimsOptions, closeModal };
 };
 
 export default useCreateCostingAndEstimatingPrelim;

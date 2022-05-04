@@ -14,7 +14,7 @@ import showModal from 'actions/shared/generic/modals/sync/showModal';
 import { ERROR_MODAL } from 'constants/shared/modalTypes';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 
-const useEditCostingAndEstimatingPrelim = prelim => {
+const useEditCostingAndEstimatingPrelim = ({ prelim }) => {
     const dispatch = useDispatch();
     const isPosting = useSelector(selectCostingAndEstimatingIsPosting);
     const postError = useSelector(selectCostingAndEstimatingPostError);
@@ -23,9 +23,9 @@ const useEditCostingAndEstimatingPrelim = prelim => {
     const prelimsOptions = convertEnumToDropdownOptions(PRELIMS_ENUM);
 
     const [form, handleChange] = useForm({
-        name: prelim?.name,
+        name: prelim?.prelimName,
         type: prelim?.type,
-        value: prelim?.value,
+        value: prelim?.cost,
     });
 
     const handleSubmit = () => {

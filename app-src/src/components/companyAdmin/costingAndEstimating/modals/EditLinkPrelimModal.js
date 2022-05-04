@@ -11,13 +11,13 @@ import ModalOuterContainer from 'components/shared/generic/modals/containers/Mod
 import ModalHeading from 'components/shared/generic/modals/presentational/ModalHeading';
 import useEditCostingAndEstimatingPrelim from '../_hooks/useEditCostingAndEstimatingPrelim';
 
-const EditCostingAndEstimatingPrelimModal = () => {
+const EditLinkPrelimModal = prelim => {
     const { form, handleChange, handleSubmit, isPosting, prelimsOptions } =
-        useEditCostingAndEstimatingPrelim();
-
+        useEditCostingAndEstimatingPrelim(prelim);
+    console.log(form);
     return (
         <ModalOuterContainer hideCloseButton>
-            <ModalHeading title={`Edit ${form.name}`} />
+            <ModalHeading title={`Edit ${form.prelimName}`} />
 
             <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
                 <Field name="Name" required>
@@ -43,7 +43,7 @@ const EditCostingAndEstimatingPrelimModal = () => {
 
                 <Field name="Amount" required>
                     <TextInputContainer
-                        name="value"
+                        name="cost"
                         value={form.value}
                         handleChange={handleChange}
                         placeholder="Type amount"
@@ -69,4 +69,4 @@ const EditCostingAndEstimatingPrelimModal = () => {
     );
 };
 
-export default EditCostingAndEstimatingPrelimModal;
+export default EditLinkPrelimModal;

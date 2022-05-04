@@ -10,6 +10,10 @@ export const selectCostingAndEstimatingCart = state =>
     state.companyAdmin.costingAndEstimatingReducer.costingAndEstimatingCart;
 
 // prelims
+export const selectPrelimsArr = state =>
+    Object.values(state.companyAdmin.costingAndEstimatingReducer.costingAndEstimatingPrelims || {});
+export const selectSinglePrelim = (state, id) =>
+    state.companyAdmin.costingAndEstimatingReducer.costingAndEstimatingPrelims[id];
 
 export const selectCostingAndEstimatingIsPosting = state =>
     state.companyAdmin.costingAndEstimatingReducer.isPosting;
