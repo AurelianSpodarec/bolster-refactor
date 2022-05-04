@@ -9,7 +9,7 @@ import ButtonWrapper from 'components/shared/generic/button/presentational/Butto
 import useCostingAndEstimatingPrelimsSetActions from '../_hooks/useCostingAndEstimatingPrelimsSetActions';
 
 const CostingCartPrelimSummary = ({ title, total, prelims = [] }) => {
-    const [isExpanded, setIsExpanded] = useState(false);
+    const [isExpanded, setIsExpanded] = useState(true);
 
     const { showExistingPrelimModal, showAddCustomPrelimModal } =
         useCostingAndEstimatingPrelimsSetActions();
