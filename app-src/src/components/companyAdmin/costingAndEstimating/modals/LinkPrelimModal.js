@@ -39,7 +39,7 @@ const LinkPrelimModal = () => {
                             size="small"
                         />
                         <ActionButton
-                            text="Confirm"
+                            text="Save"
                             icon={isPosting ? 'spinner' : 'save'}
                             iconSpin={isPosting}
                             size="small"

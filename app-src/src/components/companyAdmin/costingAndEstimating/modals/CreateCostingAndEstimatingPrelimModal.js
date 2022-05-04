@@ -13,7 +13,7 @@ import ActionButton from 'components/shared/generic/button/presentational/Action
 import useCreateCostingAndEstimatingPrelim from '../_hooks/useCreateCostingAndEstimatingPrelim';
 
 const CreateCostingAndEstimatingPrelimModal = () => {
-    const { form, handleChange, handleSubmit, isPosting, prelimsOptions } =
+    const { form, handleChange, handleSubmit, isPosting, prelimsOptions, closeModal } =
         useCreateCostingAndEstimatingPrelim();
     return (
         <ModalOuterContainer hideCloseButton>
@@ -55,10 +55,16 @@ const CreateCostingAndEstimatingPrelimModal = () => {
                 <BlockButtonWrapper>
                     <ButtonWrapper alignment="right">
                         <ActionButton
+                            text="Cancel"
+                            onClick={closeModal}
+                            source="secondary"
+                            size="small"
+                        />
+                        <ActionButton
                             text="Save"
                             icon={isPosting ? 'spinner' : 'save'}
                             iconSpin={isPosting}
-                            size="medium"
+                            size="small"
                             disabled={isPosting}
                             type="submit"
                         />
