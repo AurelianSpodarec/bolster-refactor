@@ -106,7 +106,9 @@ const useCostingAndEstimatingGraph = graph => {
             callbacks: {
                 label: tooltipItem => {
                     const { yLabel } = tooltipItem;
-                    return `£${yLabel > 0 ? formatCurrency(yLabel) : '0.00'}`;
+                    return `${yLabel < 0 ? '-' : ''}£${
+                        yLabel > 0 ? formatCurrency(yLabel, false) : '0.00'
+                    }`;
                 },
             },
         },

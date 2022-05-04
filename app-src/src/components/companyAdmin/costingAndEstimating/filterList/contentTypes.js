@@ -22,7 +22,9 @@ export const TopLevel = ({ item, isSelected, handleToggleAllItems }) => {
             <div className="table-cell">
                 <h4>
                     {!Number.isNaN(item.total)
-                        ? `£${item.total > 0 ? formatCurrency(item.total) : '0.00'}`
+                        ? `${item.total < 0 ? '-' : ''}£${
+                              item.total > 0 ? formatCurrency(item.total, false) : '0.00'
+                          }`
                         : ''}
                 </h4>
             </div>
@@ -44,7 +46,9 @@ export const Building = ({ item, isSelected, handleToggleItem, isExpanded, setIs
             />
             <div className="table-cell">{`${building?.name || '...'}`}</div>
             <div className="table-cell">
-                {!Number.isNaN(item.totalCost) ? `£${formatCurrency(item.totalCost)}` : ''}
+                {!Number.isNaN(item.totalCost)
+                    ? `${item.totalCost < 0 ? '-' : ''}£${formatCurrency(item.totalCost, false)}`
+                    : ''}
             </div>
         </>
     );
@@ -62,7 +66,9 @@ export const Floor = ({ item, isSelected, handleToggleItem, isExpanded, setIsExp
             />
             <div className="table-cell">{`${floor?.name || '...'}`}</div>
             <div className="table-cell">
-                {!Number.isNaN(item.totalCost) ? `£${formatCurrency(item.totalCost)}` : ''}
+                {!Number.isNaN(item.totalCost)
+                    ? `${item.totalCost < 0 ? '-' : ''}£${formatCurrency(item.totalCost, false)}`
+                    : ''}
             </div>
         </>
     );
@@ -80,7 +86,9 @@ export const Drawing = ({ item, isSelected, handleToggleItem, isExpanded, setIsE
             />
             <div className="table-cell">{`${drawing?.name || '...'}`}</div>
             <div className="table-cell">
-                {!Number.isNaN(item.totalCost) ? `£${formatCurrency(item.totalCost)}` : ''}
+                {!Number.isNaN(item.totalCost)
+                    ? `${item.totalCost < 0 ? '-' : ''}£${formatCurrency(item.totalCost, false)}`
+                    : ''}
             </div>
         </>
     );
@@ -102,7 +110,9 @@ export const History = ({ item, isSelected, handleToggleItem, isExpanded, setIsE
             </div>
             <div className="table-cell">{`${typeof comment === 'string' ? comment : '...'}`}</div>
             <div className="table-cell">
-                {!Number.isNaN(item.totalCost) ? `£${formatCurrency(item.totalCost)}` : ''}
+                {!Number.isNaN(item.totalCost)
+                    ? `${item.totalCost < 0 ? '-' : ''}£${formatCurrency(item.totalCost, false)}`
+                    : ''}
             </div>
         </>
     );
@@ -122,7 +132,9 @@ export const Installation = ({ item, isSelected, handleToggleItem, isExpanded, s
             <div className="table-cell">{`${item.type || '...'}`}</div>
             <div className="table-cell">{`${item.measurement || '...'}`}</div>
             <div className="table-cell">
-                {!Number.isNaN(item.cost) ? `£${formatCurrency(item.cost)}` : ''}
+                {!Number.isNaN(item.cost)
+                    ? `${item.cost < 0 ? '-' : ''}£${formatCurrency(item.cost, false)}`
+                    : ''}
             </div>
         </>
     );
