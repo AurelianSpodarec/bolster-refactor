@@ -26,7 +26,7 @@ export default id => dispatch => {
     dispatch(deletePrelimLinkRequest());
 
     return axios
-        .delete(`${API_URL}/prelims/${id}`, getHeaders())
+        .post(`${API_URL}/CostingAndEstimating/DeletePrelimLink/${id}`, {}, getHeaders())
         .then(() => dispatch(deletePrelimLinkSuccess(id)))
         .catch(error => dispatch(deletePrelimLinkFailure(error)));
 };

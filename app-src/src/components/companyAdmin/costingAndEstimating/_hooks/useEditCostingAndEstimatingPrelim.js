@@ -28,8 +28,13 @@ const useEditCostingAndEstimatingPrelim = ({ prelim }) => {
         value: prelim?.cost,
     });
 
+    const postBody = {
+        id: prelim?.prelimID,
+        ...form,
+    };
+
     const handleSubmit = () => {
-        dispatch(editLinkPrelim(prelim.id, form));
+        dispatch(editLinkPrelim(postBody));
     };
 
     useEffect(() => {

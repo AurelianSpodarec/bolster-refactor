@@ -7,9 +7,11 @@ import { formatCurrency } from 'helpers/generic';
 import useCostingAndEstimatingPrelimsSetActions from '../_hooks/useCostingAndEstimatingPrelimsSetActions';
 
 const CostingCartPrelimSummaryItem = ({ prelim }) => {
-    const { linkID, prelimName, cost, type, isCustom } = prelim;
-    const { showEditCustomPrelimModal, showDeleteCustomPrelimModal } =
+    const { prelimID, linkID, prelimName, cost, type, isCustom } = prelim;
+    const { showEditCustomPrelimModal, showDeletePrelimLinkModal } =
         useCostingAndEstimatingPrelimsSetActions();
+
+    const id = isCustom ? prelimID : linkID;
 
     return (
         <FlexWrapper direction="row" justify="between" align="center" width="12">
@@ -28,7 +30,7 @@ const CostingCartPrelimSummaryItem = ({ prelim }) => {
 
                     <ActionMenuActionButton
                         text="Delete"
-                        onClick={() => showDeleteCustomPrelimModal(linkID)}
+                        onClick={() => showDeletePrelimLinkModal(id, prelimName)}
                         isNegative
                     />
                 </ActionMenu>
