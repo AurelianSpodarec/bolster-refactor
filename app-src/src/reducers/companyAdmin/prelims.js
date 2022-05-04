@@ -105,7 +105,10 @@ function postSuccessReducer(state = false, action) {
         case EDIT_LINK_PRELIM_FAILURE:
         case CREATE_COSTING_AND_ESTIMATING_PRELIM_REQUEST:
         case DELETE_PRELIM_REQUEST:
+        case DELETE_PRELIM_FAILURE:
+        case DELETE_COSTING_AND_ESTIMATING_PRELIM_REQUEST:
         case DELETE_COSTING_AND_ESTIMATING_PRELIM_FAILURE:
+        case DELETE_LINK_PRELIM_REQUEST:
         case DELETE_LINK_PRELIM_FAILURE:
             return false;
         case CREATE_PRELIM_SUCCESS:
