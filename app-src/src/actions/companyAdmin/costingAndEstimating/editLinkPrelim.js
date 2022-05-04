@@ -23,7 +23,7 @@ export const editLinkPrelimFailure = error => ({
     error,
 });
 
-export default (id, postBody) => dispatch => {
+export default postBody => dispatch => {
     dispatch(editLinkPrelimRequest());
 
     axios

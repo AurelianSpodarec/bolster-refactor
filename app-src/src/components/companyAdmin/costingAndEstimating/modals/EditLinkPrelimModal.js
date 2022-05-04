@@ -14,10 +14,10 @@ import useEditCostingAndEstimatingPrelim from '../_hooks/useEditCostingAndEstima
 const EditLinkPrelimModal = prelim => {
     const { form, handleChange, handleSubmit, isPosting, prelimsOptions } =
         useEditCostingAndEstimatingPrelim(prelim);
-    console.log(form);
+
     return (
         <ModalOuterContainer hideCloseButton>
-            <ModalHeading title={`Edit ${form.prelimName}`} />
+            <ModalHeading title={`Edit ${form.name}`} />
 
             <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
                 <Field name="Name" required>
@@ -43,7 +43,7 @@ const EditLinkPrelimModal = prelim => {
 
                 <Field name="Amount" required>
                     <TextInputContainer
-                        name="cost"
+                        name="value"
                         value={form.value}
                         handleChange={handleChange}
                         placeholder="Type amount"

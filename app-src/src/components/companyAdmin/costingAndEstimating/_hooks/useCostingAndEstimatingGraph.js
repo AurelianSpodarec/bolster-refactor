@@ -1,3 +1,4 @@
+import { formatCurrency } from 'helpers/generic';
 import useColourTheme from 'hooks/useColourTheme';
 import { useEffect, useRef, useState } from 'react';
 
@@ -42,12 +43,13 @@ const useCostingAndEstimatingGraph = graph => {
                     borderColor: '#0047FF',
                     borderWidth: 4,
                     pointRadius: 0,
+                    hitRadius: 500,
                     // pointColor: '#fff',
                     // pointStrokeColor: '#ff6c23',
                     // pointHighlightFill: '#fff',
                     // pointHighlightStroke: '#ff6c23',
                     label: '',
-                    data: graph?.datasets?.[0].data || [],
+                    data: graph?.dataSets?.[0].data || [],
                 },
             ],
         };
@@ -69,7 +71,7 @@ const useCostingAndEstimatingGraph = graph => {
                         tickMarkLength: false,
                     },
                     ticks: {
-                        // display: false,
+                        display: false,
                         beginAtZero: true,
                     },
                 },
@@ -84,7 +86,7 @@ const useCostingAndEstimatingGraph = graph => {
                         tickMarkLength: false,
                     },
                     ticks: {
-                        // display: false,
+                        display: false,
                         beginAtZero: true,
                     },
                 },
@@ -93,7 +95,21 @@ const useCostingAndEstimatingGraph = graph => {
         legend: {
             display: false,
         },
-        tooltip: {}, // TODO
+        tooltips: {
+            backgroundColor: '#FAFAFA',
+            borderColor: '#222222',
+            borderWidth: 2,
+            titleFontColor: 'black',
+            titleFontStyle: 'normal',
+            displayColors: false,
+            bodyFontColor: 'black',
+            callbacks: {
+                label: tooltipItem => {
+                    const { yLabel } = tooltipItem;
+                    return `£${yLabel > 0 ? formatCurrency(yLabel) : '0.00'}`;
+                },
+            },
+        },
     };
 
     return { data, options, graphRef };
