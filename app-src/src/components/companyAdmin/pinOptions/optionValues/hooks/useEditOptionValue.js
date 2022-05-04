@@ -46,6 +46,7 @@ const useEditOptionValue = option => {
             };
         });
 
+        priceBreaks.sort((a, b) => a.value - b.value);
         priceBreaks.push(emptyPriceBreak);
 
         return priceBreaks;
@@ -116,12 +117,25 @@ const useEditOptionValue = option => {
         };
 
         if (pinOptionType.hasCosting) {
-            const anyIncompletePriceBreaks = measurementPriceBreaks.some(
-                ({ value, cost }) => (value && !cost) || (!value && cost),
-            );
+            const anyIncompletePriceBreaks = measurementPriceBreaks.some(priceBreak => {
+                const { value, cost } = priceBreak;
+                return (value && !cost) || (!value && cost);
+            });
+
+            const anyZeroOrNegativePriceBreaks = measurementPriceBreaks.some(priceBreak => {
+                const { value, cost } = priceBreak;
+
+                if (!value || !cost) return false;
+                return value <= 0 || cost <= 0;
+            });
 
             if (anyIncompletePriceBreaks) {
                 setError('There are incomplete measurements, please ensure these are complete.');
+                return;
+            }
+
+            if (anyZeroOrNegativePriceBreaks) {
+                setError('Please ensure all measurement values and costs are greater than 0.');
                 return;
             }
 
