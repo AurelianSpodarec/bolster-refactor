@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { ADMIN_API_URL, API_URL } from 'config';
+import { ADMIN_API_URL } from 'config';
 import { getHeaders, handleErrors } from 'helpers/api';
 import {
     CREATE_ADMIN_PIN_OPTION_SET_REQUEST,

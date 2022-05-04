@@ -1,6 +1,5 @@
 import React from 'react';
 import { toTitleCase } from 'helpers/generic';
-import InfoIcon from '../../../../../_content/images/icons/info-icon.svg';
 
 const Field = ({
     children,

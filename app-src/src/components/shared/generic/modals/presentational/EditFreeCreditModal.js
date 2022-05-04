@@ -1,12 +1,10 @@
 import React from 'react';
-import BlockButtonWrapper from '../../blockButtonWrappers/presentational/BlockButtonWrapper';
 import BlockHeading from '../../blockHeading/presentational/BlockHeading';
 import CheckboxContainer from '../../form/containers/CheckboxContainer';
 import Form from '../../form/containers/Form';
 import Field from '../../form/presentational/Field';
 
 import ModalOuterContainer from '../containers/ModalOuterContainer';
-import TextInputContainer from '../../form/containers/TextInputContainer';
 import ButtonWrapper from '../../button/presentational/ButtonWrapper';
 import ActionButton from '../../button/presentational/ActionButton';
 

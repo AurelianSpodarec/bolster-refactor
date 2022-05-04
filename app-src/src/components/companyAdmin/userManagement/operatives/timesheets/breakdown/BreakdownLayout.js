@@ -1,16 +1,9 @@
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import React, { useEffect } from 'react';
 import BreakdownTabs from './BreakdownTabs';
 import useSelectedTab from './hooks/useSelectedTab';
 
-const BreakdownLayout = ({
-    title = '',
-    tabs = [],
-    isLoading = false,
-    error = null,
-    noData = false,
-}) => {
+const BreakdownLayout = ({ tabs = [], isLoading = false, error = null, noData = false }) => {
     const { selectedTab, onTabChange } = useSelectedTab();
 
     useEffect(() => {

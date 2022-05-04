@@ -1,6 +1,5 @@
 import React from 'react';
 
-import BlockHeading from '../../../../shared/generic/blockHeading/presentational/BlockHeading';
 import Loading from '../../../../shared/generic/misc/presentational/Loading';
 
 import PinSeriesItem from './PinSeriesItem';

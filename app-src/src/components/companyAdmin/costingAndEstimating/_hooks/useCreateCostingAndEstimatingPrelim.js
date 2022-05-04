@@ -11,7 +11,6 @@ import { useEffect } from 'react';
 import {
     selectCostingAndEstimatingIsPosting,
     selectCostingAndEstimatingPostError,
-    selectCostingAndEstimatingPostSuccess,
 } from 'selectors/companyAdmin/costingAndEstimating';
 import usePrevious from 'hooks/usePrevious';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
