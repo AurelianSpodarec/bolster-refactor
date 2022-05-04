@@ -32,8 +32,6 @@ class BuildingEditFormContainer extends Component {
 
     componentDidMount = async () => {
         const { building } = this.props;
-        // ** Only do a fetch for the manufacturers of a specific type if manufacturing is enabled. Wait for them to resolve before editing a building
-
         if (building.id > 0) {
             this._setFormDetails();
         }
