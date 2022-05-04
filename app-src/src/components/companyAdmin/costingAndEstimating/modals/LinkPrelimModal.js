@@ -1,18 +1,19 @@
 import React from 'react';
 
+import useLinkPrelim from '../_hooks/useLinkPrelim';
+
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import Form from 'components/shared/generic/form/containers/Form';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import ModalHeading from 'components/shared/generic/modals/presentational/ModalHeading';
-import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 import Field from 'components/shared/generic/form/presentational/Field';
-import useAddExistingPrelim from '../_hooks/useAddExistingPrelim';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 
-const AddLinkPrelimModal = () => {
-    const { form, handleChange, handleSubmit, isPosting, prelimsOptions } = useAddExistingPrelim();
+const LinkPrelimModal = () => {
+    const { form, handleChange, handleSubmit, isPosting, prelimsOptions, closeModal } =
+        useLinkPrelim();
 
     return (
         <ModalOuterContainer hideCloseButton>
@@ -33,7 +34,7 @@ const AddLinkPrelimModal = () => {
                     <ButtonWrapper alignment="right">
                         <ActionButton
                             text="Cancel"
-                            onClick={hideModal}
+                            onClick={closeModal}
                             source="secondary"
                             size="small"
                         />
@@ -52,4 +53,4 @@ const AddLinkPrelimModal = () => {
     );
 };
 
-export default AddLinkPrelimModal;
+export default LinkPrelimModal;

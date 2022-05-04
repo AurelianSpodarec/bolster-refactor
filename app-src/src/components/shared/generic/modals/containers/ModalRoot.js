@@ -138,7 +138,7 @@ import {
     EDIT_ADMIN_PIN_OPTIONS_SET_MODAL,
     EDIT_SITE_PIN_OPTION_SETS,
     CREATE_COSTING_AND_ESTIMATING_PRELIM_MODAL,
-    ADD_LINK_PRELIM_MODAL,
+    LINK_PRELIM_MODAL,
     EDIT_LINK_PRELIM_MODAL,
     DELETE_LINK_PRELIM_MODAL,
     DELETE_COSTING_AND_ESTIMATING_PRELIM_MODAL,
@@ -280,14 +280,13 @@ import EditPinOptionDocumentsModal from 'components/companyAdmin/pinOptions/opti
 import AdminCreateOptionSetModal from 'components/superAdmin/pinOptions/optionSets/modals/CreateOptionSetModal';
 import AdminEditOptionSetModal from 'components/superAdmin/pinOptions/optionSets/modals/EditOptionSetModal';
 import EditSitePinOptionSetsModal from '../../../../companyAdmin/sites/editSitePinOptionSets/presentational/EditSitePinOptionSetsModal';
-import AddLinkPrelimModal from 'components/companyAdmin/costingAndEstimating/modals/AddLinkPrelimModal';
 import CreateCostingAndEstimatingPrelimModal from 'components/companyAdmin/costingAndEstimating/modals/CreateCostingAndEstimatingPrelimModal';
-
 import DeleteLinkPrelimModal from 'components/companyAdmin/costingAndEstimating/modals/DeleteLinkPrelimModal';
 import DeleteCostingAndEstimatingPrelimModal from 'components/companyAdmin/costingAndEstimating/modals/DeleteCostingAndEstimatingPrelimModal';
 import GenerateCostingEstimatingReportModal from '../presentational/GenerateCostingEstimatingReportModal';
 import GenerateCostingEstimatingReportSuccessModal from '../presentational/GenerateCostingEstimatingReportSuccessModal';
 import EditLinkPrelimModal from 'components/companyAdmin/costingAndEstimating/modals/EditLinkPrelimModal';
+import LinkPrelimModal from '../../../../companyAdmin/costingAndEstimating/modals/LinkPrelimModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -426,7 +425,7 @@ const MODAL_COMPONENTS = {
     [EDIT_ADMIN_PIN_OPTIONS_SET_MODAL]: AdminEditOptionSetModal,
     [EDIT_SITE_PIN_OPTION_SETS]: EditSitePinOptionSetsModal,
     [CREATE_COSTING_AND_ESTIMATING_PRELIM_MODAL]: CreateCostingAndEstimatingPrelimModal,
-    [ADD_LINK_PRELIM_MODAL]: AddLinkPrelimModal,
+    [LINK_PRELIM_MODAL]: LinkPrelimModal,
     [EDIT_LINK_PRELIM_MODAL]: EditLinkPrelimModal,
     [DELETE_COSTING_AND_ESTIMATING_PRELIM_MODAL]: DeleteCostingAndEstimatingPrelimModal,
     [DELETE_LINK_PRELIM_MODAL]: DeleteLinkPrelimModal,
