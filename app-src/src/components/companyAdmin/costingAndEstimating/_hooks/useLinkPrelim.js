@@ -7,7 +7,11 @@ import useCurrentHierarchyType from './useCurrentHierarchyType';
 import fetchAllPrelims from 'actions/companyAdmin/prelims/async/fetchAllPrelims';
 import linkPrelim from '../../../../actions/companyAdmin/costingAndEstimating/linkPrelim';
 
-import { selectPrelimPostSuccess, selectPrelimsArr } from 'selectors/companyAdmin/prelims';
+import {
+    selectPrelimIsPosting,
+    selectPrelimPostSuccess,
+    selectPrelimsArr,
+} from 'selectors/companyAdmin/prelims';
 
 import { PRELIMS_ENUM } from 'constants/companyAdmin/enums';
 import { convertArrToObj, formatCurrency } from 'helpers/generic';
@@ -22,6 +26,7 @@ const useLinkPrelim = () => {
 
     const { companyID } = useSelector(selectJWTData);
     const postSuccess = useSelector(selectPrelimPostSuccess);
+    const isPosting = useSelector(selectPrelimIsPosting);
     const prevPostSuccess = usePrevious(postSuccess);
 
     const formatArrForDropdown = arr => {
@@ -39,7 +44,7 @@ const useLinkPrelim = () => {
 
     const allPrelims = useSelector(selectPrelimsArr);
     const prelimsOptions = formatArrForDropdown(allPrelims);
-    const isPosting = false;
+
     const [form, handleChange] = useForm({
         prelimID: '',
     });
