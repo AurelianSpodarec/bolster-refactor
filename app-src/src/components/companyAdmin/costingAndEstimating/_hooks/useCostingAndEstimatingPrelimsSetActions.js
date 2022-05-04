@@ -4,12 +4,12 @@ import { usePrevious } from 'helpers/hooks';
 
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
-import deleteCostingAndEstimatingPrelim from '../../../../actions/companyAdmin/costingAndEstimating/deleteCostingAndEstimatingPrelim';
 
 import {
     selectPrelimPostError,
     selectPrelimPostSuccess,
 } from '../../../../selectors/companyAdmin/prelims';
+import deleteLinkPrelim from '../../../../actions/companyAdmin/costingAndEstimating/deleteLinkPrelim';
 
 import {
     LINK_PRELIM_MODAL,
@@ -42,7 +42,7 @@ const useCostingAndEstimatingPrelimsSetActions = () => {
         dispatch(
             showModal(CONFIRM_DELETE, {
                 message: 'Are you sure you want to delete this prelim?',
-                handleDelete: () => dispatch(deleteCostingAndEstimatingPrelim(id)),
+                handleDelete: () => dispatch(deleteLinkPrelim(id)),
             }),
         );
     };

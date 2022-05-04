@@ -7,7 +7,7 @@ import { formatCurrency } from 'helpers/generic';
 import useCostingAndEstimatingPrelimsSetActions from '../_hooks/useCostingAndEstimatingPrelimsSetActions';
 
 const CostingCartPrelimSummaryItem = ({ prelim }) => {
-    const { prelimID, prelimName, cost, type, isCustom } = prelim;
+    const { linkID, prelimName, cost, type, isCustom } = prelim;
     const { showEditCustomPrelimModal, showDeleteCustomPrelimModal } =
         useCostingAndEstimatingPrelimsSetActions();
 
@@ -28,7 +28,7 @@ const CostingCartPrelimSummaryItem = ({ prelim }) => {
 
                     <ActionMenuActionButton
                         text="Delete"
-                        onClick={() => showDeleteCustomPrelimModal(prelimID)}
+                        onClick={() => showDeleteCustomPrelimModal(linkID)}
                         isNegative
                     />
                 </ActionMenu>

@@ -5,7 +5,7 @@ import {
     DELETE_LINK_PRELIM_FAILURE,
     DELETE_LINK_PRELIM_REQUEST,
     DELETE_LINK_PRELIM_SUCCESS,
-} from 'constants/actionTypes/costingAndEstimating';
+} from 'constants/actionTypes/prelims';
 import { getHeaders } from 'helpers/api';
 
 export const deleteLinkPrelimRequest = () => ({
