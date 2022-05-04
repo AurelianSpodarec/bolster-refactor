@@ -36,6 +36,10 @@
 
     &.active {
       max-height: 100vh;
+
+      &.show-overflow {
+        overflow-y: visible;
+      }
     }
   }
 }
