@@ -168,7 +168,6 @@ const useCostingAndEstimating = () => {
                     case 'installations':
                         selectedItems.installations = selectedItems.installations.filter(
                             idString => {
-                                console.log(idString);
                                 return (
                                     idString !==
                                     JSON.stringify(item.representsPinHistoryAnswerValueIDs)
