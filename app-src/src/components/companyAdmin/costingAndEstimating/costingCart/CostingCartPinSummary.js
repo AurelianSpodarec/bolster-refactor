@@ -5,7 +5,7 @@ import { formatCurrency } from 'helpers/generic';
 import CostingCartPinSummaryItem from './CostingCartPinSummaryItem';
 
 const CostingCartPinSummary = ({ title, total, data = [] }) => {
-    const [isExpanded, setIsExpanded] = useState(false);
+    const [isExpanded, setIsExpanded] = useState(true);
 
     return (
         <div className="summary-item">

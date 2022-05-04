@@ -66,7 +66,7 @@ const CostingAndEstimating = () => {
                 isAnythingSelected={isAnythingSelected}
                 isFetching={isFetchingMainData}
                 fetchError={fetchError}
-                total={graph.total}
+                total={graph?.total}
             />
         </GridWrapper>
     );

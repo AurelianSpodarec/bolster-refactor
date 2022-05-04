@@ -9,6 +9,7 @@ const CostingAndEstimatingPods = ({ data = [], isFetching, fetchError }) => {
             {data.length &&
                 !fetchError &&
                 data.map((pod, i) => <CostingAndEstimatingPod pod={pod} key={i} />)}
+            {!data.length && <div style={{ minHeight: '203.44px' }} />}
             {fetchError && <Error>{fetchError}</Error>}
             {isFetching && !fetchError && <LoadingOverlay />}
         </div>
