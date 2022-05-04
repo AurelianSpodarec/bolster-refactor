@@ -11,8 +11,6 @@ const CostingCartPrelimSummaryItem = ({ prelim }) => {
     const { showEditCustomPrelimModal, showDeletePrelimLinkModal } =
         useCostingAndEstimatingPrelimsSetActions();
 
-    console.log(prelim);
-
     const id = isCustom ? prelimID : linkID;
 
     return (

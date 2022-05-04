@@ -113,7 +113,7 @@ const useCostingAndEstimating = () => {
         maxPrice: 0,
     };
     const [formData, onChange] = useForm(initialFormData);
-    const prevProps = usePrevious({ formData, selectedTabType });
+    const prevProps = usePrevious({ formData, selectedTabType, selectedTab });
 
     const isAnythingSelected = Object.keys(formData.selectedItems).reduce((acc, curr) => {
         if (formData.selectedItems[curr].length) acc = true;
@@ -260,6 +260,12 @@ const useCostingAndEstimating = () => {
             dispatch(fetchCostingAndEstimatingCart(cAndEPostBody));
         }
     }, [prelimPostSuccess, prevData.prelimPostSuccess]); // Re-fetch cart data on prelim post success
+
+    useEffect(() => {
+        if (selectedTab !== prevProps.selectedTab && !isAnythingSelected) {
+            onChange('selectedItems', buildInitialSelectedItems(allSites));
+        }
+    }, [selectedTab, prevProps.selectedTab, isAnythingSelected]); // auto-tick everything on tab change
 
     return {
         costingCart,
