@@ -9,6 +9,7 @@ import { selectFloor } from 'selectors/companyAdmin/floors';
 import ListItemControls from './ListItemControls';
 
 export const TopLevel = ({ item, isSelected, handleToggleAllItems }) => {
+    console.log(item);
     return (
         <>
             <div className="table-cell-controls">
@@ -20,7 +21,11 @@ export const TopLevel = ({ item, isSelected, handleToggleAllItems }) => {
                 <p>{isSelected ? 'Unselect all' : 'Select all'}</p>
             </div>
             <div className="table-cell">
-                <h4>{!Number.isNaN(item.total) ? `£${formatCurrency(item.total)}` : ''}</h4>
+                <h4>
+                    {!Number.isNaN(item.total)
+                        ? `£${item.total > 0 ? formatCurrency(item.total) : '0.00'}`
+                        : ''}
+                </h4>
             </div>
         </>
     );
