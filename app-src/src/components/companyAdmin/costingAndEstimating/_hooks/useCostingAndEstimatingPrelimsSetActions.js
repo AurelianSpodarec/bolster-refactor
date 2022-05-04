@@ -38,7 +38,7 @@ const useCostingAndEstimatingPrelimsSetActions = () => {
         dispatch(showModal(EDIT_LINK_PRELIM_MODAL, { prelim }));
     };
 
-    const showDeleteCustomPrelimModal = id => {
+    const showDeletePrelimLinkModal = id => {
         dispatch(
             showModal(CONFIRM_DELETE, {
                 message: 'Are you sure you want to delete this prelim?',
@@ -67,7 +67,7 @@ const useCostingAndEstimatingPrelimsSetActions = () => {
         showExistingPrelimModal,
         showAddCustomPrelimModal,
         showEditCustomPrelimModal,
-        showDeleteCustomPrelimModal,
+        showDeletePrelimLinkModal,
         showDeleteExistingPrelimModal,
     };
 };
