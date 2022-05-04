@@ -42,9 +42,6 @@ export default combineReducers({
     isPosting: isPostingReducer,
     postSuccess: postSuccessReducer,
     prelims: prelimsReducer,
-    isDeleting: isDeletingReducer,
-    deletionError: deletionErrorReducer,
-    deleteSuccess: deleteSuccessReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -70,6 +67,9 @@ function isPostingReducer(state = false, action) {
         case LINK_PRELIM_REQUEST:
         case EDIT_LINK_PRELIM_REQUEST:
         case CREATE_COSTING_AND_ESTIMATING_PRELIM_REQUEST:
+        case DELETE_PRELIM_REQUEST:
+        case DELETE_COSTING_AND_ESTIMATING_PRELIM_REQUEST:
+        case DELETE_LINK_PRELIM_REQUEST:
             return true;
         case CREATE_PRELIM_FAILURE:
         case CREATE_PRELIM_SUCCESS:
@@ -83,18 +83,6 @@ function isPostingReducer(state = false, action) {
         case EDIT_LINK_PRELIM_FAILURE:
         case CREATE_COSTING_AND_ESTIMATING_PRELIM_SUCCESS:
         case CREATE_COSTING_AND_ESTIMATING_PRELIM_FAILURE:
-            return false;
-        default:
-            return state;
-    }
-}
-
-function isDeletingReducer(state = false, action) {
-    switch (action.type) {
-        case DELETE_PRELIM_REQUEST:
-        case DELETE_COSTING_AND_ESTIMATING_PRELIM_REQUEST:
-        case DELETE_LINK_PRELIM_REQUEST:
-            return true;
         case DELETE_PRELIM_SUCCESS:
         case DELETE_PRELIM_FAILURE:
         case DELETE_COSTING_AND_ESTIMATING_PRELIM_SUCCESS:
@@ -116,6 +104,9 @@ function postSuccessReducer(state = false, action) {
         case LINK_PRELIM_REQUEST:
         case EDIT_LINK_PRELIM_FAILURE:
         case CREATE_COSTING_AND_ESTIMATING_PRELIM_REQUEST:
+        case DELETE_PRELIM_REQUEST:
+        case DELETE_COSTING_AND_ESTIMATING_PRELIM_FAILURE:
+        case DELETE_LINK_PRELIM_FAILURE:
             return false;
         case CREATE_PRELIM_SUCCESS:
         case EDIT_PRELIM_SUCCESS:
@@ -123,18 +114,6 @@ function postSuccessReducer(state = false, action) {
         case LINK_PRELIM_SUCCESS:
         case EDIT_LINK_PRELIM_SUCCESS:
         case CREATE_COSTING_AND_ESTIMATING_PRELIM_SUCCESS:
-            return true;
-        default:
-            return state;
-    }
-}
-
-function deleteSuccessReducer(state = false, action) {
-    switch (action.type) {
-        case DELETE_PRELIM_REQUEST:
-        case DELETE_COSTING_AND_ESTIMATING_PRELIM_FAILURE:
-        case DELETE_LINK_PRELIM_FAILURE:
-            return false;
         case DELETE_PRELIM_SUCCESS:
         case DELETE_COSTING_AND_ESTIMATING_PRELIM_SUCCESS:
         case DELETE_LINK_PRELIM_SUCCESS:
@@ -143,7 +122,6 @@ function deleteSuccessReducer(state = false, action) {
             return state;
     }
 }
-
 function errorReducer(state = null, action) {
     switch (action.type) {
         case FETCH_ALL_PRELIMS_REQUEST:
@@ -154,6 +132,9 @@ function errorReducer(state = null, action) {
         case CREATE_COSTING_AND_ESTIMATING_PRELIM_REQUEST:
         case LINK_PRELIM_REQUEST:
         case EDIT_LINK_PRELIM_REQUEST:
+        case DELETE_PRELIM_REQUEST:
+        case DELETE_COSTING_AND_ESTIMATING_PRELIM_REQUEST:
+        case DELETE_LINK_PRELIM_REQUEST:
             return null;
         case FETCH_ALL_PRELIMS_FAILURE:
         case EDIT_PRELIM_FAILURE:
@@ -163,18 +144,6 @@ function errorReducer(state = null, action) {
         case CREATE_COSTING_AND_ESTIMATING_PRELIM_FAILURE:
         case LINK_PRELIM_FAILURE:
         case EDIT_LINK_PRELIM_FAILURE:
-            return action.error;
-        default:
-            return state;
-    }
-}
-
-function deletionErrorReducer(state = null, action) {
-    switch (action.type) {
-        case DELETE_PRELIM_REQUEST:
-        case DELETE_COSTING_AND_ESTIMATING_PRELIM_REQUEST:
-        case DELETE_LINK_PRELIM_REQUEST:
-            return null;
         case DELETE_PRELIM_FAILURE:
         case DELETE_LINK_PRELIM_FAILURE:
         case DELETE_COSTING_AND_ESTIMATING_PRELIM_FAILURE:
