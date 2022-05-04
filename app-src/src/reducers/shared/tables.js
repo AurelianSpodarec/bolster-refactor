@@ -4,14 +4,14 @@ import {
     TOGGLE_SITE_EXPANDED,
     TOGGLE_BUILDING_EXPANDED,
     TOGGLE_FLOOR_EXPANDED,
-    TOGGLE_DRAWING_EXPANDED
+    TOGGLE_DRAWING_EXPANDED,
 } from 'constants/actionTypes/generic';
 
 export default combineReducers({
     expandedSiteIds: expandedSitesReducer,
     expandedBuildingIds: expandedBuildingsReducer,
     expandedFloorIds: expandedFloorsReducer,
-    expandedDrawingIds: expandedDrawingsReducer
+    expandedDrawingIds: expandedDrawingsReducer,
 });
 
 function expandedSitesReducer(state = [], action) {

@@ -13,9 +13,7 @@ const DrawingListItem = ({ drawing }) => (
             <DateTimeContainer date={drawing.expiresOn} />
         </td>
         <td>
-            <ButtonContainer to={`/client/drawings/${drawing.id}`}>
-                View
-            </ButtonContainer>
+            <ButtonContainer to={`/client/drawings/${drawing.id}`}>View</ButtonContainer>
         </td>
     </tr>
 );

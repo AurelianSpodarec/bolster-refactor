@@ -9,7 +9,7 @@ const PaymentErrorModal = ({
     resubmit,
     hideModal,
     disbaledButton,
-    error
+    error,
 }) => (
     <ModalOuterContainer extraClasses="response-modal">
         {/* ##Needs css## */}
@@ -18,7 +18,7 @@ const PaymentErrorModal = ({
             style={{
                 display: 'flex',
                 justifyContent: 'center',
-                alignContent: 'center'
+                alignContent: 'center',
             }}
         >
             <i
@@ -28,7 +28,7 @@ const PaymentErrorModal = ({
                     backgroundColor: 'red',
                     color: 'white',
                     fontSize: '3em',
-                    padding: '0.5em'
+                    padding: '0.5em',
                 }}
             />
         </div>

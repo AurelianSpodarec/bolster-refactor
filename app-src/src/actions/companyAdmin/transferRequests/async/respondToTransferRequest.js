@@ -5,31 +5,27 @@ import { getHeaders } from 'helpers/api';
 import {
     RESPOND_TO_TRANSFER_REQUEST_REQUEST,
     RESPOND_TO_TRANSFER_REQUEST_SUCCESS,
-    RESPOND_TO_TRANSFER_REQUEST_FAILURE
+    RESPOND_TO_TRANSFER_REQUEST_FAILURE,
 } from 'constants/actionTypes/transferRequests';
 
 export const respondToRequestRequest = () => ({
-    type: RESPOND_TO_TRANSFER_REQUEST_REQUEST
+    type: RESPOND_TO_TRANSFER_REQUEST_REQUEST,
 });
 
 export const respondToRequestSuccess = payload => ({
     type: RESPOND_TO_TRANSFER_REQUEST_SUCCESS,
-    payload
+    payload,
 });
 
 export const respondToRequestFailure = error => ({
     type: RESPOND_TO_TRANSFER_REQUEST_FAILURE,
-    error
+    error,
 });
 
 export default (id, postBody) => dispatch => {
     dispatch(respondToRequestRequest());
     return axios
-        .post(
-            `${API_URL}/transferrequests/${id}/respond`,
-            postBody,
-            getHeaders()
-        )
+        .post(`${API_URL}/transferrequests/${id}/respond`, postBody, getHeaders())
         .then(({ data }) => dispatch(respondToRequestSuccess(data)))
         .catch(err => dispatch(respondToRequestFailure(err.message)));
 };

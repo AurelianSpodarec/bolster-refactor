@@ -16,11 +16,7 @@ const LabelExamplePage = ({ templates, isFetching, error }) => (
             <TemplateLabelInfoContainer />
         </div>
         <div className="size-lg-6">
-            <BlockContainer
-                isFetching={isFetching}
-                error={error}
-                isEmpty={isEmpty(templates)}
-            >
+            <BlockContainer isFetching={isFetching} error={error} isEmpty={isEmpty(templates)}>
                 <LabelExampleContainer />
             </BlockContainer>
         </div>

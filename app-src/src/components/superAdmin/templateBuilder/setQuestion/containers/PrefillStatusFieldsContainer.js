@@ -33,7 +33,7 @@ const PrefillStatusFieldsContainer = ({ options, updateQuestionField, questionTy
     function removeOption(id) {
         updateQuestionField(
             'options',
-            options.filter(op => op.id !== id)
+            options.filter(op => op.id !== id),
         );
     }
 

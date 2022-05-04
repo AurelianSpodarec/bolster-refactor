@@ -5,7 +5,7 @@ import { CLIENT_FETCH_PIN_TEMPLATES_SUCCESS } from 'constants/client/actionTypes
 import { convertArrToObj } from 'helpers/generic';
 
 export default combineReducers({
-    versions: versionsReducer
+    versions: versionsReducer,
 });
 
 function versionsReducer(state = {}, action) {

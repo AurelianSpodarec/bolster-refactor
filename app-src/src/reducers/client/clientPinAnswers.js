@@ -1,10 +1,13 @@
 import { combineReducers } from 'redux';
 
 import { convertArrToObj } from 'helpers/generic';
-import { CLIENT_FETCH_SINGLE_PIN_REQUEST, CLIENT_FETCH_SINGLE_PIN_SUCCESS } from 'constants/client/actionTypes/clientPins';
+import {
+    CLIENT_FETCH_SINGLE_PIN_REQUEST,
+    CLIENT_FETCH_SINGLE_PIN_SUCCESS,
+} from 'constants/client/actionTypes/clientPins';
 
 export default combineReducers({
-    answers: answersReducer
+    answers: answersReducer,
 });
 
 function answersReducer(state = {}, action) {

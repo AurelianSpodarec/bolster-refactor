@@ -14,11 +14,11 @@ const ServiceTableContainer = ({ isFetching, error, services }) => (
 export default connect(
     ({
         superAdmin: {
-            adminServicesReducer: { isFetching, error, adminServices }
-        }
+            adminServicesReducer: { isFetching, error, adminServices },
+        },
     }) => ({
         isFetching,
         error,
-        services: Object.values(adminServices)
-    })
+        services: Object.values(adminServices),
+    }),
 )(ServiceTableContainer);

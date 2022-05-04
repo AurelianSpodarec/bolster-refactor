@@ -26,12 +26,7 @@ const FilterFieldsModal = ({
     return (
         <BlockContainer noWhiteBackground={true}>
             <BlockHeading title="Add Filter" />
-            <Field
-                name="Question(s)"
-                classes="no-caps"
-                sizeClasses="size-lg-5 size-md-12"
-                required
-            >
+            <Field name="Question(s)" classes="no-caps" sizeClasses="size-lg-5 size-md-12" required>
                 <MultiSelect
                     search
                     options={questionOptions}
@@ -44,11 +39,7 @@ const FilterFieldsModal = ({
             <div className="size-lg-5 size-md-12">
                 {showFreeForm ? (
                     <>
-                        <Field
-                            name="Answer"
-                            classes="fields-inside"
-                            sizeClasses="size-lg-12"
-                        >
+                        <Field name="Answer" classes="fields-inside" sizeClasses="size-lg-12">
                             {freeFormValues.map(renderOption)}
                         </Field>
                     </>
@@ -99,19 +90,11 @@ const FilterFieldsModal = ({
               
             </Field> */}
             <BlockButtonWrapper>
-                <button
-                    className="button green"
-                    type="submit"
-                    onClick={handleSubmit}
-                >
+                <button className="button green" type="submit" onClick={handleSubmit}>
                     <i className="fa fa-save fa-fw" />
                     Submit
                 </button>
-                <button
-                    className="button red"
-                    type="button"
-                    onClick={toggleAddFilter}
-                >
+                <button className="button red" type="button" onClick={toggleAddFilter}>
                     <i className="fa fa-times fa-fw" />
                     Cancel
                 </button>
@@ -131,11 +114,7 @@ const FilterFieldsModal = ({
                         <i className="far fa-trash-alt" />
                     </button>
                 )}
-                <TextInputContainer
-                    name={i}
-                    value={value}
-                    handleChange={handleFreeFormValChange}
-                />
+                <TextInputContainer name={i} value={value} handleChange={handleFreeFormValChange} />
             </Field>
         );
     }

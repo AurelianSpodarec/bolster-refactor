@@ -12,7 +12,7 @@ const SetLabelModal = ({
     hideModal,
     labelType,
     fields,
-    questionOptions
+    questionOptions,
 }) => (
     <ModalOuter extraClasses="wide w-form" hideModal={hideModal}>
         <BlockHeading title="Update Label Fields" />

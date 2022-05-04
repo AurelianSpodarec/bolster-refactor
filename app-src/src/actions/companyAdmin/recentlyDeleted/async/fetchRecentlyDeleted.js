@@ -23,16 +23,17 @@ export const fetchRecentlyDeletedFailure = error => ({
 });
 
 export default (
-    postbody = {
-        pageSize: 25,
-        pageNumber: 1,
-        searchTerm: '',
-    },
-) => dispatch => {
-    dispatch(fetchRecentlyDeletedRequest());
+        postbody = {
+            pageSize: 25,
+            pageNumber: 1,
+            searchTerm: '',
+        },
+    ) =>
+    dispatch => {
+        dispatch(fetchRecentlyDeletedRequest());
 
-    axios
-        .post(`${API_URL}/deleted`, postbody, getHeaders())
-        .then(res => dispatch(fetchRecentlyDeletedSuccess(res.data)))
-        .catch(err => dispatch(fetchRecentlyDeletedFailure(err.message)));
-};
+        axios
+            .post(`${API_URL}/deleted`, postbody, getHeaders())
+            .then(res => dispatch(fetchRecentlyDeletedSuccess(res.data)))
+            .catch(err => dispatch(fetchRecentlyDeletedFailure(err.message)));
+    };

@@ -8,7 +8,7 @@ import {
     FETCH_USER_DRAWINGS_FAILURE,
     REMOVE_USER_DRAWINGS_ACCESS_REQUEST,
     REMOVE_USER_DRAWINGS_ACCESS_SUCCESS,
-    REMOVE_USER_DRAWINGS_ACCESS_FAILURE
+    REMOVE_USER_DRAWINGS_ACCESS_FAILURE,
 } from 'constants/actionTypes/usersManagement';
 
 export default combineReducers({
@@ -17,7 +17,7 @@ export default combineReducers({
     error: errorReducer,
     isRemoving: isRemovingReducer,
     removeError: removeErrorReducer,
-    removeSuccess: removeSuccessReducer
+    removeSuccess: removeSuccessReducer,
 });
 
 function userDrawingsReducer(state = {}, action) {

@@ -3,5 +3,5 @@ import { CLIENT_REMOVE_RECTANGLE } from 'constants/client/actionTypes/clientRepo
 export default id => dispatch =>
     dispatch({
         type: CLIENT_REMOVE_RECTANGLE,
-        id
+        id,
     });

@@ -3,23 +3,23 @@ import axios from 'axios';
 import {
     FETCH_SINGLE_COMPANY_REQUEST,
     FETCH_SINGLE_COMPANY_SUCCESS,
-    FETCH_SINGLE_COMPANY_FAILURE
+    FETCH_SINGLE_COMPANY_FAILURE,
 } from 'constants/actionTypes/companiesWithPermissions';
 import { getHeaders } from 'helpers/api';
 import { ADMIN_API_URL } from 'config';
 
 export const fetchSingleCompanyRequest = () => ({
-    type: FETCH_SINGLE_COMPANY_REQUEST
+    type: FETCH_SINGLE_COMPANY_REQUEST,
 });
 
 export const fetchSingleCompanySuccess = payload => ({
     type: FETCH_SINGLE_COMPANY_SUCCESS,
-    payload
+    payload,
 });
 
 export const fetchSingleCompanyFailure = error => ({
     type: FETCH_SINGLE_COMPANY_FAILURE,
-    error
+    error,
 });
 
 export default id => dispatch => {

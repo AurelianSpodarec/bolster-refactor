@@ -6,13 +6,10 @@ const HeaderNotifications = ({
     togglePopup,
     updateNode,
     notifications,
-    unreadCount
+    unreadCount,
 }) => (
     <div className="item-container" ref={updateNode}>
-        <div
-            className={`item main ${popupVisible ? 'active' : ''}`}
-            onClick={togglePopup}
-        >
+        <div className={`item main ${popupVisible ? 'active' : ''}`} onClick={togglePopup}>
             {!!unreadCount && <span className="number">{unreadCount}</span>}
             <i className="far fa-bell fa-fw" />
         </div>
@@ -28,26 +25,18 @@ const HeaderNotifications = ({
                                 Download
                             </ButtonContainer>
                         ) : (
-                            <ButtonContainer
-                                handleClick={togglePopup}
-                                to={link}
-                            >
+                            <ButtonContainer handleClick={togglePopup} to={link}>
                                 View
                             </ButtonContainer>
                         )}
                     </div>
                 ))
             ) : (
-                <span className="no-data centered size-lg-12">
-                    You have no notifications
-                </span>
+                <span className="no-data centered size-lg-12">You have no notifications</span>
             )}
             {}
             <div className="item">
-                <ButtonContainer
-                    handleClick={togglePopup}
-                    to="/company/tools/company-reports"
-                >
+                <ButtonContainer handleClick={togglePopup} to="/company/tools/company-reports">
                     View Company Reports
                 </ButtonContainer>
             </div>

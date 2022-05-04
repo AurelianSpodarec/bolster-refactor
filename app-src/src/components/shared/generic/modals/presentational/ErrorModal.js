@@ -4,7 +4,7 @@ import BlockHeading from '../../blockHeading/presentational/BlockHeading';
 
 const ErrorModal = ({
     message = 'An error occurred while processing your request, please try again later',
-    title = 'Error'
+    title = 'Error',
 }) => (
     <ModalOuterContainer>
         <BlockHeading title={title} />

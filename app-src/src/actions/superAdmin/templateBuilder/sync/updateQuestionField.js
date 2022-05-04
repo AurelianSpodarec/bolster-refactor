@@ -4,5 +4,5 @@ export default (name, value) => dispatch =>
     dispatch({
         type: UPDATE_QUESTION_FIELD,
         name,
-        value
+        value,
     });

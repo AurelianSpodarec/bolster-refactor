@@ -4,22 +4,22 @@ import { API_URL } from 'config';
 import {
     FETCH_SINGLE_INVOICE_PAYMENTS_REQUEST,
     FETCH_SINGLE_INVOICE_PAYMENTS_SUCCESS,
-    FETCH_SINGLE_INVOICE_PAYMENTS_FAILURE
+    FETCH_SINGLE_INVOICE_PAYMENTS_FAILURE,
 } from 'constants/actionTypes/invoices';
 import { getHeaders } from 'helpers/api';
 
 export const fetchSingleInvoicePaymentsRequest = () => ({
-    type: FETCH_SINGLE_INVOICE_PAYMENTS_REQUEST
+    type: FETCH_SINGLE_INVOICE_PAYMENTS_REQUEST,
 });
 
 export const fetchSingleInvoicePaymentsSuccess = payload => ({
     type: FETCH_SINGLE_INVOICE_PAYMENTS_SUCCESS,
-    payload
+    payload,
 });
 
 export const fetchSingleInvoicePaymentsFailure = error => ({
     type: FETCH_SINGLE_INVOICE_PAYMENTS_FAILURE,
-    error
+    error,
 });
 
 export default id => dispatch => {

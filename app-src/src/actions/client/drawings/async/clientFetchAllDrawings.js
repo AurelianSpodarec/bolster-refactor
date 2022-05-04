@@ -5,21 +5,21 @@ import { getHeaders } from 'helpers/api';
 import {
     CLIENT_FETCH_ALL_DRAWINGS_REQUEST,
     CLIENT_FETCH_ALL_DRAWINGS_SUCCESS,
-    CLIENT_FETCH_ALL_DRAWINGS_FAILURE
+    CLIENT_FETCH_ALL_DRAWINGS_FAILURE,
 } from 'constants/client/actionTypes/clientDrawings';
 
 export const clientFetchAllDrawingsRequest = () => ({
-    type: CLIENT_FETCH_ALL_DRAWINGS_REQUEST
+    type: CLIENT_FETCH_ALL_DRAWINGS_REQUEST,
 });
 
 export const clientFetchAllDrawingsSuccess = payload => ({
     type: CLIENT_FETCH_ALL_DRAWINGS_SUCCESS,
-    payload
+    payload,
 });
 
 export const clientFetchAllDrawingsFailure = error => ({
     type: CLIENT_FETCH_ALL_DRAWINGS_FAILURE,
-    error
+    error,
 });
 
 export default companyID => dispatch => {

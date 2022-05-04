@@ -6,30 +6,26 @@ import setAPIFieldErrors from 'actions/shared/generic/fieldErrors/sync/setAPIFie
 import {
     EDIT_CLIENT_FOR_DRAWING_REQUEST,
     EDIT_CLIENT_FOR_DRAWING_SUCCESS,
-    EDIT_CLIENT_FOR_DRAWING_FAILURE
+    EDIT_CLIENT_FOR_DRAWING_FAILURE,
 } from 'constants/actionTypes/clients';
 
 export const editClientRequest = () => ({
-    type: EDIT_CLIENT_FOR_DRAWING_REQUEST
+    type: EDIT_CLIENT_FOR_DRAWING_REQUEST,
 });
 
 export const editClientSuccess = payload => ({
     type: EDIT_CLIENT_FOR_DRAWING_SUCCESS,
-    payload
+    payload,
 });
 
 export const editClientFailure = error => ({
     type: EDIT_CLIENT_FOR_DRAWING_FAILURE,
-    error
+    error,
 });
 
 export default (ClientID, postBody) => dispatch => {
     dispatch(editClientRequest());
-    return Axios.post(
-        `${API_URL}/clientpermissions/${ClientID}`,
-        postBody,
-        getHeaders()
-    )
+    return Axios.post(`${API_URL}/clientpermissions/${ClientID}`, postBody, getHeaders())
         .then(res => dispatch(editClientSuccess(res.data)))
         .catch(err => {
             dispatch(editClientFailure(err.message));

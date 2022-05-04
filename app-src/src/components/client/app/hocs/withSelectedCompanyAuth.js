@@ -8,11 +8,11 @@ import Block from 'components/shared/generic/block/presentational/Block';
 
 import { getSelectedCompanyForClient } from 'helpers/generic';
 
-export default function(ProtectedComponent) {
+export default function (ProtectedComponent) {
     class withSelectedCompanyAuth extends React.Component {
         state = {
             companiesFetched: false,
-            error: false
+            error: false,
         };
 
         render() {
@@ -36,22 +36,15 @@ export default function(ProtectedComponent) {
         }
 
         componentDidMount = () => {
-            const {
-                companies,
-                clientFetchCompaniesRequest,
-                history
-            } = this.props;
+            const { companies, clientFetchCompaniesRequest, history } = this.props;
             const selectedCompany = getSelectedCompanyForClient();
 
             if (!selectedCompany) history.push('/client/companies');
 
             if (companies.length) {
-                if (
-                    companies.filter(company => company.id === selectedCompany)
-                        .length
-                ) {
+                if (companies.filter(company => company.id === selectedCompany).length) {
                     this.setState({
-                        companiesFetched: true
+                        companiesFetched: true,
                     });
                 } else {
                     history.push('/client/companies');
@@ -67,12 +60,9 @@ export default function(ProtectedComponent) {
             if (!isFetching && prevProps.isFetching && companies.length) {
                 const selectedCompany = getSelectedCompanyForClient();
 
-                if (
-                    companies.filter(company => company.id === selectedCompany)
-                        .length
-                ) {
+                if (companies.filter(company => company.id === selectedCompany).length) {
                     this.setState({
-                        companiesFetched: true
+                        companiesFetched: true,
                     });
                 }
             }
@@ -83,22 +73,19 @@ export default function(ProtectedComponent) {
 
     const mapStateToProps = ({
         client: {
-            companiesReducer: { companies, isFetching, error }
-        }
+            companiesReducer: { companies, isFetching, error },
+        },
     }) => ({
         companies: Object.values(companies),
         isFetching,
-        error
+        error,
     });
 
     const mapDispatchToProps = dispatch => ({
         clientFetchCompaniesRequest: () => {
             dispatch(clientFetchCompaniesRequest());
-        }
+        },
     });
 
-    return connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(withSelectedCompanyAuth);
+    return connect(mapStateToProps, mapDispatchToProps)(withSelectedCompanyAuth);
 }

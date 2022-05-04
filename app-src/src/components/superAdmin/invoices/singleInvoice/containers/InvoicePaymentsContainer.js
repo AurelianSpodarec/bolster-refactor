@@ -2,10 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import {
-    ADMIN_CONFIRM_FREE_INVOICE,
-    ADMIN_RECORD_PAYMENT
-} from 'constants/shared/modalTypes';
+import { ADMIN_CONFIRM_FREE_INVOICE, ADMIN_RECORD_PAYMENT } from 'constants/shared/modalTypes';
 
 import InvoicePayments from 'components/superAdmin/invoices/singleInvoice/presentational/InvoicePayments.js';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -16,7 +13,7 @@ const InvoicePaymentsContainer = ({
     invoice,
     company,
     showModal,
-    invoicePayments
+    invoicePayments,
 }) => {
     return (
         <InvoicePayments
@@ -34,7 +31,7 @@ const InvoicePaymentsContainer = ({
         if (type === ADMIN_RECORD_PAYMENT)
             showModal(ADMIN_RECORD_PAYMENT, {
                 invoice,
-                invoicePayments
+                invoicePayments,
             });
     }
 };
@@ -47,34 +44,25 @@ const mapStateToProps = (
                 invoicePayments,
                 isFetching: isFetchingPayments,
                 error: paymentsError,
-                deleteSuccess
+                deleteSuccess,
             },
-            companiesReducer: {
-                companies,
-                isFetching: isFetchingCompanies,
-                error: companiesError
-            }
-        }
+            companiesReducer: { companies, isFetching: isFetchingCompanies, error: companiesError },
+        },
     },
     {
         match: {
-            params: { companyID, id }
-        }
-    }
+            params: { companyID, id },
+        },
+    },
 ) => ({
     invoicePayments: Object.values(invoicePayments),
     invoice: invoices[id] || null,
     isFetching: isFetching || isFetchingCompanies || isFetchingPayments,
     error: error || companiesError || paymentsError,
     company: companies[companyID] || null,
-    deleteSuccess
+    deleteSuccess,
 });
 
 const mapDispatchToProps = { showModal };
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(InvoicePaymentsContainer)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(InvoicePaymentsContainer));

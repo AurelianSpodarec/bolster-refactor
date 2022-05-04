@@ -3,24 +3,24 @@ import axios from 'axios';
 import {
     DELETE_SITE_REQUEST,
     DELETE_SITE_SUCCESS,
-    DELETE_SITE_FAILURE
+    DELETE_SITE_FAILURE,
 } from 'constants/actionTypes/sites';
 
 import { API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
 
 export const deleteSiteRequest = () => ({
-    type: DELETE_SITE_REQUEST
+    type: DELETE_SITE_REQUEST,
 });
 
 export const deleteSiteSuccess = id => ({
     type: DELETE_SITE_SUCCESS,
-    id
+    id,
 });
 
 export const deleteSiteFailure = error => ({
     type: DELETE_SITE_FAILURE,
-    error
+    error,
 });
 
 export default siteID => dispatch => {

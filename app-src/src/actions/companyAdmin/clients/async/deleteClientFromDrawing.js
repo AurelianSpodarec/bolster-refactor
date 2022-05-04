@@ -3,24 +3,24 @@ import axios from 'axios';
 import {
     DELETE_CLIENT_FROM_DRAWING_REQUEST,
     DELETE_CLIENT_FROM_DRAWING_SUCCESS,
-    DELETE_CLIENT_FROM_DRAWING_FAILURE
+    DELETE_CLIENT_FROM_DRAWING_FAILURE,
 } from 'constants/actionTypes/clients';
 
 import { API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
 
 export const deleteClientFromDrawingRequest = () => ({
-    type: DELETE_CLIENT_FROM_DRAWING_REQUEST
+    type: DELETE_CLIENT_FROM_DRAWING_REQUEST,
 });
 
 export const deleteClientFromDrawingSuccess = id => ({
     type: DELETE_CLIENT_FROM_DRAWING_SUCCESS,
-    id
+    id,
 });
 
 export const deleteClientFromDrawingFailure = error => ({
     type: DELETE_CLIENT_FROM_DRAWING_FAILURE,
-    error
+    error,
 });
 
 export default clientID => dispatch => {

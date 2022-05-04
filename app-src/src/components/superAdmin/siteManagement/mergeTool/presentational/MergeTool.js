@@ -4,7 +4,7 @@ import MergeToolFormContainer from '../containers/MergeToolFormContainer';
 
 const MergeTool = () => (
     <>
-        <PageHeading title="Merge tool" withBackButton/>
+        <PageHeading title="Merge tool" withBackButton />
         <MergeToolFormContainer />
     </>
 );

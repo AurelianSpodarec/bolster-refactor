@@ -9,7 +9,7 @@ const NumberInput = ({
     handleChange,
     handleBlur,
     error,
-    maxNum
+    maxNum,
 }) => (
     <>
         <input
@@ -22,9 +22,7 @@ const NumberInput = ({
             onBlur={handleBlur}
             max={maxNum}
         />
-        {!!(error && error.length) && (
-            <p className="error red-text text-accent-4">{error}</p>
-        )}
+        {!!(error && error.length) && <p className="error red-text text-accent-4">{error}</p>}
     </>
 );
 

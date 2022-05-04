@@ -5,14 +5,14 @@ import {
     CLIENT_FETCH_ALL_SITES_FAILURE,
     CLIENT_FETCH_ALL_SITES_SUCCESS,
     CLIENT_FETCH_SINGLE_SITE_FAILURE,
-    CLIENT_FETCH_SINGLE_SITE_SUCCESS
+    CLIENT_FETCH_SINGLE_SITE_SUCCESS,
 } from 'constants/client/actionTypes/clientSites';
 import { convertArrToObj, updateObj } from 'helpers/generic';
 
 export default combineReducers({
     isFetching: isFetchingReducer,
     error: errorReducer,
-    sites: sitesReducer
+    sites: sitesReducer,
 });
 
 function isFetchingReducer(state = false, action) {

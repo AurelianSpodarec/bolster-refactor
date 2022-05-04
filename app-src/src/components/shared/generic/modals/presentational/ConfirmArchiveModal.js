@@ -7,7 +7,7 @@ const ConfirmArchiveModal = ({
     handleArchive,
     hideModal,
     message = 'Are you sure you want to archive this?',
-    archive = true
+    archive = true,
 }) => (
     <ModalOuterContainer>
         <BlockHeading title="Archive Confirmation" />

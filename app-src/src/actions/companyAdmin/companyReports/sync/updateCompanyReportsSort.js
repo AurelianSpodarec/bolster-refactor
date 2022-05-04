@@ -3,5 +3,5 @@ import { UPDATE_COMPANY_REPORTS_SORT } from 'constants/actionTypes/companyReport
 export default sortString => dispatch =>
     dispatch({
         type: UPDATE_COMPANY_REPORTS_SORT,
-        sortString
+        sortString,
     });

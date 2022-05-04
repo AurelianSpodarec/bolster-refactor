@@ -106,13 +106,8 @@ const LoginFormContainer = ({
     }
 
     async function onSuccess() {
-        const {
-            isSuperAdmin,
-            isCompanyAdmin,
-            companyUserType,
-            companyID,
-            isClientAccess,
-        } = await authenticate();
+        const { isSuperAdmin, isCompanyAdmin, companyUserType, companyID, isClientAccess } =
+            await authenticate();
 
         if (+companyUserType === ROLES.OPERATIVE) {
             localStorage.removeItem('token');

@@ -6,30 +6,31 @@ import setAPIFieldErrors from 'actions/shared/generic/fieldErrors/sync/setAPIFie
 import {
     ADD_MANY_CLIENTS_REQUEST,
     ADD_MANY_CLIENTS_SUCCESS,
-    ADD_MANY_CLIENTS_FAILURE
+    ADD_MANY_CLIENTS_FAILURE,
 } from 'constants/actionTypes/clients';
 
 export const addManyClientsRequest = () => ({
-    type: ADD_MANY_CLIENTS_REQUEST
+    type: ADD_MANY_CLIENTS_REQUEST,
 });
 
 export const addManyClientsSuccess = payload => ({
     type: ADD_MANY_CLIENTS_SUCCESS,
-    payload
+    payload,
 });
 
 export const addManyClientsFailure = error => ({
     type: ADD_MANY_CLIENTS_FAILURE,
-    error
+    error,
 });
 
 export default (HierarchyType, HierarchyID, postBody) => dispatch => {
     dispatch(addManyClientsRequest());
-    return axios.post(
-        `${API_URL}/clientpermissions/${HierarchyType}/${HierarchyID}/many`,
-        postBody,
-        getHeaders()
-    )
+    return axios
+        .post(
+            `${API_URL}/clientpermissions/${HierarchyType}/${HierarchyID}/many`,
+            postBody,
+            getHeaders(),
+        )
         .then(({ data }) => dispatch(addManyClientsSuccess(data)))
         .catch(err => {
             dispatch(addManyClientsFailure(err.message));

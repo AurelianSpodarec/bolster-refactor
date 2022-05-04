@@ -3,14 +3,14 @@ import { combineReducers } from 'redux';
 import {
     CLIENT_FETCH_PIN_FEED_REQUEST,
     CLIENT_FETCH_PIN_FEED_SUCCESS,
-    CLIENT_FETCH_PIN_FEED_FAILURE
+    CLIENT_FETCH_PIN_FEED_FAILURE,
 } from 'constants/client/actionTypes/clientPins';
 
 export default combineReducers({
     pins: latestPinFeedReducer,
     isFetching: isFetchingReducer,
     error: errorReducer,
-    lastUpdatedOn: lastUpdatedOnReducer
+    lastUpdatedOn: lastUpdatedOnReducer,
 });
 
 function isFetchingReducer(state = false, action) {

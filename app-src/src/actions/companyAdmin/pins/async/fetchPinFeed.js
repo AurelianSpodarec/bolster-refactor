@@ -5,21 +5,21 @@ import { getHeaders } from 'helpers/api';
 import {
     FETCH_PIN_FEED_REQUEST,
     FETCH_PIN_FEED_SUCCESS,
-    FETCH_PIN_FEED_FAILURE
+    FETCH_PIN_FEED_FAILURE,
 } from 'constants/actionTypes/pins';
 
 export const fetchPinFeedRequest = () => ({
-    type: FETCH_PIN_FEED_REQUEST
+    type: FETCH_PIN_FEED_REQUEST,
 });
 
 export const fetchPinFeedSuccess = payload => ({
     type: FETCH_PIN_FEED_SUCCESS,
-    payload
+    payload,
 });
 
 export const fetchPinFeedFailure = error => ({
     type: FETCH_PIN_FEED_FAILURE,
-    error
+    error,
 });
 
 export default lastUpdated => dispatch => {
@@ -27,10 +27,8 @@ export default lastUpdated => dispatch => {
 
     return axios
         .get(
-            `${API_URL}/pins/historyfeed${
-                lastUpdated ? `?lastUpdateDate=${lastUpdated}` : ''
-            }`,
-            getHeaders()
+            `${API_URL}/pins/historyfeed${lastUpdated ? `?lastUpdateDate=${lastUpdated}` : ''}`,
+            getHeaders(),
         )
         .then(res => dispatch(fetchPinFeedSuccess(res.data)))
         .catch(err => dispatch(fetchPinFeedFailure(err.message)));

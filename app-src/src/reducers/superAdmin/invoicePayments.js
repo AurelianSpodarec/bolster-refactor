@@ -13,14 +13,14 @@ import {
     SA_RECORD_INVOICE_PAYMENT_FAILURE,
     SA_FETCH_PAYMENTS_BY_INVOICE_REQUEST,
     SA_FETCH_PAYMENTS_BY_INVOICE_SUCCESS,
-    SA_FETCH_PAYMENTS_BY_INVOICE_FAILURE
+    SA_FETCH_PAYMENTS_BY_INVOICE_FAILURE,
 } from 'constants/actionTypes/superAdminInvoices';
 
 export default combineReducers({
     invoicePayments: invoicePaymentsReducer,
     isFetching: isFetchingReducer,
     error: errorReducer,
-    postSuccess: postSuccessReducer
+    postSuccess: postSuccessReducer,
 });
 
 function isFetchingReducer(state = false, action) {

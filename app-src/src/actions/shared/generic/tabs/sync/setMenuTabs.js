@@ -4,5 +4,5 @@ export default (tabs, selectedTab) => dispatch =>
     dispatch({
         type: SET_MENU_TABS,
         tabs,
-        selectedTab
+        selectedTab,
     });

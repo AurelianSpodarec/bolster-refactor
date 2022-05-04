@@ -5,22 +5,22 @@ import { getHeaders } from 'helpers/api';
 import {
     CREATE_SOS_CODE_REQUEST,
     CREATE_SOS_CODE_SUCCESS,
-    CREATE_SOS_CODE_FAILURE
+    CREATE_SOS_CODE_FAILURE,
 } from 'constants/actionTypes/superAdminSOSCodes';
 import { ADMIN_API_URL } from 'config';
 
 export const createSOSCodeRequest = () => ({
-    type: CREATE_SOS_CODE_REQUEST
+    type: CREATE_SOS_CODE_REQUEST,
 });
 
 export const createSOSCodeSuccess = payload => ({
     type: CREATE_SOS_CODE_SUCCESS,
-    payload
+    payload,
 });
 
 export const createSOSCodeFailure = error => ({
     type: CREATE_SOS_CODE_FAILURE,
-    error
+    error,
 });
 
 export default postBody => dispatch => {

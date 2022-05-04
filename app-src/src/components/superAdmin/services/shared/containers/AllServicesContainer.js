@@ -12,11 +12,8 @@ class AllServicesContainer extends Component {
     }
 }
 
-export default connect(
-    null,
-    dispatch => ({
-        fetchAllServices: () => {
-            dispatch(fetchAllServices());
-        }
-    })
-)(AllServicesContainer);
+export default connect(null, dispatch => ({
+    fetchAllServices: () => {
+        dispatch(fetchAllServices());
+    },
+}))(AllServicesContainer);

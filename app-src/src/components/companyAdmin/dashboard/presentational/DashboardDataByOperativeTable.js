@@ -3,13 +3,7 @@ import Table from 'components/shared/generic/tables/presentational/Table';
 
 import DashboardDataByOperativeListItem from './DashboardDataByOperativeListItem';
 
-const DashboardDataByOperativeTable = ({
-    headers,
-    isFetching,
-    error,
-    operatives,
-    onMobile
-}) => (
+const DashboardDataByOperativeTable = ({ headers, isFetching, error, operatives, onMobile }) => (
     <Table
         withActions
         headers={headers}

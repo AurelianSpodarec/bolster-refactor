@@ -6,21 +6,21 @@ import setAPIFieldErrors from 'actions/shared/generic/fieldErrors/sync/setAPIFie
 import {
     EDIT_DOCUMENT_REQUEST,
     EDIT_DOCUMENT_SUCCESS,
-    EDIT_DOCUMENT_FAILURE
+    EDIT_DOCUMENT_FAILURE,
 } from 'constants/actionTypes/documents';
 
 export const editDocumentRequest = () => ({
-    type: EDIT_DOCUMENT_REQUEST
+    type: EDIT_DOCUMENT_REQUEST,
 });
 
 export const editDocumentSuccess = payload => ({
     type: EDIT_DOCUMENT_SUCCESS,
-    payload
+    payload,
 });
 
 export const editDocumentFailure = error => ({
     type: EDIT_DOCUMENT_FAILURE,
-    error
+    error,
 });
 
 export default (id, postBody) => dispatch => {

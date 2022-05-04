@@ -21,14 +21,14 @@ class ClientHeaderContainer extends Component {
 
 const mapStateToProps = ({
     client: {
-        companiesReducer: { companies }
+        companiesReducer: { companies },
     },
     shared: {
         profileReducer: { profile },
         decodeJWTReducer: {
-            jwtData: { headquartersCompanyID, companyID }
-        }
-    }
+            jwtData: { headquartersCompanyID, companyID },
+        },
+    },
 }) => {
     const isImpersonating = headquartersCompanyID !== companyID;
     const selectedCompanyID = getSelectedCompanyForClient();
@@ -36,7 +36,7 @@ const mapStateToProps = ({
     return {
         profile: profile,
         selectedCompany: companies[selectedCompanyID] || {},
-        isImpersonating
+        isImpersonating,
     };
 };
 

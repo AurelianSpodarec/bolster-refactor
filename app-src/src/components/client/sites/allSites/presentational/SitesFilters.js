@@ -10,7 +10,7 @@ const SitesListFilters = ({
     sortOptions,
     selectedSort,
     handleChange,
-    onMobile
+    onMobile,
 }) => (
     <form className="table-search size-lg-12">
         {onMobile ? (

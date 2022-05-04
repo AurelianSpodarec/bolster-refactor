@@ -8,12 +8,8 @@ import { ERROR_MODAL } from 'constants/shared/modalTypes';
 
 class TransferRequestsTableContainer extends Component {
     render() {
-        const {
-            incomingTransferRequests,
-            outgoingTransferRequests,
-            isFetching,
-            error
-        } = this.props;
+        const { incomingTransferRequests, outgoingTransferRequests, isFetching, error } =
+            this.props;
         const headers = ['Date', 'Site name', 'From', 'To', 'Action(s)'];
         return (
             <TransferRequestsTable
@@ -27,12 +23,7 @@ class TransferRequestsTableContainer extends Component {
     }
 
     componentDidUpdate = prevProps => {
-        const {
-            fetchTransferRequests,
-            postSuccess,
-            error,
-            showModal
-        } = this.props;
+        const { fetchTransferRequests, postSuccess, error, showModal } = this.props;
         if (postSuccess && !prevProps.postSuccess) {
             fetchTransferRequests();
         }
@@ -49,15 +40,15 @@ const mapStateToProps = ({
             outgoingTransferRequests,
             isFetching,
             error,
-            postSuccess
-        }
-    }
+            postSuccess,
+        },
+    },
 }) => ({
     incomingTransferRequests: Object.values(incomingTransferRequests),
     outgoingTransferRequests: Object.values(outgoingTransferRequests),
     isFetching,
     error,
-    postSuccess
+    postSuccess,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -65,10 +56,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchIncomingTransferRequests());
         dispatch(fetchOutgoingTransferRequests());
     },
-    showModal: (type, props) => dispatch(showModal(type, props))
+    showModal: (type, props) => dispatch(showModal(type, props)),
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(TransferRequestsTableContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(TransferRequestsTableContainer);

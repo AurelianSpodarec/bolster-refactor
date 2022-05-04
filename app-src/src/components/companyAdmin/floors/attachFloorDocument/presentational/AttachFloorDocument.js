@@ -5,11 +5,7 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 
 const AttachFloorDocument = () => (
     <>
-        <PageHeading
-            leftChildren={true}
-            title={'Attach Document'}
-            withBackButton
-        />
+        <PageHeading leftChildren={true} title={'Attach Document'} withBackButton />
         <AttachDocumentFormContainer hierarchyType="floor" />
     </>
 );

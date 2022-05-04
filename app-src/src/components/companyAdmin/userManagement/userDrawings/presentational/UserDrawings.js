@@ -13,8 +13,7 @@ const UserDrawings = ({ title }) => (
         <BlockContainer>
             <BlockHeading title="User Drawings Access " />
             <p className="generic-text intro-text size-lg-12">
-                Please check the drawing(s) you wish to remove access for this
-                user.
+                Please check the drawing(s) you wish to remove access for this user.
             </p>
             <UserDrawingsTableContainer />
         </BlockContainer>

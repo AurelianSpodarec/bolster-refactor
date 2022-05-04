@@ -36,19 +36,16 @@ let FloorGeneralOverview = ({ floor }) => (
                 </div>
 
                 <div className="flex-item size-lg-4 size-md-12">
-                    <FloorCompaniesAccessTableContainer
-                        accessType={floor.accessType}
-                    />
+                    <FloorCompaniesAccessTableContainer accessType={floor.accessType} />
                 </div>
             </div>
         )}
     </>
 );
 
-const mapStateToProps = (
-    { companyAdmin: { floorsReducer } },
-    { match: { params } }
-) => ({ floor: floorsReducer.floors[params['id']] || {} });
+const mapStateToProps = ({ companyAdmin: { floorsReducer } }, { match: { params } }) => ({
+    floor: floorsReducer.floors[params['id']] || {},
+});
 
 FloorGeneralOverview = connect(mapStateToProps)(FloorGeneralOverview);
 FloorGeneralOverview = withRouter(FloorGeneralOverview);

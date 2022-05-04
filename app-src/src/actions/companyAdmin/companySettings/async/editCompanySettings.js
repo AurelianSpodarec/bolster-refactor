@@ -3,23 +3,23 @@ import axios from 'axios';
 import {
     EDIT_COMPANY_SETTINGS_REQUEST,
     EDIT_COMPANY_SETTINGS_SUCCESS,
-    EDIT_COMPANY_SETTINGS_FAILURE
+    EDIT_COMPANY_SETTINGS_FAILURE,
 } from 'constants/actionTypes/companySettings';
 import { API_URL } from 'config';
 import { getHeaders, handleErrors } from 'helpers/api';
 
 export const editCompanySettingsRequest = () => ({
-    type: EDIT_COMPANY_SETTINGS_REQUEST
+    type: EDIT_COMPANY_SETTINGS_REQUEST,
 });
 
 export const editCompanySettingsSuccess = payload => ({
     type: EDIT_COMPANY_SETTINGS_SUCCESS,
-    payload
+    payload,
 });
 
 export const editCompanySettingsFailure = error => ({
     type: EDIT_COMPANY_SETTINGS_FAILURE,
-    error
+    error,
 });
 
 export default postBody => dispatch => {

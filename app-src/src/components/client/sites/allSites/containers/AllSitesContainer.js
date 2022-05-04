@@ -24,14 +24,11 @@ class AllSitesContainer extends Component {
     };
 }
 
-export default connect(
-    null,
-    dispatch => ({
-        fetchAllLevels: companyID => {
-            dispatch(fetchAllClientSites(companyID));
-            dispatch(fetchAllClientBuildings(companyID));
-            dispatch(fetchAllClientFloors(companyID));
-            dispatch(fetchAllClientDrawings(companyID));
-        }
-    })
-)(AllSitesContainer);
+export default connect(null, dispatch => ({
+    fetchAllLevels: companyID => {
+        dispatch(fetchAllClientSites(companyID));
+        dispatch(fetchAllClientBuildings(companyID));
+        dispatch(fetchAllClientFloors(companyID));
+        dispatch(fetchAllClientDrawings(companyID));
+    },
+}))(AllSitesContainer);

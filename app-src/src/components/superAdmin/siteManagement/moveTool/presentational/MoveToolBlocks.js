@@ -10,7 +10,7 @@ const MoveToolBlocks = ({
     selectedHierarchy,
     handleChange,
     handleCompanyOneChange,
-    handleHierarchyChange
+    handleHierarchyChange,
 }) => (
     <>
         <div className="size-lg-6 size-md-12">

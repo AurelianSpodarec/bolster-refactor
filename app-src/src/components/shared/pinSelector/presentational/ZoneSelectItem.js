@@ -3,17 +3,14 @@ import React from 'react';
 const ZoneSelectItem = ({
     option: {
         value,
-        text
+        text,
         // colorHex - could use this in output?
     },
     active,
-    onClick
+    onClick,
 }) => {
     return (
-        <div
-            className={`selector-pin ${active ? 'active' : ''}`}
-            onClick={_handleClick}
-        >
+        <div className={`selector-pin ${active ? 'active' : ''}`} onClick={_handleClick}>
             {text}
         </div>
     );

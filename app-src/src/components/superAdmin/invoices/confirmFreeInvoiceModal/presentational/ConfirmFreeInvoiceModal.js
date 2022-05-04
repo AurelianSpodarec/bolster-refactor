@@ -10,8 +10,8 @@ const ConfirmFreeInvoiceModal = ({ hideModal, handleSubmit }) => {
         <ModalOuterContainer>
             <BlockHeading title="Confirm Free Invoice" />
             <p className="generic-text intro-text size-lg-12">
-                Are you sure you would like to make this invoice free? Doing so
-                will make the value of the invoice and all its items £00.00.
+                Are you sure you would like to make this invoice free? Doing so will make the value
+                of the invoice and all its items £00.00.
             </p>
 
             <BlockButtonWrapper>

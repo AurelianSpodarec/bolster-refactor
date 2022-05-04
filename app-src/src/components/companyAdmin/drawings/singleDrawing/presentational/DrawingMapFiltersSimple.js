@@ -8,13 +8,7 @@ import YellowPin from '_content/images/map-markers/yellow-pin2x.png';
 import PurplePin from '_content/images/map-markers/purple-pin2x.png';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
-const DrawingMapFiltersSimple = ({
-    installed,
-    inspected,
-    noAction,
-    action,
-    other
-}) => (
+const DrawingMapFiltersSimple = ({ installed, inspected, noAction, action, other }) => (
     <BlockHeading>
         <div className="map-filters size-lg-12">
             <div className="pin-amounts size-lg-12">

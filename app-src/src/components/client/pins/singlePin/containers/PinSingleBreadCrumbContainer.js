@@ -16,22 +16,22 @@ class PinSingleBreadCrumbContainer extends Component {
         const breadcrumbsArray = [
             {
                 text: 'Sites',
-                link: '/client/sites/'
+                link: '/client/sites/',
             },
             {
                 text: site.name,
-                link: `/client/sites/${site.id}`
+                link: `/client/sites/${site.id}`,
             },
             {
                 text: building.name,
-                link: `/client/buildings/${building.id}`
+                link: `/client/buildings/${building.id}`,
             },
             {
                 text: floor.name,
-                link: `/client/floors/${floor.id}`
+                link: `/client/floors/${floor.id}`,
             },
             { text: drawing.name, link: `/client/drawings/${pin.drawingID}` },
-            { text: `Pin ${pin.pinCode}` }
+            { text: `Pin ${pin.pinCode}` },
         ];
         return (
             <Breadcrumb breadcrumbs={!isFetching ? breadcrumbsArray : [{ text: 'Loading...' }]}>
@@ -59,7 +59,7 @@ class PinSingleBreadCrumbContainer extends Component {
             clientFetchSingleFloor,
             clientFetchSingleBuilding,
             clientFetchSingleSite,
-            clientFetchSingleDrawing
+            clientFetchSingleDrawing,
         } = this.props;
         const companyID = getSelectedCompanyForClient();
         clientFetchSingleDrawing(companyID, pin.drawingID)
@@ -76,10 +76,10 @@ const mapStateToProps = (
             drawingsReducer: { drawings, isFetching: fetchingDrawings },
             floorsReducer: { floors, isFetching: fetchingFloors },
             buildingsReducer: { buildings, isFetching: fetchingBuildings },
-            sitesReducer: { sites, isFetching: fetchingSites }
-        }
+            sitesReducer: { sites, isFetching: fetchingSites },
+        },
     },
-    { match }
+    { match },
 ) => {
     const pin = singlePin[match.params.id] || {};
     const drawing = drawings[pin.drawingID] || {};
@@ -93,7 +93,11 @@ const mapStateToProps = (
         building,
         site,
         isFetching:
-            fetchingPins || fetchingDrawings || fetchingFloors || fetchingBuildings || fetchingSites
+            fetchingPins ||
+            fetchingDrawings ||
+            fetchingFloors ||
+            fetchingBuildings ||
+            fetchingSites,
     };
 };
 
@@ -109,12 +113,9 @@ const mapDispatchToProps = dispatch => ({
     },
     clientFetchSingleDrawing: (companyID, drawingID) => {
         return dispatch(clientFetchSingleDrawing(companyID, drawingID));
-    }
+    },
 });
 
 export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(PinSingleBreadCrumbContainer)
+    connect(mapStateToProps, mapDispatchToProps)(PinSingleBreadCrumbContainer),
 );

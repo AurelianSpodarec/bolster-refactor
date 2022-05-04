@@ -5,21 +5,21 @@ import { getHeaders } from 'helpers/api';
 import {
     FETCH_DRAWING_TEMPLATES_REQUEST,
     FETCH_DRAWING_TEMPLATES_SUCCESS,
-    FETCH_DRAWING_TEMPLATES_FAILURE
+    FETCH_DRAWING_TEMPLATES_FAILURE,
 } from 'constants/actionTypes/drawings';
 
 export const fetchDrawingTemplatesRequest = () => ({
-    type: FETCH_DRAWING_TEMPLATES_REQUEST
+    type: FETCH_DRAWING_TEMPLATES_REQUEST,
 });
 
 export const fetchDrawingTemplatesSuccess = payload => ({
     type: FETCH_DRAWING_TEMPLATES_SUCCESS,
-    payload
+    payload,
 });
 
 export const fetchDrawingTemplatesFailure = error => ({
     type: FETCH_DRAWING_TEMPLATES_FAILURE,
-    error
+    error,
 });
 
 export default drawingID => dispatch => {

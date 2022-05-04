@@ -5,21 +5,21 @@ import { getHeaders } from 'helpers/api';
 import {
     FETCH_ALL_APPROVED_COMPANIES_REQUEST,
     FETCH_ALL_APPROVED_COMPANIES_SUCCESS,
-    FETCH_ALL_APPROVED_COMPANIES_FAILURE
+    FETCH_ALL_APPROVED_COMPANIES_FAILURE,
 } from 'constants/actionTypes/approvedCompanies';
 
 export const fetchAllApprovedCompaniesRequest = () => ({
-    type: FETCH_ALL_APPROVED_COMPANIES_REQUEST
+    type: FETCH_ALL_APPROVED_COMPANIES_REQUEST,
 });
 
 export const fetchAllApprovedCompaniesSuccess = payload => ({
     type: FETCH_ALL_APPROVED_COMPANIES_SUCCESS,
-    payload
+    payload,
 });
 
 export const fetchAllApprovedCompaniesFailure = error => ({
     type: FETCH_ALL_APPROVED_COMPANIES_FAILURE,
-    error
+    error,
 });
 
 export default () => dispatch => {

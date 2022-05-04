@@ -10,7 +10,7 @@ const MoveToolMoveTo = ({
     companies,
     selectedCompany,
     moveFromCompany,
-    selectedHierarchy
+    selectedHierarchy,
 }) => (
     <Block>
         <BlockHeading title="Company to move to" />

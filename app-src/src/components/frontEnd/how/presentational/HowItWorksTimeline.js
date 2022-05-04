@@ -26,7 +26,11 @@ const HowItWorksTimeline = ({ items, activeIndex }) => (
                                 <div className="number">{number.slice(-2)}.</div>
                                 <div className="icon">
                                     <img alt={item.title} src={item.icon} />
-                                    <img className="active-icon" alt={item.title} src={item.activeIcon} />
+                                    <img
+                                        className="active-icon"
+                                        alt={item.title}
+                                        src={item.activeIcon}
+                                    />
                                 </div>
                                 <div className="text">
                                     <h4>{item.title}</h4>

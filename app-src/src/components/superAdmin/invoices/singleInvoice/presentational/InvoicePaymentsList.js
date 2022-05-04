@@ -1,23 +1,14 @@
 import React from 'react';
 
-import {
-    ADMIN_EDIT_PAYMENT,
-    ADMIN_DELETE_PAYMENT
-} from 'constants/shared/modalTypes';
+import { ADMIN_EDIT_PAYMENT, ADMIN_DELETE_PAYMENT } from 'constants/shared/modalTypes';
 
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import {
-    DATE_TIME_DEFAULTS,
-    PAYMENT_TYPES
-} from 'constants/companyAdmin/enums';
+import { DATE_TIME_DEFAULTS, PAYMENT_TYPES } from 'constants/companyAdmin/enums';
 import moment from 'moment';
 
 const InvoicePaymentsList = ({ invoicePayments, handleShowModal }) =>
     invoicePayments
-        .sort(
-            (a, b) =>
-                moment(b.createdOn).valueOf() - moment(a.createdOn).valueOf()
-        )
+        .sort((a, b) => moment(b.createdOn).valueOf() - moment(a.createdOn).valueOf())
         .map(({ id, createdOn, amount, paymentMethod, invoiceID }) => (
             <tr key={id}>
                 <td>{id}</td>
@@ -33,7 +24,7 @@ const InvoicePaymentsList = ({ invoicePayments, handleShowModal }) =>
                                     id,
                                     amount,
                                     invoiceID,
-                                    paymentMethod
+                                    paymentMethod,
                                 )
                             }
                             className="button yellow"
@@ -42,12 +33,7 @@ const InvoicePaymentsList = ({ invoicePayments, handleShowModal }) =>
                         </button>
                         <button
                             onClick={() =>
-                                handleShowModal(
-                                    ADMIN_DELETE_PAYMENT,
-                                    id,
-                                    amount,
-                                    invoiceID
-                                )
+                                handleShowModal(ADMIN_DELETE_PAYMENT, id, amount, invoiceID)
                             }
                             className="button red"
                         >

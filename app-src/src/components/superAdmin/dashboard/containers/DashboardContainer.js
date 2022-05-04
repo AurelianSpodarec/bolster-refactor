@@ -11,10 +11,7 @@ class DashboardContainer extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    fetchCompanyReportsQueue: () => dispatch(fetchCompanyReportsQueue())
+    fetchCompanyReportsQueue: () => dispatch(fetchCompanyReportsQueue()),
 });
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(DashboardContainer);
+export default connect(null, mapDispatchToProps)(DashboardContainer);

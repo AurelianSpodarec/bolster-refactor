@@ -3,11 +3,7 @@ import FieldOutput from 'components/shared/generic/fieldOutput/presentational/Fi
 import { isObjEmpty } from 'helpers/generic';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
-const TemplateSectionQuestionDetails = ({
-    question,
-    details = {},
-    showModal
-}) =>
+const TemplateSectionQuestionDetails = ({ question, details = {}, showModal }) =>
     !isObjEmpty(details) ? (
         <>
             <BlockHeading title={question.name}>
@@ -18,12 +14,7 @@ const TemplateSectionQuestionDetails = ({
                 )}
             </BlockHeading>
             {Object.entries(details).map(([key, val]) => (
-                <FieldOutput
-                    key={key}
-                    title={key}
-                    description={val}
-                    fieldClass="no-h-padding"
-                />
+                <FieldOutput key={key} title={key} description={val} fieldClass="no-h-padding" />
             ))}
         </>
     ) : (

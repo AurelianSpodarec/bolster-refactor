@@ -3,23 +3,23 @@ import axios from 'axios';
 import {
     SA_MAKE_INVOICE_FREE_REQUEST,
     SA_MAKE_INVOICE_FREE_SUCCESS,
-    SA_MAKE_INVOICE_FREE_FAILURE
+    SA_MAKE_INVOICE_FREE_FAILURE,
 } from 'constants/actionTypes/superAdminInvoices';
 import { ADMIN_API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
 
 export const saMakeInvoiceFreeRequest = () => ({
-    type: SA_MAKE_INVOICE_FREE_REQUEST
+    type: SA_MAKE_INVOICE_FREE_REQUEST,
 });
 
 export const saMakeInvoiceFreeSuccess = payload => ({
     type: SA_MAKE_INVOICE_FREE_SUCCESS,
-    payload
+    payload,
 });
 
 export const saMakeInvoiceFreeFailure = error => ({
     type: SA_MAKE_INVOICE_FREE_FAILURE,
-    error
+    error,
 });
 
 export default id => dispatch => {

@@ -21,14 +21,15 @@ export const fetchCompanyTrackingFailure = error => ({
     error,
 });
 
-export default ({ dateFrom, dateTo }) => dispatch => {
-    dispatch(fetchCompanyTrackingRequest());
+export default ({ dateFrom, dateTo }) =>
+    dispatch => {
+        dispatch(fetchCompanyTrackingRequest());
 
-    return axios
-        .get(
-            `${ADMIN_API_URL}/companies/subscriptions?dateFrom=${dateFrom}&dateTo=${dateTo}`,
-            getHeaders(),
-        )
-        .then(res => dispatch(fetchCompanyTrackingSuccess(res.data)))
-        .catch(err => dispatch(fetchCompanyTrackingFailure(err.message)));
-};
+        return axios
+            .get(
+                `${ADMIN_API_URL}/companies/subscriptions?dateFrom=${dateFrom}&dateTo=${dateTo}`,
+                getHeaders(),
+            )
+            .then(res => dispatch(fetchCompanyTrackingSuccess(res.data)))
+            .catch(err => dispatch(fetchCompanyTrackingFailure(err.message)));
+    };
