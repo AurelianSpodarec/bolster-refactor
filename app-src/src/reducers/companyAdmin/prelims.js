@@ -34,6 +34,9 @@ import {
     DELETE_COSTING_AND_ESTIMATING_PRELIM_REQUEST,
     DELETE_COSTING_AND_ESTIMATING_PRELIM_SUCCESS,
     DELETE_COSTING_AND_ESTIMATING_PRELIM_FAILURE,
+    DELETE_CUSTOM_PRELIM_SUCCESS,
+    DELETE_CUSTOM_PRELIM_REQUEST,
+    DELETE_CUSTOM_PRELIM_FAILURE,
 } from 'constants/actionTypes/prelims';
 
 export default combineReducers({
@@ -70,6 +73,7 @@ function isPostingReducer(state = false, action) {
         case DELETE_PRELIM_REQUEST:
         case DELETE_COSTING_AND_ESTIMATING_PRELIM_REQUEST:
         case DELETE_PRELIM_LINK_REQUEST:
+        case DELETE_CUSTOM_PRELIM_REQUEST:
             return true;
         case CREATE_PRELIM_FAILURE:
         case CREATE_PRELIM_SUCCESS:
@@ -89,6 +93,8 @@ function isPostingReducer(state = false, action) {
         case DELETE_COSTING_AND_ESTIMATING_PRELIM_FAILURE:
         case DELETE_PRELIM_LINK_SUCCESS:
         case DELETE_PRELIM_LINK_FAILURE:
+        case DELETE_CUSTOM_PRELIM_SUCCESS:
+        case DELETE_CUSTOM_PRELIM_FAILURE:
             return false;
         default:
             return state;
@@ -115,6 +121,8 @@ function postSuccessReducer(state = false, action) {
         case DELETE_COSTING_AND_ESTIMATING_PRELIM_FAILURE:
         case DELETE_PRELIM_LINK_REQUEST:
         case DELETE_PRELIM_LINK_FAILURE:
+        case DELETE_CUSTOM_PRELIM_REQUEST:
+        case DELETE_CUSTOM_PRELIM_FAILURE:
             return false;
         case CREATE_PRELIM_SUCCESS:
         case EDIT_PRELIM_SUCCESS:
@@ -125,6 +133,7 @@ function postSuccessReducer(state = false, action) {
         case DELETE_PRELIM_SUCCESS:
         case DELETE_COSTING_AND_ESTIMATING_PRELIM_SUCCESS:
         case DELETE_PRELIM_LINK_SUCCESS:
+        case DELETE_CUSTOM_PRELIM_SUCCESS:
             return true;
         default:
             return state;
@@ -143,6 +152,7 @@ function errorReducer(state = null, action) {
         case DELETE_PRELIM_REQUEST:
         case DELETE_COSTING_AND_ESTIMATING_PRELIM_REQUEST:
         case DELETE_PRELIM_LINK_REQUEST:
+        case DELETE_CUSTOM_PRELIM_REQUEST:
             return null;
         case FETCH_ALL_PRELIMS_FAILURE:
         case EDIT_PRELIM_FAILURE:
@@ -155,6 +165,7 @@ function errorReducer(state = null, action) {
         case DELETE_PRELIM_FAILURE:
         case DELETE_PRELIM_LINK_FAILURE:
         case DELETE_COSTING_AND_ESTIMATING_PRELIM_FAILURE:
+        case DELETE_CUSTOM_PRELIM_FAILURE:
             return action.error;
         default:
             return state;
