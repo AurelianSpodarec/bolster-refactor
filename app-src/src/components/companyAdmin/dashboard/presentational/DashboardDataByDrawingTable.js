@@ -3,12 +3,7 @@ import Table from 'components/shared/generic/tables/presentational/Table';
 
 import DashboardDataByDrawingListItem from './DashboardDataByDrawingListItem';
 
-const DashboardDataByDrawingTable = ({
-    headers,
-    isFetching,
-    error,
-    drawings
-}) => (
+const DashboardDataByDrawingTable = ({ headers, isFetching, error, drawings }) => (
     <Table
         withActions
         headers={headers}
@@ -18,10 +13,7 @@ const DashboardDataByDrawingTable = ({
         noDataMessage="There are no drawings to display."
     >
         {drawings.map(drawing => (
-            <DashboardDataByDrawingListItem
-                key={drawing.id}
-                drawing={drawing}
-            />
+            <DashboardDataByDrawingListItem key={drawing.id} drawing={drawing} />
         ))}
     </Table>
 );

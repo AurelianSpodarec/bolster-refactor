@@ -4,7 +4,7 @@ import { FETCH_DRAWING_TEMPLATES_REQUEST } from 'constants/actionTypes/drawings'
 import { CREATE_PIN_SUCCESS } from 'constants/actionTypes/pins';
 
 export default combineReducers({
-    confirmLeave: confirmLeaveReducer
+    confirmLeave: confirmLeaveReducer,
 });
 
 function confirmLeaveReducer(state = {}, action) {

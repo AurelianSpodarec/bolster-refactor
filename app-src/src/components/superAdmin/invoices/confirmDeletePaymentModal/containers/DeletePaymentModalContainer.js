@@ -9,13 +9,7 @@ import { SUCCESS_MODAL } from 'constants/shared/modalTypes';
 
 class DeletePaymentModalContainer extends Component {
     render() {
-        const {
-            id,
-            value,
-            invoiceID,
-            deleteInvoicePayment,
-            hideModal
-        } = this.props;
+        const { id, value, invoiceID, deleteInvoicePayment, hideModal } = this.props;
 
         return (
             <ConfirmDeleteModal
@@ -34,7 +28,7 @@ class DeletePaymentModalContainer extends Component {
 
         if (!prevProps.postSuccess && postSuccess) {
             showModal(SUCCESS_MODAL, {
-                message: 'Invoice payment successfully deleted.'
+                message: 'Invoice payment successfully deleted.',
             });
         }
     }
@@ -42,10 +36,10 @@ class DeletePaymentModalContainer extends Component {
 
 const mapStateToProps = ({
     superAdmin: {
-        invoicePaymentsReducer: { postSuccess }
-    }
+        invoicePaymentsReducer: { postSuccess },
+    },
 }) => ({
-    postSuccess
+    postSuccess,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -57,10 +51,7 @@ const mapDispatchToProps = dispatch => ({
     },
     showModal: (type, props) => {
         dispatch(showModal(type, props));
-    }
+    },
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(DeletePaymentModalContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(DeletePaymentModalContainer);

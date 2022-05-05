@@ -6,14 +6,14 @@ import {
     FETCH_ALL_INVOICE_ITEMS_FAILURE,
     FETCH_SINGLE_INVOICE_ITEMS_REQUEST,
     FETCH_SINGLE_INVOICE_ITEMS_SUCCESS,
-    FETCH_SINGLE_INVOICE_ITEMS_FAILURE
+    FETCH_SINGLE_INVOICE_ITEMS_FAILURE,
 } from 'constants/actionTypes/invoices';
 import { convertArrToObj } from 'helpers/generic';
 
 export default combineReducers({
     isFetching: isFetchingReducer,
     invoiceItems: invoiceItemsReducer,
-    error: errorReducer
+    error: errorReducer,
 });
 
 function isFetchingReducer(state = false, action) {

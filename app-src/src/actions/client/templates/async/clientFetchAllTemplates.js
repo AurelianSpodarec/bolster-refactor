@@ -4,22 +4,22 @@ import { getHeaders } from 'helpers/api';
 import {
     CLIENT_FETCH_ALL_TEMPLATES_REQUEST,
     CLIENT_FETCH_ALL_TEMPLATES_SUCCESS,
-    CLIENT_FETCH_ALL_TEMPLATES_FAILURE
+    CLIENT_FETCH_ALL_TEMPLATES_FAILURE,
 } from 'constants/client/actionTypes/clientTemplates';
 import { CLIENT_API_URL } from 'config';
 
 export const clientFetchAllTemplatesRequest = () => ({
-    type: CLIENT_FETCH_ALL_TEMPLATES_REQUEST
+    type: CLIENT_FETCH_ALL_TEMPLATES_REQUEST,
 });
 
 export const clientFetchAllTemplatesSuccess = payload => ({
     type: CLIENT_FETCH_ALL_TEMPLATES_SUCCESS,
-    payload
+    payload,
 });
 
 export const clientFetchAllTemplatesFailure = error => ({
     type: CLIENT_FETCH_ALL_TEMPLATES_FAILURE,
-    error
+    error,
 });
 
 export default companyID => dispatch => {

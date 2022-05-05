@@ -2,13 +2,7 @@ import React from 'react';
 import Table from 'components/shared/generic/tables/presentational/Table';
 import PendingInvitesList from './PendingInvitesList';
 
-const PendingInvitesTable = ({
-    headers,
-    isFetching,
-    error,
-    pendingInvites,
-    outgoingInvites
-}) => (
+const PendingInvitesTable = ({ headers, isFetching, error, pendingInvites, outgoingInvites }) => (
     <Table
         withActions
         headers={headers}

@@ -5,7 +5,7 @@ import {
     FETCH_ALL_APPROVED_COMPANIES_SUCCESS,
     FETCH_ALL_APPROVED_COMPANIES_FAILURE,
     UPDATE_APPROVED_COMPANIES_FILTERS,
-    UPDATE_APPROVED_COMPANIES_SORT
+    UPDATE_APPROVED_COMPANIES_SORT,
 } from 'constants/actionTypes/approvedCompanies';
 import { updateObj } from 'helpers/generic';
 
@@ -14,7 +14,7 @@ export default combineReducers({
     isFetching: isFetchingReducer,
     error: errorReducer,
     filters: filtersReducer,
-    sort: sortReducer
+    sort: sortReducer,
 });
 
 function isFetchingReducer(state = false, action) {

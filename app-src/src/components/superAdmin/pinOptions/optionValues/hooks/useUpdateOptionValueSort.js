@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState } from 'react';
 
 import { sortBySortValue } from 'helpers/generic';
 
 const useUpdateOptionValueSort = options => {
-    const dispatch = useDispatch();
     const [isSorting, setIsSorting] = useState(false);
 
     const handleToggleSort = () => {
@@ -23,8 +21,6 @@ const useUpdateOptionValueSort = options => {
         const items = [...options].sort(sortBySortValue);
         const [item] = items.splice(fromIndex, 1);
         items.splice(overindex, 0, item);
-        const sorted = items.map((x, i) => ({ ...x, sort: i + 1 }));
-        // reorderPinOptionValues(sorted);
     };
 
     return { isSorting, handleToggleSort, handleUpdateSort, moveItem };

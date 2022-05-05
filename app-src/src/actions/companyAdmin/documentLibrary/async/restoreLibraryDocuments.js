@@ -22,11 +22,12 @@ export const restoreLibraryDocumentsFailure = error => ({
     error,
 });
 
-export default (ids = []) => dispatch => {
-    dispatch(restoreLibraryDocumentsRequest());
+export default (ids = []) =>
+    dispatch => {
+        dispatch(restoreLibraryDocumentsRequest());
 
-    return axios
-        .patch(`${API_URL}/document-library/archive`, { ids, undo: true }, getHeaders())
-        .then(() => dispatch(restoreLibraryDocumentsSuccess(ids)))
-        .catch(err => dispatch(restoreLibraryDocumentsFailure(err.message)));
-};
+        return axios
+            .patch(`${API_URL}/document-library/archive`, { ids, undo: true }, getHeaders())
+            .then(() => dispatch(restoreLibraryDocumentsSuccess(ids)))
+            .catch(err => dispatch(restoreLibraryDocumentsFailure(err.message)));
+    };

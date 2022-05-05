@@ -7,11 +7,7 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 
 const AttachBuildingOperative = () => (
     <>
-        <PageHeading
-            leftChildren={true}
-            title="Attach operative"
-            withBackButton
-        />
+        <PageHeading leftChildren={true} title="Attach operative" withBackButton />
         <AttachOperativesFormContainer hierarchyType={HIERARCHY_IDS.BUILDING} />
     </>
 );

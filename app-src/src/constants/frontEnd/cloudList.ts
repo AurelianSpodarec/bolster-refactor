@@ -3,13 +3,11 @@ import BolsterB from '_content/images/frontend-new/why-use-our-system/bolster-lo
 export const topList = [
     {
         icon: BolsterB,
-        title:
-            'Save time and money with PDF, spreadsheet and location drawing generation at the click of a button',
+        title: 'Save time and money with PDF, spreadsheet and location drawing generation at the click of a button',
     },
     {
         icon: BolsterB,
-        title:
-            'Upload floorplan drawings of buildings to our bespoke pin drop system to accurately locate your findings',
+        title: 'Upload floorplan drawings of buildings to our bespoke pin drop system to accurately locate your findings',
     },
     {
         icon: BolsterB,
@@ -36,7 +34,6 @@ export const bottomList = [
     },
     {
         icon: BolsterB,
-        title:
-            'Sign on site required documentation (method statements, RAM’s, Safe Starts, Permits) directly through the app',
+        title: 'Sign on site required documentation (method statements, RAM’s, Safe Starts, Permits) directly through the app',
     },
 ];

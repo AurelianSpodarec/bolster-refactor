@@ -4,7 +4,7 @@ import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeCon
 const SiteDetails = ({
     site: { addressLine1, addressLine2, city, postcode, client },
     stats: { lastUpdatedOn },
-    sizeClasses = 'size-lg-6'
+    sizeClasses = 'size-lg-6',
 }) => (
     <div className={sizeClasses}>
         <div className="size-lg-6">

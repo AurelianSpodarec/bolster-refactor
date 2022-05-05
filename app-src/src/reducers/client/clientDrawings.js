@@ -5,7 +5,7 @@ import {
     CLIENT_FETCH_SINGLE_DRAWING_FAILURE,
     CLIENT_FETCH_ALL_DRAWINGS_REQUEST,
     CLIENT_FETCH_ALL_DRAWINGS_SUCCESS,
-    CLIENT_FETCH_ALL_DRAWINGS_FAILURE
+    CLIENT_FETCH_ALL_DRAWINGS_FAILURE,
 } from 'constants/client/actionTypes/clientDrawings';
 
 import { convertArrToObj, updateObj } from 'helpers/generic';
@@ -13,7 +13,7 @@ import { convertArrToObj, updateObj } from 'helpers/generic';
 export default combineReducers({
     drawings: drawingsReducer,
     isFetching: isFetchingReducer,
-    error: errorReducer
+    error: errorReducer,
 });
 
 function isFetchingReducer(state = false, action) {

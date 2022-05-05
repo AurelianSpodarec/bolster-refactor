@@ -4,13 +4,7 @@ import { connect } from 'react-redux';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import SuccessModal from '../presentational/SuccessModal';
 
-const SuccessModalContainer = ({
-    hideModal,
-    title,
-    message,
-    link = '',
-    linkMessage = ''
-}) => (
+const SuccessModalContainer = ({ hideModal, title, message, link = '', linkMessage = '' }) => (
     <SuccessModal
         hideModal={hideModal}
         title={title}
@@ -21,10 +15,7 @@ const SuccessModalContainer = ({
 );
 
 const mapDispatchToProps = dispatch => ({
-    hideModal: () => dispatch(hideModal())
+    hideModal: () => dispatch(hideModal()),
 });
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(SuccessModalContainer);
+export default connect(null, mapDispatchToProps)(SuccessModalContainer);

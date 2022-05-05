@@ -77,15 +77,8 @@ class BuyCreditsModalContainer extends Component {
     };
 
     componentDidUpdate = prevProps => {
-        const {
-            isFetching,
-            cards,
-            postError,
-            postSuccess,
-            fetchAllCredits,
-            showModal,
-            error,
-        } = this.props;
+        const { isFetching, cards, postError, postSuccess, fetchAllCredits, showModal, error } =
+            this.props;
         const { paymentType } = this.state;
         if (!isFetching && prevProps.isFetching) {
             const primaryCard = cards.find(({ isPrimary }) => isPrimary);

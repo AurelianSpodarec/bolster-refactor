@@ -6,7 +6,7 @@ import EditServiceModal from '../presentational/EditServiceModal';
 
 class EditServiceModalContainer extends Component {
     state = {
-        name: this.props.name
+        name: this.props.name,
     };
     render() {
         return (
@@ -41,10 +41,7 @@ const mapDispatchToProps = dispatch => ({
     editService: (id, name) => {
         dispatch(editService(id, name));
         dispatch(hideModal());
-    }
+    },
 });
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(EditServiceModalContainer);
+export default connect(null, mapDispatchToProps)(EditServiceModalContainer);

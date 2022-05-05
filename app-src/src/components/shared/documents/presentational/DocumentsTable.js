@@ -16,30 +16,24 @@ const DocumentsTable = ({
     accessType,
     smallList = false,
     onMobile,
-    drawingExpired
+    drawingExpired,
 }) => {
     return (
         <div className="size-lg-12">
             <BlockHeading title="Documents" classes="w-table">
-                {!clientControls &&
-                    accessType >= ACCESS_TYPES_VALUES.WRITE &&
-                    !drawingExpired && (
-                        <ButtonContainer
-                            className="pull-right green"
-                            to={`${location.pathname}/attach-document`}
-                        >
-                            <i className="fa fa-plus" /> Add
-                        </ButtonContainer>
-                    )}
+                {!clientControls && accessType >= ACCESS_TYPES_VALUES.WRITE && !drawingExpired && (
+                    <ButtonContainer
+                        className="pull-right green"
+                        to={`${location.pathname}/attach-document`}
+                    >
+                        <i className="fa fa-plus" /> Add
+                    </ButtonContainer>
+                )}
             </BlockHeading>
             <div
                 className={`size-lg-12 ignore-padding ${
                     smallList && documents.length > 3 ? 'scrollbar-y' : ''
-                } ${
-                    !smallList && documents.length > 4
-                        ? 'scrollbar-y large'
-                        : ''
-                }`}
+                } ${!smallList && documents.length > 4 ? 'scrollbar-y large' : ''}`}
             >
                 <Table
                     headers={['Name', 'Actions']}
@@ -65,7 +59,13 @@ const DocumentsTable = ({
 };
 
 export default withRouter(
-    connect(({ shared: { mobileReducer: { onMobile } } }) => ({
-        onMobile
-    }))(DocumentsTable)
+    connect(
+        ({
+            shared: {
+                mobileReducer: { onMobile },
+            },
+        }) => ({
+            onMobile,
+        }),
+    )(DocumentsTable),
 );

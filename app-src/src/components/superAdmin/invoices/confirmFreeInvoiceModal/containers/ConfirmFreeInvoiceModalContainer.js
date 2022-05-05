@@ -26,7 +26,7 @@ class ConfirmFreeInvoiceModalContainer extends Component {
         const { postSuccess, showModal } = this.props;
         if (!prevProps.postSuccess && postSuccess) {
             showModal(SUCCESS_MODAL, {
-                message: 'The invoice has successfully been made free.'
+                message: 'The invoice has successfully been made free.',
             });
         }
     };
@@ -39,20 +39,17 @@ class ConfirmFreeInvoiceModalContainer extends Component {
 
 const mapStateToProps = ({
     superAdmin: {
-        invoicesReducer: { postSuccess }
-    }
+        invoicesReducer: { postSuccess },
+    },
 }) => ({
-    postSuccess
+    postSuccess,
 });
 
 const mapDispatchToProps = {
     hideModal,
     makeInvoiceFree,
     showModal,
-    fetchAllInvoices
+    fetchAllInvoices,
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(ConfirmFreeInvoiceModalContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(ConfirmFreeInvoiceModalContainer);

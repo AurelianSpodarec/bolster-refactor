@@ -12,11 +12,7 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 
 const SingleInvoice = ({ id, showModal, hasPayed }) => (
     <>
-        <PageHeading
-            leftChildren={true}
-            title={`Invoice #${id}`}
-            withBackButton
-        />
+        <PageHeading leftChildren={true} title={`Invoice #${id}`} withBackButton />
         <InvoiceDetailsContainer />
         <BlockContainer containerClass="size-lg-8 size-md-12">
             <BlockHeading title="Items" />
@@ -25,9 +21,7 @@ const SingleInvoice = ({ id, showModal, hasPayed }) => (
                 <BlockButtonWrapper sizeClasses="size-lg-12">
                     <button
                         className="button green"
-                        onClick={() =>
-                            showModal(PAY_INVOICE, { invoiceID: id })
-                        }
+                        onClick={() => showModal(PAY_INVOICE, { invoiceID: id })}
                     >
                         Pay
                     </button>

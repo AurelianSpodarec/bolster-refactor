@@ -5,5 +5,5 @@ export default (id, topLeft, bottomRight) => dispatch =>
         type: CLIENT_ADD_RECTANGLE,
         id,
         topLeft,
-        bottomRight
+        bottomRight,
     });

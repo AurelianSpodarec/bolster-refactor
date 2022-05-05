@@ -4,14 +4,7 @@ import Table from 'components/shared/generic/tables/presentational/Table';
 import InvoiceItemsList from './InvoiceItemsList';
 import InvoiceItemsTotals from './InvoiceItemsTotals';
 
-const InvoiceItemsTable = ({
-    invoiceItems,
-    invoice,
-    headers,
-    isFetching,
-    error,
-    onMobile
-}) => (
+const InvoiceItemsTable = ({ invoiceItems, invoice, headers, isFetching, error, onMobile }) => (
     <Table
         withActions
         headers={headers}

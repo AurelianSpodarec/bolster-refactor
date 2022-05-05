@@ -1,12 +1,10 @@
 import React from 'react';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import BlockContainerFetch from 'components/shared/generic/block/containers/BlockContainerFetch';
 import { isEmpty } from 'helpers/generic';
 import Field from 'components/shared/generic/form/presentational/Field';
 import Select from 'components/shared/generic/form/presentational/Select';
 import MergeToolBoxes from './MergeToolBoxes';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
-import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 
 const MergeToolForm = ({
     companiesOptions,

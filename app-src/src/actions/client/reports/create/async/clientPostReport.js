@@ -6,25 +6,25 @@ import {
     CLIENT_POST_REPORT_REQUEST,
     CLIENT_POST_REPORT_SUCCESS,
     CLIENT_POST_REPORT_NO_PINS,
-    CLIENT_POST_REPORT_FAILURE
+    CLIENT_POST_REPORT_FAILURE,
 } from 'constants/client/actionTypes/clientReports';
 
 export const clientPostReportRequest = () => ({
-    type: CLIENT_POST_REPORT_REQUEST
+    type: CLIENT_POST_REPORT_REQUEST,
 });
 
 export const clientPostReportSuccess = payload => ({
     type: CLIENT_POST_REPORT_SUCCESS,
-    payload
+    payload,
 });
 export const clientPostReportNoPind = payload => ({
     type: CLIENT_POST_REPORT_NO_PINS,
-    payload
+    payload,
 });
 
 export const clientPostReportFailure = error => ({
     type: CLIENT_POST_REPORT_FAILURE,
-    error
+    error,
 });
 
 export default (companyID, postBody) => dispatch => {

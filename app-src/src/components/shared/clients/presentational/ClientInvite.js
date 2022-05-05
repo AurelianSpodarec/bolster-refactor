@@ -16,9 +16,9 @@ const ClientsInvite = ({ type, location, unavailable }) => (
             </ButtonContainer>
         </BlockHeading>
         <p className="generic-text size-lg-12">
-            If you invite a client to this {type}, they will be given access to
-            each drawing it contains. To remove the client you will need to
-            remove them from each drawing individually.
+            If you invite a client to this {type}, they will be given access to each drawing it
+            contains. To remove the client you will need to remove them from each drawing
+            individually.
         </p>
     </div>
 );

@@ -5,21 +5,21 @@ import { getHeaders } from 'helpers/api';
 import {
     CREATE_CREDITS_REQUEST,
     CREATE_CREDITS_SUCCESS,
-    CREATE_CREDITS_FAILURE
+    CREATE_CREDITS_FAILURE,
 } from 'constants/actionTypes/credits';
 
 export const createCreditsRequest = () => ({
-    type: CREATE_CREDITS_REQUEST
+    type: CREATE_CREDITS_REQUEST,
 });
 
 export const createCreditsSuccess = payload => ({
     type: CREATE_CREDITS_SUCCESS,
-    payload
+    payload,
 });
 
 export const createCreditsFailure = error => ({
     type: CREATE_CREDITS_FAILURE,
-    error
+    error,
 });
 
 export default postBody => dispatch => {

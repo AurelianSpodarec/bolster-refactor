@@ -45,6 +45,7 @@ const EditSitePinOptionSetsContainer = ({ site }) => {
                     selectedTypes[set.pinOptionTypeID] = true;
                 }
             });
+
             setSelectedPinOptionSets(site.pinOptionSetIDsByType);
             setSelectedPinOptionTypes(selectedTypes);
         }

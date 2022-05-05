@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import { batch, connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import fetchClientsForFloor from 'actions/companyAdmin/clients/async/fetchClientsForFloor';
@@ -56,9 +56,10 @@ const AddDrawingsFormContainer = ({
     const prevProps = usePrevious({ isFetching, fetchingOperatives, fetchingClients });
 
     useEffect(() => {
-        fetchClientsForFloor(floorID).then(() => fetchOperativesForFloor(floorID));
-        // ** Only do a fetch for the manufacturers of a specific type if manufacturing is enabled.
-        // ** Wait for them to resolve before adding a drawing.
+        batch(() => {
+            fetchClientsForFloor(floorID);
+            fetchOperativesForFloor(floorID);
+        });
     }, [floorID, fetchClientsForFloor, fetchOperativesForFloor]);
 
     useEffect(() => {

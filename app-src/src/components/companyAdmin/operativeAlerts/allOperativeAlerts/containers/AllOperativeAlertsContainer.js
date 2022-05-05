@@ -11,7 +11,4 @@ const AllOperativeAlertsContainer = ({ fetchAllOperativeAlerts }) => {
 
 const mapDispatchToProps = { fetchAllOperativeAlerts };
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(AllOperativeAlertsContainer);
+export default connect(null, mapDispatchToProps)(AllOperativeAlertsContainer);

@@ -1,7 +1,7 @@
 import React from 'react';
 import {
     PIN_STATUS_COLOURS as COLOURS,
-    PIN_STATUS_TYPES as TYPES
+    PIN_STATUS_TYPES as TYPES,
 } from 'constants/companyAdmin/enums';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import { pin2xImgs } from '_content/images/map-markers';
@@ -17,9 +17,7 @@ const DrawingInspectionLogsListItem = ({ pin }) => {
             </td>
             <td>{TYPES[pin.latestStatus]}</td>
             <td>
-                <ButtonContainer to={`/client/pins/${pin.id}`}>
-                    View
-                </ButtonContainer>
+                <ButtonContainer to={`/client/pins/${pin.id}`}>View</ButtonContainer>
             </td>
         </tr>
     );

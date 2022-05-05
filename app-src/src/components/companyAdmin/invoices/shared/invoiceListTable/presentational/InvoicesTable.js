@@ -2,14 +2,7 @@ import React from 'react';
 import Table from 'components/shared/generic/tables/presentational/Table';
 import InvoicesList from './InvoicesList';
 
-const InvoicesTable = ({
-    invoices,
-    headers,
-    isFetching,
-    error,
-    showModal,
-    onMobile
-}) => (
+const InvoicesTable = ({ invoices, headers, isFetching, error, showModal, onMobile }) => (
     <Table
         withActions
         headers={headers}

@@ -9,26 +9,22 @@ import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Brea
 class BuildingBreadcrumbContainer extends Component {
     state = {
         siteName: '',
-        siteID: 0
+        siteID: 0,
     };
 
     render() {
         const breadcrumbsArray = [
             {
                 text: 'Sites',
-                link: '/company/sites/'
+                link: '/company/sites/',
             },
             {
                 text: this.state.siteName,
-                link: `/company/sites/${this.state.siteID}`
+                link: `/company/sites/${this.state.siteID}`,
             },
-            { text: this.props.building.name }
+            { text: this.props.building.name },
         ];
-        return (
-            <Breadcrumb breadcrumbs={breadcrumbsArray}>
-                {this.props.children}
-            </Breadcrumb>
-        );
+        return <Breadcrumb breadcrumbs={breadcrumbsArray}>{this.props.children}</Breadcrumb>;
     }
 
     _setSiteDetails = siteID => {
@@ -38,7 +34,7 @@ class BuildingBreadcrumbContainer extends Component {
 
         this.setState({
             siteName: site.name,
-            siteID: siteID
+            siteID: siteID,
         });
     };
 
@@ -65,24 +61,21 @@ const mapStateToProps = (
     {
         companyAdmin: {
             buildingsReducer: { buildings },
-            sitesReducer: { sites }
-        }
+            sitesReducer: { sites },
+        },
     },
-    { match }
+    { match },
 ) => ({
     building: buildings[match.params.id] || {},
-    sites: sites
+    sites: sites,
 });
 
 const mapDispatchToProps = dispatch => ({
     fetchSingleSite: siteID => {
         return dispatch(fetchSingleSite(siteID));
-    }
+    },
 });
 
 export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(BuildingBreadcrumbContainer)
+    connect(mapStateToProps, mapDispatchToProps)(BuildingBreadcrumbContainer),
 );

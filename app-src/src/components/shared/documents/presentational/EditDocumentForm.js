@@ -17,11 +17,8 @@ import ButtonContainer from 'components/shared/generic/button/containers/ButtonC
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 
-const {
-    VISIBLE_TO_ALL,
-    VISIBLE_TO_OWN_COMPANY,
-    VISIBLE_TO_SELECT_OPERATIVES,
-} = DOCUMENT_VISIBILITY;
+const { VISIBLE_TO_ALL, VISIBLE_TO_OWN_COMPANY, VISIBLE_TO_SELECT_OPERATIVES } =
+    DOCUMENT_VISIBILITY;
 
 const EditDocumentForm = ({
     handleInputChange,

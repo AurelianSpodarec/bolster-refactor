@@ -6,7 +6,6 @@ import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import { ChromePicker } from 'react-color';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ButtonWrapper from '../../../../shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from '../../../../shared/generic/button/presentational/ActionButton';
 

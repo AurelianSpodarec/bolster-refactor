@@ -9,12 +9,10 @@ const RemoveUserDrawingsAccessModalContainer = ({
     checkedDrawings,
     userID,
     removeUserDrawingsAccess,
-    hideModal
+    hideModal,
 }) => (
     <ConfirmDeleteModal
-        handleDelete={() =>
-            removeUserDrawingsAccess(userID, { drawingIDs: checkedDrawings })
-        }
+        handleDelete={() => removeUserDrawingsAccess(userID, { drawingIDs: checkedDrawings })}
         hideModal={e => {
             e.preventDefault();
             hideModal();
@@ -34,10 +32,7 @@ const mapDispatchToProps = dispatch => ({
     removeUserDrawingsAccess: (userID, postBody) => {
         dispatch(removeUserDrawingsAccess(userID, postBody));
         dispatch(hideModal());
-    }
+    },
 });
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(RemoveUserDrawingsAccessModalContainer);
+export default connect(null, mapDispatchToProps)(RemoveUserDrawingsAccessModalContainer);

@@ -16,7 +16,6 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import Field from 'components/shared/generic/form/presentational/Field';
 import {
     selectDocumentLibrary,
-    selectDocumentLibraryIsPosting,
     selectDocumentLibraryPostError,
     selectDocumentLibraryPostSuccess,
 } from 'selectors/documentLibrary';
@@ -57,7 +56,6 @@ const EditDocumentItemsModal = ({ ids }) => {
 
     const [formData, handleChange] = useForm(initialFormData);
 
-    const isPosting = useSelector(selectDocumentLibraryIsPosting);
     const error = useSelector(selectDocumentLibraryPostError);
     const success = useSelector(selectDocumentLibraryPostSuccess);
 

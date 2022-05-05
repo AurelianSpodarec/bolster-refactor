@@ -3,5 +3,5 @@ export default {
     Inspected: '#3363dd',
     ActionRequired: '#d71a1a',
     Installed: '#2cac56',
-    Other: '#800080'
+    Other: '#800080',
 };

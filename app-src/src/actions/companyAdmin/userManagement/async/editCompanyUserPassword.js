@@ -6,32 +6,28 @@ import { getHeaders } from 'helpers/api';
 import {
     EDIT_COMPANY_USER_PASSWORD_REQUEST,
     EDIT_COMPANY_USER_PASSWORD_SUCCESS,
-    EDIT_COMPANY_USER_PASSWORD_FAILURE
+    EDIT_COMPANY_USER_PASSWORD_FAILURE,
 } from 'constants/actionTypes/usersManagement';
 
 export const editCompanyUserPasswordRequest = () => ({
-    type: EDIT_COMPANY_USER_PASSWORD_REQUEST
+    type: EDIT_COMPANY_USER_PASSWORD_REQUEST,
 });
 
 export const editCompanyUserPasswordSuccess = payload => ({
     type: EDIT_COMPANY_USER_PASSWORD_SUCCESS,
-    payload
+    payload,
 });
 
 export const editCompanyUserPasswordFailure = error => ({
     type: EDIT_COMPANY_USER_PASSWORD_FAILURE,
-    error
+    error,
 });
 
 export default (companyUserID, postBody) => dispatch => {
     dispatch(editCompanyUserPasswordRequest());
 
     return axios
-        .post(
-            `${API_URL}/users/${companyUserID}/password`,
-            postBody,
-            getHeaders()
-        )
+        .post(`${API_URL}/users/${companyUserID}/password`, postBody, getHeaders())
         .then(result => dispatch(editCompanyUserPasswordSuccess(result.data)))
         .catch(error => {
             dispatch(editCompanyUserPasswordFailure(error));

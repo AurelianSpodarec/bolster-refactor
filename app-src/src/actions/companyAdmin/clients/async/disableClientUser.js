@@ -23,14 +23,15 @@ export const disableClientUserFailure = error => ({
     error,
 });
 
-export default (clientUserID, undo = false) => dispatch => {
-    dispatch(disableClientUserRequest());
-    axios
-        .post(
-            `${API_URL}/clientpermissions/clientUsers/${clientUserID}/disable?undo=${undo}`,
-            {},
-            getHeaders(),
-        )
-        .then(({ data }) => dispatch(disableClientUserSuccess(data)))
-        .catch(err => dispatch(disableClientUserFailure(err.message)));
-};
+export default (clientUserID, undo = false) =>
+    dispatch => {
+        dispatch(disableClientUserRequest());
+        axios
+            .post(
+                `${API_URL}/clientpermissions/clientUsers/${clientUserID}/disable?undo=${undo}`,
+                {},
+                getHeaders(),
+            )
+            .then(({ data }) => dispatch(disableClientUserSuccess(data)))
+            .catch(err => dispatch(disableClientUserFailure(err.message)));
+    };

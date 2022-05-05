@@ -6,21 +6,21 @@ import { getHeaders } from 'helpers/api';
 import {
     SINGLE_PIN_GENERATE_REPORT_REQUEST,
     SINGLE_PIN_GENERATE_REPORT_SUCCESS,
-    SINGLE_PIN_GENERATE_REPORT_FAILURE
+    SINGLE_PIN_GENERATE_REPORT_FAILURE,
 } from 'constants/actionTypes/pins';
 
 export const singlePinGenerateReportRequest = () => ({
-    type: SINGLE_PIN_GENERATE_REPORT_REQUEST
+    type: SINGLE_PIN_GENERATE_REPORT_REQUEST,
 });
 
 export const singlePinGenerateReportSuccess = payload => ({
     type: SINGLE_PIN_GENERATE_REPORT_SUCCESS,
-    payload
+    payload,
 });
 
 export const singlePinGenerateReportFailure = error => ({
     type: SINGLE_PIN_GENERATE_REPORT_FAILURE,
-    error
+    error,
 });
 
 export default pinID => dispatch => {

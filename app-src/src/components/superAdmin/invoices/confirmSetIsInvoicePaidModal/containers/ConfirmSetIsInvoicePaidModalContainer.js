@@ -25,13 +25,12 @@ class ConfirmSetIsInvoicePaidModalContainer extends Component {
             showModal(SUCCESS_MODAL, {
                 message: `The invoice has successfully been marked as ${
                     isPaid ? 'unpaid' : 'paid'
-                }.`
+                }.`,
             });
         }
         if (error && !prevProps.error) {
             showModal(ERROR_MODAL, {
-                message:
-                    'There was a problem processing your request. Please try again later.'
+                message: 'There was a problem processing your request. Please try again later.',
             });
         }
     };
@@ -44,20 +43,17 @@ class ConfirmSetIsInvoicePaidModalContainer extends Component {
 
 const mapStateToProps = ({
     superAdmin: {
-        invoicesReducer: { postSuccess, error }
-    }
+        invoicesReducer: { postSuccess, error },
+    },
 }) => ({
     postSuccess,
-    error
+    error,
 });
 
 const mapDispatchToProps = {
     hideModal,
     setIsInvoicePaid,
-    showModal
+    showModal,
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(ConfirmSetIsInvoicePaidModalContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(ConfirmSetIsInvoicePaidModalContainer);

@@ -21,11 +21,12 @@ export const fetchUserLatestSyncDataFailure = error => ({
     error,
 });
 
-export default ({ id }) => dispatch => {
-    dispatch(fetchUserLatestSyncDataRequest());
+export default ({ id }) =>
+    dispatch => {
+        dispatch(fetchUserLatestSyncDataRequest());
 
-    axios
-        .get(`${ADMIN_API_URL}/sync/${id}`, getHeaders())
-        .then(res => dispatch(fetchUserLatestSyncDataSuccess(res.data)))
-        .catch(err => dispatch(fetchUserLatestSyncDataFailure(err.message)));
-};
+        axios
+            .get(`${ADMIN_API_URL}/sync/${id}`, getHeaders())
+            .then(res => dispatch(fetchUserLatestSyncDataSuccess(res.data)))
+            .catch(err => dispatch(fetchUserLatestSyncDataFailure(err.message)));
+    };

@@ -4,9 +4,7 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 
 const BuildingPageHeader = ({ building, children }) => (
     <PageHeading
-        title={`Building: ${building.name} ${
-            building.isArchived ? '(ARCHIVED)' : ''
-        }`}
+        title={`Building: ${building.name} ${building.isArchived ? '(ARCHIVED)' : ''}`}
         withBackButton
     >
         {children}

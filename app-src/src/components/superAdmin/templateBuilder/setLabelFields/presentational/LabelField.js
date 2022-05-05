@@ -8,7 +8,7 @@ const LabelField = ({
     sourceOptions,
     selectedSource,
     handleChange,
-    labelField
+    labelField,
 }) => (
     <div className="label-field size-lg-12">
         <div className="size-lg-12">

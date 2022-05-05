@@ -1,6 +1,5 @@
 import React from 'react';
 
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import { PIN_STATUS_IDS as STATUS } from 'constants/companyAdmin/enums';
 import { pin2xImgs } from '_content/images/map-markers';
 

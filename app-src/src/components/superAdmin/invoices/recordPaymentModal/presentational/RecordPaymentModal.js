@@ -13,7 +13,7 @@ const RecordPaymentModal = ({
     paymentValue,
     handleSubmit,
     handleUpdateValue,
-    invoiceBalance
+    invoiceBalance,
 }) => {
     return (
         <ModalOuterContainer>
@@ -22,9 +22,7 @@ const RecordPaymentModal = ({
             <Form onSubmit={handleSubmit}>
                 <p className="generic-text intro-text size-lg-12">
                     {`Please enter the value you wish to deduct from this invoice.
-                    This invoice currently has a balance of £${invoiceBalance.toFixed(
-                        2
-                    )}.`}
+                    This invoice currently has a balance of £${invoiceBalance.toFixed(2)}.`}
                 </p>
                 <Field name="Enter value" required>
                     <CurrencyInput

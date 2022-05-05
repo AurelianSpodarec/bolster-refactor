@@ -42,12 +42,8 @@ class EditServiceFormContainer extends Component {
     }
 
     componentDidMount = () => {
-        const {
-            fetchSingleService,
-            fetchTemplateForService,
-            fetchTemplatesSimple,
-            id,
-        } = this.props;
+        const { fetchSingleService, fetchTemplateForService, fetchTemplatesSimple, id } =
+            this.props;
         fetchTemplatesSimple();
         fetchSingleService(id);
         fetchTemplateForService(id);

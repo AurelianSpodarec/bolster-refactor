@@ -2,5 +2,5 @@ import { CLIENT_REMOVE_ALL_EXCLUDED_PINS } from 'constants/client/actionTypes/cl
 
 export default () => dispatch =>
     dispatch({
-        type: CLIENT_REMOVE_ALL_EXCLUDED_PINS
+        type: CLIENT_REMOVE_ALL_EXCLUDED_PINS,
     });

@@ -5,11 +5,7 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 
 const AttachDrawingOperative = () => (
     <>
-        <PageHeading
-            leftChildren={true}
-            title="Attach operative"
-            withBackButton
-        />
+        <PageHeading leftChildren={true} title="Attach operative" withBackButton />
         <AttachDrawingOperativecontainer />
     </>
 );

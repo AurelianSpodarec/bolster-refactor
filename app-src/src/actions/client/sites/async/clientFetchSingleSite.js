@@ -5,21 +5,21 @@ import { getHeaders } from 'helpers/api';
 import {
     CLIENT_FETCH_SINGLE_SITE_REQUEST,
     CLIENT_FETCH_SINGLE_SITE_SUCCESS,
-    CLIENT_FETCH_SINGLE_SITE_FAILURE
+    CLIENT_FETCH_SINGLE_SITE_FAILURE,
 } from 'constants/client/actionTypes/clientSites';
 
 export const clientFetchSiteRequest = () => ({
-    type: CLIENT_FETCH_SINGLE_SITE_REQUEST
+    type: CLIENT_FETCH_SINGLE_SITE_REQUEST,
 });
 
 export const clientFetchSiteSuccess = payload => ({
     type: CLIENT_FETCH_SINGLE_SITE_SUCCESS,
-    payload
+    payload,
 });
 
 export const clientFetchSiteFailure = error => ({
     type: CLIENT_FETCH_SINGLE_SITE_FAILURE,
-    error
+    error,
 });
 
 export default (companyID, siteID) => dispatch => {

@@ -5,5 +5,5 @@ export default (questionUUID, sectionUUID, sort) => dispatch =>
         type: CHANGE_QUESTION_SECTION,
         questionUUID,
         sectionUUID,
-        sort
+        sort,
     });

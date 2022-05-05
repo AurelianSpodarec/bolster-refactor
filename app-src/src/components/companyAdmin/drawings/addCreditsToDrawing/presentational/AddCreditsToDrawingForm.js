@@ -13,16 +13,16 @@ const AddCreditsToDrawingForm = ({
     expiryDate,
     handleCreditsChange,
     handleSubmit,
-    handleClose
+    handleClose,
 }) => (
     <ModalOuterContainer>
         <BlockHeading
             title="Add credits to drawing"
             subTitle={`Adding ${credits} credit${
                 credits > 1 ? 's' : ''
-            } will extend your drawing expiry date to ${moment(
-                expiryDate
-            ).format('DD/MM/YYYY HH:mm')}.`}
+            } will extend your drawing expiry date to ${moment(expiryDate).format(
+                'DD/MM/YYYY HH:mm',
+            )}.`}
         />
 
         <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
@@ -36,9 +36,7 @@ const AddCreditsToDrawingForm = ({
                             required
                             type="number"
                             validate={value =>
-                                value <= 0 || value % 1
-                                    ? 'Please enter a positive integer.'
-                                    : ''
+                                value <= 0 || value % 1 ? 'Please enter a positive integer.' : ''
                             }
                         />
                     </Field>

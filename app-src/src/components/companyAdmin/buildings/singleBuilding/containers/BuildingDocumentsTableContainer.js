@@ -22,24 +22,17 @@ class BuildingDocumentsTableContainer extends Component {
 
     _getFilteredDocuments = () => {
         const { documents, parent } = this.props;
-        return documents.filter(document =>
-            parent.documentIDs.includes(document.id)
-        );
+        return documents.filter(document => parent.documentIDs.includes(document.id));
     };
 }
 
-const mapStateToProps = (
-    { companyAdmin: { documentsReducer, buildingsReducer } },
-    { match }
-) => ({
+const mapStateToProps = ({ companyAdmin: { documentsReducer, buildingsReducer } }, { match }) => ({
     parent: buildingsReducer.buildings[match.params.id] || {
-        documentIDs: []
+        documentIDs: [],
     },
     documents: Object.values(documentsReducer.documents),
     isFetching: documentsReducer.isFetching,
-    error: documentsReducer.error
+    error: documentsReducer.error,
 });
 
-export default withRouter(
-    connect(mapStateToProps)(BuildingDocumentsTableContainer)
-);
+export default withRouter(connect(mapStateToProps)(BuildingDocumentsTableContainer));

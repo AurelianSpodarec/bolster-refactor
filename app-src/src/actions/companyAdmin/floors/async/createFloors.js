@@ -6,21 +6,21 @@ import setAPIFieldErrors from 'actions/shared/generic/fieldErrors/sync/setAPIFie
 import {
     CREATE_FLOORS_REQUEST,
     CREATE_FLOORS_SUCCESS,
-    CREATE_FLOORS_FAILURE
+    CREATE_FLOORS_FAILURE,
 } from 'constants/actionTypes/floors';
 
 export const createFloorsRequest = () => ({
-    type: CREATE_FLOORS_REQUEST
+    type: CREATE_FLOORS_REQUEST,
 });
 
 export const createFloorsSuccess = payload => ({
     type: CREATE_FLOORS_SUCCESS,
-    payload
+    payload,
 });
 
 export const createFloorsFailure = error => ({
     type: CREATE_FLOORS_FAILURE,
-    error
+    error,
 });
 
 export default postBody => dispatch => {
@@ -32,7 +32,6 @@ export default postBody => dispatch => {
         .catch(err => {
             dispatch(createFloorsFailure(err.message));
 
-            if (err.response.status === 400)
-                dispatch(setAPIFieldErrors(err.response.data.errors));
+            if (err.response.status === 400) dispatch(setAPIFieldErrors(err.response.data.errors));
         });
 };

@@ -8,25 +8,12 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
-const ChangeOwnershipForm = ({
-    companyCode,
-    handleChange,
-    handleSubmit,
-    url
-}) => (
+const ChangeOwnershipForm = ({ companyCode, handleChange, handleSubmit, url }) => (
     <>
-        <PageHeading
-            leftChildren={true}
-            title="Change Ownership"
-            withBackButton
-        />
+        <PageHeading leftChildren={true} title="Change Ownership" withBackButton />
         <BlockContainer>
             <Form className="generic-form" onSubmit={handleSubmit}>
-                <Field
-                    name="Company code"
-                    sizeClasses="size-lg-6 size-md-12"
-                    required
-                >
+                <Field name="Company code" sizeClasses="size-lg-6 size-md-12" required>
                     <TextInputContainer
                         value={companyCode}
                         name="companyCode"

@@ -26,7 +26,7 @@ class SingleBuildingContainer extends Component {
             buildingID,
             fetchPinStatsForLevel,
             fetchHistoricServicesForCompany,
-            setTabs
+            setTabs,
         } = this.props;
 
         setTabs(Object.values(BUILDING_TABS), BUILDING_TABS.GENERAL_OVERVIEW);
@@ -47,10 +47,10 @@ const mapDispatchToProps = {
     fetchDocuments,
     fetchPinStatsForLevel,
     fetchHistoricServicesForCompany,
-    setTabs
+    setTabs,
 };
 
 export default connect(
     (_, { match }) => ({ buildingID: match.params['id'] }),
-    mapDispatchToProps
+    mapDispatchToProps,
 )(SingleBuildingContainer);

@@ -4,22 +4,22 @@ import { API_URL } from 'config';
 import {
     FETCH_OUTGOING_INVITES_REQUEST,
     FETCH_OUTGOING_INVITES_SUCCESS,
-    FETCH_OUTGOING_INVITES_FAILURE
+    FETCH_OUTGOING_INVITES_FAILURE,
 } from 'constants/actionTypes/pendingInvites';
 import { getHeaders } from 'helpers/api';
 
 export const fetchOutgoingInvitesRequest = () => ({
-    type: FETCH_OUTGOING_INVITES_REQUEST
+    type: FETCH_OUTGOING_INVITES_REQUEST,
 });
 
 export const fetchOutgoingInvitesSuccess = payload => ({
     type: FETCH_OUTGOING_INVITES_SUCCESS,
-    payload
+    payload,
 });
 
 export const fetchOutgoingInvitesFailure = error => ({
     type: FETCH_OUTGOING_INVITES_FAILURE,
-    error
+    error,
 });
 
 export default () => dispatch => {

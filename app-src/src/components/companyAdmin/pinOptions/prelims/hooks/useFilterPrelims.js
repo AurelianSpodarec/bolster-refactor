@@ -1,5 +1,3 @@
-import React from 'react';
-
 const useFilterPrelims = (prelims, searchTerm) => {
     const getFilteredPrelims = () => {
         return prelims.filter(prelim =>

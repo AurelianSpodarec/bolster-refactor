@@ -42,7 +42,7 @@ const BreakdownDetailedTimelineMap = ({
                     },
                 })}
             >
-                {markers.map(({ location, type, name, timestamp, jobReference }, i) => {
+                {markers.map(({ location, type }, i) => {
                     if (location.isEmpty) return null;
                     return (
                         <Marker key={i} lat={location.y} lng={location.x} type={type}>

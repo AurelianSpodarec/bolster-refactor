@@ -3,11 +3,11 @@ import { combineReducers } from 'redux';
 import { convertArrToObj } from 'helpers/generic';
 import {
     CLIENT_FETCH_SINGLE_PIN_SUCCESS,
-    CLIENT_FETCH_SINGLE_PIN_REQUEST
+    CLIENT_FETCH_SINGLE_PIN_REQUEST,
 } from 'constants/client/actionTypes/clientPins';
 
 export default combineReducers({
-    histories: historiesReducer
+    histories: historiesReducer,
 });
 
 function historiesReducer(state = {}, action) {

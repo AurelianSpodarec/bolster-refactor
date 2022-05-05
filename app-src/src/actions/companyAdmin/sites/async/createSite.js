@@ -6,21 +6,21 @@ import { getHeaders } from 'helpers/api';
 import {
     CREATE_SITE_REQUEST,
     CREATE_SITE_SUCCESS,
-    CREATE_SITE_FAILURE
+    CREATE_SITE_FAILURE,
 } from 'constants/actionTypes/sites';
 
 export const addSiteRequest = () => ({
-    type: CREATE_SITE_REQUEST
+    type: CREATE_SITE_REQUEST,
 });
 
 export const addSiteSuccess = payload => ({
     type: CREATE_SITE_SUCCESS,
-    payload
+    payload,
 });
 
 export const addSiteFailure = error => ({
     type: CREATE_SITE_FAILURE,
-    error
+    error,
 });
 
 export default postBody => dispatch => {

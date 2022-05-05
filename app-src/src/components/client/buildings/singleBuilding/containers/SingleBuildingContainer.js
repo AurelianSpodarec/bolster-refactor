@@ -22,17 +22,13 @@ class SingleBuildingContainer extends Component {
             fetchAllClientDrawings,
             fetchAllClientFloors,
             buildingID,
-            fetchClientPinStatsForLevel
+            fetchClientPinStatsForLevel,
         } = this.props;
 
         const selectedCompanyID = getSelectedCompanyForClient();
 
         fetchSingleClientBuilding(selectedCompanyID, buildingID).then(() => {
-            fetchClientPinStatsForLevel(
-                selectedCompanyID,
-                'building',
-                buildingID
-            );
+            fetchClientPinStatsForLevel(selectedCompanyID, 'building', buildingID);
             fetchAllClientDrawings(selectedCompanyID);
             fetchAllClientFloors(selectedCompanyID);
         });
@@ -46,10 +42,10 @@ const mapDispatchToProps = {
     fetchAllClientDrawings,
     fetchAllClientFloors,
     fetchClientPinStatsForLevel,
-    resetFilterOptions
+    resetFilterOptions,
 };
 
 export default connect(
     (_, { match }) => ({ buildingID: match.params['id'] }),
-    mapDispatchToProps
+    mapDispatchToProps,
 )(SingleBuildingContainer);

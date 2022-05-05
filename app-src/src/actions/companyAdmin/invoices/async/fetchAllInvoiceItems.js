@@ -4,22 +4,22 @@ import { API_URL } from 'config';
 import {
     FETCH_ALL_INVOICE_ITEMS_REQUEST,
     FETCH_ALL_INVOICE_ITEMS_SUCCESS,
-    FETCH_ALL_INVOICE_ITEMS_FAILURE
+    FETCH_ALL_INVOICE_ITEMS_FAILURE,
 } from 'constants/actionTypes/invoices';
 import { getHeaders } from 'helpers/api';
 
 export const fetchInvoiceItemsRequest = () => ({
-    type: FETCH_ALL_INVOICE_ITEMS_REQUEST
+    type: FETCH_ALL_INVOICE_ITEMS_REQUEST,
 });
 
 export const fetchInvoiceItemsSuccess = payload => ({
     type: FETCH_ALL_INVOICE_ITEMS_SUCCESS,
-    payload
+    payload,
 });
 
 export const fetchInvoiceItemsFailure = error => ({
     type: FETCH_ALL_INVOICE_ITEMS_FAILURE,
-    error
+    error,
 });
 
 export default () => dispatch => {

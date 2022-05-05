@@ -43,10 +43,10 @@ export default connect(
     ({
         shared: {
             sitesFilterReducer: { filters },
-            mobileReducer: { onMobile }
-        }
+            mobileReducer: { onMobile },
+        },
     }) => ({
         filters,
-        onMobile
-    })
+        onMobile,
+    }),
 )(SitesFiltersContainer);

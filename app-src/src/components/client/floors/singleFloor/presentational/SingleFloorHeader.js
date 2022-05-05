@@ -4,9 +4,7 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 
 const SingleFloorHeader = ({ floor, children }) => (
     <PageHeading
-        title={`Floor: ${floor.name || ''} ${
-            floor.isArchived ? '(ARCHIVED)' : ''
-        }`}
+        title={`Floor: ${floor.name || ''} ${floor.isArchived ? '(ARCHIVED)' : ''}`}
         withBackButton
     >
         {children}

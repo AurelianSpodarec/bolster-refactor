@@ -11,7 +11,7 @@ const ConfirmDeleteInvoiceModal = ({
     isDeleting,
     deleteButtonText = 'Delete',
     icon = 'trash-alt',
-    deleteSuccess
+    deleteSuccess,
 }) => (
     <ModalOuterContainer>
         <BlockHeading title={'Confirm Delete Invoice'} />

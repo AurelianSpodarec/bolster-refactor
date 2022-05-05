@@ -6,7 +6,6 @@ const AddPinVersions = ({
     isHistory,
     isSameTemplate,
     pinAnswersByGroupKey,
-    dropdownOptionsByType,
     oldAnswersByNameObj,
     template,
     latestPinHistory,
@@ -21,7 +20,6 @@ const AddPinVersions = ({
                 isHistory={isHistory}
                 isSameTemplate={isSameTemplate}
                 pinAnswersByGroupKey={pinAnswersByGroupKey}
-                dropdownOptionsByType={dropdownOptionsByType}
                 oldAnswersByNameObj={oldAnswersByNameObj}
                 template={template}
                 latestPinHistory={latestPinHistory}

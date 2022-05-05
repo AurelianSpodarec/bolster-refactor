@@ -6,21 +6,21 @@ import { getHeaders } from 'helpers/api';
 import {
     FETCH_DOCUMENTS_REQUEST,
     FETCH_DOCUMENTS_SUCCESS,
-    FETCH_DOCUMENTS_FAILURE
+    FETCH_DOCUMENTS_FAILURE,
 } from 'constants/actionTypes/documents';
 
 export const fetchDocumentsRequest = () => ({
-    type: FETCH_DOCUMENTS_REQUEST
+    type: FETCH_DOCUMENTS_REQUEST,
 });
 
 export const fetchDocumentsSuccess = payload => ({
     type: FETCH_DOCUMENTS_SUCCESS,
-    payload
+    payload,
 });
 
 export const fetchDocumentsFailure = error => ({
     type: FETCH_DOCUMENTS_FAILURE,
-    error
+    error,
 });
 
 //HierarchyType = Site/Building/Floor/Drawing

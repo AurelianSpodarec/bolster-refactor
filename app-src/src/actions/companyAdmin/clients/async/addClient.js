@@ -6,21 +6,21 @@ import setAPIFieldErrors from 'actions/shared/generic/fieldErrors/sync/setAPIFie
 import {
     ADD_CLIENT_REQUEST,
     ADD_CLIENT_SUCCESS,
-    ADD_CLIENT_FAILURE
+    ADD_CLIENT_FAILURE,
 } from 'constants/actionTypes/clients';
 
 export const addClientRequest = () => ({
-    type: ADD_CLIENT_REQUEST
+    type: ADD_CLIENT_REQUEST,
 });
 
 export const addClientSuccess = payload => ({
     type: ADD_CLIENT_SUCCESS,
-    payload
+    payload,
 });
 
 export const addClientFailure = error => ({
     type: ADD_CLIENT_FAILURE,
-    error
+    error,
 });
 
 export default (HierarchyType, HierarchyID, postBody) => dispatch => {
@@ -28,7 +28,7 @@ export default (HierarchyType, HierarchyID, postBody) => dispatch => {
     return Axios.post(
         `${API_URL}/clientpermissions/${HierarchyType}/${HierarchyID}`,
         postBody,
-        getHeaders()
+        getHeaders(),
     )
         .then(({ data }) => dispatch(addClientSuccess(data)))
         .catch(err => {

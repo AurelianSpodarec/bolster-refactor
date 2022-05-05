@@ -11,65 +11,42 @@ const PendingInvitesListItem = ({
     name,
     onMobile,
     headers,
-    serviceName
+    serviceName,
 }) => (
     <tr>
         <td>
-            {onMobile && (
-                <span className="mobile-table-heading">{headers[0]}</span>
-            )}
-            <DateTimeContainer
-                date={invite.createdOn}
-                datetime={DATE_TIME_IDS.DATE}
-            />
+            {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
+            <DateTimeContainer date={invite.createdOn} datetime={DATE_TIME_IDS.DATE} />
         </td>
         <td>
             {' '}
-            {onMobile && (
-                <span className="mobile-table-heading">{headers[1]}</span>
-            )}
+            {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
             {name}
         </td>
         <td>
-            {onMobile && (
-                <span className="mobile-table-heading">{headers[2]}</span>
-            )}
+            {onMobile && <span className="mobile-table-heading">{headers[2]}</span>}
             {serviceName}
         </td>
 
         <td>
             {' '}
-            {onMobile && (
-                <span className="mobile-table-heading">{headers[3]}</span>
-            )}
+            {onMobile && <span className="mobile-table-heading">{headers[3]}</span>}
             {invite.ownerCompanyName}
         </td>
         <td>
             {' '}
-            {onMobile && (
-                <span className="mobile-table-heading">{headers[4]}</span>
-            )}
+            {onMobile && <span className="mobile-table-heading">{headers[4]}</span>}
             {invite.companyName}
         </td>
         <td>
             {' '}
-            {onMobile && (
-                <span className="mobile-table-heading">{headers[5]}</span>
-            )}
+            {onMobile && <span className="mobile-table-heading">{headers[5]}</span>}
             <BlockButtonWrapper>
-                <button
-                    type="button"
-                    className="button red icon-only"
-                    onClick={handleDecline}
-                >
+                <button type="button" className="button red icon-only" onClick={handleDecline}>
                     <i className="far fa-ban" />
                 </button>
                 {isIncoming && (
-                    <button
-                        type="button"
-                        className="button green icon-only"
-                        onClick={handleAccept}
-                    >
+                    <button type="button" className="button green icon-only" onClick={handleAccept}>
                         <i className="far fa-check" />
                     </button>
                 )}

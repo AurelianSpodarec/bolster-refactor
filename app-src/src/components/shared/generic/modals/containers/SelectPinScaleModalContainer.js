@@ -37,12 +37,8 @@ class SelectPinScaleModalContainer extends Component {
     }
 
     handleCancelScale = () => {
-        const {
-            updateReportFilter,
-            selectedCompanyID,
-            clientUpdateReportFilter,
-            hideModal,
-        } = this.props;
+        const { updateReportFilter, selectedCompanyID, clientUpdateReportFilter, hideModal } =
+            this.props;
         if (selectedCompanyID) {
             clientUpdateReportFilter('floorplanPinScale', 1);
         } else updateReportFilter('floorplanPinScale', 1);

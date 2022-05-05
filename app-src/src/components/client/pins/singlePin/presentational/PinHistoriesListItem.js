@@ -13,7 +13,7 @@ const PinHistoriesListItem = ({
     selectHistory,
     createdBy,
     services,
-    active
+    active,
 }) => (
     <div className={`item ${active ? 'active' : ''}`}>
         {/* <div
@@ -24,11 +24,7 @@ const PinHistoriesListItem = ({
         <FieldOutput
             title="History"
             description={`${version} of ${historyCount} ${
-                version === historyCount
-                    ? '(Latest)'
-                    : +version === 1
-                    ? '(Earliest)'
-                    : ''
+                version === historyCount ? '(Latest)' : +version === 1 ? '(Earliest)' : ''
             }`}
             sizeClass="size-lg-6"
         />
@@ -38,11 +34,7 @@ const PinHistoriesListItem = ({
             sizeClass="size-lg-6"
         />
 
-        <FieldOutput
-            title="Status"
-            description={STATUS[history.status]}
-            sizeClass="size-lg-6"
-        />
+        <FieldOutput title="Status" description={STATUS[history.status]} sizeClass="size-lg-6" />
 
         <FieldOutput title="Date added" sizeClass="size-lg-6">
             <p>
@@ -55,15 +47,9 @@ const PinHistoriesListItem = ({
             description={`${createdBy.userFirstName} ${createdBy.userLastName}`}
             sizeClass="size-lg-6"
         />
-        <BlockButtonWrapper
-            additionalClasses="item-button-container"
-            sizeClasses="size-lg-6"
-        >
+        <BlockButtonWrapper additionalClasses="item-button-container" sizeClasses="size-lg-6">
             {active ? (
-                <button
-                    className={'button blue disabled'}
-                    onClick={selectHistory}
-                >
+                <button className={'button blue disabled'} onClick={selectHistory}>
                     <i className="fa fa-eye" /> View
                 </button>
             ) : (

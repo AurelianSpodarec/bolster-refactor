@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { convertArrToObj, removeObjItem, updateObj } from 'helpers/generic';
+import { convertArrToObj, updateObj } from 'helpers/generic';
 import {
     FETCH_PIN_OPTIONS_REQUEST,
     FETCH_PIN_OPTIONS_SUCCESS,

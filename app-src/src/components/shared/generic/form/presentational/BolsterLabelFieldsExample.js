@@ -19,10 +19,7 @@ const BolsterLabelFieldsExample = ({ fields, template }) => (
                         {[...fields]
                             .sort((a, b) => a.key - b.key)
                             .map(field => (
-                                <LabelFieldExampleItemContainer
-                                    key={field.uuid}
-                                    field={field}
-                                />
+                                <LabelFieldExampleItemContainer key={field.uuid} field={field} />
                             ))}
                     </div>
                 </div>
@@ -34,10 +31,7 @@ const BolsterLabelFieldsExample = ({ fields, template }) => (
                     <img alt="example label small" src={trimLabel} />
                     <div className="field-holder">
                         {fields.map(field => (
-                            <LabelFieldExampleItemContainer
-                                key={field.uuid}
-                                field={field}
-                            />
+                            <LabelFieldExampleItemContainer key={field.uuid} field={field} />
                         ))}
                     </div>{' '}
                 </div>

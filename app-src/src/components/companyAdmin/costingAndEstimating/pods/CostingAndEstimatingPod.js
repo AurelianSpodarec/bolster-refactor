@@ -41,7 +41,7 @@ const CostingAndEstimatingPod = ({ pod }) => {
                 </div>
                 {!solo && (
                     <div className={`arrow-container ${isFlipped ? 'desc' : 'asc'}`}>
-                        <i className={`fas fa-arrow-up`} />
+                        <i className={'fas fa-arrow-up'} />
                     </div>
                 )}
             </FlexWrapper>

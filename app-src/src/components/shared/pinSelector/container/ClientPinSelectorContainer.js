@@ -8,7 +8,7 @@ class PinSelectorContainer extends Component {
     state = {
         pinOptions: {},
         selectedPinOptions: [],
-        clicking: false
+        clicking: false,
     };
 
     render() {
@@ -52,7 +52,7 @@ class PinSelectorContainer extends Component {
                 : [...selectedPinOptions, pinID];
 
             this.setState({
-                selectedPinOptions: newCheckedPins
+                selectedPinOptions: newCheckedPins,
             });
         }
     };
@@ -72,14 +72,14 @@ class PinSelectorContainer extends Component {
     handleIncludeAll = () => {
         const pinOptions = this.state.pinOptions.map(pin => ({
             ...pin,
-            included: true
+            included: true,
         }));
         this.setState({ pinOptions });
     };
     handleExcludeAll = () => {
         const pinOptions = this.state.pinOptions.map(pin => ({
             ...pin,
-            included: false
+            included: false,
         }));
         this.setState({ pinOptions });
     };
@@ -91,17 +91,14 @@ class PinSelectorContainer extends Component {
         const { handleChange } = this.props;
         const pinOptions = Object.values(oldOptions).map(option => ({
             ...option,
-            included:
-                option.included || selectedPinOptions.includes(option.value)
+            included: option.included || selectedPinOptions.includes(option.value),
         }));
         const pinIDs = Object.values(pinOptions)
             .filter(({ included }) => included)
             .map(({ value }) => value);
         this.setState({
             pinOptions,
-            selectedPinOptions: selectedPinOptions.filter(id =>
-                pinIDs.includes(id)
-            )
+            selectedPinOptions: selectedPinOptions.filter(id => pinIDs.includes(id)),
         });
 
         handleChange('pinIDs', pinIDs);
@@ -114,34 +111,25 @@ class PinSelectorContainer extends Component {
         const { handleChange } = this.props;
         const pinOptions = Object.values(oldOptions).map(option => ({
             ...option,
-            included:
-                option.included && !selectedPinOptions.includes(option.value)
+            included: option.included && !selectedPinOptions.includes(option.value),
         }));
-        const pinIDs = pinOptions
-            .filter(({ included }) => included)
-            .map(({ value }) => value);
+        const pinIDs = pinOptions.filter(({ included }) => included).map(({ value }) => value);
         this.setState({
             pinOptions,
-            selectedPinOptions: selectedPinOptions.filter(
-                id => !pinIDs.includes(id)
-            )
+            selectedPinOptions: selectedPinOptions.filter(id => !pinIDs.includes(id)),
         });
         handleChange('pinIDs', pinIDs);
     };
 
     handleSubmit = () => {
         const { selectedPinOptions, pinOptions } = this.state;
-        const setIncludes = Object.values(pinOptions).map(
-            ({ included, ...pin }) => ({
-                ...pin,
-                included: selectedPinOptions.includes(pin.value)
-                    ? !included
-                    : included
-            })
-        );
+        const setIncludes = Object.values(pinOptions).map(({ included, ...pin }) => ({
+            ...pin,
+            included: selectedPinOptions.includes(pin.value) ? !included : included,
+        }));
         const pinIDs = setIncludes.reduce(
             (acc, { included, value }) => (included ? [...acc, value] : acc),
-            []
+            [],
         );
 
         this.props.handleChange('pinIDs', pinIDs);
@@ -150,10 +138,7 @@ class PinSelectorContainer extends Component {
 
     componentDidMount = () => {
         const { addFieldError } = this.props;
-        addFieldError(
-            'pinSelector',
-            'You must include some pins in the report.'
-        );
+        addFieldError('pinSelector', 'You must include some pins in the report.');
         this._setPinOptions();
     };
 
@@ -161,7 +146,7 @@ class PinSelectorContainer extends Component {
         const {
             customFilters: { pins },
             handleChange,
-            removeFieldError
+            removeFieldError,
         } = this.props;
         const selectedPinIDs = pins.map(({ id }) => id);
         handleChange('pinIDs', selectedPinIDs);
@@ -170,13 +155,13 @@ class PinSelectorContainer extends Component {
 
     componentDidUpdate = (
         { customFilters: { pins: prevPins = [] } },
-        { pinOptions: prevPinOptions }
+        { pinOptions: prevPinOptions },
     ) => {
         const {
             customFilters: { pins = [] },
             addFieldError,
             removeFieldError,
-            fieldError
+            fieldError,
         } = this.props;
 
         const { pinOptions } = this.state;
@@ -184,19 +169,12 @@ class PinSelectorContainer extends Component {
         if (prevPins.length !== pins.length) {
             this._setPinOptions();
         }
-        const pinIDs = Object.values(pinOptions).filter(
-            ({ included }) => included
-        );
-        const prevPinIDs = Object.values(prevPinOptions).filter(
-            ({ included }) => included
-        );
+        const pinIDs = Object.values(pinOptions).filter(({ included }) => included);
+        const prevPinIDs = Object.values(prevPinOptions).filter(({ included }) => included);
 
         if (pinIDs.length !== prevPinIDs.length) {
             if (!pinIDs.length) {
-                addFieldError(
-                    'pinSelector',
-                    'You must include some pins in the report.'
-                );
+                addFieldError('pinSelector', 'You must include some pins in the report.');
             }
             if (fieldError && pinIDs.length) {
                 removeFieldError('pinSelector');
@@ -209,9 +187,9 @@ class PinSelectorContainer extends Component {
         const pinOptions = pins.reduce(
             (acc, { id: value, pinCode: text, status }) => ({
                 ...acc,
-                [value]: { value, text, status, included: false }
+                [value]: { value, text, status, included: false },
             }),
-            {}
+            {},
         );
         const pinIDs = Object.values(pinOptions).map(({ value }) => value);
         // const pinIDs = [];
@@ -222,10 +200,10 @@ class PinSelectorContainer extends Component {
 
 const mapStateToProps = ({
     client: {
-        pinsReducer: { pins }
-    }
+        pinsReducer: { pins },
+    },
 }) => ({
-    pins: Object.values(pins)
+    pins: Object.values(pins),
 });
 
 export default withUpdateOnChange(connect(mapStateToProps, null)(PinSelectorContainer));

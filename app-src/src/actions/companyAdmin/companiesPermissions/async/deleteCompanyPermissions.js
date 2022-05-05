@@ -6,36 +6,30 @@ import setAPIFieldErrors from 'actions/shared/generic/fieldErrors/sync/setAPIFie
 import {
     DELETE_COMPANY_PERMISSIONS_REQUEST,
     DELETE_COMPANY_PERMISSIONS_SUCCESS,
-    DELETE_COMPANY_PERMISSIONS_FAILURE
+    DELETE_COMPANY_PERMISSIONS_FAILURE,
 } from 'constants/actionTypes/companiesWithPermissions';
 
 export const deleteCompanyRequest = () => ({
-    type: DELETE_COMPANY_PERMISSIONS_REQUEST
+    type: DELETE_COMPANY_PERMISSIONS_REQUEST,
 });
 
 export const deleteCompanySuccess = (payload, companyPermissionID) => ({
     type: DELETE_COMPANY_PERMISSIONS_SUCCESS,
     payload,
-    id: companyPermissionID
+    id: companyPermissionID,
 });
 
 export const deleteCompanyFailure = error => ({
     type: DELETE_COMPANY_PERMISSIONS_FAILURE,
-    error
+    error,
 });
 
 export default companyPermissionID => dispatch => {
     dispatch(deleteCompanyRequest());
 
     return axios
-        .post(
-            `${API_URL}/companypermissions/${companyPermissionID}/end`,
-            null,
-            getHeaders()
-        )
-        .then(({ data }) =>
-            dispatch(deleteCompanySuccess(data, companyPermissionID))
-        )
+        .post(`${API_URL}/companypermissions/${companyPermissionID}/end`, null, getHeaders())
+        .then(({ data }) => dispatch(deleteCompanySuccess(data, companyPermissionID)))
         .catch(err => {
             dispatch(deleteCompanyFailure(err.message));
             if (err.response.status === 400) {

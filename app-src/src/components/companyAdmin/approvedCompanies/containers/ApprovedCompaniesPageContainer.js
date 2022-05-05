@@ -15,10 +15,7 @@ const ApprovedCompaniesContainer = ({ fetchApprovedCompanies }) => {
 const mapDispatchToProps = dispatch => ({
     fetchApprovedCompanies: () => {
         dispatch(fetchApprovedCompanies());
-    }
+    },
 });
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(ApprovedCompaniesContainer);
+export default connect(null, mapDispatchToProps)(ApprovedCompaniesContainer);

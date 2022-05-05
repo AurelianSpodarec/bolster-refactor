@@ -5,21 +5,21 @@ import { getHeaders } from 'helpers/api';
 import {
     FETCH_COMPANY_USERS_REQUEST,
     FETCH_COMPANY_USERS_SUCCESS,
-    FETCH_COMPANY_USERS_FAILURE
+    FETCH_COMPANY_USERS_FAILURE,
 } from 'constants/actionTypes/usersManagement';
 
 export const fetchCompanyUsersRequest = () => ({
-    type: FETCH_COMPANY_USERS_REQUEST
+    type: FETCH_COMPANY_USERS_REQUEST,
 });
 
 export const fetchCompanyUsersSuccess = payload => ({
     type: FETCH_COMPANY_USERS_SUCCESS,
-    payload
+    payload,
 });
 
 export const fetchCompanyUsersFailure = error => ({
     type: FETCH_COMPANY_USERS_FAILURE,
-    error
+    error,
 });
 
 export default () => dispatch => {

@@ -12,14 +12,11 @@ const ClientsTable = ({
     isFetching,
     error,
     handleDeleteClientModal,
-    smallList = false
+    smallList = false,
 }) => (
     <div className="size-lg-12">
         <BlockHeading title="Invite Client">
-            <ButtonContainer
-                className="pull-right green"
-                to={`${location.pathname}/invite-client`}
-            >
+            <ButtonContainer className="pull-right green" to={`${location.pathname}/invite-client`}>
                 <i className="fa fa-plus" /> Invite
             </ButtonContainer>
         </BlockHeading>

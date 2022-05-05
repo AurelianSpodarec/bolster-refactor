@@ -5,21 +5,21 @@ import { getHeaders } from 'helpers/api';
 import {
     FETCH_LATEST_APP_VERSION_REQUEST,
     FETCH_LATEST_APP_VERSION_SUCCESS,
-    FETCH_LATEST_APP_VERSION_FAILURE
+    FETCH_LATEST_APP_VERSION_FAILURE,
 } from 'constants/actionTypes/app';
 
 export const fetchLatestAppVersionRequest = () => ({
-    type: FETCH_LATEST_APP_VERSION_REQUEST
+    type: FETCH_LATEST_APP_VERSION_REQUEST,
 });
 
 export const fetchLatestAppVersionSuccess = payload => ({
     type: FETCH_LATEST_APP_VERSION_SUCCESS,
-    payload
+    payload,
 });
 
 export const fetchLatestAppVersionFailure = error => ({
     type: FETCH_LATEST_APP_VERSION_FAILURE,
-    error
+    error,
 });
 
 export default () => dispatch => {

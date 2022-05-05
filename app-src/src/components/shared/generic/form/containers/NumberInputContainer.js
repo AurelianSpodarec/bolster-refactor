@@ -20,6 +20,7 @@ class NumberInputContainer extends Component {
             classes = '',
             error,
             errorsVisible,
+            minNum,
             maxNum,
             handleFocus,
         } = this.props;
@@ -37,6 +38,7 @@ class NumberInputContainer extends Component {
                 handleBlur={this.handleBlur}
                 handleFocus={handleFocus}
                 error={errorMessage}
+                minNum={minNum}
                 maxNum={maxNum}
             />
         );

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import useBlockTabs from '../../../shared/tabs/hooks/useBlockTabs';
 import { useDispatch, useSelector } from 'react-redux';
 

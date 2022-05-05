@@ -9,12 +9,7 @@ import AddCardFormContainer from './AddCardFormContainer';
 
 class AddCardModalContainer extends Component {
     render() {
-        return (
-            <AddCardFormContainer
-                close={this.close}
-                onSuccess={this.onSuccess}
-            />
-        );
+        return <AddCardFormContainer close={this.close} onSuccess={this.onSuccess} />;
     }
 
     onSuccess = () => {
@@ -29,11 +24,11 @@ class AddCardModalContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
-        cardsReducer: { postError, postSuccess }
-    }
+        cardsReducer: { postError, postSuccess },
+    },
 }) => ({
     postError,
-    postSuccess
+    postSuccess,
 });
 
 const mapDispatchToProps = {
@@ -41,10 +36,7 @@ const mapDispatchToProps = {
     hideModal,
     addCard,
     addFieldError,
-    removeFieldError
+    removeFieldError,
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(AddCardModalContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(AddCardModalContainer);

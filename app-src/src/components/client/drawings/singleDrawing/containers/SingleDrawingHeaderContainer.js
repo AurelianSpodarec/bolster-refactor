@@ -13,6 +13,6 @@ const SingleDrawingHeaderContainer = ({ drawing }) => (
 
 export default withRouter(
     connect(({ client: { drawingsReducer } }, ownProps) => ({
-        drawing: drawingsReducer.drawings[ownProps.match.params.id] || {}
-    }))(SingleDrawingHeaderContainer)
+        drawing: drawingsReducer.drawings[ownProps.match.params.id] || {},
+    }))(SingleDrawingHeaderContainer),
 );

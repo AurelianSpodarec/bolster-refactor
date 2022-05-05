@@ -11,13 +11,11 @@ const DrawingShareLinkContainer = ({
     drawingID,
     shareLink,
     fetchDrawingShareLink,
-    createDrawingShareLink
+    createDrawingShareLink,
 }) => {
     componentDidMount(() => fetchDrawingShareLink(drawingID));
 
-    return (
-        <DrawingShareLink shareLink={shareLink} postShareLink={postShareLink} />
-    );
+    return <DrawingShareLink shareLink={shareLink} postShareLink={postShareLink} />;
 
     async function postShareLink() {
         await createDrawingShareLink(drawingID);
@@ -28,22 +26,15 @@ const DrawingShareLinkContainer = ({
 const mapStateToProps = (
     {
         companyAdmin: {
-            drawingsReducer: { shareLinks }
-        }
+            drawingsReducer: { shareLinks },
+        },
     },
-    { match: { params } }
+    { match: { params } },
 ) => {
-    const shareLink = Object.values(shareLinks).find(
-        link => +link.drawingID === +params.id
-    );
+    const shareLink = Object.values(shareLinks).find(link => +link.drawingID === +params.id);
     return { shareLink, drawingID: params.id };
 };
 
 const mapDispatchToProps = { fetchDrawingShareLink, createDrawingShareLink };
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(DrawingShareLinkContainer)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(DrawingShareLinkContainer));

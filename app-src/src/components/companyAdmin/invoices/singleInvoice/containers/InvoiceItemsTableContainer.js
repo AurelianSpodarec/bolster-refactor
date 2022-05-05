@@ -6,23 +6,10 @@ import InvoiceItemsTable from 'components/shared/invoices/invoiceItemsTable/pres
 
 class InvoiceItemsTableContainer extends Component {
     render() {
-        const {
-            invoice,
-            error,
-            isFetching,
-            invoiceItems,
-            onMobile
-        } = this.props;
+        const { invoice, error, isFetching, invoiceItems, onMobile } = this.props;
         return (
             <InvoiceItemsTable
-                headers={[
-                    'Item',
-                    'Custom Name',
-                    'QTY',
-                    'Item Price',
-                    'Item VAT',
-                    'Total'
-                ]}
+                headers={['Item', 'Custom Name', 'QTY', 'Item Price', 'Item VAT', 'Total']}
                 error={error}
                 isFetching={isFetching}
                 invoice={invoice}
@@ -35,25 +22,21 @@ class InvoiceItemsTableContainer extends Component {
 
 const mapStateToProps = (
     {
-        companyAdmin: {
-            invoicesReducer,
-            invoiceItemsReducer,
-            companySettingsReducer
-        },
+        companyAdmin: { invoicesReducer, invoiceItemsReducer, companySettingsReducer },
         shared: {
-            mobileReducer: { onMobile }
-        }
+            mobileReducer: { onMobile },
+        },
     },
-    { match }
+    { match },
 ) => ({
     company: companySettingsReducer.companySettings.name,
     error: invoicesReducer.error || invoiceItemsReducer.error,
     isFetching: invoicesReducer.isFetching || invoiceItemsReducer.isFetching,
     invoice: invoicesReducer.invoices[match.params.id] || {},
     invoiceItems: Object.values(invoiceItemsReducer.invoiceItems).filter(
-        item => item.invoiceID === +match.params.id
+        item => item.invoiceID === +match.params.id,
     ),
-    onMobile
+    onMobile,
 });
 
 export default withRouter(connect(mapStateToProps)(InvoiceItemsTableContainer));

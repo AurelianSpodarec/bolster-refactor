@@ -9,7 +9,7 @@ const TextArea = ({
     error,
     charLimit,
     classes,
-    disabled
+    disabled,
 }) => (
     <>
         <textarea
@@ -22,9 +22,7 @@ const TextArea = ({
             maxLength={charLimit}
             disabled={disabled}
         />
-        {!!(error && error.length) && (
-            <p className="error red-text text-accent-4">{error}</p>
-        )}
+        {!!(error && error.length) && <p className="error red-text text-accent-4">{error}</p>}
     </>
 );
 

@@ -5,21 +5,21 @@ import { getHeaders } from 'helpers/api';
 import {
     FETCH_PROFILE_REQUEST,
     FETCH_PROFILE_SUCCESS,
-    FETCH_PROFILE_FAILURE
+    FETCH_PROFILE_FAILURE,
 } from 'constants/actionTypes/profile';
 
 export const fetchProfileRequest = () => ({
-    type: FETCH_PROFILE_REQUEST
+    type: FETCH_PROFILE_REQUEST,
 });
 
 export const fetchProfileSuccess = payload => ({
     type: FETCH_PROFILE_SUCCESS,
-    payload
+    payload,
 });
 
 export const fetchProfileFailure = error => ({
     type: FETCH_PROFILE_FAILURE,
-    error
+    error,
 });
 
 export default () => dispatch => {

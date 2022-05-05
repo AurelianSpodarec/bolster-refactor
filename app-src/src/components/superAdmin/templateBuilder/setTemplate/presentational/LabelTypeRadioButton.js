@@ -11,7 +11,7 @@ const LabelTypeRadioButton = ({
     checked,
     handleInputChange,
     disabled = false,
-    extraDetails = ''
+    extraDetails = '',
 }) => {
     let image = StandardLabelImage;
 
@@ -20,11 +20,7 @@ const LabelTypeRadioButton = ({
     }
 
     return (
-        <div
-            className={`radio-button label-example ${
-                disabled ? 'grey-out' : ''
-            }`}
-        >
+        <div className={`radio-button label-example ${disabled ? 'grey-out' : ''}`}>
             <input
                 type="radio"
                 id={value}

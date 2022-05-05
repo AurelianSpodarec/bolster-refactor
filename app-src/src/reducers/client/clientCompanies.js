@@ -5,14 +5,14 @@ import {
     CLIENT_FETCH_COMPANIES_REQUEST,
     CLIENT_FETCH_COMPANIES_SUCCESS,
     CLIENT_FETCH_COMPANIES_FAILURE,
-    CLIENT_SELECT_COMPANY
+    CLIENT_SELECT_COMPANY,
 } from 'constants/client/actionTypes/clientSelectCompany';
 
 export default combineReducers({
     companies: companiesReducer,
     isFetching: isFetchingReducer,
     error: errorReducer,
-    selectedCompanyID: selectedCompanyIDReducer
+    selectedCompanyID: selectedCompanyIDReducer,
 });
 
 function isFetchingReducer(state = false, action) {
