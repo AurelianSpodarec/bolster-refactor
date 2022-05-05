@@ -27,8 +27,11 @@ const OptionSets = ({ selectedTypeID }) => {
         selectedTypeID,
     );
 
-    const { showAddModal, showEditModal, showDeleteModal, setAsDefault } =
-        useOptionSetActions(selectedTypeID);
+    const {
+        showAddModal,
+        showEditModal,
+        // showDeleteModal, setAsDefault
+    } = useOptionSetActions(selectedTypeID);
 
     const setLink = selectedPinOptionType.slug;
 

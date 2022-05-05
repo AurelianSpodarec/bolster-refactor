@@ -5,11 +5,6 @@ import editLinkPrelim from 'actions/companyAdmin/costingAndEstimating/editLinkPr
 import { PRELIMS_ENUM } from 'constants/companyAdmin/enums';
 import { convertEnumToDropdownOptions } from 'helpers/generic';
 import { useForm, usePrevious } from 'helpers/hooks';
-import {
-    selectCostingAndEstimatingIsPosting,
-    selectCostingAndEstimatingPostError,
-    selectCostingAndEstimatingPostSuccess,
-} from 'selectors/companyAdmin/costingAndEstimating';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import { ERROR_MODAL } from 'constants/shared/modalTypes';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
