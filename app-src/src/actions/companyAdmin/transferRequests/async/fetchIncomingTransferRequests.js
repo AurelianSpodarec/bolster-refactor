@@ -4,22 +4,22 @@ import { API_URL } from 'config';
 import {
     FETCH_INCOMING_TRANSFER_REQUESTS_REQUEST,
     FETCH_INCOMING_TRANSFER_REQUESTS_SUCCESS,
-    FETCH_INCOMING_TRANSFER_REQUESTS_FAILURE
+    FETCH_INCOMING_TRANSFER_REQUESTS_FAILURE,
 } from 'constants/actionTypes/transferRequests';
 import { getHeaders } from 'helpers/api';
 
 export const fetchIncomingTransferRequestsRequest = () => ({
-    type: FETCH_INCOMING_TRANSFER_REQUESTS_REQUEST
+    type: FETCH_INCOMING_TRANSFER_REQUESTS_REQUEST,
 });
 
 export const fetchIncomingTransferRequestsSuccess = payload => ({
     type: FETCH_INCOMING_TRANSFER_REQUESTS_SUCCESS,
-    payload
+    payload,
 });
 
 export const fetchIncomingTransferRequestsFailure = error => ({
     type: FETCH_INCOMING_TRANSFER_REQUESTS_FAILURE,
-    error
+    error,
 });
 
 export default () => dispatch => {
@@ -27,10 +27,6 @@ export default () => dispatch => {
 
     axios
         .get(`${API_URL}/transferrequests/incoming`, getHeaders())
-        .then(({ data }) =>
-            dispatch(fetchIncomingTransferRequestsSuccess(data))
-        )
-        .catch(err =>
-            dispatch(fetchIncomingTransferRequestsFailure(err.message))
-        );
+        .then(({ data }) => dispatch(fetchIncomingTransferRequestsSuccess(data)))
+        .catch(err => dispatch(fetchIncomingTransferRequestsFailure(err.message)));
 };

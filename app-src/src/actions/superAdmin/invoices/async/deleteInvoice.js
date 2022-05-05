@@ -22,11 +22,12 @@ export const saDeleteInvoiceFailure = error => ({
     error,
 });
 
-export default (id, comment = '') => dispatch => {
-    dispatch(saDeleteInvoiceRequest());
+export default (id, comment = '') =>
+    dispatch => {
+        dispatch(saDeleteInvoiceRequest());
 
-    return axios
-        .post(`${ADMIN_API_URL}/invoices/${id}/cancel`, { comment }, getHeaders())
-        .then(() => dispatch(saDeleteInvoiceSuccess(id)))
-        .catch(err => dispatch(saDeleteInvoiceFailure(err.message)));
-};
+        return axios
+            .post(`${ADMIN_API_URL}/invoices/${id}/cancel`, { comment }, getHeaders())
+            .then(() => dispatch(saDeleteInvoiceSuccess(id)))
+            .catch(err => dispatch(saDeleteInvoiceFailure(err.message)));
+    };

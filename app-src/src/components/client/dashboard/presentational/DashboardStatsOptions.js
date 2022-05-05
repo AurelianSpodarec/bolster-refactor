@@ -13,7 +13,7 @@ const DashboardStatsOptions = ({
     selectedService,
     startDate,
     endDate,
-    handleChangeSetting
+    handleChangeSetting,
 }) => (
     <>
         <div className="size-lg-7">

@@ -23,10 +23,7 @@ const mapDispatchToProps = dispatch => ({
     handleDelete: clientID => {
         dispatch(deleteClientFromDrawing(clientID));
         dispatch(hideModal());
-    }
+    },
 });
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(DeleteClientModalContainer);
+export default connect(null, mapDispatchToProps)(DeleteClientModalContainer);

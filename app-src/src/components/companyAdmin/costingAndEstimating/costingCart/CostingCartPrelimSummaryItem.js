@@ -7,7 +7,7 @@ import { formatCurrency } from 'helpers/generic';
 import useCostingAndEstimatingPrelimsSetActions from '../_hooks/useCostingAndEstimatingPrelimsSetActions';
 
 const CostingCartPrelimSummaryItem = ({ prelim }) => {
-    const { prelimID, linkID, prelimName, cost, type, isCustom } = prelim;
+    const { prelimID, linkID, prelimName, cost, isCustom } = prelim;
     const { showEditCustomPrelimModal, showDeletePrelimLinkModal } =
         useCostingAndEstimatingPrelimsSetActions();
 

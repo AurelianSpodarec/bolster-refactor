@@ -7,17 +7,12 @@ const style = {
     padding: '0.5rem 1rem',
     margin: '.5rem',
     backgroundColor: 'white',
-    cursor: 'move'
+    cursor: 'move',
 };
 
 class CardContainer extends Component {
     render() {
-        const {
-            card,
-            isDragging,
-            connectDragSource,
-            connectDropTarget
-        } = this.props;
+        const { card, isDragging, connectDragSource, connectDropTarget } = this.props;
 
         return connectDragSource(
             connectDropTarget(
@@ -26,8 +21,8 @@ class CardContainer extends Component {
                     style={{ ...style, opacity: isDragging ? 0 : 1 }}
                 >
                     {card.text}
-                </div>
-            )
+                </div>,
+            ),
         );
     }
 }
@@ -37,7 +32,7 @@ const cardSource = {
         return {
             index: props.index,
             listId: props.listId,
-            card: props.card
+            card: props.card,
         };
     },
 
@@ -48,7 +43,7 @@ const cardSource = {
         if (dropResult && dropResult.listId !== item.listId) {
             props.removeCard(item.index);
         }
-    }
+    },
 };
 
 const cardTarget = {
@@ -66,8 +61,7 @@ const cardTarget = {
         const hoverBoundingRect = component.card.getBoundingClientRect();
 
         // Get vertical middle
-        const hoverMiddleY =
-            (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+        const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
 
         // Determine mouse position
         const clientOffset = monitor.getClientOffset();
@@ -99,15 +93,15 @@ const cardTarget = {
             // to avoid expensive index searches.
             monitor.getItem().index = hoverIndex;
         }
-    }
+    },
 };
 
 export default flow(
     DropTarget('CARD', cardTarget, connect => ({
-        connectDropTarget: connect.dropTarget()
+        connectDropTarget: connect.dropTarget(),
     })),
     DragSource('CARD', cardSource, (connect, monitor) => ({
         connectDragSource: connect.dragSource(),
-        isDragging: monitor.isDragging()
-    }))
+        isDragging: monitor.isDragging(),
+    })),
 )(CardContainer);

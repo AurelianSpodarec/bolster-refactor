@@ -21,5 +21,5 @@ export default connect(({ client: { buildingsReducer } }, ownProps) => ({
     buildings: ownProps.ids
         .map(id => buildingsReducer.buildings[id])
         .filter(item => item)
-        .sort(hierarchySort)
+        .sort(hierarchySort),
 }))(BuildingsTableContainer);

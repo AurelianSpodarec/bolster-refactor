@@ -5,23 +5,23 @@ import { getHeaders } from 'helpers/api';
 import {
     FETCH_SINGLE_PIN_REQUEST,
     FETCH_SINGLE_PIN_SUCCESS,
-    FETCH_SINGLE_PIN_FAILURE
+    FETCH_SINGLE_PIN_FAILURE,
 } from 'constants/actionTypes/pins';
 
 export const fetchSinglePinRequest = keepPinData => ({
     type: FETCH_SINGLE_PIN_REQUEST,
-    keepPinData
+    keepPinData,
 });
 
 export const fetchSinglePinSuccess = (payload, keepPinData) => ({
     type: FETCH_SINGLE_PIN_SUCCESS,
     payload,
-    keepPinData
+    keepPinData,
 });
 
 export const fetchSinglePinFailure = error => ({
     type: FETCH_SINGLE_PIN_FAILURE,
-    error
+    error,
 });
 
 export default (id, keepPinData) => dispatch => {

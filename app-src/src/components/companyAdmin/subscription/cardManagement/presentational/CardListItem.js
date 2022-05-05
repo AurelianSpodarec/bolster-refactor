@@ -1,7 +1,5 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import StatusIcon from 'components/shared/generic/statusIcon/presentationl/StatusIcon';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';

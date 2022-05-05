@@ -7,7 +7,7 @@ import AttachDocumentDatePicker from '../presentational/AttachDocumentDatePicker
 
 class AttachDocumentDatePickerContainer extends Component {
     state = {
-        showFieldError: false
+        showFieldError: false,
     };
     render() {
         const { showFieldError } = this.state;
@@ -19,12 +19,10 @@ class AttachDocumentDatePickerContainer extends Component {
             endError,
             errorsVisible,
             startRequired,
-            endRequired
+            endRequired,
         } = this.props;
-        const startErrorMessage =
-            showFieldError || errorsVisible ? startError : null;
-        const endErrorMessage =
-            showFieldError || errorsVisible ? endError : null;
+        const startErrorMessage = showFieldError || errorsVisible ? startError : null;
+        const endErrorMessage = showFieldError || errorsVisible ? endError : null;
         return (
             <AttachDocumentDatePicker
                 startOn={startOn}
@@ -62,7 +60,7 @@ class AttachDocumentDatePickerContainer extends Component {
             removeFieldError,
             startRequired,
             endRequired,
-            startError
+            startError,
         } = this.props;
         if (startRequired && !startOn) {
             addFieldError('startOn', 'This is a required field');
@@ -82,15 +80,12 @@ class AttachDocumentDatePickerContainer extends Component {
 const mapStateToProps = ({ shared: { fieldErrorsReducer } }) => ({
     startError: fieldErrorsReducer.fieldErrors['startOn'],
     endError: fieldErrorsReducer.fieldErrors['endOn'],
-    errorsVisible: fieldErrorsReducer.errorsVisible
+    errorsVisible: fieldErrorsReducer.errorsVisible,
 });
 
 const mapDispatchToProps = dispatch => ({
     addFieldError: (field, error) => dispatch(addFieldError(field, error)),
-    removeFieldError: field => dispatch(removeFieldError(field))
+    removeFieldError: field => dispatch(removeFieldError(field)),
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(AttachDocumentDatePickerContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(AttachDocumentDatePickerContainer);

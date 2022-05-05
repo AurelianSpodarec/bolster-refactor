@@ -4,11 +4,7 @@ import { Link } from 'react-router-dom';
 const ClientsList = ({ location, clients, handleDeleteClientModal }) =>
     clients.map(client => (
         <tr key={`${client.id} ${client.userFirstName}`}>
-            <td>
-                {`${client.userFirstName} ${client.userLastName} - (${
-                    client.companyName
-                })`}
-            </td>
+            <td>{`${client.userFirstName} ${client.userLastName} - (${client.companyName})`}</td>
             <td>
                 <Link
                     to={`${location.pathname}/edit-client/${client.id}`}

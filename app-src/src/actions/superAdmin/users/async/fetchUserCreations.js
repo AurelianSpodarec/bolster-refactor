@@ -21,11 +21,12 @@ export const fetchUserCreationsFailure = error => ({
     error,
 });
 
-export default (page = 1, pageSize = 50) => dispatch => {
-    dispatch(fetchUserCreationsRequest());
+export default (page = 1, pageSize = 50) =>
+    dispatch => {
+        dispatch(fetchUserCreationsRequest());
 
-    return axios
-        .get(`${ADMIN_API_URL}/users/creations?page=${page}&pageSize=${pageSize}`, getHeaders())
-        .then(res => dispatch(fetchUserCreationsSuccess(res.data)))
-        .catch(err => dispatch(fetchUserCreationsFailure(err.message)));
-};
+        return axios
+            .get(`${ADMIN_API_URL}/users/creations?page=${page}&pageSize=${pageSize}`, getHeaders())
+            .then(res => dispatch(fetchUserCreationsSuccess(res.data)))
+            .catch(err => dispatch(fetchUserCreationsFailure(err.message)));
+    };

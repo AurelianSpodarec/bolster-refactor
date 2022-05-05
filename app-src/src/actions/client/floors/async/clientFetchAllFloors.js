@@ -5,21 +5,21 @@ import { getHeaders } from 'helpers/api';
 import {
     CLIENT_FETCH_ALL_FLOORS_REQUEST,
     CLIENT_FETCH_ALL_FLOORS_SUCCESS,
-    CLIENT_FETCH_ALL_FLOORS_FAILURE
+    CLIENT_FETCH_ALL_FLOORS_FAILURE,
 } from 'constants/client/actionTypes/clientFloors';
 
 export const clientFetchAllFloorsRequest = () => ({
-    type: CLIENT_FETCH_ALL_FLOORS_REQUEST
+    type: CLIENT_FETCH_ALL_FLOORS_REQUEST,
 });
 
 export const clientFetchAllFloorsSuccess = payload => ({
     type: CLIENT_FETCH_ALL_FLOORS_SUCCESS,
-    payload
+    payload,
 });
 
 export const clientFetchAllFloorsFailure = error => ({
     type: CLIENT_FETCH_ALL_FLOORS_FAILURE,
-    error
+    error,
 });
 
 export default companyID => dispatch => {

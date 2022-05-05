@@ -7,14 +7,7 @@ import Select from 'components/shared/generic/form/presentational/Select';
 import ButtonWrapper from '../../../../shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from '../../../../shared/generic/button/presentational/ActionButton';
 
-const EditCompanyOwnerModal = ({
-    handleChange,
-    handleSubmit,
-    hideModal,
-    form,
-    userOptions,
-    isPosting,
-}) => {
+const EditCompanyOwnerModal = ({ handleChange, handleSubmit, hideModal, form, userOptions }) => {
     return (
         <ModalOuterContainer>
             <Form onSubmit={handleSubmit}>

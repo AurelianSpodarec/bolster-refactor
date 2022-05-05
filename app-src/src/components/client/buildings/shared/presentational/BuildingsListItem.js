@@ -8,17 +8,12 @@ const BuldingsListItem = ({
     isExpanded,
     colCount,
     headers,
-    onMobile
+    onMobile,
 }) => (
     <>
-        <tr
-            onClick={toggleExpanded}
-            className={`draggable expandable ${isExpanded ? 'open' : ''}`}
-        >
+        <tr onClick={toggleExpanded} className={`draggable expandable ${isExpanded ? 'open' : ''}`}>
             <td>
-                {onMobile && (
-                    <span className="mobile-table-heading">{headers[0]}</span>
-                )}
+                {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
                 {isExpanded ? (
                     <i className="fa fa-chevron-down" />
                 ) : (
@@ -38,10 +33,7 @@ const BuldingsListItem = ({
         {isExpanded && (
             <tr className="expanded-row ">
                 <td colSpan={colCount} className="table-container">
-                    <FloorTableContainer
-                        className="with-actions"
-                        ids={building.floorIDs}
-                    />
+                    <FloorTableContainer className="with-actions" ids={building.floorIDs} />
                 </td>
             </tr>
         )}

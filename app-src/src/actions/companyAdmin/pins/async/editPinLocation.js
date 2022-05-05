@@ -6,21 +6,21 @@ import { getHeaders } from 'helpers/api';
 import {
     EDIT_PIN_LOCATION_REQUEST,
     EDIT_PIN_LOCATION_SUCCESS,
-    EDIT_PIN_LOCATION_FAILURE
+    EDIT_PIN_LOCATION_FAILURE,
 } from 'constants/actionTypes/pins';
 
 export const editPinLocationRequest = () => ({
-    type: EDIT_PIN_LOCATION_REQUEST
+    type: EDIT_PIN_LOCATION_REQUEST,
 });
 
 export const editPinLocationSuccess = payload => ({
     type: EDIT_PIN_LOCATION_SUCCESS,
-    payload
+    payload,
 });
 
 export const editPinLocationFailure = error => ({
     type: EDIT_PIN_LOCATION_FAILURE,
-    error
+    error,
 });
 
 export default (pinID, postBody) => dispatch => {

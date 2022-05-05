@@ -5,21 +5,21 @@ import { getHeaders, handleErrors } from 'helpers/api';
 import {
     CHANGE_PROFILE_PASSWORD_REQUEST,
     CHANGE_PROFILE_PASSWORD_SUCCESS,
-    CHANGE_PROFILE_PASSWORD_FAILURE
+    CHANGE_PROFILE_PASSWORD_FAILURE,
 } from 'constants/actionTypes/profile';
 
 export const changeProfilePasswordRequest = () => ({
-    type: CHANGE_PROFILE_PASSWORD_REQUEST
+    type: CHANGE_PROFILE_PASSWORD_REQUEST,
 });
 
 export const changeProfilePasswordSuccess = payload => ({
     type: CHANGE_PROFILE_PASSWORD_SUCCESS,
-    payload
+    payload,
 });
 
 export const changeProfilePasswordFailure = error => ({
     type: CHANGE_PROFILE_PASSWORD_FAILURE,
-    error
+    error,
 });
 
 export default postBody => dispatch => {

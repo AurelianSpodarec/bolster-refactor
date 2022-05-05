@@ -8,14 +8,14 @@ import {
     FETCH_TIMEZONES_FAILURE,
     FETCH_DATE_FORMATS_REQUEST,
     FETCH_DATE_FORMATS_FAILURE,
-    FETCH_DATE_FORMATS_SUCCESS
+    FETCH_DATE_FORMATS_SUCCESS,
 } from 'constants/actionTypes/time';
 
 export default combineReducers({
     timeZones: timeZonesReducer,
     dateFormats: dateFormatsReducer,
     isFetching: isFetchingReducer,
-    error: errorReducer
+    error: errorReducer,
 });
 
 function isFetchingReducer(state = false, action) {

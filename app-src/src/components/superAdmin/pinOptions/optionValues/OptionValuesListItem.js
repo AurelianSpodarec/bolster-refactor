@@ -7,7 +7,6 @@ import withDrag from 'components/shared/dragDrop/hocs/withDrag';
 
 import { selectPinOptionType } from '../../../../selectors/superAdmin/pinOptionTypes';
 
-import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionMenu from 'components/shared/actionMenu/ActionMenu';
 import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
@@ -15,7 +14,7 @@ import LinkButton from 'components/shared/generic/button/presentational/LinkButt
 
 const OptionValuesListItem = ({
     option,
-    option: { id, name, isDisabled, priceBreaks },
+    option: { id, name, priceBreaks },
     setID,
     typeID,
     showEditModal,

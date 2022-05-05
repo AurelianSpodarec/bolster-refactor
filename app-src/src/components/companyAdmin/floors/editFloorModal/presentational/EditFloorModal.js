@@ -6,25 +6,20 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import EditFloorFormContainer from '../containers/EditFloorFormContainer';
 
 const EditFloorModal = ({ floor, isUsingBolsterLabels }) => (
-    <ModalOuterContainer
-        extraClasses={`${isUsingBolsterLabels ? 'w-label-example' : ''}`}
-    >
+    <ModalOuterContainer extraClasses={`${isUsingBolsterLabels ? 'w-label-example' : ''}`}>
         <BlockHeading title={`Edit Floor - ${floor.name}`} />
-        <EditFloorFormContainer
-            floor={floor}
-            isUsingBolsterLabels={isUsingBolsterLabels}
-        />
+        <EditFloorFormContainer floor={floor} isUsingBolsterLabels={isUsingBolsterLabels} />
     </ModalOuterContainer>
 );
 
 const mapStateToProps = ({
     companyAdmin: {
         companySettingsReducer: {
-            companySettings: { isUsingBolsterLabels }
-        }
-    }
+            companySettings: { isUsingBolsterLabels },
+        },
+    },
 }) => ({
-    isUsingBolsterLabels
+    isUsingBolsterLabels,
 });
 
 export default connect(mapStateToProps)(EditFloorModal);

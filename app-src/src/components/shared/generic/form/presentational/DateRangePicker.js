@@ -8,7 +8,7 @@ function DateRangePickerInput({
     name,
     value, // { startDate: Date, endDate: Date }
     onChange = () => {},
-    required = false,
+    // required = false,
     minDate, // Date
     maxDate, // Date
     text,

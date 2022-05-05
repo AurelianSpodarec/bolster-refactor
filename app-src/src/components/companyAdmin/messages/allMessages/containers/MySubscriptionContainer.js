@@ -30,23 +30,19 @@ class MySubscriptionContainer extends Component {
         return services.map(({ id, name }) => ({
             value: id,
             text: name,
-            disabled: !subscriptionServiceIDs.includes(id)
+            disabled: !subscriptionServiceIDs.includes(id),
         }));
     };
 
     _servicesAvailable = () => {
-        return this._getServicesOptions().filter(
-            service => service.disabled === false
-        );
+        return this._getServicesOptions().filter(service => service.disabled === false);
     };
 }
-const mapStateToProps = ({
-    companyAdmin: { servicesReducer, subscriptionsReducer }
-}) => ({
+const mapStateToProps = ({ companyAdmin: { servicesReducer, subscriptionsReducer } }) => ({
     services: Object.values(servicesReducer.services),
     subscriptionServiceIDs: subscriptionsReducer.subscriptions.serviceIDs || [],
     subscriptions: subscriptionsReducer.subscriptions,
-    subscriptionEndDate: subscriptionsReducer.subscriptions.endOn || ''
+    subscriptionEndDate: subscriptionsReducer.subscriptions.endOn || '',
 });
 
 export default connect(mapStateToProps)(MySubscriptionContainer);

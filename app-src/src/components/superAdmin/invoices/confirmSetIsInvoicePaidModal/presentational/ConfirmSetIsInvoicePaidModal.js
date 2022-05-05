@@ -9,8 +9,7 @@ const ConfirmSetIsInvoicePaidModal = ({ hideModal, handleSubmit, isPaid }) => (
     <ModalOuterContainer>
         <BlockHeading title="Confirm Free Invoice" />
         <p className="generic-text intro-text size-lg-12">
-            Are you sure you would like to mark this invoice as{' '}
-            {isPaid ? 'unpaid' : 'paid'}?
+            Are you sure you would like to mark this invoice as {isPaid ? 'unpaid' : 'paid'}?
         </p>
         <BlockButtonWrapper>
             <button className="button green" onClick={handleSubmit}>

@@ -20,7 +20,6 @@ const AddPinForm = ({
     isHistory,
     isSameTemplate,
     pinAnswersByGroupKey,
-    dropdownOptionsByType,
     oldAnswersByNameObj,
     latestPinHistory,
     pinOptions,
@@ -69,7 +68,6 @@ const AddPinForm = ({
                     selectedTemplateID={selectedTemplate.value}
                     isSameTemplate={isSameTemplate}
                     pinAnswersByGroupKey={pinAnswersByGroupKey}
-                    dropdownOptionsByType={dropdownOptionsByType}
                     oldAnswersByNameObj={oldAnswersByNameObj}
                     latestPinHistory={latestPinHistory}
                     pinOptions={pinOptions}

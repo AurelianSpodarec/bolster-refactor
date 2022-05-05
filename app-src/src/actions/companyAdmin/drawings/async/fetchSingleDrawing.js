@@ -5,21 +5,21 @@ import { getHeaders } from 'helpers/api';
 import {
     FETCH_SINGLE_DRAWING_REQUEST,
     FETCH_SINGLE_DRAWING_SUCCESS,
-    FETCH_SINGLE_DRAWING_FAILURE
+    FETCH_SINGLE_DRAWING_FAILURE,
 } from 'constants/actionTypes/drawings';
 
 export const fetchDrawingRequest = () => ({
-    type: FETCH_SINGLE_DRAWING_REQUEST
+    type: FETCH_SINGLE_DRAWING_REQUEST,
 });
 
 export const fetchDrawingSuccess = payload => ({
     type: FETCH_SINGLE_DRAWING_SUCCESS,
-    payload
+    payload,
 });
 
 export const fetchDrawingFailure = error => ({
     type: FETCH_SINGLE_DRAWING_FAILURE,
-    error
+    error,
 });
 
 export default id => dispatch => {

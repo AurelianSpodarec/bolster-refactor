@@ -17,7 +17,7 @@ class Container extends Component {
         const style = {
             width: '200px',
             height: '404px',
-            border: '1px dashed gray'
+            border: '1px dashed gray',
         };
 
         const backgroundColor = isActive ? 'lightgreen' : '#FFF';
@@ -36,7 +36,7 @@ class Container extends Component {
                         />
                     );
                 })}
-            </div>
+            </div>,
         );
     }
 
@@ -44,9 +44,9 @@ class Container extends Component {
         this.setState(
             update(this.state, {
                 cards: {
-                    $push: [card]
-                }
-            })
+                    $push: [card],
+                },
+            }),
         );
     }
 
@@ -54,9 +54,9 @@ class Container extends Component {
         this.setState(
             update(this.state, {
                 cards: {
-                    $splice: [[index, 1]]
-                }
-            })
+                    $splice: [[index, 1]],
+                },
+            }),
         );
     }
 
@@ -67,9 +67,12 @@ class Container extends Component {
         this.setState(
             update(this.state, {
                 cards: {
-                    $splice: [[dragIndex, 1], [hoverIndex, 0, dragCard]]
-                }
-            })
+                    $splice: [
+                        [dragIndex, 1],
+                        [hoverIndex, 0, dragCard],
+                    ],
+                },
+            }),
         );
     }
 }
@@ -80,13 +83,13 @@ const cardTarget = {
         const sourceObj = monitor.getItem();
         if (id !== sourceObj.listId) component.pushCard(sourceObj.card);
         return {
-            listId: id
+            listId: id,
         };
-    }
+    },
 };
 
 export default DropTarget('CARD', cardTarget, (connect, monitor) => ({
     connectDropTarget: connect.dropTarget(),
     isOver: monitor.isOver(),
-    canDrop: monitor.canDrop()
+    canDrop: monitor.canDrop(),
 }))(Container);

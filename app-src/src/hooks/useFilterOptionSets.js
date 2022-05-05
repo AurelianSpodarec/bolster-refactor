@@ -1,5 +1,3 @@
-import React from 'react';
-
 import useSearch from 'hooks/useSearch';
 
 const useFilterSets = (sets, selectedTypeID) => {

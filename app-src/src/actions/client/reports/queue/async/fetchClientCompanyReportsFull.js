@@ -6,21 +6,21 @@ import { getHeaders } from 'helpers/api';
 import {
     CLIENT_FETCH_COMPANY_REPORTS_FULL_REQUEST,
     CLIENT_FETCH_COMPANY_REPORTS_FULL_SUCCESS,
-    CLIENT_FETCH_COMPANY_REPORTS_FULL_FAILURE
+    CLIENT_FETCH_COMPANY_REPORTS_FULL_FAILURE,
 } from 'constants/client/actionTypes/clientCompanyReports';
 
 export const fetchClientCompanyReportsFullRequest = () => ({
-    type: CLIENT_FETCH_COMPANY_REPORTS_FULL_REQUEST
+    type: CLIENT_FETCH_COMPANY_REPORTS_FULL_REQUEST,
 });
 
 export const fetchClientCompanyReportsFullSuccess = payload => ({
     type: CLIENT_FETCH_COMPANY_REPORTS_FULL_SUCCESS,
-    payload
+    payload,
 });
 
 export const fetchClientCompanyReportsFullFailure = error => ({
     type: CLIENT_FETCH_COMPANY_REPORTS_FULL_FAILURE,
-    error
+    error,
 });
 
 export default companyID => dispatch => {

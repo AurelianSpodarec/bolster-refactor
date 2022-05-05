@@ -8,20 +8,8 @@ import { ERROR_MODAL } from 'constants/shared/modalTypes';
 
 class PendingInvitesTableContainer extends Component {
     render() {
-        const {
-            pendingInvites,
-            outgoingInvites,
-            error,
-            isFetching
-        } = this.props;
-        const headers = [
-            'Date',
-            'Site name',
-            'Service',
-            'From',
-            'To',
-            'Action(s)'
-        ];
+        const { pendingInvites, outgoingInvites, error, isFetching } = this.props;
+        const headers = ['Date', 'Site name', 'Service', 'From', 'To', 'Action(s)'];
         return (
             <PendingInvitesTable
                 headers={headers}
@@ -44,30 +32,21 @@ class PendingInvitesTableContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
-        pendingInvitesReducer: {
-            pendingInvites,
-            outgoingInvites,
-            postSuccess,
-            isFetching,
-            error
-        }
-    }
+        pendingInvitesReducer: { pendingInvites, outgoingInvites, postSuccess, isFetching, error },
+    },
 }) => ({
     pendingInvites: Object.values(pendingInvites),
     outgoingInvites: Object.values(outgoingInvites),
     isFetching,
     error,
-    postSuccess
+    postSuccess,
 });
 
 const mapDispatchToProps = dispatch => ({
     fetchInvites: () => {
         dispatch(fetchPendingInvites());
         dispatch(fetchOutgoingInvites());
-    }
+    },
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(PendingInvitesTableContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(PendingInvitesTableContainer);

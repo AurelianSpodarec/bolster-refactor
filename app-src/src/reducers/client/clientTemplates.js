@@ -5,7 +5,7 @@ import { convertArrToObj } from 'helpers/generic';
 import {
     CLIENT_FETCH_PIN_TEMPLATES_REQUEST,
     CLIENT_FETCH_PIN_TEMPLATES_SUCCESS,
-    CLIENT_FETCH_PIN_TEMPLATES_FAILURE
+    CLIENT_FETCH_PIN_TEMPLATES_FAILURE,
 } from 'constants/client/actionTypes/clientPins';
 
 import {
@@ -14,13 +14,13 @@ import {
     CLIENT_FETCH_ALL_TEMPLATES_FAILURE,
     CLIENT_FETCH_TEMPLATES_FOR_DRAWING_REQUEST,
     CLIENT_FETCH_TEMPLATES_FOR_DRAWING_FAILURE,
-    CLIENT_FETCH_TEMPLATES_FOR_DRAWING_SUCCESS
+    CLIENT_FETCH_TEMPLATES_FOR_DRAWING_SUCCESS,
 } from 'constants/client/actionTypes/clientTemplates';
 
 export default combineReducers({
     templates: templatesReducer,
     isFetching: isFetchingReducer,
-    error: errorReducer
+    error: errorReducer,
 });
 
 function isFetchingReducer(state = false, action) {

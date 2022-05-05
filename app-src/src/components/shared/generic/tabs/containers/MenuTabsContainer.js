@@ -7,9 +7,8 @@ import Tabs from '../presentational/Tabs';
 
 const MenuTabsContainer = () => {
     const dispatch = useDispatch();
-    const { menuTabs, selectedMenuTab, isSuperAdmin, isClientAccess, isCompanyAdmin } = useSelector(
-        mapStateToProps,
-    );
+    const { menuTabs, selectedMenuTab, isSuperAdmin, isClientAccess, isCompanyAdmin } =
+        useSelector(mapStateToProps);
 
     let filteredTabs = menuTabs;
 

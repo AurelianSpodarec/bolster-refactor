@@ -11,7 +11,7 @@ class PaymentErrorModalContainer extends Component {
             title = 'Payment Failed',
             message = 'Something went wrong while trying to take your payment, please try again',
             hideModal,
-            error
+            error,
         } = this.props;
         return (
             <PaymentErrorModal
@@ -24,24 +24,21 @@ class PaymentErrorModalContainer extends Component {
 
     handleResubmit = e => {
         this.setState({
-            disbaledButton: true
+            disbaledButton: true,
         });
         setTimeout(
             () =>
                 this.setState({
-                    disbaledButton: false
+                    disbaledButton: false,
                 }),
-            3000
+            3000,
         );
         this.props.resubmit(e);
     };
 }
 
 const mapDispatchToProps = dispatch => ({
-    hideModal: () => dispatch(hideModal())
+    hideModal: () => dispatch(hideModal()),
 });
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(PaymentErrorModalContainer);
+export default connect(null, mapDispatchToProps)(PaymentErrorModalContainer);

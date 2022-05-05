@@ -3,32 +3,29 @@ import axios from 'axios';
 import {
     FETCH_COMPANY_PERMISSIONS_REQUEST,
     FETCH_COMPANY_PERMISSIONS_SUCCESS,
-    FETCH_COMPANY_PERMISSIONS_FAILURE
+    FETCH_COMPANY_PERMISSIONS_FAILURE,
 } from 'constants/actionTypes/companiesWithPermissions';
 import { API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
 
 export const fetchCompanyPermissionsRequest = () => ({
-    type: FETCH_COMPANY_PERMISSIONS_REQUEST
+    type: FETCH_COMPANY_PERMISSIONS_REQUEST,
 });
 
 export const fetchCompanyPermissionsSuccess = payload => ({
     type: FETCH_COMPANY_PERMISSIONS_SUCCESS,
-    payload
+    payload,
 });
 
 export const fetchCompanyPermissionsFailure = error => ({
     type: FETCH_COMPANY_PERMISSIONS_FAILURE,
-    error
+    error,
 });
 
 export default (hierarchyType, hierarchyID) => dispatch => {
     dispatch(fetchCompanyPermissionsRequest());
     return axios
-        .get(
-            `${API_URL}/companypermissions/${hierarchyType}/${hierarchyID}`,
-            getHeaders()
-        )
+        .get(`${API_URL}/companypermissions/${hierarchyType}/${hierarchyID}`, getHeaders())
         .then(res => dispatch(fetchCompanyPermissionsSuccess(res.data)))
         .catch(err => dispatch(fetchCompanyPermissionsFailure(err.message)));
 };

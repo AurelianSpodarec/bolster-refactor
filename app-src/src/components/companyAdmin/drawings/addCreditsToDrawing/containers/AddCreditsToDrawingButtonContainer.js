@@ -8,7 +8,7 @@ import { ADD_CREDITS_TO_DRAWING } from 'constants/shared/modalTypes';
 
 class AddCreditsToDrawingButtonContainer extends Component {
     state = {
-        shouldRestrictPayments: false
+        shouldRestrictPayments: false,
     };
     render() {
         if (this.state.shouldRestrictPayments) {
@@ -25,7 +25,7 @@ class AddCreditsToDrawingButtonContainer extends Component {
 
     handleClick = () => {
         this.props.showModal(ADD_CREDITS_TO_DRAWING, {
-            drawing: this.props.drawing
+            drawing: this.props.drawing,
         });
     };
 
@@ -34,31 +34,27 @@ class AddCreditsToDrawingButtonContainer extends Component {
 
         if (users && users[companyUserID]) {
             this.setState({
-                shouldRestrictPayments:
-                    users[companyUserID].shouldRestrictPayments
+                shouldRestrictPayments: users[companyUserID].shouldRestrictPayments,
             });
         }
     };
 }
 
 const mapDispatchToProps = dispatch => ({
-    showModal: (type, props) => dispatch(showModal(type, props))
+    showModal: (type, props) => dispatch(showModal(type, props)),
 });
 
 const mapStateToProps = ({
     companyAdmin: {
-        companyUsersReducer: { users }
+        companyUsersReducer: { users },
     },
     shared: {
         decodeJWTReducer: {
-            jwtData: { companyUserID }
-        }
-    }
+            jwtData: { companyUserID },
+        },
+    },
 }) => ({
     companyUserID,
-    users
+    users,
 });
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(AddCreditsToDrawingButtonContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(AddCreditsToDrawingButtonContainer);

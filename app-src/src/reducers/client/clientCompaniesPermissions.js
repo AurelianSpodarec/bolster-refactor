@@ -3,14 +3,14 @@ import { combineReducers } from 'redux';
 import {
     FETCH_COMPANY_PERMISSIONS_REQUEST,
     FETCH_COMPANY_PERMISSIONS_SUCCESS,
-    FETCH_COMPANY_PERMISSIONS_FAILURE
+    FETCH_COMPANY_PERMISSIONS_FAILURE,
 } from 'constants/actionTypes/companiesWithPermissions';
 import { convertArrToObj } from 'helpers/generic';
 
 export default combineReducers({
     companiesPermissions: companiesPermissionsReducer,
     isFetching: isFetchingReducer,
-    error: errorReducer
+    error: errorReducer,
 });
 
 function isFetchingReducer(state = false, action) {

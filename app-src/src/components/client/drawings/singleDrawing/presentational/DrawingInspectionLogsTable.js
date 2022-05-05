@@ -5,12 +5,7 @@ import DrawingInspectionLogsListItem from './DrawingInspectionLogsListItem';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
-const DrawingInspectionLogsTable = ({
-    isFetching,
-    error,
-    pins,
-    handleFilterChange
-}) => (
+const DrawingInspectionLogsTable = ({ isFetching, error, pins, handleFilterChange }) => (
     <BlockContainer containerClass="inspection-log flex-item size-lg-4">
         <div className="size-lg-12">
             <BlockHeading title="Inspection Log">
@@ -33,13 +28,9 @@ const DrawingInspectionLogsTable = ({
                     noDataMessage="No inspection logs to display."
                     withActions
                 >
-                    {[...pins]
-                        .map(pin => (
-                            <DrawingInspectionLogsListItem
-                                key={pin.id}
-                                pin={pin}
-                            />
-                        ))}
+                    {[...pins].map(pin => (
+                        <DrawingInspectionLogsListItem key={pin.id} pin={pin} />
+                    ))}
                 </Table>
             </div>
         </div>

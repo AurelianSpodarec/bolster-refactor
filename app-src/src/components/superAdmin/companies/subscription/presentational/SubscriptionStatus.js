@@ -7,9 +7,7 @@ import { formatNumber } from 'helpers/generic';
 
 const SubscriptionStatus = ({ subscription, active, endOn, services }) => (
     <div className="size-lg-12">
-        <BlockHeading
-            title={`Subscription status: ${active ? 'Active' : 'Inactive'}`}
-        >
+        <BlockHeading title={`Subscription status: ${active ? 'Active' : 'Inactive'}`}>
             <StatusIcon
                 classes={active ? '' : 'none'}
                 iconClass={active ? 'fa fa-check' : 'fa fa-times'}
@@ -23,15 +21,11 @@ const SubscriptionStatus = ({ subscription, active, endOn, services }) => (
                         <strong>
                             <DateTimeContainer date={endOn} />
                         </strong>{' '}
-                        at a cost of{' '}
-                        <strong>
-                            £{formatNumber(subscription.renewalPrice)}
-                        </strong>
+                        at a cost of <strong>£{formatNumber(subscription.renewalPrice)}</strong>
                     </p>
                 ) : (
                     <p className="size-lg-12">
-                        Company subscription is not set to auto-renew and will
-                        end on{' '}
+                        Company subscription is not set to auto-renew and will end on{' '}
                         <strong>
                             <DateTimeContainer date={endOn} />
                         </strong>
@@ -42,24 +36,19 @@ const SubscriptionStatus = ({ subscription, active, endOn, services }) => (
                         <BlockHeading title="Services:" />
                         {subscription.services.map(({ serviceID }) =>
                             services[serviceID] ? (
-                                <div
-                                    className="field-name size-lg-6"
-                                    key={serviceID}
-                                >
+                                <div className="field-name size-lg-6" key={serviceID}>
                                     <label className="generic-text">
                                         {services[serviceID].name}
                                         <StatusIcon />
                                     </label>
                                 </div>
-                            ) : null
+                            ) : null,
                         )}
                     </div>
                 )}
             </>
         ) : (
-            <p className="size-lg-12">
-                Company currently has no active subscriptions.
-            </p>
+            <p className="size-lg-12">Company currently has no active subscriptions.</p>
         )}
     </div>
 );

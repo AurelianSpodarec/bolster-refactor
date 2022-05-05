@@ -13,7 +13,16 @@ class SinglePinHeaderContainer extends Component {
 }
 
 export default withRouter(
-    connect(({ client: { pinsReducer: { singlePin } } }, { match: { params } }) => ({
-        pin: singlePin[params.id] || {}
-    }))(SinglePinHeaderContainer)
+    connect(
+        (
+            {
+                client: {
+                    pinsReducer: { singlePin },
+                },
+            },
+            { match: { params } },
+        ) => ({
+            pin: singlePin[params.id] || {},
+        }),
+    )(SinglePinHeaderContainer),
 );

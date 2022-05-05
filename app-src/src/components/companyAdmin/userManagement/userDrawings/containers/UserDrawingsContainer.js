@@ -10,9 +10,9 @@ class UserDrawingsContainer extends Component {
         const { user } = this.props;
         return (
             <UserDrawings
-                title={`${this.isOperative() ? 'Operative' : 'Admin'} ${
-                    user.userFirstName
-                } ${user.userLastName}`}
+                title={`${this.isOperative() ? 'Operative' : 'Admin'} ${user.userFirstName} ${
+                    user.userLastName
+                }`}
             />
         );
     }
@@ -33,22 +33,17 @@ const mapStateToProps = (
     { companyAdmin: { companyUsersReducer } },
     {
         match: {
-            params: { id }
-        }
-    }
+            params: { id },
+        },
+    },
 ) => ({
     user: companyUsersReducer.users[id] || {},
     postSuccess: companyUsersReducer.postSuccess,
     error: companyUsersReducer.error,
     isFetching: companyUsersReducer.isFetching,
-    id
+    id,
 });
 const mapDispatchToProps = {
-    fetchSingleCompanyUser
+    fetchSingleCompanyUser,
 };
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(UserDrawingsContainer)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(UserDrawingsContainer));

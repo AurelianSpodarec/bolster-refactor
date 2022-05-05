@@ -8,16 +8,15 @@ import AdvancedReportContainer from './AdvancedReportContainer';
 
 const contentOptions = {
     [TABS.GENERAL_OVERVIEW]: DrawingMapGeneralContainer,
-    [TABS.GENERATE_REPORT]: AdvancedReportContainer
+    [TABS.GENERATE_REPORT]: AdvancedReportContainer,
 };
 
 const DrawingRouteContainer = ({ selectedTab }) => {
-    const SpecificContent =
-        contentOptions[selectedTab] || contentOptions[TABS.GENERAL_OVERVIEW];
+    const SpecificContent = contentOptions[selectedTab] || contentOptions[TABS.GENERAL_OVERVIEW];
 
     return <SpecificContent />;
 };
 
 export default connect(({ shared: { tabsReducer } }) => ({
-    selectedTab: tabsReducer.selectedTab
+    selectedTab: tabsReducer.selectedTab,
 }))(DrawingRouteContainer);

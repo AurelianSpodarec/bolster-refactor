@@ -5,11 +5,7 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 
 const InviteCompanyToFloor = () => (
     <div className="size-lg-12">
-        <PageHeading
-            leftChildren={true}
-            title="Invite Company"
-            withBackButton
-        />
+        <PageHeading leftChildren={true} title="Invite Company" withBackButton />
         <InviteCompanyFormContainer hierarchyType="floor" />
     </div>
 );

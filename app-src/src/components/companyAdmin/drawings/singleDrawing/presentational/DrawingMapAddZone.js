@@ -8,7 +8,7 @@ import setZoneFormCoordinates from 'actions/companyAdmin/zones/sync/setZoneFormC
 
 class DrawingMapAddZone extends Component {
     state = {
-        polygonExists: false
+        polygonExists: false,
     };
 
     render() {
@@ -30,7 +30,7 @@ class DrawingMapAddZone extends Component {
                         circle: false,
                         marker: false,
                         circlemarker: false,
-                        polygon: !this.state.polygonExists
+                        polygon: !this.state.polygonExists,
                     }}
                 />
             </FeatureGroup>
@@ -77,7 +77,7 @@ class DrawingMapAddZone extends Component {
 }
 
 const mapState = (_, ownProps) => ({
-    drawingID: ownProps.match.params['id']
+    drawingID: ownProps.match.params['id'],
 });
 const mapDispatch = { setZoneFormCoordinates };
 

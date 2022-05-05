@@ -10,9 +10,9 @@ const OperativeAlertItem = ({
         message,
         sentCount,
         deliveredCount,
-        readCount
+        readCount,
         // id
-    }
+    },
 }) => (
     <tr>
         <td>{message}</td>

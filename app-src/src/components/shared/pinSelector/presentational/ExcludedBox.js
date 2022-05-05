@@ -9,7 +9,7 @@ const ExcludedBox = ({
     handleMouseDown,
     handleMouseUp,
     handleMouseOut,
-    clicking
+    clicking,
 }) => (
     <div className="content excluded size-lg-12" onMouseLeave={handleMouseOut}>
         {excludedPins.map(pin => (

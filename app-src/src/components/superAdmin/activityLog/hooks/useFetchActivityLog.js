@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { ACTIVITY_LOG_REFERENCE_TYPES } from 'constants/companyAdmin/enums';

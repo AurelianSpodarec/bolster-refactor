@@ -18,7 +18,7 @@ const BoundlessSelect = ({
     options = [],
     onChange,
     showError,
-    placeholder = '-- select options --'
+    placeholder = '-- select options --',
 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [hasOpened, setHasOpened] = useState(false);
@@ -40,19 +40,9 @@ const BoundlessSelect = ({
     }, [isOpen]);
 
     return (
-        <div
-            className={`multi-multi-dropdown size-lg-12 ${
-                disabled ? 'disabled' : ''
-            }`}
-            ref={node}
-        >
-            <div
-                className="selected-box"
-                onClick={() => !disabled && setIsOpen(!isOpen)}
-            >
-                {!getSelected().length && (
-                    <p className="placeholder">{placeholder}</p>
-                )}
+        <div className={`multi-multi-dropdown size-lg-12 ${disabled ? 'disabled' : ''}`} ref={node}>
+            <div className="selected-box" onClick={() => !disabled && setIsOpen(!isOpen)}>
+                {!getSelected().length && <p className="placeholder">{placeholder}</p>}
                 {getSelected().map(opt => (
                     <div
                         key={opt.value}
@@ -83,15 +73,11 @@ const BoundlessSelect = ({
                         </div>
                     )}
                     <div className="option-container">
-                        {!filteredOptions.length && (
-                            <p>There are no options to display</p>
-                        )}
+                        {!filteredOptions.length && <p>There are no options to display</p>}
                         {filteredOptions.map(opt => (
                             <p
                                 key={opt.value}
-                                className={`option ${
-                                    value.includes(opt.value) ? 'active' : ''
-                                }`}
+                                className={`option ${value.includes(opt.value) ? 'active' : ''}`}
                                 onClick={e => handleSelect(e, opt.value)}
                             >
                                 {opt.label}
@@ -130,7 +116,7 @@ const BoundlessSelect = ({
             opt.label
                 .replace(/[^A-Z0-9]/gi, '')
                 .toLowerCase()
-                .includes(searchTerm.replace(/[^A-Z0-9]/gi, '').toLowerCase())
+                .includes(searchTerm.replace(/[^A-Z0-9]/gi, '').toLowerCase()),
         );
     }
 

@@ -5,12 +5,7 @@ import CompaniesAccessContainer from 'components/shared/companies/containers/Com
 class FloorCompaniesAccessTableContainer extends Component {
     render() {
         const { accessType } = this.props;
-        return (
-            <CompaniesAccessContainer
-                hierarchyType="floor"
-                accessType={accessType}
-            />
-        );
+        return <CompaniesAccessContainer hierarchyType="floor" accessType={accessType} />;
     }
 }
 

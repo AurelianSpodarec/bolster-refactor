@@ -6,21 +6,21 @@ import { getHeaders } from 'helpers/api';
 import {
     CREATE_TRANSFER_SITE_REQUEST,
     CREATE_TRANSFER_SITE_SUCCESS,
-    CREATE_TRANSFER_SITE_FAILURE
+    CREATE_TRANSFER_SITE_FAILURE,
 } from 'constants/actionTypes/sites';
 
 export const createTransferSiteRequestRequest = () => ({
-    type: CREATE_TRANSFER_SITE_REQUEST
+    type: CREATE_TRANSFER_SITE_REQUEST,
 });
 
 export const createTransferSiteRequestSuccess = payload => ({
     type: CREATE_TRANSFER_SITE_SUCCESS,
-    payload
+    payload,
 });
 
 export const createTransferSiteRequestFailure = error => ({
     type: CREATE_TRANSFER_SITE_FAILURE,
-    error
+    error,
 });
 
 export default postBody => dispatch => {

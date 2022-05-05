@@ -21,7 +21,7 @@ const FilterFieldsModal = ({
     removeFreeFormVal,
     toggleAddFilter,
     handleSubmit,
-    isClient
+    isClient,
 }) => {
     return (
         <BlockContainer noWhiteBackground={true}>
@@ -29,61 +29,59 @@ const FilterFieldsModal = ({
             {isClient ? (
                 <>
                     <div className="not-available size-lg-12">
-                        <p className="size-lg-12">This is only available through accounts with a full subscription.</p>
+                        <p className="size-lg-12">
+                            This is only available through accounts with a full subscription.
+                        </p>
                     </div>
                 </>
             ) : (
-                    <>
-                        <Field name="Question(s)" classes="no-caps" sizeClasses="size-lg-6" required>
-                            <MultiSelect
-                                search
-                                options={questionOptions}
-                                value={selectedQuestions}
-                                name={'selectedQuestions'}
-                                onChange={handleChange}
-                                required
-                            />
-                        </Field>
-                        <div className="size-lg-6">
-                            {showFreeForm ? (
-                                    <Field
-                                        name="Answer"
-                                        classes="fields-inside"
-                                        sizeClasses="size-lg-12"
-                                    >
-                                        {freeFormValues.map(renderOption)}
-                                    </Field>
-                            ) : (
-                                    <Field
-                                        sizeClasses="size-lg-12"
-                                        name="Answer(s)"
-                                        classes="fields-inside no-caps"
-                                    >
-                                        <MultiSelect
-                                            search
-                                            name="optionOrientedVals"
-                                            value={optionOrientedVals}
-                                            options={optionOrientedOptions}
-                                            onChange={handleChange}
-                                        />
-                                    </Field>
-                                )}
-                        </div>
-                        <Field name="Question(s)" >
-                            <Checkbox name="isContains" value onChange={handleChange}/>
-                        </Field>
-                        <BlockButtonWrapper>
-                            <button className="button green" type="submit" onClick={handleSubmit}>
-                                <i className="fa fa-save fa-fw" />
+                <>
+                    <Field name="Question(s)" classes="no-caps" sizeClasses="size-lg-6" required>
+                        <MultiSelect
+                            search
+                            options={questionOptions}
+                            value={selectedQuestions}
+                            name={'selectedQuestions'}
+                            onChange={handleChange}
+                            required
+                        />
+                    </Field>
+                    <div className="size-lg-6">
+                        {showFreeForm ? (
+                            <Field name="Answer" classes="fields-inside" sizeClasses="size-lg-12">
+                                {freeFormValues.map(renderOption)}
+                            </Field>
+                        ) : (
+                            <Field
+                                sizeClasses="size-lg-12"
+                                name="Answer(s)"
+                                classes="fields-inside no-caps"
+                            >
+                                <MultiSelect
+                                    search
+                                    name="optionOrientedVals"
+                                    value={optionOrientedVals}
+                                    options={optionOrientedOptions}
+                                    onChange={handleChange}
+                                />
+                            </Field>
+                        )}
+                    </div>
+                    <Field name="Question(s)">
+                        <Checkbox name="isContains" value onChange={handleChange} />
+                    </Field>
+                    <BlockButtonWrapper>
+                        <button className="button green" type="submit" onClick={handleSubmit}>
+                            <i className="fa fa-save fa-fw" />
                             Save
                         </button>
-                            <button className="button red" type="button" onClick={toggleAddFilter}>
-                                <i className="fa fa-times fa-fw" />
+                        <button className="button red" type="button" onClick={toggleAddFilter}>
+                            <i className="fa fa-times fa-fw" />
                             Cancel
                         </button>
-                        </BlockButtonWrapper>
-                    </>
-                )}
+                    </BlockButtonWrapper>
+                </>
+            )}
         </BlockContainer>
     );
 

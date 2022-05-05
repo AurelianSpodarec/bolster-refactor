@@ -29,42 +29,37 @@ const mapStateToProps = (
     {
         superAdmin: {
             templatesReducer: { templates, isFetching, error },
-            templateLabelFieldsReducer: { labelFields }
-        }
+            templateLabelFieldsReducer: { labelFields },
+        },
     },
     {
         match: {
-            params: { uuid, companyID }
-        }
-    }
+            params: { uuid, companyID },
+        },
+    },
 ) => ({
     companyID,
     template: templates[uuid],
     templates,
     uuid,
-    labelFields: Object.values(labelFields).filter(
-        ({ templateUUID }) => templateUUID === uuid
-    ),
+    labelFields: Object.values(labelFields).filter(({ templateUUID }) => templateUUID === uuid),
     isFetching,
-    error
+    error,
 });
 const mapDispatchToProps = (
     dispatch,
     {
         match: {
-            params: { companyID }
-        }
-    }
+            params: { companyID },
+        },
+    },
 ) => ({
     fetchPageData: templateUUID => {
         dispatch(fetchTemplateForCompany(companyID, templateUUID));
         dispatch(fetchAllServices());
         dispatch(fetchSingleCompany(companyID));
-    }
+    },
 });
-const WithConnect = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(LabelExamplePageContainer);
+const WithConnect = connect(mapStateToProps, mapDispatchToProps)(LabelExamplePageContainer);
 
 export default withRouter(WithConnect);

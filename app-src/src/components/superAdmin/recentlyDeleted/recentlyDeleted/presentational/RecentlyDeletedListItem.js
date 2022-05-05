@@ -1,9 +1,8 @@
 import React from 'react';
 
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
-const RecentlyDeletedListItem = ({ item, onMobile, headers, handleRestore }) => (
+const RecentlyDeletedListItem = ({ item, onMobile, headers }) => (
     <tr key={item.createdOn}>
         <td>
             {' '}

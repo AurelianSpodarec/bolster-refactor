@@ -6,7 +6,7 @@ import { getSelectedCompanyForClient } from 'helpers/generic';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import {
     ERROR_MODAL,
-    CLIENT_SINGLE_PIN_GENERATE_REPORT_SUCCESS
+    CLIENT_SINGLE_PIN_GENERATE_REPORT_SUCCESS,
 } from 'constants/shared/modalTypes';
 
 class SinglePinGenerateReportContainer extends Component {
@@ -31,7 +31,7 @@ class SinglePinGenerateReportContainer extends Component {
         if (prevProps.isFetching && !isFetching && error) {
             showModal(ERROR_MODAL, {
                 title: 'Error',
-                message: error
+                message: error,
             });
         }
     };
@@ -46,22 +46,19 @@ class SinglePinGenerateReportContainer extends Component {
 
 const mapStateToProps = ({
     client: {
-        generatePinReportReducer: { isFetching, error, success }
-    }
+        generatePinReportReducer: { isFetching, error, success },
+    },
 }) => ({
     isFetching,
     error,
-    success
+    success,
 });
 
 const mapDispatchToProps = dispatch => ({
     clientGenerateReport: (companyID, pinID) => {
         dispatch(clientGenerateReport(companyID, pinID));
     },
-    showModal: (type, props) => dispatch(showModal(type, props))
+    showModal: (type, props) => dispatch(showModal(type, props)),
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(SinglePinGenerateReportContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(SinglePinGenerateReportContainer);

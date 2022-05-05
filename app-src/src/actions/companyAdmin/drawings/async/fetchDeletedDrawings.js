@@ -5,21 +5,21 @@ import { getHeaders } from 'helpers/api';
 import {
     FETCH_DELETED_DRAWINGS_REQUEST,
     FETCH_DELETED_DRAWINGS_SUCCESS,
-    FETCH_DELETED_DRAWINGS_FAILURE
+    FETCH_DELETED_DRAWINGS_FAILURE,
 } from 'constants/actionTypes/deletedData';
 
 export const fetchDeletedDrawingsRequest = () => ({
-    type: FETCH_DELETED_DRAWINGS_REQUEST
+    type: FETCH_DELETED_DRAWINGS_REQUEST,
 });
 
 export const fetchDeletedDrawingsSuccess = payload => ({
     type: FETCH_DELETED_DRAWINGS_SUCCESS,
-    payload
+    payload,
 });
 
 export const fetchDeletedDrawingsFailure = error => ({
     type: FETCH_DELETED_DRAWINGS_FAILURE,
-    error
+    error,
 });
 
 export default () => dispatch => {

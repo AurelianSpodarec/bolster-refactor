@@ -5,21 +5,21 @@ import { getHeaders } from 'helpers/api';
 import {
     DELETE_TRANSFER_REQUEST_REQUEST,
     DELETE_TRANSFER_REQUEST_SUCCESS,
-    DELETE_TRANSFER_REQUEST_FAILURE
+    DELETE_TRANSFER_REQUEST_FAILURE,
 } from 'constants/actionTypes/transferRequests';
 
 export const deleteTransferRequestRequest = () => ({
-    type: DELETE_TRANSFER_REQUEST_REQUEST
+    type: DELETE_TRANSFER_REQUEST_REQUEST,
 });
 
 export const deleteTransferRequestSuccess = payload => ({
     type: DELETE_TRANSFER_REQUEST_SUCCESS,
-    payload
+    payload,
 });
 
 export const deleteTransferRequestFailure = error => ({
     type: DELETE_TRANSFER_REQUEST_FAILURE,
-    error
+    error,
 });
 
 export default id => dispatch => {

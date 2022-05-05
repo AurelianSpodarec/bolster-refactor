@@ -12,7 +12,7 @@ export default sites => dispatch => {
         .post(
             `${API_URL}/sites/sort`,
             { items: sites.map(({ id, sort }) => ({ id, sort })) },
-            getHeaders()
+            getHeaders(),
         )
         .catch(() => dispatch(fetchAllSites()));
 };

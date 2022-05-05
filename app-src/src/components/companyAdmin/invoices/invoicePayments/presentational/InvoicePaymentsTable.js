@@ -14,20 +14,12 @@ const InvoicePaymentsTable = ({ payments, headers, onMobile }) => (
             <tr key={payment.id}>
                 <td>
                     {' '}
-                    {onMobile && (
-                        <span className="mobile-table-heading">
-                            {headers[0]}
-                        </span>
-                    )}
-                    £{formatCurrency(payment.amount)}
+                    {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}£
+                    {formatCurrency(payment.amount)}
                 </td>
                 <td>
                     {' '}
-                    {onMobile && (
-                        <span className="mobile-table-heading">
-                            {headers[1]}
-                        </span>
-                    )}
+                    {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
                     <DateTimeContainer date={payment.createdOn} />
                 </td>
             </tr>

@@ -5,21 +5,21 @@ import { getHeaders } from 'helpers/api';
 import {
     FETCH_DELETED_PIN_HISTORIES_REQUEST,
     FETCH_DELETED_PIN_HISTORIES_SUCCESS,
-    FETCH_DELETED_PIN_HISTORIES_FAILURE
+    FETCH_DELETED_PIN_HISTORIES_FAILURE,
 } from 'constants/actionTypes/deletedData';
 
 export const fetchDeletedPinHistoriesRequest = () => ({
-    type: FETCH_DELETED_PIN_HISTORIES_REQUEST
+    type: FETCH_DELETED_PIN_HISTORIES_REQUEST,
 });
 
 export const fetchDeletedPinHistoriesSuccess = payload => ({
     type: FETCH_DELETED_PIN_HISTORIES_SUCCESS,
-    payload
+    payload,
 });
 
 export const fetchDeletedPinHistoriesFailure = error => ({
     type: FETCH_DELETED_PIN_HISTORIES_FAILURE,
-    error
+    error,
 });
 
 export default () => dispatch => {

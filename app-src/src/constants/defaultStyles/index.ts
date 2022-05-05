@@ -4,5 +4,5 @@ export default {
     name: 'Bolster Systems',
     logoFile: bolsterLogo,
     colourCode: '#E10512',
-    colorSchemeText: 'white'
+    colorSchemeText: 'white',
 };

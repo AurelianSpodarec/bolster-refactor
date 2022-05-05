@@ -5,12 +5,7 @@ import toggleFloorExpanded from 'actions/shared/generic/tables/sync/toggleFloorE
 
 import FloorListItem from '../presentational/FloorListItem';
 
-const FloorListItemContainer = ({
-    dispatch,
-    expandedFloorIds,
-    floor,
-    colCount
-}) => (
+const FloorListItemContainer = ({ dispatch, expandedFloorIds, floor, colCount }) => (
     <FloorListItem
         floor={floor}
         isExpanded={expandedFloorIds.includes(floor.id)}
@@ -22,9 +17,9 @@ const FloorListItemContainer = ({
 export default connect(
     ({
         shared: {
-            tablesReducer: { expandedFloorIds }
-        }
+            tablesReducer: { expandedFloorIds },
+        },
     }) => ({
-        expandedFloorIds
-    })
+        expandedFloorIds,
+    }),
 )(FloorListItemContainer);

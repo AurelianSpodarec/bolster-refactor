@@ -8,7 +8,7 @@ import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 const DeleteCompanyPermissionsModalContainer = ({
     companyPermissionID,
     handleDelete,
-    hideModal
+    hideModal,
 }) => (
     <ConfirmDeleteModal
         handleDelete={() => handleDelete(companyPermissionID)}
@@ -27,10 +27,7 @@ const mapDispatchToProps = dispatch => ({
     handleDelete: companyPermissionID => {
         dispatch(deleteCompanyPermissions(companyPermissionID));
         dispatch(hideModal());
-    }
+    },
 });
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(DeleteCompanyPermissionsModalContainer);
+export default connect(null, mapDispatchToProps)(DeleteCompanyPermissionsModalContainer);

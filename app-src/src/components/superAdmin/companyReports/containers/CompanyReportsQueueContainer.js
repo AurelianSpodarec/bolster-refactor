@@ -17,7 +17,4 @@ class CompanyReportsQueueContainer extends Component {
 
 const mapDispatchToProps = { fetchCompanyReportsQueue };
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(CompanyReportsQueueContainer);
+export default connect(null, mapDispatchToProps)(CompanyReportsQueueContainer);

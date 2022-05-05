@@ -6,10 +6,7 @@ import PinHistoriesListItemContainer from '../containers/PinHistoriesListItemCon
 const PinHistoriesList = ({ histories, historyCount, selectedHistoryId }) => {
     if (!(histories && histories.length)) {
         return (
-            <p
-                className="no-data size-lg-12"
-                style={{ paddingLeft: 15, paddingRight: 15 }}
-            >
+            <p className="no-data size-lg-12" style={{ paddingLeft: 15, paddingRight: 15 }}>
                 No other pin histories
             </p>
         );

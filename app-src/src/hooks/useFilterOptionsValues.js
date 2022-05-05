@@ -1,5 +1,3 @@
-import React from 'react';
-
 import useSearch from './useSearch';
 
 const useFilterOptionValues = (options, isSorting) => {

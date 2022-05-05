@@ -6,21 +6,17 @@ const HeadquartersCompanyListItem = ({
     impersonatedCompanyID,
     handleImpersonate,
     onMobile,
-    headers
+    headers,
 }) => (
     <tr>
         <td>
             {' '}
-            {onMobile && (
-                <span className="mobile-table-heading">{headers[0]}</span>
-            )}
+            {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
             {company.name}
         </td>
         <td>
             {' '}
-            {onMobile && (
-                <span className="mobile-table-heading">{headers[1]}</span>
-            )}
+            {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
             {company.logoFile ? (
                 <img src={company.logoFile} alt={`${company.name}'s logo`} />
             ) : (
@@ -28,16 +24,10 @@ const HeadquartersCompanyListItem = ({
             )}
         </td>
         <td>
-            {onMobile && (
-                <span className="mobile-table-heading">{headers[2]}</span>
-            )}
+            {onMobile && <span className="mobile-table-heading">{headers[2]}</span>}
             <BlockButtonWrapper>
                 {impersonatedCompanyID !== company.id && (
-                    <button
-                        type="button"
-                        onClick={handleImpersonate}
-                        className="button"
-                    >
+                    <button type="button" onClick={handleImpersonate} className="button">
                         <i className="far fa-user-secret" />
                         Impersonate
                     </button>

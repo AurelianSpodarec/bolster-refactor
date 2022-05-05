@@ -6,9 +6,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import EditBuildingFormContainer from '../containers/EditBuildingFormContainer';
 
 const EditBuildingModal = ({ building, isUsingBolsterLabels }) => (
-    <ModalOuterContainer
-        extraClasses={`${isUsingBolsterLabels ? 'w-label-example' : ''}`}
-    >
+    <ModalOuterContainer extraClasses={`${isUsingBolsterLabels ? 'w-label-example' : ''}`}>
         <BlockHeading title={`Edit Building - ${building.name}`} />
         <EditBuildingFormContainer
             building={building}
@@ -20,11 +18,11 @@ const EditBuildingModal = ({ building, isUsingBolsterLabels }) => (
 const mapStateToProps = ({
     companyAdmin: {
         companySettingsReducer: {
-            companySettings: { isUsingBolsterLabels }
-        }
-    }
+            companySettings: { isUsingBolsterLabels },
+        },
+    },
 }) => ({
-    isUsingBolsterLabels
+    isUsingBolsterLabels,
 });
 
 export default connect(mapStateToProps)(EditBuildingModal);

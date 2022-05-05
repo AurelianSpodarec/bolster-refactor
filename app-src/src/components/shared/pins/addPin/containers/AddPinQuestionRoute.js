@@ -38,12 +38,6 @@ const {
     CHECKBOX,
 } = QUESTION_TYPE_VALUES;
 
-const dropdownOptionTypes = [
-    PIN_OPTION_TYPES,
-    MULTI_PIN_OPTION_TYPES,
-    MULTI_MULTI_PIN_OPTION_TYPES,
-];
-
 const AddPinQuestionRoute = ({
     question,
     isSameTemplate,
@@ -351,7 +345,6 @@ const AddPinQuestionRoute = ({
     }
 
     function handlePrefillDifferentTemplateQuestion() {
-        dropdownOptionTypes.includes(`${question.type}`);
         const oldAnswersMatchingName = oldAnswersByNameObj[question.name] || [];
         const oldAnswersMatchingNameAndType = oldAnswersMatchingName.filter(
             ({ type }) => type === question.type,

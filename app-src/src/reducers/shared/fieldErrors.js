@@ -6,12 +6,12 @@ import {
     REMOVE_FIELD_ERROR,
     CLEAR_FIELD_ERRORS,
     SHOW_FIELD_ERRORS,
-    SET_API_FIELD_ERRORS
+    SET_API_FIELD_ERRORS,
 } from 'constants/actionTypes/generic';
 
 export default combineReducers({
     fieldErrors: fieldErrorsReducer,
-    errorsVisible: errorsVisibleReducer
+    errorsVisible: errorsVisibleReducer,
 });
 
 function fieldErrorsReducer(state = {}, action) {

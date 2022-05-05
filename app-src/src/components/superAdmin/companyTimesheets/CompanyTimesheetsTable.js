@@ -4,7 +4,6 @@ import useCompanyTimesheetsTable from './_hooks/useCompanyTimesheetsTable';
 
 import { isEmpty } from 'helpers/generic';
 import Table from 'components/shared/generic/tables/presentational/Table';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import PageSelector from 'components/shared/pagination/presentational/pageSelector';
 import Select from '../../shared/generic/form/presentational/Select';
 import DateTimeContainer from '../../shared/dateTime/containers/DateTimeContainer';

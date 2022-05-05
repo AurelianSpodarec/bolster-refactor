@@ -22,11 +22,12 @@ export const fetchuserPinFeedsFailure = error => ({
     error,
 });
 
-export default (userIDs, date, isWeek = false) => dispatch => {
-    dispatch(fetchuserPinFeedsRequest());
+export default (userIDs, date, isWeek = false) =>
+    dispatch => {
+        dispatch(fetchuserPinFeedsRequest());
 
-    return axios
-        .post(`${API_URL}/pins/historyfeed/user`, { date, isWeek, ids: userIDs }, getHeaders())
-        .then(res => dispatch(fetchuserPinFeedsSuccess(res.data)))
-        .catch(err => dispatch(fetchuserPinFeedsFailure(err.message)));
-};
+        return axios
+            .post(`${API_URL}/pins/historyfeed/user`, { date, isWeek, ids: userIDs }, getHeaders())
+            .then(res => dispatch(fetchuserPinFeedsSuccess(res.data)))
+            .catch(err => dispatch(fetchuserPinFeedsFailure(err.message)));
+    };

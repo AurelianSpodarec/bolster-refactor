@@ -13,8 +13,8 @@ const OperativeAlertItem = ({
         sentCount,
         deliveredCount,
         readCount,
-        id
-    }
+        id,
+    },
 }) => (
     <tr>
         <td>{`${createdByUserFirstName} ${createdByUserLastName}`}</td>
@@ -26,9 +26,7 @@ const OperativeAlertItem = ({
         <td>{roundToTwoPlacesMax((deliveredCount / sentCount) * 100)}%</td>
         <td>{roundToTwoPlacesMax((readCount / sentCount) * 100)}%</td>
         <td>
-            <ButtonContainer
-                to={`/company/message-centre/operative-alerts/${id}/metrics`}
-            >
+            <ButtonContainer to={`/company/message-centre/operative-alerts/${id}/metrics`}>
                 Show Metrics
             </ButtonContainer>
         </td>

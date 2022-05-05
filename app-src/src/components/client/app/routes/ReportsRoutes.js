@@ -7,16 +7,8 @@ import CreateReportContainer from 'components/client/reports/createReport/compon
 
 const ReportsRoutes = ({ base = '/client/reports' }) => (
     <SwitchWith404>
-        <Route
-            exact
-            path={`${base}`}
-            component={CompanyReportsQueueContainer}
-        />
-        <Route
-            exact
-            path={`${base}/create`}
-            component={CreateReportContainer}
-        />
+        <Route exact path={`${base}`} component={CompanyReportsQueueContainer} />
+        <Route exact path={`${base}/create`} component={CreateReportContainer} />
     </SwitchWith404>
 );
 

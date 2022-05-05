@@ -13,4 +13,3 @@ const PageMeta = ({ meta: { title, description, canonical, excludeFromSearchEngi
 );
 
 export default PageMeta;
-

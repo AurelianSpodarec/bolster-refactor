@@ -8,7 +8,7 @@ import TextArea from '../presentational/TextArea';
 
 class TextAreaContainer extends Component {
     state = {
-        showFieldError: false
+        showFieldError: false,
     };
 
     render() {
@@ -21,7 +21,7 @@ class TextAreaContainer extends Component {
             errorsVisible,
             charLimit,
             classes = '',
-            disabled = false
+            disabled = false,
         } = this.props;
         const errorMessage = showFieldError || errorsVisible ? error : null;
 
@@ -52,8 +52,7 @@ class TextAreaContainer extends Component {
         if (error) removeFieldError(name);
     };
 
-    handleChange = ({ target: { name, value } }) =>
-        this.props.handleChange(name, value);
+    handleChange = ({ target: { name, value } }) => this.props.handleChange(name, value);
 
     handleBlur = () => this.setState({ showFieldError: true });
 
@@ -64,7 +63,7 @@ class TextAreaContainer extends Component {
             required,
             validate = () => {},
             addFieldError,
-            removeFieldError
+            removeFieldError,
         } = this.props;
         const validateError = validate(value);
 
@@ -80,15 +79,12 @@ class TextAreaContainer extends Component {
 
 const mapStateToProps = ({ shared: { fieldErrorsReducer } }, ownProps) => ({
     error: fieldErrorsReducer.fieldErrors[ownProps.name],
-    errorsVisible: fieldErrorsReducer.errorsVisible
+    errorsVisible: fieldErrorsReducer.errorsVisible,
 });
 
 const mapDispatchToProps = dispatch => ({
     addFieldError: (name, error) => dispatch(addFieldError(name, error)),
-    removeFieldError: name => dispatch(removeFieldError(name))
+    removeFieldError: name => dispatch(removeFieldError(name)),
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(TextAreaContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(TextAreaContainer);

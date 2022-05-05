@@ -7,7 +7,6 @@ const Search = ({
     handleChange,
     autoComplete = 'off',
     className = '',
-    omitIcon = false,
 }) => {
     const inputRef = useRef(null);
 

@@ -1,11 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Breadcrumb = ({
-    className = 'size-lg-12',
-    breadcrumbs = [],
-    children
-}) => (
+const Breadcrumb = ({ className = 'size-lg-12', breadcrumbs = [], children }) => (
     <div className="size-lg-12">
         <div className={`breadcrumb ${className}`}>
             <p>
@@ -22,7 +18,7 @@ const Breadcrumb = ({
                             {item.text}
                             {i < breadcrumbs.length - 1 ? ' / ' : ''}
                         </span>
-                    )
+                    ),
                 )}
             </p>
         </div>

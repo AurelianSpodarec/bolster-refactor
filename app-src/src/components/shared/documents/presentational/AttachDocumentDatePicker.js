@@ -10,22 +10,15 @@ const AttachDocumentDatePicker = ({
     endErrorMessage,
     onChange,
     startRequired = false,
-    endRequired = false
+    endRequired = false,
 }) => (
-    <Field
-        classes="w-dates"
-        sizeClasses="size-lg-12"
-        name="Dates available"
-        required
-    >
+    <Field classes="w-dates" sizeClasses="size-lg-12" name="Dates available" required>
         <div className="size-lg-4 size-md-5">
             <DatePicker
                 name="startOn"
                 selected={startOn}
                 onChange={e => onChange(e, 'startOn')}
-                placeholderText={`Start date ${
-                    !startRequired ? '(optional)' : ''
-                }`}
+                placeholderText={`Start date ${!startRequired ? '(optional)' : ''}`}
                 required={startRequired}
             />
 

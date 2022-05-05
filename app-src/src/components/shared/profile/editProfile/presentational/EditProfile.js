@@ -12,11 +12,7 @@ const EditProfile = ({ error, isFetching, profile }) => (
             <BackButtonContainer />
         </PageHeading>
 
-        <BlockContainer
-            error={error}
-            isFetching={isFetching}
-            isEmpty={!profile.email}
-        >
+        <BlockContainer error={error} isFetching={isFetching} isEmpty={!profile.email}>
             <BlockHeading title="Your Details" />
             <EditProfileFormContainer />
         </BlockContainer>
