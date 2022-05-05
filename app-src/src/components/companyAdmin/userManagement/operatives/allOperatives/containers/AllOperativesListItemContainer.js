@@ -44,6 +44,7 @@ const AllOperativesListItemContainer = ({ user, headers }) => {
             showNotUpsyncedRecentlyWarning={user.notUpsyncedRecently}
             tooltipDate={user.notUpSyncedInXDays}
             isDisabled={!!disabledUsers[user.id]}
+            maxDrawingsPerOperative={maxDrawingsPerOperative}
         />
     );
 

@@ -41,6 +41,7 @@ const AllCompanyAdminsListItemContainer = ({ user, headers }) => {
             isDisabled={!!disabledUsers[user.id]}
             drawingLimitColour={drawingLimitColour}
             drawingLimitMaxed={drawingLimitMaxed}
+            maxDrawingsPerOperative={maxDrawingsPerOperative}
         />
     );
 
