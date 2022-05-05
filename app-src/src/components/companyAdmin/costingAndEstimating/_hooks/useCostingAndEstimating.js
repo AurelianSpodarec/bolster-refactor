@@ -32,6 +32,12 @@ import {
 import { costingAndEstimatingType } from '../../../../constants/companyAdmin/enums';
 import { selectPrelimPostSuccess } from '../../../../selectors/companyAdmin/prelims';
 import { isEmpty } from 'helpers/generic';
+import fetchCompanyOperatives from 'actions/companyAdmin/operatives/async/fetchCompanyOperatives';
+import fetchAllServices from 'actions/companyAdmin/services/async/fetchAllServices';
+import fetchPinOptionTypes from 'actions/companyAdmin/pinOptions/async/fetchPinOptionTypes';
+import fetchPinOptions from 'actions/companyAdmin/pinOptions/async/fetchPinOptions';
+import fetchPinOptionSets from 'actions/companyAdmin/pinOptions/async/fetchPinOptionSets';
+import fetchPinOptionVersions from 'actions/companyAdmin/pinOptions/async/fetchPinOptionVersions';
 
 const useCostingAndEstimating = () => {
     const filters = useSelector(selectCostingAndEstimatingFilters);
@@ -254,6 +260,12 @@ const useCostingAndEstimating = () => {
             dispatch(fetchAllDrawings());
             dispatch(fetchCostingAndEstimatingResults(cAndEPostBody));
             dispatch(fetchCostingAndEstimatingFilters(cAndEPostBody));
+            dispatch(fetchCompanyOperatives());
+            dispatch(fetchAllServices());
+            dispatch(fetchPinOptionTypes());
+            dispatch(fetchPinOptionSets());
+            dispatch(fetchPinOptions());
+            dispatch(fetchPinOptionVersions());
         });
     }, []); // Fetch all data on page load
 
