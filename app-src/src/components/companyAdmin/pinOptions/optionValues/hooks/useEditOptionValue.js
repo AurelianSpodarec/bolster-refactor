@@ -113,10 +113,9 @@ const useEditOptionValue = option => {
             name,
             shortName,
             serviceIDs,
-            costMeasurementType,
         };
 
-        if (pinOptionType.hasCosting) {
+        if (pinOptionType.hasCosting && costMeasurementType) {
             const anyIncompletePriceBreaks = measurementPriceBreaks.some(priceBreak => {
                 const { value, cost } = priceBreak;
                 return (value && !cost) || (!value && cost);
@@ -143,6 +142,7 @@ const useEditOptionValue = option => {
                 ({ value, cost }) => value && cost,
             );
 
+            postBody.costMeasurementType = costMeasurementType;
             postBody.measurementPriceBreaks = priceBreaksWithoutEmpties;
         }
 
