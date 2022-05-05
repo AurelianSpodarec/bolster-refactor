@@ -83,7 +83,7 @@ const EditOptionValueModal = ({ option }) => {
                 {pinOptionType.hasCosting && (
                     <>
                         {canEditMeasurement && (
-                            <Field name="Unit of Measurement" required>
+                            <Field name="Unit of Measurement">
                                 <DropdownContainer
                                     name="costMeasurementType"
                                     options={Object.values(measurementDropdownOptions)}
@@ -91,20 +91,21 @@ const EditOptionValueModal = ({ option }) => {
                                         measurementDropdownOptions[form.costMeasurementType]
                                     }
                                     handleChange={handleChange}
-                                    required
                                 />
                             </Field>
                         )}
                         {!!form.costMeasurementType && (
                             <>
-                                <Field name="Quick Price Edit (%)">
-                                    <NumberInputContainer
-                                        name="quickPriceEdit"
-                                        value={form.quickPriceEdit}
-                                        handleChange={handleQuickPriceEditChange}
-                                        placeholder="Type percentage"
-                                    />
-                                </Field>
+                                {!canEditMeasurement && (
+                                    <Field name="Quick Price Edit (%)">
+                                        <NumberInputContainer
+                                            name="quickPriceEdit"
+                                            value={form.quickPriceEdit}
+                                            handleChange={handleQuickPriceEditChange}
+                                            placeholder="Type percentage"
+                                        />
+                                    </Field>
+                                )}
 
                                 <div className="measurement-fields-grid">
                                     <Field name="Measurement" />
@@ -172,12 +173,13 @@ const EditOptionValueModal = ({ option }) => {
                                         );
                                     })}
                                 </div>
+
+                                {error && (
+                                    <Field classes="no-min-height">
+                                        <p className="error red-text text-accent-4">{error}</p>
+                                    </Field>
+                                )}
                             </>
-                        )}
-                        {error && (
-                            <Field classes="no-min-height">
-                                <p className="error red-text text-accent-4">{error}</p>
-                            </Field>
                         )}
                     </>
                 )}
