@@ -23,7 +23,6 @@ const CreateOptionSetModal = ({ pinOptionTypeID }) => {
     const { form, handleChange, handleSubmit, isPosting, serviceOptions } =
         useCreateOptionSet(pinOptionTypeID);
 
-    console.log(pinOptionType);
     return (
         <ModalOuterContainer hideCloseButton>
             <ModalHeading title={`Create ${singularTypeName} Set`}>
