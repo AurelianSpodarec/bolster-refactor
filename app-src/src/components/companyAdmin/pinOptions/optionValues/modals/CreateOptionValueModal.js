@@ -58,15 +58,17 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
             </ModalHeading>
 
             <p className="generic-text size-lg-12">
-                Create an {singularTypeName.toLowerCase()} and apply prices to different
-                measurements.
+                {`Create an ${singularTypeName}${
+                    pinOptionType.hasCosting ? ' and apply prices to different measurements' : ''
+                }.`}
             </p>
 
-            <p className="generic-text size-lg-12">
-                Your operatives will be able to apply a measurement to each{' '}
-                {singularTypeName.toLowerCase()} used on a history to calculate a price associated
-                to that pin.
-            </p>
+            {pinOptionType.hasCosting && (
+                <p className="generic-text size-lg-12">
+                    Your operatives will be able to apply a measurement to each {singularTypeName}{' '}
+                    used on a history to calculate a price associated to that pin.
+                </p>
+            )}
 
             <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
                 <Field name="Name" required>

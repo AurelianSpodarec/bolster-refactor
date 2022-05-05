@@ -22,7 +22,6 @@ const CreateOptionSetModal = ({ pinOptionTypeID }) => {
 
     const { form, handleChange, handleSubmit, isPosting, serviceOptions } =
         useCreateOptionSet(pinOptionTypeID);
-
     return (
         <ModalOuterContainer hideCloseButton>
             <ModalHeading title={`Create ${singularTypeName} Set`}>
@@ -41,10 +40,12 @@ const CreateOptionSetModal = ({ pinOptionTypeID }) => {
                 Create an '{singularTypeName} set' for your sites.
             </p>
 
-            <p className="generic-text size-lg-12">
-                You will be able to set prices for your {pluralTypeName} and choose which options
-                are available to your operatives through the app.
-            </p>
+            {pinOptionType.hasCosting && (
+                <p className="generic-text size-lg-12">
+                    You will be able to set prices for your {pluralTypeName} and choose which
+                    options are available to your operatives through the app.
+                </p>
+            )}
 
             <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
                 <Field name="Name" required>
