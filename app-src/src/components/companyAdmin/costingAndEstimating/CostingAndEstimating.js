@@ -27,7 +27,6 @@ const CostingAndEstimating = () => {
         fetchError,
         selectedTab,
     } = useCostingAndEstimating();
-    console.log({ costingCart });
 
     return (
         <GridWrapper gap={30} containerClass="costing-wrapper">
