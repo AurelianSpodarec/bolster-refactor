@@ -189,7 +189,7 @@ export const formatNumber = (num: number | string) => Number(num).toLocaleString
 
 // for decimal .00
 export const formatCurrency = (num: number, allowNegative: boolean = true): string => {
-    if (Number.isNaN(num)) return '';
+    if (Number.isNaN(num) || !num) return '';
     if (num < 0 && !allowNegative) num *= -1;
     return num.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
 };

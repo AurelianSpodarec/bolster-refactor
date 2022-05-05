@@ -5,7 +5,7 @@ import useCurrentHierarchyID from './useCurrentHierarchyID';
 import useCurrentHierarchyType from './useCurrentHierarchyType';
 
 import { convertEnumToDropdownOptions } from '../../../../helpers/generic';
-import { PRELIMS_ENUM } from '../../../../constants/companyAdmin/enums';
+import { costingAndEstimatingType, PRELIMS_ENUM } from '../../../../constants/companyAdmin/enums';
 import createCostingAndEstimatingPrelim from 'actions/companyAdmin/costingAndEstimating/createCostingAndEstimatingPrelim';
 import { useEffect } from 'react';
 
@@ -18,6 +18,7 @@ import {
     selectPrelimPostError,
     selectPrelimPostSuccess,
 } from '../../../../selectors/companyAdmin/prelims';
+import { selectHierarchySelectedTab } from '../../../../selectors/shared/tabs';
 
 const useCreateCostingAndEstimatingPrelim = () => {
     const dispatch = useDispatch();
@@ -29,6 +30,8 @@ const useCreateCostingAndEstimatingPrelim = () => {
     const postError = useSelector(selectPrelimPostError);
     const postSuccess = useSelector(selectPrelimPostSuccess);
     const prevProps = usePrevious({ postError, postSuccess });
+    const selectedTab = useSelector(selectHierarchySelectedTab);
+    const selectedTabType = costingAndEstimatingType[selectedTab.toUpperCase()];
 
     const [form, handleChange] = useForm({
         name: '',
@@ -39,7 +42,7 @@ const useCreateCostingAndEstimatingPrelim = () => {
     const handleSubmit = () => {
         const postBody = {
             ...form,
-
+            costEstType: selectedTabType,
             hierarchyID,
             hierarchyType,
         };
