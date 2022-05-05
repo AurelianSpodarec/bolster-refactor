@@ -249,7 +249,11 @@ const useCostingAndEstimating = () => {
         fromDate: moment(formData.dateRange.startDate).format('YYYY-MM-DD'),
         toDate: moment(formData.dateRange.endDate).format('YYYY-MM-DD'),
         costEstType: selectedTabType,
-        pinHistoryAnswerValueIDs: buildPinHistoryAnswerValueIDs(),
+        serviceIDs: formData.selectedItems.services,
+        operativeCompanyUserIDs: formData.selectedItems.operatives,
+        pinOptionIDs: buildPinHistoryAnswerValueIDs(),
+        priceMin: formData.minPrice,
+        priceMax: formData.maxPrice,
     };
 
     useEffect(() => {
