@@ -233,7 +233,7 @@ const useCostingAndEstimating = () => {
         });
     };
 
-    const buildPinHistoryAnswerValueIDs = () => {
+    const buildSelectedInstallations = () => {
         return formData.selectedItems.installations.reduce((acc, curr) => {
             try {
                 const arr = JSON.parse(curr);
@@ -256,6 +256,7 @@ const useCostingAndEstimating = () => {
         pinOptionIDs: formData.selectedItems.installationTypes,
         priceMin: +formData.minPrice,
         priceMax: +formData.maxPrice,
+        selectedInstallations: buildSelectedInstallations(),
     };
 
     useEffect(() => {
