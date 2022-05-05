@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { DRAWING_TABS } from 'constants/shared/tabNames';
 import HierarchyAdvancedReport from 'components/companyAdmin/reports/createReport/components/presentational/HierarchyAdvancedReport';
 import CostingAndEstimating from '../../../costingAndEstimating/CostingAndEstimating';
-import GeneralOverview from '../presentational/GeneralOverview';
+import GeneralOverview from '../containers/GeneralOverviewContainer';
 
 const SingleDrawingRouteContainer = ({ selectedTab }) => {
     const contentOptions = {
