@@ -5,6 +5,7 @@ import editLinkPrelim from 'actions/companyAdmin/costingAndEstimating/editLinkPr
 import { PRELIMS_ENUM } from 'constants/companyAdmin/enums';
 import { convertEnumToDropdownOptions } from 'helpers/generic';
 import { useForm, usePrevious } from 'helpers/hooks';
+
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import { ERROR_MODAL } from 'constants/shared/modalTypes';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
@@ -22,10 +23,12 @@ const useEditCostingAndEstimatingPrelim = ({ prelim }) => {
     const prevProps = usePrevious({ postError, postSuccess });
     const prelimsOptions = convertEnumToDropdownOptions(PRELIMS_ENUM);
 
+    console.log(prelim);
+
     const [form, handleChange] = useForm({
         name: prelim?.prelimName,
         type: prelim?.type,
-        value: prelim?.cost,
+        value: prelim?.value,
     });
 
     const postBody = {

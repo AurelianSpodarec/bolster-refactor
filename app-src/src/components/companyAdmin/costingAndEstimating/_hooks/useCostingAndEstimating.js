@@ -111,7 +111,8 @@ const useCostingAndEstimating = () => {
             endDate: moment().toDate(),
         },
         selectedItems: buildInitialSelectedItems(filters.allSites), // TODO - makes the first fetch happen twice
-        maxPrice: 0,
+        maxPrice: 999999,
+        minPrice: 0,
     };
     const [formData, onChange] = useForm(initialFormData);
     const prevProps = usePrevious({
@@ -224,13 +225,8 @@ const useCostingAndEstimating = () => {
         });
     };
 
-    const cAndEPostBody = {
-        hierarchyID,
-        hierarchyType,
-        fromDate: moment(formData.dateRange.startDate).format('YYYY-MM-DD'),
-        toDate: moment(formData.dateRange.endDate).format('YYYY-MM-DD'),
-        costEstType: selectedTabType,
-        pinHistoryAnswerValueIDs: formData.selectedItems.installations.reduce((acc, curr) => {
+    const buildPinHistoryAnswerValueIDs = () => {
+        return formData.selectedItems.installations.reduce((acc, curr) => {
             try {
                 const arr = JSON.parse(curr);
                 acc = acc.concat(arr);
@@ -238,7 +234,16 @@ const useCostingAndEstimating = () => {
                 acc.push(curr);
             }
             return acc;
-        }, []),
+        }, []);
+    };
+
+    const cAndEPostBody = {
+        hierarchyID,
+        hierarchyType,
+        fromDate: moment(formData.dateRange.startDate).format('YYYY-MM-DD'),
+        toDate: moment(formData.dateRange.endDate).format('YYYY-MM-DD'),
+        costEstType: selectedTabType,
+        pinHistoryAnswerValueIDs: buildPinHistoryAnswerValueIDs(),
     };
 
     useEffect(() => {
@@ -263,9 +268,9 @@ const useCostingAndEstimating = () => {
 
     useEffect(() => {
         if (prelimPostSuccess && !prevData.prelimPostSuccess) {
-            dispatch(fetchCostingAndEstimatingFilters(cAndEPostBody));
+            dispatch(fetchCostingAndEstimatingResults(cAndEPostBody));
         }
-    }, [prelimPostSuccess, prevData.prelimPostSuccess]); // Re-fetch cart data on prelim post success
+    }, [prelimPostSuccess, prevData.prelimPostSuccess]); // Re-fetch results data on prelim post success
 
     useEffect(() => {
         if (selectedTab !== prevProps.selectedTab && !isAnythingSelected) {
