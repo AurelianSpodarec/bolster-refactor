@@ -61,12 +61,12 @@ const CostingGraphFilters = ({ filterFormData, filters, onChange }) => {
             }),
             type: COSTING_GRAPH_FILTER_TYPES.INSTALLATION_TYPES,
         },
-        // {
-        //     id: 4,
-        //     name: 'Price Range',
-        //     options: 'slider',
-        //     type: COSTING_GRAPH_FILTER_TYPES.PRICE_RANGE,
-        // },
+        {
+            id: 4,
+            name: 'Price Range',
+            options: 'slider',
+            type: COSTING_GRAPH_FILTER_TYPES.PRICE_RANGE,
+        },
     ];
     return (
         <div className="graph-filters-tooltip border">
