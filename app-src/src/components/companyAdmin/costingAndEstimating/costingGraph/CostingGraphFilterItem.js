@@ -66,9 +66,7 @@ const CostingGraphFilterItem = ({
                         />
                         <FlexWrapper direction="column" extraClasses="options-wrapper">
                             {filteredOptions()?.map(option => {
-                                const isSelected = selectedOptions?.length
-                                    ? selectedOptions?.includes(option.id)
-                                    : true;
+                                const isSelected = selectedOptions?.includes(option.id);
                                 return (
                                     <FlexWrapper
                                         key={option.id}
