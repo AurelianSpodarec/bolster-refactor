@@ -41,8 +41,6 @@ const useCostingAndEstimating = () => {
     const fetchError = useSelector(selectCostingAndEstimatingFetchError);
     const prelimPostSuccess = useSelector(selectPrelimPostSuccess);
 
-    console.log({ isFetchingFilters, isFetchingResults });
-
     const prevData = usePrevious({
         filters,
         results,
