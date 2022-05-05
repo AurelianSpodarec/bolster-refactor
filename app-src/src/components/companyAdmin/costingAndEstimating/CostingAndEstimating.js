@@ -12,10 +12,8 @@ import CostingAndEstimatingFilterList from './filterList/CostingAndEstimatingFil
 const CostingAndEstimating = () => {
     const currentHierarchyLevel = useCurrentHierarchyLevel();
     const {
-        costingCart,
-        graph,
-        keyStatistics,
-        allSites,
+        filters,
+        results,
         filterFormData,
         onChange,
         handleToggleItem,
@@ -24,8 +22,8 @@ const CostingAndEstimating = () => {
         onThisWeek,
         onPrevWeek,
         onNextWeek,
-        isFetchingCart,
-        isFetchingMainData,
+        isFetchingFilters,
+        isFetchingResults,
         fetchError,
         selectedTab,
     } = useCostingAndEstimating();
@@ -33,40 +31,40 @@ const CostingAndEstimating = () => {
     return (
         <GridWrapper gap={30} containerClass="costing-wrapper">
             <CostingAndEstimatingPods
-                data={keyStatistics}
-                isFetching={isFetchingMainData}
+                data={results?.keyStatistics}
+                isFetching={isFetchingResults}
                 fetchError={fetchError}
             />
 
             <CostingCart
-                data={costingCart}
-                isFetching={isFetchingCart}
+                data={results}
+                isFetching={isFetchingFilters}
                 fetchError={fetchError}
                 selectedTab={selectedTab}
                 formData={filterFormData}
             />
 
             <CostingAndEstimatingGraph
-                graph={graph}
+                graph={results?.graph}
                 filterFormData={filterFormData}
                 onChange={onChange}
                 onThisWeek={onThisWeek}
                 onPrevWeek={onPrevWeek}
                 onNextWeek={onNextWeek}
-                isFetching={isFetchingMainData}
+                isFetching={isFetchingResults}
                 fetchError={fetchError}
             />
 
             <CostingAndEstimatingFilterList
-                sites={allSites}
+                sites={filters.allSites}
                 currentHierarchyLevel={currentHierarchyLevel}
                 selectedItems={filterFormData.selectedItems}
                 handleToggleItem={handleToggleItem}
                 handleToggleAllItems={handleToggleAllItems}
                 isAnythingSelected={isAnythingSelected}
-                isFetching={isFetchingMainData}
+                isFetching={isFetchingResults}
                 fetchError={fetchError}
-                total={graph?.total}
+                total={results?.graph?.total}
             />
         </GridWrapper>
     );
