@@ -11,6 +11,7 @@ import CostingGraphFilters from './CostingGraphFilters';
 import ButtonContainer from '../../../shared/generic/button/containers/ButtonContainer';
 import Error from 'components/shared/generic/misc/presentational/Error';
 import LoadingOverlay from '../LoadingOverlay';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 
 const CostingAndEstimatingGraph = ({
     graph,
@@ -22,10 +23,7 @@ const CostingAndEstimatingGraph = ({
     isFetching,
     fetchError,
 }) => {
-    const [
-        showFilterOptions,
-        // setShowFilterOptions
-    ] = useState(false);
+    const [showFilterOptions, setShowFilterOptions] = useState(false);
 
     const { data, options, graphRef } = useCostingAndEstimatingGraph(graph);
     const { dateRange } = filterFormData;
