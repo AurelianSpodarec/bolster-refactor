@@ -44,7 +44,7 @@ export const isItemSelected = (item, selectedItems) => {
     if (itemType === 'histories')
         return selectedItems.histories.includes(item[itemTypeIDs[itemType]]);
     if (itemType === 'installations')
-        return selectedItems.installations.includes(item[itemTypeIDs[itemType]]);
+        return selectedItems.installations.includes(JSON.stringify(item[itemTypeIDs[itemType]]));
     return false;
 };
 
