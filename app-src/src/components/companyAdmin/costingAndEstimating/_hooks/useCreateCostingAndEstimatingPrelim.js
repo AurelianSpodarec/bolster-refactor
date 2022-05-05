@@ -37,7 +37,6 @@ const useCreateCostingAndEstimatingPrelim = () => {
     });
 
     const handleSubmit = () => {
-        form.value = parseInt(form.value);
         const postBody = {
             ...form,
 

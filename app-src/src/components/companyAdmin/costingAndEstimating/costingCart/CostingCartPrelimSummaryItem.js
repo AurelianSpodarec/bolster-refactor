@@ -13,6 +13,8 @@ const CostingCartPrelimSummaryItem = ({ prelim }) => {
 
     const id = isCustom ? prelimID : linkID;
 
+    console.log(prelim);
+
     return (
         <FlexWrapper direction="row" justify="between" align="center" width="12">
             <span>{prelimName}</span>
