@@ -90,7 +90,7 @@ const AllOperativesListItem = ({
                         ) : (
                             ''
                         )}{' '}
-                        {`${user.linkedDeviceName || 'No Device Name'}`}
+                        {`${user.linkedDeviceName || '-'}`}
                     </span>
                 </TooltipContainer>
             </td>

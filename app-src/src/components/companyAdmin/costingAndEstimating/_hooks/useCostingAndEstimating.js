@@ -117,7 +117,7 @@ const useCostingAndEstimating = () => {
             endDate: moment().toDate(),
         },
         selectedItems: buildInitialSelectedItems(filters.allSites), // TODO - makes the first fetch happen twice
-        maxPrice: 999999,
+        maxPrice: 0,
         minPrice: 0,
     };
     const [formData, onChange] = useForm(initialFormData);
