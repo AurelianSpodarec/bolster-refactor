@@ -858,7 +858,7 @@ export const COSTING_GRAPH_FILTER_TYPES = {
 export const COSTING_GRAPH_FILTER_VALUES = {
     0: 'operatives',
     1: 'services',
-    2: 'installations',
+    2: 'installationTypes',
     4: 'price',
 };
 

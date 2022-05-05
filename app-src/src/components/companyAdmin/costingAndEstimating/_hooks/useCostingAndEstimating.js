@@ -79,8 +79,9 @@ const useCostingAndEstimating = () => {
             drawings: [],
             histories: [],
             installations: [],
-            operatives: [],
-            services: [],
+            installationTypes: filters.pinOptionIDs || [],
+            operatives: filters.operativeCompanyUserIDs || [],
+            services: filters.serviceIDs || [],
         };
         const addAllChildren = (item, selectedItems) => {
             const itemType = getItemType(item);
@@ -94,6 +95,7 @@ const useCostingAndEstimating = () => {
             return;
         };
         data.forEach(datum => addAllChildren(datum, selectedItems));
+
         return selectedItems;
     };
 
@@ -117,7 +119,7 @@ const useCostingAndEstimating = () => {
             endDate: moment().toDate(),
         },
         selectedItems: buildInitialSelectedItems(filters.allSites), // TODO - makes the first fetch happen twice
-        maxPrice: 0,
+        maxPrice: filters.priceMax,
         minPrice: 0,
     };
     const [formData, onChange] = useForm(initialFormData);
@@ -231,7 +233,7 @@ const useCostingAndEstimating = () => {
         });
     };
 
-    const buildPinHistoryAnswerValueIDs = () => {
+    const buildSelectedInstallations = () => {
         return formData.selectedItems.installations.reduce((acc, curr) => {
             try {
                 const arr = JSON.parse(curr);
@@ -251,9 +253,10 @@ const useCostingAndEstimating = () => {
         costEstType: selectedTabType,
         serviceIDs: formData.selectedItems.services,
         operativeCompanyUserIDs: formData.selectedItems.operatives,
-        pinOptionIDs: buildPinHistoryAnswerValueIDs(),
-        priceMin: formData.minPrice,
-        priceMax: formData.maxPrice,
+        pinOptionIDs: formData.selectedItems.installationTypes,
+        priceMin: +formData.minPrice,
+        priceMax: +formData.maxPrice,
+        selectedInstallations: buildSelectedInstallations(),
     };
 
     useEffect(() => {
