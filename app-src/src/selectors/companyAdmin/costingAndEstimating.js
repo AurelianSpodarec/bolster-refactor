@@ -1,13 +1,13 @@
 export const selectCostingAndEstimatingResultsIsFetching = state =>
-    state.companyAdmin.costingAndEstimatingReducer.isFetchingData;
-export const selectCostingAndEstimatingCartIsFetching = state =>
-    state.companyAdmin.costingAndEstimatingReducer.isFetchingCart;
+    state.companyAdmin.costingAndEstimatingReducer.isFetchingResults;
+export const selectCostingAndEstimatingFiltersIsFetching = state =>
+    state.companyAdmin.costingAndEstimatingReducer.isFetchingFilters;
 export const selectCostingAndEstimatingFetchError = state =>
     state.companyAdmin.costingAndEstimatingReducer.error;
 export const selectCostingAndEstimatingResults = state =>
     state.companyAdmin.costingAndEstimatingReducer.costingAndEstimatingResults;
-export const selectCostingAndEstimatingCart = state =>
-    state.companyAdmin.costingAndEstimatingReducer.costingAndEstimatingCart;
+export const selectCostingAndEstimatingFilters = state =>
+    state.companyAdmin.costingAndEstimatingReducer.costingAndEstimatingFilters;
 
 // prelims
 export const selectPrelimsArr = state =>
