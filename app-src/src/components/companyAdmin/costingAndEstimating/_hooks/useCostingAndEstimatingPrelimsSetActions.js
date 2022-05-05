@@ -9,7 +9,7 @@ import {
     selectPrelimPostError,
     selectPrelimPostSuccess,
 } from '../../../../selectors/companyAdmin/prelims';
-import deleteLinkPrelim from '../../../../actions/companyAdmin/costingAndEstimating/deletePrelimLink';
+import deletePrelimLink from '../../../../actions/companyAdmin/costingAndEstimating/deletePrelimLink';
 
 import {
     LINK_PRELIM_MODAL,
@@ -18,6 +18,7 @@ import {
     EDIT_LINK_PRELIM_MODAL,
 } from 'constants/shared/modalTypes';
 import { CONFIRM_DELETE } from 'constants/shared/modalTypes';
+import deleteCustomPrelim from '../../../../actions/companyAdmin/costingAndEstimating/deleteCustomPrelim';
 
 const useCostingAndEstimatingPrelimsSetActions = () => {
     const dispatch = useDispatch();
@@ -38,17 +39,27 @@ const useCostingAndEstimatingPrelimsSetActions = () => {
         dispatch(showModal(EDIT_LINK_PRELIM_MODAL, { prelim }));
     };
 
-    const showDeletePrelimLinkModal = (id, prelimName) => {
+    const showRemovePrelimModal = prelim => {
+        const { prelimName, prelimID, linkID, isCustom } = prelim;
+
         dispatch(
             showModal(CONFIRM_DELETE, {
                 message: `Are you sure you want to delete the prelim - ${prelimName}?`,
-                handleDelete: () => dispatch(deleteLinkPrelim(id)),
+                handleDelete: () => handleDeletePrelimLink(prelimID, linkID, isCustom),
             }),
         );
     };
 
-    const showDeleteExistingPrelimModal = () => {
-        dispatch(showModal(CONFIRM_DELETE));
+    const handleDeletePrelimLink = (prelimID, linkID, isCustom) => {
+        if (isCustom) {
+            const postBody = {
+                prelimID,
+                linkID,
+            };
+            dispatch(deleteCustomPrelim(postBody));
+        } else {
+            dispatch(deletePrelimLink(linkID));
+        }
     };
 
     useEffect(() => {
@@ -67,8 +78,7 @@ const useCostingAndEstimatingPrelimsSetActions = () => {
         showExistingPrelimModal,
         showAddCustomPrelimModal,
         showEditCustomPrelimModal,
-        showDeletePrelimLinkModal,
-        showDeleteExistingPrelimModal,
+        showRemovePrelimModal,
     };
 };
 

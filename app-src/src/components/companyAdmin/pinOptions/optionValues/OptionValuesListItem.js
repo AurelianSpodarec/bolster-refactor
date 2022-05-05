@@ -15,7 +15,7 @@ import LinkButton from 'components/shared/generic/button/presentational/LinkButt
 
 const OptionValuesListItem = ({
     option,
-    option: { id, name, isDisabled, priceBreaks },
+    option: { id, name, isDisabled, priceBreaks, isDeleted },
     setID,
     typeID,
     showEditModal,
@@ -39,7 +39,11 @@ const OptionValuesListItem = ({
     return (
         <>
             {connectDropTarget(
-                <tr className={rowClass} ref={isSorting ? forwardRef : null}>
+                <tr
+                    className={rowClass}
+                    ref={isSorting ? forwardRef : null}
+                    style={{ display: isSorting && isDeleted ? 'none' : 'table-row' }} // setting as hidden here rather than filtering so sort mode still works
+                >
                     <td>
                         <CheckboxContainer
                             text={name}
