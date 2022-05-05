@@ -13,10 +13,11 @@ import {
     selectPrelimsArr,
 } from 'selectors/companyAdmin/prelims';
 
-import { PRELIMS_ENUM } from 'constants/companyAdmin/enums';
+import { costingAndEstimatingType, PRELIMS_ENUM } from 'constants/companyAdmin/enums';
 import { convertArrToObj, formatCurrency } from 'helpers/generic';
 import { selectJWTData } from '../../../../selectors/shared/decodeJWT';
 import { hideModal } from '../../../../actions/shared/generic/modals/sync/hideModal';
+import { selectHierarchySelectedTab } from '../../../../selectors/shared/tabs';
 
 const useLinkPrelim = () => {
     const dispatch = useDispatch();
@@ -28,6 +29,8 @@ const useLinkPrelim = () => {
     const postSuccess = useSelector(selectPrelimPostSuccess);
     const isPosting = useSelector(selectPrelimIsPosting);
     const prevPostSuccess = usePrevious(postSuccess);
+    const selectedTab = useSelector(selectHierarchySelectedTab);
+    const selectedTabType = costingAndEstimatingType[selectedTab.toUpperCase()];
 
     const formatArrForDropdown = arr => {
         const options = arr
@@ -52,7 +55,13 @@ const useLinkPrelim = () => {
     });
 
     const handleSubmit = () => {
-        const postBody = { ...form, hierarchyID, hierarchyType, companyID };
+        const postBody = {
+            ...form,
+            hierarchyID,
+            hierarchyType,
+            companyID,
+            costEstType: selectedTabType,
+        };
 
         dispatch(linkPrelim(postBody));
     };
