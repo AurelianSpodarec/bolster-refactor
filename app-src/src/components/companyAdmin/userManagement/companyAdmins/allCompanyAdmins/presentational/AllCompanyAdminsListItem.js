@@ -28,6 +28,7 @@ const AllCompanyAdminsListItem = ({
     isDisabled,
     drawingLimitColour,
     drawingLimitMaxed,
+    maxDrawingsPerOperative,
 }) => {
     const history = useHistory();
 
@@ -112,7 +113,9 @@ const AllCompanyAdminsListItem = ({
 
             <td>
                 {onMobile && <span className="mobile-table-heading">{headers[8]}</span>}
-                <span className={`limit-${drawingLimitColour}`}>{user.drawingCount}</span>
+                <span className={`limit-${drawingLimitColour}`}>
+                    {`${user.drawingCount}/${maxDrawingsPerOperative}`}
+                </span>
             </td>
 
             <td>

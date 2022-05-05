@@ -25,6 +25,7 @@ const AllOperativesListItem = ({
     drawingLimitColour,
     drawingLimitMaxed,
     isDisabled,
+    maxDrawingsPerOperative,
 }) => {
     const history = useHistory();
 
@@ -107,7 +108,9 @@ const AllOperativesListItem = ({
 
             <td>
                 {onMobile && <span className="mobile-table-heading">{headers[8]}</span>}
-                <span className={`limit-${drawingLimitColour}`}>{user.drawingCount}</span>
+                <span className={`limit-${drawingLimitColour}`}>
+                    {`${user.drawingCount}/${maxDrawingsPerOperative}`}
+                </span>
             </td>
 
             <td>
