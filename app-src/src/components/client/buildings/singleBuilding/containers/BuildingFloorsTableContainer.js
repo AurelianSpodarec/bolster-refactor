@@ -17,17 +17,15 @@ const mapStateToProps = (
     {
         client: {
             buildingsReducer,
-            floorsReducer: { error }
-        }
+            floorsReducer: { error },
+        },
     },
-    { match }
+    { match },
 ) => ({
     error,
     building: buildingsReducer.buildings[match.params.id] || {},
     isFetching: buildingsReducer.isFetching,
-    buildingID: match.params.id
+    buildingID: match.params.id,
 });
 
-export default withRouter(
-    connect(mapStateToProps)(BuildingsFloorsTableContainer)
-);
+export default withRouter(connect(mapStateToProps)(BuildingsFloorsTableContainer));

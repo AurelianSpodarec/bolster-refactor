@@ -14,7 +14,7 @@ class PinPhotoModal extends Component {
                 onLoad={() => this.setState({ isLoading: false })}
                 onError={() => this.setState({ isLoading: false })}
                 style={{
-                    padding: '1em'
+                    padding: '1em',
                 }}
             />
         </ModalOuterContainer>

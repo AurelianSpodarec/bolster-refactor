@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux';
 
 import activityLogReducer from './activityLog';
-import addPinDropdownOptions from './addPinDropdownOptions';
 import addPinFormReducer from './addPinForm';
 import addPinCoordinatesReducer from './addPinCoordinates';
 import appReducer from './app';
@@ -52,15 +51,12 @@ import templateSectionsReducer from './templateSections';
 import templateVersionsReducer from './templateVersions';
 import templateQuestionsReducer from './templateQuestions';
 import transferRequestsReducer from './transferRequests';
-import dropdownOptionsReducer from './dropdownOptions';
 import approvedCompaniesReducer from './approvedCompanies';
 import hierarchyReducer from './hierarchy';
 import generatePinReportReducer from './generatePinReport';
 import userDrawingsReducer from './userDrawings';
 import deletedDataReducer from './deletedData';
 import qrCodesReducer from './qrCodes';
-import manufacturersReducer from './manufacturers';
-import manufacturersOptionValuesReducer from './manufacturersOptionValues';
 import userGuideReducer from './userGuide';
 import userDocumentsReducer from './userDocuments';
 import zonesReducer from './zones';
@@ -77,7 +73,6 @@ import pinOptionDocumentsVersionsReducer from './pinOptionDocumentsVersions';
 
 export default combineReducers({
     activityLogReducer,
-    addPinDropdownOptions,
     addPinCoordinatesReducer,
     addPinFormReducer,
     alertsReducer,
@@ -100,7 +95,6 @@ export default combineReducers({
     documentLibraryReducer,
     documentsReducer,
     drawingsReducer,
-    dropdownOptionsReducer,
     floorsReducer,
     generatePinReportReducer,
     headquartersReducer,
@@ -113,8 +107,6 @@ export default combineReducers({
     latestPinFeedReducer,
     companyReportsReducer,
     messageCentreReducer,
-    manufacturersReducer,
-    manufacturersOptionValuesReducer,
     operativeAlertsReducer,
     operativesReducer,
     pendingInvitesReducer,

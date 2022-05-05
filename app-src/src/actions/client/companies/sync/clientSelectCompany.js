@@ -3,5 +3,5 @@ import { CLIENT_SELECT_COMPANY } from 'constants/client/actionTypes/clientSelect
 export default id => dispatch =>
     dispatch({
         type: CLIENT_SELECT_COMPANY,
-        id
+        id,
     });

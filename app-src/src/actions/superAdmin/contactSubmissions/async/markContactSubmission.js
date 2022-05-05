@@ -22,10 +22,11 @@ export const markContactSubmissionsFailure = error => ({
     error,
 });
 
-export default (enquiryID, postBody = {}) => dispatch => {
-    dispatch(markContactSubmissionsRequest());
-    axios
-        .patch(`${ADMIN_API_URL}/contact/${enquiryID}`, postBody, getHeaders())
-        .then(({ data }) => dispatch(markContactSubmissionsSuccess(data)))
-        .catch(err => dispatch(markContactSubmissionsFailure(err.message)));
-};
+export default (enquiryID, postBody = {}) =>
+    dispatch => {
+        dispatch(markContactSubmissionsRequest());
+        axios
+            .patch(`${ADMIN_API_URL}/contact/${enquiryID}`, postBody, getHeaders())
+            .then(({ data }) => dispatch(markContactSubmissionsSuccess(data)))
+            .catch(err => dispatch(markContactSubmissionsFailure(err.message)));
+    };

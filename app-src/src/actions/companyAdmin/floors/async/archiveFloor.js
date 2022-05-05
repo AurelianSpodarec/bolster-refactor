@@ -3,34 +3,30 @@ import axios from 'axios';
 import {
     ARCHIVE_FLOOR_REQUEST,
     ARCHIVE_FLOOR_SUCCESS,
-    ARCHIVE_FLOOR_FAILURE
+    ARCHIVE_FLOOR_FAILURE,
 } from 'constants/actionTypes/floors';
 
 import { API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
 
 export const archiveFloorRequest = () => ({
-    type: ARCHIVE_FLOOR_REQUEST
+    type: ARCHIVE_FLOOR_REQUEST,
 });
 
 export const archiveFloorSuccess = payload => ({
     type: ARCHIVE_FLOOR_SUCCESS,
-    payload
+    payload,
 });
 
 export const archiveFloorFailure = error => ({
     type: ARCHIVE_FLOOR_FAILURE,
-    error
+    error,
 });
 
 export default (floorID, undo) => dispatch => {
     dispatch(archiveFloorRequest());
     return axios
-        .post(
-            `${API_URL}/floors/${floorID}/archive${undo ? '?undo=true' : ''}`,
-            null,
-            getHeaders()
-        )
+        .post(`${API_URL}/floors/${floorID}/archive${undo ? '?undo=true' : ''}`, null, getHeaders())
         .then(({ data }) => dispatch(archiveFloorSuccess(data)))
         .catch(err => dispatch(archiveFloorFailure(err.message)));
 };

@@ -23,14 +23,15 @@ export const fetchUsersBySearchFailure = error => ({
     error,
 });
 
-export default (page = 1, searchTerm, role, limit = 50) => dispatch => {
-    dispatch(fetchUsersBySearchRequest());
-    const route = '/users/search';
-    let queries = `?page=${page}&limit=${limit}`;
-    if (searchTerm) queries += `&searchTerm=${searchTerm}`;
-    if (role !== undefined) queries += `&role=${role}`;
-    return axios
-        .get(`${ADMIN_API_URL}${route}${queries}`, getHeaders())
-        .then(({ data }) => dispatch(fetchUsersBySearchSuccess(data, page)))
-        .catch(err => dispatch(fetchUsersBySearchFailure(err.message)));
-};
+export default (page = 1, searchTerm, role, limit = 50) =>
+    dispatch => {
+        dispatch(fetchUsersBySearchRequest());
+        const route = '/users/search';
+        let queries = `?page=${page}&limit=${limit}`;
+        if (searchTerm) queries += `&searchTerm=${searchTerm}`;
+        if (role !== undefined) queries += `&role=${role}`;
+        return axios
+            .get(`${ADMIN_API_URL}${route}${queries}`, getHeaders())
+            .then(({ data }) => dispatch(fetchUsersBySearchSuccess(data, page)))
+            .catch(err => dispatch(fetchUsersBySearchFailure(err.message)));
+    };

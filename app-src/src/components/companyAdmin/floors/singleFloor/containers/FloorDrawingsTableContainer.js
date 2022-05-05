@@ -47,14 +47,8 @@ class FloorDrawingsTableContainer extends Component {
     }
 
     componentDidMount = () => {
-        const {
-            showModal,
-            floorID,
-            isAdding,
-            users,
-            companyUserID,
-            setHierarchyIsSorting,
-        } = this.props;
+        const { showModal, floorID, isAdding, users, companyUserID, setHierarchyIsSorting } =
+            this.props;
 
         setHierarchyIsSorting(false);
 

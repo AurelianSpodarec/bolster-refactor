@@ -16,7 +16,7 @@ import {
     DELETE_CARD_FAILURE,
     FETCH_CARD_SUCCESS,
     FETCH_CARD_REQUEST,
-    FETCH_CARD_FAILURE
+    FETCH_CARD_FAILURE,
 } from 'constants/actionTypes/cards';
 
 export default combineReducers({
@@ -28,7 +28,7 @@ export default combineReducers({
     isPosting: isPostingReducer,
     isPostingSuccess: isPostingSuccessReducer,
     isPostingFailure: isPostingFailureReducer,
-    updatedCardID: updatedCardIDReducer
+    updatedCardID: updatedCardIDReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -151,7 +151,7 @@ function cardsReducer(state = {}, action) {
         case SET_PRIMARY_CARD_SUCCESS: {
             const cards = Object.values(state).map(card => ({
                 ...card,
-                isPrimary: action.cardID === card.id
+                isPrimary: action.cardID === card.id,
             }));
             return convertArrToObj(cards);
         }

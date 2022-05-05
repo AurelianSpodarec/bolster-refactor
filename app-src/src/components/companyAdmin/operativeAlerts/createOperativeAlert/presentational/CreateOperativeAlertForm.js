@@ -17,7 +17,7 @@ const CreateOperativeAlertForm = ({
     allSites,
     filterOptions,
     filterOptionsVal,
-    operativeIDs
+    operativeIDs,
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -72,9 +72,7 @@ const CreateOperativeAlertForm = ({
             <button className="button green">
                 <i className="far fa-bell" /> Send Alert
             </button>
-            <ButtonContainer to="/company/message-centre">
-                Cancel
-            </ButtonContainer>
+            <ButtonContainer to="/company/message-centre">Cancel</ButtonContainer>
         </BlockButtonWrapper>
     </Form>
 );

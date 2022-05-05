@@ -74,10 +74,10 @@ export const useFilterPinOptions = (
                     }
                 }
                 // remove deleted option if not already selected
-                if (
-                    questionValue?.pinOptionVersionID !== option.id &&
-                    (option.isDeleted || option.isDisabled)
-                ) {
+                const hasAnswer = questionValue.some(
+                    ans => ans.pinOptionVersionID === option.latestVersionID,
+                );
+                if (!hasAnswer && (option.isDeleted || option.isDisabled)) {
                     return false;
                 }
                 if (option.companyID !== companyID && option.companyID !== null) {

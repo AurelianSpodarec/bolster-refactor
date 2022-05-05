@@ -7,21 +7,21 @@ import { getHeaders } from 'helpers/api';
 import {
     EDIT_SITE_REQUEST,
     EDIT_SITE_SUCCESS,
-    EDIT_SITE_FAILURE
+    EDIT_SITE_FAILURE,
 } from 'constants/actionTypes/sites';
 
 export const editSiteRequest = () => ({
-    type: EDIT_SITE_REQUEST
+    type: EDIT_SITE_REQUEST,
 });
 
 export const editSiteSuccess = payload => ({
     type: EDIT_SITE_SUCCESS,
-    payload
+    payload,
 });
 
 export const editSiteFailure = error => ({
     type: EDIT_SITE_FAILURE,
-    error
+    error,
 });
 
 export default (siteID, postBody) => dispatch => {

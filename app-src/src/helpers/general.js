@@ -2,15 +2,6 @@ import moment from 'moment';
 import FileIcon from '_content/images/icons/dl-file-icon.svg';
 import PDFIcon from '_content/images/icons/dl-pdf-icon.svg';
 import ImageIcon from '_content/images/icons/dl-image-icon.svg';
-
-export const reverseObject = obj => {
-    return Object.entries(obj).reduce((ret, entry) => {
-        const [key, value] = entry;
-        ret[value] = key;
-        return ret;
-    }, {});
-};
-
 export const companyTrackingShowWarning = company => {
     const {
         contactedAfterMonth,
@@ -18,7 +9,6 @@ export const companyTrackingShowWarning = company => {
         contactedAfterElevenMonths,
         companyCreatedOn,
     } = company;
-    console.log({ company });
     const oneMonthAfterCreated = moment.utc(companyCreatedOn).add(1, 'month');
     const threeMonthsAfterCreated = moment.utc(companyCreatedOn).add(3, 'months');
     const elevenMonthsAfterCreated = moment.utc(companyCreatedOn).add(11, 'months');
@@ -74,11 +64,5 @@ export const getIconFromExt = ext => {
             return FileIcon;
     }
 };
-
-export const stripS3Key = (s3Key, companyID) => {
-    const keyArr = s3Key.split('/');
-    return keyArr.slice(keyArr.indexOf('' + companyID) + 1, keyArr.length).join('/');
-};
-
 export const doPinsHaveIcons = (pins = []) =>
     pins.some(pin => pin.templatePinImageS3Key || pin.servicePinImageS3Key);

@@ -25,7 +25,6 @@ const AlertItem = ({
         frequencyType,
         method,
         lastSentOn,
-        date,
         createdByCompanyUserID,
         description,
         drawingID,

@@ -14,13 +14,10 @@ const AllCreditLogsContainer = ({ isFetching, fetchAllInvoices }) => {
 const mapStateToProps = ({
     companyAdmin: {
         creditsReducer: { isFetching: fetchingCredits },
-        invoicesReducer: { isFetching: fetchingInvoices }
-    }
+        invoicesReducer: { isFetching: fetchingInvoices },
+    },
 }) => ({ isFetching: fetchingCredits || fetchingInvoices });
 
 const mapDispatchToProps = { fetchAllInvoices };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(AllCreditLogsContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(AllCreditLogsContainer);

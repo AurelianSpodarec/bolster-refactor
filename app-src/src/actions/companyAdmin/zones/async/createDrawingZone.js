@@ -3,24 +3,24 @@ import axios from 'axios';
 import {
     CREATE_DRAWING_ZONE_REQUEST,
     CREATE_DRAWING_ZONE_SUCCESS,
-    CREATE_DRAWING_ZONE_FAILURE
+    CREATE_DRAWING_ZONE_FAILURE,
 } from 'constants/actionTypes/zones';
 
 import { API_URL } from 'config';
 import { getHeaders, handleErrors } from 'helpers/api';
 
 export const createDrawingZoneRequest = () => ({
-    type: CREATE_DRAWING_ZONE_REQUEST
+    type: CREATE_DRAWING_ZONE_REQUEST,
 });
 
 export const createDrawingZoneSuccess = payload => ({
     type: CREATE_DRAWING_ZONE_SUCCESS,
-    payload
+    payload,
 });
 
 export const createDrawingZoneFailure = error => ({
     type: CREATE_DRAWING_ZONE_FAILURE,
-    error
+    error,
 });
 
 export default (drawingID, postBody) => dispatch => {

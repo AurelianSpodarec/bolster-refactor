@@ -15,28 +15,24 @@ class DrawingBreadcrumbContainer extends Component {
         const breadcrumbsArray = [
             {
                 text: 'Sites',
-                link: '/client/sites/'
+                link: '/client/sites/',
             },
             {
                 text: site.name,
-                link: `/client/sites/${site.id}`
+                link: `/client/sites/${site.id}`,
             },
             {
                 text: building.name,
-                link: `/client/buildings/${building.id}`
+                link: `/client/buildings/${building.id}`,
             },
             {
                 text: floor.name,
-                link: `/client/floors/${floor.id}`
+                link: `/client/floors/${floor.id}`,
             },
-            { text: drawing.name }
+            { text: drawing.name },
         ];
         return (
-            <Breadcrumb
-                breadcrumbs={
-                    !isFetching ? breadcrumbsArray : [{ text: 'Loading...' }]
-                }
-            >
+            <Breadcrumb breadcrumbs={!isFetching ? breadcrumbsArray : [{ text: 'Loading...' }]}>
                 {this.props.children}
             </Breadcrumb>
         );
@@ -56,18 +52,14 @@ class DrawingBreadcrumbContainer extends Component {
             drawing,
             fetchSingleClientFloor,
             fetchSingleClientBuilding,
-            fetchSingleClientSite
+            fetchSingleClientSite,
         } = this.props;
 
         const selectedCompanyID = getSelectedCompanyForClient();
 
         fetchSingleClientFloor(selectedCompanyID, drawing.floorID)
-            .then(({ payload }) =>
-                fetchSingleClientBuilding(selectedCompanyID, payload.buildingID)
-            )
-            .then(({ payload }) =>
-                fetchSingleClientSite(selectedCompanyID, payload.siteID)
-            );
+            .then(({ payload }) => fetchSingleClientBuilding(selectedCompanyID, payload.buildingID))
+            .then(({ payload }) => fetchSingleClientSite(selectedCompanyID, payload.siteID));
     };
 }
 
@@ -77,10 +69,10 @@ const mapStateToProps = (
             drawingsReducer: { drawings, isFetching: fetchingDrawings },
             floorsReducer: { floors, isFetching: fetchingFloors },
             buildingsReducer: { buildings, isFetching: fetchingBuildings },
-            sitesReducer: { sites, isFetching: fetchingSites }
-        }
+            sitesReducer: { sites, isFetching: fetchingSites },
+        },
     },
-    { match }
+    { match },
 ) => {
     const drawing = drawings[match.params.id] || {};
     const floor = floors[drawing.floorID] || {};
@@ -91,11 +83,7 @@ const mapStateToProps = (
         floor,
         building,
         site,
-        isFetching:
-            fetchingDrawings ||
-            fetchingFloors ||
-            fetchingBuildings ||
-            fetchingSites
+        isFetching: fetchingDrawings || fetchingFloors || fetchingBuildings || fetchingSites,
     };
 };
 
@@ -108,12 +96,7 @@ const mapDispatchToProps = dispatch => ({
     },
     fetchSingleClientFloor: (companyID, floorID) => {
         return dispatch(fetchSingleClientFloor(companyID, floorID));
-    }
+    },
 });
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(DrawingBreadcrumbContainer)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(DrawingBreadcrumbContainer));

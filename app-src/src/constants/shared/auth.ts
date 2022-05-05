@@ -1,5 +1,5 @@
 export const AUTH_TYPES = {
     SUPER_ADMIN: 'SUPER_ADMIN',
     COMPANY: 'COMPANY',
-    CLIENT: 'CLIENT'
+    CLIENT: 'CLIENT',
 };

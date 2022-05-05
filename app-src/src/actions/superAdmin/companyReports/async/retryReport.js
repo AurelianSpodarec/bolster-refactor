@@ -5,21 +5,21 @@ import { getHeaders, handleErrors } from 'helpers/api';
 import {
     ADMIN_RETRY_REPORT_REQUEST,
     ADMIN_RETRY_REPORT_SUCCESS,
-    ADMIN_RETRY_REPORT_FAILURE
+    ADMIN_RETRY_REPORT_FAILURE,
 } from 'constants/actionTypes/companyReports';
 
 export const retryReportRequest = () => ({
-    type: ADMIN_RETRY_REPORT_REQUEST
+    type: ADMIN_RETRY_REPORT_REQUEST,
 });
 
 export const retryReportSuccess = payload => ({
     type: ADMIN_RETRY_REPORT_SUCCESS,
-    payload
+    payload,
 });
 
 export const retryReportFailure = error => ({
     type: ADMIN_RETRY_REPORT_FAILURE,
-    error
+    error,
 });
 
 export default id => dispatch => {

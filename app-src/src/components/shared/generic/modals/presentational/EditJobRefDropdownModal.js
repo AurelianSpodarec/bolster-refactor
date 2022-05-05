@@ -1,5 +1,4 @@
 import React from 'react';
-import BlockButtonWrapper from '../../blockButtonWrappers/presentational/BlockButtonWrapper';
 import BlockHeading from '../../blockHeading/presentational/BlockHeading';
 import CheckboxContainer from '../../form/containers/CheckboxContainer';
 import Form from '../../form/containers/Form';

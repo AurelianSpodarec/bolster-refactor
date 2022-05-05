@@ -3,7 +3,7 @@ import { combineReducers } from 'redux';
 import {
     ADMIN_FETCH_FLOORS_FOR_COMPANY_REQUEST,
     ADMIN_FETCH_FLOORS_FOR_COMPANY_SUCCESS,
-    ADMIN_FETCH_FLOORS_FOR_COMPANY_FAILURE
+    ADMIN_FETCH_FLOORS_FOR_COMPANY_FAILURE,
 } from 'constants/actionTypes/companies';
 
 import { ADMIN_MOVE_FLOOR_SUCCESS } from 'constants/actionTypes/moveTool';
@@ -13,7 +13,7 @@ import { convertArrToObj, removeObjItem } from 'helpers/generic';
 export default combineReducers({
     floors: floorsReducer,
     isFetching: isFetchingReducer,
-    error: errorReducer
+    error: errorReducer,
 });
 
 function isFetchingReducer(state = false, action) {

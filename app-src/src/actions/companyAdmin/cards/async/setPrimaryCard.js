@@ -6,21 +6,21 @@ import setAPIFieldErrors from 'actions/shared/generic/fieldErrors/sync/setAPIFie
 import {
     SET_PRIMARY_CARD_REQUEST,
     SET_PRIMARY_CARD_SUCCESS,
-    SET_PRIMARY_CARD_FAILURE
+    SET_PRIMARY_CARD_FAILURE,
 } from 'constants/actionTypes/cards';
 
 export const setPrimaryCardRequest = () => ({
-    type: SET_PRIMARY_CARD_REQUEST
+    type: SET_PRIMARY_CARD_REQUEST,
 });
 
 export const setPrimaryCardSuccess = cardID => ({
     type: SET_PRIMARY_CARD_SUCCESS,
-    cardID
+    cardID,
 });
 
 export const setPrimaryCardFailure = error => ({
     type: SET_PRIMARY_CARD_FAILURE,
-    error
+    error,
 });
 
 export default stripeCardID => dispatch => {

@@ -12,7 +12,7 @@ export default floors => dispatch => {
         .post(
             `${API_URL}/floors/sort`,
             { items: floors.map(({ id, sort }) => ({ id, sort })) },
-            getHeaders()
+            getHeaders(),
         )
         .catch(() => dispatch(fetchAllFloors()));
 };

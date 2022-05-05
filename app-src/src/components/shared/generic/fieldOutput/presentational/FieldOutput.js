@@ -5,7 +5,7 @@ const FieldOutput = ({
     description = '',
     sizeClass = 'size-lg-12',
     fieldClass = '',
-    children
+    children,
 }) => (
     <div className={`field-output ${fieldClass} ${sizeClass}`}>
         {title ? <label className="title">{title}</label> : ''}

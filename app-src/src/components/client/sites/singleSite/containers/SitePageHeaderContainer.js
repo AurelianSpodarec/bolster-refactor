@@ -8,6 +8,6 @@ const SitePageHeaderContainer = ({ site }) => <SitePageHeader site={site} />;
 
 export default withRouter(
     connect(({ client: { sitesReducer } }, ownProps) => ({
-        site: sitesReducer.sites[ownProps.match.params.id] || {}
-    }))(SitePageHeaderContainer)
+        site: sitesReducer.sites[ownProps.match.params.id] || {},
+    }))(SitePageHeaderContainer),
 );

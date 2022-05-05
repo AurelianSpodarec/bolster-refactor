@@ -13,26 +13,23 @@ export const deleteDrawingZoneRequest = () => ({
     type: DELETE_DRAWING_ZONE_REQUEST,
 });
 
-export const deleteDrawingZoneSuccess = (zoneID) => ({
+export const deleteDrawingZoneSuccess = zoneID => ({
     type: DELETE_DRAWING_ZONE_SUCCESS,
     zoneID,
     success: true,
 });
 
-export const deleteDrawingZoneFailure = (error) => ({
+export const deleteDrawingZoneFailure = error => ({
     type: DELETE_DRAWING_ZONE_FAILURE,
     error,
     success: false,
 });
 
-export default (drawingID, zoneID) => (dispatch) => {
+export default (drawingID, zoneID) => dispatch => {
     dispatch(deleteDrawingZoneRequest());
 
     return axios
-        .delete(
-            `${API_URL}/drawings/${drawingID}/zones/${zoneID}`,
-            getHeaders()
-        )
+        .delete(`${API_URL}/drawings/${drawingID}/zones/${zoneID}`, getHeaders())
         .then(() => dispatch(deleteDrawingZoneSuccess(zoneID)))
-        .catch((err) => dispatch(deleteDrawingZoneFailure(err.message)));
+        .catch(err => dispatch(deleteDrawingZoneFailure(err.message)));
 };

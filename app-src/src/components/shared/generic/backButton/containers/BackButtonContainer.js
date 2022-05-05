@@ -7,7 +7,7 @@ const BackButtonContainer = ({
     history,
     classes,
     backFromForm = '',
-    location
+    location,
 }) => (
     <BackButton
         classes={classes}

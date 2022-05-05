@@ -5,19 +5,16 @@ import {
     FETCH_ALL_HEADQUARTERS_COMPANIES_FAILURE,
     CREATE_HEADQUARTERS_COMPANY_REQUEST,
     CREATE_HEADQUARTERS_COMPANY_FAILURE,
-    CREATE_HEADQUARTERS_COMPANY_SUCCESS
+    CREATE_HEADQUARTERS_COMPANY_SUCCESS,
 } from 'constants/actionTypes/headquarters';
 import { convertArrToObj, updateObj } from 'helpers/generic';
-import {
-    REISSUE_TOKEN_REQUEST,
-    REISSUE_TOKEN_SUCCESS
-} from 'constants/actionTypes/auth';
+import { REISSUE_TOKEN_REQUEST, REISSUE_TOKEN_SUCCESS } from 'constants/actionTypes/auth';
 
 export default combineReducers({
     error: errorReducer,
     isFetching: isFetchingReducer,
     companies: companiesReducer,
-    postSuccess: postSuccessReducer
+    postSuccess: postSuccessReducer,
 });
 
 function isFetchingReducer(state = false, action) {

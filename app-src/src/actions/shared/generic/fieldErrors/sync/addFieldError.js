@@ -4,5 +4,5 @@ export default (fieldName, error) => async dispatch =>
     await dispatch({
         type: ADD_FIELD_ERROR,
         fieldName,
-        error
+        error,
     });

@@ -15,7 +15,7 @@ class AddServiceToSubscriptionModalContainer extends Component {
     state = {
         paymentType: 2,
         stripeCardID: null,
-        termsAgreed: false
+        termsAgreed: false,
     };
 
     render() {
@@ -23,7 +23,7 @@ class AddServiceToSubscriptionModalContainer extends Component {
         const { paymentType, stripeCardID, termsAgreed } = this.state;
         const cardOptions = cards.map(card => ({
             text: `${card.nickname || card.name} - ${card.lastFour}`,
-            value: card.id
+            value: card.id,
         }));
 
         const noCards = !cards.length;
@@ -37,9 +37,7 @@ class AddServiceToSubscriptionModalContainer extends Component {
                 handleSubmit={this.handleSubmit}
                 cards={cardOptions}
                 noCards={noCards}
-                selectedCard={cardOptions.find(
-                    ({ value }) => value === stripeCardID
-                )}
+                selectedCard={cardOptions.find(({ value }) => value === stripeCardID)}
                 hideModal={e => {
                     e.preventDefault();
                     hideModal();
@@ -64,14 +62,14 @@ class AddServiceToSubscriptionModalContainer extends Component {
             postFailure,
             showModal,
             fetchAllSubscriptions,
-            error
+            error,
         } = this.props;
         const { paymentType } = this.state;
 
         if (!isFetching && prevProps.isFetching && cards.length) {
             const primaryCard = cards.find(({ isPrimary }) => isPrimary);
             this.setState({
-                stripeCardID: primaryCard ? primaryCard.id : null
+                stripeCardID: primaryCard ? primaryCard.id : null,
             });
         }
         // if (postSuccess && !prevProps.postSuccess)
@@ -83,7 +81,7 @@ class AddServiceToSubscriptionModalContainer extends Component {
                     +paymentType === PAYMENT_IDS.CARD
                         ? 'You can now use this service. If you would like a custom pin template, please call us on +44(0)161 873 7679.'
                         : 'Your new service will be available for use once the invoice has been paid.'
-                }`
+                }`,
             });
         }
         // if (postFailure && !prevProps.postFailure)
@@ -91,10 +89,9 @@ class AddServiceToSubscriptionModalContainer extends Component {
             // fail modal
             fetchAllSubscriptions();
             showModal(PAYMENT_ERROR, {
-                message:
-                    'There was an error while purchasing your subscription.',
+                message: 'There was an error while purchasing your subscription.',
                 resubmit: this.handleSubmit,
-                error: error.replace('office', 'invoice')
+                error: error.replace('office', 'invoice'),
             });
         }
     };
@@ -108,14 +105,13 @@ class AddServiceToSubscriptionModalContainer extends Component {
         const { paymentType, stripeCardID } = this.state;
         const {
             service: { id },
-            addServiceToSubscription
+            addServiceToSubscription,
         } = this.props;
 
         const postBody = {
             paymentType,
-            stripeCardID:
-                +paymentType === PAYMENT_IDS.CARD ? stripeCardID : null,
-            serviceIDs: [id]
+            stripeCardID: +paymentType === PAYMENT_IDS.CARD ? stripeCardID : null,
+            serviceIDs: [id],
         };
         addServiceToSubscription(postBody);
     };
@@ -129,29 +125,25 @@ const mapStateToProps = ({
             proRataCost,
             postSuccess,
             postFailure,
-            error
-        }
-    }
+            error,
+        },
+    },
 }) => ({
     cards: Object.values(cards),
     isFetching: fetchingCards || fetchingSubs,
     proRataCost,
     postSuccess,
     postFailure,
-    error
+    error,
 });
 
 const mapDispatchToProps = dispatch => ({
     addServiceToSubscription: body => dispatch(addServiceToSubscription(body)),
     fetchAllCards: () => dispatch(fetchAllCards()),
     fetchAllSubscriptions: () => dispatch(fetchAllSubscriptions()),
-    fetchProRataSubscriptionCost: () =>
-        dispatch(fetchProRataSubscriptionCost()),
+    fetchProRataSubscriptionCost: () => dispatch(fetchProRataSubscriptionCost()),
     hideModal: () => dispatch(hideModal()),
-    showModal: (type, props) => dispatch(showModal(type, props))
+    showModal: (type, props) => dispatch(showModal(type, props)),
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(AddServiceToSubscriptionModalContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(AddServiceToSubscriptionModalContainer);

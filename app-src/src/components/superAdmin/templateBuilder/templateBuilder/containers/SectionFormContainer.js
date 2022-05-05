@@ -11,24 +11,21 @@ let PreviewSectionListContainerContainer = ({ sections }) => (
 const mapStateToProps = (
     {
         superAdmin: {
-            templateSectionsReducer: { sections }
-        }
+            templateSectionsReducer: { sections },
+        },
     },
     {
         match: {
-            params: { uuid }
-        }
-    }
+            params: { uuid },
+        },
+    },
 ) => ({
     temmplateUUID: uuid,
     sections: Object.values(sections)
         .filter(section => section.templateUUID === uuid)
-        .sort((a, b) => a.sort - b.sort)
+        .sort((a, b) => a.sort - b.sort),
 });
 
-const WithConnect = connect(
-    mapStateToProps,
-    null
-)(PreviewSectionListContainerContainer);
+const WithConnect = connect(mapStateToProps, null)(PreviewSectionListContainerContainer);
 
 export default withRouter(WithConnect);

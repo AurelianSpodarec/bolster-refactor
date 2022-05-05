@@ -8,7 +8,7 @@ import MultiDropdown from '../presentational/MultiDropdown';
 
 class MultiSelectDropdown extends Component {
     state = {
-        showFieldError: false
+        showFieldError: false,
     };
 
     render() {
@@ -19,7 +19,7 @@ class MultiSelectDropdown extends Component {
 
         const defaultDropDown = value.map(curValue => ({
             label: options.find(opt => opt.value === curValue).label,
-            value: curValue
+            value: curValue,
         }));
         return (
             <MultiDropdown
@@ -52,7 +52,7 @@ class MultiSelectDropdown extends Component {
             required,
             validate = () => {},
             addFieldError,
-            removeFieldError
+            removeFieldError,
         } = this.props;
         const validateError = validate(value);
 
@@ -66,15 +66,12 @@ class MultiSelectDropdown extends Component {
 
 const mapStateToProps = ({ shared: { fieldErrorsReducer } }, ownProps) => ({
     error: fieldErrorsReducer.fieldErrors[ownProps.name],
-    errorsVisible: fieldErrorsReducer.errorsVisible
+    errorsVisible: fieldErrorsReducer.errorsVisible,
 });
 
 const mapDispatchToProps = dispatch => ({
     addFieldError: (name, error) => dispatch(addFieldError(name, error)),
-    removeFieldError: name => dispatch(removeFieldError(name))
+    removeFieldError: name => dispatch(removeFieldError(name)),
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(MultiSelectDropdown);
+export default connect(mapStateToProps, mapDispatchToProps)(MultiSelectDropdown);

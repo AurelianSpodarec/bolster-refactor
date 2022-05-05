@@ -14,28 +14,24 @@ class DrawingBreadcrumbContainer extends Component {
         const breadcrumbsArray = [
             {
                 text: 'Sites',
-                link: '/company/sites/'
+                link: '/company/sites/',
             },
             {
                 text: site.name,
-                link: `/company/sites/${site.id}`
+                link: `/company/sites/${site.id}`,
             },
             {
                 text: building.name,
-                link: `/company/buildings/${building.id}`
+                link: `/company/buildings/${building.id}`,
             },
             {
                 text: floor.name,
-                link: `/company/floors/${floor.id}`
+                link: `/company/floors/${floor.id}`,
             },
-            { text: drawing.name }
+            { text: drawing.name },
         ];
         return (
-            <Breadcrumb
-                breadcrumbs={
-                    !isFetching ? breadcrumbsArray : [{ text: 'Loading...' }]
-                }
-            >
+            <Breadcrumb breadcrumbs={!isFetching ? breadcrumbsArray : [{ text: 'Loading...' }]}>
                 {this.props.children}
             </Breadcrumb>
         );
@@ -51,12 +47,7 @@ class DrawingBreadcrumbContainer extends Component {
     }
 
     fetchData = () => {
-        const {
-            drawing,
-            fetchSingleFloor,
-            fetchSingleBuilding,
-            fetchSingleSite
-        } = this.props;
+        const { drawing, fetchSingleFloor, fetchSingleBuilding, fetchSingleSite } = this.props;
 
         fetchSingleFloor(drawing.floorID)
             .then(({ payload }) => fetchSingleBuilding(payload.buildingID))
@@ -70,10 +61,10 @@ const mapStateToProps = (
             drawingsReducer: { drawings, isFetching: fetchingDrawings },
             floorsReducer: { floors, isFetching: fetchingFloors },
             buildingsReducer: { buildings, isFetching: fetchingBuildings },
-            sitesReducer: { sites, isFetching: fetchingSites }
-        }
+            sitesReducer: { sites, isFetching: fetchingSites },
+        },
     },
-    { match }
+    { match },
 ) => {
     const drawing = drawings[match.params.id] || {};
     const floor = floors[drawing.floorID] || {};
@@ -84,11 +75,7 @@ const mapStateToProps = (
         floor,
         building,
         site,
-        isFetching:
-            fetchingDrawings ||
-            fetchingFloors ||
-            fetchingBuildings ||
-            fetchingSites
+        isFetching: fetchingDrawings || fetchingFloors || fetchingBuildings || fetchingSites,
     };
 };
 
@@ -101,12 +88,7 @@ const mapDispatchToProps = dispatch => ({
     },
     fetchSingleFloor: floorID => {
         return dispatch(fetchSingleFloor(floorID));
-    }
+    },
 });
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(DrawingBreadcrumbContainer)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(DrawingBreadcrumbContainer));

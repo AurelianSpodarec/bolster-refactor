@@ -9,7 +9,7 @@ const TemplatesTableContainer = ({ templates, isFetching, error, services, onMob
             !isFetching &&
             templates.map(({ serviceID, ...template }) => ({
                 serviceName: services[serviceID].name,
-                ...template
+                ...template,
             }))
         }
         isFetching={isFetching}
@@ -21,17 +21,17 @@ const TemplatesTableContainer = ({ templates, isFetching, error, services, onMob
 const mapStateToProps = ({
     companyAdmin: {
         templatesReducer: { templates, isFetching: fetchingTemplates, error },
-        servicesReducer: { services, isFetching: fetchingServices }
+        servicesReducer: { services, isFetching: fetchingServices },
     },
     shared: {
-        mobileReducer: { onMobile }
-    }
+        mobileReducer: { onMobile },
+    },
 }) => ({
     templates: Object.values(templates).filter(({ isDeleted }) => !isDeleted),
     isFetching: fetchingTemplates || fetchingServices,
     services,
     error,
-    onMobile
+    onMobile,
 });
 
 export default connect(mapStateToProps)(TemplatesTableContainer);

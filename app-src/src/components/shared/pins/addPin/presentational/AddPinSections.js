@@ -8,7 +8,6 @@ const AddPinSections = ({
     sectionIDs,
     isSameTemplate,
     pinAnswersByGroupKey,
-    dropdownOptionsByType,
     oldAnswersByNameObj,
     template,
     latestPinHistory,
@@ -22,7 +21,6 @@ const AddPinSections = ({
         sectionIDs={sectionIDs}
         isSameTemplate={isSameTemplate}
         pinAnswersByGroupKey={pinAnswersByGroupKey}
-        dropdownOptionsByType={dropdownOptionsByType}
         oldAnswersByNameObj={oldAnswersByNameObj}
         template={template}
         latestPinHistory={latestPinHistory}

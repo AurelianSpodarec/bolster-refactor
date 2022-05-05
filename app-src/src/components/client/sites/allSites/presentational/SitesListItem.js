@@ -5,14 +5,7 @@ import withToggleExpand from 'components/shared/generic/tables/hocs/withToggleEx
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import BuildingsTableContainer from 'components/client/buildings/shared/containers/BuildingsTableContainer';
 
-const SitesListItem = ({
-    toggleExpanded,
-    isExpanded,
-    site,
-    colCount,
-    onMobile,
-    headers
-}) => {
+const SitesListItem = ({ toggleExpanded, isExpanded, site, colCount, onMobile, headers }) => {
     return (
         <>
             <tr
@@ -21,16 +14,8 @@ const SitesListItem = ({
                 className={`draggable expandable ${isExpanded ? 'open' : ''}`}
             >
                 <td>
-                    {onMobile && (
-                        <span className="mobile-table-heading">
-                            {headers[0]}
-                        </span>
-                    )}
-                    <i
-                        className={`fa fa-chevron-${
-                            isExpanded ? 'down' : 'right'
-                        }`}
-                    />
+                    {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
+                    <i className={`fa fa-chevron-${isExpanded ? 'down' : 'right'}`} />
                     {site.name}
                 </td>
                 <td>{site.ownerCompanyName}</td>

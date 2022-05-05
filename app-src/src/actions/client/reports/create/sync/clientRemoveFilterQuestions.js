@@ -2,5 +2,5 @@ import { CLIENT_REMOVE_FILTER_QUESTIONS } from 'constants/client/actionTypes/cli
 
 export default () => async dispatch =>
     await dispatch({
-        type: CLIENT_REMOVE_FILTER_QUESTIONS
+        type: CLIENT_REMOVE_FILTER_QUESTIONS,
     });

@@ -21,5 +21,5 @@ export default connect(({ client: { drawingsReducer } }, ownProps) => ({
     drawings: ownProps.ids
         .map(id => drawingsReducer.drawings[id])
         .filter(item => item)
-        .sort(hierarchySort)
+        .sort(hierarchySort),
 }))(DrawingTableContainer);

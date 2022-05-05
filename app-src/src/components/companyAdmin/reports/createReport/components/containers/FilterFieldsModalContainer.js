@@ -11,7 +11,6 @@ import removeFilterQuestion from 'actions/companyAdmin/reports/sync/removeFilter
 import withUpdateOnChange from '../hocs/withUpdateOnChange';
 import { QUESTION_TYPE_NUMBERS as QTN } from 'constants/shared/templateBuilder';
 
-
 const questionTypeOptions = [
     { label: 'Free Form', value: 1 },
     { label: 'Option oriented', value: 2 },
@@ -153,7 +152,6 @@ class FilterFieldsModalContainer extends Component {
 
         await updateFilterQuestionField(id, filterItem);
         toggleAddFilter();
-
     };
 
     _getShouldForceExactMatch = () => {
@@ -161,16 +159,13 @@ class FilterFieldsModalContainer extends Component {
         const { customQuestions } = this.props;
         const questionsObj = convertArrToObj(customQuestions);
 
-        const forceTypes = [
-            QTN.CHECKBOX,
-            QTN.NUMBER,
-        ];
-        const shouldForce = selectedQuestions
-            .some(qID => forceTypes.includes(questionsObj[qID].type));
+        const forceTypes = [QTN.CHECKBOX, QTN.NUMBER];
+        const shouldForce = selectedQuestions.some(qID =>
+            forceTypes.includes(questionsObj[qID].type),
+        );
 
         return shouldForce;
-
-    }
+    };
 
     _getValidValueOptions = () => {
         const { selectedQuestions } = this.state;

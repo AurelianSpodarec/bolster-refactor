@@ -1,6 +1,5 @@
 import { isEmpty } from 'helpers/generic';
 import { useForm } from 'helpers/hooks';
-import { useState } from 'react';
 import getTimesheetDay from '../../../helpers/getTimesheetDay';
 
 export const filterTypeOptions = [

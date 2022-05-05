@@ -5,22 +5,22 @@ import { getHeaders } from 'helpers/api';
 import {
     FETCH_ALL_PINS_FOR_DRAWING_REQUEST,
     FETCH_ALL_PINS_FOR_DRAWING_SUCCESS,
-    FETCH_ALL_PINS_FOR_DRAWING_FAILURE
+    FETCH_ALL_PINS_FOR_DRAWING_FAILURE,
 } from 'constants/actionTypes/pins';
 
 export const fetchAllPinsForDrawingRequest = excludingPinID => ({
     type: FETCH_ALL_PINS_FOR_DRAWING_REQUEST,
-    excludingPinID
+    excludingPinID,
 });
 
 export const fetchAllPinsForDrawingSuccess = payload => ({
     type: FETCH_ALL_PINS_FOR_DRAWING_SUCCESS,
-    payload
+    payload,
 });
 
 export const fetchAllPinsForDrawingFailure = error => ({
     type: FETCH_ALL_PINS_FOR_DRAWING_FAILURE,
-    error
+    error,
 });
 
 export default (id, excludingPinID) => dispatch => {

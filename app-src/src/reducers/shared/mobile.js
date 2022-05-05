@@ -4,7 +4,7 @@ import { SET_MOBILE, TOGGLE_MOBILE_MENU } from 'constants/actionTypes/generic';
 
 export default combineReducers({
     onMobile: checkMobileReducer,
-    menuOpen: menuToggleReducer
+    menuOpen: menuToggleReducer,
 });
 
 function checkMobileReducer(state = false, action) {

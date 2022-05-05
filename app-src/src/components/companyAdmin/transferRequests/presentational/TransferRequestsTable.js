@@ -7,29 +7,21 @@ const TransferRequestsTable = ({
     isFetching,
     error,
     incomingTransferRequests,
-    outgoingTransferRequests
+    outgoingTransferRequests,
 }) => (
     <Table
         headers={headers}
         isFetching={isFetching}
-        noData={
-            !incomingTransferRequests.length && !outgoingTransferRequests.length
-        }
+        noData={!incomingTransferRequests.length && !outgoingTransferRequests.length}
         noDataMessage="There are no pending owner requests to display."
         error={error}
         withActions={true}
     >
         {!!incomingTransferRequests.length && (
-            <TransferRequestsList
-                requests={incomingTransferRequests}
-                headers={headers}
-            />
+            <TransferRequestsList requests={incomingTransferRequests} headers={headers} />
         )}
         {!!outgoingTransferRequests.length && (
-            <TransferRequestsList
-                requests={outgoingTransferRequests}
-                headers={headers}
-            />
+            <TransferRequestsList requests={outgoingTransferRequests} headers={headers} />
         )}
     </Table>
 );

@@ -23,24 +23,17 @@ class DrawingDocumentsTableContainer extends Component {
     //api change needed her eto finish
     _getFilteredDocuments = () => {
         const { documents, parent } = this.props;
-        return documents.filter(document =>
-            parent.documentIDs.includes(document.id)
-        );
+        return documents.filter(document => parent.documentIDs.includes(document.id));
     };
 }
 
-const mapStateToProps = (
-    { client: { documentsReducer, drawingsReducer } },
-    { match }
-) => ({
+const mapStateToProps = ({ client: { documentsReducer, drawingsReducer } }, { match }) => ({
     parent: drawingsReducer.drawings[match.params.id] || {
-        documentIDs: []
+        documentIDs: [],
     },
     documents: Object.values(documentsReducer.documents),
     isFetching: documentsReducer.isFetching,
-    error: documentsReducer.error
+    error: documentsReducer.error,
 });
 
-export default withRouter(
-    connect(mapStateToProps)(DrawingDocumentsTableContainer)
-);
+export default withRouter(connect(mapStateToProps)(DrawingDocumentsTableContainer));

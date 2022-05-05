@@ -3,23 +3,23 @@ import axios from 'axios';
 import {
     FETCH_SEARCH_RESULTS_REQUEST,
     FETCH_SEARCH_RESULTS_SUCCESS,
-    FETCH_SEARCH_RESULTS_FAILURE
+    FETCH_SEARCH_RESULTS_FAILURE,
 } from 'constants/actionTypes/search';
 import { API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
 
 export const fetchSearchResultsRequest = () => ({
-    type: FETCH_SEARCH_RESULTS_REQUEST
+    type: FETCH_SEARCH_RESULTS_REQUEST,
 });
 
 export const fetchSearchResultsSuccess = payload => ({
     type: FETCH_SEARCH_RESULTS_SUCCESS,
-    payload
+    payload,
 });
 
 export const fetchSearchResultsFailure = error => ({
     type: FETCH_SEARCH_RESULTS_FAILURE,
-    error
+    error,
 });
 
 export default searchTerm => dispatch => {

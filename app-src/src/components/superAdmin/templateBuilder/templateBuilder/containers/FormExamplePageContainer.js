@@ -23,33 +23,30 @@ class FormExamplePageContainer extends Component {
 const mapStateToProps = (
     {
         superAdmin: {
-            templateLabelFieldsReducer: { labelFields }
-        }
+            templateLabelFieldsReducer: { labelFields },
+        },
     },
-    { match: { params } }
+    { match: { params } },
 ) => ({
     labelFields: Object.values(labelFields).filter(
-        ({ templateuuid }) => String(templateuuid) === params.uuid
-    )
+        ({ templateuuid }) => String(templateuuid) === params.uuid,
+    ),
 });
 
 const mapDispatchToProps = (
     dispatch,
     {
         match: {
-            params: { companyID }
-        }
-    }
+            params: { companyID },
+        },
+    },
 ) => ({
     fetchPageData: templateUUID => {
         dispatch(fetchTemplateForCompany(companyID, templateUUID));
         dispatch(fetchAllServices());
         dispatch(fetchSingleCompany(companyID));
-    }
+    },
 });
-const WithConnect = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(FormExamplePageContainer);
+const WithConnect = connect(mapStateToProps, mapDispatchToProps)(FormExamplePageContainer);
 
 export default withRouter(WithConnect);

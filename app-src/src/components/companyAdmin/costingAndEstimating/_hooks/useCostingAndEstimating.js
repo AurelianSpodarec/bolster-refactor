@@ -11,14 +11,14 @@ import fetchAllSites from 'actions/companyAdmin/sites/async/fetchAllSites';
 import fetchAllFloors from 'actions/companyAdmin/floors/async/fetchAllFloors';
 import fetchAllDrawings from 'actions/companyAdmin/drawings/async/fetchAllDrawings';
 import fetchAllBuildings from 'actions/companyAdmin/buildings/async/fetchAllBuildings';
-import fetchCostingAndEstimatingData from 'actions/companyAdmin/costingAndEstimating/fetchCostingAndEstimatingData';
+import fetchCostingAndEstimatingResults from 'actions/companyAdmin/costingAndEstimating/fetchCostingAndEstimatingResults';
 import fetchCostingAndEstimatingCart from 'actions/companyAdmin/costingAndEstimating/fetchCostingAndEstimatingCart';
 
 import { selectHierarchySelectedTab } from '../../../../selectors/shared/tabs';
 import {
     selectCostingAndEstimatingCart,
-    selectCostingAndEstimatingData,
-    selectCostingAndEstimatingDataIsFetching,
+    selectCostingAndEstimatingResults,
+    selectCostingAndEstimatingResultsIsFetching,
     selectCostingAndEstimatingCartIsFetching,
     selectCostingAndEstimatingFetchError,
 } from 'selectors/companyAdmin/costingAndEstimating';
@@ -35,8 +35,8 @@ import { isEmpty } from 'helpers/generic';
 
 const useCostingAndEstimating = () => {
     const _costingCart = useSelector(selectCostingAndEstimatingCart);
-    const mainData = useSelector(selectCostingAndEstimatingData);
-    const isFetchingMainData = useSelector(selectCostingAndEstimatingDataIsFetching);
+    const mainData = useSelector(selectCostingAndEstimatingResults);
+    const isFetchingMainData = useSelector(selectCostingAndEstimatingResultsIsFetching);
     const isFetchingCart = useSelector(selectCostingAndEstimatingCartIsFetching);
     const fetchError = useSelector(selectCostingAndEstimatingFetchError);
     const prelimPostSuccess = useSelector(selectPrelimPostSuccess);
@@ -242,7 +242,7 @@ const useCostingAndEstimating = () => {
             dispatch(fetchAllSites());
             dispatch(fetchAllFloors());
             dispatch(fetchAllDrawings());
-            dispatch(fetchCostingAndEstimatingData(cAndEPostBody));
+            dispatch(fetchCostingAndEstimatingResults(cAndEPostBody));
             dispatch(fetchCostingAndEstimatingCart(cAndEPostBody));
         });
     }, []); // Fetch all data on page load
@@ -250,7 +250,7 @@ const useCostingAndEstimating = () => {
     useEffect(() => {
         if (formData !== prevProps.formData || selectedTabType !== prevProps.selectedTabType) {
             batch(() => {
-                dispatch(fetchCostingAndEstimatingData(cAndEPostBody));
+                dispatch(fetchCostingAndEstimatingResults(cAndEPostBody));
                 dispatch(fetchCostingAndEstimatingCart(cAndEPostBody));
             });
         }

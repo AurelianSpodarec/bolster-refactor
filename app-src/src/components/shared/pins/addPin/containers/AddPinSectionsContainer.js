@@ -14,7 +14,6 @@ class AddPinSectionsContainer extends Component {
             isHistory,
             isSameTemplate,
             pinAnswersByGroupKey,
-            dropdownOptionsByType,
             oldAnswersByNameObj,
             template,
             latestPinHistory,
@@ -30,7 +29,6 @@ class AddPinSectionsContainer extends Component {
                 selectedVersion={selectedVersion}
                 isSameTemplate={isSameTemplate}
                 pinAnswersByGroupKey={pinAnswersByGroupKey}
-                dropdownOptionsByType={dropdownOptionsByType}
                 oldAnswersByNameObj={oldAnswersByNameObj}
                 template={template}
                 latestPinHistory={latestPinHistory}

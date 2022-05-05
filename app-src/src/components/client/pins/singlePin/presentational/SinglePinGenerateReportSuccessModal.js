@@ -4,17 +4,14 @@ import ModalOuterContainer from 'components/shared/generic/modals/containers/Mod
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
-const SinglePinGenerateReportSuccessModal = ({
-    handleViewReports,
-    handleClose
-}) => (
+const SinglePinGenerateReportSuccessModal = ({ handleViewReports, handleClose }) => (
     <ModalOuterContainer extraClasses="response-modal">
         <div
             className=" size-lg-12"
             style={{
                 display: 'flex',
                 justifyContent: 'center',
-                alignContent: 'center'
+                alignContent: 'center',
             }}
         >
             <i
@@ -24,7 +21,7 @@ const SinglePinGenerateReportSuccessModal = ({
                     backgroundColor: 'green',
                     color: 'white',
                     fontSize: '3em',
-                    padding: '0.5em'
+                    padding: '0.5em',
                 }}
             />
         </div>

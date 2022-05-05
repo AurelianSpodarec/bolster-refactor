@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useForm, usePrevious } from 'helpers/hooks';
 import { useSelector, useDispatch } from 'react-redux';
 

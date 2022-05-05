@@ -9,7 +9,7 @@ import { SUCCESS_MODAL } from 'constants/shared/modalTypes';
 
 class EditPaymentModalContainer extends Component {
     state = {
-        paymentValue: Number(0).toFixed(2)
+        paymentValue: Number(0).toFixed(2),
     };
 
     render() {
@@ -47,7 +47,7 @@ class EditPaymentModalContainer extends Component {
 
         if (!prevProps.postSuccess && postSuccess) {
             showModal(SUCCESS_MODAL, {
-                message: 'Payment successfully edited.'
+                message: 'Payment successfully edited.',
             });
         }
     }
@@ -61,26 +61,23 @@ class EditPaymentModalContainer extends Component {
         editInvoicePayment(id, invoiceID, {
             invoiceID,
             amount: paymentValue,
-            paymentMethod
+            paymentMethod,
         });
     };
 }
 
 const mapStateToProps = ({
     superAdmin: {
-        invoicePaymentsReducer: { postSuccess }
-    }
+        invoicePaymentsReducer: { postSuccess },
+    },
 }) => ({
-    postSuccess
+    postSuccess,
 });
 
 const mapDispatchToProps = {
     hideModal,
     editInvoicePayment,
-    showModal
+    showModal,
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(EditPaymentModalContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(EditPaymentModalContainer);

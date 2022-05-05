@@ -8,12 +8,7 @@ class LabelExampleContainer extends Component {
     render() {
         const { labelFields } = this.props;
         const { template } = this.props;
-        return (
-            <BolsterLabelFieldsExample
-                fields={labelFields}
-                template={template}
-            />
-        );
+        return <BolsterLabelFieldsExample fields={labelFields} template={template} />;
     }
 }
 
@@ -21,25 +16,20 @@ const mapStateToProps = (
     {
         superAdmin: {
             templatesReducer: { templates },
-            templateLabelFieldsReducer: { labelFields }
-        }
+            templateLabelFieldsReducer: { labelFields },
+        },
     },
     {
         match: {
-            params: { uuid, companyID }
-        }
-    }
+            params: { uuid, companyID },
+        },
+    },
 ) => ({
     companyID,
     template: templates[uuid],
-    labelFields: Object.values(labelFields).filter(
-        ({ templateUUID }) => templateUUID === uuid
-    )
+    labelFields: Object.values(labelFields).filter(({ templateUUID }) => templateUUID === uuid),
 });
 
-const WithConnect = connect(
-    mapStateToProps,
-    null
-)(LabelExampleContainer);
+const WithConnect = connect(mapStateToProps, null)(LabelExampleContainer);
 
 export default withRouter(WithConnect);

@@ -11,7 +11,7 @@ import {
 export default combineReducers({
     results: resultsReducer,
     isFetching: isFetchingReducer,
-    error: errorReducer
+    error: errorReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -40,9 +40,7 @@ function errorReducer(state = null, action) {
 function resultsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_SEARCH_RESULTS_SUCCESS:
-            return convertArrToObj(
-                action.payload.map((res, i) => ({ id: i, ...res }))
-            );
+            return convertArrToObj(action.payload.map((res, i) => ({ id: i, ...res })));
         case CLEAR_SEARCH_RESULTS:
             return {};
         default:

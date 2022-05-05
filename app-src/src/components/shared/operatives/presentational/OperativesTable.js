@@ -14,24 +14,21 @@ const OperativesTable = ({
     error,
     handleDeleteOperativeModal,
     match,
-    smallList = false
+    smallList = false,
 }) => {
     const { id } = match.params;
     return (
         <div className="size-lg-12">
             <BlockHeading title="Attach Operative">
                 <ButtonContainer
-                    className={`pull-right ${
-                        isAddOperativeDisabled ? 'disabled' : 'green'
-                    }`}
+                    className={`pull-right ${isAddOperativeDisabled ? 'disabled' : 'green'}`}
                     to={
                         isAddOperativeDisabled
                             ? `${location.pathname}`
                             : `${location.pathname}/add-operative`
                     }
                 >
-                    <i className="fa fa-plus" />{' '}
-                    {isAddOperativeDisabled ? 'Full' : 'Attach'}
+                    <i className="fa fa-plus" /> {isAddOperativeDisabled ? 'Full' : 'Attach'}
                 </ButtonContainer>
             </BlockHeading>
             <div

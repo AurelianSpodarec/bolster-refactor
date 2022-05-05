@@ -8,11 +8,7 @@ const SiteStats = ({ site, stats }) => (
         <div className="size-lg-12">
             <SiteDetails site={site} stats={stats} sizeClasses="size-lg-12" />
 
-            <PieChart
-                stats={stats}
-                hierarchyType="site"
-                sizeClasses="size-lg-12"
-            />
+            <PieChart stats={stats} hierarchyType="site" sizeClasses="size-lg-12" />
         </div>
     </div>
 );

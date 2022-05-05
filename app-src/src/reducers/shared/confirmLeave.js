@@ -1,13 +1,10 @@
 import { combineReducers } from 'redux';
 
 import { FETCH_DRAWING_TEMPLATES_REQUEST } from 'constants/actionTypes/drawings';
-import {
-    CREATE_PIN_SUCCESS,
-    EDIT_PIN_HISTORY_SUCCESS
-} from 'constants/actionTypes/pins';
+import { CREATE_PIN_SUCCESS, EDIT_PIN_HISTORY_SUCCESS } from 'constants/actionTypes/pins';
 
 export default combineReducers({
-    confirmLeave: confirmLeaveReducer
+    confirmLeave: confirmLeaveReducer,
 });
 
 function confirmLeaveReducer(state = false, action) {

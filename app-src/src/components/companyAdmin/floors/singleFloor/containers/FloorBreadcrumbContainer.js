@@ -12,30 +12,26 @@ class FloorBreadcrumbContainer extends Component {
         siteName: '',
         siteID: 0,
         buildingName: '',
-        buildingID: 0
+        buildingID: 0,
     };
 
     render() {
         const breadcrumbsArray = [
             {
                 text: 'Sites',
-                link: '/company/sites/'
+                link: '/company/sites/',
             },
             {
                 text: this.state.siteName,
-                link: `/company/sites/${this.state.siteID}`
+                link: `/company/sites/${this.state.siteID}`,
             },
             {
                 text: this.state.buildingName,
-                link: `/company/buildings/${this.state.buildingID}`
+                link: `/company/buildings/${this.state.buildingID}`,
             },
-            { text: this.props.floor.name }
+            { text: this.props.floor.name },
         ];
-        return (
-            <Breadcrumb breadcrumbs={breadcrumbsArray}>
-                {this.props.children}
-            </Breadcrumb>
-        );
+        return <Breadcrumb breadcrumbs={breadcrumbsArray}>{this.props.children}</Breadcrumb>;
     }
 
     _setFloorDetails = () => {
@@ -45,7 +41,7 @@ class FloorBreadcrumbContainer extends Component {
             siteName: sites[buildings[floor.buildingID].siteID].name,
             siteID: buildings[floor.buildingID].siteID,
             buildingName: buildings[floor.buildingID].name,
-            buildingID: floor.buildingID
+            buildingID: floor.buildingID,
         });
     };
 
@@ -58,28 +54,16 @@ class FloorBreadcrumbContainer extends Component {
     };
 
     componentDidUpdate = prevProps => {
-        const {
-            floor,
-            buildings,
-            fetchSingleSite,
-            fetchSingleBuilding,
-            sites
-        } = this.props;
+        const { floor, buildings, fetchSingleSite, fetchSingleBuilding, sites } = this.props;
 
         if (!prevProps.floor.id && !!floor.id) {
             fetchSingleBuilding(floor.buildingID);
         }
 
-        if (
-            !Object.values(prevProps.buildings).length &&
-            Object.values(buildings).length
-        ) {
+        if (!Object.values(prevProps.buildings).length && Object.values(buildings).length) {
             fetchSingleSite(buildings[floor.buildingID].siteID);
         }
-        if (
-            !Object.values(prevProps.sites).length &&
-            Object.values(sites).length
-        ) {
+        if (!Object.values(prevProps.sites).length && Object.values(sites).length) {
             this._setFloorDetails();
         }
     };
@@ -90,14 +74,14 @@ const mapStateToProps = (
         companyAdmin: {
             floorsReducer: { floors },
             buildingsReducer: { buildings },
-            sitesReducer: { sites }
-        }
+            sitesReducer: { sites },
+        },
     },
-    { match }
+    { match },
 ) => ({
     floor: floors[match.params.id] || {},
     buildings: buildings,
-    sites: sites
+    sites: sites,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -106,12 +90,7 @@ const mapDispatchToProps = dispatch => ({
     },
     fetchSingleSite: siteID => {
         return dispatch(fetchSingleSite(siteID));
-    }
+    },
 });
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(FloorBreadcrumbContainer)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(FloorBreadcrumbContainer));

@@ -5,21 +5,21 @@ import { getHeaders } from 'helpers/api';
 import {
     TOGGLE_RESTRICT_USER_PAYMENTS_REQUEST,
     TOGGLE_RESTRICT_USER_PAYMENTS_SUCCESS,
-    TOGGLE_RESTRICT_USER_PAYMENTS_FAILURE
+    TOGGLE_RESTRICT_USER_PAYMENTS_FAILURE,
 } from 'constants/actionTypes/usersManagement';
 
 export const toggleRestrictUserPaymentsRequest = () => ({
-    type: TOGGLE_RESTRICT_USER_PAYMENTS_REQUEST
+    type: TOGGLE_RESTRICT_USER_PAYMENTS_REQUEST,
 });
 
 export const toggleRestrictUserPaymentsSuccess = payload => ({
     type: TOGGLE_RESTRICT_USER_PAYMENTS_SUCCESS,
-    payload
+    payload,
 });
 
 export const toggleRestrictUserPaymentsFailure = error => ({
     type: TOGGLE_RESTRICT_USER_PAYMENTS_FAILURE,
-    error
+    error,
 });
 
 export default postBody => dispatch => {

@@ -5,19 +5,11 @@ const ZoneSelect = ({ options, title, onSubmit }) => {
     const [selected, updateSelected] = useState([]);
     return (
         <div className="pin-selection-box zones-box">
-            <h3
-                className={`${
-                    title === 'Included' ? 'included' : 'excluded'
-                } size-lg-11`}
-            >
+            <h3 className={`${title === 'Included' ? 'included' : 'excluded'} size-lg-11`}>
                 {title}
             </h3>
             {title === 'Included' && _renderButton()}
-            <div
-                className={`content ${
-                    title === 'Included' ? 'included' : 'excluded'
-                } size-lg-11`}
-            >
+            <div className={`content ${title === 'Included' ? 'included' : 'excluded'} size-lg-11`}>
                 {options.map(opt => (
                     <ZoneSelectItem
                         key={opt.value}
@@ -53,11 +45,7 @@ const ZoneSelect = ({ options, title, onSubmit }) => {
         const direction = title === 'Included' ? 'left' : 'right';
         return (
             <div className={`pin-selection-buttons zone-buttons ${direction}`}>
-                <button
-                    type="button"
-                    className="button icon-only"
-                    onClick={_handleSubmit}
-                >
+                <button type="button" className="button icon-only" onClick={_handleSubmit}>
                     <i className={`far fa-long-arrow-${direction}`} />
                 </button>
             </div>

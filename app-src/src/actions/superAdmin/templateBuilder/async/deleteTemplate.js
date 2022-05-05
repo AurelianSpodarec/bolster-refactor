@@ -4,13 +4,13 @@ import {
     DELETE_TEMPLATE_REQUEST,
     DELETE_TEMPLATE_SUCCESS,
     DELETE_TEMPLATE_FAILURE,
-    DELETE_TEMPLATE_UNAVAILABLE
+    DELETE_TEMPLATE_UNAVAILABLE,
 } from 'constants/actionTypes/templateBuilder';
 import { ADMIN_API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
 
 export const deleteTemplateRequest = () => ({
-    type: DELETE_TEMPLATE_REQUEST
+    type: DELETE_TEMPLATE_REQUEST,
 });
 
 export const deleteTemplateSuccess = ({
@@ -18,24 +18,24 @@ export const deleteTemplateSuccess = ({
     sections,
     questions,
     labelFields,
-    statusOptions
+    statusOptions,
 }) => ({
     type: DELETE_TEMPLATE_SUCCESS,
     template,
     sections,
     questions,
     labelFields,
-    statusOptions
+    statusOptions,
 });
 
 export const deleteTemplateFailure = error => ({
     type: DELETE_TEMPLATE_FAILURE,
-    error
+    error,
 });
 
 export const deleteTemplateUnavailable = error => ({
     type: DELETE_TEMPLATE_UNAVAILABLE,
-    error
+    error,
 });
 
 export default uuid => dispatch => {

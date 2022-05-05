@@ -17,7 +17,7 @@ class ClientCompaniesAccessContainer extends Component {
             hierarchyID,
             isFetching,
             error,
-            smallPod = false
+            smallPod = false,
         } = this.props;
 
         return (
@@ -34,11 +34,7 @@ class ClientCompaniesAccessContainer extends Component {
     }
 
     componentDidMount = () => {
-        const {
-            clientFetchCompanyPermissions,
-            hierarchyType,
-            hierarchyID
-        } = this.props;
+        const { clientFetchCompanyPermissions, hierarchyType, hierarchyID } = this.props;
 
         clientFetchCompanyPermissions(hierarchyType, hierarchyID);
     };
@@ -49,23 +45,15 @@ class ClientCompaniesAccessContainer extends Component {
     };
 }
 
-const mapStateToProps = (
-    { companyAdmin: { companiesPermissionsReducer } },
-    { match }
-) => ({
+const mapStateToProps = ({ companyAdmin: { companiesPermissionsReducer } }, { match }) => ({
     hierarchyID: match.params.id,
     isFetching: companiesPermissionsReducer.isFetching,
     error: companiesPermissionsReducer.error,
-    companiesWithPermissions: Object.values(
-        companiesPermissionsReducer.companiesPermissions
-    )
+    companiesWithPermissions: Object.values(companiesPermissionsReducer.companiesPermissions),
 });
 
 const mapDispatchToProps = { clientFetchCompanyPermissions, showModal };
 
 export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(ClientCompaniesAccessContainer)
+    connect(mapStateToProps, mapDispatchToProps)(ClientCompaniesAccessContainer),
 );

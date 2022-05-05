@@ -4,13 +4,13 @@ import { convertArrToObj } from 'helpers/generic';
 import {
     FETCH_DRAWING_INSPECTION_LOGS_REQUEST,
     FETCH_DRAWING_INSPECTION_LOGS_SUCCESS,
-    FETCH_DRAWING_INSPECTION_LOGS_FAILURE
+    FETCH_DRAWING_INSPECTION_LOGS_FAILURE,
 } from 'constants/actionTypes/drawings';
 
 export default combineReducers({
     inspectionLogs: inspectionLogsReducer,
     isFetching: isFetchingReducer,
-    error: errorReducer
+    error: errorReducer,
 });
 
 function isFetchingReducer(state = false, action) {

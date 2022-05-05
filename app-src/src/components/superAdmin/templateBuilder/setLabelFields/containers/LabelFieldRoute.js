@@ -6,15 +6,10 @@ import StaticLabelField from '../presentational/StaticLabelField';
 import DynamicLabelField from '../presentational/DynamicLabelField';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 
-const LabelFieldRoute = ({
-    source,
-    labelField,
-    handleChange,
-    ...otherProps
-}) => {
+const LabelFieldRoute = ({ source, labelField, handleChange, ...otherProps }) => {
     const specificField = {
         [LABEL_QUES_TYPES_NUMS.STATIC]: StaticLabelField,
-        [LABEL_QUES_TYPES_NUMS.DYNAMIC]: DynamicLabelField
+        [LABEL_QUES_TYPES_NUMS.DYNAMIC]: DynamicLabelField,
     };
 
     const SpecificComponent = specificField[source];

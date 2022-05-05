@@ -5,21 +5,21 @@ import { getHeaders } from 'helpers/api';
 import {
     CLIENT_FETCH_PIN_FEED_REQUEST,
     CLIENT_FETCH_PIN_FEED_SUCCESS,
-    CLIENT_FETCH_PIN_FEED_FAILURE
+    CLIENT_FETCH_PIN_FEED_FAILURE,
 } from 'constants/client/actionTypes/clientPins';
 
 export const clientFetchPinFeedRequest = () => ({
-    type: CLIENT_FETCH_PIN_FEED_REQUEST
+    type: CLIENT_FETCH_PIN_FEED_REQUEST,
 });
 
 export const clientFetchPinFeedSuccess = payload => ({
     type: CLIENT_FETCH_PIN_FEED_SUCCESS,
-    payload
+    payload,
 });
 
 export const clientFetchPinFeedFailure = error => ({
     type: CLIENT_FETCH_PIN_FEED_FAILURE,
-    error
+    error,
 });
 
 export default lastUpdated => dispatch => {
@@ -29,10 +29,8 @@ export default lastUpdated => dispatch => {
         axios
             // ! change this url
             .get(
-                `${API_URL}/pins/historyfeed${
-                    lastUpdated ? `?lastUpdateDate=${lastUpdated}` : ''
-                }`,
-                getHeaders()
+                `${API_URL}/pins/historyfeed${lastUpdated ? `?lastUpdateDate=${lastUpdated}` : ''}`,
+                getHeaders(),
             )
             .then(res => dispatch(clientFetchPinFeedSuccess(res.data)))
             .catch(err => dispatch(clientFetchPinFeedFailure(err.message)))

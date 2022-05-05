@@ -7,7 +7,6 @@ import { Line } from 'react-chartjs-2';
 import BlockContainer from '../../../shared/generic/block/containers/BlockContainer';
 import DateRangePicker from '../../../shared/generic/form/presentational/DateRangePicker';
 import FlexWrapper from '../../../shared/generic/flexWrapper/FlexWrapper';
-import ActionButton from '../../../shared/generic/button/presentational/ActionButton';
 import CostingGraphFilters from './CostingGraphFilters';
 import ButtonContainer from '../../../shared/generic/button/containers/ButtonContainer';
 import Error from 'components/shared/generic/misc/presentational/Error';
@@ -23,7 +22,10 @@ const CostingAndEstimatingGraph = ({
     isFetching,
     fetchError,
 }) => {
-    const [showFilterOptions, setShowFilterOptions] = useState(false);
+    const [
+        showFilterOptions,
+        // setShowFilterOptions
+    ] = useState(false);
 
     const { data, options, graphRef } = useCostingAndEstimatingGraph(graph);
     const { dateRange } = filterFormData;
@@ -59,14 +61,14 @@ const CostingAndEstimatingGraph = ({
                             </FlexWrapper>
 
                             <FlexWrapper align="center" justify="end" width={8}>
-                                {/*<ActionButton UN COMMENT WHEN READY TO BE PLUGGED IN */}
-                                {/*    icon="filter"*/}
-                                {/*    text="Filter"*/}
-                                {/*    iconRight*/}
-                                {/*    source="secondary"*/}
-                                {/*    ambient="positive"*/}
-                                {/*    onClick={() => setShowFilterOptions(!showFilterOptions)}*/}
-                                {/*/>*/}
+                                <ActionButton
+                                    icon="filter"
+                                    text="Filter"
+                                    iconRight
+                                    source="secondary"
+                                    ambient="positive"
+                                    onClick={() => setShowFilterOptions(!showFilterOptions)}
+                                />
 
                                 {showFilterOptions && (
                                     <CostingGraphFilters

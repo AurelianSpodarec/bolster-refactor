@@ -12,10 +12,10 @@ const ShareLinkDrawingContainer = ({
     fetchPinsByShareLink,
     setHideFrontEndHeader,
     match: {
-        params: { shareKey }
+        params: { shareKey },
     },
     drawing,
-    pins
+    pins,
 }) => {
     componentDidMount(() => {
         setHideFrontEndHeader(true);
@@ -35,8 +35,8 @@ const ShareLinkDrawingContainer = ({
 const mapStateToProps = ({
     frontEnd: {
         drawingsReducer: { drawing },
-        pinsReducer: { pins }
-    }
+        pinsReducer: { pins },
+    },
 }) => {
     const drawingPins = Object.values(pins).filter(pin => pin.drawingID === drawing.id);
     return { drawing, pins: drawingPins };
@@ -44,7 +44,4 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = { fetchDrawingByShareLink, fetchPinsByShareLink, setHideFrontEndHeader };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(ShareLinkDrawingContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(ShareLinkDrawingContainer);

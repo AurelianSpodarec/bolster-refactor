@@ -9,42 +9,35 @@ const InvoicePaymentsTableContainer = ({
     invoicePayments,
     fetchSingleInvoicePayments,
     invoiceID,
-    onMobile
+    onMobile,
 }) => {
     componentDidMount(() => fetchSingleInvoicePayments(invoiceID));
     const headers = ['Amount', 'Date'];
     return (
-        <InvoicePaymentsTable
-            payments={invoicePayments}
-            headers={headers}
-            onMobile={onMobile}
-        />
+        <InvoicePaymentsTable payments={invoicePayments} headers={headers} onMobile={onMobile} />
     );
 };
 
 const mapStateToProps = (
     {
         companyAdmin: {
-            invoicesReducer: { invoicePayments }
+            invoicesReducer: { invoicePayments },
         },
         shared: {
-            mobileReducer: { onMobile }
-        }
+            mobileReducer: { onMobile },
+        },
     },
-    { match: { params } }
+    { match: { params } },
 ) => ({
     invoicePayments: Object.values(invoicePayments).filter(
-        payment => +payment.invoiceID === +params.id
+        payment => +payment.invoiceID === +params.id,
     ),
     invoiceID: params.id,
-    onMobile
+    onMobile,
 });
 
 const mapDispatchToProps = { fetchSingleInvoicePayments };
 
 export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(InvoicePaymentsTableContainer)
+    connect(mapStateToProps, mapDispatchToProps)(InvoicePaymentsTableContainer),
 );

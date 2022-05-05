@@ -11,20 +11,20 @@ import { getSelectedCompanyForClient } from 'helpers/generic';
 class BuildingBreadcrumbContainer extends Component {
     state = {
         siteName: '',
-        siteID: 0
+        siteID: 0,
     };
 
     render() {
         const breadcrumbsArray = [
             {
                 text: 'Sites',
-                link: '/client/sites/'
+                link: '/client/sites/',
             },
             {
                 text: this.state.siteName,
-                link: `/client/sites/${this.state.siteID}`
+                link: `/client/sites/${this.state.siteID}`,
             },
-            { text: this.props.building.name }
+            { text: this.props.building.name },
         ];
         return <Breadcrumb breadcrumbs={breadcrumbsArray} />;
     }
@@ -36,7 +36,7 @@ class BuildingBreadcrumbContainer extends Component {
 
         this.setState({
             siteName: site.name,
-            siteID: siteID
+            siteID: siteID,
         });
     };
 
@@ -54,11 +54,9 @@ class BuildingBreadcrumbContainer extends Component {
         if (!prevProps.building.id && !!building.id) {
             const selectedCompanyID = getSelectedCompanyForClient();
 
-            fetchSingleClientSite(selectedCompanyID, building.siteID).then(
-                () => {
-                    this._setSiteDetails(building.siteID);
-                }
-            );
+            fetchSingleClientSite(selectedCompanyID, building.siteID).then(() => {
+                this._setSiteDetails(building.siteID);
+            });
         }
     };
 }
@@ -67,24 +65,21 @@ const mapStateToProps = (
     {
         client: {
             buildingsReducer: { buildings },
-            sitesReducer: { sites }
-        }
+            sitesReducer: { sites },
+        },
     },
-    { match }
+    { match },
 ) => ({
     building: buildings[match.params.id] || {},
-    sites: sites
+    sites: sites,
 });
 
 const mapDispatchToProps = dispatch => ({
     fetchSingleClientSite: (companyID, siteID) => {
         return dispatch(fetchSingleClientSite(companyID, siteID));
-    }
+    },
 });
 
 export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(BuildingBreadcrumbContainer)
+    connect(mapStateToProps, mapDispatchToProps)(BuildingBreadcrumbContainer),
 );

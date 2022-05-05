@@ -1,10 +1,7 @@
 import React from 'react';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
-const BuildingDetails = ({
-    building: { location, name },
-    stats: { lastUpdatedOn }
-}) => (
+const BuildingDetails = ({ building: { location, name }, stats: { lastUpdatedOn } }) => (
     <div className="size-lg-6 size-md-12">
         <h3 className="heading heading-3 size-lg-12">Details</h3>
         {!!name && <p className="size-lg-12">{name}</p>}

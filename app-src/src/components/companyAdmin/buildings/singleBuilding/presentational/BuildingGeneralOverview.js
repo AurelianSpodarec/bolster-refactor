@@ -36,19 +36,16 @@ let BuildingGeneralOverview = ({ building }) => (
                 </div>
 
                 <div className="flex-item size-lg-4 size-md-12">
-                    <BuildingCompaniesAccessTableContainer
-                        accessType={building.accessType}
-                    />
+                    <BuildingCompaniesAccessTableContainer accessType={building.accessType} />
                 </div>
             </div>
         )}
     </>
 );
 
-const mapStateToProps = (
-    { companyAdmin: { buildingsReducer } },
-    { match: { params } }
-) => ({ building: buildingsReducer.buildings[params['id']] || {} });
+const mapStateToProps = ({ companyAdmin: { buildingsReducer } }, { match: { params } }) => ({
+    building: buildingsReducer.buildings[params['id']] || {},
+});
 
 BuildingGeneralOverview = connect(mapStateToProps)(BuildingGeneralOverview);
 BuildingGeneralOverview = withRouter(BuildingGeneralOverview);

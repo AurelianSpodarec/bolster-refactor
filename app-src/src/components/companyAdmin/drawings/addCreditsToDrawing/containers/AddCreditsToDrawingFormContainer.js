@@ -13,7 +13,7 @@ import { SUCCESS_MODAL } from 'constants/shared/modalTypes';
 class AddCreditsToDrawingFormContainer extends Component {
     state = {
         credits: 1,
-        expiryDate: null
+        expiryDate: null,
     };
 
     render() {
@@ -29,7 +29,7 @@ class AddCreditsToDrawingFormContainer extends Component {
 
     componentDidMount = () => {
         this.setState({
-            expiryDate: this._getNewExpiryDate(1)
+            expiryDate: this._getNewExpiryDate(1),
         });
     };
 
@@ -40,8 +40,8 @@ class AddCreditsToDrawingFormContainer extends Component {
             hideModal();
             showModal(SUCCESS_MODAL, {
                 message: `Credits successfully added! Your drawings new expiry date is ${moment(
-                    this.state.expiryDate
-                ).format('DD/MM/YYYY HH:mm')}.`
+                    this.state.expiryDate,
+                ).format('DD/MM/YYYY HH:mm')}.`,
             });
             fetchCredits();
         }
@@ -54,8 +54,7 @@ class AddCreditsToDrawingFormContainer extends Component {
         const drawingExpiresDate = moment(drawing.expiresOn).format();
         let dateToUpdate = moment(drawing.expiresOn).add(yearsToAdd, 'years');
 
-        if (curDate > drawingExpiresDate)
-            dateToUpdate = moment().add(yearsToAdd, 'years');
+        if (curDate > drawingExpiresDate) dateToUpdate = moment().add(yearsToAdd, 'years');
 
         return dateToUpdate;
     };
@@ -64,12 +63,12 @@ class AddCreditsToDrawingFormContainer extends Component {
         const { credits } = this.state;
         const {
             drawing: { id },
-            addCreditsToDrawing
+            addCreditsToDrawing,
         } = this.props;
 
         const postBody = {
             id,
-            credits
+            credits,
         };
 
         addCreditsToDrawing(id, postBody);
@@ -80,7 +79,7 @@ class AddCreditsToDrawingFormContainer extends Component {
         if (Number(value) <= 0) num = 0;
         this.setState({
             [name]: num,
-            expiryDate: this._getNewExpiryDate(num)
+            expiryDate: this._getNewExpiryDate(num),
         });
     };
 
@@ -91,11 +90,11 @@ class AddCreditsToDrawingFormContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
-        creditsReducer: { postSuccess, error }
-    }
+        creditsReducer: { postSuccess, error },
+    },
 }) => ({
     postSuccess,
-    error
+    error,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -106,10 +105,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(hideModal());
     },
     showModal: (type, props) => dispatch(showModal(type, props)),
-    fetchCredits: () => dispatch(fetchAllCredits())
+    fetchCredits: () => dispatch(fetchAllCredits()),
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(AddCreditsToDrawingFormContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(AddCreditsToDrawingFormContainer);

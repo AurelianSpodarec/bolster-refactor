@@ -40,10 +40,10 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchHistoricServicesForCompany());
     },
     setTabs: (tabs, selectedTab) => dispatch(setTabs(tabs, selectedTab)),
-    resetFilterOptions: () => dispatch(resetFilterOptions())
+    resetFilterOptions: () => dispatch(resetFilterOptions()),
 });
 
 export default connect(
     (_, { match }) => ({ siteID: match.params['id'] }),
-    mapDispatchToProps
+    mapDispatchToProps,
 )(SingleSiteContainer);

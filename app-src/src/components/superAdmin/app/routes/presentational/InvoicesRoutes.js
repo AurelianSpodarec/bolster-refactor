@@ -8,11 +8,7 @@ import SingleInvoiceContainer from 'components/superAdmin/invoices/singleInvoice
 const CompaniesRoutes = ({ base = '/admin/invoices' }) => (
     <SwitchWith404>
         <Route exact path={`${base}`} component={SuperAdminInvoicesContainer} />
-        <Route
-            exact
-            path={`${base}/:companyID/:id`}
-            component={SingleInvoiceContainer}
-        />
+        <Route exact path={`${base}/:companyID/:id`} component={SingleInvoiceContainer} />
     </SwitchWith404>
 );
 
