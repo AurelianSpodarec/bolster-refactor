@@ -22,7 +22,7 @@ const MultiDropdownOptions = ({
     drawing,
 }) => {
     // todo share component with MultiMultiDropdownOptions
-    const questionValue = answers[id];
+    const questionValue = answers[id] || [];
 
     useEffect(() => {
         if (!questionValue || (!questionValue.length && !edit && defaultValue)) {
