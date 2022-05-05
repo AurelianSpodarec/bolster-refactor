@@ -21,6 +21,7 @@ const CostingMeasurementInput = ({ unit, unitType, setUnit, name, value, handleC
                     value={unit}
                     onChange={(_, val) => setUnit(val)}
                     omitPlaceholder={true}
+                    disabled
                 />
             </div>
         </Field>
