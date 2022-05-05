@@ -4,9 +4,9 @@ import {
     FETCH_COSTING_AND_ESTIMATING_RESULTS_FAILURE,
     FETCH_COSTING_AND_ESTIMATING_RESULTS_REQUEST,
     FETCH_COSTING_AND_ESTIMATING_RESULTS_SUCCESS,
-    FETCH_COSTING_AND_ESTIMATING_CART_FAILURE,
-    FETCH_COSTING_AND_ESTIMATING_CART_REQUEST,
-    FETCH_COSTING_AND_ESTIMATING_CART_SUCCESS,
+    FETCH_COSTING_AND_ESTIMATING_FILTERS_FAILURE,
+    FETCH_COSTING_AND_ESTIMATING_FILTERS_REQUEST,
+    FETCH_COSTING_AND_ESTIMATING_FILTERS_SUCCESS,
     CREATE_COSTING_AND_ESTIMATING_REPORT_REQUEST,
     CREATE_COSTING_AND_ESTIMATING_REPORT_SUCCESS,
     CREATE_COSTING_AND_ESTIMATING_REPORT_FAILURE,
@@ -16,13 +16,13 @@ export default combineReducers({
     isPosting: isPostingReducer,
     postSuccess: postSuccessReducer,
     costingAndEstimatingResults: costingAndEstimatingResultsReducer,
-    costingAndEstimatingCart: costingAndEstimatingCartReducer,
-    isFetchingData: isFetchingDataReducer,
-    isFetchingCart: isFetchingCartReducer,
+    costingAndEstimatingFilters: costingAndEstimatingFiltersReducer,
+    isFetchingResults: isFetchingResultsReducer,
+    isFetchingFilters: isFetchingFiltersReducer,
     error: errorReducer,
 });
 
-function isFetchingDataReducer(state = false, action) {
+function isFetchingResultsReducer(state = false, action) {
     switch (action.type) {
         case FETCH_COSTING_AND_ESTIMATING_RESULTS_REQUEST:
             return true;
@@ -33,12 +33,12 @@ function isFetchingDataReducer(state = false, action) {
             return state;
     }
 }
-function isFetchingCartReducer(state = false, action) {
+function isFetchingFiltersReducer(state = false, action) {
     switch (action.type) {
-        case FETCH_COSTING_AND_ESTIMATING_CART_REQUEST:
+        case FETCH_COSTING_AND_ESTIMATING_FILTERS_REQUEST:
             return true;
-        case FETCH_COSTING_AND_ESTIMATING_CART_SUCCESS:
-        case FETCH_COSTING_AND_ESTIMATING_CART_FAILURE:
+        case FETCH_COSTING_AND_ESTIMATING_FILTERS_SUCCESS:
+        case FETCH_COSTING_AND_ESTIMATING_FILTERS_FAILURE:
             return false;
         default:
             return state;
@@ -71,14 +71,14 @@ function postSuccessReducer(state = false, action) {
 function errorReducer(state = null, action) {
     switch (action.type) {
         case FETCH_COSTING_AND_ESTIMATING_RESULTS_REQUEST:
-        case FETCH_COSTING_AND_ESTIMATING_CART_REQUEST:
+        case FETCH_COSTING_AND_ESTIMATING_FILTERS_REQUEST:
         case FETCH_COSTING_AND_ESTIMATING_RESULTS_SUCCESS:
-        case FETCH_COSTING_AND_ESTIMATING_CART_SUCCESS:
+        case FETCH_COSTING_AND_ESTIMATING_FILTERS_SUCCESS:
         case CREATE_COSTING_AND_ESTIMATING_REPORT_REQUEST:
         case CREATE_COSTING_AND_ESTIMATING_REPORT_SUCCESS:
             return null;
         case FETCH_COSTING_AND_ESTIMATING_RESULTS_FAILURE:
-        case FETCH_COSTING_AND_ESTIMATING_CART_FAILURE:
+        case FETCH_COSTING_AND_ESTIMATING_FILTERS_FAILURE:
         case CREATE_COSTING_AND_ESTIMATING_REPORT_FAILURE:
             return action.error;
         default:
@@ -96,9 +96,9 @@ function costingAndEstimatingResultsReducer(state = {}, action) {
     }
 }
 
-function costingAndEstimatingCartReducer(state = {}, action) {
+function costingAndEstimatingFiltersReducer(state = {}, action) {
     switch (action.type) {
-        case FETCH_COSTING_AND_ESTIMATING_CART_SUCCESS:
+        case FETCH_COSTING_AND_ESTIMATING_FILTERS_SUCCESS:
             return action.payload;
         default:
             return state;

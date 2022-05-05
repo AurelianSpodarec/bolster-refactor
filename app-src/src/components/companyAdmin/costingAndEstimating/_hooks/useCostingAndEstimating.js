@@ -12,14 +12,14 @@ import fetchAllFloors from 'actions/companyAdmin/floors/async/fetchAllFloors';
 import fetchAllDrawings from 'actions/companyAdmin/drawings/async/fetchAllDrawings';
 import fetchAllBuildings from 'actions/companyAdmin/buildings/async/fetchAllBuildings';
 import fetchCostingAndEstimatingResults from 'actions/companyAdmin/costingAndEstimating/fetchCostingAndEstimatingResults';
-import fetchCostingAndEstimatingCart from 'actions/companyAdmin/costingAndEstimating/fetchCostingAndEstimatingCart';
+import fetchCostingAndEstimatingFilters from 'actions/companyAdmin/costingAndEstimating/fetchCostingAndEstimatingFilters';
 
 import { selectHierarchySelectedTab } from '../../../../selectors/shared/tabs';
 import {
-    selectCostingAndEstimatingCart,
+    selectCostingAndEstimatingFilters,
     selectCostingAndEstimatingResults,
     selectCostingAndEstimatingResultsIsFetching,
-    selectCostingAndEstimatingCartIsFetching,
+    selectCostingAndEstimatingFiltersIsFetching,
     selectCostingAndEstimatingFetchError,
 } from 'selectors/companyAdmin/costingAndEstimating';
 
@@ -34,31 +34,33 @@ import { selectPrelimPostSuccess } from '../../../../selectors/companyAdmin/prel
 import { isEmpty } from 'helpers/generic';
 
 const useCostingAndEstimating = () => {
-    const _costingCart = useSelector(selectCostingAndEstimatingCart);
-    const mainData = useSelector(selectCostingAndEstimatingResults);
-    const isFetchingMainData = useSelector(selectCostingAndEstimatingResultsIsFetching);
-    const isFetchingCart = useSelector(selectCostingAndEstimatingCartIsFetching);
+    const filters = useSelector(selectCostingAndEstimatingFilters);
+    const results = useSelector(selectCostingAndEstimatingResults);
+    const isFetchingResults = useSelector(selectCostingAndEstimatingResultsIsFetching);
+    const isFetchingFilters = useSelector(selectCostingAndEstimatingFiltersIsFetching);
     const fetchError = useSelector(selectCostingAndEstimatingFetchError);
     const prelimPostSuccess = useSelector(selectPrelimPostSuccess);
 
+    console.log({ isFetchingFilters, isFetchingResults });
+
     const prevData = usePrevious({
-        _costingCart,
-        mainData,
-        isFetchingMainData,
-        isFetchingCart,
+        filters,
+        results,
+        isFetchingResults,
+        isFetchingFilters,
         fetchError,
         prelimPostSuccess,
     });
 
-    const { keyStatistics, graph, allSites } = useMemo(() => {
-        if (!isFetchingMainData && prevData.isFetchingMainData) return mainData;
-        else return prevData.mainData;
-    }, [isFetchingMainData, prevData]);
+    // const results = useMemo(() => {
+    //     if (!isFetchingResults && prevData.isFetchingResults) return results;
+    //     else return prevData._results;
+    // }, [isFetchingResults, prevData]);
 
-    const costingCart = useMemo(() => {
-        if (!isFetchingCart && prevData.isFetchingCart) return _costingCart;
-        else return prevData._costingCart;
-    }, [isFetchingCart, prevData]);
+    // const filters = useMemo(() => {
+    //     if (!isFetchingFilters && prevData.isFetchingFilters) return _filters;
+    //     else return prevData._filters;
+    // }, [isFetchingFilters, prevData]);
 
     const dispatch = useDispatch();
     const hierarchyID = useCurrentHierarchyID();
@@ -102,7 +104,7 @@ const useCostingAndEstimating = () => {
                 operatives: [],
                 services: [],
             });
-        } else onChange('selectedItems', buildInitialSelectedItems(allSites));
+        } else onChange('selectedItems', buildInitialSelectedItems(filters.allSites));
     };
 
     const initialFormData = {
@@ -110,11 +112,16 @@ const useCostingAndEstimating = () => {
             startDate: moment().subtract(7, 'days').toDate(),
             endDate: moment().toDate(),
         },
-        selectedItems: buildInitialSelectedItems(allSites), // TODO - makes the first fetch happen twice
+        selectedItems: buildInitialSelectedItems(filters.allSites), // TODO - makes the first fetch happen twice
         maxPrice: 0,
     };
     const [formData, onChange] = useForm(initialFormData);
-    const prevProps = usePrevious({ formData, selectedTabType, selectedTab, allSites });
+    const prevProps = usePrevious({
+        formData,
+        selectedTabType,
+        selectedTab,
+        allSites: filters.allSites,
+    });
 
     const isAnythingSelected = Object.keys(formData.selectedItems).reduce((acc, curr) => {
         if (formData.selectedItems[curr].length) acc = true;
@@ -243,7 +250,7 @@ const useCostingAndEstimating = () => {
             dispatch(fetchAllFloors());
             dispatch(fetchAllDrawings());
             dispatch(fetchCostingAndEstimatingResults(cAndEPostBody));
-            dispatch(fetchCostingAndEstimatingCart(cAndEPostBody));
+            dispatch(fetchCostingAndEstimatingFilters(cAndEPostBody));
         });
     }, []); // Fetch all data on page load
 
@@ -251,34 +258,32 @@ const useCostingAndEstimating = () => {
         if (formData !== prevProps.formData || selectedTabType !== prevProps.selectedTabType) {
             batch(() => {
                 dispatch(fetchCostingAndEstimatingResults(cAndEPostBody));
-                dispatch(fetchCostingAndEstimatingCart(cAndEPostBody));
+                dispatch(fetchCostingAndEstimatingFilters(cAndEPostBody));
             });
         }
     }, [formData, prevProps.formData, prevProps.selectedTabType, selectedTabType]); // Fetch all data on filter change
 
     useEffect(() => {
         if (prelimPostSuccess && !prevData.prelimPostSuccess) {
-            dispatch(fetchCostingAndEstimatingCart(cAndEPostBody));
+            dispatch(fetchCostingAndEstimatingFilters(cAndEPostBody));
         }
     }, [prelimPostSuccess, prevData.prelimPostSuccess]); // Re-fetch cart data on prelim post success
 
     useEffect(() => {
         if (selectedTab !== prevProps.selectedTab && !isAnythingSelected) {
-            onChange('selectedItems', buildInitialSelectedItems(allSites));
+            onChange('selectedItems', buildInitialSelectedItems(filters.allSites));
         }
     }, [selectedTab, prevProps.selectedTab, isAnythingSelected]); // auto-tick everything on tab change
 
     useEffect(() => {
-        if (!isEmpty(allSites) && isEmpty(prevProps.allSites)) {
-            onChange('selectedItems', buildInitialSelectedItems(allSites));
+        if (!isEmpty(filters.allSites) && isEmpty(prevProps.allSites)) {
+            onChange('selectedItems', buildInitialSelectedItems(filters.allSites));
         }
-    }, [allSites, prevProps.allSites]); // auto-tick everything on first data load
+    }, [filters.allSites, prevProps.allSites]); // auto-tick everything on first data load
 
     return {
-        costingCart,
-        graph,
-        keyStatistics,
-        allSites,
+        filters,
+        results,
         filterFormData: formData,
         onChange,
         handleToggleItem,
@@ -289,8 +294,8 @@ const useCostingAndEstimating = () => {
         onNextWeek,
         hierarchyID,
         hierarchyType,
-        isFetchingCart,
-        isFetchingMainData,
+        isFetchingFilters,
+        isFetchingResults,
         fetchError,
         selectedTab,
     };
