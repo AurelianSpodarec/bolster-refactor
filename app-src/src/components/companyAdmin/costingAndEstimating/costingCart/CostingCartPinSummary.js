@@ -5,7 +5,7 @@ import { formatCurrency } from 'helpers/generic';
 import CostingCartPinSummaryItem from './CostingCartPinSummaryItem';
 
 const CostingCartPinSummary = ({ title, total, data = [] }) => {
-    const [isExpanded, setIsExpanded] = useState(false);
+    const [isExpanded, setIsExpanded] = useState(true);
 
     return (
         <div className="summary-item">
@@ -25,7 +25,9 @@ const CostingCartPinSummary = ({ title, total, data = [] }) => {
                 <div className="divider" />
             </div>
             <div className="total">
-                <h3>{`£${total ? formatCurrency(total) : formatCurrency(0)}`}</h3>
+                <h3>{`${total < 0 ? '-' : ''}£${
+                    total ? formatCurrency(total, false) : '0.00'
+                }`}</h3>
             </div>
             <div className="divider" />
         </div>

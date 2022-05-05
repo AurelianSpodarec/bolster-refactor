@@ -39,7 +39,9 @@ const CostingCartPinSummaryItem = ({ building }) => {
             </div>
             <div className="divider" />
             <div className="total">
-                <h5>{`£${!Number.isNaN(cost) ? formatCurrency(cost) : formatCurrency(0)}`}</h5>
+                <h5>{`${cost < 0 ? '-' : ''}£${
+                    !Number.isNaN(cost) ? formatCurrency(cost, false) : '0.00'
+                }`}</h5>
             </div>
         </div>
     );

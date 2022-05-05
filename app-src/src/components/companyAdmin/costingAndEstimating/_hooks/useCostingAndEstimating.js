@@ -31,6 +31,7 @@ import {
 } from '../_helpers/helpers';
 import { costingAndEstimatingType } from '../../../../constants/companyAdmin/enums';
 import { selectPrelimPostSuccess } from '../../../../selectors/companyAdmin/prelims';
+import { isEmpty } from 'helpers/generic';
 
 const useCostingAndEstimating = () => {
     const _costingCart = useSelector(selectCostingAndEstimatingCart);
@@ -113,7 +114,7 @@ const useCostingAndEstimating = () => {
         maxPrice: 0,
     };
     const [formData, onChange] = useForm(initialFormData);
-    const prevProps = usePrevious({ formData, selectedTabType });
+    const prevProps = usePrevious({ formData, selectedTabType, selectedTab, allSites });
 
     const isAnythingSelected = Object.keys(formData.selectedItems).reduce((acc, curr) => {
         if (formData.selectedItems[curr].length) acc = true;
@@ -168,7 +169,6 @@ const useCostingAndEstimating = () => {
                     case 'installations':
                         selectedItems.installations = selectedItems.installations.filter(
                             idString => {
-                                console.log(idString);
                                 return (
                                     idString !==
                                     JSON.stringify(item.representsPinHistoryAnswerValueIDs)
@@ -261,6 +261,18 @@ const useCostingAndEstimating = () => {
             dispatch(fetchCostingAndEstimatingCart(cAndEPostBody));
         }
     }, [prelimPostSuccess, prevData.prelimPostSuccess]); // Re-fetch cart data on prelim post success
+
+    useEffect(() => {
+        if (selectedTab !== prevProps.selectedTab && !isAnythingSelected) {
+            onChange('selectedItems', buildInitialSelectedItems(allSites));
+        }
+    }, [selectedTab, prevProps.selectedTab, isAnythingSelected]); // auto-tick everything on tab change
+
+    useEffect(() => {
+        if (!isEmpty(allSites) && isEmpty(prevProps.allSites)) {
+            onChange('selectedItems', buildInitialSelectedItems(allSites));
+        }
+    }, [allSites, prevProps.allSites]); // auto-tick everything on first data load
 
     return {
         costingCart,

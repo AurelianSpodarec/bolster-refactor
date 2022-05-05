@@ -20,7 +20,7 @@ const tableHeaders = {
     floors: ['', 'Name', 'Cost'],
     drawings: ['', 'Name', 'Cost'],
     histories: ['', 'Pin Code', 'Date Created', 'Comment', 'Cost'],
-    installations: ['', 'Installation Name', 'Installation Type', 'Comment', 'Cost'],
+    installations: ['', 'Question', 'Installation Type', 'Measurement', 'Cost'],
 };
 
 const FilterList = ({
@@ -32,7 +32,7 @@ const FilterList = ({
     nestingLevel,
 }) => {
     // hierarchyLevel defines level of items in list
-    const marginClass = `margin-${nestingLevel - 1}`;
+    const marginClass = `margin-${nestingLevel}`;
     return (
         <>
             <div
@@ -111,6 +111,7 @@ const CostingAndEstimatingFilterList = ({
     isAnythingSelected,
     isFetching,
     fetchError,
+    total,
 }) => {
     const title = hierarchyNames[currentHierarchyLevel + 1] || 'Pin Histories';
 
@@ -135,7 +136,7 @@ const CostingAndEstimatingFilterList = ({
                         <h3>{title}</h3>
                         <div className="filter-list-row toplevel">
                             <TopLevel
-                                item={{ total: 0 }}
+                                item={{ total }}
                                 isSelected={isAnythingSelected}
                                 handleToggleAllItems={handleToggleAllItems}
                             />

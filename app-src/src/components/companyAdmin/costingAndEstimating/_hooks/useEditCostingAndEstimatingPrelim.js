@@ -13,12 +13,17 @@ import {
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import { ERROR_MODAL } from 'constants/shared/modalTypes';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
+import {
+    selectPrelimIsPosting,
+    selectPrelimPostError,
+    selectPrelimPostSuccess,
+} from 'selectors/companyAdmin/prelims';
 
 const useEditCostingAndEstimatingPrelim = ({ prelim }) => {
     const dispatch = useDispatch();
-    const isPosting = useSelector(selectCostingAndEstimatingIsPosting);
-    const postError = useSelector(selectCostingAndEstimatingPostError);
-    const postSuccess = useSelector(selectCostingAndEstimatingPostSuccess);
+    const isPosting = useSelector(selectPrelimIsPosting);
+    const postError = useSelector(selectPrelimPostError);
+    const postSuccess = useSelector(selectPrelimPostSuccess);
     const prevProps = usePrevious({ postError, postSuccess });
     const prelimsOptions = convertEnumToDropdownOptions(PRELIMS_ENUM);
 

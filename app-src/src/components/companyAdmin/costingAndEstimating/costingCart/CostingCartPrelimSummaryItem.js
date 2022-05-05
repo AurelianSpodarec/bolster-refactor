@@ -16,8 +16,8 @@ const CostingCartPrelimSummaryItem = ({ prelim }) => {
     return (
         <FlexWrapper direction="row" justify="between" align="center" width="12">
             <span>{prelimName}</span>
-            <FlexWrapper direction="row" justify="end" align="center" width="3">
-                <span>{`£${formatCurrency(cost)}`}</span>
+            <FlexWrapper direction="row" justify="end" align="center" width="4">
+                <span>{`${cost < 0 ? '-' : ''}£${formatCurrency(cost, false)}`}</span>
                 <ActionMenu>
                     {isCustom && (
                         <ActionMenuActionButton
@@ -29,7 +29,7 @@ const CostingCartPrelimSummaryItem = ({ prelim }) => {
                     )}
 
                     <ActionMenuActionButton
-                        text="Delete"
+                        text="Remove"
                         onClick={() => showDeletePrelimLinkModal(id, prelimName)}
                         isNegative
                     />

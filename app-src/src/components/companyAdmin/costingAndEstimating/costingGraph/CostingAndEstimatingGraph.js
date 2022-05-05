@@ -83,7 +83,10 @@ const CostingAndEstimatingGraph = ({
                         {graph?.total && (
                             <div className="graph-total">
                                 <h3>Total:</h3>
-                                <h1>{`£${formatCurrency(graph.total)}`}</h1>
+                                <h1>{`${graph.total < 0 ? '-' : ''}£${formatCurrency(
+                                    graph.total,
+                                    false,
+                                )}`}</h1>
                             </div>
                         )}
                     </>

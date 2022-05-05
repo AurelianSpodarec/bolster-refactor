@@ -22,7 +22,7 @@ import { measurementDropdownOptions } from '../../../../../constants/shared/drop
 
 const EditOptionValueModal = ({ option }) => {
     const pinOptionType = useSelector(state => selectPinOptionType(state, option.pinOptionTypeID));
-    const [showJustToCheckModal, setShowJustToCheckModal] = useState(true);
+    const [showJustToCheckModal, setShowJustToCheckModal] = useState(false);
     const canEditMeasurement = option.costMeasurementType === null;
 
     const {
@@ -121,6 +121,7 @@ const EditOptionValueModal = ({ option }) => {
                                                         name={`measurementPriceBreaks[${index}].value`}
                                                         value={priceBreak.value}
                                                         placeholder="Type value"
+                                                        minNum={0}
                                                         handleFocus={() => {
                                                             if (isLast) handleAddPriceBreak();
                                                         }}
@@ -140,6 +141,7 @@ const EditOptionValueModal = ({ option }) => {
                                                         name={`measurementPriceBreaks[${index}].cost`}
                                                         value={priceBreak.cost}
                                                         placeholder="Type price"
+                                                        minNum={0}
                                                         handleFocus={() => {
                                                             if (isLast) handleAddPriceBreak();
                                                         }}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import AccordionButton from 'components/shared/generic/button/presentational/AccordionButton';
 import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
@@ -10,9 +10,15 @@ import useCostingAndEstimatingPrelimsSetActions from '../_hooks/useCostingAndEst
 
 const CostingCartPrelimSummary = ({ title, total, prelims = [] }) => {
     const [isExpanded, setIsExpanded] = useState(true);
+    const [showOverflow, setShowOverflow] = useState(true);
 
     const { showExistingPrelimModal, showAddCustomPrelimModal } =
         useCostingAndEstimatingPrelimsSetActions();
+
+    useEffect(() => {
+        if (!isExpanded) setShowOverflow(false);
+        else setTimeout(() => setShowOverflow(isExpanded), 500);
+    }, [isExpanded]);
 
     return (
         <div className="summary-item">
@@ -25,7 +31,11 @@ const CostingCartPrelimSummary = ({ title, total, prelims = [] }) => {
                     />
                 </div>
             </FlexWrapper>
-            <div className={`expandable ${isExpanded ? 'active' : ''}`}>
+            <div
+                className={`expandable ${isExpanded ? 'active' : ''} ${
+                    showOverflow ? 'show-overflow' : ''
+                }`}
+            >
                 {prelims.map((prelim, i) => (
                     <CostingCartPrelimSummaryItem key={i} prelim={prelim} />
                 ))}
@@ -46,7 +56,9 @@ const CostingCartPrelimSummary = ({ title, total, prelims = [] }) => {
                 <div className="divider" />
             </div>
             <div className="total">
-                <h3>{`£${total ? formatCurrency(total) : formatCurrency(0)}`}</h3>
+                <h3>{`${total < 0 ? '-' : ''}£${
+                    total ? formatCurrency(total, false) : '0.00'
+                }`}</h3>
             </div>
             <div className="divider" />
         </div>

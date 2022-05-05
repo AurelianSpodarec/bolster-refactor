@@ -46,14 +46,14 @@ const OptionSets = ({ selectedTypeID }) => {
                 />
 
                 <ButtonWrapper alignment="right">
-                    <ActionButton
+                    {/* <ActionButton
                         icon="filter"
                         iconOnly
                         source="secondary"
                         size="medium"
                         iconEqualSize
                         onClick={() => console.log('open filters')}
-                    />
+                    /> */}
 
                     <ActionButton
                         text="Add"
