@@ -44,7 +44,7 @@ export const Building = ({ item, isSelected, handleToggleItem, isExpanded, setIs
                 setIsExpanded={setIsExpanded}
                 item={item}
             />
-            <div className="table-cell">{`${building?.name || '...'}`}</div>
+            <div className="table-cell">{`${building?.name || ''}`}</div>
             <div className="table-cell">
                 {!Number.isNaN(item.totalCost)
                     ? `${item.totalCost < 0 ? '-' : ''}£${formatCurrency(item.totalCost, false)}`
@@ -64,7 +64,7 @@ export const Floor = ({ item, isSelected, handleToggleItem, isExpanded, setIsExp
                 setIsExpanded={setIsExpanded}
                 item={item}
             />
-            <div className="table-cell">{`${floor?.name || '...'}`}</div>
+            <div className="table-cell">{`${floor?.name || ''}`}</div>
             <div className="table-cell">
                 {!Number.isNaN(item.totalCost)
                     ? `${item.totalCost < 0 ? '-' : ''}£${formatCurrency(item.totalCost, false)}`
@@ -84,7 +84,7 @@ export const Drawing = ({ item, isSelected, handleToggleItem, isExpanded, setIsE
                 setIsExpanded={setIsExpanded}
                 item={item}
             />
-            <div className="table-cell">{`${drawing?.name || '...'}`}</div>
+            <div className="table-cell">{`${drawing?.name || ''}`}</div>
             <div className="table-cell">
                 {!Number.isNaN(item.totalCost)
                     ? `${item.totalCost < 0 ? '-' : ''}£${formatCurrency(item.totalCost, false)}`
@@ -104,11 +104,11 @@ export const History = ({ item, isSelected, handleToggleItem, isExpanded, setIsE
                 setIsExpanded={setIsExpanded}
                 item={item}
             />
-            <div className="table-cell">{`${pinCode || '...'}`}</div>
+            <div className="table-cell">{`${pinCode || ''}`}</div>
             <div className="table-cell">
                 <DateTimeContainer date={createdOn} className="date" />
             </div>
-            <div className="table-cell">{`${typeof comment === 'string' ? comment : '...'}`}</div>
+            <div className="table-cell">{`${typeof comment === 'string' ? comment : ''}`}</div>
             <div className="table-cell">
                 {!Number.isNaN(item.totalCost)
                     ? `${item.totalCost < 0 ? '-' : ''}£${formatCurrency(item.totalCost, false)}`
@@ -128,9 +128,9 @@ export const Installation = ({ item, isSelected, handleToggleItem, isExpanded, s
                 item={item}
                 hideExpandButton
             />
-            <div className="table-cell">{`${item.name || '...'}`}</div>
-            <div className="table-cell">{`${item.type || '...'}`}</div>
-            <div className="table-cell">{`${item.measurement || '...'}`}</div>
+            <div className="table-cell">{`${item.name || ''}`}</div>
+            <div className="table-cell">{`${item.type || ''}`}</div>
+            <div className="table-cell">{`${item.measurement || ''}`}</div>
             <div className="table-cell">
                 {!Number.isNaN(item.cost)
                     ? `${item.cost < 0 ? '-' : ''}£${formatCurrency(item.cost, false)}`
