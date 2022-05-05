@@ -2,8 +2,12 @@ import React, { useState } from 'react';
 
 import useClickOutside from 'hooks/useClickOutside';
 import ActionMenuContent from './ActionMenuContent';
+import HamburgerMenuIcon from '../../../_content/images/icons/hamburger-menu-icon.svg';
+import HamburgerMenuIconLight from '../../../_content/images/icons/hamburger-menu-icon-light.svg';
+import useColourTheme from 'hooks/useColourTheme';
 
 const ActionMenu = ({ children, ellipsisPosition = 'right', disabled = false }) => {
+    const colourTheme = useColourTheme();
     const [showMenu, setShowMenu] = useState(false);
 
     const closeMenu = () => {
@@ -24,7 +28,10 @@ const ActionMenu = ({ children, ellipsisPosition = 'right', disabled = false }) 
                 }}
                 disabled={disabled}
             >
-                <i className="fa fa-ellipsis-v" />
+                <img
+                    src={colourTheme === 'dark' ? HamburgerMenuIconLight : HamburgerMenuIcon}
+                    alt="menu-icon"
+                />
             </button>
 
             <div ref={ref}>
