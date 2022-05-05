@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import FlexWrapper from '../../flexWrapper/FlexWrapper';
 
-const RangeSlider = ({ min, max, value, name, handleChange }) => {
+const RangeSlider = ({ min, max, step = 1, value, name, handleChange }) => {
     const calculateProgress = value => {
         return Math.round(((value - min) / (max - min)) * 100);
     };
@@ -28,6 +28,7 @@ const RangeSlider = ({ min, max, value, name, handleChange }) => {
                 type="range"
                 min={min}
                 max={max}
+                step={step}
                 value={value}
                 className="slider"
                 onChange={handleSliderChange}
