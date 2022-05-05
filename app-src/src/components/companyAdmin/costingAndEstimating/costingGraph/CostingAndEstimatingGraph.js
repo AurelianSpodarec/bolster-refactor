@@ -16,6 +16,7 @@ import ActionButton from 'components/shared/generic/button/presentational/Action
 const CostingAndEstimatingGraph = ({
     graph,
     filterFormData,
+    filters,
     onChange,
     onThisWeek,
     onPrevWeek,
@@ -71,6 +72,7 @@ const CostingAndEstimatingGraph = ({
                                 {showFilterOptions && (
                                     <CostingGraphFilters
                                         filterFormData={filterFormData}
+                                        filters={filters}
                                         onChange={onChange}
                                     />
                                 )}

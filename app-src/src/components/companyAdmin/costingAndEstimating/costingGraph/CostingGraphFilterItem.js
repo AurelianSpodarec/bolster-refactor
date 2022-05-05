@@ -12,6 +12,7 @@ const CostingGraphFilterItem = ({
     setExpandedId,
     filterFormData,
     onChange,
+    rangeOptions: { priceMin, priceMax, priceStep },
 }) => {
     const [searchTerm, setSearchTerm] = useState('');
 
@@ -87,8 +88,9 @@ const CostingGraphFilterItem = ({
                     </>
                 ) : (
                     <RangeSlider
-                        min={0}
-                        max={1000}
+                        min={priceMin}
+                        max={priceMax}
+                        step={priceStep}
                         name="maxPrice"
                         handleChange={onChange}
                         value={filterFormData.maxPrice}

@@ -47,6 +47,7 @@ const CostingAndEstimating = () => {
             <CostingAndEstimatingGraph
                 graph={results?.graph}
                 filterFormData={filterFormData}
+                filters={filters}
                 onChange={onChange}
                 onThisWeek={onThisWeek}
                 onPrevWeek={onPrevWeek}
