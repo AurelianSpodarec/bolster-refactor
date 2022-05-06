@@ -36,7 +36,7 @@ const CostingGraphFilters = ({ filterFormData, filters, onChange }) => {
                 id,
                 name: `${companyOperatives[id]?.userFirstName || 'Rob'} ${
                     companyOperatives[id]?.userLastName || 'Fairclough'
-                }`,
+                }`, // TO DO
             })),
             type: COSTING_GRAPH_FILTER_TYPES.OPERATIVES,
         },

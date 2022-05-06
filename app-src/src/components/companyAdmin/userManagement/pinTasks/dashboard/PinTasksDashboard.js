@@ -40,7 +40,6 @@ const PinTasksDashboard = () => {
     return (
         <>
             <PageHeading leftChildren={true} title="">
-                <BackButtonContainer />
                 <ButtonContainer handleClick={() => startCreatePinTask()}>
                     Create Task
                 </ButtonContainer>

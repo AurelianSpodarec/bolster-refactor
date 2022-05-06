@@ -6,7 +6,7 @@ import BannerNotificationTableContainer from '../containers/BannerNotificationTa
 const BannerNotifications = () => {
     return (
         <>
-            <PageHeading withBackButton title="Banner Notifications" />
+            <PageHeading title="Banner Notifications" />
 
             <BannerNotificationTableContainer />
         </>

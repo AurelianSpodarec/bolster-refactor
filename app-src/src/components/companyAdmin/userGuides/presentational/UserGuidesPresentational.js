@@ -8,9 +8,7 @@ import pdfImage from '_content/images/user-guide.jpg';
 
 const UserGuidesPresentational = ({ userGuideLink, isFetching, error }) => (
     <>
-        <PageHeading leftChildren={true} title="User Guides">
-            <BackButtonContainer />
-        </PageHeading>
+        <PageHeading leftChildren={true} title="User Guides"></PageHeading>
         <BlockContainer containerClass="user-guides">
             <div className="text-section size-lg-6 size-md-12">
                 <BlockHeading

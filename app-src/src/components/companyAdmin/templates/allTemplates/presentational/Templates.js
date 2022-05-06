@@ -8,7 +8,7 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 const Templates = () => {
     return (
         <>
-            <PageHeading title="My Templates" withBackButton />
+            <PageHeading title="My Templates" />
             <BlockContainer>
                 <BlockHeading title="Templates" />
                 <p className="size-lg-12 page-heading">

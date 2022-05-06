@@ -3134,6 +3134,7 @@ input {
 
 
 .content-container {
+  display: flex;
   color: var(--typography-default);
   &.no-padding {
     padding: 0;

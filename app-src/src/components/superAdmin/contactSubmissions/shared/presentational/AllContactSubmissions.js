@@ -7,7 +7,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 
 const AllContactSubmissions = () => (
     <>
-        <PageHeading title="Contact Submissions" withBackButton />
+        <PageHeading title="Contact Submissions" />
         <BlockContainer>
             <BlockHeading title="All Contact Submissions" />
             <ContactSubmissionsTableContainer />

@@ -31,7 +31,6 @@ const Timesheets = () => {
     return (
         <>
             <PageHeading
-                withBackButton
                 title={
                     <>
                         Timesheet -{' '}
