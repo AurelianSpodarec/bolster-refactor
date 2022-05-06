@@ -8,6 +8,7 @@ import DashboardBarChartContainer from '../containers/DashboardBarChartContainer
 import DashboardDataByContainer from '../containers/DashboardDataByContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import { useConfirmDarkTheme } from 'helpers/hooks';
+import DashboardLineGraph from './DashboardLineGraph';
 
 const Dashboard = ({ isIE10 }) => {
     useConfirmDarkTheme('/company/profile');
@@ -26,7 +27,8 @@ const Dashboard = ({ isIE10 }) => {
                 <>
                     <DashboardStatsFiltersContainer />
                     <div className="flex-row flex-wrap width-12 size-lg-12">
-                        <DashboardBarChartContainer />
+                        {/* <DashboardBarChartContainer /> */}
+                        <DashboardLineGraph />
                         <DashboardDataByContainer />
                     </div>
                     <div className="flex-row flex-wrap width-12 size-lg-12">
