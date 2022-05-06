@@ -387,10 +387,6 @@ button {
     text-decoration: none;
     white-space: nowrap;
 
-    &.back-button {
-        border: 1px solid var(--background-stroke);
-    }
-
     &.center {
        justify-content: center;
     }
@@ -665,6 +661,6 @@ button {
     }
 }
 
-.back-button {
+.back-btn {
    border: 1px solid var(--background-stroke);
 }
