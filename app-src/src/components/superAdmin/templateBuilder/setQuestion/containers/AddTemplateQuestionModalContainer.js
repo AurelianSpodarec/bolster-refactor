@@ -20,7 +20,7 @@ const AddTemplateQuestionModalContainer = ({
     prereqOptions,
     prereqValueOptions,
     showPrefillOptions,
-    dropdownOptions,
+    pinOptions,
     template,
 }) => {
     const { serviceID } = template;
@@ -42,7 +42,7 @@ const AddTemplateQuestionModalContainer = ({
             handlePrefillStatusValueChange={handlePrefillStatusValueChange}
             showPrefillOptions={showPrefillOptions}
             handlePrereqOptionsChange={handlePrereqOptionsChange}
-            dropdownOptions={dropdownOptions}
+            pinOptions={pinOptions}
             serviceID={serviceID}
         />
     );
