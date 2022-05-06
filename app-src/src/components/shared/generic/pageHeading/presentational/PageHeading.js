@@ -10,7 +10,7 @@ const PageHeading = ({ children, title, leftChildren = false, withBackButton = f
                 </div>
             )}
             {leftChildren && children}
-            <h1 className="heading heading-1">{title}</h1>
+            <h1 className="heading heading-1 centered-align">{title}</h1>
             {!leftChildren && children}
         </div>
     </div>

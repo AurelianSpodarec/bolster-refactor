@@ -1,24 +1,33 @@
 import React from 'react';
 
 import ButtonContainer from '../../button/containers/ButtonContainer';
+import ActionButton from '../../button/presentational/ActionButton';
+import LinkButton from '../../button/presentational/LinkButton';
 
 const BackButton = ({ handleClick, classes = '', backFromForm, location, history }) =>
     backFromForm ? (
-        <button
-            to={location.pathname.replace(backFromForm.urlToReplace, backFromForm.with)}
+        <LinkButton
+            href={location.pathname.replace(backFromForm.urlToReplace, backFromForm.with)}
+            text="Back"
+            icon="fa fa-chevron-double-left"
+            source="secondary"
+            size="medium"
             onClick={() =>
                 history.replace(
                     location.pathname.replace(backFromForm.urlToReplace, backFromForm.with),
                 )
             }
-            className="button"
-        >
-            <i className="fa fa-chevron-double-left" /> Back
-        </button>
+            extraClasses="button back-button"
+        />
     ) : (
-        <ButtonContainer className={`button back ${classes}`} handleClick={handleClick}>
-            <i className="fa fa-chevron-double-left" /> Back
-        </ButtonContainer>
+        <ActionButton
+            text="Back"
+            icon="fa fa-chevron-double-left"
+            source="secondary"
+            size="medium"
+            extraClasses="back-button"
+            onClick={handleClick}
+        />
     );
 
 export default BackButton;
