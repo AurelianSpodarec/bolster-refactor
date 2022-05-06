@@ -665,4 +665,6 @@ button {
 .back-btn {
    border: 1px solid var(--background-stroke);
     margin-right: 10px;
+    float: left !important;
+    width: auto;
 }
