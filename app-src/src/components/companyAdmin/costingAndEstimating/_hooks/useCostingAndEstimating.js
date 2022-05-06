@@ -278,12 +278,10 @@ const useCostingAndEstimating = () => {
 
     useEffect(() => {
         if (formData !== prevProps.formData || selectedTabType !== prevProps.selectedTabType) {
-            debounce(() => {
-                batch(() => {
-                    dispatch(fetchCostingAndEstimatingResults(cAndEPostBody));
-                    dispatch(fetchCostingAndEstimatingFilters(cAndEPostBody));
-                });
-            }, 500);
+            batch(() => {
+                dispatch(fetchCostingAndEstimatingResults(cAndEPostBody));
+                dispatch(fetchCostingAndEstimatingFilters(cAndEPostBody));
+            });
         }
     }, [formData, prevProps.formData, prevProps.selectedTabType, selectedTabType]); // Fetch all data on filter change
 
