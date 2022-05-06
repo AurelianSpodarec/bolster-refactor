@@ -1,6 +1,5 @@
 import React from 'react';
 
-import ButtonContainer from '../../button/containers/ButtonContainer';
 import ActionButton from '../../button/presentational/ActionButton';
 import LinkButton from '../../button/presentational/LinkButton';
 
@@ -17,7 +16,7 @@ const BackButton = ({ handleClick, classes = '', backFromForm, location, history
                     location.pathname.replace(backFromForm.urlToReplace, backFromForm.with),
                 )
             }
-            extraClasses="button back-button"
+            extraClasses="back-btn"
         />
     ) : (
         <ActionButton

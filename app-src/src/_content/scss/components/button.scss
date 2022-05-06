@@ -547,6 +547,7 @@ button {
             color: var(--negative-default);
         }
     }
+
 }
 
 // button wrapper
@@ -663,4 +664,5 @@ button {
 
 .back-btn {
    border: 1px solid var(--background-stroke);
+    margin-right: 10px;
 }
