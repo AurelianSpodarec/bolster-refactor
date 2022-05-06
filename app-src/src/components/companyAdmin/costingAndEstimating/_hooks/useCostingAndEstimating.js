@@ -41,6 +41,8 @@ import fetchPinOptionVersions from 'actions/companyAdmin/pinOptions/async/fetchP
 
 const useCostingAndEstimating = () => {
     const [lastFetch, setLastFetch] = useState(0); // For debounce
+    const [willAutoTick, setWillAutoTick] = useState(false);
+
     const filters = useSelector(selectCostingAndEstimatingFilters);
     const results = useSelector(selectCostingAndEstimatingResults);
     const isFetchingResults = useSelector(selectCostingAndEstimatingResultsIsFetching);
@@ -297,10 +299,17 @@ const useCostingAndEstimating = () => {
     }, [prelimPostSuccess, prevData.prelimPostSuccess]); // Re-fetch results data on prelim post success
 
     useEffect(() => {
-        if (selectedTab !== prevProps.selectedTab && !isAnythingSelected) {
+        if (selectedTab !== prevProps.selectedTab) {
+            setWillAutoTick(true);
+        }
+    }, [selectedTab, prevProps.selectedTab]); // set auto-tick flag on tab change
+
+    useEffect(() => {
+        if (!isFetchingFilters && !prevData.isFetchingFilters && willAutoTick) {
+            setWillAutoTick(false);
             onChange('selectedItems', buildInitialSelectedItems(filters.allSites));
         }
-    }, [selectedTab, prevProps.selectedTab, isAnythingSelected]); // auto-tick everything on tab change
+    }, [willAutoTick, isFetchingFilters, prevData.isFetchingFilters]); // Auto-tick after fetch if flag is set
 
     useEffect(() => {
         if (!isEmpty(filters.allSites) && isEmpty(prevProps.allSites)) {
