@@ -9,7 +9,7 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 
 const Subscription = ({ shouldRestrictPayments }) => (
     <>
-        <PageHeading title="Account Overview" withBackButton />
+        <PageHeading title="Account Overview" />
 
         <div className="size-lg-8 size-md-12">
             <SubscriptionStatusContainer shouldRestrictPayments={shouldRestrictPayments} />

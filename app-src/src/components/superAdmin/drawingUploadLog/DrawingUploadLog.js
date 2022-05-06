@@ -7,7 +7,7 @@ import DrawingUploadLogTable from './DrawingUploadLogTable';
 const DrawingUploadLog = () => {
     return (
         <>
-            <PageHeading title="Drawing Upload Log" withBackButton />
+            <PageHeading title="Drawing Upload Log" />
 
             <DrawingUploadLogTable />
         </>
