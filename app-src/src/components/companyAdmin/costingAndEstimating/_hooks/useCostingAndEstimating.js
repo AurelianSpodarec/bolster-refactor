@@ -31,7 +31,7 @@ import {
 } from '../_helpers/helpers';
 import { costingAndEstimatingType } from '../../../../constants/companyAdmin/enums';
 import { selectPrelimPostSuccess } from '../../../../selectors/companyAdmin/prelims';
-import { isEmpty } from 'helpers/generic';
+import { debounce, isEmpty } from 'helpers/generic';
 import fetchCompanyOperatives from 'actions/companyAdmin/operatives/async/fetchCompanyOperatives';
 import fetchAllServices from 'actions/companyAdmin/services/async/fetchAllServices';
 import fetchPinOptionTypes from 'actions/companyAdmin/pinOptions/async/fetchPinOptionTypes';
@@ -278,10 +278,12 @@ const useCostingAndEstimating = () => {
 
     useEffect(() => {
         if (formData !== prevProps.formData || selectedTabType !== prevProps.selectedTabType) {
-            batch(() => {
-                dispatch(fetchCostingAndEstimatingResults(cAndEPostBody));
-                dispatch(fetchCostingAndEstimatingFilters(cAndEPostBody));
-            });
+            debounce(() => {
+                batch(() => {
+                    dispatch(fetchCostingAndEstimatingResults(cAndEPostBody));
+                    dispatch(fetchCostingAndEstimatingFilters(cAndEPostBody));
+                });
+            }, 500);
         }
     }, [formData, prevProps.formData, prevProps.selectedTabType, selectedTabType]); // Fetch all data on filter change
 
