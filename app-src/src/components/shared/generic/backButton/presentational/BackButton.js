@@ -25,7 +25,7 @@ const BackButton = ({ handleClick, classes = '', backFromForm, location, history
             icon="fa fa-chevron-double-left"
             source="secondary"
             size="medium"
-            extraClasses="back-button"
+            extraClasses="back-btn"
             onClick={handleClick}
         />
     );
