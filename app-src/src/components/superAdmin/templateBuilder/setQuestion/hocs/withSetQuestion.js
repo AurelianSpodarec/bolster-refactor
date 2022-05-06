@@ -151,6 +151,7 @@ export default function (WrappedComponent) {
             const { pinOptions, pinOptionVersions } = this.props;
 
             const optionsWithLatestVersion = Object.values(pinOptions)
+                .filter(opt => !opt.isDeleted && !opt.isDisabled)
                 .filter(opt => opt.pinOptionTypeID === optionType)
                 .map(opt => ({
                     ...opt,
