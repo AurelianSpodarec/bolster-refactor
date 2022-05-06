@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 import { batch, useDispatch, useSelector } from 'react-redux';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useForm } from 'helpers/hooks';
 import usePrevious from 'hooks/usePrevious';
 import useCurrentHierarchyID from './useCurrentHierarchyID';
@@ -31,7 +31,7 @@ import {
 } from '../_helpers/helpers';
 import { costingAndEstimatingType } from '../../../../constants/companyAdmin/enums';
 import { selectPrelimPostSuccess } from '../../../../selectors/companyAdmin/prelims';
-import { debounce, isEmpty } from 'helpers/generic';
+import { isEmpty } from 'helpers/generic';
 import fetchCompanyOperatives from 'actions/companyAdmin/operatives/async/fetchCompanyOperatives';
 import fetchAllServices from 'actions/companyAdmin/services/async/fetchAllServices';
 import fetchPinOptionTypes from 'actions/companyAdmin/pinOptions/async/fetchPinOptionTypes';
@@ -40,6 +40,7 @@ import fetchPinOptionSets from 'actions/companyAdmin/pinOptions/async/fetchPinOp
 import fetchPinOptionVersions from 'actions/companyAdmin/pinOptions/async/fetchPinOptionVersions';
 
 const useCostingAndEstimating = () => {
+    const [lastFetch, setLastFetch] = useState(0); // For debounce
     const filters = useSelector(selectCostingAndEstimatingFilters);
     const results = useSelector(selectCostingAndEstimatingResults);
     const isFetchingResults = useSelector(selectCostingAndEstimatingResultsIsFetching);
@@ -274,14 +275,18 @@ const useCostingAndEstimating = () => {
             dispatch(fetchPinOptions());
             dispatch(fetchPinOptionVersions());
         });
+        setLastFetch(moment().valueOf());
     }, []); // Fetch all data on page load
 
     useEffect(() => {
         if (formData !== prevProps.formData || selectedTabType !== prevProps.selectedTabType) {
-            batch(() => {
-                dispatch(fetchCostingAndEstimatingResults(cAndEPostBody));
-                dispatch(fetchCostingAndEstimatingFilters(cAndEPostBody));
-            });
+            if (moment().valueOf() - lastFetch > 1000) {
+                batch(() => {
+                    dispatch(fetchCostingAndEstimatingResults(cAndEPostBody));
+                    dispatch(fetchCostingAndEstimatingFilters(cAndEPostBody));
+                });
+                setLastFetch(moment().valueOf()); // Primitive debounce - normal function didn't work
+            }
         }
     }, [formData, prevProps.formData, prevProps.selectedTabType, selectedTabType]); // Fetch all data on filter change
 
