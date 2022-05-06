@@ -6,11 +6,7 @@ import FlexWrapper from '../../flexWrapper/FlexWrapper';
 const FlexHeading = ({ children, title, withBackButton = false }) => (
     <div className="page-heading flex-heading size-lg-12">
         <FlexWrapper justify="between" align="center" extraClasses="content-container size-lg-12">
-            {withBackButton && (
-                <div className="back-button">
-                    <BackButtonContainer />
-                </div>
-            )}
+            {withBackButton && <BackButtonContainer />}
 
             <h1 className="heading heading-1 flex">{title}</h1>
 
