@@ -35,6 +35,10 @@
         margin-left: 15px;
     }
 
+    &[data-position="fully-right"] {
+        margin-left: auto;
+    }
+
     &[data-position="left"] {
         margin-right: 15px;
     }

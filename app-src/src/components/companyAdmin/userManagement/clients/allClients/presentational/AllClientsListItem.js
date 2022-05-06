@@ -1,8 +1,10 @@
 import React from 'react';
 
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import ActionMenu from 'components/shared/actionMenu/ActionMenu';
+import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
+import FlexWrapper from '../../../../../../components/shared/generic/flexWrapper/FlexWrapper';
 
 const AllClientsListItem = ({
     client,
@@ -45,26 +47,21 @@ const AllClientsListItem = ({
         </td>
         <td>
             {onMobile && <span className="mobile-table-heading">{headers[6]}</span>}
-            <BlockButtonWrapper>
+            <FlexWrapper justify="between" align="center">
                 <ButtonContainer to={`/company/users-management/clients/${client.id}`}>
                     View
                 </ButtonContainer>
-                <button className="button yellow" onClick={goToEdit}>
-                    <i className="fal fa-pencil" /> Edit
-                </button>
-                <button className="button yellow" onClick={goToEditEmail}>
-                    <i className="fal fa-at" /> Edit Email
-                </button>
-                <button
-                    className={`button ${client.isDisabled ? 'green' : 'red'}`}
-                    onClick={disableClient}
-                >
-                    <i className="fal fa-ban" /> {client.isDisabled ? 'Enable' : 'Disable'}
-                </button>
-                <button className="button red" onClick={deleteClient}>
-                    <i className="fal fa-trash-alt" /> Delete
-                </button>
-            </BlockButtonWrapper>
+
+                <ActionMenu ellipsisPosition="fully-right">
+                    <ActionMenuActionButton text="Edit" onClick={goToEdit} />
+                    <ActionMenuActionButton text="Edit Email" onClick={goToEditEmail} />
+                    <ActionMenuActionButton
+                        onClick={disableClient}
+                        text={client.isDisabled ? 'Enable' : 'Disable'}
+                    />
+                    <ActionMenuActionButton text="Delete" onClick={deleteClient} />
+                </ActionMenu>
+            </FlexWrapper>
         </td>
     </tr>
 );
