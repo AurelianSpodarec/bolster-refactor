@@ -28,7 +28,7 @@ const ActivityLog = () => {
 
     return (
         <>
-            <PageHeading title="Activity Log" withBackButton />
+            <PageHeading title="Activity Log" />
 
             <Block>
                 <BlockHeading title="Activity Log">

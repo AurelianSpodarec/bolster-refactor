@@ -5,6 +5,9 @@
 
     &.heading-1 {
         font-size: 220%;
+        &.centered-align {
+            align-self: center;
+        }
     }
     &.heading-2 {
         font-size: 200%;
@@ -17,6 +20,7 @@
 // page headings
 .page-heading {
     margin-bottom: 10px;
+   
 
     &.left-controls {
         .heading {

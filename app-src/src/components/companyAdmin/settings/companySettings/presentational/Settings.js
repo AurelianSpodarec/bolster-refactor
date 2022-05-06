@@ -22,7 +22,7 @@ const Settings = ({ isFetching, error, companySettings: company, onMobile }) => 
     const notProvided = 'Not Provided';
     return (
         <>
-            <PageHeading title="Company Settings" withBackButton>
+            <PageHeading title="Company Settings">
                 <Link className="button yellow" to="/company/settings/edit-settings">
                     <i className="far fa-pencil" />
                     Edit Settings
