@@ -39,6 +39,7 @@ const TemplateQuestionFormModal = ({
     handlePrefillStatusValueChange,
     showPrefillOptions,
     serviceID,
+    pinOptions,
     ...otherFields
 }) => {
     return (

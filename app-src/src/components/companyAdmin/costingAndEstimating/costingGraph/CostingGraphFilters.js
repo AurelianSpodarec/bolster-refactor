@@ -34,8 +34,8 @@ const CostingGraphFilters = ({ filterFormData, filters, onChange }) => {
             name: 'Operatives',
             options: Object.values(operativeCompanyUserIDs).map(id => ({
                 id,
-                name: `${companyOperatives[id]?.userFirstName || 'Rob'} ${
-                    companyOperatives[id]?.userLastName || 'Fairclough'
+                name: `${companyOperatives[id]?.userFirstName || ''} ${
+                    companyOperatives[id]?.userLastName || ''
                 }`, // TO DO
             })),
             type: COSTING_GRAPH_FILTER_TYPES.OPERATIVES,
