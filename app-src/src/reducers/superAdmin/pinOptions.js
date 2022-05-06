@@ -5,6 +5,9 @@ import {
     FETCH_ADMIN_PIN_OPTIONS_REQUEST,
     FETCH_ADMIN_PIN_OPTIONS_SUCCESS,
     FETCH_ADMIN_PIN_OPTIONS_FAILURE,
+    FETCH_ADMIN_PIN_OPTIONS_FOR_COMPANY_SUCCESS,
+    FETCH_ADMIN_PIN_OPTIONS_FOR_COMPANY_FAILURE,
+    FETCH_ADMIN_PIN_OPTIONS_FOR_COMPANY_REQUEST,
 } from 'constants/actionTypes/pinOptions';
 
 export default combineReducers({
@@ -16,9 +19,12 @@ export default combineReducers({
 function isFetchingReducer(state = false, action) {
     switch (action.type) {
         case FETCH_ADMIN_PIN_OPTIONS_REQUEST:
+        case FETCH_ADMIN_PIN_OPTIONS_FOR_COMPANY_REQUEST:
             return true;
         case FETCH_ADMIN_PIN_OPTIONS_SUCCESS:
         case FETCH_ADMIN_PIN_OPTIONS_FAILURE:
+        case FETCH_ADMIN_PIN_OPTIONS_FOR_COMPANY_SUCCESS:
+        case FETCH_ADMIN_PIN_OPTIONS_FOR_COMPANY_FAILURE:
             return false;
         default:
             return state;
@@ -39,6 +45,7 @@ function fetchErrorReducer(state = null, action) {
 function optionsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_ADMIN_PIN_OPTIONS_SUCCESS:
+        case FETCH_ADMIN_PIN_OPTIONS_FOR_COMPANY_SUCCESS:
             return convertArrToObj(action.payload);
         default:
             return state;

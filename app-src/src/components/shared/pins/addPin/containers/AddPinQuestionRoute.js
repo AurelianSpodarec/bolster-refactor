@@ -290,9 +290,12 @@ const AddPinQuestionRoute = ({
                     preReqType,
                 )
             ) {
-                preReqAnswers = preReqAnswers?.map(ans => ans.pinOptionVersionID);
+                preReqAnswers = preReqAnswers?.map(ans => {
+                    const version = pinOptionVersions?.[ans.pinOptionVersionID];
+                    return version?.pinOptionID;
+                });
             }
-
+            console.log({ preReqType, prereqVals, preReqAnswers });
             return preReqAnswers.some(answer =>
                 prereqVals.some(val => {
                     if (!val.includes('#PREREQ_ID_')) {
@@ -429,7 +432,7 @@ const mapStateToProps = ({
         pinAnswersReducer: { answers: oldAnswers },
         pinHistoriesReducer: { histories },
         pinsReducer: { pins, isFetching: isFetchingPins },
-        pinOptionVersionsReducer: { pinOptionVersions },
+        pinOptionVersionsReducer: { versions: pinOptionVersions },
         companySettingsReducer: { companySettings },
     },
     shared: {

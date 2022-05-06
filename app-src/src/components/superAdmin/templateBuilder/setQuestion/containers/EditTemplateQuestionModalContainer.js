@@ -21,7 +21,7 @@ const EditTemplateQuestionModalContainerFN = ({
     showPrefillOptions,
     question,
     updateQuestionFields,
-    dropdownOptions,
+    pinOptions,
     template,
 }) => {
     const { serviceID } = template;
@@ -45,7 +45,7 @@ const EditTemplateQuestionModalContainerFN = ({
             handlePrefillStatusValueChange={handlePrefillStatusValueChange}
             showPrefillOptions={showPrefillOptions}
             handlePrereqOptionsChange={handlePrereqOptionsChange}
-            dropdownOptions={dropdownOptions}
+            pinOptions={pinOptions}
             serviceID={serviceID}
         />
     );

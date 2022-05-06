@@ -14,6 +14,8 @@ const DashboardLineGraph = () => {
     const isFetching = false;
     const { data, options, graphRef } = useDashboardLineGraph(graph);
 
+    console.log(graph);
+
     return (
         <Block containerClass="flex-row-item size-lg-6 size-md-12">
             <BlockHeading title="Costing Totals" />

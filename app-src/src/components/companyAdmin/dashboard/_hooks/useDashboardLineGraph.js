@@ -36,7 +36,7 @@ const useDashboardLineGraph = graph => {
         gradient.addColorStop(1, '#00000000');
 
         return {
-            labels: graph?.labels || [],
+            labels: graph.labels || [],
             datasets: [
                 {
                     backgroundColor: gradient, // Put the gradient here as a fill color
@@ -45,7 +45,7 @@ const useDashboardLineGraph = graph => {
                     pointRadius: 0,
                     hitRadius: 500,
                     label: '',
-                    data: graph?.dataSets?.[0].data || [],
+                    data: graph.dataSets?.[0].data || [],
                 },
             ],
         };
@@ -63,11 +63,11 @@ const useDashboardLineGraph = graph => {
                     gridLines: {
                         display: true,
                         zeroLineColor: colourTheme === 'dark' ? '#494c5b' : '#F2F2F2',
-                        color: 'transparent',
+                        // color: 'transparent',
                         tickMarkLength: false,
                     },
                     ticks: {
-                        display: false,
+                        // display: false,
                         beginAtZero: true,
                     },
                 },
@@ -82,7 +82,7 @@ const useDashboardLineGraph = graph => {
                         tickMarkLength: false,
                     },
                     ticks: {
-                        display: false,
+                        // display: false,
                         beginAtZero: true,
                     },
                 },
