@@ -6,7 +6,7 @@
     &.heading-1 {
         font-size: 220%;
         &.centered-align {
-            align-self: center;
+            top: 10px;
         }
     }
     &.heading-2 {
@@ -44,7 +44,6 @@
     .back-button {
         float: left;
         width: auto;
-        margin-right: 1em;
     }
     .heading {
         float: left;
