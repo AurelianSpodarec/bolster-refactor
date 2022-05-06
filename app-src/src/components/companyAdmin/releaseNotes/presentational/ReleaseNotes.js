@@ -9,7 +9,7 @@ import { RAW_S3_STORAGE_URL } from 'config';
 const ReleaseNotes = ({ releaseNotes }) => {
     return (
         <>
-            <PageHeading title="Release Notes" withBackButton />
+            <PageHeading title="Release Notes" />
 
             {releaseNotes
                 .sort((a, b) => moment(b.publishDate) - moment(a.publishDate))

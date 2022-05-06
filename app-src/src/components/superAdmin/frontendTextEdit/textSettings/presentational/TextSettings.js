@@ -9,7 +9,7 @@ import FieldOutput from 'components/shared/generic/fieldOutput/presentational/Fi
 const TextSettings = ({ loginText, isFetching, error }) => {
     return (
         <>
-            <PageHeading title="Frontend Text Settings" withBackButton>
+            <PageHeading title="Frontend Text Settings">
                 <Link className="button yellow" to="/admin/text-settings/edit-settings">
                     <i className="far fa-pencil" />
                     Edit Settings

@@ -19,7 +19,7 @@ const UpcomingAlerts = ({ error, isFetching, alerts }) => {
 
     return (
         <>
-            <PageHeading title="Upcoming Alerts" withBackButton />
+            <PageHeading title="Upcoming Alerts" />
 
             <BlockContainer isFetching={isFetching} error={error} isEmpty={isEmpty(alerts)}>
                 <BlockHeading title="Alerts" />

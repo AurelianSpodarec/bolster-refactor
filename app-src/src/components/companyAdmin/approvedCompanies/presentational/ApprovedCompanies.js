@@ -6,7 +6,7 @@ import ApprovedCompaniesRoutesContainer from '../containers/ApprovedCompaniesRou
 
 const ApprovedCompanies = ({ companies }) => (
     <>
-        <PageHeading title="Bolster Approved Companies" withBackButton>
+        <PageHeading title="Bolster Approved Companies">
             <TabsContainer classes="no-breadcrumb" />
         </PageHeading>
 

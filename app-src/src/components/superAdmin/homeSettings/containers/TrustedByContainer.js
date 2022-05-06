@@ -21,7 +21,7 @@ const TrustedByContainer = () => {
 
     return (
         <>
-            <PageHeading title="Frontend Trusted By Settings" withBackButton>
+            <PageHeading title="Frontend Trusted By Settings">
                 <Link className="button yellow" to="/admin/trusted-by-settings/edit-settings">
                     <i className="far fa-pencil" />
                     Edit Settings

@@ -7,7 +7,7 @@ import ServiceTableContainer from '../containers/ServiceTableContainer';
 
 const AllServices = () => (
     <>
-        <PageHeading title="Services" withBackButton>
+        <PageHeading title="Services">
             <Link to="/admin/services/create" className="button green">
                 <i className="fa fa-plus" />
                 Add service

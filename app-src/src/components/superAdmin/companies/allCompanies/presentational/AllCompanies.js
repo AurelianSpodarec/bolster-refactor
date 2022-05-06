@@ -8,7 +8,7 @@ import CompaniesFiltersContainer from '../../shared/containers/CompaniesFiltersC
 
 const AllCompanies = () => (
     <>
-        <PageHeading title="Companies" withBackButton />
+        <PageHeading title="Companies" />
         <BlockContainer>
             <CompaniesFiltersContainer />
         </BlockContainer>
