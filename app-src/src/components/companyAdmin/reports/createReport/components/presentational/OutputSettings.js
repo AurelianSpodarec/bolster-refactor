@@ -13,6 +13,9 @@ import { ReactComponent as CsvIcon } from '_content/images/icons/CSV-Outline.svg
 import { ReactComponent as DocIcon } from '_content/images/icons/doc-Outline.svg';
 import FlexWrapper from '../../../../../shared/generic/flexWrapper/FlexWrapper';
 import Tickbox from '../../../../../shared/generic/form/presentational/Tickbox';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const OutputSettings = ({
     handleSubmit,
@@ -166,12 +169,13 @@ const OutputSettings = ({
                         <div className="size-lg-6 size-md-12">
                             <ImageVisualContainer />
                         </div>
-                        <BlockButtonWrapper>
-                            <button className="button green" onClick={handleSubmit}>
-                                <i className="fa fa-file" />
-                                Generate report
-                            </button>
-                        </BlockButtonWrapper>
+                        <FlexWrapper align="end" justify="end">
+                            <ActionButton
+                                onClick={handleSubmit}
+                                text="Generate Report"
+                                size="small"
+                            />
+                        </FlexWrapper>
                     </div>
                 </div>
             </BlockContainer>

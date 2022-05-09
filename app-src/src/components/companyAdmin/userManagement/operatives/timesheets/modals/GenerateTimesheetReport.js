@@ -1,7 +1,8 @@
 import ImageVisualContainer from 'components/companyAdmin/reports/createReport/components/containers/ImageVisualContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import Field from 'components/shared/generic/form/presentational/Field';
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
@@ -76,12 +77,13 @@ const GenerateTimesheetReportModal = ({
                                     }}
                                 />
                             </div>
-                            <BlockButtonWrapper>
-                                <button className="button green" onClick={handleSubmit}>
-                                    <i className="fa fa-file" />
-                                    Generate report
-                                </button>
-                            </BlockButtonWrapper>
+                            <FlexWrapper align="end" justify="end">
+                                <ActionButton
+                                    onClick={handleSubmit}
+                                    text="Generate Report"
+                                    size="small"
+                                />
+                            </FlexWrapper>
                         </div>
                     </div>
                 </BlockContainer>
