@@ -17,23 +17,17 @@ class EditSiteFormContainer extends Component {
     };
 
     render() {
-        const { isUsingBolsterLabels, error } = this.props;
-        const { areOptionsLoaded } = this.state;
+        const { isUsingBolsterLabels, error, siteID, hideModal } = this.props;
 
         return (
-            <BlockContainer
-                isEmpty={!areOptionsLoaded}
-                isFetching={!areOptionsLoaded}
-                error={error}
-                contentClass="no-padding"
-            >
+            <BlockContainer error={error} contentClass="no-padding">
                 <EditSiteForm
                     {...this.state}
                     handleInputChange={this.handleInputChange}
                     handleDateChange={this.handleDateChange}
                     handleSubmit={this.handleSubmit}
-                    siteID={this.props.siteID}
-                    hideModal={this.props.hideModal}
+                    siteID={siteID}
+                    hideModal={hideModal}
                     isUsingBolsterLabels={isUsingBolsterLabels}
                 />
             </BlockContainer>
@@ -41,8 +35,7 @@ class EditSiteFormContainer extends Component {
     }
 
     componentDidUpdate = prevProps => {
-        const { site } = this.props;
-        if (!prevProps.site.id && !!site.id) {
+        if (!prevProps.site.id && !!this.props.site.id) {
             this._setFormDetails();
         }
     };
@@ -71,9 +64,6 @@ class EditSiteFormContainer extends Component {
             postcode,
         });
     };
-
-    //write a "helper" function that will update state with site details.
-    //if !site.id is empty/unidentified (!site.id is equal to unidentified, which is a falsey) and now no longer empty
 
     handleSubmit = e => {
         e.preventDefault();
