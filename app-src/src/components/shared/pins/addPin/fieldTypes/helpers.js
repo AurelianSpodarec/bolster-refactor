@@ -92,7 +92,7 @@ export const useFilterPinOptions = (
 
         formattedOpts = filteredOptions.map(option => ({
             value: option.latestVersion.id,
-            label: option.latestVersion.name,
+            label: option.latestVersion.shortName || option.latestVersion.name,
             id: option.latestVersion.id,
             sort: option.sort,
             createdOn: option.createdOn,
@@ -112,7 +112,7 @@ export const useFilterPinOptions = (
                     if (!isOtherVersionPresent) {
                         formattedOpts.push({
                             value: version.id,
-                            label: version.name,
+                            label: version.shortName || version.name,
                             id: version.id,
                             sort: version.sort,
                             createdOn: version.createdOn,
@@ -124,7 +124,7 @@ export const useFilterPinOptions = (
     } else {
         formattedOpts = filteredOptions.map(option => ({
             value: option.latestVersion.id,
-            label: option.latestVersion.name,
+            label: option.latestVersion.shortName || option.latestVersion.name,
             id: option.latestVersion.id,
             sort: option.sort,
             createdOn: option.createdOn,
