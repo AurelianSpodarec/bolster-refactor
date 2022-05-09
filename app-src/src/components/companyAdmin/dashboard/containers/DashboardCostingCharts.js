@@ -1,25 +1,30 @@
-import React, { useState } from 'react';
-import { connect, useSelector } from 'react-redux';
+import React from 'react';
+import { connect } from 'react-redux';
 import { isIE } from 'react-device-detect';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import { isEmpty } from 'helpers/generic';
 import DashboardLineGraph from '../presentational/DashboardLineGraph';
 import DashboardBarChartContainer from './DashboardBarChartContainer';
-import { selectIsCostingEnabled } from 'selectors/companyAdmin/companySettings';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import Block from 'components/shared/generic/block/presentational/Block';
 
-const DashboardCostingCharts = ({ isFetching, error, datasets }) => {
-    const isCostingEnabled = useSelector(selectIsCostingEnabled);
+const DashboardCostingCharts = ({ isFetching, error, datasets, showLineGraph }) => {
+    const isDataEmpty = showLineGraph ? isEmpty(datasets) || isEmpty(datasets) : isEmpty(datasets); // TODO - need to check emptiness of costing graph too
     return !isIE ? (
-        <BlockContainer
-            isFetching={isFetching}
-            error={error}
-            isEmpty={isEmpty(datasets)} // TODO - might need extra logic
-            containerClass="size-lg-12"
-            noWhiteBackground
-        >
-            {isCostingEnabled ? <DashboardLineGraph /> : <DashboardBarChartContainer />}
-        </BlockContainer>
+        <Block containerClass="flex-row-item size-lg-6 size-md-12">
+            <BlockHeading title={showLineGraph ? 'Costing Totals' : 'Pins added by operatives'} />
+
+            <BlockContainer
+                isFetching={isFetching}
+                error={error}
+                isEmpty={isDataEmpty}
+                containerClass="size-lg-12"
+                noWhiteBackground
+            >
+                {showLineGraph ? <DashboardLineGraph /> : <DashboardBarChartContainer />}
+            </BlockContainer>
+        </Block>
     ) : (
         <BlockContainer
             error={'Charts are not supported on Internet Explorer'}
@@ -34,6 +39,7 @@ const mapStateToProps = ({
             isFetchingDashPinsStats,
             error,
             dashRecentPinsStats: { datasets = {} },
+            // TODO - will be another key for costing graph data
         },
     },
 }) => ({

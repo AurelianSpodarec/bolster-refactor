@@ -9,10 +9,12 @@ import { useConfirmDarkTheme } from 'helpers/hooks';
 import DashboardPinHistoryCharts from '../containers/DashboardPinHistoryCharts';
 import { isIE } from 'react-device-detect';
 import DashboardCostingCharts from '../containers/DashboardCostingCharts';
+import { useSelector } from 'react-redux';
+import { selectIsCostingEnabled } from 'selectors/companyAdmin/companySettings';
 
 const Dashboard = ({ isIE10 }) => {
     useConfirmDarkTheme('/company/profile');
-
+    const showLineGraph = useSelector(selectIsCostingEnabled); // TODO - will be based on costing graph data from dashboard response (null/not null)
     return (
         <>
             <PageHeading title="Dashboard" />
@@ -27,12 +29,12 @@ const Dashboard = ({ isIE10 }) => {
                 <>
                     <DashboardStatsFiltersContainer />
                     <div className="flex-row flex-wrap width-12 size-lg-12">
-                        <DashboardCostingCharts />
+                        <DashboardCostingCharts showLineGraph={showLineGraph} />
                         <DashboardDataByContainer />
                     </div>
                     <div className="flex-row flex-wrap width-12 size-lg-12">
                         {!isIE ? (
-                            <DashboardPinHistoryCharts />
+                            <DashboardPinHistoryCharts showLineGraph={showLineGraph} />
                         ) : (
                             <BlockContainer
                                 error={'Pie charts not supported on Internet Explorer'}
