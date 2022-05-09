@@ -8,15 +8,7 @@ const AllClientTableContainer = () => {
 
     return (
         <AllClientsTable
-            headers={[
-                'Name',
-                'Company',
-                'Email',
-                'Phone',
-                'Last login date',
-                'Latest report date',
-                '',
-            ]}
+            headers={['Name', 'Company', 'Phone', 'Last login date', 'Latest report date', '']}
             clients={_sortClientsList()}
             isFetching={isFetching}
             error={error}

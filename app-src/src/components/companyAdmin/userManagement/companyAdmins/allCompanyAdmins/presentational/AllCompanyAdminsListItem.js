@@ -34,7 +34,6 @@ const AllCompanyAdminsListItem = ({
 
     const lowMemMessage = getLowMemoryMessage(user.deviceRAM, user.physicalStorageAvailable);
 
-    const isRowRed = lowMemMessage !== null || showNotUpsyncedRecentlyWarning || drawingLimitMaxed;
     const upsyncedMessage = tooltipDate
         ? `This admin has not upsynced in ${tooltipDate} days`
         : 'This admin has never upsynced.';
@@ -53,26 +52,13 @@ const AllCompanyAdminsListItem = ({
         <p>No linked device</p>
     );
 
-    const deviceNameColour = getDeviceNameColour(user.deviceRAM, user.physicalStorageAvailable);
+    const isDeviceNameColour = getDeviceNameColour(user.deviceRAM, user.physicalStorageAvailable);
+
+    const deviceNameColour = isDeviceNameColour && user.linkedDeviceName ? isDeviceNameColour : '';
 
     return (
-        <tr key={user.id} className={`${isDisabled ? 'grey-row' : isRowRed ? 'red-row' : ''}`}>
+        <tr key={user.id} className={isDisabled ? 'grey-row' : ''}>
             <td>
-                {isRowRed && (
-                    <TooltipContainer
-                        htmlText={`${
-                            showNotUpsyncedRecentlyWarning ? `<p>${upsyncedMessage}</p>` : ''
-                        } ${lowMemMessage ? `<p>${lowMemMessage}</p>` : ''} 
-                        ${
-                            drawingLimitColour === 'red'
-                                ? '<p>This operative has reached the maximum number of drawings.</p>'
-                                : ''
-                        }`}
-                        containerSide="left"
-                    >
-                        <i className="far fa-exclamation-triangle red-icon" />
-                    </TooltipContainer>
-                )}
                 {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
                 <span>{nameString}</span>
                 <br />
@@ -89,7 +75,11 @@ const AllCompanyAdminsListItem = ({
 
             <td>
                 {onMobile && <span className="mobile-table-heading">{headers[3]}</span>}
-                <TooltipContainer text={tooltipText} containerSide="left" side="bottom">
+                <TooltipContainer
+                    text={deviceNameColour ? lowMemMessage : tooltipText}
+                    containerSide="left"
+                    side="bottom"
+                >
                     <span className={deviceNameColour}>
                         {deviceNameColour ? (
                             <i className={`fal fa-exclamation-triangle ${deviceNameColour}`}></i>
@@ -102,6 +92,11 @@ const AllCompanyAdminsListItem = ({
             </td>
 
             <td>
+                {showNotUpsyncedRecentlyWarning && (
+                    <TooltipContainer text={upsyncedMessage} containerSide="left">
+                        <i className="far fa-exclamation-triangle red-icon" />
+                    </TooltipContainer>
+                )}
                 {onMobile && <span className="mobile-table-heading">{headers[5]}</span>}
                 {user.lastUpSynced ? <DateTimeContainer date={user.lastUpSynced} /> : '-'}
             </td>
@@ -112,6 +107,18 @@ const AllCompanyAdminsListItem = ({
             </td>
 
             <td>
+                <TooltipContainer
+                    htmlText={`
+                        ${
+                            drawingLimitColour === 'red'
+                                ? '<p>This operative has reached the maximum number of drawings.</p>'
+                                : ''
+                        }`}
+                    containerSide="left"
+                >
+                    {drawingLimitMaxed && <i className="far fa-exclamation-triangle red-icon" />}
+                </TooltipContainer>
+
                 {onMobile && <span className="mobile-table-heading">{headers[8]}</span>}
                 <span className={`limit-${drawingLimitColour}`}>
                     {`${user.drawingCount}/${maxDrawingsPerOperative}`}
