@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 import { measurementDropdownOptions } from 'constants/shared/dropdowns';
+import { MEASUREMENT_TYPES_OUTPUTS_PLURAL } from 'constants/companyAdmin/enums';
 
 import { selectPinOptionType } from 'selectors/companyAdmin/pinOptionTypes';
 
@@ -40,6 +41,8 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
 
     const priceBreaksLength = form.measurementPriceBreaks.length;
     const isMultiplePriceBreaks = priceBreaksLength > 1;
+
+    const measurementTypeOutput = MEASUREMENT_TYPES_OUTPUTS_PLURAL[form.measurementType];
 
     return (
         <ModalOuterContainer hideCloseButton>
@@ -106,6 +109,14 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                         </Field>
                         {!!form.measurementType && (
                             <>
+                                {measurementTypeOutput && (
+                                    <Field classes="no-min-height">
+                                        <p className="generic-text size-lg-12">
+                                            {`Please enter your measurement breakpoints in ${measurementTypeOutput}.`}
+                                        </p>
+                                    </Field>
+                                )}
+
                                 <div className="measurement-fields-grid">
                                     <Field name="Measurement" />
                                     <Field name="Price" />
