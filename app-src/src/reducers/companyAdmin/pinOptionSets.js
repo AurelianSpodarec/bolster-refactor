@@ -20,6 +20,9 @@ import {
     DELETE_PIN_OPTION_SET_REQUEST,
     DELETE_PIN_OPTION_SET_SUCCESS,
     DELETE_PIN_OPTION_SET_FAILURE,
+    DUPLICATE_PIN_OPTION_SET_REQUEST,
+    DUPLICATE_PIN_OPTION_SET_SUCCESS,
+    DUPLICATE_PIN_OPTION_SET_FAILURE,
     SET_OPTION_SET_AS_DEFAULT_REQUEST,
     SET_OPTION_SET_AS_DEFAULT_SUCCESS,
     SET_OPTION_SET_AS_DEFAULT_FAILURE,
@@ -35,6 +38,7 @@ export default combineReducers({
     postError: postErrorReducer,
     postSuccess: postSuccessReducer,
     deleteSuccess: deleteSuccessReducer,
+    duplicateSuccess: duplicateSuccessReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -67,6 +71,7 @@ function isPostingReducer(state = false, action) {
         case ENABLE_PIN_OPTION_SET_REQUEST:
         case DISABLE_PIN_OPTION_SET_REQUEST:
         case DELETE_PIN_OPTION_SET_REQUEST:
+        case DUPLICATE_PIN_OPTION_SET_REQUEST:
         case SET_OPTION_SET_AS_DEFAULT_REQUEST:
             return true;
         case CREATE_PIN_OPTION_SET_SUCCESS:
@@ -79,6 +84,8 @@ function isPostingReducer(state = false, action) {
         case DISABLE_PIN_OPTION_SET_FAILURE:
         case DELETE_PIN_OPTION_SET_SUCCESS:
         case DELETE_PIN_OPTION_SET_FAILURE:
+        case DUPLICATE_PIN_OPTION_SET_SUCCESS:
+        case DUPLICATE_PIN_OPTION_SET_FAILURE:
         case SET_OPTION_SET_AS_DEFAULT_SUCCESS:
         case SET_OPTION_SET_AS_DEFAULT_FAILURE:
         case SET_API_FIELD_ERRORS:
@@ -95,6 +102,7 @@ function postErrorReducer(state = null, action) {
         case ENABLE_PIN_OPTION_SET_REQUEST:
         case DISABLE_PIN_OPTION_SET_REQUEST:
         case DELETE_PIN_OPTION_SET_REQUEST:
+        case DUPLICATE_PIN_OPTION_SET_REQUEST:
         case SET_OPTION_SET_AS_DEFAULT_REQUEST:
             return null;
         case CREATE_PIN_OPTION_SET_FAILURE:
@@ -102,6 +110,7 @@ function postErrorReducer(state = null, action) {
         case ENABLE_PIN_OPTION_SET_FAILURE:
         case DISABLE_PIN_OPTION_SET_FAILURE:
         case DELETE_PIN_OPTION_SET_FAILURE:
+        case DUPLICATE_PIN_OPTION_SET_FAILURE:
         case SET_OPTION_SET_AS_DEFAULT_FAILURE:
             return action.error;
         default:
@@ -116,6 +125,7 @@ function postSuccessReducer(state = false, action) {
         case ENABLE_PIN_OPTION_SET_REQUEST:
         case DISABLE_PIN_OPTION_SET_REQUEST:
         case DELETE_PIN_OPTION_SET_REQUEST:
+        case DUPLICATE_PIN_OPTION_SET_REQUEST:
         case SET_OPTION_SET_AS_DEFAULT_REQUEST:
             return false;
         case CREATE_PIN_OPTION_SET_SUCCESS:
@@ -123,6 +133,7 @@ function postSuccessReducer(state = false, action) {
         case ENABLE_PIN_OPTION_SET_SUCCESS:
         case DISABLE_PIN_OPTION_SET_SUCCESS:
         case DELETE_PIN_OPTION_SET_SUCCESS:
+        case DUPLICATE_PIN_OPTION_SET_SUCCESS:
         case SET_OPTION_SET_AS_DEFAULT_SUCCESS:
             return true;
         default:
@@ -141,6 +152,17 @@ function deleteSuccessReducer(state = false, action) {
     }
 }
 
+function duplicateSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case DUPLICATE_PIN_OPTION_SET_REQUEST:
+            return false;
+        case DUPLICATE_PIN_OPTION_SET_SUCCESS:
+            return true;
+        default:
+            return state;
+    }
+}
+
 function setsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_PIN_OPTION_SETS_SUCCESS:
@@ -152,6 +174,7 @@ function setsReducer(state = {}, action) {
         case SET_OPTION_SET_AS_DEFAULT_SUCCESS:
         case ENABLE_PIN_OPTION_SET_FAILURE:
         case DISABLE_PIN_OPTION_SET_FAILURE:
+        case DUPLICATE_PIN_OPTION_SET_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
         case SET_OPTION_SET_AS_DEFAULT_FAILURE:
             return updateObjDefaultOnFailure(state, action.newDefaultSet, action.oldDefaultSet);
