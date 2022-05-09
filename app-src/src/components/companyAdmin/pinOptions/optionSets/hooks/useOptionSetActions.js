@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
+    CONFIRM_SUBMIT,
     CREATE_PIN_OPTIONS_SET_MODAL,
     EDIT_PIN_OPTIONS_SET_MODAL,
     ERROR_MODAL,
@@ -10,20 +11,24 @@ import { usePrevious } from 'helpers/hooks';
 
 import setOptionSetAsDefault from 'actions/companyAdmin/pinOptions/async/setOptionSetAsDefault';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
+import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 import enablePinOptionSet from 'actions/companyAdmin/pinOptions/async/enablePinOptionSet';
 import disablePinOptionSet from 'actions/companyAdmin/pinOptions/async/disablePinOptionSet';
 import {
     selectPinOptionDefaultSet,
     selectPinOptionSetsIsPosting,
     selectPinOptionSetsPostError,
+    selectPinOptionSetsPostSuccess,
 } from 'selectors/companyAdmin/pinOptionSets';
+import deletePinOptionSet from 'actions/companyAdmin/pinOptions/async/deletePinOptionSet';
 
 const useOptionSetActions = selectedTypeID => {
     const dispatch = useDispatch();
     const isPosting = useSelector(selectPinOptionSetsIsPosting);
     const postError = useSelector(selectPinOptionSetsPostError);
+    const postSuccess = useSelector(selectPinOptionSetsPostSuccess);
 
-    const prevProps = usePrevious({ postError });
+    const prevProps = usePrevious({ postError, postSuccess });
 
     const defaultSet = useSelector(state => selectPinOptionDefaultSet(state, selectedTypeID));
 
@@ -37,6 +42,18 @@ const useOptionSetActions = selectedTypeID => {
 
     const showEditModal = set => {
         dispatch(showModal(EDIT_PIN_OPTIONS_SET_MODAL, { set }));
+    };
+
+    const showDeleteModal = set => {
+        dispatch(
+            showModal(CONFIRM_SUBMIT, {
+                handleSubmit: () => dispatch(deletePinOptionSet(set.id)),
+                title: `Delete ${set.name}?`,
+                message: 'Are you sure you would like to delete this set?',
+                submitButtonText: 'Delete',
+                submitButtonIcon: 'trash-alt',
+            }),
+        );
     };
 
     const enableOptionSet = set => {
@@ -55,9 +72,14 @@ const useOptionSetActions = selectedTypeID => {
         if (postError && !prevProps.postError) dispatch(showModal(ERROR_MODAL));
     }, [postError, prevProps.postError]);
 
+    useEffect(() => {
+        if (postSuccess && !prevProps.postSuccess) dispatch(hideModal());
+    }, [postSuccess, prevProps.postSuccess]);
+
     return {
         showAddModal,
         showEditModal,
+        showDeleteModal,
         enableOptionSet,
         disableOptionSet,
         setAsDefault,
