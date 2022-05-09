@@ -782,13 +782,23 @@ export const MEASUREMENT_TYPES = {
 };
 
 export const MEASUREMENT_VALUES = {
-    1: 'Linear',
-    2: 'Square',
-    3: 'Cubic',
-    4: 'Volume',
+    1: 'Linear (m)',
+    2: 'Square (m2)',
+    3: 'Cubic (m3)',
+    4: 'Volume (l)',
     5: 'Number',
     6: 'Fixed Price',
-    7: 'Radius',
+    7: 'Radius (mm)',
+};
+
+export const MEASUREMENT_TYPES_OUTPUTS_PLURAL = {
+    [MEASUREMENT_TYPES.LINEAR]: 'metres',
+    [MEASUREMENT_TYPES.SQUARE]: 'metres',
+    [MEASUREMENT_TYPES.CUBIC]: 'metres',
+    [MEASUREMENT_TYPES.VOLUME]: 'litres',
+    [MEASUREMENT_TYPES.NUMBER]: null,
+    [MEASUREMENT_TYPES.FIXED]: null,
+    [MEASUREMENT_TYPES.RADIUS]: 'millimetres',
 };
 
 export const MEASUREMENT_UNITS = {

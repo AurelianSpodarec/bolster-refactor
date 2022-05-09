@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
+import { measurementDropdownOptions } from '../../../../../constants/shared/dropdowns';
+import { MEASUREMENT_TYPES_OUTPUTS_PLURAL } from 'constants/companyAdmin/enums';
+
 import { selectPinOptionType } from 'selectors/companyAdmin/pinOptionTypes';
 
 import useEditOptionValue from '../hooks/useEditOptionValue';
@@ -18,7 +21,6 @@ import ButtonMultiDropdown from 'components/shared/filters/ButtonMultiDropdown';
 import NumberInputContainer from 'components/shared/generic/form/containers/NumberInputContainer';
 import JustToCheckModal from './JustToCheckModal';
 import DropdownContainer from '../../../../shared/generic/form/containers/DropdownContainer';
-import { measurementDropdownOptions } from '../../../../../constants/shared/dropdowns';
 
 const EditOptionValueModal = ({ option }) => {
     const pinOptionType = useSelector(state => selectPinOptionType(state, option.pinOptionTypeID));
@@ -42,6 +44,8 @@ const EditOptionValueModal = ({ option }) => {
 
     const priceBreaksLength = form.measurementPriceBreaks.length;
     const isMultiplePriceBreaks = priceBreaksLength > 1;
+
+    const measurementTypeOutput = MEASUREMENT_TYPES_OUTPUTS_PLURAL[form.costMeasurementType];
 
     return (
         <ModalOuterContainer hideCloseButton>
@@ -105,6 +109,14 @@ const EditOptionValueModal = ({ option }) => {
                                             handleChange={handleQuickPriceEditChange}
                                             placeholder="Type percentage"
                                         />
+                                    </Field>
+                                )}
+
+                                {measurementTypeOutput && (
+                                    <Field classes="no-min-height">
+                                        <p className="generic-text size-lg-12">
+                                            {`Please enter your measurement breakpoints in ${measurementTypeOutput}.`}
+                                        </p>
                                     </Field>
                                 )}
 

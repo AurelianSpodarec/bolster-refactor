@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { convertArrToObj, updateObj } from 'helpers/generic';
+import { convertArrToObj, removeObjItem, updateObj } from 'helpers/generic';
 import {
     FETCH_PIN_OPTION_SETS_REQUEST,
     FETCH_PIN_OPTION_SETS_SUCCESS,
@@ -17,6 +17,9 @@ import {
     DISABLE_PIN_OPTION_SET_REQUEST,
     DISABLE_PIN_OPTION_SET_SUCCESS,
     DISABLE_PIN_OPTION_SET_FAILURE,
+    DELETE_PIN_OPTION_SET_REQUEST,
+    DELETE_PIN_OPTION_SET_SUCCESS,
+    DELETE_PIN_OPTION_SET_FAILURE,
     SET_OPTION_SET_AS_DEFAULT_REQUEST,
     SET_OPTION_SET_AS_DEFAULT_SUCCESS,
     SET_OPTION_SET_AS_DEFAULT_FAILURE,
@@ -31,6 +34,7 @@ export default combineReducers({
     isPosting: isPostingReducer,
     postError: postErrorReducer,
     postSuccess: postSuccessReducer,
+    deleteSuccess: deleteSuccessReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -62,6 +66,7 @@ function isPostingReducer(state = false, action) {
         case EDIT_PIN_OPTION_SET_REQUEST:
         case ENABLE_PIN_OPTION_SET_REQUEST:
         case DISABLE_PIN_OPTION_SET_REQUEST:
+        case DELETE_PIN_OPTION_SET_REQUEST:
         case SET_OPTION_SET_AS_DEFAULT_REQUEST:
             return true;
         case CREATE_PIN_OPTION_SET_SUCCESS:
@@ -72,6 +77,8 @@ function isPostingReducer(state = false, action) {
         case ENABLE_PIN_OPTION_SET_FAILURE:
         case DISABLE_PIN_OPTION_SET_SUCCESS:
         case DISABLE_PIN_OPTION_SET_FAILURE:
+        case DELETE_PIN_OPTION_SET_SUCCESS:
+        case DELETE_PIN_OPTION_SET_FAILURE:
         case SET_OPTION_SET_AS_DEFAULT_SUCCESS:
         case SET_OPTION_SET_AS_DEFAULT_FAILURE:
         case SET_API_FIELD_ERRORS:
@@ -87,12 +94,14 @@ function postErrorReducer(state = null, action) {
         case EDIT_PIN_OPTION_SET_REQUEST:
         case ENABLE_PIN_OPTION_SET_REQUEST:
         case DISABLE_PIN_OPTION_SET_REQUEST:
+        case DELETE_PIN_OPTION_SET_REQUEST:
         case SET_OPTION_SET_AS_DEFAULT_REQUEST:
             return null;
         case CREATE_PIN_OPTION_SET_FAILURE:
         case EDIT_PIN_OPTION_SET_FAILURE:
         case ENABLE_PIN_OPTION_SET_FAILURE:
         case DISABLE_PIN_OPTION_SET_FAILURE:
+        case DELETE_PIN_OPTION_SET_FAILURE:
         case SET_OPTION_SET_AS_DEFAULT_FAILURE:
             return action.error;
         default:
@@ -106,13 +115,26 @@ function postSuccessReducer(state = false, action) {
         case EDIT_PIN_OPTION_SET_REQUEST:
         case ENABLE_PIN_OPTION_SET_REQUEST:
         case DISABLE_PIN_OPTION_SET_REQUEST:
+        case DELETE_PIN_OPTION_SET_REQUEST:
         case SET_OPTION_SET_AS_DEFAULT_REQUEST:
             return false;
         case CREATE_PIN_OPTION_SET_SUCCESS:
         case EDIT_PIN_OPTION_SET_SUCCESS:
         case ENABLE_PIN_OPTION_SET_SUCCESS:
         case DISABLE_PIN_OPTION_SET_SUCCESS:
+        case DELETE_PIN_OPTION_SET_SUCCESS:
         case SET_OPTION_SET_AS_DEFAULT_SUCCESS:
+            return true;
+        default:
+            return state;
+    }
+}
+
+function deleteSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case DELETE_PIN_OPTION_SET_REQUEST:
+            return false;
+        case DELETE_PIN_OPTION_SET_SUCCESS:
             return true;
         default:
             return state;
@@ -141,6 +163,8 @@ function setsReducer(state = {}, action) {
             });
         case SET_OPTION_SET_AS_DEFAULT_REQUEST:
             return updateObjDefaultOnRequest(state, action.newDefaultSet, action.oldDefaultSet);
+        case DELETE_PIN_OPTION_SET_SUCCESS:
+            return removeObjItem(state, action.id);
         default:
             return state;
     }

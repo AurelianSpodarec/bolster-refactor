@@ -12,6 +12,7 @@ const OptionSetsListItem = ({
     set: { id, name, isDefault, isDisabled },
     setLink,
     showEditModal,
+    showDeleteModal,
     enableOptionSet,
     disableOptionSet,
     setAsDefault,
@@ -52,6 +53,11 @@ const OptionSetsListItem = ({
                             <ActionMenuActionButton
                                 text="Edit"
                                 onClick={() => showEditModal(set)}
+                            />
+                            <ActionMenuActionButton
+                                text="Delete"
+                                onClick={() => showDeleteModal(set)}
+                                isNegative
                             />
                         </>
                     )}

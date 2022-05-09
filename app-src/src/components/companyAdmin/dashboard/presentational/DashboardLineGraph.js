@@ -14,7 +14,7 @@ const DashboardLineGraph = () => {
     const isFetching = false;
     const { data, options, graphRef } = useDashboardLineGraph(graph);
 
-    console.log(graph);
+    console.log(graph.dataSets[0].data);
 
     return (
         <Block containerClass="flex-row-item size-lg-6 size-md-12">
@@ -22,7 +22,7 @@ const DashboardLineGraph = () => {
             <BlockContainer
                 isFetching={isFetching}
                 error={fetchError}
-                isEmpty={isEmpty(graph.datasets) || isEmpty(graph.labels)}
+                isEmpty={isEmpty(graph.dataSets) || isEmpty(graph.labels)}
                 containerClass="size-lg-12"
                 noWhiteBackground
             >

@@ -4,8 +4,9 @@ export const dummyLineGraphData = {
     total: 18616.78,
     labels: Array(7)
         .fill(moment())
-        .map((d, i) => d.subtract(i, 'days').format('MMM DD')),
-    datasets: [
+        .map((d, i) => d.subtract(i, 'days').format('MMM D'))
+        .reverse(),
+    dataSets: [
         {
             id: 1,
             label: '',
