@@ -33,6 +33,9 @@
   background-color: var(--background-stroke);
   border-radius: 5px;
   border: 1px solid var(--navigation-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 
@@ -52,11 +55,10 @@
 
 .tickbox input:checked ~ .checkmark:after {
   display: block;
+  margin-bottom: 2px;
 }
 
 .tickbox .checkmark:after {
-  left: 7px;
-  top: 3px;
   width: 4px;
   height: 8px;
   border: solid white;
