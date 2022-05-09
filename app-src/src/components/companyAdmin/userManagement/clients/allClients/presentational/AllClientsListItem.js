@@ -45,12 +45,12 @@ const AllClientsListItem = ({
             </td>
             <td>
                 {onMobile && <span className="mobile-table-heading">{headers[6]}</span>}
-                <FlexWrapper justify="between" align="center">
+                <FlexWrapper justify="end" align="center">
                     <ButtonContainer to={`/company/users-management/clients/${client.id}`}>
                         View
                     </ButtonContainer>
 
-                    <ActionMenu ellipsisPosition="fully-right">
+                    <ActionMenu>
                         <ActionMenuActionButton text="Edit" onClick={goToEdit} />
                         <ActionMenuActionButton text="Edit Email" onClick={goToEditEmail} />
                         <ActionMenuActionButton

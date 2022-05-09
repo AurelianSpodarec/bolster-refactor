@@ -907,6 +907,19 @@
   }
 }
 
+// remove arrows from number inputs
+/* Chrome, Safari, Edge, Opera */
+.generic-input::-webkit-outer-spin-button,
+.generic-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.generic-input[type=number] {
+  -moz-appearance: textfield;
+}
+
 // custom dropdown
 .custom-dropdown {
   float: left;

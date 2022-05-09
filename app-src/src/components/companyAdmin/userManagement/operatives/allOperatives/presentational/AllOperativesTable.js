@@ -13,6 +13,7 @@ const AllOperativesTable = ({ headers, users, isFetching, error, handleShowModal
                 extraClasses="ambient-positive"
                 text="Create Operative"
                 icon="user-plus"
+                size="medium"
             />
         </BlockHeading>
         <Table
