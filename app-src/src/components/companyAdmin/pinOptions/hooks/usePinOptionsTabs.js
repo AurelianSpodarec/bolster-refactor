@@ -21,9 +21,11 @@ const usePinOptionsTabs = () => {
     const tabs = useMemo(() => {
         const tabsList = [];
 
-        pinOptionTypesArr.forEach(({ id, namePlural }) =>
-            tabsList.push({ id, name: namePlural, component: OptionSets }),
-        );
+        pinOptionTypesArr
+            .sort((a, b) => a.sort - b.sort)
+            .forEach(({ id, tabName }) =>
+                tabsList.push({ id, name: tabName, component: OptionSets }),
+            );
 
         if (!isEmpty(pinOptionTypesArr)) {
             tabsList.push({ id: 'prelims', name: 'Prelims', component: Prelims });
