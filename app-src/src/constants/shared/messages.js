@@ -14,7 +14,7 @@ export const getLowMemoryMessage = (memory, storage) => {
     if (isRamMin) {
         return 'This device has 3GB RAM which is our minimum spec.';
     }
-    if (isStorageLow) {
+    if (isStorageLow || !memory || !storage) {
         return 'This device has low storage space. It may struggle to create new pins or down sync new data.';
     }
 
