@@ -14,3 +14,5 @@ export const selectPinOptionSetsPostError = state =>
     state.companyAdmin.pinOptionSetsReducer.postError;
 export const selectPinOptionSetsPostSuccess = state =>
     state.companyAdmin.pinOptionSetsReducer.postSuccess;
+export const selectPinOptionSetsDeleteSuccess = state =>
+    state.companyAdmin.pinOptionSetsReducer.deleteSuccess;

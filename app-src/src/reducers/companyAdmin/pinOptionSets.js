@@ -34,6 +34,7 @@ export default combineReducers({
     isPosting: isPostingReducer,
     postError: postErrorReducer,
     postSuccess: postSuccessReducer,
+    deleteSuccess: deleteSuccessReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -123,6 +124,17 @@ function postSuccessReducer(state = false, action) {
         case DISABLE_PIN_OPTION_SET_SUCCESS:
         case DELETE_PIN_OPTION_SET_SUCCESS:
         case SET_OPTION_SET_AS_DEFAULT_SUCCESS:
+            return true;
+        default:
+            return state;
+    }
+}
+
+function deleteSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case DELETE_PIN_OPTION_SET_REQUEST:
+            return false;
+        case DELETE_PIN_OPTION_SET_SUCCESS:
             return true;
         default:
             return state;
