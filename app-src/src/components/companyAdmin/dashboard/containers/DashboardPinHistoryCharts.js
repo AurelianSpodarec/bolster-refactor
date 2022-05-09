@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { connect, useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 import { isIE } from 'react-device-detect';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
@@ -9,11 +9,9 @@ import DashboardBarChartContainer from './DashboardBarChartContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import { selectIsCostingEnabled } from 'selectors/companyAdmin/companySettings';
 
-const DashboardPinHistoryCharts = ({ isFetching, error, datasets }) => {
+const DashboardPinHistoryCharts = ({ isFetching, error, datasets, showLineGraph }) => {
     const [selectedTab, setSelectedTab] = useState('pie');
-    const isCostingEnabled = useSelector(selectIsCostingEnabled);
     return !isIE ? (
         <BlockContainer
             isFetching={isFetching}
@@ -22,7 +20,7 @@ const DashboardPinHistoryCharts = ({ isFetching, error, datasets }) => {
             containerClass="flex-row-item size-lg-6 size-md-12"
         >
             <BlockHeading title="All Pin Histories" />
-            {isCostingEnabled && (
+            {showLineGraph && (
                 <ButtonWrapper alignment="right">
                     <ActionButton
                         icon="chart-pie"
