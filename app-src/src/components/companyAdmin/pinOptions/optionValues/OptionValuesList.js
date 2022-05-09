@@ -43,8 +43,14 @@ const OptionValuesList = ({ forwardRef, hasFetched }) => {
         isSorting,
     );
 
-    const { showAddModal, showEditModal, showDeleteModal, enableOptionValue, disableOptionValue } =
-        useOptionValueActions(typeID, setID);
+    const {
+        showAddModal,
+        showEditModal,
+        showDeleteModal,
+        showDuplicateModal,
+        enableOptionValue,
+        disableOptionValue,
+    } = useOptionValueActions(typeID, setID);
 
     const shouldRedirect = useShouldRedirectFromOptionValues(hasFetched);
 
@@ -118,6 +124,7 @@ const OptionValuesList = ({ forwardRef, hasFetched }) => {
                             typeID={typeID}
                             showEditModal={showEditModal}
                             showDeleteModal={showDeleteModal}
+                            showDuplicateModal={showDuplicateModal}
                             enableOptionValue={enableOptionValue}
                             disableOptionValue={disableOptionValue}
                             isSorting={isSorting}

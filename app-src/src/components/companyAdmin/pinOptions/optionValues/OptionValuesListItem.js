@@ -21,6 +21,7 @@ const OptionValuesListItem = ({
     typeID,
     showEditModal,
     showDeleteModal,
+    showDuplicateModal,
     enableOptionValue,
     disableOptionValue,
     isSorting,
@@ -84,16 +85,20 @@ const OptionValuesListItem = ({
                                     disabled={isSorting}
                                 />
                             )}
+                            <ActionMenu disabled={isSorting}>
+                                <ActionMenuActionButton
+                                    text="Duplicate"
+                                    onClick={() => showDuplicateModal(option)}
+                                />
 
-                            {isCompanySet && (
-                                <ActionMenu disabled={isSorting}>
+                                {isCompanySet && (
                                     <ActionMenuActionButton
                                         text="Delete"
                                         onClick={() => showDeleteModal(option)}
                                         isNegative
                                     />
-                                </ActionMenu>
-                            )}
+                                )}
+                            </ActionMenu>
                         </ButtonWrapper>
                     </td>
                 </tr>,

@@ -19,6 +19,7 @@ import {
     selectPinOptionsPostSuccess,
 } from 'selectors/companyAdmin/pinOptions';
 import deletePinOptionValue from 'actions/companyAdmin/pinOptions/async/deletePinOptionValue';
+import duplicatePinOptionValue from 'actions/companyAdmin/pinOptions/async/duplicatePinOptionValue';
 
 const useOptionValueActions = (typeID, setID) => {
     const dispatch = useDispatch();
@@ -55,6 +56,17 @@ const useOptionValueActions = (typeID, setID) => {
         );
     };
 
+    const showDuplicateModal = option => {
+        dispatch(
+            showModal(CONFIRM_SUBMIT, {
+                handleSubmit: () => dispatch(duplicatePinOptionValue(option.id)),
+                title: `Duplicate ${option.name}?`,
+                message: 'Are you sure you would like to duplicate this option?',
+                submitButtonText: 'Duplicate',
+            }),
+        );
+    };
+
     const enableOptionValue = option => {
         const { name, ...rest } = option;
         if (!isPosting) dispatch(enablePinOptionValue({ ...rest }));
@@ -73,7 +85,14 @@ const useOptionValueActions = (typeID, setID) => {
         if (postSuccess && !prevProps.postSuccess) dispatch(hideModal());
     }, [postSuccess, prevProps.postSuccess]);
 
-    return { showAddModal, showEditModal, showDeleteModal, enableOptionValue, disableOptionValue };
+    return {
+        showAddModal,
+        showEditModal,
+        showDeleteModal,
+        showDuplicateModal,
+        enableOptionValue,
+        disableOptionValue,
+    };
 };
 
 export default useOptionValueActions;
