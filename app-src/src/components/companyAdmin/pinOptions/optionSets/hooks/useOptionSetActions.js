@@ -16,9 +16,9 @@ import enablePinOptionSet from 'actions/companyAdmin/pinOptions/async/enablePinO
 import disablePinOptionSet from 'actions/companyAdmin/pinOptions/async/disablePinOptionSet';
 import {
     selectPinOptionDefaultSet,
+    selectPinOptionSetsDeleteSuccess,
     selectPinOptionSetsIsPosting,
     selectPinOptionSetsPostError,
-    selectPinOptionSetsPostSuccess,
 } from 'selectors/companyAdmin/pinOptionSets';
 import deletePinOptionSet from 'actions/companyAdmin/pinOptions/async/deletePinOptionSet';
 
@@ -26,9 +26,9 @@ const useOptionSetActions = selectedTypeID => {
     const dispatch = useDispatch();
     const isPosting = useSelector(selectPinOptionSetsIsPosting);
     const postError = useSelector(selectPinOptionSetsPostError);
-    const postSuccess = useSelector(selectPinOptionSetsPostSuccess);
+    const deleteSuccess = useSelector(selectPinOptionSetsDeleteSuccess);
 
-    const prevProps = usePrevious({ postError, postSuccess });
+    const prevProps = usePrevious({ postError, deleteSuccess });
 
     const defaultSet = useSelector(state => selectPinOptionDefaultSet(state, selectedTypeID));
 
@@ -73,8 +73,8 @@ const useOptionSetActions = selectedTypeID => {
     }, [postError, prevProps.postError]);
 
     useEffect(() => {
-        if (postSuccess && !prevProps.postSuccess) dispatch(hideModal());
-    }, [postSuccess, prevProps.postSuccess]);
+        if (deleteSuccess && !prevProps.deleteSuccess) dispatch(hideModal());
+    }, [deleteSuccess, prevProps.deleteSuccess]);
 
     return {
         showAddModal,
