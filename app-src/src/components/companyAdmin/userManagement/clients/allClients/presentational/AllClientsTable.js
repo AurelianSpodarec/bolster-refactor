@@ -14,7 +14,7 @@ const AllClientsTable = ({ headers, clients, isFetching, error }) => (
             <ButtonWrapper alignment="right">
                 <LinkButton
                     href="/company/users-management/clients/create"
-                    text="Add Client"
+                    text="Create Client"
                     icon="user-plus"
                     size="medium"
                     extraClasses="ambient-positive"

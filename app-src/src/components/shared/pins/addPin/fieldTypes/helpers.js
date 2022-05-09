@@ -75,7 +75,7 @@ export const useFilterPinOptions = (
                 }
                 // remove deleted option if not already selected
                 const hasAnswer = questionValue.some(
-                    ans => ans.pinOptionVersionID === option.latestVersionID,
+                    ans => ans.pinOptionVersionID === option.latestVersion.ID,
                 );
                 if (!hasAnswer && (option.isDeleted || option.isDisabled)) {
                     return false;
