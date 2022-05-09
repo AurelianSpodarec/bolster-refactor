@@ -143,10 +143,6 @@
     }
 
     &.draggable {
-      &:hover {
-        cursor: pointer;
-      }
-
       &.dragging {
         height: 43px;
         background-color: $background-color !important;
@@ -354,12 +350,14 @@
         width: 38px;
       }
 
-      a {
+      .link {
         display: block;
         width: 100%;
         padding: 10px 15px;
         color: var(--typography-default);
         text-decoration: none;
+        background-color: transparent;
+        text-align: left;
 
         &:hover {
           text-decoration: underline;

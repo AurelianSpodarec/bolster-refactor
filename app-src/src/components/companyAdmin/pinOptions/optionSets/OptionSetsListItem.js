@@ -32,7 +32,7 @@ const OptionSetsListItem = ({
                         }
                     }}
                 />
-                <Link to={`/company/pin-options/${setLink}/${id}`}>
+                <Link className="link" to={`/company/pin-options/${setLink}/${id}`}>
                     {name} {isDefault ? '(default)' : ''}
                 </Link>
             </FlexWrapper>

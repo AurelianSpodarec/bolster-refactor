@@ -35,7 +35,7 @@ const Checkbox = ({
                 // ? ## needs styling for disabled ##
                 // style={disabled ? { color: 'grey' } : {}}
             >
-                {text.length && <span className="text">{text}</span>}
+                {!!text.length && <span className="text">{text}</span>}
                 <span className="outer">
                     <span className="inner" />
                 </span>
