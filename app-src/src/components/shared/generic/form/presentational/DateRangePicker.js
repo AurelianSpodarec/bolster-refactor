@@ -28,7 +28,12 @@ function DateRangePickerInput({
 
     return (
         <div className="date-range-picker-container">
-            <ActionButton icon="calendar" onClick={() => setIsExpanded(!isExpanded)} text={text} />
+            <ActionButton
+                icon="calendar"
+                onClick={() => setIsExpanded(!isExpanded)}
+                text={text}
+                extraClasses="transparent"
+            />
             {isExpanded && (
                 <div className="date-range-picker-overlay" onClick={() => setIsExpanded(false)} />
             )}
