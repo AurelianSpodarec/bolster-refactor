@@ -9,9 +9,12 @@ import DashboardDataByContainer from '../containers/DashboardDataByContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import { useConfirmDarkTheme } from 'helpers/hooks';
 import DashboardLineGraph from './DashboardLineGraph';
+import { useSelector } from 'react-redux';
+import { selectIsCostingEnabled } from 'selectors/companyAdmin/companySettings';
 
 const Dashboard = ({ isIE10 }) => {
     useConfirmDarkTheme('/company/profile');
+    const isCostingEnabled = useSelector(selectIsCostingEnabled);
 
     return (
         <>
@@ -27,8 +30,7 @@ const Dashboard = ({ isIE10 }) => {
                 <>
                     <DashboardStatsFiltersContainer />
                     <div className="flex-row flex-wrap width-12 size-lg-12">
-                        {/* <DashboardBarChartContainer /> */}
-                        <DashboardLineGraph />
+                        {isCostingEnabled ? <DashboardLineGraph /> : <DashboardBarChartContainer />}
                         <DashboardDataByContainer />
                     </div>
                     <div className="flex-row flex-wrap width-12 size-lg-12">

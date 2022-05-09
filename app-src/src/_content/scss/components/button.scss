@@ -548,6 +548,11 @@ button {
         }
     }
 
+    &.transparent {
+        background-color: transparent!important;
+        color: var(--typography-default)!important;;
+
+    }
 }
 
 // button wrapper

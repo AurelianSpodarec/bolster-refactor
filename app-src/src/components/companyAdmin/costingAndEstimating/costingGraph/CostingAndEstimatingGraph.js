@@ -45,9 +45,11 @@ const CostingAndEstimatingGraph = ({
                                     </button>
                                 </div>
 
-                                <ButtonContainer setColour="transparent" handleClick={onThisWeek}>
-                                    Last 7 Days
-                                </ButtonContainer>
+                                <ActionButton
+                                    onClick={onThisWeek}
+                                    text="Last 7 Days"
+                                    extraClasses="transparent"
+                                />
 
                                 <div className="calendar-select border">
                                     <DateRangePicker
