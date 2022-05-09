@@ -37,14 +37,6 @@ const OptionValuesListItem = ({
 
     const hasPriceBreaks = pinOptionType.hasCosting && !isEmpty(priceBreaks);
 
-    const nameOutput = isCompanySet ? (
-        <button className="checkbox-text link" onClick={() => showEditModal(option)}>
-            {name}
-        </button>
-    ) : (
-        <p className="checkbox-text">{name}</p>
-    );
-
     return (
         <>
             {connectDropTarget(
@@ -69,7 +61,16 @@ const OptionValuesListItem = ({
                                 disabled={isSorting}
                                 keepTextColorOnDisable
                             />
-                            {nameOutput}
+                            {isCompanySet ? (
+                                <button
+                                    className="checkbox-text link"
+                                    onClick={() => showEditModal(option)}
+                                >
+                                    {name}
+                                </button>
+                            ) : (
+                                <p className="checkbox-text">{name}</p>
+                            )}
                         </FlexWrapper>
                     </td>
                     <td>
