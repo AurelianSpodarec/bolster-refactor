@@ -12,6 +12,7 @@ import ButtonWrapper from 'components/shared/generic/button/presentational/Butto
 import ActionMenu from 'components/shared/actionMenu/ActionMenu';
 import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
 import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
+import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 
 const OptionValuesListItem = ({
     option,
@@ -44,21 +45,26 @@ const OptionValuesListItem = ({
                     ref={isSorting ? forwardRef : null}
                     style={{ display: isSorting && isDeleted ? 'none' : 'table-row' }} // setting as hidden here rather than filtering so sort mode still works
                 >
-                    <td>
-                        <CheckboxContainer
-                            text={name}
-                            name={`pin-option-checkbox-${id}`}
-                            checked={!isDisabled}
-                            handleChange={(_, value) => {
-                                if (value) {
-                                    enableOptionValue(option);
-                                } else {
-                                    disableOptionValue(option);
-                                }
-                            }}
-                            disabled={isSorting}
-                            keepTextColorOnDisable
-                        />
+                    <td className="row-link w-checkbox">
+                        <FlexWrapper justify="start" align="center">
+                            <CheckboxContainer
+                                text=""
+                                name={`pin-option-checkbox-${id}`}
+                                checked={!isDisabled}
+                                handleChange={(_, value) => {
+                                    if (value) {
+                                        enableOptionValue(option);
+                                    } else {
+                                        disableOptionValue(option);
+                                    }
+                                }}
+                                disabled={isSorting}
+                                keepTextColorOnDisable
+                            />
+                            <button className="link" onClick={() => showEditModal(option)}>
+                                {name}
+                            </button>
+                        </FlexWrapper>
                     </td>
                     <td>
                         <ButtonWrapper alignment="right">
@@ -74,10 +80,6 @@ const OptionValuesListItem = ({
 
                             {isCompanySet && (
                                 <ActionMenu disabled={isSorting}>
-                                    <ActionMenuActionButton
-                                        text="Edit"
-                                        onClick={() => showEditModal(option)}
-                                    />
                                     <ActionMenuActionButton
                                         text="Delete"
                                         onClick={() => showDeleteModal(option)}
