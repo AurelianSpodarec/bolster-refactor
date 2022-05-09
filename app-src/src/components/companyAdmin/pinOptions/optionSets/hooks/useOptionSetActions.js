@@ -17,18 +17,21 @@ import disablePinOptionSet from 'actions/companyAdmin/pinOptions/async/disablePi
 import {
     selectPinOptionDefaultSet,
     selectPinOptionSetsDeleteSuccess,
+    selectPinOptionSetsDuplicateSuccess,
     selectPinOptionSetsIsPosting,
     selectPinOptionSetsPostError,
 } from 'selectors/companyAdmin/pinOptionSets';
 import deletePinOptionSet from 'actions/companyAdmin/pinOptions/async/deletePinOptionSet';
+import duplicatePinOptionSet from 'actions/companyAdmin/pinOptions/async/duplicatePinOptionSet';
 
 const useOptionSetActions = selectedTypeID => {
     const dispatch = useDispatch();
     const isPosting = useSelector(selectPinOptionSetsIsPosting);
     const postError = useSelector(selectPinOptionSetsPostError);
     const deleteSuccess = useSelector(selectPinOptionSetsDeleteSuccess);
+    const duplicateSuccess = useSelector(selectPinOptionSetsDuplicateSuccess);
 
-    const prevProps = usePrevious({ postError, deleteSuccess });
+    const prevProps = usePrevious({ postError, deleteSuccess, duplicateSuccess });
 
     const defaultSet = useSelector(state => selectPinOptionDefaultSet(state, selectedTypeID));
 
@@ -56,6 +59,17 @@ const useOptionSetActions = selectedTypeID => {
         );
     };
 
+    const showDuplicateModal = set => {
+        dispatch(
+            showModal(CONFIRM_SUBMIT, {
+                handleSubmit: () => dispatch(duplicatePinOptionSet(set.id)),
+                title: `Duplicate ${set.name}?`,
+                message: 'Are you sure you would like to duplicate this set?',
+                submitButtonText: 'Duplicate',
+            }),
+        );
+    };
+
     const enableOptionSet = set => {
         if (!isPosting) dispatch(enablePinOptionSet(set));
     };
@@ -76,10 +90,15 @@ const useOptionSetActions = selectedTypeID => {
         if (deleteSuccess && !prevProps.deleteSuccess) dispatch(hideModal());
     }, [deleteSuccess, prevProps.deleteSuccess]);
 
+    useEffect(() => {
+        if (duplicateSuccess && !prevProps.duplicateSuccess) dispatch(hideModal());
+    }, [duplicateSuccess, prevProps.duplicateSuccess]);
+
     return {
         showAddModal,
         showEditModal,
         showDeleteModal,
+        showDuplicateModal,
         enableOptionSet,
         disableOptionSet,
         setAsDefault,

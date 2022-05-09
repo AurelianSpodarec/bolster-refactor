@@ -10,27 +10,14 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 
 const DashboardLineGraph = () => {
     const graph = dummyLineGraphData;
-    const fetchError = null;
-    const isFetching = false;
     const { data, options, graphRef } = useDashboardLineGraph(graph);
 
     console.log(graph.dataSets[0].data);
 
     return (
-        <Block containerClass="flex-row-item size-lg-6 size-md-12">
-            <BlockHeading title="Costing Totals" />
-            <BlockContainer
-                isFetching={isFetching}
-                error={fetchError}
-                isEmpty={isEmpty(graph.dataSets) || isEmpty(graph.labels)}
-                containerClass="size-lg-12"
-                noWhiteBackground
-            >
-                <div ref={graphRef}>
-                    <Line data={data} options={options} />
-                </div>
-            </BlockContainer>
-        </Block>
+        <div ref={graphRef}>
+            <Line data={data} options={options} />
+        </div>
     );
 };
 

@@ -34,6 +34,7 @@ const OptionSets = ({ selectedTypeID }) => {
         showAddModal,
         showEditModal,
         showDeleteModal,
+        showDuplicateModal,
         enableOptionSet,
         disableOptionSet,
         setAsDefault,
@@ -86,6 +87,7 @@ const OptionSets = ({ selectedTypeID }) => {
                         setLink={setLink}
                         showEditModal={showEditModal}
                         showDeleteModal={showDeleteModal}
+                        showDuplicateModal={showDuplicateModal}
                         enableOptionSet={enableOptionSet}
                         disableOptionSet={disableOptionSet}
                         setAsDefault={setAsDefault}

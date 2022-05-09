@@ -3,19 +3,18 @@ import React from 'react';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import DashboardPinFeedContainer from '../containers/DashboardPinFeedContainer';
 import DashboardStatsFiltersContainer from '../containers/DashboardStatsFiltersContainer';
-import DashboardPieChartContainer from '../containers/DashboardPieChartContainer';
-import DashboardBarChartContainer from '../containers/DashboardBarChartContainer';
 import DashboardDataByContainer from '../containers/DashboardDataByContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import { useConfirmDarkTheme } from 'helpers/hooks';
-import DashboardLineGraph from './DashboardLineGraph';
+import DashboardPinHistoryCharts from '../containers/DashboardPinHistoryCharts';
+import { isIE } from 'react-device-detect';
+import DashboardCostingCharts from '../containers/DashboardCostingCharts';
 import { useSelector } from 'react-redux';
 import { selectIsCostingEnabled } from 'selectors/companyAdmin/companySettings';
 
 const Dashboard = ({ isIE10 }) => {
     useConfirmDarkTheme('/company/profile');
-    const isCostingEnabled = useSelector(selectIsCostingEnabled);
-
+    const showLineGraph = useSelector(selectIsCostingEnabled); // TODO - will be based on costing graph data from dashboard response (null/not null)
     return (
         <>
             <PageHeading title="Dashboard" />
@@ -30,11 +29,18 @@ const Dashboard = ({ isIE10 }) => {
                 <>
                     <DashboardStatsFiltersContainer />
                     <div className="flex-row flex-wrap width-12 size-lg-12">
-                        {isCostingEnabled ? <DashboardLineGraph /> : <DashboardBarChartContainer />}
+                        <DashboardCostingCharts showLineGraph={showLineGraph} />
                         <DashboardDataByContainer />
                     </div>
                     <div className="flex-row flex-wrap width-12 size-lg-12">
-                        <DashboardPieChartContainer />
+                        {!isIE ? (
+                            <DashboardPinHistoryCharts showLineGraph={showLineGraph} />
+                        ) : (
+                            <BlockContainer
+                                error={'Pie charts not supported on Internet Explorer'}
+                                containerClass="flex-row-item size-lg-6 size-md-12"
+                            />
+                        )}
                         <DashboardPinFeedContainer />
                     </div>
                 </>

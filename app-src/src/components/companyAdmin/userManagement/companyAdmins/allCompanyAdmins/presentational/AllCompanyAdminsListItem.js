@@ -31,7 +31,6 @@ const AllCompanyAdminsListItem = ({
     maxDrawingsPerOperative,
 }) => {
     const history = useHistory();
-    showNotUpsyncedRecentlyWarning = true;
 
     const lowMemMessage = getLowMemoryMessage(user.deviceRAM, user.physicalStorageAvailable);
 
