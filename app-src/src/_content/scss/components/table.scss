@@ -350,24 +350,28 @@
         width: 38px;
       }
 
-      .link {
+      .checkbox-text {
         display: block;
         width: 100%;
         padding: 10px 15px;
         color: var(--typography-default);
-        text-decoration: none;
         background-color: transparent;
         text-align: left;
+        font-size: 100%;
 
-        &:hover {
-          text-decoration: underline;
+        &.link {
+          text-decoration: none;
+
+          &:hover {
+            text-decoration: underline;
+          }
         }
       }
 
       &.w-checkbox {
         padding: 0 15px;
 
-        a {
+        .checkbox-text {
           padding-left: 8px;
         }
       }
