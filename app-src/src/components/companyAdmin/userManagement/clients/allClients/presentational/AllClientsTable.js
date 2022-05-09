@@ -5,18 +5,21 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import AllClientsList from './AllClientsList';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 
 const AllClientsTable = ({ headers, clients, isFetching, error }) => (
     <BlockContainer>
         <BlockHeading title="Clients">
-            <ButtonContainer
-                setColour="#2eac58"
-                setColourHoverCode="#258e48"
-                to="/company/users-management/clients/create"
-            >
-                <i className="fa fa-plus" />
-                Add
-            </ButtonContainer>
+            <ButtonWrapper alignment="right">
+                <LinkButton
+                    href="/company/users-management/clients/create"
+                    text="Add Client"
+                    icon="user-plus"
+                    size="medium"
+                    extraClasses="ambient-positive"
+                />
+            </ButtonWrapper>
         </BlockHeading>
         <Table
             headers={headers}

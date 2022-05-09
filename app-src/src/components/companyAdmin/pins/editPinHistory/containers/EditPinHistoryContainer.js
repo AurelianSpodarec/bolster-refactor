@@ -12,12 +12,14 @@ import fetchPinOptionVersions from '../../../../../actions/companyAdmin/pinOptio
 import { useAddPinOptions } from '../../../../shared/pins/addPin/fieldTypes/helpers';
 import fetchPinOptionTypes from '../../../../../actions/companyAdmin/pinOptions/async/fetchPinOptionTypes';
 import fetchPinOptionSets from '../../../../../actions/companyAdmin/pinOptions/async/fetchPinOptionSets';
+import { selectPinHistory } from '../../../../../selectors/companyAdmin/pinHistories';
 
 const EditPinHistoryContainer = () => {
     const dispatch = useDispatch();
     const params = useParams();
     const { id: pinID, historyID } = params;
-    const { drawings, pins, serviceID } = useSelector(mapStateToProps);
+    const { drawings, pins } = useSelector(mapStateToProps);
+    const curHistory = useSelector(state => selectPinHistory(state, historyID));
     const drawing = drawings[pins[pinID]?.drawingID];
 
     componentDidMount(() => {
@@ -34,7 +36,7 @@ const EditPinHistoryContainer = () => {
         }
     }, [drawing, pins]);
 
-    const options = useAddPinOptions(serviceID);
+    const options = useAddPinOptions(curHistory?.serviceID);
 
     return (
         <EditPinFormContainer
@@ -50,14 +52,12 @@ const EditPinHistoryContainer = () => {
 
 const mapStateToProps = ({
     companyAdmin: {
-        addPinFormReducer: { serviceID },
         drawingsReducer: { drawings },
         pinsReducer: { pins },
     },
 }) => ({
     pins,
     drawings,
-    serviceID,
 });
 
 export default EditPinHistoryContainer;
