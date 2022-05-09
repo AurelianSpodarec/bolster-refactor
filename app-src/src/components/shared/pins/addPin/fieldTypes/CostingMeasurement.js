@@ -21,8 +21,8 @@ const CostingMeasurement = ({
     useEffect(() => {
         setUnit(defaultUnit);
     }, [defaultUnit]);
-    const name = `${option.latestVersion.name} ${showCount ? `(${count})` : ''}`;
     if (!fieldNames || !fieldNames.length) return null;
+    const name = `${option?.latestVersion.name} ${showCount ? `(${count})` : ''}`;
     return (
         // todo styling
         <Field name={name}>
