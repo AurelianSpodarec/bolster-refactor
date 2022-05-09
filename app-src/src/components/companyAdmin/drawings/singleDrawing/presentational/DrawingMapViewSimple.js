@@ -169,7 +169,7 @@ const DrawingMapViewSimple = ({
                                     ) : (
                                         !drawingNotStarted && (
                                             <button
-                                                className="button green pull-right"
+                                                className="button add-pin-btn green"
                                                 onClick={toggleAddMode}
                                             >
                                                 <i className="fa fa-plus" /> Add pin
