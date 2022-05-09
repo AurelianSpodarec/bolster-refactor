@@ -32,7 +32,7 @@ const OptionSetsListItem = ({
                         }
                     }}
                 />
-                <Link className="link" to={`/company/pin-options/${setLink}/${id}`}>
+                <Link className="checkbox-text link" to={`/company/pin-options/${setLink}/${id}`}>
                     {name} {isDefault ? '(default)' : ''}
                 </Link>
             </FlexWrapper>
