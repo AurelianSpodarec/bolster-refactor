@@ -13,6 +13,7 @@ const OptionSetsListItem = ({
     setLink,
     showEditModal,
     showDeleteModal,
+    showDuplicateModal,
     enableOptionSet,
     disableOptionSet,
     setAsDefault,
@@ -47,6 +48,11 @@ const OptionSetsListItem = ({
                             onClick={() => setAsDefault(set)}
                         />
                     )}
+
+                    <ActionMenuActionButton
+                        text="Duplicate"
+                        onClick={() => showDuplicateModal(set)}
+                    />
 
                     {isCompanySet && (
                         <>

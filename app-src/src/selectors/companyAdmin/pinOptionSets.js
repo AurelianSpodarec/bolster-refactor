@@ -16,3 +16,5 @@ export const selectPinOptionSetsPostSuccess = state =>
     state.companyAdmin.pinOptionSetsReducer.postSuccess;
 export const selectPinOptionSetsDeleteSuccess = state =>
     state.companyAdmin.pinOptionSetsReducer.deleteSuccess;
+export const selectPinOptionSetsDuplicateSuccess = state =>
+    state.companyAdmin.pinOptionSetsReducer.duplicateSuccess;
