@@ -12,9 +12,9 @@ export const deletePinOptionSetRequest = () => ({
     type: DELETE_PIN_OPTION_SET_REQUEST,
 });
 
-export const deletePinOptionSetSuccess = payload => ({
+export const deletePinOptionSetSuccess = id => ({
     type: DELETE_PIN_OPTION_SET_SUCCESS,
-    payload,
+    id,
 });
 
 export const deletePinOptionSetFailure = error => ({
@@ -22,11 +22,11 @@ export const deletePinOptionSetFailure = error => ({
     error,
 });
 
-export default set => async dispatch => {
+export default setID => async dispatch => {
     dispatch(deletePinOptionSetRequest());
 
     return axios
-        .delete(`${API_URL}/pinoptions/sets/${set.id}`, getHeaders())
-        .then(() => dispatch(deletePinOptionSetSuccess(set)))
+        .delete(`${API_URL}/pinoptions/sets/${setID}`, getHeaders())
+        .then(() => dispatch(deletePinOptionSetSuccess(setID)))
         .catch(err => dispatch(deletePinOptionSetFailure(err.message)));
 };

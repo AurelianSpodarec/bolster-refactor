@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { convertArrToObj, updateObj } from 'helpers/generic';
+import { convertArrToObj, removeObjItem, updateObj } from 'helpers/generic';
 import {
     FETCH_PIN_OPTION_SETS_REQUEST,
     FETCH_PIN_OPTION_SETS_SUCCESS,
@@ -152,10 +152,7 @@ function setsReducer(state = {}, action) {
         case SET_OPTION_SET_AS_DEFAULT_REQUEST:
             return updateObjDefaultOnRequest(state, action.newDefaultSet, action.oldDefaultSet);
         case DELETE_PIN_OPTION_SET_SUCCESS:
-            return updateObj(state, action.payload.id, {
-                ...action.payload,
-                isDeleted: true,
-            });
+            return removeObjItem(state, action.id);
         default:
             return state;
     }
