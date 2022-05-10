@@ -44,10 +44,6 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                 )}
             </ModalHeading>
 
-            <p className="generic-text size-lg-12">
-                This is how the pin option will output through the app
-            </p>
-
             <p className="generic-text size-lg-12">{`Create an ${singularTypeName}`}</p>
 
             <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
@@ -62,6 +58,9 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                 </Field>
 
                 <Field name="Short Name">
+                    <p className="generic-text size-lg-12">
+                        This is how the pin option will output through the app
+                    </p>
                     <TextInputContainer
                         name="shortName"
                         value={form.shortName}
