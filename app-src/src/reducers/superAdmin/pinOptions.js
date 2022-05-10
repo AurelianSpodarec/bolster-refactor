@@ -14,6 +14,9 @@ import {
     CREATE_ADMIN_PIN_OPTION_FAILURE,
     CREATE_ADMIN_PIN_OPTION_SUCCESS,
     DELETE_ADMIN_PIN_OPTION_REQUEST,
+    EDIT_ADMIN_PIN_OPTION_REQUEST,
+    EDIT_ADMIN_PIN_OPTION_SUCCESS,
+    EDIT_ADMIN_PIN_OPTION_FAILURE,
 } from 'constants/actionTypes/pinOptions';
 
 export default combineReducers({
@@ -62,7 +65,9 @@ function optionsReducer(state = {}, action) {
         case DELETE_ADMIN_PIN_OPTION_SUCCESS:
             return removeObjItem(state, action.payload);
         case CREATE_ADMIN_PIN_OPTION_SUCCESS:
+        case EDIT_ADMIN_PIN_OPTION_SUCCESS:
             return updateObj(state, action.payload.pinOption.id, action.payload.pinOption);
+
         default:
             return state;
     }
@@ -71,9 +76,12 @@ function optionsReducer(state = {}, action) {
 function isPostingReducer(state = false, action) {
     switch (action.type) {
         case CREATE_ADMIN_PIN_OPTION_REQUEST:
+        case EDIT_ADMIN_PIN_OPTION_REQUEST:
             return true;
         case CREATE_ADMIN_PIN_OPTION_FAILURE:
         case CREATE_ADMIN_PIN_OPTION_SUCCESS:
+        case EDIT_ADMIN_PIN_OPTION_FAILURE:
+        case EDIT_ADMIN_PIN_OPTION_SUCCESS:
             return false;
         default:
             return state;
@@ -83,8 +91,10 @@ function isPostingReducer(state = false, action) {
 function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case CREATE_ADMIN_PIN_OPTION_REQUEST:
+        case EDIT_ADMIN_PIN_OPTION_REQUEST:
             return false;
         case CREATE_ADMIN_PIN_OPTION_SUCCESS:
+        case EDIT_ADMIN_PIN_OPTION_SUCCESS:
             return true;
         default:
             return state;
@@ -94,8 +104,10 @@ function postSuccessReducer(state = false, action) {
 function postErrorReducer(state = null, action) {
     switch (action.type) {
         case CREATE_ADMIN_PIN_OPTION_REQUEST:
+        case EDIT_ADMIN_PIN_OPTION_REQUEST:
             return null;
         case CREATE_ADMIN_PIN_OPTION_FAILURE:
+        case EDIT_ADMIN_PIN_OPTION_FAILURE:
             return action.error;
         default:
             return state;

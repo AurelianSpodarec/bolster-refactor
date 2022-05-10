@@ -2,11 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import {
-    CREATE_ADMIN_PIN_OPTIONS_VALUE_MODAL,
-    CREATE_PIN_OPTIONS_VALUE_MODAL,
-    ERROR_MODAL,
-} from 'constants/shared/modalTypes';
+import { CREATE_ADMIN_PIN_OPTIONS_VALUE_MODAL, ERROR_MODAL } from 'constants/shared/modalTypes';
 import { useForm, usePrevious } from 'helpers/hooks';
 import { formatCheckboxListOptions } from 'helpers/generic';
 

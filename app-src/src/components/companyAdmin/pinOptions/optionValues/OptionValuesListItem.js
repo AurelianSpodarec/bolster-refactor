@@ -13,6 +13,7 @@ import ActionMenu from 'components/shared/actionMenu/ActionMenu';
 import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
 import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
 import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
+import ButtonWrapperInfo from 'components/shared/generic/button/presentational/ButtonWrapperInfo';
 
 const OptionValuesListItem = ({
     option,
@@ -76,7 +77,7 @@ const OptionValuesListItem = ({
                     </td>
                     <td>
                         <ButtonWrapper alignment="right">
-                            {hasPriceBreaks && <p className="button-wrapper-info disabled">£</p>}
+                            {hasPriceBreaks && <ButtonWrapperInfo text="£" disabled large />}
 
                             {pinOptionType.hasDocuments && (
                                 <LinkButton

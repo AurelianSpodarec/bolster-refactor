@@ -3,7 +3,7 @@ import React from 'react';
 import ActionButton from '../../button/presentational/ActionButton';
 import LinkButton from '../../button/presentational/LinkButton';
 
-const BackButton = ({ handleClick, classes = '', backFromForm, location, history }) =>
+const BackButton = ({ handleClick, backFromForm, location, history }) =>
     backFromForm ? (
         <LinkButton
             href={location.pathname.replace(backFromForm.urlToReplace, backFromForm.with)}
