@@ -155,12 +155,12 @@ const DrawingMapViewSimple = ({
                                             <button
                                                 onClick={handleClearPinCache}
                                                 to={`${drawing.id}/add-pin`}
-                                                className="button green pull-right"
+                                                className="button left-align-btn green"
                                             >
                                                 <i className="fa fa-check" /> Confirm position
                                             </button>
                                             <button
-                                                className="button red pull-right"
+                                                className="button red left-align-btn"
                                                 onClick={toggleAddMode}
                                             >
                                                 Cancel
@@ -169,7 +169,7 @@ const DrawingMapViewSimple = ({
                                     ) : (
                                         !drawingNotStarted && (
                                             <button
-                                                className="button green pull-right"
+                                                className="button left-align-btn green"
                                                 onClick={toggleAddMode}
                                             >
                                                 <i className="fa fa-plus" /> Add pin

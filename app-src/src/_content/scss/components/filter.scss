@@ -60,9 +60,13 @@
         padding: 3px 5px 3px 25px;
         font-size: 140%;
         @include ubuntu;
-        background-color: $background-grey;
+        background-color: var(--input-secondary);
+        border-radius: 21px;
         border: none;
-        @include rounded-all(3px);
+    }
+    
+    input::placeholder {
+        color: var(--typography-search)
     }
 }
 
