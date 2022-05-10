@@ -3,7 +3,6 @@ import Form from '../../../../shared/generic/form/containers/Form';
 import Field from '../../../../shared/generic/form/presentational/Field';
 import CheckboxContainer from '../../../../shared/generic/form/containers/CheckboxContainer';
 import CheckboxListContainer from '../../../../shared/generic/form/containers/CheckboxListContainer';
-import ButtonContainer from '../../../../shared/generic/button/containers/ButtonContainer';
 import BlockButtonWrapper from '../../../../shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 

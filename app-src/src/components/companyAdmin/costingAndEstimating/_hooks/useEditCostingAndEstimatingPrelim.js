@@ -23,8 +23,6 @@ const useEditCostingAndEstimatingPrelim = ({ prelim }) => {
     const prevProps = usePrevious({ postError, postSuccess });
     const prelimsOptions = convertEnumToDropdownOptions(PRELIMS_ENUM);
 
-    console.log(prelim);
-
     const [form, handleChange] = useForm({
         name: prelim?.prelimName,
         type: prelim?.type,

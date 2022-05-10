@@ -7,7 +7,6 @@ import { DRAWINGS_STATE_MESSAGES } from 'constants/companyAdmin/enums';
 const DrawingUploadLogList = ({ drawingsLogs }) =>
     drawingsLogs.reverse().map(drawingsLog => (
         <tr key={drawingsLog.id}>
-            {console.log(drawingsLog.state)}
             <td>{drawingsLog.companyName}</td>
             <td>{DRAWINGS_STATE_MESSAGES[drawingsLog.state]}</td>
             <td>{drawingsLog.fullHierarchyName}</td>

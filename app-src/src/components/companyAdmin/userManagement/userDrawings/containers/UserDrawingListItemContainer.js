@@ -32,21 +32,18 @@ const UserDrawingListItemContainer = ({
                 setSiteName(payload.name);
             }
         });
-        // .catch(error => console.log(error));
 
         fetchSingleBuilding(drawing.buildingID).then(({ payload }) => {
             if (payload && payload.name) {
                 setBuildingName(payload.name);
             }
         });
-        // .catch(error => console.log(error));
 
         fetchSingleFloor(drawing.floorID).then(({ payload }) => {
             if (payload && payload.name) {
                 setFloorName(payload.name);
             }
         });
-        // .catch(error => console.log(error));
     });
     return (
         <UserDrawingListItem
