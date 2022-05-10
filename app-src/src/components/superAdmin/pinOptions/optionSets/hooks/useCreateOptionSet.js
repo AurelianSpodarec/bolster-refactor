@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import { CREATE_PIN_OPTIONS_VALUE_MODAL, ERROR_MODAL } from 'constants/shared/modalTypes';
+import { CREATE_ADMIN_PIN_OPTIONS_VALUE_MODAL, ERROR_MODAL } from 'constants/shared/modalTypes';
 import { useForm, usePrevious } from 'helpers/hooks';
 import { formatCheckboxListOptions } from 'helpers/generic';
 
@@ -54,7 +54,7 @@ const useCreateOptionSet = pinOptionTypeID => {
     useEffect(() => {
         if (newSetID && !prevProps.newSetID) {
             dispatch(
-                showModal(CREATE_PIN_OPTIONS_VALUE_MODAL, {
+                showModal(CREATE_ADMIN_PIN_OPTIONS_VALUE_MODAL, {
                     pinOptionTypeID,
                     pinOptionSetID: newSetID,
                 }),

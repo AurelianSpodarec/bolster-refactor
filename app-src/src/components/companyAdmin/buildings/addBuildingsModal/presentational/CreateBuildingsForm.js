@@ -1,8 +1,9 @@
 import React from 'react';
 import Form from 'components/shared/generic/form/containers/Form';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import BuildingFormFieldsNoLabel from './BuildingFormFieldsNoLabel';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 
 // * .*. in names is used for splitting up field validations without risking overlap with real names
 
@@ -25,19 +26,29 @@ const CreateBuildingsForm = ({
                 siteName={siteName}
             />
         </div>
-        <BlockButtonWrapper>
-            <button className="button blue left" type="button" onClick={addBuilding}>
-                <i className="fa fa-plus" /> Add another building
-            </button>
-            {isFetchingHierarchies ? (
-                <button className="button green disabled" disabled>
-                    <i className="fa fa-spinner fa-spin"></i> Please wait...
-                </button>
-            ) : (
-                <button className="button green">Submit</button>
-            )}
-            <ButtonContainer handleClick={handleClose}>Cancel</ButtonContainer>
-        </BlockButtonWrapper>
+        <FlexWrapper justify="between">
+            <ActionButton
+                type="button"
+                text="Add another building"
+                icon="plus"
+                onClick={addBuilding}
+                ambient="positive"
+                extraClasses="margin-left"
+            />
+
+            <ButtonWrapper>
+                <ActionButton source="secondary" text="Cancel" onClick={handleClose} />
+                {isFetchingHierarchies ? (
+                    <ActionButton
+                        text="Please wait..."
+                        icon="fa fa-spinner fa-spin"
+                        disabled="true"
+                    />
+                ) : (
+                    <ActionButton type="submit" text="Confirm" icon="check" />
+                )}
+            </ButtonWrapper>
+        </FlexWrapper>
     </Form>
 );
 

@@ -14,6 +14,7 @@ const AllOperativesTable = ({ headers, users, isFetching, error, handleShowModal
                 text="Create Operative"
                 icon="user-plus"
                 size="medium"
+                ambient="positive"
             />
         </BlockHeading>
         <Table

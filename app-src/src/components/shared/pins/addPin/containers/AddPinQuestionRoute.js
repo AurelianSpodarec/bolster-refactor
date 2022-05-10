@@ -295,7 +295,6 @@ const AddPinQuestionRoute = ({
                     return version?.pinOptionID;
                 });
             }
-            console.log({ preReqType, prereqVals, preReqAnswers });
             return preReqAnswers.some(answer =>
                 prereqVals.some(val => {
                     if (!val.includes('#PREREQ_ID_')) {

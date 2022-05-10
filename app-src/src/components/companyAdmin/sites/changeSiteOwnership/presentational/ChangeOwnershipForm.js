@@ -6,7 +6,9 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 
 const ChangeOwnershipForm = ({ companyCode, handleChange, handleSubmit, url }) => (
     <>
@@ -22,12 +24,14 @@ const ChangeOwnershipForm = ({ companyCode, handleChange, handleSubmit, url }) =
                     />
                 </Field>
                 <BlockButtonWrapper>
-                    <button className="button green" onClick={handleSubmit}>
-                        Confirm
-                    </button>
-                    <ButtonContainer to={url.replace('/change-ownership', '')}>
-                        Cancel
-                    </ButtonContainer>
+                    <ActionButton onClick={handleSubmit} text="Confirm" icon="check" />
+                    <ButtonWrapper alignment="right">
+                        <LinkButton
+                            text="Cancel"
+                            source="secondary"
+                            href={url.replace('/change-ownership', '')}
+                        />
+                    </ButtonWrapper>
                 </BlockButtonWrapper>
             </Form>
         </BlockContainer>

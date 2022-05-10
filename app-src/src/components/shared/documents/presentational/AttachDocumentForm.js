@@ -5,7 +5,6 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
 import { withRouter, Link } from 'react-router-dom';
 
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import RadioButton from 'components/shared/generic/form/presentational/RadioButton';
 import DatePickerContainer from 'components/shared/documents/containers/AttachDocumentDatePickerContainer';
 import { DOCUMENT_TYPE, DOCUMENT_TYPES } from 'constants/companyAdmin/enums';
@@ -13,10 +12,12 @@ import { DOCUMENT_VISIBILITY } from 'constants/companyAdmin/enums';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
-import SubmitContainer from 'components/shared/generic/form/containers/SubmitContainer';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
+import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 
 const { VISIBLE_TO_ALL, VISIBLE_TO_OWN_COMPANY, VISIBLE_TO_SELECT_OPERATIVES } =
     DOCUMENT_VISIBILITY;
@@ -212,7 +213,7 @@ const AttachDocumentForm = ({
                     )}
                 </>
             )}
-            <BlockButtonWrapper>
+            <FlexWrapper>
                 {showClientServicesMessage && (
                     <p className="generic-text size-lg-12">
                         Some of your service options have been omitted because you have not been
@@ -228,12 +229,25 @@ const AttachDocumentForm = ({
                         to add more!
                     </p>
                 )}
+                <ButtonWrapper>
+                    <LinkButton
+                        source="secondary"
+                        text="Cancel"
+                        href={location.pathname.replace('/attach-document', '')}
+                        size="small"
+                    />
+                </ButtonWrapper>
 
-                <SubmitContainer text="Attach Document" withPlus />
-                <ButtonContainer to={location.pathname.replace('/attach-document', '')}>
-                    Cancel
-                </ButtonContainer>
-            </BlockButtonWrapper>
+                <ButtonWrapper alignment="right">
+                    <ActionButton
+                        type="submit"
+                        text="Attach Document"
+                        icon="plus"
+                        size="small"
+                        ambient="positive"
+                    />
+                </ButtonWrapper>
+            </FlexWrapper>
         </Form>
     </BlockContainer>
 );

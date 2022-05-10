@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
 
-import { convertArrToObj } from 'helpers/generic';
+import { convertArrToObj, updateObj } from 'helpers/generic';
 
 import {
+    CREATE_ADMIN_PIN_OPTION_SUCCESS,
+    EDIT_ADMIN_PIN_OPTION_SUCCESS,
     FETCH_ADMIN_PIN_OPTION_VERSIONS_FAILURE,
     FETCH_ADMIN_PIN_OPTION_VERSIONS_FOR_COMPANY_FAILURE,
     FETCH_ADMIN_PIN_OPTION_VERSIONS_FOR_COMPANY_REQUEST,
@@ -50,6 +52,13 @@ function versionsReducer(state = {}, action) {
         case FETCH_ADMIN_PIN_OPTION_VERSIONS_SUCCESS:
         case FETCH_ADMIN_PIN_OPTION_VERSIONS_FOR_COMPANY_SUCCESS:
             return convertArrToObj(action.payload);
+        case CREATE_ADMIN_PIN_OPTION_SUCCESS:
+        case EDIT_ADMIN_PIN_OPTION_SUCCESS:
+            return updateObj(
+                state,
+                action.payload.pinOptionVersion.id,
+                action.payload.pinOptionVersion,
+            );
         default:
             return state;
     }
