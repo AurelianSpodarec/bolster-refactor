@@ -5,3 +5,7 @@ export const selectPinOptionsFetchError = state => state.superAdmin.pinOptionsRe
 export const selectPinOptionsIsPosting = state => state.superAdmin.pinOptionsReducer.isPosting;
 export const selectPinOptionsPostError = state => state.superAdmin.pinOptionsReducer.postError;
 export const selectPinOptionsPostSuccess = state => state.superAdmin.pinOptionsReducer.postSuccess;
+export const selectPinOptionsIsDeleting = state => state.superAdmin.pinOptionsReducer.isDeleting;
+export const selectPinOptionsDeleteError = state => state.superAdmin.pinOptionsReducer.deleteError;
+export const selectPinOptionsDeleteSuccess = state =>
+    state.superAdmin.pinOptionsReducer.deleteSuccess;

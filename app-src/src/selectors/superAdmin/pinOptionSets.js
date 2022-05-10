@@ -14,3 +14,9 @@ export const selectPinOptionSetsPostError = state =>
     state.superAdmin.pinOptionSetsReducer.postError;
 export const selectPinOptionSetsPostSuccess = state =>
     state.superAdmin.pinOptionSetsReducer.postSuccess;
+export const selectPinOptionSetsIsDeleting = state =>
+    state.superAdmin.pinOptionSetsReducer.isDeleting;
+export const selectPinOptionSetsDeleteError = state =>
+    state.superAdmin.pinOptionSetsReducer.deleteError;
+export const selectPinOptionSetsDeleteSuccess = state =>
+    state.superAdmin.pinOptionSetsReducer.deleteSuccess;
