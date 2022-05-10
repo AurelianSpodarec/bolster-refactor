@@ -19,6 +19,7 @@ const ConfirmArchiveModal = ({
                 text={archive ? 'Archive' : 'Un-Archive'}
                 icon="fa fa-archive"
                 onClick={handleArchive}
+                ambient="negative"
             />
             <ActionButton source="secondary" text="Cancel" onClick={hideModal} />
         </BlockButtonWrapper>

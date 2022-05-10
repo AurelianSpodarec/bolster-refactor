@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect, useDispatch } from 'react-redux';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter, Link, useHistory } from 'react-router-dom';
 import moment from 'moment';
 
 import PinDetails from '../presentational/PinDetails';
@@ -27,6 +27,7 @@ const PinDetailsContainer = ({
 }) => {
     const { drawingID } = pin;
     const dispatch = useDispatch();
+    const history = useHistory();
     componentDidMount(() => {
         if (drawingID) {
             dispatch(fetchSingleDrawing(drawingID));
