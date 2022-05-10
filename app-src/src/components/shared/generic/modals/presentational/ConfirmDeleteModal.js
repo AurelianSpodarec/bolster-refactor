@@ -37,6 +37,7 @@ const ConfirmDeleteModal = ({
                         icon={isIncoming ? 'ban' : icon}
                         onClick={handleDelete}
                         disabled={isPosting}
+                        ambient="negative"
                     />
                 </ButtonWrapper>
             </BlockButtonWrapper>
