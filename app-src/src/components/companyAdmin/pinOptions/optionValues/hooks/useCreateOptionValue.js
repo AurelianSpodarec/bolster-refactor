@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { useForm, usePrevious } from 'helpers/hooks';
 import { ERROR_MODAL } from 'constants/shared/modalTypes';
+import { MEASUREMENT_TYPES } from 'constants/companyAdmin/enums';
 
 import createPinOptionValue from 'actions/companyAdmin/pinOptions/async/createPinOptionValue';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
@@ -41,8 +42,10 @@ const useCreateOptionValue = (pinOptionTypeID, pinOptionSetID) => {
         ],
     });
 
+    const disableAdd = +form.measurementType === MEASUREMENT_TYPES.FIXED;
+
     const { handlePriceBreakChange, handleAddPriceBreak, handleRemovePriceBreak } =
-        useUpdatePriceBreaks(form, handleChange);
+        useUpdatePriceBreaks(form, handleChange, disableAdd);
 
     const handleSubmit = () => {
         const { name, shortName, serviceIDs, measurementType, measurementPriceBreaks } = form;
@@ -87,6 +90,15 @@ const useCreateOptionValue = (pinOptionTypeID, pinOptionSetID) => {
 
         dispatch(createPinOptionValue(postBody));
     };
+
+    // only one measurement entry needed for fixed price
+    useEffect(() => {
+        if (+form.measurementType === MEASUREMENT_TYPES.FIXED) {
+            const measurementFields = form.measurementPriceBreaks;
+            measurementFields.splice(1);
+            handleChange('measurementPriceBreaks', measurementFields);
+        }
+    }, [form.measurementType]);
 
     useEffect(() => {
         if (postError && !prevProps.postError) dispatch(showModal(ERROR_MODAL));
