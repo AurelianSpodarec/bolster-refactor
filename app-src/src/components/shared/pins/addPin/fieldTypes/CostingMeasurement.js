@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Field from '../../../generic/form/presentational/Field';
-import { MEASUREMENT_TYPES, MEASUREMENT_UNITS } from '../../../../../constants/companyAdmin/enums';
+import {
+    MEASUREMENT_TYPES,
+    MEASUREMENT_UNITS,
+    UNIT_OPTIONS,
+} from '../../../../../constants/companyAdmin/enums';
 import CostingMeasurementInput from './CostingMeasurementInput';
+import Select from 'components/shared/generic/form/presentational/Select';
+import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 const { LINEAR, CUBIC, DIAMETER, FIXED, NUMBER, SQUARE, VOLUME } = MEASUREMENT_TYPES;
 const { MILLIMETRE, MILLILITRE } = MEASUREMENT_UNITS;
 
@@ -12,6 +18,7 @@ const CostingMeasurement = ({
     handleChange,
     count = 1,
     showCount = false,
+    isFirst = false,
 }) => {
     // if (!option || !option.costMeasurementType) return null;
     // todo  default unit type for measurement
@@ -25,21 +32,30 @@ const CostingMeasurement = ({
     const name = `${option?.latestVersion.name} ${showCount ? `(${count})` : ''}`;
     return (
         // todo styling
-        <Field name={name}>
-            {fieldNames.map(fieldName => {
-                return (
-                    <CostingMeasurementInput
-                        key={fieldName}
-                        name={fieldName}
-                        handleChange={(name, value) => handleChange(uid, name, value)}
-                        uid={uid}
-                        unit={unit}
-                        unitType={unitType}
-                        setUnit={setUnit}
-                        value={measurement[fieldName]}
+        // todo unit conversions
+        <Field name={name} classes={`full-length no-margin-bottom ${isFirst ? 'margin-top' : ''}`}>
+            <FlexWrapper justify="between" gap={15}>
+                {fieldNames.map(fieldName => {
+                    return (
+                        <CostingMeasurementInput
+                            key={fieldName}
+                            name={fieldName}
+                            handleChange={(name, value) => handleChange(uid, name, value)}
+                            uid={uid}
+                            value={measurement[fieldName]}
+                        />
+                    );
+                })}
+                <Field forceName classes="full-length basic measurement-unit-field">
+                    <Select
+                        options={UNIT_OPTIONS[unitType]}
+                        value={unit}
+                        onChange={(_, val) => setUnit(val)}
+                        omitPlaceholder={true}
+                        disabled
                     />
-                );
-            })}
+                </Field>
+            </FlexWrapper>
         </Field>
     );
 };

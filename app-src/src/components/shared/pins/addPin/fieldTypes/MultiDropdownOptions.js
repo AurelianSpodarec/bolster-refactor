@@ -56,7 +56,7 @@ const MultiDropdownOptions = ({
                 onChange={handleChange}
             />
             {shouldShowCosting &&
-                questionValue.map(value => (
+                questionValue.map((value, index) => (
                     <CostingMeasurement
                         key={value.uid}
                         measurement={measurements[value.uid]}
@@ -65,6 +65,7 @@ const MultiDropdownOptions = ({
                         )}
                         uid={value.uid}
                         handleChange={handleMeasurementChange}
+                        isFirst={index === 0}
                     />
                 ))}
         </>

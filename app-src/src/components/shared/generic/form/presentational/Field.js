@@ -12,15 +12,17 @@ const Field = ({
     htmlFor,
     styles = {},
     labelClasses = '',
+    forceName = false,
 }) => {
     const titleCaseName = toTitleCase(name);
+    const labelOutput = label ? label : titleCaseName ? titleCaseName : '\u00A0';
 
     return (
         <div className={`form-field ${sizeClasses} ${classes} `} style={{ ...styles }}>
             <div className="flex-row-reverse">
-                {name && name.length && (
+                {(name || forceName) && (
                     <label className={` title  ${labelClasses}`} htmlFor={htmlFor}>
-                        {label ?? titleCaseName}
+                        {labelOutput}
                         <span className="small">{smallDesc ? smallDesc : ''}</span>{' '}
                         {required && <sub>*</sub>}
                     </label>
