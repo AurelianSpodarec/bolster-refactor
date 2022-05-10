@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
@@ -28,7 +28,6 @@ class AddSiteFormContainer extends Component {
             isUsingBolsterLabels,
             isFetching,
             error,
-            manufacturers,
             isFetchingHierarchies,
             types,
             sets,
@@ -75,7 +74,6 @@ class AddSiteFormContainer extends Component {
                     isUsingBolsterLabels={isUsingBolsterLabels}
                     isFetching={isFetching}
                     error={error}
-                    manufacturers={manufacturers}
                     isFetchingHierarchies={isFetchingHierarchies}
                     types={typesToDisplay}
                     typeSets={typeSets}
@@ -177,7 +175,7 @@ const mapStateToProps = ({
         floorsReducer: { isFetching: isFetchingFloors },
         drawingsReducer: { isFetching: isFetchingDrawings },
         companySettingsReducer: {
-            companySettings: { isUsingBolsterLabels, useManufacturingByDefault, isCostingEnabled },
+            companySettings: { isUsingBolsterLabels, isCostingEnabled },
         },
         pinOptionSetsReducer: { isFetching: isFetchingPinOptionSets, sets },
         pinOptionTypesReducer: { isFetching: isFetchingPinOptionTypes, types },
@@ -191,7 +189,6 @@ const mapStateToProps = ({
     error: sitesReducer.error,
     updatedSiteID: sitesReducer.updatedSiteID,
     isFetching: isFetchingPinOptionSets || isFetchingPinOptionTypes,
-    useManufacturingByDefault,
     subscriptionServiceIDs,
     sets,
     types,

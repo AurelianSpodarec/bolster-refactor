@@ -249,7 +249,6 @@ export default function (WrappedComponent) {
                 templateQuestionFormReducer: { fields },
                 templateQuestionsReducer: { questions },
                 templatesReducer: { templates },
-                companiesReducer: { companyDropdownOptions, companyManufacturerOptions },
                 pinOptionsReducer: { options: pinOptions },
                 pinOptionVersionsReducer: { versions: pinOptionVersions },
             },
@@ -261,8 +260,6 @@ export default function (WrappedComponent) {
             questionsObj: questions,
             questions: Object.values(questions),
             template: templates[templateUUID] || {},
-            companyDropdownOptions,
-            companyManufacturerOptions,
             pinOptions,
             pinOptionVersions,
         };

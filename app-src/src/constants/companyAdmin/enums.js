@@ -1,10 +1,3 @@
-export const ROLE_TYPES = {
-    0: 'Owner',
-    1: 'Admin',
-    2: 'Operative',
-    3: 'Client',
-};
-
 export const HIERARCHY_TYPES = {
     1: 'site',
     2: 'building',
@@ -102,13 +95,6 @@ export const PERMISSION_STATES = {
     ACCEPTED: 1,
     REJECTED: 2,
 };
-
-export const SITES_FILTER_TYPES = {
-    active: 'Active',
-    readonly: 'Read only',
-    archived: 'Archived',
-};
-
 export const LABEL_TYPES = {
     1: 'Standard',
     2: 'Trim',
@@ -337,19 +323,6 @@ export const PIN_OPTION_TYPES_ENUM = {
     17: 'Item Types',
     18: 'Installation Types',
 };
-
-export const PIN_OPTION_TYPES_VALS = {
-    frRatings: 16,
-    itemTypes: 17,
-    installationTypes: 18,
-};
-
-export const DROPDOWN_OPTION_MANUFACTURER_ENABLED = {
-    1: false,
-    2: false,
-    3: true,
-};
-
 export const FLOORPLAN_STATES = {
     FAILEDCANCELLED: -100,
     FAILEDRETRYING: -1,
@@ -778,7 +751,7 @@ export const MEASUREMENT_TYPES = {
     VOLUME: 4,
     NUMBER: 5,
     FIXED: 6,
-    RADIUS: 7,
+    DIAMETER: 7,
 };
 
 export const MEASUREMENT_VALUES = {
@@ -788,7 +761,7 @@ export const MEASUREMENT_VALUES = {
     4: 'Volume (l)',
     5: 'Number',
     6: 'Fixed Price',
-    7: 'Radius (mm)',
+    7: 'Diameter (mm)',
 };
 
 export const MEASUREMENT_TYPES_OUTPUTS_PLURAL = {
@@ -798,7 +771,7 @@ export const MEASUREMENT_TYPES_OUTPUTS_PLURAL = {
     [MEASUREMENT_TYPES.VOLUME]: 'litres',
     [MEASUREMENT_TYPES.NUMBER]: null,
     [MEASUREMENT_TYPES.FIXED]: null,
-    [MEASUREMENT_TYPES.RADIUS]: 'millimetres',
+    [MEASUREMENT_TYPES.DIAMETER]: 'millimetres',
 };
 
 export const MEASUREMENT_UNITS = {

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Field from '../../../generic/form/presentational/Field';
 import { MEASUREMENT_TYPES, MEASUREMENT_UNITS } from '../../../../../constants/companyAdmin/enums';
 import CostingMeasurementInput from './CostingMeasurementInput';
-const { LINEAR, CUBIC, RADIUS, FIXED, NUMBER, SQUARE, VOLUME } = MEASUREMENT_TYPES;
+const { LINEAR, CUBIC, DIAMETER, FIXED, NUMBER, SQUARE, VOLUME } = MEASUREMENT_TYPES;
 const { MILLIMETRE, MILLILITRE } = MEASUREMENT_UNITS;
 
 const CostingMeasurement = ({
@@ -46,7 +46,7 @@ const CostingMeasurement = ({
 
 const measurementInfo = {
     [LINEAR]: { fieldNames: ['length'], defaultUnit: MILLIMETRE, unitType: 'DISTANCE' },
-    [RADIUS]: { fieldNames: ['radius'], defaultUnit: MILLIMETRE, unitType: 'DISTANCE' },
+    [DIAMETER]: { fieldNames: ['diameter'], defaultUnit: MILLIMETRE, unitType: 'DISTANCE' },
     [SQUARE]: { fieldNames: ['length', 'width'], defaultUnit: MILLIMETRE, unitType: 'DISTANCE' },
     [CUBIC]: {
         fieldNames: ['length', 'width', 'height'],

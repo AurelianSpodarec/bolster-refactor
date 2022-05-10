@@ -26,9 +26,9 @@ const mapDispatchToProps = dispatch => ({
     fetchHomeData: companyID => {
         batch(() => {
             dispatch(fetchProfile());
-            dispatch(fetchClientCompanyReports(companyID));
             dispatch(decodeJWT());
             dispatch(fetchAllSubscriptions());
+            if (companyID) dispatch(fetchClientCompanyReports(companyID));
         });
     },
     selectClientMenuTab: () => dispatch(selectMenuTab(MENU_TABS.CLIENT)),
