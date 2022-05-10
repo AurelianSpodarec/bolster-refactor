@@ -148,7 +148,9 @@ const useEditOptionValue = option => {
                 ({ value, cost }) => value && cost,
             );
 
-            postBody.costMeasurementType = costMeasurementType;
+            postBody.costMeasurementType = option.costMeasurementType
+                ? option.costMeasurementType
+                : costMeasurementType;
             postBody.measurementPriceBreaks = priceBreaksWithoutEmpties;
         }
 

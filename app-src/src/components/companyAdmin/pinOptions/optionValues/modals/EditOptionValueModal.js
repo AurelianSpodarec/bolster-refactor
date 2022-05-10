@@ -87,18 +87,18 @@ const EditOptionValueModal = ({ option }) => {
 
                 {pinOptionType.hasCosting && (
                     <>
-                        {canEditMeasurement && (
-                            <Field name="Unit of Measurement">
-                                <DropdownContainer
-                                    name="costMeasurementType"
-                                    options={Object.values(measurementDropdownOptions)}
-                                    selectedOption={
-                                        measurementDropdownOptions[form.costMeasurementType]
-                                    }
-                                    handleChange={handleChange}
-                                />
-                            </Field>
-                        )}
+                        <Field name="Unit of Measurement">
+                            <DropdownContainer
+                                name="costMeasurementType"
+                                options={Object.values(measurementDropdownOptions)}
+                                selectedOption={
+                                    measurementDropdownOptions[form.costMeasurementType]
+                                }
+                                handleChange={handleChange}
+                                disabled={!canEditMeasurement}
+                            />
+                        </Field>
+
                         {!!form.costMeasurementType && (
                             <>
                                 {!canEditMeasurement && (
