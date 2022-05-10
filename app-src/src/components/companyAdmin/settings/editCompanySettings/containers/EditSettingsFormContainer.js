@@ -50,7 +50,6 @@ class EditSettingsFormContainer extends Component {
         // defaultDropdownSorting: DEFAULT_PIN_OPTIONS_SORT.CUSTOM,
         shouldDeleteReportsAfterDownload: false,
         enableQRCodes: false,
-        useManufacturingByDefault: false,
         unsyncedCompanyNotificationDays: '',
         unsyncedOperativeWarningDays: '',
         reportAutoDelete: 0,

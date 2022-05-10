@@ -50,7 +50,6 @@ const EditSettingsForm = ({
     siteSortOptions,
     shouldDeleteReportsAfterDownload,
     enableQRCodes,
-    useManufacturingByDefault,
     unsyncedCompanyNotificationDays,
     unsyncedOperativeWarningDays,
     reportAutoDelete,
@@ -255,15 +254,6 @@ const EditSettingsForm = ({
                         name="defaultSitesSort"
                         value={defaultSitesSort}
                         omitPlaceholder
-                    />
-                </Field>
-            </div>
-            <div className="size-lg-12">
-                <Field name="Use O&M Manufacturing By Default" sizeClasses="size-lg-6 size-md-12">
-                    <CheckboxContainer
-                        checked={useManufacturingByDefault}
-                        handleChange={handleInputChange}
-                        name="useManufacturingByDefault"
                     />
                 </Field>
             </div>

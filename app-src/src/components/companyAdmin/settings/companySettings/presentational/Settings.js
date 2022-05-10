@@ -298,12 +298,6 @@ const Settings = ({ isFetching, error, companySettings: company, onMobile }) => 
                             fieldClass="no-h-padding"
                             sizeClass="size-lg-12"
                         />
-                        <FieldOutput
-                            title="Use O&M Manufacturing By Default?"
-                            description={company.useManufacturingByDefault ? 'Yes' : 'No'}
-                            fieldClass="no-h-padding"
-                            sizeClass="size-lg-12"
-                        />
                     </Block>
                     <Block>
                         <BlockHeading title="Report Settings" />
