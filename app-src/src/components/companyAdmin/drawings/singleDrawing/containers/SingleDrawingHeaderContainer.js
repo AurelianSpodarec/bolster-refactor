@@ -8,9 +8,8 @@ import TabsContainer from '../../../../shared/generic/tabs/containers/TabsContai
 
 const SingleDrawingHeaderContainer = ({ drawing }) => (
     <SingleDrawingHeader drawing={drawing}>
-        <DrawingBreadcrumbContainer>
-            <TabsContainer classes="hierarchy-tabs" />
-        </DrawingBreadcrumbContainer>
+        <TabsContainer classes="hierarchy-tabs" />
+        <DrawingBreadcrumbContainer></DrawingBreadcrumbContainer>
     </SingleDrawingHeader>
 );
 

@@ -8,9 +8,8 @@ import TabsContainer from 'components/shared/generic/tabs/containers/TabsContain
 
 const SingleFloorHeaderContainer = ({ floor }) => (
     <SingleFloorHeader floor={floor}>
-        <FloorBreadcrumbContainer>
-            <TabsContainer classes="hierarchy-tabs" />
-        </FloorBreadcrumbContainer>
+        <TabsContainer classes="hierarchy-tabs" />
+        <FloorBreadcrumbContainer></FloorBreadcrumbContainer>
     </SingleFloorHeader>
 );
 

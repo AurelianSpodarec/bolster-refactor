@@ -9,9 +9,10 @@ const SitePageHeader = ({ site, children }) => (
         title={`Site: ${site.name || ''} ${site.isArchived ? '(ARCHIVED)' : ''}`}
         withBackButton
     >
-        <Breadcrumb breadcrumbs={[{ text: 'Sites', link: '/company/sites' }, { text: site.name }]}>
-            <TabsContainer classes="hierarchy-tabs" />
-        </Breadcrumb>
+        <TabsContainer classes="hierarchy-tabs" />
+        <Breadcrumb
+            breadcrumbs={[{ text: 'Sites', link: '/company/sites' }, { text: site.name }]}
+        ></Breadcrumb>
         {children}
     </PageHeading>
 );

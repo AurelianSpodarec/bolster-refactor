@@ -9,9 +9,8 @@ class BuildingPageHeaderContainer extends Component {
     render() {
         return (
             <BuildingPageHeader building={this.props.building}>
-                <BuildingBreadcrumbContainer>
-                    <TabsContainer classes="hierarchy-tabs" />
-                </BuildingBreadcrumbContainer>
+                <TabsContainer classes="hierarchy-tabs" />
+                <BuildingBreadcrumbContainer></BuildingBreadcrumbContainer>
             </BuildingPageHeader>
         );
     }
