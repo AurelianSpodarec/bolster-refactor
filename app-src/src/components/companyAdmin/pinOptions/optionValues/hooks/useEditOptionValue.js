@@ -157,12 +157,12 @@ const useEditOptionValue = option => {
 
     // only one measurement entry needed for fixed price
     useEffect(() => {
-        if (+form.measurementType === MEASUREMENT_TYPES.FIXED) {
+        if (+form.costMeasurementType === MEASUREMENT_TYPES.FIXED) {
             const measurementFields = form.measurementPriceBreaks;
             measurementFields.splice(1);
             handleChange('measurementPriceBreaks', measurementFields);
         }
-    }, [form.measurementType]);
+    }, [form.costMeasurementType]);
 
     useEffect(() => {
         if (postError && !prevProps.postError) dispatch(showModal(ERROR_MODAL));
