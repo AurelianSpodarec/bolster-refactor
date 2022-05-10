@@ -10,10 +10,10 @@ import plusIcon from '_content/images/icons/plus_icon.png';
 import { formatCurrency } from 'helpers/generic';
 
 const icons = {
-    person: employeeIcon,
-    building: buildingIcon,
-    pound: poundIcon,
-    plus: plusIcon,
+    Person: employeeIcon,
+    Building: buildingIcon,
+    Money: poundIcon,
+    Plus: plusIcon,
 };
 
 const CostingAndEstimatingPod = ({ pod }) => {
@@ -28,6 +28,7 @@ const CostingAndEstimatingPod = ({ pod }) => {
 
     const dataToShow = solo ? solo : isFlipped ? lowest : highest;
     const valueIsCurrency = dataToShow?.valueCurrency !== null;
+    console.log({ dataToShow });
 
     return (
         <BlockContainer
@@ -54,8 +55,10 @@ const CostingAndEstimatingPod = ({ pod }) => {
                     valueIsCurrency
                         ? `${dataToShow?.valueCurrency < 0 ? '-' : ''}£${
                               !Number.isNaN(dataToShow?.valueCurrency)
-                                  ? formatCurrency(dataToShow?.valueCurrency, false)
-                                  : ''
+                                  ? dataToShow?.valueCurrency < 0
+                                      ? formatCurrency(dataToShow?.valueCurrency, false)
+                                      : '0.00'
+                                  : '0.00'
                           }`
                         : dataToShow.valueNumerical
                 }`}</p>
