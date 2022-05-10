@@ -27,11 +27,7 @@ const OptionSets = ({ selectedTypeID }) => {
         selectedTypeID,
     );
 
-    const {
-        showAddModal,
-        showEditModal,
-        // showDeleteModal, setAsDefault
-    } = useOptionSetActions(selectedTypeID);
+    const { showAddModal, showEditModal, showDeleteModal } = useOptionSetActions(selectedTypeID);
 
     const setLink = selectedPinOptionType.slug;
 
@@ -79,7 +75,7 @@ const OptionSets = ({ selectedTypeID }) => {
                         set={set}
                         setLink={setLink}
                         showEditModal={showEditModal}
-                        // showDeleteModal={showDeleteModal}
+                        showDeleteModal={showDeleteModal}
                     />
                 ))}
             </Table>

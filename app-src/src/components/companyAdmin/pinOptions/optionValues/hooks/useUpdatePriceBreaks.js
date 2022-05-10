@@ -4,7 +4,7 @@ import {
     getFormArrayObjChange,
 } from 'helpers/generic';
 
-const useUpdatePriceBreaks = (form, handleChange) => {
+const useUpdatePriceBreaks = (form, handleChange, disableAdd = false) => {
     const handlePriceBreakChange = (index, field, value) => {
         const arrayToUpdate = getFormArrayObjChange(
             index,
@@ -17,6 +17,8 @@ const useUpdatePriceBreaks = (form, handleChange) => {
     };
 
     const handleAddPriceBreak = () => {
+        if (disableAdd) return;
+
         const arrayToUpdate = getFormArrayAfterObjAdd(form.measurementPriceBreaks, {
             value: '',
             cost: '',

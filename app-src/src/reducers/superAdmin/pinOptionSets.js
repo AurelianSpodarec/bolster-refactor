@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { convertArrToObj, updateObj } from 'helpers/generic';
+import { convertArrToObj, removeObjItem, updateObj } from 'helpers/generic';
 import {
     FETCH_ADMIN_PIN_OPTION_SETS_REQUEST,
     FETCH_ADMIN_PIN_OPTION_SETS_SUCCESS,
@@ -11,6 +11,9 @@ import {
     EDIT_ADMIN_PIN_OPTION_SET_SUCCESS,
     EDIT_ADMIN_PIN_OPTION_SET_REQUEST,
     EDIT_ADMIN_PIN_OPTION_SET_FAILURE,
+    DELETE_ADMIN_PIN_OPTION_SET_REQUEST,
+    DELETE_ADMIN_PIN_OPTION_SET_SUCCESS,
+    DELETE_ADMIN_PIN_OPTION_SET_FAILURE,
 } from 'constants/actionTypes/pinOptions';
 import { SET_API_FIELD_ERRORS } from '../../constants/actionTypes/generic';
 
@@ -21,6 +24,9 @@ export default combineReducers({
     isPosting: isPostingReducer,
     postError: postErrorReducer,
     postSuccess: postSuccessReducer,
+    isDeleting: isDeletingReducer,
+    deleteSuccess: deleteSuccessReducer,
+    deleteError: deleteErrorReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -53,6 +59,8 @@ function setsReducer(state = {}, action) {
         case CREATE_ADMIN_PIN_OPTION_SET_SUCCESS:
         case EDIT_ADMIN_PIN_OPTION_SET_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
+        case DELETE_ADMIN_PIN_OPTION_SET_SUCCESS:
+            return removeObjItem(state, action.payload);
         default:
             return state;
     }
@@ -94,6 +102,39 @@ function postSuccessReducer(state = false, action) {
             return false;
         case CREATE_ADMIN_PIN_OPTION_SET_SUCCESS:
         case EDIT_ADMIN_PIN_OPTION_SET_SUCCESS:
+            return true;
+        default:
+            return state;
+    }
+}
+
+function isDeletingReducer(state = false, action) {
+    switch (action.type) {
+        case DELETE_ADMIN_PIN_OPTION_SET_REQUEST:
+            return true;
+        case DELETE_ADMIN_PIN_OPTION_SET_SUCCESS:
+        case DELETE_ADMIN_PIN_OPTION_SET_FAILURE:
+            return false;
+        default:
+            return state;
+    }
+}
+function deleteErrorReducer(state = null, action) {
+    switch (action.type) {
+        case DELETE_ADMIN_PIN_OPTION_SET_REQUEST:
+            return null;
+        case DELETE_ADMIN_PIN_OPTION_SET_FAILURE:
+            return action.error;
+        default:
+            return state;
+    }
+}
+
+function deleteSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case DELETE_ADMIN_PIN_OPTION_SET_REQUEST:
+            return false;
+        case DELETE_ADMIN_PIN_OPTION_SET_SUCCESS:
             return true;
         default:
             return state;

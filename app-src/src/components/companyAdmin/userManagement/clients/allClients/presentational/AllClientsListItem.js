@@ -5,6 +5,7 @@ import ButtonContainer from 'components/shared/generic/button/containers/ButtonC
 import ActionMenu from 'components/shared/actionMenu/ActionMenu';
 import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
 import FlexWrapper from '../../../../../../components/shared/generic/flexWrapper/FlexWrapper';
+import LinkButton from '../../../../../shared/generic/button/presentational/LinkButton';
 
 const AllClientsListItem = ({
     client,
@@ -46,9 +47,11 @@ const AllClientsListItem = ({
             <td>
                 {onMobile && <span className="mobile-table-heading">{headers[6]}</span>}
                 <FlexWrapper justify="end" align="center">
-                    <ButtonContainer to={`/company/users-management/clients/${client.id}`}>
-                        View
-                    </ButtonContainer>
+                    <LinkButton
+                        icon="eye"
+                        text="View"
+                        href={`/company/users-management/clients/${client.id}`}
+                    />
 
                     <ActionMenu>
                         <ActionMenuActionButton text="Edit" onClick={goToEdit} />

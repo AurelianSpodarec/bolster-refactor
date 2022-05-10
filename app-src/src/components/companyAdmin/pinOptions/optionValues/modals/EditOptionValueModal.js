@@ -21,6 +21,7 @@ import ButtonMultiDropdown from 'components/shared/filters/ButtonMultiDropdown';
 import NumberInputContainer from 'components/shared/generic/form/containers/NumberInputContainer';
 import JustToCheckModal from './JustToCheckModal';
 import DropdownContainer from '../../../../shared/generic/form/containers/DropdownContainer';
+import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 
 const EditOptionValueModal = ({ option }) => {
     const pinOptionType = useSelector(state => selectPinOptionType(state, option.pinOptionTypeID));
@@ -46,6 +47,19 @@ const EditOptionValueModal = ({ option }) => {
     const isMultiplePriceBreaks = priceBreaksLength > 1;
 
     const measurementTypeOutput = MEASUREMENT_TYPES_OUTPUTS_PLURAL[form.costMeasurementType];
+
+    const MeasurementWrapper = ({ children }) => {
+        if (canEditMeasurement) return <>{children}</>;
+        return (
+            <TooltipContainer
+                side="top"
+                text="The measurement type has already been set, this cannot be changed."
+                extraContainerClasses="full"
+            >
+                {children}
+            </TooltipContainer>
+        );
+    };
 
     return (
         <ModalOuterContainer hideCloseButton>
@@ -87,8 +101,8 @@ const EditOptionValueModal = ({ option }) => {
 
                 {pinOptionType.hasCosting && (
                     <>
-                        {canEditMeasurement && (
-                            <Field name="Unit of Measurement">
+                        <Field name="Unit of Measurement">
+                            <MeasurementWrapper>
                                 <DropdownContainer
                                     name="costMeasurementType"
                                     options={Object.values(measurementDropdownOptions)}
@@ -96,9 +110,11 @@ const EditOptionValueModal = ({ option }) => {
                                         measurementDropdownOptions[form.costMeasurementType]
                                     }
                                     handleChange={handleChange}
+                                    disabled={!canEditMeasurement}
                                 />
-                            </Field>
-                        )}
+                            </MeasurementWrapper>
+                        </Field>
+
                         {!!form.costMeasurementType && (
                             <>
                                 {!canEditMeasurement && (
