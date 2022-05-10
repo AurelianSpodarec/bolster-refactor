@@ -286,6 +286,7 @@ import GenerateCostingEstimatingReportSuccessModal from '../presentational/Gener
 import EditLinkPrelimModal from 'components/companyAdmin/costingAndEstimating/modals/EditLinkPrelimModal';
 import LinkPrelimModal from '../../../../companyAdmin/costingAndEstimating/modals/LinkPrelimModal';
 import AdminCreateOptionValueModal from '../../../../superAdmin/pinOptions/optionValues/modals/CreateOptionValueModal';
+import AdminEditOptionValueModal from '../../../../superAdmin/pinOptions/optionValues/modals/EditOptionValueModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -423,7 +424,7 @@ const MODAL_COMPONENTS = {
     [CREATE_ADMIN_PIN_OPTIONS_SET_MODAL]: AdminCreateOptionSetModal,
     [EDIT_ADMIN_PIN_OPTIONS_SET_MODAL]: AdminEditOptionSetModal,
     [CREATE_ADMIN_PIN_OPTIONS_VALUE_MODAL]: AdminCreateOptionValueModal,
-    [EDIT_ADMIN_PIN_OPTIONS_VALUE_MODAL]: AdminEditOptionSetModal, // todo,
+    [EDIT_ADMIN_PIN_OPTIONS_VALUE_MODAL]: AdminEditOptionValueModal,
     [EDIT_SITE_PIN_OPTION_SETS]: EditSitePinOptionSetsModal,
     [CREATE_COSTING_AND_ESTIMATING_PRELIM_MODAL]: CreateCostingAndEstimatingPrelimModal,
     [LINK_PRELIM_MODAL]: LinkPrelimModal,

@@ -12,8 +12,6 @@ const DashboardLineGraph = () => {
     const graph = dummyLineGraphData;
     const { data, options, graphRef } = useDashboardLineGraph(graph);
 
-    console.log(graph.dataSets[0].data);
-
     return (
         <div ref={graphRef}>
             <Line data={data} options={options} />

@@ -29,7 +29,6 @@ const useOptionSetActions = selectedTypeID => {
 
     const prevProps = usePrevious({ postError, deleteSuccess });
 
-    console.log(deleteSuccess, prevProps.deleteSuccess);
     const showAddModal = () => {
         dispatch(
             showModal(CREATE_ADMIN_PIN_OPTIONS_SET_MODAL, {

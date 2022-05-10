@@ -90,7 +90,6 @@ export function areArraysEqual(arr1, arr2) {
     );
 }
 export function areObjectsEqual(obj1, obj2) {
-    console.log({ obj1, obj2 });
     if (!obj1 || !obj2) return obj1 === obj2;
     const keys = Object.keys(obj1);
     return keys.every(key => {
