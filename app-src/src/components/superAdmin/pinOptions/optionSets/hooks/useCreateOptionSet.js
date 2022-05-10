@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import { ERROR_MODAL } from 'constants/shared/modalTypes';
 import { useForm, usePrevious } from 'helpers/hooks';
@@ -13,21 +13,21 @@ import {
     selectPinOptionSetsPostError,
 } from 'selectors/superAdmin/pinOptionSets';
 import { selectServicesArr } from 'selectors/superAdmin/services';
-// import { selectPinOptionType } from 'selectors/superAdmin/pinOptionTypes';
+import { selectPinOptionType } from 'selectors/superAdmin/pinOptionTypes';
 
 const useCreateOptionSet = pinOptionTypeID => {
     const [newSetID, setNewSetID] = useState(null);
 
     const dispatch = useDispatch();
-    // const history = useHistory();
+    const history = useHistory();
     const isPosting = useSelector(selectPinOptionSetsIsPosting);
     const postError = useSelector(selectPinOptionSetsPostError);
 
     const services = useSelector(selectServicesArr);
     const serviceOptions = formatCheckboxListOptions(services);
 
-    // const pinOptionType = useSelector(state => selectPinOptionType(state, pinOptionTypeID));
-    // const slug = pinOptionType.slug;
+    const pinOptionType = useSelector(state => selectPinOptionType(state, pinOptionTypeID));
+    const slug = pinOptionType.slug;
 
     const prevProps = usePrevious({ postError, newSetID });
 
@@ -52,15 +52,15 @@ const useCreateOptionSet = pinOptionTypeID => {
     }, [postError, prevProps.postError]);
 
     useEffect(() => {
-        // if (newSetID && !prevProps.newSetID) {
-        //     dispatch(
-        //         showModal(CREATE_PIN_OPTIONS_VALUE_MODAL, {
-        //             pinOptionTypeID,
-        //             pinOptionSetID: newSetID,
-        //         }),
-        //     );
-        //     history.push(`/admin/pin-options/${slug}/${newSetID}`);
-        // }
+        if (newSetID && !prevProps.newSetID) {
+            dispatch(
+                showModal(CREATE_PIN_OPTIONS_VALUE_MODAL, {
+                    pinOptionTypeID,
+                    pinOptionSetID: newSetID,
+                }),
+            );
+            history.push(`/admin/pin-options/${slug}/${newSetID}`);
+        }
     }, [newSetID, prevProps.newSetID]);
 
     return { form, handleChange, handleSubmit, isPosting, serviceOptions };
