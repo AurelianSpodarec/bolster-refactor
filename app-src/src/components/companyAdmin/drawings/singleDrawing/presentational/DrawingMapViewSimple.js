@@ -22,6 +22,10 @@ import DrawingMapViewZones from './DrawingMapViewZones';
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 import { doPinsHaveIcons } from 'helpers/general';
 import { useDispatch } from 'react-redux';
+import ActionMenu from 'components/shared/actionMenu/ActionMenu';
+import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
+import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 
 const getDataUrl = src => `${FILE_STORAGE_URL}/${src}/{z}/{x}/{y}.jpg`;
 
@@ -149,75 +153,89 @@ const DrawingMapViewSimple = ({
                             )
                         ) : (
                             drawing.accessType >= ACCESS_TYPES_VALUES.WRITE && (
-                                <>
-                                    {addMode ? (
-                                        <>
-                                            <button
-                                                onClick={handleClearPinCache}
-                                                to={`${drawing.id}/add-pin`}
-                                                className="button left-align-btn green"
-                                            >
-                                                <i className="fa fa-check" /> Confirm position
-                                            </button>
-                                            <button
-                                                className="button red left-align-btn"
-                                                onClick={toggleAddMode}
-                                            >
-                                                Cancel
-                                            </button>
-                                        </>
-                                    ) : (
-                                        !drawingNotStarted && (
-                                            <button
-                                                className="button left-align-btn green"
-                                                onClick={toggleAddMode}
-                                            >
-                                                <i className="fa fa-plus" /> Add pin
-                                            </button>
-                                        )
-                                    )}
-                                    {drawing.accessType === ACCESS_TYPES_VALUES.OWNER &&
-                                        !shouldRestrictPayments && (
+                                <FlexWrapper justify="between">
+                                    <FlexWrapper>
+                                        {drawing.accessType === ACCESS_TYPES_VALUES.OWNER &&
+                                            !shouldRestrictPayments && (
+                                                <ButtonWrapper alignment="right">
+                                                    <ActionMenu extraClasses="to-the-right">
+                                                        <ActionMenuActionButton
+                                                            text="Edit drawing"
+                                                            onClick={() =>
+                                                                showModal(EDIT_DRAWING, {
+                                                                    drawing,
+                                                                })
+                                                            }
+                                                        />
+
+                                                        <AddCreditsToDrawingButtonContainer
+                                                            drawing={drawing}
+                                                        />
+                                                    </ActionMenu>
+                                                </ButtonWrapper>
+                                            )}
+                                        {addMode ? (
                                             <>
-                                                <button
-                                                    className="button yellow"
-                                                    onClick={() =>
-                                                        showModal(EDIT_DRAWING, {
-                                                            drawing,
-                                                        })
-                                                    }
-                                                >
-                                                    <i className="far fa-pencil fa-fw" /> Edit
-                                                    drawing
-                                                </button>
-
-                                                <AddCreditsToDrawingButtonContainer
-                                                    drawing={drawing}
-                                                />
+                                                <ButtonWrapper alignment="left">
+                                                    <button
+                                                        onClick={handleClearPinCache}
+                                                        to={`${drawing.id}/add-pin`}
+                                                        className="button left-align-btn green"
+                                                    >
+                                                        <i className="fa fa-check" /> Confirm
+                                                        position
+                                                    </button>
+                                                </ButtonWrapper>
+                                                <ButtonWrapper alignment="left">
+                                                    <button
+                                                        className="button red left-align-btn"
+                                                        onClick={toggleAddMode}
+                                                    >
+                                                        Cancel
+                                                    </button>
+                                                </ButtonWrapper>
                                             </>
-                                        )}
-                                    <button
-                                        className="button yellow"
-                                        type="button"
-                                        onClick={() =>
-                                            history.push(
-                                                `/company/drawings/${drawing.id}/upcoming-alerts`,
+                                        ) : (
+                                            !drawingNotStarted && (
+                                                <ButtonWrapper alignment="left">
+                                                    <button
+                                                        className="button left-align-btn green"
+                                                        onClick={toggleAddMode}
+                                                    >
+                                                        <i className="fa fa-plus" /> Add pin
+                                                    </button>
+                                                </ButtonWrapper>
                                             )
-                                        }
-                                    >
-                                        <i className="fa fa-eye" />
-                                        View Alerts
-                                    </button>
+                                        )}
+                                    </FlexWrapper>
+                                    <FlexWrapper justify="end">
+                                        <ButtonWrapper alignment="right">
+                                            <button
+                                                className="button yellow"
+                                                type="button"
+                                                onClick={() =>
+                                                    history.push(
+                                                        `/company/drawings/${drawing.id}/upcoming-alerts`,
+                                                    )
+                                                }
+                                            >
+                                                <i className="fa fa-eye" />
+                                                View Alerts
+                                            </button>
+                                        </ButtonWrapper>
 
-                                    <button
-                                        className="button green"
-                                        type="button"
-                                        onClick={handleCreateHierarchyAlertModal}
-                                    >
-                                        <i className="fa fa-plus" />
-                                        Create Alert
-                                    </button>
-                                </>
+                                        <ButtonWrapper alignment="right">
+                                            <button
+                                                className="button green"
+                                                type="button"
+                                                onClick={handleCreateHierarchyAlertModal}
+                                            >
+                                                <i className="fa fa-plus" />
+                                                Create Alert
+                                            </button>
+                                        </ButtonWrapper>
+                                    </FlexWrapper>
+                                </FlexWrapper>
                             )
                         )}
                     </BlockHeading>
