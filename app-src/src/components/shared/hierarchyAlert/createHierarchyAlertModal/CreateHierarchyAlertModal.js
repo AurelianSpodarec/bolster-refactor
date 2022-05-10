@@ -23,6 +23,7 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import DatePickerContainer from 'components/shared/generic/form/containers/DatePickerContainer';
 import Select from 'components/shared/generic/form/presentational/Select';
 import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 
 const CreateHierarchyAlertModal = ({ hierarchyType, hierarchyID, hideModal }) => {
     const {
@@ -131,16 +132,23 @@ const CreateHierarchyAlertModal = ({ hierarchyType, hierarchyID, hideModal }) =>
                     </Field>
                 </div>
                 <BlockButtonWrapper>
-                    <button
-                        className={`button green ${isPosting ? 'disabled' : ''}`}
-                        disabled={isPosting}
-                    >
-                        <i className={`fa fa-${isPosting ? 'spinner fa-spin' : 'plus'}`} />{' '}
-                        {isPosting ? 'Creating...' : 'Create Alert'}
-                    </button>
-                    <button className="button" onClick={hideModal}>
-                        Cancel
-                    </button>
+                    {isPosting ? (
+                        <ActionButton
+                            text="Creating..."
+                            icon="fa fa-spinner fa-spin"
+                            disabled="true"
+                            ambient="positive"
+                        />
+                    ) : (
+                        <ActionButton
+                            type="submit"
+                            text="Create Alert"
+                            icon="plus"
+                            ambient="positive"
+                        />
+                    )}
+
+                    <ActionButton source="secondary" text="Cancel" onClick={hideModal} />
                 </BlockButtonWrapper>
             </Form>
         </ModalOuterContainer>

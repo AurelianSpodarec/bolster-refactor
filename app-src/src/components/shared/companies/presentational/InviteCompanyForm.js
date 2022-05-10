@@ -8,6 +8,10 @@ import CheckboxListContainer from 'components/shared/generic/form/containers/Che
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import Select from 'components/shared/generic/form/presentational/Select';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 
 const InviteCompanyForm = ({
     location,
@@ -60,7 +64,7 @@ const InviteCompanyForm = ({
                 />
             </Field>
 
-            <BlockButtonWrapper>
+            <FlexWrapper>
                 {showMoreServicesMesssage && (
                     <p className="generic-text size-lg-12">
                         Looking for more service types? Check your{' '}
@@ -71,14 +75,22 @@ const InviteCompanyForm = ({
                     </p>
                 )}
 
-                <button className="button green">
-                    <i className="fa fa-plus" />
-                    Invite Company
-                </button>
-                <Link to={location.pathname.replace('/invite-company', '')} className="button">
-                    Cancel
-                </Link>
-            </BlockButtonWrapper>
+                <ButtonWrapper alignment="right">
+                    <LinkButton
+                        source="secondary"
+                        text="Cancel"
+                        href={location.pathname.replace('/invite-company', '')}
+                    />
+                </ButtonWrapper>
+                <ButtonWrapper alignment="right">
+                    <ActionButton
+                        type="submit"
+                        text="Invite Company"
+                        icon="plus"
+                        ambient="positive"
+                    />
+                </ButtonWrapper>
+            </FlexWrapper>
         </Form>
     </>
 );

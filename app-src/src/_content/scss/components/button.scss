@@ -391,6 +391,10 @@ button {
        justify-content: center;
     }
 
+    &.margin-left {
+        margin-left: 10px;
+    }
+
     .text {
         + .icon, + .svg-icon {
             margin-left: 8px;
