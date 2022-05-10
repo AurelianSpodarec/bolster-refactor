@@ -17,6 +17,10 @@ import ButtonContainer from 'components/shared/generic/button/containers/ButtonC
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import SubmitContainer from 'components/shared/generic/form/containers/SubmitContainer';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
+import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 
 const { VISIBLE_TO_ALL, VISIBLE_TO_OWN_COMPANY, VISIBLE_TO_SELECT_OPERATIVES } =
     DOCUMENT_VISIBILITY;
@@ -212,7 +216,7 @@ const AttachDocumentForm = ({
                     )}
                 </>
             )}
-            <BlockButtonWrapper>
+            <FlexWrapper>
                 {showClientServicesMessage && (
                     <p className="generic-text size-lg-12">
                         Some of your service options have been omitted because you have not been
@@ -228,12 +232,25 @@ const AttachDocumentForm = ({
                         to add more!
                     </p>
                 )}
+                <ButtonWrapper>
+                    <LinkButton
+                        source="secondary"
+                        text="Cancel"
+                        href={location.pathname.replace('/attach-document', '')}
+                        size="small"
+                    />
+                </ButtonWrapper>
 
-                <SubmitContainer text="Attach Document" withPlus />
-                <ButtonContainer to={location.pathname.replace('/attach-document', '')}>
-                    Cancel
-                </ButtonContainer>
-            </BlockButtonWrapper>
+                <ButtonWrapper alignment="right">
+                    <ActionButton
+                        type="submit"
+                        text="Attach Document"
+                        icon="plus"
+                        size="small"
+                        ambient="positive"
+                    />
+                </ButtonWrapper>
+            </FlexWrapper>
         </Form>
     </BlockContainer>
 );

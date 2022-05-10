@@ -8,6 +8,7 @@ import ButtonContainer from 'components/shared/generic/button/containers/ButtonC
 import BolsterLabelExample from 'components/shared/generic/form/presentational/BolsterLabelExample';
 import CheckboxContainer from '../../../../shared/generic/form/containers/CheckboxContainer';
 import CheckboxListContainer from '../../../../shared/generic/form/containers/CheckboxListContainer';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 
 const AddSiteForm = ({
     handleSubmit,
@@ -129,14 +130,14 @@ const AddSiteForm = ({
 
         <BlockButtonWrapper>
             {isFetchingHierarchies ? (
-                <button className="button green disabled" disabled>
-                    <i className="fa fa-spinner fa-spin"></i> Please wait...
-                </button>
+                <ActionButton text="Please wait..." icon="fa fa-spinner fa-spin" disabled="true" />
             ) : (
-                <button className="button green">Submit</button>
+                <ActionButton type="submit" text="Confirm" icon="check" />
             )}
-            <ButtonContainer handleClick={hideModal}>Cancel</ButtonContainer>
+
+            <ActionButton source="secondary" text="Cancel" onClick={hideModal} />
         </BlockButtonWrapper>
     </Form>
 );
+
 export default AddSiteForm;

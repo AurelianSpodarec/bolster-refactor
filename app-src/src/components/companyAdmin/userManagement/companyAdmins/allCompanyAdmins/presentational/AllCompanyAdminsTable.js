@@ -15,6 +15,7 @@ const AllCompanyAdminsTable = ({ headers, users, isFetching, error, handleShowMo
                     text="Create Admin"
                     icon="user-plus"
                     size="medium"
+                    ambient="positive"
                 />
             </BlockHeading>
             <Table

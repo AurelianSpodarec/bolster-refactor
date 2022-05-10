@@ -10,6 +10,9 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 
 const AddClient = ({
     handleChange,
@@ -121,10 +124,14 @@ const AddClient = ({
                     </div>
 
                     <BlockButtonWrapper>
-                        <button className="button green">Confirm</button>
-                        <ButtonContainer to="/company/users-management/clients">
-                            Cancel
-                        </ButtonContainer>
+                        <ActionButton type="submit" text="Confirm" icon="check" />
+                        <ButtonWrapper alignment="right">
+                            <LinkButton
+                                source="secondary"
+                                text="Cancel"
+                                href="/company/users-management/clients"
+                            />
+                        </ButtonWrapper>
                     </BlockButtonWrapper>
                 </Form>
             </BlockContainer>

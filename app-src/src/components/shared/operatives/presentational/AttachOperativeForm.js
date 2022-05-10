@@ -8,6 +8,10 @@ import CheckboxListContainer from 'components/shared/generic/form/containers/Che
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
+import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 
 const AttachOperativeForm = ({
     location,
@@ -90,7 +94,7 @@ const AttachOperativeForm = ({
                 )}
             </div>
 
-            <BlockButtonWrapper>
+            <FlexWrapper>
                 {showClientServicesMessage && (
                     <p className="generic-text size-lg-12">
                         Some of your service options have been omitted because you have not been
@@ -107,14 +111,22 @@ const AttachOperativeForm = ({
                     </p>
                 )}
 
-                <button className="button green">
-                    <i className="fa fa-plus" />
-                    Attach Operative
-                </button>
-                <Link to={location.pathname.replace('/add-operative', '')} className="button">
-                    Cancel
-                </Link>
-            </BlockButtonWrapper>
+                <ButtonWrapper alignment="right">
+                    <LinkButton
+                        source="secondary"
+                        text="Cancel"
+                        href={location.pathname.replace('/add-operative', '')}
+                    />
+                </ButtonWrapper>
+                <ButtonWrapper alignment="right">
+                    <ActionButton
+                        type="submit"
+                        text="Attach Operative"
+                        icon="plus"
+                        ambient="positive"
+                    />
+                </ButtonWrapper>
+            </FlexWrapper>
         </Form>
     </>
 );

@@ -2,6 +2,7 @@ import React from 'react';
 import ModalOuterContainer from '../containers/ModalOuterContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import ActionButton from '../../button/presentational/ActionButton';
 
 const ConfirmArchiveModal = ({
     handleArchive,
@@ -13,13 +14,13 @@ const ConfirmArchiveModal = ({
         <BlockHeading title="Archive Confirmation" />
         <p className="generic-text intro-text size-lg-12">{message}</p>
         <BlockButtonWrapper>
-            <button className="button blue" onClick={handleArchive}>
-                <i className="fa fa-archive" />
-                {archive ? 'Archive' : 'Un-Archive'}
-            </button>
-            <button className="button" onClick={hideModal}>
-                Cancel
-            </button>
+            <ActionButton
+                type="submit"
+                text={archive ? 'Archive' : 'Un-Archive'}
+                icon="fa fa-archive"
+                onClick={handleArchive}
+            />
+            <ActionButton source="secondary" text="Cancel" onClick={hideModal} />
         </BlockButtonWrapper>
     </ModalOuterContainer>
 );
