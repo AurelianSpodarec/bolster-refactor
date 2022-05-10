@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
@@ -93,11 +93,27 @@ class AddSiteFormContainer extends Component {
         fetchPinOptionTypes();
     }
 
-    componentDidUpdate = prevProps => {
-        const { postSuccess, history, updatedSiteID } = this.props;
+    componentDidUpdate = (prevProps, prevState) => {
+        const { postSuccess, history, updatedSiteID, sets } = this.props;
+        const { selectedPinOptionTypes, selectedPinOptionSets } = this.state;
 
         if (postSuccess && !prevProps.postSuccess) {
             history.push(`/company/sites/${updatedSiteID}`);
+        }
+        if (selectedPinOptionTypes !== prevState.selectedPinOptionTypes) {
+            Object.keys(selectedPinOptionTypes).forEach(typeID => {
+                if (selectedPinOptionTypes[typeID] && !prevState.selectedPinOptionTypes[typeID]) {
+                    const defaultSetIDs = Object.values(sets)
+                        .filter(set => set.pinOptionTypeID === +typeID && set.isDefault)
+                        .map(set => set.id);
+                    this.setState({
+                        selectedPinOptionSets: {
+                            ...selectedPinOptionSets,
+                            [typeID]: defaultSetIDs,
+                        },
+                    });
+                }
+            });
         }
     };
 
