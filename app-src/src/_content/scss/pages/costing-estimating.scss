@@ -90,6 +90,21 @@
   }
 }
 
+@mixin tableCell() {
+  .table-cell {
+    flex: 1;
+    padding: 5px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow-x: hidden;
+
+    .date {
+      @include bodyText();
+      font-size: 13px;
+    }
+  }
+}
+
 .costing-wrapper {
   grid-template-areas: "pods pods cart" "graph graph cart" "filters filters cart";
   grid-template-columns: repeat(3, 1fr);
@@ -472,6 +487,7 @@
     
     @include tableCols();
     @include listMargin();
+    @include tableCell();
   }
   
   .filter-list-row {
@@ -480,16 +496,7 @@
     @include tableCols();
     border-bottom: 1px solid $dark-grey;
     @include listMargin();
-
-    .table-cell {
-      flex: 1;
-
-      .date {
-        @include bodyText();
-        font-size: 13px;
-      }
-
-    }
+    @include tableCell();
   }
   .table-cell-controls {
     display: grid;
