@@ -6,7 +6,7 @@ import HamburgerMenuIcon from '../../../_content/images/icons/hamburger-menu-ico
 import HamburgerMenuIconLight from '../../../_content/images/icons/hamburger-menu-icon-light.svg';
 import useColourTheme from 'hooks/useColourTheme';
 
-const ActionMenu = ({ children, ellipsisPosition = 'right', disabled = false }) => {
+const ActionMenu = ({ children, ellipsisPosition = 'right', disabled = false, extraClasses }) => {
     const colourTheme = useColourTheme();
     const [showMenu, setShowMenu] = useState(false);
 
@@ -34,7 +34,7 @@ const ActionMenu = ({ children, ellipsisPosition = 'right', disabled = false }) 
                 />
             </button>
 
-            <div ref={ref}>
+            <div ref={ref} className={`${extraClasses}`}>
                 {showMenu && (
                     <ActionMenuContent closeMenu={closeMenu}>{children}</ActionMenuContent>
                 )}
