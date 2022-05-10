@@ -21,6 +21,7 @@ import ButtonMultiDropdown from 'components/shared/filters/ButtonMultiDropdown';
 import NumberInputContainer from 'components/shared/generic/form/containers/NumberInputContainer';
 import JustToCheckModal from './JustToCheckModal';
 import DropdownContainer from '../../../../shared/generic/form/containers/DropdownContainer';
+import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 
 const EditOptionValueModal = ({ option }) => {
     const pinOptionType = useSelector(state => selectPinOptionType(state, option.pinOptionTypeID));
@@ -46,6 +47,19 @@ const EditOptionValueModal = ({ option }) => {
     const isMultiplePriceBreaks = priceBreaksLength > 1;
 
     const measurementTypeOutput = MEASUREMENT_TYPES_OUTPUTS_PLURAL[form.costMeasurementType];
+
+    const MeasurementWrapper = ({ children }) => {
+        if (canEditMeasurement) return <>{children}</>;
+        return (
+            <TooltipContainer
+                side="top"
+                text="The measurement type has already been set, this cannot be changed."
+                extraContainerClasses="full"
+            >
+                {children}
+            </TooltipContainer>
+        );
+    };
 
     return (
         <ModalOuterContainer hideCloseButton>
@@ -88,15 +102,17 @@ const EditOptionValueModal = ({ option }) => {
                 {pinOptionType.hasCosting && (
                     <>
                         <Field name="Unit of Measurement">
-                            <DropdownContainer
-                                name="costMeasurementType"
-                                options={Object.values(measurementDropdownOptions)}
-                                selectedOption={
-                                    measurementDropdownOptions[form.costMeasurementType]
-                                }
-                                handleChange={handleChange}
-                                disabled={!canEditMeasurement}
-                            />
+                            <MeasurementWrapper>
+                                <DropdownContainer
+                                    name="costMeasurementType"
+                                    options={Object.values(measurementDropdownOptions)}
+                                    selectedOption={
+                                        measurementDropdownOptions[form.costMeasurementType]
+                                    }
+                                    handleChange={handleChange}
+                                    disabled={!canEditMeasurement}
+                                />
+                            </MeasurementWrapper>
                         </Field>
 
                         {!!form.costMeasurementType && (

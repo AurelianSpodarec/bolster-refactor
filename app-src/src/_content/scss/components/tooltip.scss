@@ -22,6 +22,21 @@
     .tooltip {
         z-index: 9999;
     }
+
+    &.full {
+        float: none;
+        width: 100%;
+    }
+
+    .custom-dropdown.disabled {
+        input {
+            cursor: not-allowed;
+        }
+
+        select {
+            pointer-events: none;
+        }
+    }
 }
 
 // tooltip
