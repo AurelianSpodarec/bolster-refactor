@@ -29,7 +29,7 @@ const CostingAndEstimating = () => {
     } = useCostingAndEstimating();
 
     return (
-        <GridWrapper gap={30} containerClass="costing-wrapper">
+        <GridWrapper gap={2} containerClass="costing-wrapper">
             <CostingAndEstimatingPods
                 data={results?.keyStatistics}
                 isFetching={isFetchingResults}

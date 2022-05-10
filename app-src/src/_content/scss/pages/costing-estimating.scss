@@ -90,6 +90,21 @@
   }
 }
 
+@mixin tableCell() {
+  .table-cell {
+    flex: 1;
+    padding: 5px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow-x: hidden;
+
+    .date {
+      @include bodyText();
+      font-size: 13px;
+    }
+  }
+}
+
 .costing-wrapper {
   grid-template-areas: "pods pods cart" "graph graph cart" "filters filters cart";
   grid-template-columns: repeat(3, 1fr);
@@ -181,6 +196,7 @@
 .pods {
   display: flex;
   grid-area: pods;
+  margin-bottom: 10px;
 
   .icon-wrapper {
     margin-bottom: 15px;
@@ -393,8 +409,12 @@
     z-index: 25;
 
     .filter-item {
-      padding: 15px;
+      padding: 7.5px 15px;
       border-bottom: 1px solid var(--background-stroke);
+
+      p{
+        font-size: 120%;
+      }
     }
 
     button {
@@ -467,6 +487,7 @@
     
     @include tableCols();
     @include listMargin();
+    @include tableCell();
   }
   
   .filter-list-row {
@@ -475,16 +496,7 @@
     @include tableCols();
     border-bottom: 1px solid $dark-grey;
     @include listMargin();
-
-    .table-cell {
-      flex: 1;
-
-      .date {
-        @include bodyText();
-        font-size: 13px;
-      }
-
-    }
+    @include tableCell();
   }
   .table-cell-controls {
     display: grid;

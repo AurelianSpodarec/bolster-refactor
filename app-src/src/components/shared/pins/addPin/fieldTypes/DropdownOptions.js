@@ -65,6 +65,7 @@ const DropdownOptions = ({
                     option={selected}
                     uid={firstValue.uid}
                     handleChange={handleMeasurementChange}
+                    isFirst
                 />
             )}
         </>
