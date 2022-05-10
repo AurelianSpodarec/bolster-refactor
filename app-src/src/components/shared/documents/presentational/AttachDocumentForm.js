@@ -242,7 +242,13 @@ const AttachDocumentForm = ({
                 </ButtonWrapper>
 
                 <ButtonWrapper alignment="right">
-                    <ActionButton type="submit" text="Attach Document" icon="plus" size="small" />
+                    <ActionButton
+                        type="submit"
+                        text="Attach Document"
+                        icon="plus"
+                        size="small"
+                        ambient="positive"
+                    />
                 </ButtonWrapper>
             </FlexWrapper>
         </Form>
