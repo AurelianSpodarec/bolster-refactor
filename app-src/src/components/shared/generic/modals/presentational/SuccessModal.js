@@ -3,6 +3,7 @@ import ModalOuterContainer from '../containers/ModalOuterContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ButtonContainer from '../../button/containers/ButtonContainer';
+import ActionButton from '../../button/presentational/ActionButton';
 
 const SuccessModal = ({
     hideModal,
@@ -26,9 +27,8 @@ const SuccessModal = ({
                     {linkMessage}
                 </ButtonContainer>
             )}
-            <button className="button" onClick={hideModal}>
-                <i className="fa fa-times" /> Close
-            </button>
+
+            <ActionButton source="secondary" text="Close" onClick={hideModal} />
         </BlockButtonWrapper>
     </ModalOuterContainer>
 );

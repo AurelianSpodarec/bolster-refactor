@@ -10,6 +10,10 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
+import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 
 const InviteClientForm = ({
     location,
@@ -126,7 +130,7 @@ const InviteClientForm = ({
                 />
             </Field>
 
-            <BlockButtonWrapper>
+            <FlexWrapper>
                 {showClientServicesMessage && (
                     <p className="generic-text size-lg-12">
                         Some of your service options have been omitted because you have not been
@@ -142,16 +146,24 @@ const InviteClientForm = ({
                         to add more!
                     </p>
                 )}
-
-                <button className="button green">
-                    <i className="fa fa-plus" />
-                    Invite Client
-                </button>
-
-                <ButtonContainer to={location.pathname.replace('/invite-client', '')}>
-                    Cancel
-                </ButtonContainer>
-            </BlockButtonWrapper>
+                <ButtonWrapper alignment="right">
+                    <LinkButton
+                        source="secondary"
+                        text="Cancel"
+                        href={location.pathname.replace('/invite-client', '')}
+                        size="small"
+                    />
+                </ButtonWrapper>
+                <ButtonWrapper alignment="right">
+                    <ActionButton
+                        type="submit"
+                        text="Invite Client"
+                        icon="plus"
+                        ambient="positive"
+                        size="small"
+                    />
+                </ButtonWrapper>
+            </FlexWrapper>
         </Form>
     </>
 );
