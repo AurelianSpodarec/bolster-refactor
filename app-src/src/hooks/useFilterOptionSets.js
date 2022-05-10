@@ -2,12 +2,14 @@ import useSearch from 'hooks/useSearch';
 
 const useFilterSets = (sets, selectedTypeID) => {
     const { searchTerm, handleUpdateSearch } = useSearch();
-    const alphabeticallySortedSets = sets.sort((a, b) => a.name.localeCompare(b.name));
-    const sortedSets = alphabeticallySortedSets.sort((a, b) => {
-        return a.isDefault === b.isDefault ? 0 : a ? -1 : 1;
-    });
+
+    const getSortedSets = () => {
+        return [...sets].sort((a, b) => b.isDefault - a.isDefault || a.name.localeCompare(b.name));
+    };
 
     const getFilteredSets = () => {
+        const sortedSets = getSortedSets();
+
         return sortedSets.filter(set => {
             if (!set.name.toLowerCase().includes(searchTerm.toLowerCase())) return false;
             if (set.pinOptionTypeID !== selectedTypeID) return false;
