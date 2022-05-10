@@ -23,8 +23,7 @@ const SingleClientPermissionItem = ({ permission, user }) => {
             </td>
             <td>{permission.serviceIDs.map(id => services[id].name).join(', ')}</td>
             <td>
-                <ButtonWrapper>
-                    <ActionButton text="Edit" onClick={goToEdit} icon="pencil" size="small" />
+                <ButtonWrapper alignment="right">
                     <ActionButton
                         text="Remove Access"
                         onClick={removeAccess}
@@ -32,6 +31,7 @@ const SingleClientPermissionItem = ({ permission, user }) => {
                         size="small"
                         ambient="negative"
                     />
+                    <ActionButton text="Edit" onClick={goToEdit} icon="pencil" size="small" />
                 </ButtonWrapper>
             </td>
         </tr>
