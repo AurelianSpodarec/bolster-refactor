@@ -751,7 +751,7 @@ export const MEASUREMENT_TYPES = {
     VOLUME: 4,
     NUMBER: 5,
     FIXED: 6,
-    RADIUS: 7,
+    DIAMETER: 7,
 };
 
 export const MEASUREMENT_VALUES = {
@@ -761,7 +761,7 @@ export const MEASUREMENT_VALUES = {
     4: 'Volume (l)',
     5: 'Number',
     6: 'Fixed Price',
-    7: 'Radius (mm)',
+    7: 'Diameter (mm)',
 };
 
 export const MEASUREMENT_TYPES_OUTPUTS_PLURAL = {
@@ -771,7 +771,7 @@ export const MEASUREMENT_TYPES_OUTPUTS_PLURAL = {
     [MEASUREMENT_TYPES.VOLUME]: 'litres',
     [MEASUREMENT_TYPES.NUMBER]: null,
     [MEASUREMENT_TYPES.FIXED]: null,
-    [MEASUREMENT_TYPES.RADIUS]: 'millimetres',
+    [MEASUREMENT_TYPES.DIAMETER]: 'millimetres',
 };
 
 export const MEASUREMENT_UNITS = {

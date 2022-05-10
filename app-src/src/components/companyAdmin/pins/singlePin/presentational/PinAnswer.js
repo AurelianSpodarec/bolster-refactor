@@ -142,7 +142,7 @@ const PinAnswer = ({ trimmedAnswer, type, answers, question }) => {
                 {measurement.length && <p>Length: {measurement.length}</p>}
                 {measurement.width && <p>Width: {measurement.width}</p>}
                 {measurement.height && <p>Height: {measurement.height}</p>}
-                {measurement.radius && <p>Radius: {measurement.radius}</p>}
+                {measurement.diameter && <p>Diameter: {measurement.diameter}</p>}
                 {measurement.volume && <p>Volume: {measurement.volume}</p>}
             </div>
         );
