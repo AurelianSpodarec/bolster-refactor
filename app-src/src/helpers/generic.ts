@@ -16,7 +16,9 @@ export function convertArrToObj(arr, field = 'id') {
 }
 
 export function getSelectedCompanyForClient() {
-    return parseInt(localStorage.getItem('selectedCompany'));
+    const selectedCompany = localStorage.getItem('selectedCompany');
+    if (!selectedCompany) return null;
+    return parseInt(selectedCompany);
 }
 
 export function isObjEmpty(obj) {

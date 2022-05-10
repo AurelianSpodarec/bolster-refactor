@@ -308,6 +308,7 @@ const useCostingAndEstimating = () => {
         if (!isFetchingFilters && !prevData.isFetchingFilters && willAutoTick) {
             setWillAutoTick(false);
             onChange('selectedItems', buildInitialSelectedItems(filters.allSites));
+            onChange('maxPrice', filters.priceMax);
         }
     }, [willAutoTick, isFetchingFilters, prevData.isFetchingFilters]); // Auto-tick after fetch if flag is set
 

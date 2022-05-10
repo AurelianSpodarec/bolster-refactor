@@ -393,8 +393,12 @@
     z-index: 25;
 
     .filter-item {
-      padding: 15px;
+      padding: 7.5px 15px;
       border-bottom: 1px solid var(--background-stroke);
+
+      p{
+        font-size: 120%;
+      }
     }
 
     button {

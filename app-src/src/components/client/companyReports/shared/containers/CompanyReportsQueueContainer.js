@@ -11,12 +11,14 @@ class CompanyReportsQueueContainer extends Component {
 
     componentDidMount = () => {
         const { fetchClientCompanyReports, clientDismissMessages } = this.props;
-        const selectedCompanyID = getSelectedCompanyForClient();
-
         clientDismissMessages();
 
-        this._interval = setInterval(() => fetchClientCompanyReports(selectedCompanyID), 5000);
+        this._interval = setInterval(() => {
+            const selectedCompanyID = getSelectedCompanyForClient();
+            if (selectedCompanyID) fetchClientCompanyReports(selectedCompanyID);
+        }, 5000);
     };
+
     componentWillUnmount = () => clearInterval(this._interval);
 }
 
