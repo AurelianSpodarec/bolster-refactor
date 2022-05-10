@@ -86,7 +86,7 @@ const mapStateToProps = ({
     companyAdmin: {
         buildingsReducer: { error: buildingError },
         companySettingsReducer: {
-            companySettings: { isUsingBolsterLabels, useManufacturingByDefault },
+            companySettings: { isUsingBolsterLabels },
         },
 
         subscriptionsReducer: {
@@ -96,7 +96,6 @@ const mapStateToProps = ({
 }) => ({
     isUsingBolsterLabels,
     error: buildingError,
-    useManufacturingByDefault,
     subscriptionServiceIDs,
 });
 

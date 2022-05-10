@@ -133,7 +133,7 @@ const mapStateToProps = (
             drawingsReducer: { drawingError, postSuccess },
             creditsReducer: { credits },
             companySettingsReducer: {
-                companySettings: { isUsingBolsterLabels, useManufacturingByDefault },
+                companySettings: { isUsingBolsterLabels },
             },
             subscriptionsReducer: {
                 subscriptions: { serviceIDs: subscriptionServiceIDs },
@@ -154,7 +154,6 @@ const mapStateToProps = (
         totalCredits,
         isUsingBolsterLabels,
         error: drawingError || floorError,
-        useManufacturingByDefault,
         subscriptionServiceIDs,
         building: Object.values(buildings),
         drawingNotStarted: moment(Date.now()).isBefore(drawing.startDate),

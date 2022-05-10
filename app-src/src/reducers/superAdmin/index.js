@@ -25,8 +25,6 @@ import moveToolReducer from './moveTool';
 import sosCodesReducer from './sosCodes';
 import operativeAlertsReducer from 'reducers/superAdmin/operativeAlerts';
 import mergeToolReducer from './mergeTool';
-import manufacturersReducer from './manufacturers';
-import manufacturersOptionValuesReducer from './manufacturersOptionValues';
 import optionValueDocumentsReducer from './optionValueDocuments';
 import userGuideReducer from './userGuide';
 import frontendTextSettingsReducer from './frontendTextSettings';
@@ -70,8 +68,6 @@ export default combineReducers({
     invoicePaymentsReducer,
     invoicesReducer,
     legalDocumentsReducer,
-    manufacturersReducer,
-    manufacturersOptionValuesReducer,
     mergeToolReducer,
     moveToolReducer,
     operativeAlertsReducer,
