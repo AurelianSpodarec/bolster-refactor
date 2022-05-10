@@ -6,6 +6,7 @@ import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActio
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
+import ButtonWrapperInfo from 'components/shared/generic/button/presentational/ButtonWrapperInfo';
 
 const OptionSetsListItem = ({
     set,
@@ -35,12 +36,14 @@ const OptionSetsListItem = ({
                     }}
                 />
                 <Link className="checkbox-text link" to={`/company/pin-options/${setLink}/${id}`}>
-                    {name} {isDefault ? '(default)' : ''}
+                    {name}
                 </Link>
             </FlexWrapper>
         </td>
         <td>
             <ButtonWrapper alignment="right">
+                {isDefault && <ButtonWrapperInfo text="Default" ambient="positive" removeSpacing />}
+
                 <ActionMenu disabled={isDefault && !isCompanySet}>
                     {!isDefault && (
                         <ActionMenuActionButton

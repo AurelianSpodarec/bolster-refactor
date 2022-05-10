@@ -558,8 +558,31 @@ button {
 // button wrapper
 .button-wrapper {
     .button-wrapper-info {
+        font-size: 100%;
+
+        &.large {
+            font-size: 140%;
+        }
+
         &.disabled {
             color: var(--typography-greyed-out);
+        }
+
+        &.primary {
+            color: var(--primary-hover);
+        }
+
+        &.positive {
+            color: var(--positive-hover);
+        }
+
+        &.negative {
+            color: var(--negative-hover);
+        }
+
+        &.no-spacing {
+            margin-left: 0!important;
+            margin-right: 0!important;
         }
     }
 
