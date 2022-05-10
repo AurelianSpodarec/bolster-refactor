@@ -5,6 +5,8 @@ import { CONFIRM_DELETE } from 'constants/shared/modalTypes';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
+import ActionButton from '../../../../../shared/generic/button/presentational/ActionButton';
+import ButtonWrapper from '../../../../../shared/generic/button/presentational/ButtonWrapper';
 
 const SingleClientPermissionItem = ({ permission, user }) => {
     const dispatch = useDispatch();
@@ -21,12 +23,16 @@ const SingleClientPermissionItem = ({ permission, user }) => {
             </td>
             <td>{permission.serviceIDs.map(id => services[id].name).join(', ')}</td>
             <td>
-                <button className="button yellow" onClick={goToEdit}>
-                    <i className="fal fa-pencil" /> Edit
-                </button>
-                <button className="button red" onClick={removeAccess}>
-                    <i className="fal fa-ban" /> Remove access
-                </button>
+                <ButtonWrapper>
+                    <ActionButton text="Edit" onClick={goToEdit} icon="pencil" size="small" />
+                    <ActionButton
+                        text="Remove Access"
+                        onClick={removeAccess}
+                        icon="ban"
+                        size="small"
+                        ambient="negative"
+                    />
+                </ButtonWrapper>
             </td>
         </tr>
     );
