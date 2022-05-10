@@ -27,7 +27,7 @@ const EditSitePinOptionSetsContainer = ({ site }) => {
     const isFetchingSets = useSelector(selectPinOptionSetsIsFetching);
     const isFetchingTypes = useSelector(selectPinOptionTypesIsFetching);
     const isFetching = isFetchingSets || isFetchingTypes;
-    const prevProps = usePrevious({ isFetching });
+    const prevProps = usePrevious({ isFetching, selectedPinOptionTypes });
     const { serviceIDs } = useSelector(selectSubscriptions);
 
     const dispatch = useDispatch();
@@ -50,6 +50,20 @@ const EditSitePinOptionSetsContainer = ({ site }) => {
             setSelectedPinOptionTypes(selectedTypes);
         }
     }, [types, sets, isFetching]);
+
+    useEffect(() => {
+        Object.keys(selectedPinOptionTypes).forEach(typeID => {
+            if (selectedPinOptionTypes[typeID] && !prevProps.selectedPinOptionTypes[typeID]) {
+                const hasExistingSets = site.pinOptionSetIDsByType[typeID]?.length;
+                if (!hasExistingSets) {
+                    const defaultSetIDs = Object.values(sets)
+                        .filter(set => set.pinOptionTypeID === +typeID && set.isDefault)
+                        .map(set => set.id);
+                    setSelectedPinOptionSets({ ...selectedPinOptionSets, [typeID]: defaultSetIDs });
+                }
+            }
+        });
+    }, [selectedPinOptionTypes, sets]);
 
     const handleSubmit = () => {
         const pinOptionSets = Object.entries(selectedPinOptionSets)
