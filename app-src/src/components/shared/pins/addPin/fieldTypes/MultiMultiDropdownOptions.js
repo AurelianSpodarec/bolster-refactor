@@ -59,7 +59,7 @@ const MultiMultiDropdownOptions = ({
                 search
             />
             {shouldShowCosting &&
-                questionValue.map(value => {
+                questionValue.map((value, index) => {
                     optCounts[value.pinOptionVersionID] = optCounts[value.pinOptionVersionID]
                         ? optCounts[value.pinOptionVersionID] + 1
                         : 1;
@@ -74,6 +74,7 @@ const MultiMultiDropdownOptions = ({
                             )}
                             uid={value.uid}
                             handleChange={handleMeasurementChange}
+                            isFirst={index === 0}
                         />
                     );
                 })}

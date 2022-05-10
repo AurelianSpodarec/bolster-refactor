@@ -86,6 +86,14 @@
     min-height: 0;
   }
 
+  &.no-margin-bottom {
+    margin-bottom: 0;
+  }
+
+  &.margin-top {
+    margin-top: 15px;
+  }
+
   &.w-dates {
     p {
       text-align: center;
@@ -247,6 +255,12 @@
 
   &.no-padding {
     padding: 0;
+  }
+
+  // measurement unit fields for add pin / add pin history
+  &.measurement-unit-field {
+    width: 100px;
+    min-width: 100px;
   }
 }
 
@@ -1418,21 +1432,6 @@
   display: flex;
   flex-direction: row;
   margin: 5px 0;
-}
-
-.costing-input-container {
-  display: flex;
-  flex-direction: row;
-  align-content: space-between;
-}
-
-.costing-input-text {
-  width: 85%;
-  margin-right: 2em;
-}
-
-.costing-input-unit-picker {
-  width: 15%;
 }
 
 .option-wrapper {
