@@ -15,7 +15,6 @@ import {
     selectPinOptionsDeleteError,
     selectPinOptionsDeleteSuccess,
     selectPinOptionsIsDeleting,
-    selectPinOptionsIsPosting,
     selectPinOptionsPostError,
 } from '../../../../../selectors/superAdmin/pinOptions';
 import deletePinOption from '../../../../../actions/superAdmin/pinOptions/async/deletePinOption';
@@ -23,13 +22,12 @@ import { hideModal } from '../../../../../actions/shared/generic/modals/sync/hid
 
 const useOptionValueActions = (typeID, setID) => {
     const dispatch = useDispatch();
-    const isPosting = useSelector(selectPinOptionsIsPosting);
     const postError = useSelector(selectPinOptionsPostError);
     const isDeleting = useSelector(selectPinOptionsIsDeleting);
     const deleteError = useSelector(selectPinOptionsDeleteError);
     const deleteSuccess = useSelector(selectPinOptionsDeleteSuccess);
 
-    const prevProps = usePrevious({ postError });
+    const prevProps = usePrevious({ postError, deleteSuccess });
 
     const showAddModal = () => {
         dispatch(

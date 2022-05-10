@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { convertArrToObj, removeObjItem } from 'helpers/generic';
+import { convertArrToObj, removeObjItem, updateObj } from 'helpers/generic';
 import {
     FETCH_ADMIN_PIN_OPTIONS_REQUEST,
     FETCH_ADMIN_PIN_OPTIONS_SUCCESS,
@@ -10,6 +10,10 @@ import {
     FETCH_ADMIN_PIN_OPTIONS_FOR_COMPANY_REQUEST,
     DELETE_ADMIN_PIN_OPTION_SUCCESS,
     DELETE_ADMIN_PIN_OPTION_FAILURE,
+    CREATE_ADMIN_PIN_OPTION_REQUEST,
+    CREATE_ADMIN_PIN_OPTION_FAILURE,
+    CREATE_ADMIN_PIN_OPTION_SUCCESS,
+    DELETE_ADMIN_PIN_OPTION_REQUEST,
 } from 'constants/actionTypes/pinOptions';
 
 export default combineReducers({
@@ -19,6 +23,9 @@ export default combineReducers({
     isDeleting: isDeletingReducer,
     deleteError: deleteErrorReducer,
     deleteSuccess: deleteSuccessReducer,
+    isPosting: isPostingReducer,
+    postError: postErrorReducer,
+    postSuccess: postSuccessReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -54,6 +61,42 @@ function optionsReducer(state = {}, action) {
             return convertArrToObj(action.payload);
         case DELETE_ADMIN_PIN_OPTION_SUCCESS:
             return removeObjItem(state, action.payload);
+        case CREATE_ADMIN_PIN_OPTION_SUCCESS:
+            return updateObj(state, action.payload.pinOption.id, action.payload.pinOption);
+        default:
+            return state;
+    }
+}
+
+function isPostingReducer(state = false, action) {
+    switch (action.type) {
+        case CREATE_ADMIN_PIN_OPTION_REQUEST:
+            return true;
+        case CREATE_ADMIN_PIN_OPTION_FAILURE:
+        case CREATE_ADMIN_PIN_OPTION_SUCCESS:
+            return false;
+        default:
+            return state;
+    }
+}
+
+function postSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case CREATE_ADMIN_PIN_OPTION_REQUEST:
+            return false;
+        case CREATE_ADMIN_PIN_OPTION_SUCCESS:
+            return true;
+        default:
+            return state;
+    }
+}
+
+function postErrorReducer(state = null, action) {
+    switch (action.type) {
+        case CREATE_ADMIN_PIN_OPTION_REQUEST:
+            return null;
+        case CREATE_ADMIN_PIN_OPTION_FAILURE:
+            return action.error;
         default:
             return state;
     }
@@ -61,8 +104,12 @@ function optionsReducer(state = {}, action) {
 
 function isDeletingReducer(state = false, action) {
     switch (action.type) {
-        case DELETE_ADMIN_PIN_OPTION_SUCCESS:
+        case DELETE_ADMIN_PIN_OPTION_REQUEST:
             return true;
+        case DELETE_ADMIN_PIN_OPTION_SUCCESS:
+        case DELETE_ADMIN_PIN_OPTION_FAILURE:
+            return false;
+
         default:
             return state;
     }
@@ -70,7 +117,7 @@ function isDeletingReducer(state = false, action) {
 
 function deleteErrorReducer(state = null, action) {
     switch (action.type) {
-        case DELETE_ADMIN_PIN_OPTION_SUCCESS:
+        case DELETE_ADMIN_PIN_OPTION_REQUEST:
             return null;
         case DELETE_ADMIN_PIN_OPTION_FAILURE:
             return action.error;
@@ -81,6 +128,8 @@ function deleteErrorReducer(state = null, action) {
 
 function deleteSuccessReducer(state = null, action) {
     switch (action.type) {
+        case DELETE_ADMIN_PIN_OPTION_REQUEST:
+            return false;
         case DELETE_ADMIN_PIN_OPTION_SUCCESS:
             return action.payload;
         default:
