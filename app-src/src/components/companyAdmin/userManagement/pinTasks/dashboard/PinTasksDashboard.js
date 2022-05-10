@@ -1,7 +1,6 @@
 import React from 'react';
 import usePinTasksDashboard from '../hooks/usePinTasksDashboard';
 
-import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';

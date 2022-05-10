@@ -1,7 +1,6 @@
 import React from 'react';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import Field from 'components/shared/generic/form/presentational/Field';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import ImageVisualContainer from '../containers/ImageVisualContainer';
@@ -13,9 +12,7 @@ import { ReactComponent as CsvIcon } from '_content/images/icons/CSV-Outline.svg
 import { ReactComponent as DocIcon } from '_content/images/icons/doc-Outline.svg';
 import FlexWrapper from '../../../../../shared/generic/flexWrapper/FlexWrapper';
 import Tickbox from '../../../../../shared/generic/form/presentational/Tickbox';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
 const OutputSettings = ({
     handleSubmit,

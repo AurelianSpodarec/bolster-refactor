@@ -5,7 +5,6 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
 import { withRouter, Link } from 'react-router-dom';
 
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import RadioButton from 'components/shared/generic/form/presentational/RadioButton';
 import DatePickerContainer from 'components/shared/documents/containers/AttachDocumentDatePickerContainer';
 import { DOCUMENT_TYPE, DOCUMENT_TYPES } from 'constants/companyAdmin/enums';
@@ -13,9 +12,7 @@ import { DOCUMENT_VISIBILITY } from 'constants/companyAdmin/enums';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
-import SubmitContainer from 'components/shared/generic/form/containers/SubmitContainer';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
