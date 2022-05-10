@@ -3398,5 +3398,9 @@ input {
     margin-top: 16px;
 }
 
+.pin-buttons-container {
+  padding: 10px;
+}
+
 // mobile
 @import './dashboard-mobile.scss';
