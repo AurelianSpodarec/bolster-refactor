@@ -17,7 +17,7 @@ const AllClientsTable = ({ headers, clients, isFetching, error }) => (
                     text="Create Client"
                     icon="user-plus"
                     size="medium"
-                    extraClasses="ambient-positive"
+                    ambient="positive"
                 />
             </ButtonWrapper>
         </BlockHeading>
