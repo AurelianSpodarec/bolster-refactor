@@ -11,6 +11,7 @@ const ConfirmDeleteModal = ({
     hideModal,
     handleCancel = hideModal,
     message = 'Are you sure you want to delete this?',
+    title = 'Confirmation',
     isIncoming = false,
     deleteButtonText = 'Delete',
     icon = 'trash-alt',
@@ -19,7 +20,7 @@ const ConfirmDeleteModal = ({
 }) => {
     return (
         <ModalOuterContainer>
-            <BlockHeading title={'Confirmation'} />
+            <BlockHeading title={title} />
             <p className="generic-text intro-text size-lg-12">{message}</p>
             {error && <Error>{error}</Error>}
             <BlockButtonWrapper>

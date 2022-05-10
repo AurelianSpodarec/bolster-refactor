@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
-    CONFIRM_SUBMIT,
+    CONFIRM_DELETE,
     CREATE_ADMIN_PIN_OPTIONS_SET_MODAL,
     EDIT_ADMIN_PIN_OPTIONS_SET_MODAL,
     ERROR_MODAL,
@@ -10,15 +10,26 @@ import {
 import { usePrevious } from 'helpers/hooks';
 
 import showModal from 'actions/shared/generic/modals/sync/showModal';
+import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
-import { selectPinOptionSetsPostError } from '../../../../../selectors/superAdmin/pinOptionSets';
+import {
+    selectPinOptionSetsDeleteError,
+    selectPinOptionSetsDeleteSuccess,
+    selectPinOptionSetsIsDeleting,
+    selectPinOptionSetsPostError,
+} from '../../../../../selectors/superAdmin/pinOptionSets';
+import deletePinOptionSet from '../../../../../actions/superAdmin/pinOptions/async/deletePinOptionSet';
 
 const useOptionSetActions = selectedTypeID => {
     const dispatch = useDispatch();
     const postError = useSelector(selectPinOptionSetsPostError);
+    const isDeleting = useSelector(selectPinOptionSetsIsDeleting);
+    const deleteError = useSelector(selectPinOptionSetsDeleteError);
+    const deleteSuccess = useSelector(selectPinOptionSetsDeleteSuccess);
 
-    const prevProps = usePrevious({ postError });
+    const prevProps = usePrevious({ postError, deleteSuccess });
 
+    console.log(deleteSuccess, prevProps.deleteSuccess);
     const showAddModal = () => {
         dispatch(
             showModal(CREATE_ADMIN_PIN_OPTIONS_SET_MODAL, {
@@ -33,15 +44,21 @@ const useOptionSetActions = selectedTypeID => {
 
     const showDeleteModal = set => {
         dispatch(
-            showModal(CONFIRM_SUBMIT, {
-                handleSubmit: () => console.log('delete...'),
+            showModal(CONFIRM_DELETE, {
+                handleDelete: () => dispatch(deletePinOptionSet(set.id)),
                 title: `Delete ${set.name}?`,
                 message: 'Are you sure you would like to delete this set?',
-                submitButtonText: 'Delete',
-                submitButtonIcon: 'trash-alt',
+                isPosting: isDeleting,
+                error: deleteError,
             }),
         );
     };
+
+    useEffect(() => {
+        if (deleteSuccess && !prevProps.deleteSuccess) {
+            dispatch(hideModal());
+        }
+    }, [deleteSuccess]);
 
     useEffect(() => {
         if (postError && !prevProps.postError) dispatch(showModal(ERROR_MODAL));
