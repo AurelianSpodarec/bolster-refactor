@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useForm, usePrevious } from 'helpers/hooks';
 import { isEmpty } from 'helpers/generic';
 import { ERROR_MODAL } from 'constants/shared/modalTypes';
+import { MEASUREMENT_TYPES } from 'constants/companyAdmin/enums';
 
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
@@ -47,7 +48,10 @@ const useEditOptionValue = option => {
         });
 
         priceBreaks.sort((a, b) => a.value - b.value);
-        priceBreaks.push(emptyPriceBreak);
+
+        if (option.costMeasurementType !== MEASUREMENT_TYPES.FIXED) {
+            priceBreaks.push(emptyPriceBreak);
+        }
 
         return priceBreaks;
     };
@@ -63,8 +67,10 @@ const useEditOptionValue = option => {
         costMeasurementType: option.costMeasurementType,
     });
 
+    const disableAdd = +form.costMeasurementType === MEASUREMENT_TYPES.FIXED;
+
     const { handlePriceBreakChange, handleAddPriceBreak, handleRemovePriceBreak } =
-        useUpdatePriceBreaks(form, handleChange);
+        useUpdatePriceBreaks(form, handleChange, disableAdd);
 
     const handleQuickPriceEditChange = (name, percentageValue) => {
         handleChange(name, percentageValue);
@@ -148,6 +154,15 @@ const useEditOptionValue = option => {
 
         dispatch(editPinOptionValue(option.id, postBody));
     };
+
+    // only one measurement entry needed for fixed price
+    useEffect(() => {
+        if (+form.measurementType === MEASUREMENT_TYPES.FIXED) {
+            const measurementFields = form.measurementPriceBreaks;
+            measurementFields.splice(1);
+            handleChange('measurementPriceBreaks', measurementFields);
+        }
+    }, [form.measurementType]);
 
     useEffect(() => {
         if (postError && !prevProps.postError) dispatch(showModal(ERROR_MODAL));
