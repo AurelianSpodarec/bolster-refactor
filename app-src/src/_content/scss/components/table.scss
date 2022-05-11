@@ -61,6 +61,10 @@
       text-decoration: none;
       color: white;
 
+      &.typography-default-colour {
+        color: var(--typography-default);
+      }
+
       &.dark {
         color: black;
       }
