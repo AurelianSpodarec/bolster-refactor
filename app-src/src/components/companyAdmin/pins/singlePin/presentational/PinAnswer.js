@@ -141,6 +141,7 @@ const PinAnswer = ({ trimmedAnswer, type, answers, question }) => {
             const answerValue = curAnswerValues.find(
                 ({ id }) => id === measurement.pinHistoryAnswerValueID,
             );
+            // todo update measurement units to output unit used
             const measurementOutput = (
                 <div key={measurement.id} className="pin-answer-measurements">
                     <p className="pin-answer-measurements-heading">
