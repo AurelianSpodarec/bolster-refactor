@@ -278,6 +278,7 @@ const useCostingAndEstimating = () => {
             dispatch(fetchPinOptionVersions());
         });
         setLastFetch(moment().valueOf());
+        setWillAutoTick(true);
     }, []); // Fetch all data on page load
 
     useEffect(() => {

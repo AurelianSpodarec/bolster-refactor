@@ -58,15 +58,9 @@ const ViewZonesModal = ({
                 </ModalOuter>
             )}
             <BlockButtonWrapper>
-                <ActionButton
-                    text="Add Zone"
-                    ambient="positive"
-                    icon="plus"
-                    onClick={addZone}
-                    size="medium"
-                />
+                <ActionButton text="Add Zone" ambient="positive" icon="plus" onClick={addZone} />
 
-                <ActionButton text="Close" source="secondary" onClick={hideModal} size="medium" />
+                <ActionButton text="Close" source="secondary" onClick={hideModal} />
             </BlockButtonWrapper>
         </ModalOuterContainer>
     );

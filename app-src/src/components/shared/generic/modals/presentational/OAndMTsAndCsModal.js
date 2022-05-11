@@ -2,7 +2,7 @@ import React from 'react';
 import BlockContainer from '../../block/containers/BlockContainer';
 import BlockHeading from '../../blockHeading/presentational/BlockHeading';
 import BlockButtonWrapper from '../../blockButtonWrappers/presentational/BlockButtonWrapper';
-import ButtonContainer from '../../button/containers/ButtonContainer';
+import ActionButton from '../../button/presentational/ActionButton';
 
 const OAndMTsAndCsModal = ({ handleAccept }) => (
     <div className="modal-container size-lg-12">
@@ -17,7 +17,7 @@ const OAndMTsAndCsModal = ({ handleAccept }) => (
                     correct before issuing to any third party.
                 </p>
                 <BlockButtonWrapper>
-                    <ButtonContainer handleClick={handleAccept}>I agree</ButtonContainer>
+                    <ActionButton text="I agree" onClick={handleAccept} icon="check" />
                 </BlockButtonWrapper>
             </BlockContainer>
         </div>

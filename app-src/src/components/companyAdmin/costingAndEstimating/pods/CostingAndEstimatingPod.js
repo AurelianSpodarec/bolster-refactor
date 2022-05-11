@@ -28,7 +28,6 @@ const CostingAndEstimatingPod = ({ pod }) => {
 
     const dataToShow = solo ? solo : isFlipped ? lowest : highest;
     const valueIsCurrency = dataToShow?.valueCurrency !== null;
-    console.log({ dataToShow });
 
     return (
         <BlockContainer

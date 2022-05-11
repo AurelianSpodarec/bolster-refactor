@@ -10,6 +10,7 @@ class AddCreditsToDrawingButtonContainer extends Component {
     state = {
         shouldRestrictPayments: false,
     };
+
     render() {
         if (this.state.shouldRestrictPayments) {
             return <></>;
@@ -18,6 +19,7 @@ class AddCreditsToDrawingButtonContainer extends Component {
                 <AddCreditsToDrawingButton
                     handleClick={this.handleClick}
                     shouldRestrictPayments={this.state.shouldRestrictPayments}
+                    isExpired={this.props.isExpired}
                 />
             );
         }

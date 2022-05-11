@@ -27,7 +27,6 @@ import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
 const getDataUrl = src => `${FILE_STORAGE_URL}/${src}/{z}/{x}/{y}.jpg`;
 
@@ -127,10 +126,18 @@ const DrawingMapViewSimple = ({
                             drawing.accessType === ACCESS_TYPES_VALUES.OWNER &&
                             !shouldRestrictPayments && (
                                 <>
-                                    <AddCreditsToDrawingButtonContainer drawing={drawing} />
-                                    <button onClick={() => {}} className="button red pull-right">
-                                        <i className="far fa-times" /> Drawing expired
-                                    </button>
+                                    <AddCreditsToDrawingButtonContainer
+                                        drawing={drawing}
+                                        isExpired={isExpired}
+                                    />
+
+                                    <ActionButton
+                                        text="Drawing expired"
+                                        ambient="negative"
+                                        icon="far fa-times"
+                                        onClick={() => {}}
+                                    />
+
                                     <TooltipContainer
                                         htmlText={`${`<p>This drawing expired on ${moment(
                                             drawing.expiresOn,
@@ -173,7 +180,6 @@ const DrawingMapViewSimple = ({
                                                     icon="check"
                                                     onClick={handleClearPinCache}
                                                     href={`${drawing.id}/add-pin`}
-                                                    size="medium"
                                                     ambient="positive"
                                                 />
                                             </ButtonWrapper>
@@ -181,7 +187,6 @@ const DrawingMapViewSimple = ({
                                                 <ActionButton
                                                     text="Cancel"
                                                     onClick={toggleAddMode}
-                                                    size="medium"
                                                     source="secondary"
                                                 />
                                             </ButtonWrapper>
@@ -193,7 +198,6 @@ const DrawingMapViewSimple = ({
                                                     text="Add pin"
                                                     icon="plus"
                                                     onClick={toggleAddMode}
-                                                    size="medium"
                                                     ambient="positive"
                                                 />
                                             </ButtonWrapper>
@@ -322,12 +326,11 @@ const DrawingMapViewSimple = ({
                         )}
                 </div>
             ) : drawing.latestFloorplanState === FLOORPLAN_STATES.FAILEDCANCELLED ? (
-                <button
-                    className="button yellow"
+                <ActionButton
+                    text="Upload failed - retry?"
                     onClick={() => showModal(EDIT_DRAWING, { drawing })}
-                >
-                    <i className="far fa-pencil fa-fw" /> Upload failed - retry?
-                </button>
+                    icon="pen"
+                />
             ) : (
                 <Loading
                     message="Floorplan is generating, please check back later."

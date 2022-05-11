@@ -6,6 +6,7 @@ import RedPin from '_content/images/map-markers/red-pin2x.png';
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import ActionButton from '../../button/presentational/ActionButton';
 
 const SelectPinScaleModal = ({
     drawing: { tailoredTilesetS3Key },
@@ -105,13 +106,8 @@ const SelectPinScaleModal = ({
             )}
         </div>
         <BlockButtonWrapper>
-            <button onClick={handleCancelScale} className="button">
-                Close
-            </button>
-            <button onClick={handleSubmit} className="button green">
-                <i className="fa fa-file" />
-                Generate Report
-            </button>
+            <ActionButton text="Generate Report" icon="file" onClick={handleSubmit} />
+            <ActionButton text="Close" source="secondary" onClick={handleCancelScale} />
         </BlockButtonWrapper>
     </ModalOuterContainer>
 );
