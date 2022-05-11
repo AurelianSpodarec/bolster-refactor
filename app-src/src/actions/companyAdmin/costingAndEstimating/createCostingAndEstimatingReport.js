@@ -23,13 +23,14 @@ export const createCostingAndEstimatingReportFailure = error => ({
 });
 
 export default postBody => dispatch => {
-    console.log(postBody);
     dispatch(createCostingAndEstimatingReportRequest());
 
     return axios
         .post(`${API_URL}/costingandestimating/report`, postBody, getHeaders())
         .then(res => {
-            console.log(res);
+            if (res.status === 202) {
+                throw new Error(res.data?.message ?? 'Something went wrong');
+            }
             dispatch(createCostingAndEstimatingReportSuccess(res.data));
         })
         .catch(err => {
