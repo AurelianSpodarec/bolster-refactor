@@ -469,6 +469,12 @@ button {
             &:not(:disabled) {
                 &:hover {
                     background-color: var(--primary-hover);
+                   
+                }
+
+
+                &.active {
+                    background-color: var(--primary-pressed);
                 }
 
                 &:active {

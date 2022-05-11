@@ -45,7 +45,7 @@ const AddCreditsToDrawingForm = ({
             </div>
 
             <BlockButtonWrapper>
-                <ActionButton type="submit" text="Submit" />
+                <ActionButton type="submit" text="Confirm" icon="check" />
                 <ActionButton
                     type="button"
                     text="Cancel"

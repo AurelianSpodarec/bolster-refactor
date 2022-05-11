@@ -21,11 +21,13 @@ import DrawingMapAddZone from './DrawingMapAddZone';
 import DrawingMapViewZones from './DrawingMapViewZones';
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 import { doPinsHaveIcons } from 'helpers/general';
-import { useDispatch } from 'react-redux';
 import ActionMenu from 'components/shared/actionMenu/ActionMenu';
 import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
 import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
+import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
 const getDataUrl = src => `${FILE_STORAGE_URL}/${src}/{z}/{x}/{y}.jpg`;
 
@@ -72,7 +74,6 @@ const DrawingMapViewSimple = ({
     togglePinIconView,
     togglePinTasksView,
 }) => {
-    const dispatch = useDispatch();
     const mapRef = useRef();
     const [shouldScroll, setShouldScroll] = useState(false);
 
@@ -167,32 +168,34 @@ const DrawingMapViewSimple = ({
                                     {addMode ? (
                                         <>
                                             <ButtonWrapper alignment="left">
-                                                <button
+                                                <LinkButton
+                                                    text="Confirm position"
+                                                    icon="check"
                                                     onClick={handleClearPinCache}
-                                                    to={`${drawing.id}/add-pin`}
-                                                    className="button left-align-btn green"
-                                                >
-                                                    <i className="fa fa-check" /> Confirm position
-                                                </button>
+                                                    href={`${drawing.id}/add-pin`}
+                                                    size="medium"
+                                                    ambient="positive"
+                                                />
                                             </ButtonWrapper>
                                             <ButtonWrapper alignment="left">
-                                                <button
-                                                    className="button red left-align-btn"
+                                                <ActionButton
+                                                    text="Cancel"
                                                     onClick={toggleAddMode}
-                                                >
-                                                    Cancel
-                                                </button>
+                                                    size="medium"
+                                                    source="secondary"
+                                                />
                                             </ButtonWrapper>
                                         </>
                                     ) : (
                                         !drawingNotStarted && (
                                             <ButtonWrapper alignment="left">
-                                                <button
-                                                    className="button left-align-btn green"
+                                                <ActionButton
+                                                    text="Add pin"
+                                                    icon="plus"
                                                     onClick={toggleAddMode}
-                                                >
-                                                    <i className="fa fa-plus" /> Add pin
-                                                </button>
+                                                    size="medium"
+                                                    ambient="positive"
+                                                />
                                             </ButtonWrapper>
                                         )
                                     )}
@@ -261,48 +264,43 @@ const DrawingMapViewSimple = ({
                         drawing.accessType >= ACCESS_TYPES_VALUES.WRITE && (
                             <div className="map-bottom-buttons">
                                 {isAddingZone ? (
-                                    <>
-                                        <button
-                                            className={`button green ${
-                                                hasZoneCoords ? '' : 'disabled'
-                                            }`}
+                                    <FlexWrapper gap={10}>
+                                        <ActionButton
+                                            text="Confirm"
+                                            disabled={hasZoneCoords ? false : true}
                                             onClick={showAddZoneModal}
-                                        >
-                                            <i className="far fa-check fa-fw" /> Finish
-                                        </button>
-                                        <button className="button grey" onClick={cancelZoneAdd}>
-                                            Cancel
-                                        </button>
-                                    </>
+                                            extraClasses={pinTasksMode && 'active'}
+                                            icon="check"
+                                        />
+                                        <ActionButton
+                                            text="Cancel"
+                                            source="secondary"
+                                            onClick={cancelZoneAdd}
+                                        />
+                                    </FlexWrapper>
                                 ) : (
-                                    <>
-                                        <button
-                                            className={`button blue ${
-                                                pinTasksMode ? 'active' : ''
-                                            }`}
+                                    <FlexWrapper gap={10}>
+                                        <ActionButton
+                                            text=" Pin Tasks On/Off"
                                             onClick={togglePinTasksView}
-                                        >
-                                            Pin tasks on/off
-                                        </button>
+                                            extraClasses={pinTasksMode && 'active'}
+                                        />
+
                                         {doPinsHaveIcons(pins) && (
-                                            <button
-                                                className={`button blue ${
-                                                    pinViewMode === 'icon' ? 'active' : ''
-                                                }`}
+                                            <ActionButton
+                                                text="Pin Icon On/Off"
                                                 onClick={togglePinIconView}
-                                            >
-                                                Pin icon view on/off
-                                            </button>
+                                                extraClasses={
+                                                    pinViewMode === 'icon' ? 'active' : ''
+                                                }
+                                            />
                                         )}
-                                        <button className="button blue" onClick={handleZoneAdd}>
-                                            View Zones
-                                        </button>
-                                        <button
-                                            className={`button blue ${showZones ? 'active' : ''}`}
+                                        <ActionButton text="View Zones" onClick={handleZoneAdd} />
+                                        <ActionButton
+                                            text="Toggle Zones On/Off"
                                             onClick={toggleZones}
-                                        >
-                                            Toggle zones on/off
-                                        </button>
+                                            extraClasses={showZones && 'active'}
+                                        />
                                         {showZones && (
                                             <div className="map-opacity pull-right">
                                                 <p>Opacity</p>
@@ -318,7 +316,7 @@ const DrawingMapViewSimple = ({
                                                 />
                                             </div>
                                         )}
-                                    </>
+                                    </FlexWrapper>
                                 )}
                             </div>
                         )}

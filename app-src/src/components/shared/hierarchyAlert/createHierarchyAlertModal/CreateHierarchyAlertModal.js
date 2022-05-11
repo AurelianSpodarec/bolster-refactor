@@ -139,7 +139,7 @@ const CreateHierarchyAlertModal = ({ hierarchyType, hierarchyID, hideModal }) =>
                             disabled="true"
                         />
                     ) : (
-                        <ActionButton type="submit" text="Confirm" />
+                        <ActionButton type="submit" text="Confirm" icon="check" />
                     )}
 
                     <ActionButton source="secondary" text="Cancel" onClick={hideModal} />
