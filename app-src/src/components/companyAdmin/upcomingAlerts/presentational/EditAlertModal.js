@@ -22,6 +22,7 @@ import Select from 'components/shared/generic/form/presentational/Select';
 import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
 import { enumFormat } from 'helpers/generic';
 import useEditAlert from '../hierarchys/hooks/useEditAlert';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 
 const EditAlertModal = ({ id, hideModal }) => {
     const alert = useSelector(state => selectAlert(state, id));
@@ -129,18 +130,22 @@ const EditAlertModal = ({ id, hideModal }) => {
                 </div>
 
                 <BlockButtonWrapper>
-                    <button
-                        onClick={handleSubmit}
-                        type="submit"
-                        className={`button yellow ${isPosting ? 'disabled' : ''}`}
-                        disabled={isPosting}
-                    >
-                        <i className={`${isPosting ? 'fa fa-spinner fa-spin' : null}`} />{' '}
-                        {isPosting ? 'Editing...' : 'Edit Alert'}
-                    </button>
-                    <button className="button" onClick={hideModal}>
-                        Cancel
-                    </button>
+                    {isPosting ? (
+                        <ActionButton
+                            text="Editing..."
+                            icon="fa fa-spinner fa-spin"
+                            disabled="true"
+                        />
+                    ) : (
+                        <ActionButton
+                            type="submit"
+                            text="Confirm"
+                            icon="check"
+                            onClick={handleSubmit}
+                        />
+                    )}
+
+                    <ActionButton source="secondary" text="Cancel" onClick={hideModal} />
                 </BlockButtonWrapper>
             </Form>
         </ModalOuterContainer>

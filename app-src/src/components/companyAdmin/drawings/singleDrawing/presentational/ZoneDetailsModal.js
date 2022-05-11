@@ -6,6 +6,7 @@ import ModalOuterContainer from 'components/shared/generic/modals/containers/Mod
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import { isEmpty } from 'helpers/generic';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 
 const ZoneDetailsModal = ({ zone, services, getStatusIcon, handleHideDetails }) => (
     <ModalOuterContainer>
@@ -42,9 +43,7 @@ const ZoneDetailsModal = ({ zone, services, getStatusIcon, handleHideDetails }) 
         </div>
 
         <BlockButtonWrapper>
-            <button className="button grey" onClick={handleHideDetails}>
-                Back to zones
-            </button>
+            <ActionButton text="Back to zones" source="secondary" onClick={handleHideDetails} />
         </BlockButtonWrapper>
     </ModalOuterContainer>
 );

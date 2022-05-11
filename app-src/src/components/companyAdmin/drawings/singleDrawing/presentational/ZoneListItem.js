@@ -1,5 +1,8 @@
 import React from 'react';
 
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
+
 const ZoneListItem = ({
     zone,
     selectQR,
@@ -16,23 +19,21 @@ const ZoneListItem = ({
         </div>
         <div className="item size-lg-3">
             {zone.qrCode ? (
-                <button className="button blue" onClick={() => selectQR(zone.qrCode)}>
-                    View QR
-                </button>
+                <ActionButton text="View QR" onClick={() => selectQR(zone.qrCode)} />
             ) : (
                 <p>No QR Code attached</p>
             )}
         </div>
         <div className="item size-lg-3">
-            <button className="button blue" onClick={() => handleShowZoneDetails(zone)}>
-                View details
-            </button>
-            <button className="button yellow" onClick={() => showEditZoneModal(zone.id)}>
-                Edit
-            </button>
-            <button className="button red" onClick={() => confirmDelete(zone.id)}>
-                Delete
-            </button>
+            <FlexWrapper gap={5}>
+                <ActionButton text="View details" onClick={() => handleShowZoneDetails(zone)} />
+                <ActionButton text="Edit" onClick={() => showEditZoneModal(zone.id)} />
+                <ActionButton
+                    text="Delete"
+                    ambient="negative"
+                    onClick={() => confirmDelete(zone.id)}
+                />
+            </FlexWrapper>
         </div>
     </div>
 );

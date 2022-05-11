@@ -107,7 +107,8 @@ const EditDrawingModal = ({
                             size="small"
                         />
                         <ActionButton
-                            text={filesUploading ? 'Please wait...' : 'Update'}
+                            text={filesUploading ? 'Please wait...' : 'Confirm'}
+                            icon={filesUploading ? 'fa fa-spinner fa-spin' : 'check'}
                             type="submit"
                             size="small"
                         />
