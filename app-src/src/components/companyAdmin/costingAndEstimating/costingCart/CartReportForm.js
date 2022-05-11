@@ -58,6 +58,8 @@ const CartReportForm = ({ formData }) => {
         fromDate: moment(formData.dateRange.startDate).format('YYYY-MM-DD'),
         toDate: moment(formData.dateRange.endDate).format('YYYY-MM-DD'),
         costEstType: selectedTabType,
+        projectName: reportFormData.projectName,
+        projectDescription: reportFormData.projectDescription,
     };
 
     const handleSubmit = () => {
@@ -89,6 +91,7 @@ const CartReportForm = ({ formData }) => {
                 extraClasses="center justify-stretch"
                 onClick={handleSubmit}
                 size="medium"
+                disabled={!reportFormData.projectName || !reportFormData.projectDescription}
             />
         </div>
     );
