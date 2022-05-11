@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import OptionPod from '../presentational/OptionPod';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import addFieldError from '../../../../../actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from '../../../../../actions/shared/generic/fieldErrors/sync/removeFieldError';
 import { usePrevious } from '../../../../../helpers/hooks';
+import { selectFieldError } from '../../../../../selectors/shared/fieldErrors';
 
 const OptionPodContainer = ({
     name,
@@ -18,8 +19,9 @@ const OptionPodContainer = ({
 }) => {
     const dispatch = useDispatch();
     const prevChecked = usePrevious(checked);
+    const fieldError = useSelector(state => selectFieldError(state, name));
 
-    const errorMessage = errorsVisible ? error : null;
+    const errorMessage = errorsVisible ? error || fieldError : null;
 
     useEffect(() => {
         validate();

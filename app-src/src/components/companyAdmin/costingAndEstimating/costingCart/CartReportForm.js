@@ -22,6 +22,7 @@ import { useForm, usePrevious } from 'helpers/hooks';
 import { useHistory } from 'react-router-dom';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
+import { capitaliseWord } from '../../../../helpers/generic';
 
 const CartReportForm = ({ formData }) => {
     const dispatch = useDispatch();
@@ -42,9 +43,11 @@ const CartReportForm = ({ formData }) => {
         if (postSuccess && !prevProps.postSuccess) {
             dispatch(hideModal());
             history.push('/company/reports');
-            dispatch(showModal(GENERATE_COSTING_ESTIMATING_REPORT_SUCCESS_MODAL), {
-                hideModal: dispatch(hideModal),
-            });
+            dispatch(
+                showModal(GENERATE_COSTING_ESTIMATING_REPORT_SUCCESS_MODAL, {
+                    hideModal: dispatch(hideModal),
+                }),
+            );
         }
         if (error && !prevProps.error) {
             dispatch(hideModal());
@@ -87,7 +90,7 @@ const CartReportForm = ({ formData }) => {
                 disableResize
             />
             <ActionButton
-                text="Generate Costing Report"
+                text={`Generate ${capitaliseWord(selectedTab)} Sheet`}
                 extraClasses="center justify-stretch"
                 onClick={handleSubmit}
                 size="medium"
