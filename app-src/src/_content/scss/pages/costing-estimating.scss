@@ -132,6 +132,10 @@
 
   p, span {
     @include bodyText;
+
+    &.error {
+      pointer-events: none;
+    }
   }
 
   .loading-overlay {
@@ -277,13 +281,21 @@
     }
   }
 
-  .cart-report-button {
+  .cart-report-form {
     position: absolute;
     bottom: 15px;
     width: calc(100% - 30px);
-    height: 40px;
+    height: fit-content;
     border-radius: 8px;
 
+    .field {
+      height: auto;
+      margin-bottom: 10px;
+    }
+
+    button {
+      width: 100%;
+    }
   }
 
   .summary-item {

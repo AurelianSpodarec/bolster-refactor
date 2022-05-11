@@ -831,6 +831,14 @@ export const CURRENCY_NAMES = {
     4: 'AUD',
 };
 
+export const CURRENCY_SYMBOLS = {
+    0: '£',
+    1: '$',
+    2: '€',
+    3: '$',
+    4: '$',
+};
+
 export const COSTING_GRAPH_FILTER_TYPES = {
     OPERATIVES: 0,
     SERVICES: 1,

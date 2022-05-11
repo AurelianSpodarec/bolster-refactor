@@ -10,6 +10,7 @@ const TextArea = ({
     charLimit,
     classes,
     disabled,
+    disableResize,
 }) => (
     <>
         <textarea
@@ -21,6 +22,7 @@ const TextArea = ({
             onBlur={handleBlur}
             maxLength={charLimit}
             disabled={disabled}
+            style={{ resize: disableResize ? 'none' : 'initial' }}
         />
         {!!(error && error.length) && <p className="error red-text text-accent-4">{error}</p>}
     </>
