@@ -152,7 +152,7 @@ const PinAnswer = ({ trimmedAnswer, type, answers, question }) => {
                     {measurement.width && <p>Width: {measurement.width}m</p>}
                     {measurement.height && <p>Height: {measurement.height}m</p>}
                     {measurement.diameter && <p>Diameter: {measurement.diameter}mm</p>}
-                    {measurement.volume && <p>Volume: {measurement.volume}ml</p>}
+                    {measurement.volume && <p>Volume: {measurement.volume}l</p>}
                 </div>
             );
             measurementOutputs.push(measurementOutput);
