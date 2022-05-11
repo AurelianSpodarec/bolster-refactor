@@ -6,7 +6,7 @@ import { FILE_STORAGE_URL, RAW_S3_STORAGE_URL } from 'config';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { PIN_IMAGE } from 'constants/shared/modalTypes';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
-import { boolToYesNo } from 'helpers/generic';
+import { boolToYesNo, isEmpty } from 'helpers/generic';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import { selectPinOptionVersions } from '../../../../../selectors/companyAdmin/pinOptionVersions';
 
@@ -130,24 +130,34 @@ const PinAnswer = ({ trimmedAnswer, type, answers, question }) => {
 
     let measurementOutputs = [];
 
-    curAnswer.measurements?.forEach(measurement => {
-        const answerValue = curAnswerValues.find(
-            ({ id }) => id === measurement.pinHistoryAnswerValueID,
-        );
-        const measurementOutput = (
-            <div key={measurement.id} className="pin-answer-measurements">
-                <p className="pin-answer-measurements-heading">
-                    {answerValue.textValue} measurements:
-                </p>
-                {measurement.length && <p>Length: {measurement.length}</p>}
-                {measurement.width && <p>Width: {measurement.width}</p>}
-                {measurement.height && <p>Height: {measurement.height}</p>}
-                {measurement.diameter && <p>Diameter: {measurement.diameter}</p>}
-                {measurement.volume && <p>Volume: {measurement.volume}</p>}
-            </div>
-        );
-        measurementOutputs.push(measurementOutput);
-    });
+    if (!isEmpty(curAnswer.measurements)) {
+        const { answerValues, measurements } = curAnswer;
+
+        for (let i = 0; i < measurements.length; i++) {
+            const measurement = measurements[i];
+
+            const { total, current } = getCountsForMeasurements(measurement, answerValues);
+
+            const answerValue = curAnswerValues.find(
+                ({ id }) => id === measurement.pinHistoryAnswerValueID,
+            );
+            const measurementOutput = (
+                <div key={measurement.id} className="pin-answer-measurements">
+                    <p className="pin-answer-measurements-heading">
+                        {`${answerValue.textValue}${total > 1 ? ` (${current} of ${total})` : ''}`}{' '}
+                        measurements:
+                    </p>
+                    {measurement.length && <p>Length: {measurement.length}</p>}
+                    {measurement.width && <p>Width: {measurement.width}</p>}
+                    {measurement.height && <p>Height: {measurement.height}</p>}
+                    {measurement.diameter && <p>Diameter: {measurement.diameter}</p>}
+                    {measurement.volume && <p>Volume: {measurement.volume}</p>}
+                </div>
+            );
+            measurementOutputs.push(measurementOutput);
+        }
+    }
+
     return (
         <FieldOutput
             title={question.name}
@@ -170,4 +180,20 @@ function formatMultiMulti(answer) {
     return Object.entries(answerCounts)
         .map(([name, count]) => (count === 1 ? name : `${name} (${count})`))
         .join(', ');
+}
+
+function getCountsForMeasurements(measurement, answerValues) {
+    if (!measurement || isEmpty(answerValues)) return { total: 0, current: 0 };
+
+    const relevantAnswerValue = answerValues.find(
+        ansVal => ansVal.id === measurement.pinHistoryAnswerValueID,
+    );
+    const { pinOptionVersionID } = relevantAnswerValue;
+    const answerValuesForPinOptionVersionID = answerValues.filter(
+        ansVal => ansVal.pinOptionVersionID === pinOptionVersionID,
+    );
+    const totalAnswersForPinOptionVersion = answerValuesForPinOptionVersionID.length;
+    const currentNumber = answerValuesForPinOptionVersionID.indexOf(relevantAnswerValue) + 1;
+
+    return { total: totalAnswersForPinOptionVersion, current: currentNumber };
 }
