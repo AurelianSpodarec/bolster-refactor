@@ -23,6 +23,7 @@ import { useHistory } from 'react-router-dom';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
 import { capitaliseWord } from '../../../../helpers/generic';
+import Field from 'components/shared/generic/form/presentational/Field';
 
 const CartReportForm = ({ formData }) => {
     const dispatch = useDispatch();
@@ -37,7 +38,11 @@ const CartReportForm = ({ formData }) => {
     const selectedTab = useSelector(selectHierarchySelectedTab);
     const selectedTabType = costingAndEstimatingType[selectedTab.toUpperCase()];
 
-    const [reportFormData, handleChange] = useForm({ projectName: '', projectDescription: '' });
+    const [reportFormData, handleChange] = useForm({
+        projectName: '',
+        projectDescription: '',
+        clientName: '',
+    });
 
     useEffect(() => {
         if (postSuccess && !prevProps.postSuccess) {
@@ -63,6 +68,7 @@ const CartReportForm = ({ formData }) => {
         costEstType: selectedTabType,
         projectName: reportFormData.projectName,
         projectDescription: reportFormData.projectDescription,
+        clientName: reportFormData.clientName,
     };
 
     const handleSubmit = () => {
@@ -72,30 +78,47 @@ const CartReportForm = ({ formData }) => {
 
     return (
         <div className="cart-report-form">
-            <TextInputContainer
-                name="projectName"
-                handleChange={handleChange}
-                value={reportFormData.projectName}
-                required
-                placeholder="Project name *"
-                classes="field"
-            />
-            <TextAreaContainer
-                name="projectDescription"
-                handleChange={handleChange}
-                value={reportFormData.projectDescription}
-                required
-                placeholder="Project description *"
-                classes="field"
-                disableResize
-            />
-            <ActionButton
-                text={`Generate ${capitaliseWord(selectedTab)} Sheet`}
-                extraClasses="center justify-stretch"
-                onClick={handleSubmit}
-                size="medium"
-                disabled={!reportFormData.projectName || !reportFormData.projectDescription}
-            />
+            <Field name="Client name" required>
+                <TextInputContainer
+                    name="clientName"
+                    handleChange={handleChange}
+                    value={reportFormData.clientName}
+                    required
+                    placeholder="Insert text here..."
+                />
+            </Field>
+            <Field name="Project name" required>
+                <TextInputContainer
+                    name="projectName"
+                    handleChange={handleChange}
+                    value={reportFormData.projectName}
+                    required
+                    placeholder="Insert text here..."
+                />
+            </Field>
+            <Field name="Project description" required>
+                <TextAreaContainer
+                    name="projectDescription"
+                    handleChange={handleChange}
+                    value={reportFormData.projectDescription}
+                    required
+                    placeholder="Insert text here..."
+                    disableResize
+                />
+            </Field>
+            <Field classes="no-margin">
+                <ActionButton
+                    text={`Generate ${capitaliseWord(selectedTab)} Sheet`}
+                    extraClasses="center justify-stretch"
+                    onClick={handleSubmit}
+                    size="medium"
+                    disabled={
+                        !reportFormData.projectName ||
+                        !reportFormData.projectDescription ||
+                        !reportFormData.clientName
+                    }
+                />
+            </Field>
         </div>
     );
 };

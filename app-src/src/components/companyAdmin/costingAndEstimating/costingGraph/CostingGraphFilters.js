@@ -19,15 +19,6 @@ const CostingGraphFilters = ({ filterFormData, filters, onChange }) => {
     const services = useSelector(selectServices);
     const pinOptionVersions = useSelector(selectPinOptionVersionsArr);
 
-    // console.log({
-    //     operativeCompanyUserIDs,
-    //     companyOperatives,
-    //     serviceIDs,
-    //     services,
-    //     pinOptionIDs,
-    //     pinOptionVersions,
-    // });
-
     const filterOptions = [
         {
             id: 1,
@@ -70,6 +61,13 @@ const CostingGraphFilters = ({ filterFormData, filters, onChange }) => {
             type: COSTING_GRAPH_FILTER_TYPES.PRICE_RANGE,
         },
     ];
+    // if (priceMin !== priceMax)
+    //     filterOptions.push({
+    //         id: 4,
+    //         name: 'Price Range',
+    //         options: 'slider',
+    //         type: COSTING_GRAPH_FILTER_TYPES.PRICE_RANGE,
+    //     });
     return (
         <div className="graph-filters-tooltip border">
             {filterOptions.map(option => (
