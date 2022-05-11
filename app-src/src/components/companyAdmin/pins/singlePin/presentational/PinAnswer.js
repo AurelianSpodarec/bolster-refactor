@@ -141,17 +141,18 @@ const PinAnswer = ({ trimmedAnswer, type, answers, question }) => {
             const answerValue = curAnswerValues.find(
                 ({ id }) => id === measurement.pinHistoryAnswerValueID,
             );
+            // todo update measurement units to output unit used
             const measurementOutput = (
                 <div key={measurement.id} className="pin-answer-measurements">
                     <p className="pin-answer-measurements-heading">
                         {`${answerValue.textValue}${total > 1 ? ` (${current} of ${total})` : ''}`}{' '}
                         measurements:
                     </p>
-                    {measurement.length && <p>Length: {measurement.length}</p>}
-                    {measurement.width && <p>Width: {measurement.width}</p>}
-                    {measurement.height && <p>Height: {measurement.height}</p>}
-                    {measurement.diameter && <p>Diameter: {measurement.diameter}</p>}
-                    {measurement.volume && <p>Volume: {measurement.volume}</p>}
+                    {measurement.length && <p>Length: {measurement.length}mm</p>}
+                    {measurement.width && <p>Width: {measurement.width}mm</p>}
+                    {measurement.height && <p>Height: {measurement.height}mm</p>}
+                    {measurement.diameter && <p>Diameter: {measurement.diameter}mm</p>}
+                    {measurement.volume && <p>Volume: {measurement.volume}ml</p>}
                 </div>
             );
             measurementOutputs.push(measurementOutput);
