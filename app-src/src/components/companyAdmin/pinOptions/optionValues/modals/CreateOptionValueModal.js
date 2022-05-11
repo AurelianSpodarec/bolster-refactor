@@ -143,6 +143,8 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                                                             );
                                                             setError(null);
                                                         }}
+                                                        disableMouseWheelControl
+                                                        disableUpDownArrowControl
                                                     />
                                                 </Field>
 
@@ -162,6 +164,8 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                                                             );
                                                             setError(null);
                                                         }}
+                                                        disableMouseWheelControl
+                                                        disableUpDownArrowControl
                                                     />
                                                 </Field>
 

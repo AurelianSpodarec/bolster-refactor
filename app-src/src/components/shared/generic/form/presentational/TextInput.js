@@ -17,6 +17,8 @@ const TextInput = ({
     maxNum,
     disabled,
     includePasswordStrength,
+    disableMouseWheelControl,
+    disableUpDownArrowControl,
 }) => (
     <>
         <input
@@ -32,6 +34,15 @@ const TextInput = ({
             min={minNum}
             max={maxNum}
             disabled={disabled}
+            onWheel={e => {
+                if (disableMouseWheelControl) e.target.blur();
+            }}
+            onKeyDown={e => {
+                const disallowedKeys = ['ArrowUp', 'ArrowDown'];
+                if (disableUpDownArrowControl && disallowedKeys.includes(e.key)) {
+                    e.preventDefault();
+                }
+            }}
         />
         {!!(error && error.length) && <p className="error red-text text-accent-4">{error}</p>}
         {includePasswordStrength && <PasswordStrengh password={value} />}
