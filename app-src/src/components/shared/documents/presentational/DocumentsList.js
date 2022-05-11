@@ -4,6 +4,9 @@ import { RAW_S3_STORAGE_URL } from 'config';
 
 import DeleteDocumentContainer from '../containers/DeleteDocumentContainer';
 import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
+import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 
 const DocumentsList = ({
     documents,
@@ -30,14 +33,18 @@ const DocumentsList = ({
             </td>
             <td>
                 {!clientControls && (
-                    <>
+                    <FlexWrapper>
                         {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
-                        <Link
-                            to={`${location.pathname}/document-responses/${document.id}`}
-                            className="button blue icon-only"
-                        >
-                            <i className="far fa-eye fa-fw" /> View responses
-                        </Link>
+                        <ButtonWrapper>
+                            <LinkButton
+                                href={`${location.pathname}/document-responses/${document.id}`}
+                                icon="far fa-eye fa-fw"
+                                source="secondary"
+                                ambient="positive"
+                                extraClasses="icon-only"
+                                text="View Responses"
+                            />
+                        </ButtonWrapper>
 
                         {accessType >= ACCESS_TYPES_VALUES.WRITE &&
                             document.isEditable &&
@@ -46,16 +53,20 @@ const DocumentsList = ({
                                     {onMobile && (
                                         <span className="mobile-table-heading">{headers[1]}</span>
                                     )}
-                                    <Link
-                                        to={`${location.pathname}/edit-document/${document.id}`}
-                                        className="button yellow icon-only"
-                                    >
-                                        <i className="far fa-pencil fa-fw" />
-                                    </Link>
+                                    <ButtonWrapper>
+                                        <LinkButton
+                                            href={`${location.pathname}/edit-document/${document.id}`}
+                                            icon="far fa-pencil fa-fw"
+                                            source="secondary"
+                                            ambient="positive"
+                                            extraClasses="icon-only"
+                                        />
+                                    </ButtonWrapper>
+
                                     <DeleteDocumentContainer document={document} />
                                 </>
                             )}
-                    </>
+                    </FlexWrapper>
                 )}
             </td>
         </tr>

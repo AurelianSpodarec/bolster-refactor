@@ -9,6 +9,10 @@ import ButtonContainer from 'components/shared/generic/button/containers/ButtonC
 import Block from 'components/shared/generic/block/presentational/Block';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 
 const EditDrawingOperative = ({
     operative,
@@ -86,13 +90,16 @@ const EditDrawingOperative = ({
                             </>
                         )}
                     </Form>
-                    <BlockButtonWrapper>
-                        <button onClick={handleSubmit} className="button green">
-                            <i className="fa fa-check" />
-                            Confirm Changes
-                        </button>
-                        <ButtonContainer to={backUrl}>Cancel</ButtonContainer>
-                    </BlockButtonWrapper>
+
+                    <FlexWrapper justify="end" gap={5}>
+                        <LinkButton text="Cancel" source="secondary" size="small" href={backUrl} />
+                        <ActionButton
+                            text="Confirm"
+                            icon="check"
+                            size="small"
+                            onClick={handleSubmit}
+                        />
+                    </FlexWrapper>
                 </Block>
             </>
         );

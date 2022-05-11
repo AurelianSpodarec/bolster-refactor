@@ -118,12 +118,7 @@ const AttachOperativeForm = ({
                     />
                 </ButtonWrapper>
                 <ButtonWrapper alignment="right">
-                    <ActionButton
-                        type="submit"
-                        text="Attach Operative"
-                        icon="plus"
-                        ambient="positive"
-                    />
+                    <ActionButton type="submit" text="Confirm" icon="check" />
                 </ButtonWrapper>
             </FlexWrapper>
         </Form>

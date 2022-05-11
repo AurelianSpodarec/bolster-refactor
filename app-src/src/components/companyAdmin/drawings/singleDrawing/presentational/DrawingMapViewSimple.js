@@ -175,19 +175,18 @@ const DrawingMapViewSimple = ({
                                     {addMode ? (
                                         <>
                                             <ButtonWrapper alignment="left">
+                                                <ActionButton
+                                                    text="Cancel"
+                                                    onClick={toggleAddMode}
+                                                    source="secondary"
+                                                />
+                                            </ButtonWrapper>
+                                            <ButtonWrapper alignment="left">
                                                 <LinkButton
                                                     text="Confirm position"
                                                     icon="check"
                                                     onClick={handleClearPinCache}
                                                     href={`${drawing.id}/add-pin`}
-                                                    ambient="positive"
-                                                />
-                                            </ButtonWrapper>
-                                            <ButtonWrapper alignment="left">
-                                                <ActionButton
-                                                    text="Cancel"
-                                                    onClick={toggleAddMode}
-                                                    source="secondary"
                                                 />
                                             </ButtonWrapper>
                                         </>
@@ -268,7 +267,7 @@ const DrawingMapViewSimple = ({
                         drawing.accessType >= ACCESS_TYPES_VALUES.WRITE && (
                             <div className="map-bottom-buttons">
                                 {isAddingZone ? (
-                                    <FlexWrapper gap={10}>
+                                    <FlexWrapper gap={5}>
                                         <ActionButton
                                             text="Confirm"
                                             disabled={hasZoneCoords ? false : true}

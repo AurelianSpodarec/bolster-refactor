@@ -5,8 +5,9 @@ import { connect } from 'react-redux';
 import Table from 'components/shared/generic/tables/presentational/Table';
 import DocumentsList from './DocumentsList';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
 
 const DocumentsTable = ({
     location,
@@ -22,12 +23,14 @@ const DocumentsTable = ({
         <div className="size-lg-12">
             <BlockHeading title="Documents" classes="w-table">
                 {!clientControls && accessType >= ACCESS_TYPES_VALUES.WRITE && !drawingExpired && (
-                    <ButtonContainer
-                        className="pull-right green"
-                        to={`${location.pathname}/attach-document`}
-                    >
-                        <i className="fa fa-plus" /> Add
-                    </ButtonContainer>
+                    <ButtonWrapper alignment="right">
+                        <LinkButton
+                            href={`${location.pathname}/attach-document`}
+                            icon="plus"
+                            ambient="positive"
+                            text="Add"
+                        />
+                    </ButtonWrapper>
                 )}
             </BlockHeading>
             <div

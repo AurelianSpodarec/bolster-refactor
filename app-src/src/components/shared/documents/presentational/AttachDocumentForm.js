@@ -229,23 +229,15 @@ const AttachDocumentForm = ({
                         to add more!
                     </p>
                 )}
-                <ButtonWrapper>
+
+                <ButtonWrapper alignment="right">
                     <LinkButton
                         source="secondary"
                         text="Cancel"
                         href={location.pathname.replace('/attach-document', '')}
                         size="small"
                     />
-                </ButtonWrapper>
-
-                <ButtonWrapper alignment="right">
-                    <ActionButton
-                        type="submit"
-                        text="Attach Document"
-                        icon="plus"
-                        size="small"
-                        ambient="positive"
-                    />
+                    <ActionButton type="submit" text="Confirm" icon="check" size="small" />
                 </ButtonWrapper>
             </FlexWrapper>
         </Form>
