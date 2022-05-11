@@ -7,6 +7,8 @@ import DrawingCompaniesAccessContainer from '../containers/DrawingCompaniesAcces
 import DrawingOperativesAccessContainer from '../containers/DrawingOperativesAccessContainer';
 import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
 import DrawingShareLinkContainer from '../containers/DrawingShareLinkContainer';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 
 const GeneralOverview = ({ handleDelete, handleArchive, drawing, drawingExpired, gotAccess }) => (
     <>
@@ -46,16 +48,26 @@ const GeneralOverview = ({ handleDelete, handleArchive, drawing, drawingExpired,
         <div className="size-lg-12">
             <div className="content-container size-lg-12">
                 <div className="button-container outside-block">
-                    {drawing?.accessType === ACCESS_TYPES_VALUES.OWNER && (
-                        <button type="button" className="button red" onClick={handleDelete}>
-                            <i className="far fa-trash-alt" /> Delete drawing
-                        </button>
-                    )}
+                    <ButtonWrapper alignment="right">
+                        {drawing?.accessType === ACCESS_TYPES_VALUES.OWNER && (
+                            <ActionButton
+                                text="Delete drawing"
+                                type="button"
+                                onClick={handleDelete}
+                                ambient="negative"
+                                icon="far fa-trash-alt"
+                            />
+                        )}
 
-                    <button className="button blue" onClick={handleArchive} type="button">
-                        <i className="fa fa-archive" />
-                        {drawing?.isArchived ? 'Un-Archive' : 'Archive'}
-                    </button>
+                        <ActionButton
+                            text={drawing?.isArchived ? 'Un-Archive' : 'Archive'}
+                            type="button"
+                            onClick={handleArchive}
+                            source="secondary"
+                            ambient="positive"
+                            icon="fa fa-archive"
+                        />
+                    </ButtonWrapper>
                 </div>
             </div>
         </div>

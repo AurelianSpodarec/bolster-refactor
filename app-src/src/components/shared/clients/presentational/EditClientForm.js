@@ -38,14 +38,8 @@ const EditClientForm = ({
         )}
         <div className="size-lg-12">
             <ButtonWrapper alignment="right">
-                <ActionButton
-                    text="Cancel"
-                    icon="times"
-                    onClick={goBack}
-                    size="small"
-                    ambient="negative"
-                />
-                <ActionButton text="Confirm" icon="save" size="small" type="submit" />
+                <ActionButton text="Cancel" source="secondary" onClick={goBack} size="small" />
+                <ActionButton text="Confirm" icon="check" size="small" type="submit" />
             </ButtonWrapper>
         </div>
     </Form>

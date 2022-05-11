@@ -4,7 +4,8 @@ import { withRouter } from 'react-router-dom';
 import Table from 'components/shared/generic/tables/presentational/Table';
 import OperativesList from './OperativesList';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
 
 const OperativesTable = ({
     location,
@@ -20,16 +21,19 @@ const OperativesTable = ({
     return (
         <div className="size-lg-12">
             <BlockHeading title="Attach Operative">
-                <ButtonContainer
-                    className={`pull-right ${isAddOperativeDisabled ? 'disabled' : 'green'}`}
-                    to={
-                        isAddOperativeDisabled
-                            ? `${location.pathname}`
-                            : `${location.pathname}/add-operative`
-                    }
-                >
-                    <i className="fa fa-plus" /> {isAddOperativeDisabled ? 'Full' : 'Attach'}
-                </ButtonContainer>
+                <ButtonWrapper alignment="right">
+                    <LinkButton
+                        disabled={isAddOperativeDisabled}
+                        href={
+                            isAddOperativeDisabled
+                                ? `${location.pathname}`
+                                : `${location.pathname}/add-operative`
+                        }
+                        icon="plus"
+                        ambient="positive"
+                        text={isAddOperativeDisabled ? 'Full' : 'Attach'}
+                    />
+                </ButtonWrapper>
             </BlockHeading>
             <div
                 className={`size-lg-12 ignore-padding ${

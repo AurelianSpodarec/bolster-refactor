@@ -4,7 +4,8 @@ import { withRouter } from 'react-router-dom';
 import Table from 'components/shared/generic/tables/presentational/Table';
 import ClientsList from './ClientsList';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
 
 const ClientsTable = ({
     location,
@@ -16,9 +17,14 @@ const ClientsTable = ({
 }) => (
     <div className="size-lg-12">
         <BlockHeading title="Invite Client">
-            <ButtonContainer className="pull-right green" to={`${location.pathname}/invite-client`}>
-                <i className="fa fa-plus" /> Invite
-            </ButtonContainer>
+            <ButtonWrapper alignment="right">
+                <LinkButton
+                    href={`${location.pathname}/invite-client`}
+                    icon="plus"
+                    ambient="positive"
+                    text="Invite"
+                />
+            </ButtonWrapper>
         </BlockHeading>
         <div
             className={`size-lg-12 ignore-padding ${

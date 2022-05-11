@@ -153,13 +153,7 @@ const InviteClientForm = ({
                     />
                 </ButtonWrapper>
                 <ButtonWrapper alignment="right">
-                    <ActionButton
-                        type="submit"
-                        text="Invite Client"
-                        icon="plus"
-                        ambient="positive"
-                        size="small"
-                    />
+                    <ActionButton type="submit" text="Confirm" icon="check" size="small" />
                 </ButtonWrapper>
             </FlexWrapper>
         </Form>

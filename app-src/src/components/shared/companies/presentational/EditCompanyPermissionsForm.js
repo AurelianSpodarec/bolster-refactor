@@ -7,6 +7,9 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import Select from 'components/shared/generic/form/presentational/Select';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 
 const InviteCompanyForm = ({
     location,
@@ -56,13 +59,10 @@ const InviteCompanyForm = ({
                     </p>
                 )}
 
-                <button className="button green">
-                    <i className="fa fa-plus" />
-                    Edit Permissions
-                </button>
-                <Link to={cancelURL} className="button">
-                    Cancel
-                </Link>
+                <ButtonWrapper alignment="right">
+                    <LinkButton source="secondary" text="Cancel" href={cancelURL} size="small" />
+                    <ActionButton type="submit" text="Confirm" icon="check" size="small" />
+                </ButtonWrapper>
             </BlockButtonWrapper>
         </Form>
     </>
