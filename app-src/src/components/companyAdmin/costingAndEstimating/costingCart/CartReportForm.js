@@ -72,7 +72,7 @@ const CartReportForm = ({ formData }) => {
                 handleChange={handleChange}
                 value={reportFormData.projectName}
                 required
-                placeholder="Project name"
+                placeholder="Project name *"
                 classes="field"
             />
             <TextAreaContainer
@@ -80,7 +80,7 @@ const CartReportForm = ({ formData }) => {
                 handleChange={handleChange}
                 value={reportFormData.projectDescription}
                 required
-                placeholder="Project description"
+                placeholder="Project description *"
                 classes="field"
                 disableResize
             />
