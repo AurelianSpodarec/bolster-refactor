@@ -9,7 +9,7 @@ import CostingMeasurementInput from './CostingMeasurementInput';
 import Select from 'components/shared/generic/form/presentational/Select';
 import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 const { LINEAR, CUBIC, DIAMETER, FIXED, NUMBER, SQUARE, VOLUME } = MEASUREMENT_TYPES;
-const { MILLIMETRE, MILLILITRE } = MEASUREMENT_UNITS;
+const { MILLIMETRE, MILLILITRE, METRE } = MEASUREMENT_UNITS;
 
 const CostingMeasurement = ({
     measurement = {},
@@ -61,12 +61,12 @@ const CostingMeasurement = ({
 };
 
 const measurementInfo = {
-    [LINEAR]: { fieldNames: ['length'], defaultUnit: MILLIMETRE, unitType: 'DISTANCE' },
+    [LINEAR]: { fieldNames: ['length'], defaultUnit: METRE, unitType: 'DISTANCE' },
     [DIAMETER]: { fieldNames: ['diameter'], defaultUnit: MILLIMETRE, unitType: 'DISTANCE' },
-    [SQUARE]: { fieldNames: ['length', 'width'], defaultUnit: MILLIMETRE, unitType: 'DISTANCE' },
+    [SQUARE]: { fieldNames: ['length', 'width'], defaultUnit: METRE, unitType: 'DISTANCE' },
     [CUBIC]: {
         fieldNames: ['length', 'width', 'height'],
-        defaultUnit: MILLIMETRE,
+        defaultUnit: METRE,
         unitType: 'DISTANCE',
     },
     [VOLUME]: { fieldNames: ['volume'], defaultUnit: MILLILITRE, unitType: 'VOLUME' },

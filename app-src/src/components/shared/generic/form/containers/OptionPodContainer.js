@@ -4,7 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import addFieldError from '../../../../../actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from '../../../../../actions/shared/generic/fieldErrors/sync/removeFieldError';
 import { usePrevious } from '../../../../../helpers/hooks';
-import { selectFieldError } from '../../../../../selectors/shared/fieldErrors';
+import {
+    selectFieldError,
+    selectFieldErrorsVisible,
+} from '../../../../../selectors/shared/fieldErrors';
 
 const OptionPodContainer = ({
     name,
@@ -20,8 +23,9 @@ const OptionPodContainer = ({
     const dispatch = useDispatch();
     const prevChecked = usePrevious(checked);
     const fieldError = useSelector(state => selectFieldError(state, name));
-
-    const errorMessage = errorsVisible ? error || fieldError : null;
+    const fieldErrorVisible = useSelector(selectFieldErrorsVisible);
+    const errorMessage = errorsVisible ? error : null;
+    const fieldErrorMessage = fieldErrorVisible ? fieldError : null;
 
     useEffect(() => {
         validate();
@@ -46,7 +50,7 @@ const OptionPodContainer = ({
             name={name}
             icon={icon}
             pathStroke={pathStroke}
-            error={errorMessage}
+            error={errorMessage ?? fieldErrorMessage}
             svgIconComponent={SvgIconComponent}
         />
     );
