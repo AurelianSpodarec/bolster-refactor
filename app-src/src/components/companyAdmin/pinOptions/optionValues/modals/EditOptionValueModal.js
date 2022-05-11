@@ -163,6 +163,8 @@ const EditOptionValueModal = ({ option }) => {
                                                             );
                                                             setError(null);
                                                         }}
+                                                        disableMouseWheelControl
+                                                        disableUpDownArrowControl
                                                     />
                                                 </Field>
 
@@ -183,6 +185,8 @@ const EditOptionValueModal = ({ option }) => {
                                                             );
                                                             setError(null);
                                                         }}
+                                                        disableMouseWheelControl
+                                                        disableUpDownArrowControl
                                                     />
                                                 </Field>
 
