@@ -80,14 +80,7 @@ const InviteCompanyForm = ({
                         text="Cancel"
                         href={location.pathname.replace('/invite-company', '')}
                     />
-                </ButtonWrapper>
-                <ButtonWrapper alignment="right">
-                    <ActionButton
-                        type="submit"
-                        text="Invite Company"
-                        icon="plus"
-                        ambient="positive"
-                    />
+                    <ActionButton type="submit" text="Confirm" icon="check" />
                 </ButtonWrapper>
             </FlexWrapper>
         </Form>

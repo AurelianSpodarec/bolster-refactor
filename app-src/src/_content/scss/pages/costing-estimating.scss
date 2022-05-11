@@ -35,7 +35,7 @@
     max-height: 0;
 
     &.active {
-      max-height: 100vh;
+      max-height: 1000vh;
 
       &.show-overflow {
         overflow-y: visible;
@@ -278,29 +278,32 @@
     &.fullheight {
       height: calc(100% + 19px);
       padding-bottom: 30px;
+
     }
 
     .content-area {
-      padding-bottom: 220px;
+      display: flex;
+      flex-direction: column;
+
+      .list {
+        flex: 1;
+
+        overflow-y: auto;
+      }
+      .cart-report-form {
+        border-radius: 8px;
+    
+        button {
+          width: 100%;
+        }
+
+        .no-margin {
+          margin-bottom: 0;
+        }
+      }
     }
   }
 
-  .cart-report-form {
-    position: absolute;
-    bottom: 15px;
-    width: calc(100% - 30px);
-    height: fit-content;
-    border-radius: 8px;
-
-    .field {
-      height: auto;
-      margin-bottom: 10px;
-    }
-
-    button {
-      width: 100%;
-    }
-  }
 
   .summary-item {
     padding: 10px 0 0;

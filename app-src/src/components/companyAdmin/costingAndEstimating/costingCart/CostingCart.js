@@ -21,24 +21,25 @@ const CostingCart = ({ data, isFetching, fetchError, selectedTab, formData }) =>
 
                 {!fetchError && data && (
                     <>
-                        <CostingCartPinSummary
-                            title="Pin Summary"
-                            total={data.prePrelimCost}
-                            data={data.buildingCosts}
-                        />
-                        <CostingCartPrelimSummary
-                            title="Prelims"
-                            total={data.prelimTotal}
-                            prelims={data.prelims}
-                        />
+                        <div className="list">
+                            <CostingCartPinSummary
+                                title="Pin Summary"
+                                total={data.prePrelimCost}
+                                data={data.buildingCosts}
+                            />
+                            <CostingCartPrelimSummary
+                                title="Prelims"
+                                total={data.prelimTotal}
+                                prelims={data.prelims}
+                            />
 
-                        <div className="grand-total">
-                            <h3>Total exc VAT:</h3>
-                            <h1>{`${data.cartTotal < 0 ? '-' : ''}£${
-                                data.cartTotal ? formatCurrency(data.cartTotal, false) : '0.00'
-                            }`}</h1>
+                            <div className="grand-total">
+                                <h3>Total exc VAT:</h3>
+                                <h1>{`${data.cartTotal < 0 ? '-' : ''}£${
+                                    data.cartTotal ? formatCurrency(data.cartTotal, false) : '0.00'
+                                }`}</h1>
+                            </div>
                         </div>
-
                         <CartReportForm formData={formData} />
                     </>
                 )}
