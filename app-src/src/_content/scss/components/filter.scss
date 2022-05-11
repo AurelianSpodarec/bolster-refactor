@@ -63,10 +63,11 @@
         background-color: var(--input-secondary);
         border-radius: 21px;
         border: none;
+        color: var(--typography-default);
     }
     
     input::placeholder {
-        color: var(--typography-search)
+        color: var(--typography-search);
     }
 }
 
