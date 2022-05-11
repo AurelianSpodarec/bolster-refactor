@@ -3417,5 +3417,9 @@ input {
     }
 }
 
+.pin-buttons-container {
+  padding: 10px;
+}
+
 // mobile
 @import './dashboard-mobile.scss';
