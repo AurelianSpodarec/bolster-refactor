@@ -283,10 +283,13 @@ const DrawingMapViewSimple = ({
                                     </FlexWrapper>
                                 ) : (
                                     <FlexWrapper gap={10}>
+                                        <ActionButton text="View Zones" onClick={handleZoneAdd} />
                                         <ActionButton
                                             text=" Pin Tasks On/Off"
                                             onClick={togglePinTasksView}
                                             extraClasses={pinTasksMode && 'active'}
+                                            source="secondary"
+                                            ambient={pinTasksMode ? 'positive' : ''}
                                         />
 
                                         {doPinsHaveIcons(pins) && (
@@ -296,13 +299,16 @@ const DrawingMapViewSimple = ({
                                                 extraClasses={
                                                     pinViewMode === 'icon' ? 'active' : ''
                                                 }
+                                                source="secondary"
+                                                ambient={pinViewMode === 'icon' ? 'positive' : ''}
                                             />
                                         )}
-                                        <ActionButton text="View Zones" onClick={handleZoneAdd} />
                                         <ActionButton
                                             text="Toggle Zones On/Off"
                                             onClick={toggleZones}
                                             extraClasses={showZones && 'active'}
+                                            source="secondary"
+                                            ambient={showZones ? 'positive' : ''}
                                         />
                                         {showZones && (
                                             <div className="map-opacity pull-right">
