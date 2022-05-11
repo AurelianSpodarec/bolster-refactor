@@ -7,6 +7,7 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 
 const AddCreditsToDrawingForm = ({
     credits,
@@ -44,10 +45,13 @@ const AddCreditsToDrawingForm = ({
             </div>
 
             <BlockButtonWrapper>
-                <button className="button green">Submit</button>
-                <button className="button" type="button" onClick={handleClose}>
-                    Cancel
-                </button>
+                <ActionButton type="submit" text="Submit" />
+                <ActionButton
+                    type="button"
+                    text="Cancel"
+                    onClick={handleClose}
+                    source="secondary"
+                />
             </BlockButtonWrapper>
         </Form>
     </ModalOuterContainer>
