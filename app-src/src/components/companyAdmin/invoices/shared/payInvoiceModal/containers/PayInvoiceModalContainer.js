@@ -7,6 +7,9 @@ import payInvoice from 'actions/companyAdmin/invoices/async/payInvoice';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { PAYMENT_SUCCESS, PAYMENT_ERROR } from 'constants/shared/modalTypes';
+import fetchSingleInvoice from 'actions/companyAdmin/invoices/async/fetchSingleInvoice';
+import fetchSingleInvoiceItems from 'actions/companyAdmin/invoices/async/fetchSingleInvoiceItems';
+import fetchSingleInvoicePayments from 'actions/companyAdmin/invoices/async/fetchSingleInvoicePayments';
 
 class PayInvoiceModalContainer extends Component {
     state = {
@@ -41,7 +44,18 @@ class PayInvoiceModalContainer extends Component {
     };
 
     componentDidUpdate = prevProps => {
-        const { isFetching, cards, postSuccess, postFailure, showModal, error } = this.props;
+        const {
+            isFetching,
+            cards,
+            postSuccess,
+            postFailure,
+            showModal,
+            error,
+            fetchSingleInvoice,
+            fetchSingleInvoiceItems,
+            fetchSingleInvoicePayments,
+            invoiceID,
+        } = this.props;
 
         if (!isFetching && prevProps.isFetching && cards.length) {
             const primaryCard = cards.find(({ isPrimary }) => isPrimary);
@@ -54,6 +68,9 @@ class PayInvoiceModalContainer extends Component {
             showModal(PAYMENT_SUCCESS, {
                 message: 'Your invoice has been successfully paid.',
             });
+            fetchSingleInvoice(invoiceID);
+            fetchSingleInvoiceItems(invoiceID);
+            fetchSingleInvoicePayments(invoiceID);
         }
 
         if (postFailure && !prevProps.postFailure) {
@@ -91,6 +108,14 @@ const mapStateToProps = ({
     error,
 });
 
-const mapDispatchToProps = { fetchAllCards, payInvoice, hideModal, showModal };
+const mapDispatchToProps = {
+    fetchAllCards,
+    payInvoice,
+    hideModal,
+    showModal,
+    fetchSingleInvoice,
+    fetchSingleInvoiceItems,
+    fetchSingleInvoicePayments,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(PayInvoiceModalContainer);
