@@ -110,17 +110,18 @@ const OutputSettings = ({
                                                     label="Floorplan"
                                                 />
                                             </Field>
-
-                                            <Field sizeClasses="size-lg-3 size-md-12">
-                                                <Tickbox
-                                                    classes="large-text"
-                                                    checked={includeCostingData}
-                                                    name="includeCostingData"
-                                                    handleChange={handleFilterChange}
-                                                    label="Cost Per Pin"
-                                                />
-                                            </Field>
                                         </>
+                                    )}
+                                    {(isPDFGeneration || isCSVGeneration) && (
+                                        <Field sizeClasses="size-lg-3 size-md-12">
+                                            <Tickbox
+                                                classes="large-text"
+                                                checked={includeCostingData}
+                                                name="includeCostingData"
+                                                handleChange={handleFilterChange}
+                                                label="Cost Per Pin"
+                                            />
+                                        </Field>
                                     )}
                                     <Field sizeClasses="size-lg-3 size-md-12">
                                         <Tickbox

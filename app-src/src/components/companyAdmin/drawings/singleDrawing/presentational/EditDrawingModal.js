@@ -109,7 +109,6 @@ const EditDrawingModal = ({
                         <ActionButton
                             text={filesUploading ? 'Please wait...' : 'Update'}
                             type="submit"
-                            icon="check"
                             size="small"
                         />
                     </ButtonWrapper>
