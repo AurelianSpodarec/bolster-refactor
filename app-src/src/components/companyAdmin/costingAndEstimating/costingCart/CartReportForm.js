@@ -67,7 +67,7 @@ const CartReportForm = ({ formData }) => {
 
     return (
         <div className="cart-report-form">
-            <TextInputContainer
+            {/* <TextInputContainer
                 name="projectName"
                 handleChange={handleChange}
                 value={reportFormData.projectName}
@@ -83,7 +83,7 @@ const CartReportForm = ({ formData }) => {
                 placeholder="Project description *"
                 classes="field"
                 disableResize
-            />
+            /> */}
             <ActionButton
                 text="Generate Costing Report"
                 extraClasses="center justify-stretch"
