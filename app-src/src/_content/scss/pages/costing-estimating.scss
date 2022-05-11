@@ -132,6 +132,10 @@
 
   p, span {
     @include bodyText;
+
+    &.error {
+      pointer-events: none;
+    }
   }
 
   .loading-overlay {
