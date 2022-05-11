@@ -37,7 +37,11 @@ const CartReportForm = ({ formData }) => {
     const selectedTab = useSelector(selectHierarchySelectedTab);
     const selectedTabType = costingAndEstimatingType[selectedTab.toUpperCase()];
 
-    const [reportFormData, handleChange] = useForm({ projectName: '', projectDescription: '' });
+    const [reportFormData, handleChange] = useForm({
+        projectName: '',
+        projectDescription: '',
+        clientName: '',
+    });
 
     useEffect(() => {
         if (postSuccess && !prevProps.postSuccess) {
@@ -63,6 +67,7 @@ const CartReportForm = ({ formData }) => {
         costEstType: selectedTabType,
         projectName: reportFormData.projectName,
         projectDescription: reportFormData.projectDescription,
+        clientName: reportFormData.clientName,
     };
 
     const handleSubmit = () => {
@@ -72,6 +77,14 @@ const CartReportForm = ({ formData }) => {
 
     return (
         <div className="cart-report-form">
+            <TextInputContainer
+                name="clientName"
+                handleChange={handleChange}
+                value={reportFormData.clientName}
+                required
+                placeholder="Client name *"
+                classes="field"
+            />
             <TextInputContainer
                 name="projectName"
                 handleChange={handleChange}
