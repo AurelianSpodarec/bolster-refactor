@@ -7,7 +7,7 @@ import CheckboxContainer from 'components/shared/generic/form/containers/Checkbo
 import agreeToTerms from 'actions/companyAdmin/legalDocuments/agreeToTerms';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TsCsContainer from 'components/frontEnd/termsAndConditions/containers/Ts&CsContainer';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 
 const AgreeToTerms = ({ agreeToTerms, handleClick }) => {
     const [hasAgreed, setHasAgreed] = useState(false);
@@ -28,13 +28,8 @@ const AgreeToTerms = ({ agreeToTerms, handleClick }) => {
                             />
                         </Field>
                         <div className="button-area size-lg-12">
-                            <button className="button green" type="submit">
-                                Submit
-                            </button>
-                            <ButtonContainer handleClick={handleClick}>
-                                <i className="fa fa-times" />
-                                Cancel
-                            </ButtonContainer>
+                            <ActionButton text="Confirm" type="submit" icon="check" />
+                            <ActionButton text="Close" source="secondary" onClick={handleClick} />
                         </div>
                     </Form>
                 </Block>
