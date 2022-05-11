@@ -107,7 +107,11 @@ const CartReportForm = ({ formData }) => {
                 extraClasses="center justify-stretch"
                 onClick={handleSubmit}
                 size="medium"
-                disabled={!reportFormData.projectName || !reportFormData.projectDescription}
+                disabled={
+                    !reportFormData.projectName ||
+                    !reportFormData.projectDescription ||
+                    !reportFormData.clientName
+                }
             />
         </div>
     );
