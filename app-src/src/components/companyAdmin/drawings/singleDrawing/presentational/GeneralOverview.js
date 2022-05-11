@@ -49,24 +49,21 @@ const GeneralOverview = ({ handleDelete, handleArchive, drawing, drawingExpired,
             <div className="content-container size-lg-12">
                 <div className="button-container outside-block">
                     <ButtonWrapper alignment="right">
-                        {drawing?.accessType === ACCESS_TYPES_VALUES.OWNER && (
-                            <ActionButton
-                                text="Delete drawing"
-                                type="button"
-                                onClick={handleDelete}
-                                ambient="negative"
-                                icon="far fa-trash-alt"
-                            />
-                        )}
-
                         <ActionButton
                             text={drawing?.isArchived ? 'Un-Archive' : 'Archive'}
                             type="button"
                             onClick={handleArchive}
                             source="secondary"
-                            ambient="positive"
                             icon="fa fa-archive"
                         />
+                        {drawing?.accessType === ACCESS_TYPES_VALUES.OWNER && (
+                            <ActionButton
+                                text="Delete drawing"
+                                type="button"
+                                onClick={handleDelete}
+                                icon="far fa-trash-alt"
+                            />
+                        )}
                     </ButtonWrapper>
                 </div>
             </div>
