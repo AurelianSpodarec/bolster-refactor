@@ -4,7 +4,7 @@ import { formatCurrency } from 'helpers/generic';
 import React from 'react';
 import BlockContainer from '../../../shared/generic/block/containers/BlockContainer';
 import LoadingOverlay from '../LoadingOverlay';
-import CartReportButton from './CartReportButton';
+import CartReportForm from './CartReportForm';
 import CostingCartPinSummary from './CostingCartPinSummary';
 import CostingCartPrelimSummary from './CostingCartPrelimSummary';
 
@@ -39,7 +39,7 @@ const CostingCart = ({ data, isFetching, fetchError, selectedTab, formData }) =>
                             }`}</h1>
                         </div>
 
-                        <CartReportButton formData={formData} />
+                        <CartReportForm formData={formData} />
                     </>
                 )}
                 {!isFetching && fetchError && <Error>{fetchError}</Error>}

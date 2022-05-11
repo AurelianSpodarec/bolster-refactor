@@ -18,10 +18,12 @@ import useCurrentHierarchyType from '../_hooks/useCurrentHierarchyType';
 import moment from 'moment';
 import { selectHierarchySelectedTab } from 'selectors/shared/tabs';
 import { costingAndEstimatingType } from 'constants/companyAdmin/enums';
-import { usePrevious } from 'helpers/hooks';
+import { useForm, usePrevious } from 'helpers/hooks';
 import { useHistory } from 'react-router-dom';
+import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
+import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
 
-const CartReportButton = ({ formData }) => {
+const CartReportForm = ({ formData }) => {
     const dispatch = useDispatch();
     const history = useHistory();
     const hierarchyID = useCurrentHierarchyID();
@@ -33,6 +35,8 @@ const CartReportButton = ({ formData }) => {
 
     const selectedTab = useSelector(selectHierarchySelectedTab);
     const selectedTabType = costingAndEstimatingType[selectedTab.toUpperCase()];
+
+    const [reportFormData, handleChange] = useForm({ projectName: '', projectDescription: '' });
 
     useEffect(() => {
         if (postSuccess && !prevProps.postSuccess) {
@@ -56,19 +60,38 @@ const CartReportButton = ({ formData }) => {
         costEstType: selectedTabType,
     };
 
-    const handleClick = () => {
+    const handleSubmit = () => {
         dispatch(createCostingAndEstimatingReport(cAndEPostBody));
         dispatch(showModal(GENERATE_COSTING_ESTIMATING_REPORT_MODAL));
     };
 
     return (
-        <ActionButton
-            text="Generate Costing Report"
-            extraClasses="center cart-report-button"
-            onClick={handleClick}
-            size="medium"
-        />
+        <div className="cart-report-form">
+            <TextInputContainer
+                name="projectName"
+                handleChange={handleChange}
+                value={reportFormData.projectName}
+                required
+                placeholder="Project name"
+                classes="field"
+            />
+            <TextAreaContainer
+                name="projectDescription"
+                handleChange={handleChange}
+                value={reportFormData.projectDescription}
+                required
+                placeholder="Project description"
+                classes="field"
+                disableResize
+            />
+            <ActionButton
+                text="Generate Costing Report"
+                extraClasses="center justify-stretch"
+                onClick={handleSubmit}
+                size="medium"
+            />
+        </div>
     );
 };
 
-export default CartReportButton;
+export default CartReportForm;
