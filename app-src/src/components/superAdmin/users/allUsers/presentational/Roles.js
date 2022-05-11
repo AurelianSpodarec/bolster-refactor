@@ -34,7 +34,10 @@ const Roles = ({
                     <span key={i}>
                         {COMPANY_USER_ROLE_IDS[role.type]} -{' '}
                         <span>
-                            <Link className="link" to={`/admin/companies/${role.companyID}`}>
+                            <Link
+                                className="link typography-default-colour"
+                                to={`/admin/companies/${role.companyID}`}
+                            >
                                 {role.companyName}
                             </Link>{' '}
                             ({COMPANY_USER_ROLE_STATUS_VALUES[role.status]})
