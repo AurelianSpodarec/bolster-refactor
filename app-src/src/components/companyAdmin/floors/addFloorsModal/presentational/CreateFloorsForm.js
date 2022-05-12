@@ -43,12 +43,10 @@ const CreateFloorsForm = ({
                         <BlockButtonWrapper>
                             <ActionButton
                                 type="button"
-                                text="Add another floor"
                                 svgIconComponent={TrashIcon}
                                 onClick={() => removeFloor(floor.id)}
                                 ambient="positive"
                                 source="secondary"
-                                extraClasses="margin-left"
                                 iconOnly
                             />
                         </BlockButtonWrapper>

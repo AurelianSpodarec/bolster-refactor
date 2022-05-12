@@ -5,8 +5,8 @@ import Submit from '../presentational/Submit';
 
 class SubmitContainer extends Component {
     render() {
-        const { withPlus, filesUploading, text } = this.props;
-        return <Submit withPlus={withPlus} text={text} filesUploading={filesUploading} />;
+        const { filesUploading, text, icon } = this.props;
+        return <Submit icon={icon} text={text} filesUploading={filesUploading} />;
     }
 }
 
