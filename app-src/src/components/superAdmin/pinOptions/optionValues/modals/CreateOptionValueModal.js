@@ -12,6 +12,7 @@ import ButtonWrapper from '../../../../shared/generic/button/presentational/Butt
 import { selectPinOptionType } from '../../../../../selectors/superAdmin/pinOptionTypes';
 import { selectServices } from '../../../../../selectors/superAdmin/services';
 import useCreateOptionValue from '../hooks/useCreateOptionValue';
+import { selectPinOptionSet } from '../../../../../selectors/superAdmin/pinOptionSets';
 
 const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
     const pinOptionType = useSelector(state => selectPinOptionType(state, pinOptionTypeID));
@@ -23,10 +24,13 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
     );
 
     const services = useSelector(selectServices);
-    const serviceOptions = Object.values(services).map(service => ({
-        value: service.id,
-        text: service.name,
-    }));
+    const set = useSelector(state => selectPinOptionSet(state, pinOptionSetID));
+    const serviceOptions = Object.values(services)
+        .filter(service => !set?.serviceIDs || set.serviceIDs.includes(service.id))
+        .map(service => ({
+            value: service.id,
+            text: service.name,
+        }));
 
     return (
         <ModalOuterContainer hideCloseButton>
