@@ -5,6 +5,7 @@ import ButtonWrapper from 'components/shared/generic/button/presentational/Butto
 import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
+import { ReactComponent as TrashIcon } from '../../../../_content/images/icons/trash.svg';
 
 const OperativesList = ({ operatives, documentID, handleDeleteOperativeModal }) =>
     operatives.map(operative => {
@@ -59,7 +60,7 @@ const OperativesList = ({ operatives, documentID, handleDeleteOperativeModal }) 
                                 <ActionButton
                                     href="#"
                                     onClick={() => handleDeleteOperativeModal(operative)}
-                                    icon="far fa-trash-alt fa-fw"
+                                    svgIconComponent={TrashIcon}
                                     source="secondary"
                                     ambient="positive"
                                     extraClasses="icon-only typography-default-colour"
