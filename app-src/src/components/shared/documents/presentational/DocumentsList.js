@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { RAW_S3_STORAGE_URL } from 'config';
 
 import DeleteDocumentContainer from '../containers/DeleteDocumentContainer';
