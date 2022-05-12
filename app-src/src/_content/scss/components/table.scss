@@ -465,8 +465,13 @@
   }
 
   .custom-button {
+    &.typography-default-colour {
+      i {
+        color: var(--typography-default);
+      }
+    }
     i {
-      color: #F9FAFA
+      color: #F9FAFA;
     }
   }
 

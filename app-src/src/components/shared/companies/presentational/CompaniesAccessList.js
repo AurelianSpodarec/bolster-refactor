@@ -36,7 +36,7 @@ const CompaniesAccessList = ({
                                           icon="far fa-edit fa-fw"
                                           source="secondary"
                                           ambient="positive"
-                                          extraClasses="icon-only"
+                                          extraClasses="icon-only typography-default-colour"
                                       />
                                   </ButtonWrapper>
                               </>
@@ -67,7 +67,7 @@ const CompaniesAccessList = ({
                                             icon="far fa-minus fa-fw"
                                             source="secondary"
                                             ambient="positive"
-                                            extraClasses="icon-only"
+                                            extraClasses="icon-only typography-default-colour"
                                         />
                                     </ButtonWrapper>
                                 )}

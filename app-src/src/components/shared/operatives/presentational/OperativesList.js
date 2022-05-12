@@ -52,7 +52,7 @@ const OperativesList = ({ operatives, documentID, handleDeleteOperativeModal }) 
                                     icon="far fa-pencil fa-fw"
                                     source="secondary"
                                     ambient="positive"
-                                    extraClasses="icon-only"
+                                    extraClasses="icon-only typography-default-colour"
                                 />
                             </ButtonWrapper>
                             <ButtonWrapper>
@@ -62,7 +62,7 @@ const OperativesList = ({ operatives, documentID, handleDeleteOperativeModal }) 
                                     icon="far fa-trash-alt fa-fw"
                                     source="secondary"
                                     ambient="positive"
-                                    extraClasses="icon-only"
+                                    extraClasses="icon-only typography-default-colour"
                                 />
                             </ButtonWrapper>
                         </FlexWrapper>

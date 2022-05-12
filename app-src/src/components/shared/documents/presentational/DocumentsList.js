@@ -40,7 +40,7 @@ const DocumentsList = ({
                                 icon="far fa-eye fa-fw"
                                 source="secondary"
                                 ambient="positive"
-                                extraClasses="icon-only"
+                                extraClasses="icon-only typography-default-colour"
                                 text="View Responses"
                             />
                         </ButtonWrapper>
@@ -58,7 +58,7 @@ const DocumentsList = ({
                                             icon="far fa-pencil fa-fw"
                                             source="secondary"
                                             ambient="positive"
-                                            extraClasses="icon-only"
+                                            extraClasses="icon-only typography-default-colour"
                                         />
                                     </ButtonWrapper>
 
