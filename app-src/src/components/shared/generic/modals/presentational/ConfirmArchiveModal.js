@@ -14,13 +14,7 @@ const ConfirmArchiveModal = ({
         <BlockHeading title="Archive Confirmation" />
         <p className="generic-text intro-text size-lg-12">{message}</p>
         <BlockButtonWrapper>
-            <ActionButton
-                type="submit"
-                text={archive ? 'Archive' : 'Un-Archive'}
-                icon="fa fa-archive"
-                onClick={handleArchive}
-                ambient="negative"
-            />
+            <ActionButton type="submit" text="Confirm" icon="check" onClick={handleArchive} />
             <ActionButton source="secondary" text="Cancel" onClick={hideModal} />
         </BlockButtonWrapper>
     </ModalOuterContainer>
