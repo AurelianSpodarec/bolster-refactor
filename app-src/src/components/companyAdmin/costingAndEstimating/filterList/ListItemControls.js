@@ -16,10 +16,10 @@ const ListItemControls = ({
 
     return (
         <div className="table-cell-controls">
-            <div>
+            <div className="tickbox-cell">
                 <Tickbox name="" checked={isSelected} handleChange={_handleToggleItem} />
             </div>
-            <div>
+            <div className="tickbox-cell">
                 {!hideExpandButton && (
                     <AccordionButton
                         name=""
