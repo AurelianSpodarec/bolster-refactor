@@ -5,7 +5,7 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 
 const Profile = () => (
     <>
-        <PageHeading title="My Profile" withBackButton />
+        <PageHeading title="My Profile" />
         <ProfileDetailsContainer />
     </>
 );
