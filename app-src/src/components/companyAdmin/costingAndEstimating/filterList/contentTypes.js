@@ -12,7 +12,7 @@ export const TopLevel = ({ item, isSelected, handleToggleAllItems }) => {
     return (
         <>
             <div className="table-cell-controls">
-                <div>
+                <div className="tickbox-cell">
                     <Tickbox name="" checked={isSelected} handleChange={handleToggleAllItems} />
                 </div>
             </div>

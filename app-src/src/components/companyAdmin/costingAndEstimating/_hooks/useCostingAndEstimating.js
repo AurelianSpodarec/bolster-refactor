@@ -282,7 +282,7 @@ const useCostingAndEstimating = () => {
     }, []); // Fetch all data on page load
 
     useEffect(() => {
-        if (formData !== prevProps.formData || selectedTabType !== prevProps.selectedTabType) {
+        if (formData !== prevProps.formData) {
             if (moment().valueOf() - lastFetch > 1000) {
                 batch(() => {
                     dispatch(fetchCostingAndEstimatingResults(cAndEPostBody));
@@ -310,8 +310,9 @@ const useCostingAndEstimating = () => {
             setWillAutoTick(false);
             onChange('selectedItems', buildInitialSelectedItems(filters.allSites));
             onChange('maxPrice', filters.priceMax);
+            dispatch(fetchCostingAndEstimatingResults(cAndEPostBody));
         }
-    }, [willAutoTick, isFetchingFilters, prevData.isFetchingFilters]); // Auto-tick after fetch if flag is set
+    }, [willAutoTick, isFetchingFilters, prevData.isFetchingFilters]); // Auto-tick after filters fetch if flag is set
 
     useEffect(() => {
         if (!isEmpty(filters.allSites) && isEmpty(prevProps.allSites)) {
