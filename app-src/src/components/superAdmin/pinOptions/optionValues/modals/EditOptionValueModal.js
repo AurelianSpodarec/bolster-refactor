@@ -48,9 +48,9 @@ const EditOptionValueModal = ({ option }) => {
                     />
                 </Field>
 
-                <Field name="Short Name">
+                <Field name="Short Name" labelClasses="small-margin">
                     <p className="generic-text size-lg-12">
-                        This is how the pin option will output through the app
+                        This is how the pin option will output through the app.
                     </p>
                     <TextInputContainer
                         name="shortName"
