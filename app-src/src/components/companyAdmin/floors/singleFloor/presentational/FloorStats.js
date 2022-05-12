@@ -6,6 +6,9 @@ import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
 import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import { ReactComponent as TrashIcon } from '../../../../../_content/images/icons/trash.svg';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import ActionMenu from 'components/shared/actionMenu/ActionMenu';
+import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
 
 const FloorStats = ({
     floor,
@@ -40,16 +43,27 @@ const FloorStats = ({
         />
 
         <div className="button-container relative-position">
-            <FlexWrapper gap={5} wrap="wrap">
-                {floor.accessType === ACCESS_TYPES_VALUES.OWNER && (
-                    <>
-                        <ActionButton
-                            ambient="negative"
-                            onClick={handleDelete}
-                            type="button"
-                            svgIconComponent={TrashIcon}
-                            text="Delete"
+            <FlexWrapper>
+                <ButtonWrapper alignment="right">
+                    <ActionMenu extraClasses="to-the-right">
+                        {floor.accessType === ACCESS_TYPES_VALUES.OWNER && (
+                            <ActionMenuActionButton
+                                onClick={handleViewDrawingExpiryModal}
+                                text="Drawing Expiry"
+                            />
+                        )}
+                        <ActionMenuActionButton
+                            onClick={handleArchive}
+                            text={floor.isArchived ? 'Un-Archive' : 'Archive'}
                         />
+
+                        {floor.accessType === ACCESS_TYPES_VALUES.OWNER && (
+                            <ActionMenuActionButton onClick={handleDelete} text="Delete" />
+                        )}
+                    </ActionMenu>
+                </ButtonWrapper>
+                <ButtonWrapper>
+                    {floor.accessType === ACCESS_TYPES_VALUES.OWNER && (
                         <ActionButton
                             source="secondary"
                             ambient="positive"
@@ -58,38 +72,24 @@ const FloorStats = ({
                             icon="pencil"
                             text="Edit"
                         />
-                        <ActionButton
-                            source="secondary"
-                            ambient="positive"
-                            onClick={handleViewDrawingExpiryModal}
-                            icon="clock"
-                            text="Drawing Expiry"
-                        />
-                    </>
-                )}
-                <ActionButton
-                    source="secondary"
-                    ambient="positive"
-                    onClick={handleArchive}
-                    icon="archive"
-                    text={floor.isArchived ? 'Un-Archive' : 'Archive'}
-                    type="button"
-                />
-                <ActionButton
-                    source="secondary"
-                    ambient="positive"
-                    onClick={handleViewHierarchyAlerts}
-                    icon="eye"
-                    text="View Alerts"
-                    type="button"
-                />
-                <ActionButton
-                    ambient="positive"
-                    onClick={handleCreateHierarchyAlertModal}
-                    icon="plus"
-                    text="Create Alert"
-                    type="button"
-                />
+                    )}
+
+                    <ActionButton
+                        source="secondary"
+                        ambient="positive"
+                        onClick={handleViewHierarchyAlerts}
+                        icon="eye"
+                        text="View Alerts"
+                        type="button"
+                    />
+                    <ActionButton
+                        ambient="positive"
+                        onClick={handleCreateHierarchyAlertModal}
+                        icon="plus"
+                        text="Create Alert"
+                        type="button"
+                    />
+                </ButtonWrapper>
             </FlexWrapper>
         </div>
     </div>

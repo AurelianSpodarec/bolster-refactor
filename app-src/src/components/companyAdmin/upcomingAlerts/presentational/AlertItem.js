@@ -15,6 +15,9 @@ import { companyUser } from 'selectors/companyAdmin/companyUser';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import { DELETE_ALERT_MODAL, EDIT_ALERT_MODAL } from 'constants/shared/modalTypes';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import ActionMenu from 'components/shared/actionMenu/ActionMenu';
+import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
 
 const AlertItem = ({
     alert: {
@@ -108,23 +111,18 @@ const AlertItem = ({
             <td className="left-align">{name}</td>
             <td className="left-align">{description}</td>
             <td className="min-width-120">
-                <BlockButtonWrapper additionalClasses="stacked">
-                    <button
-                        className="button yellow"
-                        onClick={() => dispatch(showModal(EDIT_ALERT_MODAL, { id }))}
-                    >
-                        <i className="far fa-pencil" />
-                        Edit
-                    </button>
-
-                    <button
-                        className="button red"
-                        onClick={() => dispatch(showModal(DELETE_ALERT_MODAL, { id }))}
-                    >
-                        <i className="fas fa-trash-alt" />
-                        Delete
-                    </button>
-                </BlockButtonWrapper>
+                <ButtonWrapper alignment="right">
+                    <ActionMenu>
+                        <ActionMenuActionButton
+                            onClick={() => dispatch(showModal(EDIT_ALERT_MODAL, { id }))}
+                            text="Edit"
+                        />
+                        <ActionMenuActionButton
+                            onClick={() => dispatch(showModal(DELETE_ALERT_MODAL, { id }))}
+                            text="Delete"
+                        />
+                    </ActionMenu>
+                </ButtonWrapper>
             </td>
         </tr>
     );

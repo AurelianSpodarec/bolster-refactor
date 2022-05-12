@@ -15,6 +15,7 @@ import { dayOptions, seriesRecurringOptions } from 'constants/companyAdmin/pinTa
 import PickListContainer from 'components/shared/generic/form/containers/PickListContainer';
 import ButtonWrapper from '../../../../shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from '../../../../shared/generic/button/presentational/ActionButton';
+import { ReactComponent as TrashIcon } from '../../../../../_content/images/icons/trash.svg';
 
 const EditPinTaskSeriesModal = ({ id }) => {
     const {
@@ -132,7 +133,7 @@ const EditPinTaskSeriesModal = ({ id }) => {
                                 text="Delete"
                                 onClick={handleDeleteSeries}
                                 ambient="negative"
-                                icon="trash"
+                                svgIconComponent={TrashIcon}
                                 size="small"
                             />
 

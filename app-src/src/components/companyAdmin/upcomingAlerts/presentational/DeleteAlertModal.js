@@ -4,7 +4,9 @@ import useDeleteAlert from 'components/companyAdmin/upcomingAlerts/hierarchys/ho
 
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import { ReactComponent as TrashIcon } from '../../../../_content/images/icons/trash.svg';
 
 const DeleteAlertModal = ({ id, hideModal }) => {
     const { handleSubmit } = useDeleteAlert(id);
@@ -14,14 +16,17 @@ const DeleteAlertModal = ({ id, hideModal }) => {
             <BlockHeading title="Delete alert?" />
             <p>Are you sure you would like to delete this alert?</p>
 
-            <BlockButtonWrapper>
-                <button onClick={handleSubmit} type="submit" className="button red">
-                    Delete
-                </button>
-                <button className="button" onClick={hideModal}>
-                    Cancel
-                </button>
-            </BlockButtonWrapper>
+            <ButtonWrapper alignment="right">
+                <ActionButton text="Cancel" onClick={hideModal} source="secondary" size="small" />
+                <ActionButton
+                    text="Delete"
+                    type="submit"
+                    onClick={handleSubmit}
+                    ambient="negative"
+                    svgIconComponent={TrashIcon}
+                    size="small"
+                />
+            </ButtonWrapper>
         </ModalOuterContainer>
     );
 };
