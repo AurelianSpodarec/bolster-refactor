@@ -1,5 +1,4 @@
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
 import React from 'react';
 
 const DeleteDocument = ({ handleShowModal, document }) => (
