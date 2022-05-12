@@ -29,7 +29,6 @@ const DocumentsTable = ({
                             icon="plus"
                             ambient="positive"
                             text="Add"
-                            size="medium"
                         />
                     </ButtonWrapper>
                 )}

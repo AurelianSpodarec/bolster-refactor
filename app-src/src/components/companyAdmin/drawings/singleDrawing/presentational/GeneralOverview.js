@@ -9,6 +9,7 @@ import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
 import DrawingShareLinkContainer from '../containers/DrawingShareLinkContainer';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import { ReactComponent as TrashIcon } from '../../../../../_content/images/icons/trash.svg';
 
 const GeneralOverview = ({ handleDelete, handleArchive, drawing, drawingExpired, gotAccess }) => (
     <>
@@ -61,7 +62,7 @@ const GeneralOverview = ({ handleDelete, handleArchive, drawing, drawingExpired,
                                 text="Delete drawing"
                                 type="button"
                                 onClick={handleDelete}
-                                icon="far fa-trash-alt"
+                                svgIconComponent={TrashIcon}
                             />
                         )}
                     </ButtonWrapper>
