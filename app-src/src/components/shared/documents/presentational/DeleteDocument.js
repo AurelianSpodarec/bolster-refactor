@@ -7,7 +7,7 @@ const DeleteDocument = ({ handleShowModal, document }) => (
         icon="far fa-trash-alt fa-fw"
         source="secondary"
         ambient="positive"
-        extraClasses="icon-only"
+        extraClasses="icon-only typography-default-colour"
     />
 );
 

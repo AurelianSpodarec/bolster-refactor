@@ -17,7 +17,7 @@ const ClientsList = ({ location, clients, handleDeleteClientModal }) =>
                             icon="far fa-pencil fa-fw"
                             source="secondary"
                             ambient="positive"
-                            extraClasses="icon-only"
+                            extraClasses="icon-only typography-default-colour"
                         />
                     </ButtonWrapper>
                     <ButtonWrapper>
@@ -27,7 +27,7 @@ const ClientsList = ({ location, clients, handleDeleteClientModal }) =>
                             icon="far fa-trash-alt fa-fw"
                             source="secondary"
                             ambient="positive"
-                            extraClasses="icon-only"
+                            extraClasses="icon-only typography-default-colour"
                         />
                     </ButtonWrapper>
                 </FlexWrapper>
