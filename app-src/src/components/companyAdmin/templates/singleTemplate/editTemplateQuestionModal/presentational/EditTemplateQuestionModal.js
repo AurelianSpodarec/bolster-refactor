@@ -62,11 +62,9 @@ const EditTemplateQuestionModal = ({
                                             )
                                         ) : (
                                             <ActionButton
-                                                text="Delete"
+                                                text="Confirm"
                                                 onClick={() => handleRemoveOption(id)}
-                                                svgIconComponent={TrashIcon}
-                                                size="small"
-                                                ambient="negative"
+                                                icon="check"
                                             />
                                         )}
                                     </div>

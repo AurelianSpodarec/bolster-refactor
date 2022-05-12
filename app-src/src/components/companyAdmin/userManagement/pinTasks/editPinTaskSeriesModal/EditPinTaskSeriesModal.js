@@ -130,11 +130,9 @@ const EditPinTaskSeriesModal = ({ id }) => {
                     <div className="size-lg-12">
                         <ButtonWrapper alignment="right">
                             <ActionButton
-                                text="Delete"
+                                text="Confirm"
                                 onClick={handleDeleteSeries}
-                                ambient="negative"
-                                svgIconComponent={TrashIcon}
-                                size="small"
+                                icon="check"
                             />
 
                             <ActionButton

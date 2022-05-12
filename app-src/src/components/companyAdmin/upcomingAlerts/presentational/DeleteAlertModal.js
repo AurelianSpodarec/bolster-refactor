@@ -18,14 +18,7 @@ const DeleteAlertModal = ({ id, hideModal }) => {
 
             <ButtonWrapper alignment="right">
                 <ActionButton text="Cancel" onClick={hideModal} source="secondary" size="small" />
-                <ActionButton
-                    text="Delete"
-                    type="submit"
-                    onClick={handleSubmit}
-                    ambient="negative"
-                    svgIconComponent={TrashIcon}
-                    size="small"
-                />
+                <ActionButton text="Confirm" onClick={handleSubmit} icon="check" />
             </ButtonWrapper>
         </ModalOuterContainer>
     );
