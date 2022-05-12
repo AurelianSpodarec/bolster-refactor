@@ -88,7 +88,7 @@ const CostingGraphFilterItem = ({
                     <RangeSlider
                         min={priceMin}
                         max={priceMax}
-                        step={priceStep}
+                        step={(priceMax - priceMin) / 10}
                         name="maxPrice"
                         handleChange={onChange}
                         value={filterFormData.maxPrice}
