@@ -4,14 +4,11 @@ import CheckboxListContainer from 'components/shared/generic/form/containers/Che
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import Block from 'components/shared/generic/block/presentational/Block';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 
 const EditDrawingOperative = ({
