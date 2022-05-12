@@ -9,10 +9,10 @@ import ActionButton from '../../button/presentational/ActionButton';
 const ConfirmSubmitModal = ({
     handleSubmit,
     hideModal,
-    title = 'Submit Confirmation',
+    title = 'Confirmation',
     message = 'Are you sure you want to submit this?',
-    submitButtonText = 'Submit',
-    submitButtonIcon = 'save',
+    submitButtonText = 'Confirm',
+    submitButtonIcon = 'check',
     error = null,
 }) => (
     <ModalOuterContainer>
