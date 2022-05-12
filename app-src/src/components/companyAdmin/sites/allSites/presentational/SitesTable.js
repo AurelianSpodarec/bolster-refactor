@@ -29,7 +29,7 @@ const SitesTable = ({
                             icon="far fa-check"
                             text="Finish Sort"
                             ambient="positive"
-                            size="small"
+                            size="medium"
                         />
                     ) : (
                         <ActionButton
@@ -38,7 +38,7 @@ const SitesTable = ({
                             text="Sort Mode"
                             source="secondary"
                             ambient="positive"
-                            size="small"
+                            size="medium"
                         />
                     )}
                     <ActionButton
@@ -46,7 +46,7 @@ const SitesTable = ({
                         icon="fa fa-plus"
                         text="Add site"
                         ambient="positive"
-                        size="small"
+                        size="medium"
                     />
                 </ButtonWrapper>
             </BlockHeading>

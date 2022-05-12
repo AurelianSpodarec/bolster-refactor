@@ -1,11 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import PieChart from 'components/shared/stats/presentational/PieChart';
 import SiteDetails from './SiteDetails';
 import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import { ReactComponent as TrashIcon } from '../../../../../_content/images/icons/trash.svg';
+import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
+import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 
 const SiteStats = ({
     site,
@@ -51,48 +52,72 @@ const SiteStats = ({
         </div>
 
         <div className="button-container relative-position">
-            {site.accessType === ACCESS_TYPES_VALUES.OWNER && (
-                <>
-                    <ActionButton
-                        ambient="negative"
-                        onClick={handleDelete}
-                        type="button"
-                        svgIconComponent={TrashIcon}
-                        text="Delete"
-                    />
-                    <button className="button yellow" onClick={handleEditSiteModal}>
-                        <i className="far fa-pencil fa-fw" /> Edit
-                    </button>
+            <FlexWrapper gap={5} wrap="wrap">
+                {site.accessType === ACCESS_TYPES_VALUES.OWNER && (
+                    <>
+                        <ActionButton
+                            ambient="negative"
+                            onClick={handleDelete}
+                            type="button"
+                            svgIconComponent={TrashIcon}
+                            text="Delete"
+                        />
+                        <ActionButton
+                            source="secondary"
+                            ambient="positive"
+                            onClick={handleEditSiteModal}
+                            type="button"
+                            icon="pencil"
+                            text="Edit"
+                        />
+                        <LinkButton
+                            source="secondary"
+                            ambient="positive"
+                            href={`/company/sites/${site.id}/change-ownership`}
+                            icon="exchange"
+                            text=" Change Ownership"
+                        />
+                        <ActionButton
+                            source="secondary"
+                            ambient="positive"
+                            onClick={handleViewDrawingExpiryModal}
+                            icon="clock"
+                            text="Drawing Expiry"
+                        />
+                    </>
+                )}
 
-                    <Link className="button" to={`/company/sites/${site.id}/change-ownership`}>
-                        <i className="fa fa-exchange" /> Change Ownership
-                    </Link>
-                    <button className="button red" onClick={handleViewDrawingExpiryModal}>
-                        <i className="far fa-clock fa-fw" /> Drawing Expiry
-                    </button>
-                </>
-            )}
-            <button className="button yellow" onClick={handleEditSitePinOptionSetsModal}>
-                <i className="far fa-pencil fa-fw" /> Edit Pin Options
-            </button>
-            <button className="button blue" onClick={handleArchive} type="button">
-                <i className="fa fa-archive" />
-                {site.isArchived ? 'Un-Archive' : 'Archive'}
-            </button>
-
-            <button className="button yellow" type="button" onClick={handleViewHierarchyAlerts}>
-                <i className="fa fa-eye" />
-                View Alerts
-            </button>
-
-            <button
-                className="button green"
-                type="button"
-                onClick={handleCreateHierarchyAlertModal}
-            >
-                <i className="fa fa-plus" />
-                Create Alert
-            </button>
+                <ActionButton
+                    source="secondary"
+                    ambient="positive"
+                    onClick={handleEditSitePinOptionSetsModal}
+                    icon="pencil"
+                    text="Edit Pin Options"
+                />
+                <ActionButton
+                    source="secondary"
+                    ambient="positive"
+                    onClick={handleArchive}
+                    icon="archive"
+                    text={site.isArchived ? 'Un-Archive' : 'Archive'}
+                    type="button"
+                />
+                <ActionButton
+                    source="secondary"
+                    ambient="positive"
+                    onClick={handleViewHierarchyAlerts}
+                    icon="eye"
+                    text="View Alerts"
+                    type="button"
+                />
+                <ActionButton
+                    ambient="positive"
+                    onClick={handleCreateHierarchyAlertModal}
+                    icon="plus"
+                    text="Create Alert"
+                    type="button"
+                />
+            </FlexWrapper>
         </div>
     </div>
 );

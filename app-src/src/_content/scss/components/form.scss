@@ -149,6 +149,10 @@
       font-size: 90%;
       text-transform: none;
     }
+
+    &.small-margin {
+      margin-bottom: 5px;
+    }
   }
 
   .error {
@@ -261,6 +265,10 @@
   &.measurement-unit-field {
     width: 100px;
     min-width: 100px;
+  }
+
+  .tooltip-container {
+    margin-top: 0;
   }
 }
 
