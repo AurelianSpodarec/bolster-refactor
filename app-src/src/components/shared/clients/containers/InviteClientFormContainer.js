@@ -92,12 +92,12 @@ class InviteClientFormContainer extends Component {
 
     _getUserOptions = () => {
         const { clients } = this.props;
-        const options = Object.values(clients).map(
-            ({ id, userFirstName, userLastName, userEmail, companyName }) => ({
+        const options = Object.values(clients)
+            .filter(({ isDeleted }) => !isDeleted)
+            .map(({ id, userFirstName, userLastName, userEmail, companyName }) => ({
                 value: id,
                 label: `${userFirstName} ${userLastName} <${companyName}> <${userEmail}>`,
-            }),
-        );
+            }));
 
         const labels = options.map(({ label }) => label);
 
