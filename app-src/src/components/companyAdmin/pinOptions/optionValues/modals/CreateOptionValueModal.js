@@ -61,10 +61,6 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
             </ModalHeading>
 
             <p className="generic-text size-lg-12">
-                This is how the pin option will output through the app
-            </p>
-
-            <p className="generic-text size-lg-12">
                 {`Create an ${singularTypeName}${
                     pinOptionType.hasCosting ? ' and apply prices to different measurements' : ''
                 }.`}
@@ -88,7 +84,10 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                     />
                 </Field>
 
-                <Field name="Short Name">
+                <Field name="Short Name" labelClasses="small-margin">
+                    <p className="generic-text size-lg-12">
+                        This is how the pin option will output through the app.
+                    </p>
                     <TextInputContainer
                         name="shortName"
                         value={form.shortName}

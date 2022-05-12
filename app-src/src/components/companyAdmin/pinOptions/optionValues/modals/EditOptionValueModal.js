@@ -76,9 +76,7 @@ const EditOptionValueModal = ({ option }) => {
                     />
                 )}
             </ModalHeading>
-            <p className="generic-text size-lg-12">
-                This is how the pin option will output through the app
-            </p>
+
             <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
                 <Field name="Name" required>
                     <TextInputContainer
@@ -90,7 +88,11 @@ const EditOptionValueModal = ({ option }) => {
                     />
                 </Field>
 
-                <Field name="Short Name">
+                <Field name="Short Name" labelClasses="small-margin">
+                    <p className="generic-text size-lg-12">
+                        This is how the pin option will output through the app.
+                    </p>
+
                     <TextInputContainer
                         name="shortName"
                         value={form.shortName}
