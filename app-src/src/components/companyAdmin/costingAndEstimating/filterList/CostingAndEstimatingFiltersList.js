@@ -86,7 +86,7 @@ const ListItem = ({ item, hierarchyLevel, selectedItems, handleToggleItem, nesti
                     handleToggleItem={handleToggleItem}
                 />
             </div>
-            {dataKey !== undefined && listData.length && (
+            {dataKey !== undefined && !!listData.length && (
                 <div className={`expandable ${isExpanded ? 'active' : ''}`}>
                     <FilterList
                         data={listData}
@@ -131,7 +131,7 @@ const CostingAndEstimatingFilterList = ({
     return (
         <div className="filters-list-wrapper">
             <BlockContainer contentClass="border">
-                {sites.length && !fetchError && (
+                {!!sites.length && !fetchError && (
                     <>
                         <h3>{title}</h3>
                         <div className="filter-list-row toplevel">
@@ -141,16 +141,14 @@ const CostingAndEstimatingFilterList = ({
                                 handleToggleAllItems={handleToggleAllItems}
                             />
                         </div>
-                        {sites.length && (
-                            <FilterList
-                                data={listData}
-                                hierarchyLevel={currentHierarchyLevel + 1}
-                                selectedItems={selectedItems}
-                                handleToggleItem={handleToggleItem}
-                                headers={headers}
-                                nestingLevel={0}
-                            />
-                        )}
+                        <FilterList
+                            data={listData}
+                            hierarchyLevel={currentHierarchyLevel + 1}
+                            selectedItems={selectedItems}
+                            handleToggleItem={handleToggleItem}
+                            headers={headers}
+                            nestingLevel={0}
+                        />
                     </>
                 )}
                 {!isFetching && fetchError && <Error>{fetchError}</Error>}
