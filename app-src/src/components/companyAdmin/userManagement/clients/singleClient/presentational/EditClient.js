@@ -2,7 +2,9 @@ import BackButtonContainer from 'components/shared/generic/backButton/containers
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
 import Form from 'components/shared/generic/form/containers/Form';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import Field from 'components/shared/generic/form/presentational/Field';
@@ -70,8 +72,14 @@ const EditClient = ({
                 </div>
 
                 <BlockButtonWrapper>
-                    <button className="button green">Confirm</button>
-                    <ButtonContainer to="/company/users-management/clients">Cancel</ButtonContainer>
+                    <ButtonWrapper alignment="right">
+                        <LinkButton
+                            href="/company/users-management/clients"
+                            text="Cancel"
+                            source="secondary"
+                        />
+                        <ActionButton type="submit" text="Confirm" icon="check" />
+                    </ButtonWrapper>
                 </BlockButtonWrapper>
             </Form>
         </BlockContainer>

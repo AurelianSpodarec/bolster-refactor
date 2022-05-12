@@ -5,6 +5,8 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
 import DatePickerPresentational from 'components/shared/generic/form/presentational/DatePicker';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import { ReactComponent as TrashIcon } from '../../../../../_content/images/icons/trash.svg';
 
 // * .*. in names is used for splitting up field validations without risking overlap with real names
 
@@ -74,13 +76,14 @@ const BuildingFormFieldsWithLabel = ({ buildings, updateBuilding, removeBuilding
 
                 {buildings.length > 1 && (
                     <BlockButtonWrapper>
-                        <button
-                            className="button red icon-only"
+                        <ActionButton
                             type="button"
+                            svgIconComponent={TrashIcon}
                             onClick={() => removeBuilding(building.id)}
-                        >
-                            <i className="fa fa-trash" />
-                        </button>
+                            ambient="positive"
+                            source="secondary"
+                            iconOnly
+                        />
                     </BlockButtonWrapper>
                 )}
             </div>
