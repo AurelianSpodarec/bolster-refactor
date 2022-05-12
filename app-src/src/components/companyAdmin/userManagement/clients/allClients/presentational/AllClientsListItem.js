@@ -48,9 +48,10 @@ const AllClientsListItem = ({
                 {onMobile && <span className="mobile-table-heading">{headers[6]}</span>}
                 <FlexWrapper justify="end" align="center">
                     <LinkButton
-                        icon="eye"
-                        text="View"
+                        source="secondary"
+                        ambient="positive"
                         href={`/company/users-management/clients/${client.id}`}
+                        text="View"
                     />
 
                     <ActionMenu>

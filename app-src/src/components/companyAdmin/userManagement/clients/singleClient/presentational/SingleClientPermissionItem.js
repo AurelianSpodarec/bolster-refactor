@@ -1,8 +1,9 @@
+import React from 'react';
+
 import deleteClientFromDrawing from 'actions/companyAdmin/clients/async/deleteClientFromDrawing';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { CONFIRM_DELETE } from 'constants/shared/modalTypes';
-import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import ActionButton from '../../../../../shared/generic/button/presentational/ActionButton';
@@ -26,10 +27,10 @@ const SingleClientPermissionItem = ({ permission, user }) => {
                 <ButtonWrapper alignment="right">
                     <ActionButton
                         text="Remove Access"
+                        source="secondary"
                         onClick={removeAccess}
                         icon="ban"
                         size="small"
-                        ambient="negative"
                     />
                     <ActionButton text="Edit" onClick={goToEdit} icon="pencil" size="small" />
                 </ButtonWrapper>

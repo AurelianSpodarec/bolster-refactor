@@ -11,15 +11,19 @@ import BlockButtonWrapper from '../../../../shared/generic/blockButtonWrappers/p
 import ButtonWrapper from '../../../../shared/generic/button/presentational/ButtonWrapper';
 import { selectServicesArr } from '../../../../../selectors/superAdmin/services';
 import useEditOptionValue from '../hooks/useEditOptionValue';
+import { selectPinOptionSet } from '../../../../../selectors/superAdmin/pinOptionSets';
 
 const EditOptionValueModal = ({ option }) => {
     const { form, handleChange, handleSubmit, isPosting } = useEditOptionValue(option);
 
     const services = useSelector(selectServicesArr);
-    const serviceOptions = services.map(service => ({
-        value: service.id,
-        text: service.name,
-    }));
+    const set = useSelector(state => selectPinOptionSet(state, option.pinOptionSetID));
+    const serviceOptions = Object.values(services)
+        .filter(service => !set?.serviceIDs || set.serviceIDs.includes(service.id))
+        .map(service => ({
+            value: service.id,
+            text: service.name,
+        }));
 
     return (
         <ModalOuterContainer hideCloseButton>
