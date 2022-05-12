@@ -33,15 +33,7 @@ const ConfirmDeleteModal = ({
                         source="secondary"
                         onClick={handleCancel}
                     />
-                    <ActionButton
-                        text={isIncoming ? 'Decline' : deleteButtonText}
-                        size="small"
-                        icon={isIncoming ? 'ban' : icon}
-                        svgIconComponent={svgIcon ? svgIcon : TrashIcon}
-                        onClick={handleDelete}
-                        disabled={isPosting}
-                        ambient="negative"
-                    />
+                    <ActionButton text="Confirm" onClick={handleDelete} icon="check" />
                 </ButtonWrapper>
             </BlockButtonWrapper>
         </ModalOuterContainer>
