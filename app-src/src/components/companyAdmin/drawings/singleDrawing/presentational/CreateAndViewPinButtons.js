@@ -32,7 +32,6 @@ const CreateAndViewPinButtons = () => {
                     href={`/company/drawings/${drawingID}/upcoming-alerts`}
                     source="secondary"
                     ambient="positive"
-                    size="medium"
                     icon="fa fa-eye"
                 />
             </ButtonWrapper>
@@ -43,7 +42,6 @@ const CreateAndViewPinButtons = () => {
                     type="button"
                     onClick={handleCreateHierarchyAlertModal}
                     ambient="positive"
-                    size="medium"
                     icon="plus"
                 />
             </ButtonWrapper>
