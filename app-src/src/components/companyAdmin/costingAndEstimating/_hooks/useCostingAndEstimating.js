@@ -312,7 +312,7 @@ const useCostingAndEstimating = () => {
             onChange('maxPrice', filters.priceMax);
             dispatch(fetchCostingAndEstimatingResults(cAndEPostBody));
         }
-    }, [willAutoTick, isFetchingFilters, prevData.isFetchingFilters]); // Auto-tick after fetch if flag is set
+    }, [willAutoTick, isFetchingFilters, prevData.isFetchingFilters]); // Auto-tick after filters fetch if flag is set
 
     useEffect(() => {
         if (!isEmpty(filters.allSites) && isEmpty(prevProps.allSites)) {

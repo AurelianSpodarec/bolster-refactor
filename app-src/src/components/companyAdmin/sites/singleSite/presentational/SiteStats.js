@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import PieChart from 'components/shared/stats/presentational/PieChart';
 import SiteDetails from './SiteDetails';
 import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import { ReactComponent as TrashIcon } from '../../../../../_content/images/icons/trash.svg';
 
 const SiteStats = ({
     site,
@@ -51,9 +53,13 @@ const SiteStats = ({
         <div className="button-container relative-position">
             {site.accessType === ACCESS_TYPES_VALUES.OWNER && (
                 <>
-                    <button className="button red" onClick={handleDelete} type="button">
-                        <i className="far fa-trash-alt fa-fw" /> Delete
-                    </button>
+                    <ActionButton
+                        ambient="negative"
+                        onClick={handleDelete}
+                        type="button"
+                        svgIconComponent={TrashIcon}
+                        text="Delete"
+                    />
                     <button className="button yellow" onClick={handleEditSiteModal}>
                         <i className="far fa-pencil fa-fw" /> Edit
                     </button>
