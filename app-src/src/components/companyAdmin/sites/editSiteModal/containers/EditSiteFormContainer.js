@@ -34,8 +34,12 @@ class EditSiteFormContainer extends Component {
         );
     }
 
+    componentDidMount() {
+        if (this.props.site.id) this._setFormDetails();
+    }
+
     componentDidUpdate = prevProps => {
-        if (!prevProps.site.id && !!this.props.site.id) {
+        if (prevProps.site.id !== this.props.site.id) {
             this._setFormDetails();
         }
     };
