@@ -5,6 +5,7 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import Error from '../../misc/presentational/Error';
 import ButtonWrapper from '../../button/presentational/ButtonWrapper';
 import ActionButton from '../../button/presentational/ActionButton';
+import { ReactComponent as TrashIcon } from '../../../../../_content/images/icons/trash.svg';
 
 const ConfirmDeleteModal = ({
     handleDelete,
@@ -14,9 +15,10 @@ const ConfirmDeleteModal = ({
     title = 'Confirmation',
     isIncoming = false,
     deleteButtonText = 'Delete',
-    icon = 'trash-alt',
+    icon,
     isPosting = false,
     error = null,
+    svgIcon = null,
 }) => {
     return (
         <ModalOuterContainer>
@@ -35,6 +37,7 @@ const ConfirmDeleteModal = ({
                         text={isIncoming ? 'Decline' : deleteButtonText}
                         size="small"
                         icon={isIncoming ? 'ban' : icon}
+                        svgIconComponent={svgIcon ? svgIcon : TrashIcon}
                         onClick={handleDelete}
                         disabled={isPosting}
                         ambient="negative"

@@ -1,9 +1,13 @@
 import React from 'react';
+
 import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import { ReactComponent as TrashIcon } from '../../../../../_content/images/icons/trash.svg';
 
 // * .*. in names is used for splitting up field validations without risking overlap with real names
 
@@ -37,31 +41,42 @@ const CreateFloorsForm = ({
 
                     {floors.length > 1 && (
                         <BlockButtonWrapper>
-                            <button
-                                className="button red icon-only"
+                            <ActionButton
                                 type="button"
+                                svgIconComponent={TrashIcon}
                                 onClick={() => removeFloor(floor.id)}
-                            >
-                                <i className="fa fa-trash" />
-                            </button>
+                                ambient="positive"
+                                source="secondary"
+                                iconOnly
+                            />
                         </BlockButtonWrapper>
                     )}
                 </>
             ))}
         </div>
-        <BlockButtonWrapper>
-            <button className="button blue left" type="button" onClick={addFloor}>
-                <i className="fa fa-plus" /> Add another floor
-            </button>
-            {isFetchingHierarchies ? (
-                <button className="button green disabled" disabled>
-                    <i className="fa fa-spinner fa-spin"></i> Please wait...
-                </button>
-            ) : (
-                <button className="button green">Submit</button>
-            )}
-            <ButtonContainer handleClick={handleClose}>Cancel</ButtonContainer>
-        </BlockButtonWrapper>
+        <FlexWrapper justify="between">
+            <ActionButton
+                type="button"
+                text="Add another floor"
+                icon="plus"
+                onClick={addFloor}
+                ambient="positive"
+                extraClasses="margin-left"
+            />
+
+            <ButtonWrapper>
+                <ActionButton source="secondary" text="Cancel" onClick={handleClose} />
+                {isFetchingHierarchies ? (
+                    <ActionButton
+                        text="Please wait..."
+                        icon="fa fa-spinner fa-spin"
+                        disabled="true"
+                    />
+                ) : (
+                    <ActionButton type="submit" text="Confirm" icon="check" />
+                )}
+            </ButtonWrapper>
+        </FlexWrapper>
     </Form>
 );
 
