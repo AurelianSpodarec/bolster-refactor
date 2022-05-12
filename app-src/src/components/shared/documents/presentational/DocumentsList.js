@@ -32,18 +32,17 @@ const DocumentsList = ({
             </td>
             <td>
                 {!clientControls && (
-                    <FlexWrapper>
+                    <ButtonWrapper alignment="right">
                         {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
-                        <ButtonWrapper>
-                            <LinkButton
-                                href={`${location.pathname}/document-responses/${document.id}`}
-                                icon="far fa-eye fa-fw"
-                                source="secondary"
-                                ambient="positive"
-                                extraClasses="icon-only typography-default-colour"
-                                text="View Responses"
-                            />
-                        </ButtonWrapper>
+
+                        <LinkButton
+                            href={`${location.pathname}/document-responses/${document.id}`}
+                            icon="far fa-eye fa-fw"
+                            source="secondary"
+                            ambient="positive"
+                            extraClasses="icon-only typography-default-colour"
+                            text="View Responses"
+                        />
 
                         {accessType >= ACCESS_TYPES_VALUES.WRITE &&
                             document.isEditable &&
@@ -52,20 +51,19 @@ const DocumentsList = ({
                                     {onMobile && (
                                         <span className="mobile-table-heading">{headers[1]}</span>
                                     )}
-                                    <ButtonWrapper>
-                                        <LinkButton
-                                            href={`${location.pathname}/edit-document/${document.id}`}
-                                            icon="far fa-pencil fa-fw"
-                                            source="secondary"
-                                            ambient="positive"
-                                            extraClasses="icon-only typography-default-colour"
-                                        />
-                                    </ButtonWrapper>
+
+                                    <LinkButton
+                                        href={`${location.pathname}/edit-document/${document.id}`}
+                                        icon="far fa-pencil fa-fw"
+                                        source="secondary"
+                                        ambient="positive"
+                                        extraClasses="icon-only typography-default-colour"
+                                    />
 
                                     <DeleteDocumentContainer document={document} />
                                 </>
                             )}
-                    </FlexWrapper>
+                    </ButtonWrapper>
                 )}
             </td>
         </tr>

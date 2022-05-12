@@ -1,7 +1,11 @@
 import React from 'react';
+
 import PieChart from 'components/shared/stats/presentational/PieChart';
 import BuildingDetails from './BuildingDetails';
 import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
+import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import { ReactComponent as TrashIcon } from '../../../../../_content/images/icons/trash.svg';
 
 const BuildingStats = ({
     building,
@@ -40,38 +44,58 @@ const BuildingStats = ({
             </div>
 
             <div className="button-container relative-position">
-                {building.accessType === ACCESS_TYPES_VALUES.OWNER && (
-                    <>
-                        <button className="button red" type="button" onClick={handleDelete}>
-                            <i className="far fa-trash-alt fa-fw" /> Delete
-                        </button>
-                        <button className="button yellow" onClick={handleEditBuildingModal}>
-                            <i className="far fa-pencil fa-fw" /> Edit
-                        </button>
-                        <button className="button red" onClick={handleViewDrawingExpiryModal}>
-                            <i className="far fa-clock fa-fw" /> Drawing Expiry
-                        </button>
-                    </>
-                )}
+                <FlexWrapper gap={5} wrap="wrap">
+                    {building.accessType === ACCESS_TYPES_VALUES.OWNER && (
+                        <>
+                            <ActionButton
+                                ambient="negative"
+                                onClick={handleDelete}
+                                type="button"
+                                svgIconComponent={TrashIcon}
+                                text="Delete"
+                            />
+                            <ActionButton
+                                source="secondary"
+                                ambient="positive"
+                                onClick={handleEditBuildingModal}
+                                type="button"
+                                icon="pencil"
+                                text="Edit"
+                            />
+                            <ActionButton
+                                source="secondary"
+                                ambient="positive"
+                                onClick={handleViewDrawingExpiryModal}
+                                icon="clock"
+                                text="Drawing Expiry"
+                            />
+                        </>
+                    )}
 
-                <button className="button blue" onClick={handleArchive} type="button">
-                    <i className="fa fa-archive" />
-                    {building.isArchived ? 'Un-Archive' : 'Archive'}
-                </button>
-
-                <button className="button yellow" type="button" onClick={handleViewHierarchyAlerts}>
-                    <i className="fa fa-eye" />
-                    View Alerts
-                </button>
-
-                <button
-                    className="button green"
-                    type="button"
-                    onClick={handleCreateHierarchyAlertModal}
-                >
-                    <i className="fa fa-plus" />
-                    Create Alert
-                </button>
+                    <ActionButton
+                        source="secondary"
+                        ambient="positive"
+                        onClick={handleArchive}
+                        icon="archive"
+                        text={building.isArchived ? 'Un-Archive' : 'Archive'}
+                        type="button"
+                    />
+                    <ActionButton
+                        source="secondary"
+                        ambient="positive"
+                        onClick={handleViewHierarchyAlerts}
+                        icon="eye"
+                        text="View Alerts"
+                        type="button"
+                    />
+                    <ActionButton
+                        ambient="positive"
+                        onClick={handleCreateHierarchyAlertModal}
+                        icon="plus"
+                        text="Create Alert"
+                        type="button"
+                    />
+                </FlexWrapper>
             </div>
         </div>
     );
