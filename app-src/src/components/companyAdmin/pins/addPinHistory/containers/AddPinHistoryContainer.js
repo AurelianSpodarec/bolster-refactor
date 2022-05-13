@@ -24,14 +24,17 @@ const AddPinHistoryContainer = () => {
         dispatch(fetchPinOptionVersions());
         dispatch(fetchSinglePin(pinID, true));
     });
-    const drawing = drawings[pins[pinID]?.drawingID];
+    const pin = pins[pinID];
+    const drawing = drawings[pin?.drawingID];
+
     useEffect(() => {
-        if (!drawing && pins[pinID]) {
-            dispatch(fetchSingleDrawing(pins[pinID].drawingID));
+        if (!drawing && pin) {
+            dispatch(fetchSingleDrawing(pin.drawingID));
         }
     }, [drawing, pins]);
 
-    const options = useAddPinOptions(serviceID);
+    const curServiceID = serviceID ?? pin?.latestServiceID;
+    const options = useAddPinOptions(curServiceID);
 
     return (
         <AddPinHistoryFormContainer

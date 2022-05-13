@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactTooltip from 'react-tooltip';
 
 import { pageMeta } from 'constants/frontEnd/meta';
 
@@ -29,6 +30,7 @@ const CompanyApp = () => (
                             <UnconfirmedEmailBanner />
                             <Banner />
                             <Routes />
+                            <ReactTooltip effect="solid" className="react-tooltip" />
                         </div>
                         <LoggedInFooter />
                     </div>

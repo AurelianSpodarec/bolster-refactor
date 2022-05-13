@@ -38,6 +38,7 @@ import fetchPinOptionTypes from 'actions/companyAdmin/pinOptions/async/fetchPinO
 import fetchPinOptions from 'actions/companyAdmin/pinOptions/async/fetchPinOptions';
 import fetchPinOptionSets from 'actions/companyAdmin/pinOptions/async/fetchPinOptionSets';
 import fetchPinOptionVersions from 'actions/companyAdmin/pinOptions/async/fetchPinOptionVersions';
+import fetchCompanyUsers from '../../../../actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 
 const useCostingAndEstimating = () => {
     const [lastFetch, setLastFetch] = useState(0); // For debounce
@@ -75,16 +76,16 @@ const useCostingAndEstimating = () => {
     const selectedTab = useSelector(selectHierarchySelectedTab);
     const selectedTabType = costingAndEstimatingType[selectedTab.toUpperCase()];
 
-    const buildInitialSelectedItems = (data = []) => {
+    const buildInitialSelectedItems = (data = [], resetData = false) => {
         const selectedItems = {
             buildings: [],
             floors: [],
             drawings: [],
             histories: [],
             installations: [],
-            installationTypes: filters.pinOptionIDs || [],
-            operatives: filters.operativeCompanyUserIDs || [],
-            services: filters.serviceIDs || [],
+            installationTypes: resetData ? [] : filters.pinOptionIDs || [],
+            operatives: resetData ? [] : filters.operativeCompanyUserIDs || [],
+            services: resetData ? [] : filters.serviceIDs || [],
         };
         const addAllChildren = (item, selectedItems) => {
             const itemType = getItemType(item);
@@ -201,10 +202,9 @@ const useCostingAndEstimating = () => {
             const dataKey = getDataKeyFromItem(item);
             setOneItem(item, value, selectedItems);
             const children = item[dataKey] || [];
-            if (children.length)
-                children.forEach(child => {
-                    propagateToChildren(child, value, selectedItems);
-                });
+            children.forEach(child => {
+                propagateToChildren(child, value, selectedItems);
+            });
             return;
         };
 
@@ -270,7 +270,7 @@ const useCostingAndEstimating = () => {
             dispatch(fetchAllDrawings());
             dispatch(fetchCostingAndEstimatingResults(cAndEPostBody));
             dispatch(fetchCostingAndEstimatingFilters(cAndEPostBody));
-            dispatch(fetchCompanyOperatives());
+            dispatch(fetchCompanyUsers());
             dispatch(fetchAllServices());
             dispatch(fetchPinOptionTypes());
             dispatch(fetchPinOptionSets());
@@ -291,7 +291,7 @@ const useCostingAndEstimating = () => {
                 setLastFetch(moment().valueOf()); // Primitive debounce - normal function didn't work
             }
         }
-    }, [formData, prevProps.formData, prevProps.selectedTabType, selectedTabType]); // Fetch all data on filter change
+    }, [formData, prevProps.formData]); // Fetch all data on filter change
 
     useEffect(() => {
         if (prelimPostSuccess && !prevData.prelimPostSuccess) {
@@ -301,6 +301,7 @@ const useCostingAndEstimating = () => {
 
     useEffect(() => {
         if (selectedTab !== prevProps.selectedTab) {
+            onChange('selectedItems', buildInitialSelectedItems([], true));
             setWillAutoTick(true);
         }
     }, [selectedTab, prevProps.selectedTab]); // set auto-tick flag on tab change

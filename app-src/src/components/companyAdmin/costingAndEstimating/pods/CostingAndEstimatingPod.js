@@ -8,6 +8,9 @@ import buildingIcon from '_content/images/icons/building_icon.png';
 import poundIcon from '_content/images/icons/pound_icon.png';
 import plusIcon from '_content/images/icons/plus_icon.png';
 import { formatCurrency } from 'helpers/generic';
+import { useSelector } from 'react-redux';
+import { selectCompanyCurrency } from '../../../../selectors/companyAdmin/companySettings';
+import { CURRENCY_SYMBOLS } from '../../../../constants/companyAdmin/enums';
 
 const icons = {
     Person: employeeIcon,
@@ -23,11 +26,23 @@ const CostingAndEstimatingPod = ({ pod }) => {
 
     const handleFlip = () => {
         if (solo) return;
-        setIsFlipped(!isFlipped);
+        setIsFlipped(prev => !prev);
     };
 
-    const dataToShow = solo ? solo : isFlipped ? lowest : highest;
-    const valueIsCurrency = dataToShow?.valueCurrency !== null;
+    const value = solo ? solo : isFlipped ? lowest : highest;
+    const valueIsCurrency = value?.valueCurrency !== null;
+    let dataToShow = value.valueNumerical ?? '';
+    const reportingCurrency = useSelector(selectCompanyCurrency);
+    if (valueIsCurrency) {
+        // handle negative
+        if (value.valueCurrency < 0) dataToShow = '-';
+        const currencySymbol = CURRENCY_SYMBOLS[reportingCurrency];
+        dataToShow += currencySymbol;
+        // handle missing value
+        if (Number.isNaN(value.valueCurrency)) dataToShow += '0.00';
+        // convert currency value to positive number so negative sign is not re-added (handled above)
+        else dataToShow += formatCurrency(value.valueCurrency, false);
+    }
 
     return (
         <BlockContainer
@@ -45,22 +60,12 @@ const CostingAndEstimatingPod = ({ pod }) => {
                     </div>
                 )}
             </FlexWrapper>
-            <h3 className="heading heading-3">{dataToShow.title}</h3>
+            <h3 className="heading heading-3">{value.title}</h3>
             <div className="spacer" />
 
             <div className="content-wrapper">
-                <span>{dataToShow.subtitle}</span>
-                <p>{`${
-                    valueIsCurrency
-                        ? `${dataToShow?.valueCurrency < 0 ? '-' : ''}£${
-                              !Number.isNaN(dataToShow?.valueCurrency)
-                                  ? dataToShow?.valueCurrency < 0
-                                      ? formatCurrency(dataToShow?.valueCurrency, false)
-                                      : '0.00'
-                                  : '0.00'
-                          }`
-                        : dataToShow.valueNumerical
-                }`}</p>
+                <span>{value.subtitle}</span>
+                <p>{dataToShow}</p>
             </div>
         </BlockContainer>
     );

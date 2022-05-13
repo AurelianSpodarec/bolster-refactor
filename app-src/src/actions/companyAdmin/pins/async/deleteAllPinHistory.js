@@ -27,6 +27,6 @@ export default pinID => dispatch => {
 
     return axios
         .delete(`${API_URL}/pins/${pinID}/histories`, getHeaders())
-        .then(({ data }) => dispatch(deleteAllPinHistorySuccess(data)))
+        .then(() => dispatch(deleteAllPinHistorySuccess(pinID)))
         .catch(error => dispatch(deleteAllPinHistoryFailure(error)));
 };
