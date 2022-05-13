@@ -63,29 +63,31 @@ const OptionSets = ({ selectedTypeID }) => {
                 />
 
                 <ButtonWrapper alignment="right">
-                    <ActionButton
-                        icon="filter"
-                        iconOnly
-                        source="secondary"
-                        size="medium"
-                        iconEqualSize
-                        onClick={() => setShowFilters(!showFilters)}
-                    />
+                    <div>
+                        <ActionButton
+                            icon="filter"
+                            iconOnly
+                            source="secondary"
+                            size="medium"
+                            iconEqualSize
+                            onClick={() => setShowFilters(!showFilters)}
+                        />
 
-                    {showFilters && (
-                        <TooltipFilters>
-                            {filterOptions.map(option => (
-                                <TooltipFiltersItem
-                                    key={option.id}
-                                    option={option}
-                                    expandedID={expandedID}
-                                    setExpandedID={setExpandedID}
-                                    onChange={handleChange}
-                                    selected={form[option.id]}
-                                />
-                            ))}
-                        </TooltipFilters>
-                    )}
+                        {showFilters && (
+                            <TooltipFilters>
+                                {filterOptions.map(option => (
+                                    <TooltipFiltersItem
+                                        key={option.id}
+                                        option={option}
+                                        expandedID={expandedID}
+                                        setExpandedID={setExpandedID}
+                                        onChange={handleChange}
+                                        selected={form[option.id]}
+                                    />
+                                ))}
+                            </TooltipFilters>
+                        )}
+                    </div>
 
                     <ActionButton
                         text="Add"
