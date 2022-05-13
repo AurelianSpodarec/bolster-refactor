@@ -17,6 +17,8 @@ import Table from 'components/shared/generic/tables/presentational/Table';
 import OptionSetsListItem from './OptionSetsListItem';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import TooltipFilters from 'components/shared/filters/TooltipFilters/TooltipFilters';
+import TooltipFiltersItem from 'components/shared/filters/TooltipFilters/TooltipFiltersItem';
 
 const OptionSets = ({ selectedTypeID }) => {
     const selectedPinOptionType = useSelector(state => selectPinOptionType(state, selectedTypeID));
@@ -25,10 +27,18 @@ const OptionSets = ({ selectedTypeID }) => {
     const { pinOptionSetsArr, isFetchingPinOptionSets, pinOptionSetsFetchError } =
         useFetchPinOptionSets();
 
-    const { filteredSets, searchTerm, handleUpdateSearch } = useFilterOptionSets(
-        pinOptionSetsArr,
-        selectedTypeID,
-    );
+    const {
+        filteredSets,
+        searchTerm,
+        handleUpdateSearch,
+        showFilters,
+        setShowFilters,
+        expandedID,
+        setExpandedID,
+        filterOptions,
+        form,
+        handleChange,
+    } = useFilterOptionSets(pinOptionSetsArr, selectedTypeID);
 
     const {
         showAddModal,
@@ -53,14 +63,29 @@ const OptionSets = ({ selectedTypeID }) => {
                 />
 
                 <ButtonWrapper alignment="right">
-                    {/* <ActionButton
+                    <ActionButton
                         icon="filter"
                         iconOnly
                         source="secondary"
                         size="medium"
                         iconEqualSize
-                        onClick={() => console.log('open filters')}
-                    /> */}
+                        onClick={() => setShowFilters(!showFilters)}
+                    />
+
+                    {showFilters && (
+                        <TooltipFilters>
+                            {filterOptions.map(option => (
+                                <TooltipFiltersItem
+                                    key={option.id}
+                                    option={option}
+                                    expandedID={expandedID}
+                                    setExpandedID={setExpandedID}
+                                    onChange={handleChange}
+                                    selected={form[option.id]}
+                                />
+                            ))}
+                        </TooltipFilters>
+                    )}
 
                     <ActionButton
                         text="Add"
