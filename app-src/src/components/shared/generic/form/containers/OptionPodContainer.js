@@ -29,6 +29,7 @@ const OptionPodContainer = ({
 
     useEffect(() => {
         validate();
+        return dispatch(removeFieldError(name));
     }, []);
 
     useEffect(() => {
