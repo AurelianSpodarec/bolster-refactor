@@ -26,6 +26,7 @@ const CostingAndEstimating = () => {
         isFetchingResults,
         fetchError,
         selectedTab,
+        cAndEPostBody,
     } = useCostingAndEstimating();
 
     return (
@@ -42,6 +43,7 @@ const CostingAndEstimating = () => {
                 fetchError={fetchError}
                 selectedTab={selectedTab}
                 formData={filterFormData}
+                cAndEPostBody={cAndEPostBody}
             />
 
             <CostingAndEstimatingGraph

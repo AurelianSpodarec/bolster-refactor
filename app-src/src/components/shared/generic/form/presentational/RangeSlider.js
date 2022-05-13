@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import FlexWrapper from '../../flexWrapper/FlexWrapper';
+import { useSelector } from 'react-redux';
+import { selectCompanyCurrency } from '../../../../../selectors/companyAdmin/companySettings';
+import { CURRENCY_SYMBOLS } from '../../../../../constants/companyAdmin/enums';
 
 const RangeSlider = ({ min, max, step = 1, value, name, handleChange }) => {
     const calculateProgress = value => {
         return Math.round(((value - min) / (max - min)) * 100);
     };
-
+    const currency = useSelector(selectCompanyCurrency);
+    const currencySymbol = CURRENCY_SYMBOLS[currency];
     const [sliderProgress, setSliderProgress] = useState(calculateProgress(value));
 
     useEffect(() => {
@@ -20,8 +24,14 @@ const RangeSlider = ({ min, max, step = 1, value, name, handleChange }) => {
     return (
         <div className="slide-container">
             <FlexWrapper justify="between">
-                <p>£{min}</p>
-                <p>£{max}</p>
+                <p>
+                    {currencySymbol}
+                    {min}
+                </p>
+                <p>
+                    {currencySymbol}
+                    {max}
+                </p>
             </FlexWrapper>
 
             <input

@@ -8,6 +8,8 @@ import FieldOutput from 'components/shared/generic/fieldOutput/presentational/Fi
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import { formatCurrency } from 'helpers/generic';
 import { INVOICE_GEN_URL } from 'config';
+import { ReactComponent as TrashIcon } from '../../../../../_content/images/icons/trash.svg';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 
 const InvoiceDetails = ({
     isFetching,
@@ -40,17 +42,22 @@ const InvoiceDetails = ({
                 >
                     <i className="fa fa-download fa-fw" /> Download Invoice
                 </a>
+
                 {showDeleteButton &&
                     (!isRequestedForDelete ? (
-                        <button onClick={toggleConfirmDeleteModal} className="button blue">
-                            <i className="far fa-envelope fa-fw" />
-                            Request Delete Invoice
-                        </button>
+                        <ActionButton
+                            text="Request Delete Invoice"
+                            onClick={toggleConfirmDeleteModal}
+                            icon="envelope"
+                            size="small"
+                        />
                     ) : (
-                        <button className="button red">
-                            <i className="far fa-trash fa-fw" />
-                            Delete invoice requested
-                        </button>
+                        <ActionButton
+                            text="Delete invoice requested"
+                            ambient="negative"
+                            svgIconComponent={TrashIcon}
+                            size="small"
+                        />
                     ))}
             </BlockHeading>
 

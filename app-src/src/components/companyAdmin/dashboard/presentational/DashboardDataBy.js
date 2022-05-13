@@ -6,7 +6,7 @@ import TabsContainer from 'components/shared/generic/tabs/containers/TabsContain
 const DashboardDataBy = ({ selectedTab, onMobile }) => (
     <>
         <BlockHeading title={`Data by active ${selectedTab}`} />
-        <TabsContainer />
+        <TabsContainer classes="rounded" />
         <DashboardDataByTableRoute onMobile={onMobile} />
     </>
 );

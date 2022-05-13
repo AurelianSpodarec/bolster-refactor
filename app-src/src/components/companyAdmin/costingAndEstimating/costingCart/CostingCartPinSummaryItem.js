@@ -5,6 +5,9 @@ import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 import { formatCurrency } from 'helpers/generic';
 import useCostingCart from '../_hooks/useCostingCart';
 import CostingCartDrawingItem from './CostingCartDrawingItem';
+import { useSelector } from 'react-redux';
+import { selectCompanyCurrency } from '../../../../selectors/companyAdmin/companySettings';
+import { CURRENCY_SYMBOLS } from '../../../../constants/companyAdmin/enums';
 
 const CostingCartPinSummaryItem = ({ building }) => {
     const [isExpanded, setIsExpanded] = useState(true);
@@ -15,6 +18,8 @@ const CostingCartPinSummaryItem = ({ building }) => {
         acc.push(...curr.drawings);
         return acc;
     }, []);
+    const currency = useSelector(selectCompanyCurrency);
+    const currencySymbol = CURRENCY_SYMBOLS[currency];
 
     return (
         <div className="summary-item">
@@ -39,7 +44,7 @@ const CostingCartPinSummaryItem = ({ building }) => {
             </div>
             <div className="divider" />
             <div className="total">
-                <h5>{`${cost < 0 ? '-' : ''}£${
+                <h5>{`${cost < 0 ? '-' : ''}${currencySymbol}${
                     !Number.isNaN(cost) ? formatCurrency(cost, false) : '0.00'
                 }`}</h5>
             </div>
