@@ -4,18 +4,17 @@ import useCostingGraphFilters from '../_hooks/useCostingGraphFilters';
 
 import CostingGraphFilterItem from './CostingGraphFilterItem';
 
-// import { dummyInstallationTypes, dummyOperatives, dummyServices } from '../dummyData';
 import { COSTING_GRAPH_FILTER_TYPES } from '../../../../constants/companyAdmin/enums';
 import { useSelector } from 'react-redux';
-import { getOperatives } from 'selectors/companyAdmin/operatives';
 import { selectServices } from 'selectors/companyAdmin/services';
 import { selectPinOptionVersionsArr } from 'selectors/companyAdmin/pinOptionVersions';
+import { selectCompanyUsers } from '../../../../selectors/companyAdmin/companyUsers';
 
 const CostingGraphFilters = ({ filterFormData, filters, onChange }) => {
     const { expandedId, setExpandedId } = useCostingGraphFilters();
     const { priceMin, priceMax, priceStep, operativeCompanyUserIDs, serviceIDs, pinOptionIDs } =
         filters;
-    const companyOperatives = useSelector(getOperatives);
+    const companyUsers = useSelector(selectCompanyUsers);
     const services = useSelector(selectServices);
     const pinOptionVersions = useSelector(selectPinOptionVersionsArr);
 
@@ -25,8 +24,8 @@ const CostingGraphFilters = ({ filterFormData, filters, onChange }) => {
             name: 'Operatives',
             options: Object.values(operativeCompanyUserIDs).map(id => ({
                 id,
-                name: `${companyOperatives[id]?.userFirstName || ''} ${
-                    companyOperatives[id]?.userLastName || ''
+                name: `${companyUsers[id]?.userFirstName || ''} ${
+                    companyUsers[id]?.userLastName || ''
                 }`, // TO DO
             })),
             type: COSTING_GRAPH_FILTER_TYPES.OPERATIVES,
