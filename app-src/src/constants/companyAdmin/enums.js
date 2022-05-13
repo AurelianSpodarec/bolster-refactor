@@ -862,3 +862,26 @@ export const costingAndEstimatingNames = {
     0: 'Costing',
     1: 'Estimating',
 };
+
+export const PIN_OPTIONS_SETS_FILTERS_OPTIONS = {
+    SERVICE: 1,
+    CREATED_BY: 2,
+    ENABLED_DISABLED: 3,
+};
+
+export const PIN_OPTIONS_VALUES_FILTERS_OPTIONS = {
+    SERVICE: 1,
+    ENABLED_DISABLED: 3,
+};
+
+export const PIN_OPTIONS_SETS_FILTERS_CREATED_BY_OPTIONS = {
+    COMPANY: 1,
+    SUPER_ADMIN: 2,
+};
+
+export const PIN_OPTIONS_FILTERS_ENABLED_DISABLED_OPTIONS = {
+    ENABLED: 1,
+    DISABLED: 2,
+};
+
+export const PIN_OPTIONS_FILTERS_ALL = 0;
