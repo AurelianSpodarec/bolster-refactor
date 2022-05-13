@@ -5,28 +5,15 @@ import { isEmpty } from 'helpers/generic';
 import { useForm } from 'helpers/hooks';
 
 import { selectServicesArr } from 'selectors/companyAdmin/services';
-
-import useSearch from 'hooks/useSearch';
-import { selectCompanySettings } from 'selectors/companyAdmin/companySettings';
 import { selectSubscriptions } from 'selectors/superAdmin/companySubscription';
 
-const OPTIONS = {
-    SERVICE: 1,
-    CREATED_BY: 2,
-    ENABLED_DISABLED: 3,
-};
-
-const CREATED_BY_OPTIONS = {
-    COMPANY: 1,
-    SUPER_ADMIN: 2,
-};
-
-const ENABLED_DISABLED_OPTIONS = {
-    ENABLED: 1,
-    DISABLED: 2,
-};
-
-const ALL = 0;
+import useSearch from 'hooks/useSearch';
+import {
+    PIN_OPTIONS_FILTERS_ALL,
+    PIN_OPTIONS_SETS_FILTERS_CREATED_BY_OPTIONS,
+    PIN_OPTIONS_SETS_FILTERS_ENABLED_DISABLED_OPTIONS,
+    PIN_OPTIONS_SETS_FILTERS_OPTIONS,
+} from 'constants/companyAdmin/enums';
 
 const useFilterSets = (sets, selectedTypeID) => {
     const { searchTerm, handleUpdateSearch } = useSearch();
@@ -37,17 +24,17 @@ const useFilterSets = (sets, selectedTypeID) => {
     const subscriptions = useSelector(selectSubscriptions);
 
     const [form, handleChange] = useForm({
-        [OPTIONS.SERVICE]: [ALL],
-        [OPTIONS.CREATED_BY]: ALL,
-        [OPTIONS.ENABLED_DISABLED]: ALL,
+        [PIN_OPTIONS_SETS_FILTERS_OPTIONS.SERVICE]: [PIN_OPTIONS_FILTERS_ALL],
+        [PIN_OPTIONS_SETS_FILTERS_OPTIONS.CREATED_BY]: PIN_OPTIONS_FILTERS_ALL,
+        [PIN_OPTIONS_SETS_FILTERS_OPTIONS.ENABLED_DISABLED]: PIN_OPTIONS_FILTERS_ALL,
     });
 
     const filterOptions = [
         {
-            id: OPTIONS.SERVICE,
+            id: PIN_OPTIONS_SETS_FILTERS_OPTIONS.SERVICE,
             name: 'Service',
             options: [
-                { id: ALL, name: 'All' },
+                { id: PIN_OPTIONS_FILTERS_ALL, name: 'All' },
                 ...servicesArr
                     .filter(service => subscriptions.serviceIDs.includes(service.id))
                     .map(({ id, name }) => ({ id, name })),
@@ -55,22 +42,31 @@ const useFilterSets = (sets, selectedTypeID) => {
             isMultiSelection: true,
         },
         {
-            id: OPTIONS.CREATED_BY,
+            id: PIN_OPTIONS_SETS_FILTERS_OPTIONS.CREATED_BY,
             name: 'Created By',
             options: [
-                { id: ALL, name: 'All' },
-                { id: CREATED_BY_OPTIONS.COMPANY, name: 'Company created' },
-                { id: CREATED_BY_OPTIONS.SUPER_ADMIN, name: 'Bolster created' },
+                { id: PIN_OPTIONS_FILTERS_ALL, name: 'All' },
+                {
+                    id: PIN_OPTIONS_SETS_FILTERS_CREATED_BY_OPTIONS.COMPANY,
+                    name: 'Company created',
+                },
+                {
+                    id: PIN_OPTIONS_SETS_FILTERS_CREATED_BY_OPTIONS.SUPER_ADMIN,
+                    name: 'Bolster created',
+                },
             ],
             isMultiSelection: false,
         },
         {
-            id: OPTIONS.ENABLED_DISABLED,
+            id: PIN_OPTIONS_SETS_FILTERS_OPTIONS.ENABLED_DISABLED,
             name: 'Enabled / Disabled',
             options: [
-                { id: ALL, name: 'All' },
-                { id: ENABLED_DISABLED_OPTIONS.ENABLED, name: 'Enabled' },
-                { id: ENABLED_DISABLED_OPTIONS.DISABLED, name: 'Disabled' },
+                { id: PIN_OPTIONS_FILTERS_ALL, name: 'All' },
+                { id: PIN_OPTIONS_SETS_FILTERS_ENABLED_DISABLED_OPTIONS.ENABLED, name: 'Enabled' },
+                {
+                    id: PIN_OPTIONS_SETS_FILTERS_ENABLED_DISABLED_OPTIONS.DISABLED,
+                    name: 'Disabled',
+                },
             ],
             isMultiSelection: false,
         },
@@ -91,32 +87,50 @@ const useFilterSets = (sets, selectedTypeID) => {
         });
 
         const formFilters = initialFilters.filter(set => {
-            const formServices = form[OPTIONS.SERVICE];
-            const formCreatedBy = form[OPTIONS.CREATED_BY];
-            const formEnabledDisabled = form[OPTIONS.ENABLED_DISABLED];
+            const formServices = form[PIN_OPTIONS_SETS_FILTERS_OPTIONS.SERVICE];
+            const formCreatedBy = form[PIN_OPTIONS_SETS_FILTERS_OPTIONS.CREATED_BY];
+            const formEnabledDisabled = form[PIN_OPTIONS_SETS_FILTERS_OPTIONS.ENABLED_DISABLED];
 
-            if (formServices.length && !formServices.includes(ALL) && !isEmpty(set.serviceIDs)) {
+            if (
+                formServices.length &&
+                !formServices.includes(PIN_OPTIONS_FILTERS_ALL) &&
+                !isEmpty(set.serviceIDs)
+            ) {
                 if (!formServices.some(id => set.serviceIDs.includes(id))) {
                     return false;
                 }
             }
 
-            if (formCreatedBy && !formCreatedBy !== ALL) {
-                if (formCreatedBy === CREATED_BY_OPTIONS.COMPANY && !set.companyID) {
+            if (formCreatedBy && !formCreatedBy !== PIN_OPTIONS_FILTERS_ALL) {
+                if (
+                    formCreatedBy === PIN_OPTIONS_SETS_FILTERS_CREATED_BY_OPTIONS.COMPANY &&
+                    !set.companyID
+                ) {
                     return false;
                 }
 
-                if (formCreatedBy === CREATED_BY_OPTIONS.SUPER_ADMIN && set.companyID) {
+                if (
+                    formCreatedBy === PIN_OPTIONS_SETS_FILTERS_CREATED_BY_OPTIONS.SUPER_ADMIN &&
+                    set.companyID
+                ) {
                     return false;
                 }
             }
 
-            if (formEnabledDisabled && !formEnabledDisabled !== ALL) {
-                if (formEnabledDisabled === ENABLED_DISABLED_OPTIONS.ENABLED && set.isDisabled) {
+            if (formEnabledDisabled && !formEnabledDisabled !== PIN_OPTIONS_FILTERS_ALL) {
+                if (
+                    formEnabledDisabled ===
+                        PIN_OPTIONS_SETS_FILTERS_ENABLED_DISABLED_OPTIONS.ENABLED &&
+                    set.isDisabled
+                ) {
                     return false;
                 }
 
-                if (formEnabledDisabled === ENABLED_DISABLED_OPTIONS.DISABLED && !set.isDisabled) {
+                if (
+                    formEnabledDisabled ===
+                        PIN_OPTIONS_SETS_FILTERS_ENABLED_DISABLED_OPTIONS.DISABLED &&
+                    !set.isDisabled
+                ) {
                     return false;
                 }
             }
