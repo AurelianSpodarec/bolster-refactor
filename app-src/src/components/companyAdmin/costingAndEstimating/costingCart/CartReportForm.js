@@ -108,7 +108,9 @@ const CartReportForm = ({ formData }) => {
             </Field>
             <Field classes="no-margin">
                 <ActionButton
-                    text={`Generate ${capitaliseWord(selectedTab)} Sheet`}
+                    text={`Generate ${
+                        selectedTabType === costingAndEstimatingType.COSTING ? 'Cost' : 'Estimate'
+                    } Sheet`}
                     extraClasses="center justify-stretch"
                     onClick={handleSubmit}
                     size="medium"

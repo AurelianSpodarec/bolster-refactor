@@ -11,6 +11,7 @@ import {
     CREATE_COSTING_AND_ESTIMATING_REPORT_SUCCESS,
     CREATE_COSTING_AND_ESTIMATING_REPORT_FAILURE,
 } from 'constants/actionTypes/costingAndEstimating';
+import { HIDE_MODAL } from '../../constants/actionTypes/generic';
 
 export default combineReducers({
     isPosting: isPostingReducer,
@@ -106,6 +107,7 @@ function postErrorReducer(state = null, action) {
         case CREATE_COSTING_AND_ESTIMATING_REPORT_FAILURE:
             return action.error;
         case CREATE_COSTING_AND_ESTIMATING_REPORT_REQUEST:
+        case HIDE_MODAL:
             return null;
         default:
             return state;
