@@ -1,9 +1,12 @@
-import { isEmpty } from 'helpers/generic';
-import { useForm } from 'helpers/hooks';
-import useSearch from 'hooks/useSearch';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
+
+import { isEmpty } from 'helpers/generic';
+import { useForm } from 'helpers/hooks';
+
 import { selectServicesArr } from 'selectors/companyAdmin/services';
+
+import useSearch from 'hooks/useSearch';
 
 const OPTIONS = {
     SERVICE: 1,
@@ -93,16 +96,28 @@ const useFilterSets = (sets, selectedTypeID) => {
                 }
             }
 
-            if (formCreatedBy.length && !formCreatedBy.includes(ALL)) {
-                if (!formServices.some(id => set.serviceIDs.includes(id))) {
+            if (formCreatedBy && !formCreatedBy !== ALL) {
+                if (formCreatedBy === CREATED_BY_OPTIONS.COMPANY && !set.companyID) {
+                    return false;
+                }
+
+                if (formCreatedBy === CREATED_BY_OPTIONS.SUPER_ADMIN && set.companyID) {
+                    return false;
+                }
+            }
+
+            if (formEnabledDisabled && !formEnabledDisabled !== ALL) {
+                if (formEnabledDisabled === ENABLED_DISABLED_OPTIONS.ENABLED && set.isDisabled) {
+                    return false;
+                }
+
+                if (formEnabledDisabled === ENABLED_DISABLED_OPTIONS.DISABLED && !set.isDisabled) {
                     return false;
                 }
             }
 
             return true;
         });
-
-        console.log(formFilters);
 
         return formFilters;
     };
