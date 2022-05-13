@@ -52,7 +52,7 @@ const AllOperativesListItem = ({
     const deviceNameColour = isDeviceNameColour && user.linkedDeviceName ? isDeviceNameColour : '';
 
     return (
-        <tr key={user.id} className={`${isDisabled ? 'grey-row' : ''}`}>
+        <tr key={user.id} className={`${isDisabled ? 'grey-row' : ''} user-table-row`}>
             <td>
                 {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
                 <span>{nameString}</span>

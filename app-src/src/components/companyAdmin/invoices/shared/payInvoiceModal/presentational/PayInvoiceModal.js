@@ -6,9 +6,10 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import Form from 'components/shared/generic/form/containers/Form';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import Field from 'components/shared/generic/form/presentational/Field';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 
 const PayInvoiceModal = ({
     handleSubmit,
@@ -56,26 +57,24 @@ const PayInvoiceModal = ({
             </Field>
 
             <BlockButtonWrapper>
-                <button
-                    className={`button green ${isPosting ? 'disabled' : ''}`}
-                    type="submit"
-                    disabled={isPosting}
-                >
-                    {isPosting ? (
-                        <i className="fa fa-spinner fa-spin" />
-                    ) : (
-                        <i className="fa fa-check" />
-                    )}{' '}
-                    Pay Invoice
-                </button>
-                <ButtonContainer
-                    handleClick={e => {
-                        e.preventDefault();
-                        hideModal();
-                    }}
-                >
-                    Cancel
-                </ButtonContainer>
+                <ButtonWrapper alignment="right">
+                    <ActionButton
+                        text="Cancel"
+                        onClick={e => {
+                            e.preventDefault();
+                            hideModal();
+                        }}
+                        source="secondary"
+                        size="small"
+                    />
+                    <ActionButton
+                        text="Confirm"
+                        type="submit"
+                        disabled={isPosting}
+                        icon={isPosting ? 'fa fa-spinner fa-spin' : 'check'}
+                        size="small"
+                    />
+                </ButtonWrapper>
             </BlockButtonWrapper>
         </Form>
     </ModalOuterContainer>
