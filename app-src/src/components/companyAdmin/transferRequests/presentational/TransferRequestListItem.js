@@ -2,6 +2,9 @@ import React from 'react';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import { ReactComponent as TrashIcon } from '../../../../_content/images/icons/trash.svg';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 
 const TransferRequestListItem = ({
     request,
@@ -35,14 +38,27 @@ const TransferRequestListItem = ({
             {' '}
             {onMobile && <span className="mobile-table-heading">{headers[4]}</span>}
             <BlockButtonWrapper>
-                <button type="button" className="button red icon-only" onClick={handleDecline}>
-                    <i className="far fa-ban" />
-                </button>
-                {companyID === request.inviteToCompanyID && (
-                    <button type="button" className="button green icon-only" onClick={handleAccept}>
-                        <i className="far fa-check" />
-                    </button>
-                )}
+                <ButtonWrapper alignment="right">
+                    <ActionButton
+                        type="button"
+                        onClick={handleDecline}
+                        source="secondary"
+                        ambient="positive"
+                        iconOnly
+                        svgIconComponent={TrashIcon}
+                        iconWeight="light"
+                        size="small"
+                    />
+                    {companyID === request.inviteToCompanyID && (
+                        <ActionButton
+                            type="button"
+                            onClick={handleAccept}
+                            iconOnly
+                            icon="check"
+                            size="small"
+                        />
+                    )}
+                </ButtonWrapper>
             </BlockButtonWrapper>
         </td>
     </tr>
