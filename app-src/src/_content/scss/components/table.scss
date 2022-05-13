@@ -695,3 +695,13 @@
     }
   }
 }
+
+.user-table-row {
+  td {
+    width: 15%;
+
+    &:first-child {
+      width: 25%;
+    }
+  }
+}
