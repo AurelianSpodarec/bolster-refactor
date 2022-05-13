@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { updateObj, convertArrToObj } from 'helpers/generic';
+import { updateObj, convertArrToObj, removeObjItem } from 'helpers/generic';
 import {
     FETCH_SINGLE_PIN_REQUEST,
     FETCH_SINGLE_PIN_SUCCESS,
@@ -28,6 +28,7 @@ import {
     FETCH_ALL_PINS_FOR_DRAWING_FAILURE,
     TOGGLE_PIN_VIEW_MODE,
     TOGGLE_PIN_TASKS_MODE,
+    DELETE_ALL_PIN_HISTORY_SUCCESS,
 } from 'constants/actionTypes/pins';
 
 export default combineReducers({
@@ -98,6 +99,8 @@ function pinsReducer(state = {}, action) {
             return updateObj(state, action.payload.pin.id, action.payload.pin);
         case EDIT_PIN_HISTORY_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
+        case DELETE_ALL_PIN_HISTORY_SUCCESS:
+            return removeObjItem(state, action.payload);
         case FETCH_PINS_SUCCESS:
         case FETCH_ALL_PINS_FOR_DRAWING_SUCCESS:
             return convertArrToObj(action.payload);
