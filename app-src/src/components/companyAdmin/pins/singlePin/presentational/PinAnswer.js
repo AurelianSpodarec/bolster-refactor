@@ -49,9 +49,15 @@ const PinAnswer = ({ trimmedAnswer, type, answers, question }) => {
             inner = <p>{answerText} </p>;
             break;
         }
-        case TYPES.MULTI_MULTI_DROPDOWN:
-        case TYPES.MULTI_MULTI_PIN_OPTION_TYPES: {
+        case TYPES.MULTI_MULTI_DROPDOWN: {
             const answerText = formatMultiMulti(
+                curAnswerValues.map(value => value.textValue).filter(Boolean),
+            );
+            inner = <p>{answerText}</p>;
+            break;
+        }
+        case TYPES.MULTI_MULTI_PIN_OPTION_TYPES: {
+            const answerText = formatMultiMultiPinOptions(
                 curAnswerValues.map(value => value.textValue).filter(Boolean),
             );
             inner = <p>{answerText}</p>;
@@ -181,6 +187,11 @@ function formatMultiMulti(answer) {
     return Object.entries(answerCounts)
         .map(([name, count]) => (count === 1 ? name : `${name} (${count})`))
         .join(', ');
+}
+
+function formatMultiMultiPinOptions(answer) {
+    const uniqueAnswers = [...new Set(answer)].join(', ');
+    return uniqueAnswers;
 }
 
 function getCountsForMeasurements(measurement, answerValues) {
