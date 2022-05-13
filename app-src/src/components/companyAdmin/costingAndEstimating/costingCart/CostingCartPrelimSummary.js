@@ -7,6 +7,9 @@ import CostingCartPrelimSummaryItem from './CostingCartPrelimSummaryItem';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import useCostingAndEstimatingPrelimsSetActions from '../_hooks/useCostingAndEstimatingPrelimsSetActions';
+import { useSelector } from 'react-redux';
+import { selectCompanyCurrency } from '../../../../selectors/companyAdmin/companySettings';
+import { CURRENCY_SYMBOLS } from '../../../../constants/companyAdmin/enums';
 
 const CostingCartPrelimSummary = ({ title, total, prelims = [] }) => {
     const [isExpanded, setIsExpanded] = useState(true);
@@ -14,7 +17,8 @@ const CostingCartPrelimSummary = ({ title, total, prelims = [] }) => {
 
     const { showExistingPrelimModal, showAddCustomPrelimModal } =
         useCostingAndEstimatingPrelimsSetActions();
-
+    const currency = useSelector(selectCompanyCurrency);
+    const currencySymbol = CURRENCY_SYMBOLS[currency];
     useEffect(() => {
         if (!isExpanded) setShowOverflow(false);
         else setTimeout(() => setShowOverflow(isExpanded), 500);
@@ -56,7 +60,7 @@ const CostingCartPrelimSummary = ({ title, total, prelims = [] }) => {
                 <div className="divider" />
             </div>
             <div className="total">
-                <h3>{`${total < 0 ? '-' : ''}£${
+                <h3>{`${total < 0 ? '-' : ''}${currencySymbol}${
                     total ? formatCurrency(total, false) : '0.00'
                 }`}</h3>
             </div>

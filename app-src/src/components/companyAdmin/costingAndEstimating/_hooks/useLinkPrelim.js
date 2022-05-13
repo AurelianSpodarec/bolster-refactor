@@ -13,15 +13,21 @@ import {
     selectPrelimsArr,
 } from 'selectors/companyAdmin/prelims';
 
-import { costingAndEstimatingType, PRELIMS_ENUM } from 'constants/companyAdmin/enums';
+import {
+    costingAndEstimatingType,
+    CURRENCY_SYMBOLS,
+    PRELIMS_ENUM,
+} from 'constants/companyAdmin/enums';
 import { convertArrToObj, formatCurrency } from 'helpers/generic';
 import { selectJWTData } from '../../../../selectors/shared/decodeJWT';
 import { hideModal } from '../../../../actions/shared/generic/modals/sync/hideModal';
 import { selectHierarchySelectedTab } from '../../../../selectors/shared/tabs';
+import { selectCompanyCurrency } from '../../../../selectors/companyAdmin/companySettings';
 
 const useLinkPrelim = () => {
     const dispatch = useDispatch();
-
+    const currency = useSelector(selectCompanyCurrency);
+    const currencySymbol = CURRENCY_SYMBOLS[currency];
     const hierarchyID = useCurrentHierarchyID();
     const hierarchyType = useCurrentHierarchyType();
 
@@ -40,7 +46,7 @@ const useLinkPrelim = () => {
                 text: `${name} - (${
                     PRELIMS_ENUM[type] === 'Percent'
                         ? value + '%'
-                        : `${value < 0 ? '-' : ''}£` + formatCurrency(value, false)
+                        : `${value < 0 ? '-' : ''}${currencySymbol}` + formatCurrency(value, false)
                 })`,
             }));
 
