@@ -23,11 +23,22 @@ const CostingAndEstimatingPod = ({ pod }) => {
 
     const handleFlip = () => {
         if (solo) return;
-        setIsFlipped(!isFlipped);
+        setIsFlipped(prev => !prev);
     };
 
-    const dataToShow = solo ? solo : isFlipped ? lowest : highest;
-    const valueIsCurrency = dataToShow?.valueCurrency !== null;
+    const value = solo ? solo : isFlipped ? lowest : highest;
+    const valueIsCurrency = value?.valueCurrency !== null;
+    let dataToShow = value.valueNumerical ?? '';
+    if (valueIsCurrency) {
+        // handle negative
+        if (value.valueCurrency < 0) dataToShow = '-';
+        // todo company currency
+        dataToShow += '£';
+        // handle missing value
+        if (Number.isNaN(value.valueCurrency)) dataToShow += '0.00';
+        // convert currency value to positive number so negative sign is not re-added (handled above)
+        else dataToShow += formatCurrency(value.valueCurrency, false);
+    }
 
     return (
         <BlockContainer
@@ -45,22 +56,12 @@ const CostingAndEstimatingPod = ({ pod }) => {
                     </div>
                 )}
             </FlexWrapper>
-            <h3 className="heading heading-3">{dataToShow.title}</h3>
+            <h3 className="heading heading-3">{value.title}</h3>
             <div className="spacer" />
 
             <div className="content-wrapper">
-                <span>{dataToShow.subtitle}</span>
-                <p>{`${
-                    valueIsCurrency
-                        ? `${dataToShow?.valueCurrency < 0 ? '-' : ''}£${
-                              !Number.isNaN(dataToShow?.valueCurrency)
-                                  ? dataToShow?.valueCurrency < 0
-                                      ? formatCurrency(dataToShow?.valueCurrency, false)
-                                      : '0.00'
-                                  : '0.00'
-                          }`
-                        : dataToShow.valueNumerical
-                }`}</p>
+                <span>{value.subtitle}</span>
+                <p>{dataToShow}</p>
             </div>
         </BlockContainer>
     );
