@@ -13,6 +13,9 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import fetchCard from 'actions/companyAdmin/cards/async/fetchCard';
 import setPrimaryCard from 'actions/companyAdmin/cards/async/setPrimaryCard';
+import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 
 class CheckoutForm extends Component {
     state = {
@@ -78,6 +81,7 @@ class CheckoutForm extends Component {
 
     render() {
         const { name, errorMessage, nameProvided } = this.state;
+        const { close } = this.props;
         const isDarkMode = JSON.parse(localStorage.getItem('isDarkModeEnabled'));
 
         const createOptions = () => {
@@ -154,11 +158,23 @@ class CheckoutForm extends Component {
                         ) : (
                             <></>
                         )}
-                        <div className="size-lg-12" style={{ paddingLeft: 7.5, paddingRight: 7.5 }}>
-                            <button className="button green pull-right" onClick={this.clickSubmit}>
-                                Submit
-                            </button>
-                        </div>
+
+                        <BlockButtonWrapper>
+                            <ButtonWrapper alignment="right">
+                                <ActionButton
+                                    text="Cancel"
+                                    onClick={() => close()}
+                                    source="secondary"
+                                    size="small"
+                                />
+                                <ActionButton
+                                    text="Confirm"
+                                    icon="check"
+                                    size="small"
+                                    onClick={this.clickSubmit}
+                                />
+                            </ButtonWrapper>
+                        </BlockButtonWrapper>
                     </div>
                 </div>
             </form>

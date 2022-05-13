@@ -1,8 +1,10 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+
 import StatusIcon from 'components/shared/generic/statusIcon/presentationl/StatusIcon';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import { ReactComponent as TrashIcon } from '../../../../../_content/images/icons/trash.svg';
 
 const CardListItem = ({
     card: { expMonth, expYear, isPrimary, lastFour, name, id },
@@ -60,7 +62,7 @@ const CardListItem = ({
                         source="secondary"
                         ambient="positive"
                         iconOnly
-                        icon="trash-alt"
+                        svgIconComponent={TrashIcon}
                         iconWeight="light"
                         size="small"
                         onClick={() => {

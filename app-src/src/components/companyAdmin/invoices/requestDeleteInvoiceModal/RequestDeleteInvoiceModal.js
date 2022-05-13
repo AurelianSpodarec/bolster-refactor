@@ -6,6 +6,8 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import deleteInvoice from 'actions/companyAdmin/invoices/async/deleteInvoice';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { usePrevious } from 'helpers/hooks';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 
 const RequestDeleteInvoiceModal = ({ id }) => {
     const dispatch = useDispatch();
@@ -36,19 +38,29 @@ const RequestDeleteInvoiceModal = ({ id }) => {
                 {success && <p className="generic-text intro-text size-lg-12 success">{success}</p>}
                 <BlockButtonWrapper>
                     {!success ? (
-                        <>
-                            <button className="button blue" onClick={handleDelete}>
-                                <i className="far fa-envelope fa-fw" />
-                                Request Delete
-                            </button>
-                            <button className="button" onClick={() => dispatch(hideModal())}>
-                                Cancel
-                            </button>{' '}
-                        </>
+                        <ButtonWrapper alignment="right">
+                            <ActionButton
+                                text="Cancel"
+                                onClick={() => dispatch(hideModal())}
+                                source="secondary"
+                                size="small"
+                            />
+                            <ActionButton
+                                onClick={handleDelete}
+                                text="Confirm"
+                                icon="tick"
+                                size="small"
+                            />
+                        </ButtonWrapper>
                     ) : (
-                        <button className="button green" onClick={() => dispatch(hideModal())}>
-                            Close
-                        </button>
+                        <ButtonWrapper alignment="right">
+                            <ActionButton
+                                text="Cancel"
+                                onClick={() => dispatch(hideModal())}
+                                source="secondary"
+                                size="small"
+                            />
+                        </ButtonWrapper>
                     )}
                 </BlockButtonWrapper>
             </>

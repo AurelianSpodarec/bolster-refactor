@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import Form from 'components/shared/generic/form/containers/Form';
@@ -9,10 +10,11 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import { formatNumber } from 'helpers/generic';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import AddCardFormContainer from '../../cardManagement/addCardModal/containers/AddCardFormContainer';
 import Select from 'components/shared/generic/form/presentational/Select';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 
 const BuyCreditsModal = ({
     hideModal,
@@ -65,9 +67,14 @@ const BuyCreditsModal = ({
                 {+paymentType === PAYMENT_IDS.CARD && !noCards && (
                     <>
                         <Field sizeClasses="size-lg-12">
-                            <button className="button green" type="button" onClick={showAddCard}>
-                                <i className="fa fa-plus fa-fw" /> Add new card
-                            </button>
+                            <ActionButton
+                                text="Add new card"
+                                type="submit"
+                                onClick={showAddCard}
+                                icon="plus"
+                                size="small"
+                                ambient="positive"
+                            />
                         </Field>
                         <Field sizeClasses="size-lg-12" name="Select Card" required>
                             <Select
@@ -132,21 +139,22 @@ const BuyCreditsModal = ({
                         />
                     </Field>
                 </div>
-
                 <BlockButtonWrapper>
-                    <button
-                        className={`button green ${isPosting ? 'disabled' : ''}`}
-                        type="submit"
-                        disabled={isPosting}
-                    >
-                        {isPosting ? (
-                            <i className="fa fa-spinner fa-spin" />
-                        ) : (
-                            <i className="fa fa-check" />
-                        )}{' '}
-                        Buy
-                    </button>
-                    <ButtonContainer handleClick={hideModal}>Cancel</ButtonContainer>
+                    <ButtonWrapper alignment="right">
+                        <ActionButton
+                            text="Cancel"
+                            onClick={hideModal}
+                            source="secondary"
+                            size="small"
+                        />
+                        <ActionButton
+                            text="Confirm"
+                            type="submit"
+                            icon={isPosting ? 'fa fa-spinner fa-spin' : 'check'}
+                            size="small"
+                            disabled={isPosting}
+                        />
+                    </ButtonWrapper>
                 </BlockButtonWrapper>
             </Form>
         </ModalOuterContainer>

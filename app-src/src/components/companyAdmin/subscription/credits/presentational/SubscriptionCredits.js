@@ -45,12 +45,7 @@ const SubscriptionCredits = ({
 
         <BlockButtonWrapper>
             <ButtonWrapper alignment="right">
-                <ActionButton
-                    text="Buy Credits"
-                    ambient="positive"
-                    size="medium"
-                    onClick={showModal}
-                />
+                <ActionButton text="Buy Credits" onClick={showModal} icon="plus" />
             </ButtonWrapper>
         </BlockButtonWrapper>
     </div>
