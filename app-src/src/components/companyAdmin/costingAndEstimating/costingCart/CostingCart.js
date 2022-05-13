@@ -8,7 +8,7 @@ import CartReportForm from './CartReportForm';
 import CostingCartPinSummary from './CostingCartPinSummary';
 import CostingCartPrelimSummary from './CostingCartPrelimSummary';
 
-const CostingCart = ({ data, isFetching, fetchError, selectedTab, formData }) => {
+const CostingCart = ({ data, isFetching, fetchError, selectedTab, formData, cAndEPostBody }) => {
     const selectedTabType = costingAndEstimatingType[selectedTab.toUpperCase()];
     const title = `${
         selectedTabType === costingAndEstimatingType.COSTING ? 'Costing' : 'Estimating'
@@ -40,7 +40,7 @@ const CostingCart = ({ data, isFetching, fetchError, selectedTab, formData }) =>
                                 }`}</h1>
                             </div>
                         </div>
-                        <CartReportForm formData={formData} />
+                        <CartReportForm formData={formData} cAndEPostBody={cAndEPostBody} />
                     </>
                 )}
                 {!isFetching && fetchError && <Error>{fetchError}</Error>}

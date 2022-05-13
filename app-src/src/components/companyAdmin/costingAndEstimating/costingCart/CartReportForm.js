@@ -13,23 +13,17 @@ import {
     selectCostingAndEstimatingPostSuccess,
 } from 'selectors/companyAdmin/costingAndEstimating';
 import createCostingAndEstimatingReport from 'actions/companyAdmin/costingAndEstimating/createCostingAndEstimatingReport';
-import useCurrentHierarchyID from '../_hooks/useCurrentHierarchyID';
-import useCurrentHierarchyType from '../_hooks/useCurrentHierarchyType';
-import moment from 'moment';
 import { selectHierarchySelectedTab } from 'selectors/shared/tabs';
 import { costingAndEstimatingType } from 'constants/companyAdmin/enums';
 import { useForm, usePrevious } from 'helpers/hooks';
 import { useHistory } from 'react-router-dom';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
-import { capitaliseWord } from '../../../../helpers/generic';
 import Field from 'components/shared/generic/form/presentational/Field';
 
-const CartReportForm = ({ formData }) => {
+const CartReportForm = ({ cAndEPostBody }) => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const hierarchyID = useCurrentHierarchyID();
-    const hierarchyType = useCurrentHierarchyType();
 
     const postSuccess = useSelector(selectCostingAndEstimatingPostSuccess);
     const error = useSelector(selectCostingAndEstimatingPostError);
@@ -60,19 +54,15 @@ const CartReportForm = ({ formData }) => {
         }
     }, [postSuccess, prevProps.postSuccess, prevProps.error, error]);
 
-    const cAndEPostBody = {
-        hierarchyID,
-        hierarchyType,
-        fromDate: moment(formData.dateRange.startDate).format('YYYY-MM-DD'),
-        toDate: moment(formData.dateRange.endDate).format('YYYY-MM-DD'),
-        costEstType: selectedTabType,
+    const postBody = {
+        ...cAndEPostBody,
         projectName: reportFormData.projectName,
         projectDescription: reportFormData.projectDescription,
         clientName: reportFormData.clientName,
     };
 
     const handleSubmit = () => {
-        dispatch(createCostingAndEstimatingReport(cAndEPostBody));
+        dispatch(createCostingAndEstimatingReport(postBody));
         dispatch(showModal(GENERATE_COSTING_ESTIMATING_REPORT_MODAL));
     };
 
