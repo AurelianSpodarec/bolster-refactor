@@ -119,8 +119,13 @@ class OutputSettingsContainer extends Component {
             addFieldError('isOAndMManualGeneration', 'Must select at least one option');
         } else if (modeSelected && !prevModeSelected) {
             removeFieldError('isOAndMManualGeneration');
+            removeFieldError('isCSVGeneration');
         }
     };
+
+    componentWillUnmount() {
+        removeFieldError('isCSVGeneration');
+    }
 
     handleFilterChange = (name, value) => {
         this.props.handleChange(name, value);
