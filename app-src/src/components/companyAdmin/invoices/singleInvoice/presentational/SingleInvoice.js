@@ -9,6 +9,7 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import InvoicePaymentsTableContainer from '../../invoicePayments/containers/InvoicePaymentsTableContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 
 const SingleInvoice = ({ id, showModal, hasPayed }) => (
     <>
@@ -19,12 +20,12 @@ const SingleInvoice = ({ id, showModal, hasPayed }) => (
             <InvoiceItemsTableContainer />
             {!hasPayed && (
                 <BlockButtonWrapper sizeClasses="size-lg-12">
-                    <button
-                        className="button green"
+                    <ActionButton
+                        text="Pay"
                         onClick={() => showModal(PAY_INVOICE, { invoiceID: id })}
                     >
                         Pay
-                    </button>
+                    </ActionButton>
                 </BlockButtonWrapper>
             )}
         </BlockContainer>

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import ReactTooltip from 'react-tooltip';
 
 const ActionButton = ({
     onClick = () => {},
@@ -16,6 +17,7 @@ const ActionButton = ({
     ambient = 'primary', // primary, positive, negative
     size = 'small', // medium, small
     extraClasses = '',
+    tooltip,
     forwardRef,
 }) => {
     const iconWeightLookup = {
@@ -31,6 +33,14 @@ const ActionButton = ({
         iconSpin ? 'fa-spin' : ''
     } ${iconEqualSize ? 'fa-fw' : ''}`;
 
+    useEffect(() => {
+        if (tooltip) ReactTooltip.rebuild();
+
+        return () => {
+            if (tooltip) ReactTooltip.hide();
+        };
+    }, []);
+
     return (
         <button
             ref={forwardRef}
@@ -42,11 +52,17 @@ const ActionButton = ({
             data-ambient={ambient}
             data-size={size}
         >
-            {icon && !iconRight && <i className={dynamicIconClass}></i>}
-            {!icon && SvgIconComponent && !iconRight && <SvgIconComponent className="svg-icon" />}
-            {text && !iconOnly && <span className="text">{text}</span>}
-            {icon && iconRight && <i className={dynamicIconClass}></i>}
-            {!icon && SvgIconComponent && iconRight && <SvgIconComponent className="svg-icon" />}
+            <span className="text-container" data-tip={tooltip}>
+                {icon && !iconRight && <i className={dynamicIconClass}></i>}
+                {!icon && SvgIconComponent && !iconRight && (
+                    <SvgIconComponent className="svg-icon" />
+                )}
+                {text && !iconOnly && <span className="text">{text}</span>}
+                {icon && iconRight && <i className={dynamicIconClass}></i>}
+                {!icon && SvgIconComponent && iconRight && (
+                    <SvgIconComponent className="svg-icon" />
+                )}
+            </span>
         </button>
     );
 };

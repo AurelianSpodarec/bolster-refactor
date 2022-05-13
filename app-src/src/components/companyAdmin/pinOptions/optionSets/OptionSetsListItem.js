@@ -44,7 +44,7 @@ const OptionSetsListItem = ({
             <ButtonWrapper alignment="right">
                 {isDefault && <ButtonWrapperInfo text="Default" ambient="positive" removeSpacing />}
 
-                <ActionMenu disabled={isDefault && !isCompanySet}>
+                <ActionMenu>
                     {!isDefault && (
                         <ActionMenuActionButton
                             text="Set as default"
@@ -57,19 +57,27 @@ const OptionSetsListItem = ({
                         onClick={() => showDuplicateModal(set)}
                     />
 
-                    {isCompanySet && (
-                        <>
-                            <ActionMenuActionButton
-                                text="Edit"
-                                onClick={() => showEditModal(set)}
-                            />
-                            <ActionMenuActionButton
-                                text="Delete"
-                                onClick={() => showDeleteModal(set)}
-                                isNegative
-                            />
-                        </>
-                    )}
+                    <ActionMenuActionButton
+                        text="Edit"
+                        onClick={() => showEditModal(set)}
+                        disabled={!isCompanySet}
+                        tooltip={
+                            !isCompanySet
+                                ? 'This is a Bolster Systems created set and cannot be edited. Please duplicate the set first if you would like to make changes.'
+                                : null
+                        }
+                    />
+                    <ActionMenuActionButton
+                        text="Delete"
+                        onClick={() => showDeleteModal(set)}
+                        isNegative
+                        disabled={!isCompanySet}
+                        tooltip={
+                            !isCompanySet
+                                ? 'This is a Bolster Systems created set and cannot be deleted'
+                                : null
+                        }
+                    />
                 </ActionMenu>
             </ButtonWrapper>
         </td>

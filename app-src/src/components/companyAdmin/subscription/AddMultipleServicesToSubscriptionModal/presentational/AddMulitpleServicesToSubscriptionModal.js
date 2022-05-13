@@ -10,12 +10,13 @@ import { PAYMENT_IDS } from 'constants/companyAdmin/enums';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import { formatNumber } from 'helpers/generic';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import Select from 'components/shared/generic/form/presentational/Select';
 import AddCardFormContainer from '../../cardManagement/addCardModal/containers/AddCardFormContainer';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 
 const AddMulitpleServicesToSubscriptionModal = ({
     handleSubmit,
@@ -156,9 +157,16 @@ const AddMulitpleServicesToSubscriptionModal = ({
                 {+paymentType === PAYMENT_IDS.CARD && !noCards && (
                     <>
                         <Field sizeClasses="size-lg-12" name="Select Card" required>
-                            <button className="button green" type="button" onClick={showAddCard}>
-                                <i className="fa fa-plus fa-fw" /> Add new card
-                            </button>
+                            <ButtonWrapper>
+                                <ActionButton
+                                    text="Add new card"
+                                    onClick={showAddCard}
+                                    icon="plus"
+                                    size="small"
+                                    ambient="positive"
+                                />
+                            </ButtonWrapper>
+                            <br />
                             <Select
                                 required
                                 name="stripeCardID"
@@ -194,19 +202,21 @@ const AddMulitpleServicesToSubscriptionModal = ({
                 </div>
 
                 <BlockButtonWrapper>
-                    <button
-                        className={`button green ${isPosting ? 'disabled' : ''}`}
-                        type="submit"
-                        disabled={isPosting}
-                    >
-                        {isPosting ? (
-                            <i className="fa fa-spinner fa-spin" />
-                        ) : (
-                            <i className="fa fa-check" />
-                        )}{' '}
-                        Buy
-                    </button>
-                    <ButtonContainer handleClick={hideModal}>Cancel</ButtonContainer>
+                    <ButtonWrapper alignment="right">
+                        <ActionButton
+                            text="Cancel"
+                            onClick={hideModal}
+                            source="secondary"
+                            size="small"
+                        />
+                        <ActionButton
+                            type="submit"
+                            disabled={isPosting}
+                            text="Confirm"
+                            icon={isPosting ? 'fa fa-spinner fa-spin' : 'check'}
+                            size="small"
+                        />
+                    </ButtonWrapper>
                 </BlockButtonWrapper>
             </Form>
         </ModalOuterContainer>

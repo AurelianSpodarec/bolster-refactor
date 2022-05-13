@@ -47,10 +47,20 @@ button {
     }
 
     &.blue {
-        background-color: $blue;
-
+            padding: 5px 16px;
+            font-size: 12px;
+            line-height: 12px;
+            border-radius: 4px;
+            background-color: #3364DD;
+            font-family: "Ubuntu",sans-serif;
+            font-weight: 500;
+            color: #f9fafa;
+            border: 1px solid transparent;  
+            text-decoration: none;
+            white-space: nowrap;
+       
         &:hover, &.active {
-            background-color: #1083b3;
+            background-color: #0047FF;
         }
     }
 
@@ -393,6 +403,10 @@ button {
 
     &.margin-left {
         margin-left: 10px;
+    }
+
+    .text-container {
+        width: 100%;
     }
 
     .text {
