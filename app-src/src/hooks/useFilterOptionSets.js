@@ -7,6 +7,8 @@ import { useForm } from 'helpers/hooks';
 import { selectServicesArr } from 'selectors/companyAdmin/services';
 
 import useSearch from 'hooks/useSearch';
+import { selectCompanySettings } from 'selectors/companyAdmin/companySettings';
+import { selectSubscriptions } from 'selectors/superAdmin/companySubscription';
 
 const OPTIONS = {
     SERVICE: 1,
@@ -32,6 +34,7 @@ const useFilterSets = (sets, selectedTypeID) => {
     const [expandedID, setExpandedID] = useState(null);
 
     const servicesArr = useSelector(selectServicesArr);
+    const subscriptions = useSelector(selectSubscriptions);
 
     const [form, handleChange] = useForm({
         [OPTIONS.SERVICE]: [ALL],
@@ -45,7 +48,9 @@ const useFilterSets = (sets, selectedTypeID) => {
             name: 'Service',
             options: [
                 { id: ALL, name: 'All' },
-                ...servicesArr.map(({ id, name }) => ({ id, name })),
+                ...servicesArr
+                    .filter(service => subscriptions.serviceIDs.includes(service.id))
+                    .map(({ id, name }) => ({ id, name })),
             ],
             isMultiSelection: true,
         },

@@ -512,6 +512,12 @@
   .slider-container {
     padding: 10px;
   }
+
+  &.full-option-height {
+    .graph-filter-options {
+      max-height: none;
+    }
+  }
 }
 
 .filters-list-wrapper {
