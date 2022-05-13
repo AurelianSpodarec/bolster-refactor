@@ -1,9 +1,14 @@
 import { formatCurrency } from 'helpers/generic';
 import useColourTheme from 'hooks/useColourTheme';
 import { useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { selectCompanyCurrency } from '../../../../selectors/companyAdmin/companySettings';
+import { CURRENCY_SYMBOLS } from '../../../../constants/companyAdmin/enums';
 
 const useCostingAndEstimatingGraph = graph => {
     const colourTheme = useColourTheme();
+    const currency = useSelector(selectCompanyCurrency);
+    const currencySymbol = CURRENCY_SYMBOLS[currency];
     const graphRef = useRef(null);
 
     const [width, setWidth] = useState(600);
@@ -106,7 +111,7 @@ const useCostingAndEstimatingGraph = graph => {
             callbacks: {
                 label: tooltipItem => {
                     const { yLabel } = tooltipItem;
-                    return `${yLabel < 0 ? '-' : ''}£${
+                    return `${yLabel < 0 ? '-' : ''}${currencySymbol}${
                         yLabel > 0 ? formatCurrency(yLabel, false) : '0.00'
                     }`;
                 },

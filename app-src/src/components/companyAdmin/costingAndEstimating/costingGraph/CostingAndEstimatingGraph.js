@@ -11,6 +11,9 @@ import CostingGraphFilters from './CostingGraphFilters';
 import Error from 'components/shared/generic/misc/presentational/Error';
 import LoadingOverlay from '../LoadingOverlay';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import { useSelector } from 'react-redux';
+import { selectCompanyCurrency } from '../../../../selectors/companyAdmin/companySettings';
+import { CURRENCY_SYMBOLS } from '../../../../constants/companyAdmin/enums';
 
 const CostingAndEstimatingGraph = ({
     graph,
@@ -24,7 +27,8 @@ const CostingAndEstimatingGraph = ({
     fetchError,
 }) => {
     const [showFilterOptions, setShowFilterOptions] = useState(false);
-
+    const currency = useSelector(selectCompanyCurrency);
+    const currencySymbol = CURRENCY_SYMBOLS[currency];
     const { data, options, graphRef } = useCostingAndEstimatingGraph(graph);
     const { dateRange } = filterFormData;
 
@@ -83,7 +87,7 @@ const CostingAndEstimatingGraph = ({
                         <Line data={data} options={options} />
                         <div className="graph-total">
                             <h3>Total:</h3>
-                            <h1>{`${graph?.total < 0 ? '-' : ''}£${
+                            <h1>{`${graph?.total < 0 ? '-' : ''}${currencySymbol}${
                                 graph?.total !== 0 ? formatCurrency(graph?.total, false) : '0.00'
                             }`}</h1>
                         </div>
