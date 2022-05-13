@@ -38,6 +38,7 @@ import fetchPinOptionTypes from 'actions/companyAdmin/pinOptions/async/fetchPinO
 import fetchPinOptions from 'actions/companyAdmin/pinOptions/async/fetchPinOptions';
 import fetchPinOptionSets from 'actions/companyAdmin/pinOptions/async/fetchPinOptionSets';
 import fetchPinOptionVersions from 'actions/companyAdmin/pinOptions/async/fetchPinOptionVersions';
+import fetchCompanyUsers from '../../../../actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 
 const useCostingAndEstimating = () => {
     const [lastFetch, setLastFetch] = useState(0); // For debounce
@@ -270,7 +271,7 @@ const useCostingAndEstimating = () => {
             dispatch(fetchAllDrawings());
             dispatch(fetchCostingAndEstimatingResults(cAndEPostBody));
             dispatch(fetchCostingAndEstimatingFilters(cAndEPostBody));
-            dispatch(fetchCompanyOperatives());
+            dispatch(fetchCompanyUsers());
             dispatch(fetchAllServices());
             dispatch(fetchPinOptionTypes());
             dispatch(fetchPinOptionSets());
