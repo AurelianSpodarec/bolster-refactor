@@ -8,6 +8,9 @@ import buildingIcon from '_content/images/icons/building_icon.png';
 import poundIcon from '_content/images/icons/pound_icon.png';
 import plusIcon from '_content/images/icons/plus_icon.png';
 import { formatCurrency } from 'helpers/generic';
+import { useSelector } from 'react-redux';
+import { selectCompanyCurrency } from '../../../../selectors/companyAdmin/companySettings';
+import { CURRENCY_SYMBOLS } from '../../../../constants/companyAdmin/enums';
 
 const icons = {
     Person: employeeIcon,
@@ -29,11 +32,12 @@ const CostingAndEstimatingPod = ({ pod }) => {
     const value = solo ? solo : isFlipped ? lowest : highest;
     const valueIsCurrency = value?.valueCurrency !== null;
     let dataToShow = value.valueNumerical ?? '';
+    const reportingCurrency = useSelector(selectCompanyCurrency);
     if (valueIsCurrency) {
         // handle negative
         if (value.valueCurrency < 0) dataToShow = '-';
-        // todo company currency
-        dataToShow += '£';
+        const currencySymbol = CURRENCY_SYMBOLS[reportingCurrency];
+        dataToShow += currencySymbol;
         // handle missing value
         if (Number.isNaN(value.valueCurrency)) dataToShow += '0.00';
         // convert currency value to positive number so negative sign is not re-added (handled above)
