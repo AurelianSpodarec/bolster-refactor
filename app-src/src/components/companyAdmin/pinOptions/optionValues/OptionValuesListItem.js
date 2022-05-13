@@ -97,7 +97,7 @@ const OptionValuesListItem = ({
                                     disabled={!isCompanySet}
                                     tooltip={
                                         !isCompanySet
-                                            ? 'This is a Bolster Systems created option and cannot be edited'
+                                            ? 'This is a Bolster Systems created option and cannot be edited. Please duplicate the option first if you would like to make changes.'
                                             : null
                                     }
                                 />
