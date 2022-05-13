@@ -133,6 +133,7 @@ const AllCompanyAdminsListItem = ({
                         icon="key"
                         iconWeight="regular"
                         href={`/company/users-management/company-admins/${user.id}/drawings`}
+                        extraClasses="drawing-access-button"
                     />
                     <CompanyAdminUserActionsMenu
                         user={user}
