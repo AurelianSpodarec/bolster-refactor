@@ -91,14 +91,27 @@ const OptionValuesListItem = ({
                                     text="Duplicate"
                                     onClick={() => showDuplicateModal(option)}
                                 />
-
-                                {isCompanySet && (
-                                    <ActionMenuActionButton
-                                        text="Delete"
-                                        onClick={() => showDeleteModal(option)}
-                                        isNegative
-                                    />
-                                )}
+                                <ActionMenuActionButton
+                                    text="Edit"
+                                    onClick={() => showEditModal(option)}
+                                    disabled={!isCompanySet}
+                                    tooltip={
+                                        !isCompanySet
+                                            ? 'This is a Bolster Systems created option and cannot be edited'
+                                            : null
+                                    }
+                                />
+                                <ActionMenuActionButton
+                                    text="Delete"
+                                    onClick={() => showDeleteModal(option)}
+                                    isNegative
+                                    disabled={!isCompanySet}
+                                    tooltip={
+                                        !isCompanySet
+                                            ? 'This is a Bolster Systems created option and cannot be deleted'
+                                            : null
+                                    }
+                                />
                             </ActionMenu>
                         </ButtonWrapper>
                     </td>
