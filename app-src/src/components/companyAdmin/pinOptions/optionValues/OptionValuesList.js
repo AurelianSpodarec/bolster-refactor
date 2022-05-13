@@ -24,6 +24,8 @@ import Table from 'components/shared/generic/tables/presentational/Table';
 import OptionValuesListItem from './OptionValuesListItem';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import TooltipFilters from 'components/shared/filters/TooltipFilters/TooltipFilters';
+import TooltipFiltersItem from 'components/shared/filters/TooltipFilters/TooltipFiltersItem';
 
 const OptionValuesList = ({ forwardRef, hasFetched }) => {
     const { setID, type } = useParams();
@@ -38,10 +40,18 @@ const OptionValuesList = ({ forwardRef, hasFetched }) => {
     const { isSorting, handleToggleSort, handleUpdateSort, moveItem } =
         useUpdateOptionValueSort(pinOptionsForSet);
 
-    const { filteredOptionValues, searchTerm, handleUpdateSearch } = useFilterOptionValues(
-        pinOptionsForSet,
-        isSorting,
-    );
+    const {
+        filteredOptionValues,
+        searchTerm,
+        handleUpdateSearch,
+        showFilters,
+        setShowFilters,
+        expandedID,
+        setExpandedID,
+        filterOptions,
+        form,
+        handleChange,
+    } = useFilterOptionValues(pinOptionsForSet, isSorting);
 
     const {
         showAddModal,
@@ -72,14 +82,31 @@ const OptionValuesList = ({ forwardRef, hasFetched }) => {
                 />
 
                 <ButtonWrapper alignment="right">
-                    {/* <ActionButton
-                        icon="filter"
-                        iconOnly
-                        source="secondary"
-                        size="medium"
-                        iconEqualSize
-                        onClick={() => console.log('open filters')}
-                    /> */}
+                    <div>
+                        <ActionButton
+                            icon="filter"
+                            iconOnly
+                            source="secondary"
+                            size="medium"
+                            iconEqualSize
+                            onClick={() => setShowFilters(!showFilters)}
+                        />
+
+                        {showFilters && (
+                            <TooltipFilters>
+                                {filterOptions.map(option => (
+                                    <TooltipFiltersItem
+                                        key={option.id}
+                                        option={option}
+                                        expandedID={expandedID}
+                                        setExpandedID={setExpandedID}
+                                        onChange={handleChange}
+                                        selected={form[option.id]}
+                                    />
+                                ))}
+                            </TooltipFilters>
+                        )}
+                    </div>
 
                     {isCompanySet && (
                         <>

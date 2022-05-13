@@ -11,7 +11,7 @@ import useSearch from 'hooks/useSearch';
 import {
     PIN_OPTIONS_FILTERS_ALL,
     PIN_OPTIONS_SETS_FILTERS_CREATED_BY_OPTIONS,
-    PIN_OPTIONS_SETS_FILTERS_ENABLED_DISABLED_OPTIONS,
+    PIN_OPTIONS_FILTERS_ENABLED_DISABLED_OPTIONS,
     PIN_OPTIONS_SETS_FILTERS_OPTIONS,
 } from 'constants/companyAdmin/enums';
 
@@ -62,9 +62,9 @@ const useFilterSets = (sets, selectedTypeID) => {
             name: 'Enabled / Disabled',
             options: [
                 { id: PIN_OPTIONS_FILTERS_ALL, name: 'All' },
-                { id: PIN_OPTIONS_SETS_FILTERS_ENABLED_DISABLED_OPTIONS.ENABLED, name: 'Enabled' },
+                { id: PIN_OPTIONS_FILTERS_ENABLED_DISABLED_OPTIONS.ENABLED, name: 'Enabled' },
                 {
-                    id: PIN_OPTIONS_SETS_FILTERS_ENABLED_DISABLED_OPTIONS.DISABLED,
+                    id: PIN_OPTIONS_FILTERS_ENABLED_DISABLED_OPTIONS.DISABLED,
                     name: 'Disabled',
                 },
             ],
@@ -119,16 +119,14 @@ const useFilterSets = (sets, selectedTypeID) => {
 
             if (formEnabledDisabled && !formEnabledDisabled !== PIN_OPTIONS_FILTERS_ALL) {
                 if (
-                    formEnabledDisabled ===
-                        PIN_OPTIONS_SETS_FILTERS_ENABLED_DISABLED_OPTIONS.ENABLED &&
+                    formEnabledDisabled === PIN_OPTIONS_FILTERS_ENABLED_DISABLED_OPTIONS.ENABLED &&
                     set.isDisabled
                 ) {
                     return false;
                 }
 
                 if (
-                    formEnabledDisabled ===
-                        PIN_OPTIONS_SETS_FILTERS_ENABLED_DISABLED_OPTIONS.DISABLED &&
+                    formEnabledDisabled === PIN_OPTIONS_FILTERS_ENABLED_DISABLED_OPTIONS.DISABLED &&
                     !set.isDisabled
                 ) {
                     return false;
