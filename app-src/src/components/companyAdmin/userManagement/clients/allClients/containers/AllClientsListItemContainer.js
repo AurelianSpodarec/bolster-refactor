@@ -51,6 +51,9 @@ const AllClientsListItemContainer = ({ client, colCount, headers }) => {
                 title: action,
                 message: 'Are you sure you want to ' + action.toLowerCase() + ' this client?',
                 handleSubmit: handleDisable,
+                submitButtonText: 'Disable',
+                submitButtonIcon: 'ban',
+                submitAmbient: 'negative',
             }),
         );
     }

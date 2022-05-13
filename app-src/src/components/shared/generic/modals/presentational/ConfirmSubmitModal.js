@@ -14,6 +14,7 @@ const ConfirmSubmitModal = ({
     submitButtonText = 'Confirm',
     submitButtonIcon = 'check',
     error = null,
+    submitAmbient,
 }) => (
     <ModalOuterContainer>
         <BlockHeading title={title} />
@@ -27,6 +28,7 @@ const ConfirmSubmitModal = ({
                     icon={submitButtonIcon}
                     onClick={handleSubmit}
                     size="small"
+                    ambient={submitAmbient}
                 />
             </ButtonWrapper>
         </BlockButtonWrapper>
