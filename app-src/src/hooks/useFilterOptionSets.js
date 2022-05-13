@@ -36,7 +36,11 @@ const useFilterSets = (sets, selectedTypeID) => {
             options: [
                 { id: PIN_OPTIONS_FILTERS_ALL, name: 'All' },
                 ...servicesArr
-                    .filter(service => subscriptions.serviceIDs.includes(service.id))
+                    .filter(
+                        service =>
+                            !isEmpty(subscriptions.serviceIDs) &&
+                            subscriptions.serviceIDs.includes(service.id),
+                    )
                     .map(({ id, name }) => ({ id, name })),
             ],
             isMultiSelection: true,

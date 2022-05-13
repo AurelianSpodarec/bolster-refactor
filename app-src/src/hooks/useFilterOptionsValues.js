@@ -14,7 +14,7 @@ import { selectSubscriptions } from 'selectors/superAdmin/companySubscription';
 import useSearch from './useSearch';
 import { isEmpty } from 'helpers/generic';
 
-const useFilterOptionValues = (options, isSorting) => {
+const useFilterOptionValues = (options, isSorting, set) => {
     const { searchTerm, handleUpdateSearch } = useSearch();
     const [showFilters, setShowFilters] = useState(false);
     const [expandedID, setExpandedID] = useState(null);
@@ -34,7 +34,20 @@ const useFilterOptionValues = (options, isSorting) => {
             options: [
                 { id: PIN_OPTIONS_FILTERS_ALL, name: 'All' },
                 ...servicesArr
-                    .filter(service => subscriptions.serviceIDs.includes(service.id))
+                    .filter(service => {
+                        if (
+                            isEmpty(subscriptions.serviceIDs) ||
+                            !subscriptions.serviceIDs.includes(service.id)
+                        ) {
+                            return false;
+                        }
+
+                        if (!isEmpty(set.serviceIDs) && !set.serviceIDs.includes(service.id)) {
+                            return false;
+                        }
+
+                        return true;
+                    })
                     .map(({ id, name }) => ({ id, name })),
             ],
             isMultiSelection: true,

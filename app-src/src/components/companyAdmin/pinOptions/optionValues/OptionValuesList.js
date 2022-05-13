@@ -51,7 +51,7 @@ const OptionValuesList = ({ forwardRef, hasFetched }) => {
         filterOptions,
         form,
         handleChange,
-    } = useFilterOptionValues(pinOptionsForSet, isSorting);
+    } = useFilterOptionValues(pinOptionsForSet, isSorting, parentSet);
 
     const {
         showAddModal,
