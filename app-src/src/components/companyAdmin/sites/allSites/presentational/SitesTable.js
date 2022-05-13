@@ -29,6 +29,7 @@ const SitesTable = ({
                             icon="far fa-check"
                             text="Finish Sort"
                             ambient="positive"
+                            source="secondary"
                             size="medium"
                         />
                     ) : (
