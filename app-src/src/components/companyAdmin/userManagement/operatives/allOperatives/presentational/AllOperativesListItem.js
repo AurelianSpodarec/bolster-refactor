@@ -127,6 +127,7 @@ const AllOperativesListItem = ({
                         icon="key"
                         iconWeight="regular"
                         href={`/company/users-management/operative/${user.id}/drawings`}
+                        extraClasses="drawing-access-button"
                     />
                     <OperativeUserActionsMenu
                         user={user}
