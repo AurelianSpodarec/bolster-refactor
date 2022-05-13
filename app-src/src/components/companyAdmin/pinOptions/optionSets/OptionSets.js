@@ -71,6 +71,7 @@ const OptionSets = ({ selectedTypeID }) => {
                             size="medium"
                             iconEqualSize
                             onClick={() => setShowFilters(!showFilters)}
+                            extraClasses={showFilters ? 'active' : ''}
                         />
 
                         {showFilters && (

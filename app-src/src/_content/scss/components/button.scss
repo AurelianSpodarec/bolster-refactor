@@ -436,7 +436,7 @@ button {
         }
     }
 
-    &:active {
+    &:active, &.active {
         color: #F9FAFA;
     }
 
@@ -486,12 +486,7 @@ button {
                    
                 }
 
-
-                &.active {
-                    background-color: var(--primary-pressed);
-                }
-
-                &:active {
+                &:active, &.active {
                     background-color: var(--primary-pressed);
                 }
             }
@@ -510,7 +505,7 @@ button {
                     background-color: var(--positive-hover);
                 }
 
-                &:active {
+                &:active, &.active {
                     background-color: var(--positive-pressed);
                 }
             }
@@ -529,7 +524,7 @@ button {
                     background-color: var(--negative-hover);
                 }
 
-                &:active {
+                &:active, &.active {
                     background-color: var(--negative-pressed);
                 }
             }
@@ -552,7 +547,7 @@ button {
 
         // all ambients
         &:not(:disabled) {
-            &:hover {
+            &:hover, &.active {
                 background-color: var(--background-button-hover);
             }
 
