@@ -76,16 +76,16 @@ const useCostingAndEstimating = () => {
     const selectedTab = useSelector(selectHierarchySelectedTab);
     const selectedTabType = costingAndEstimatingType[selectedTab.toUpperCase()];
 
-    const buildInitialSelectedItems = (data = []) => {
+    const buildInitialSelectedItems = (data = [], resetData = false) => {
         const selectedItems = {
             buildings: [],
             floors: [],
             drawings: [],
             histories: [],
             installations: [],
-            installationTypes: filters.pinOptionIDs || [],
-            operatives: filters.operativeCompanyUserIDs || [],
-            services: filters.serviceIDs || [],
+            installationTypes: resetData ? [] : filters.pinOptionIDs || [],
+            operatives: resetData ? [] : filters.operativeCompanyUserIDs || [],
+            services: resetData ? [] : filters.serviceIDs || [],
         };
         const addAllChildren = (item, selectedItems) => {
             const itemType = getItemType(item);
@@ -202,10 +202,9 @@ const useCostingAndEstimating = () => {
             const dataKey = getDataKeyFromItem(item);
             setOneItem(item, value, selectedItems);
             const children = item[dataKey] || [];
-            if (children.length)
-                children.forEach(child => {
-                    propagateToChildren(child, value, selectedItems);
-                });
+            children.forEach(child => {
+                propagateToChildren(child, value, selectedItems);
+            });
             return;
         };
 
@@ -292,7 +291,7 @@ const useCostingAndEstimating = () => {
                 setLastFetch(moment().valueOf()); // Primitive debounce - normal function didn't work
             }
         }
-    }, [formData, prevProps.formData, prevProps.selectedTabType, selectedTabType]); // Fetch all data on filter change
+    }, [formData, prevProps.formData]); // Fetch all data on filter change
 
     useEffect(() => {
         if (prelimPostSuccess && !prevData.prelimPostSuccess) {
@@ -302,6 +301,7 @@ const useCostingAndEstimating = () => {
 
     useEffect(() => {
         if (selectedTab !== prevProps.selectedTab) {
+            onChange('selectedItems', buildInitialSelectedItems([], true));
             setWillAutoTick(true);
         }
     }, [selectedTab, prevProps.selectedTab]); // set auto-tick flag on tab change
