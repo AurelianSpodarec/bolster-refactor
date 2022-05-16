@@ -16,8 +16,6 @@ const ClientsList = ({ location, clients, handleDeleteClientModal }) =>
                         <LinkButton
                             href={`${location.pathname}/edit-client/${client.id}`}
                             icon="far fa-pencil fa-fw"
-                            source="secondary"
-                            ambient="positive"
                             extraClasses="icon-only typography-default-colour"
                         />
                     </ButtonWrapper>
