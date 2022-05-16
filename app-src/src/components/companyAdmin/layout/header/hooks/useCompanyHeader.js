@@ -6,7 +6,7 @@ import { getCompanyColour } from 'helpers/generic';
 import { selectCompanySettings } from 'selectors/companyAdmin/companySettings';
 import { selectJwtData } from 'selectors/shared/jwt';
 import { selectIsMobile } from '../../../../../selectors/shared/mobile';
-import { selectSubscriptions } from '../../../../../selectors/superAdmin/companySubscription';
+import { selectSubscriptions } from '../../../../../selectors/companyAdmin/companySubscription';
 
 import { toggleMobileMenu as toggleMobileMenuAction } from 'actions/shared/mobile/sync/toggleMobileMenu';
 import { isEmpty } from 'helpers/generic';

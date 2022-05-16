@@ -10,7 +10,7 @@ import {
 import { useForm } from 'helpers/hooks';
 
 import { selectServicesArr } from 'selectors/companyAdmin/services';
-import { selectSubscriptions } from 'selectors/superAdmin/companySubscription';
+import { selectSubscriptions } from 'selectors/companyAdmin/companySubscription';
 
 import useSearch from './useSearch';
 import { isEmpty } from 'helpers/generic';

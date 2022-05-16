@@ -16,7 +16,7 @@ import {
 } from '../../../../../selectors/companyAdmin/pinOptionSets';
 import { hideModal } from '../../../../../actions/shared/generic/modals/sync/hideModal';
 import editSitePinOptionSets from '../../../../../actions/companyAdmin/sites/async/editSitePinOptionSets';
-import { selectSubscriptions } from '../../../../../selectors/superAdmin/companySubscription';
+import { selectSubscriptions } from '../../../../../selectors/companyAdmin/companySubscription';
 
 const EditSitePinOptionSetsContainer = ({ site }) => {
     const [selectedPinOptionTypes, setSelectedPinOptionTypes] = useState({});
