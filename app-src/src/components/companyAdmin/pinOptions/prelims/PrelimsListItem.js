@@ -1,33 +1,23 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+
+import { selectCompanySettings } from 'selectors/companyAdmin/companySettings';
 
 import ActionMenu from 'components/shared/actionMenu/ActionMenu';
 import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
-import useColourTheme from 'hooks/useColourTheme';
-import { PRELIMS_TYPES } from 'constants/companyAdmin/enums';
-import percentSvg from '../../../../_content/images/frontend/percentIcon.svg';
-import fixPriceSvg from '../../../../_content/images/frontend/fixPriceIcon.svg';
-import fixPriceSvgForLightMode from '../../../../_content/images/frontend/fixPriceIconForLightMode.svg';
-import percentSvgForLightMode from '../../../../_content/images/frontend/percentIconForLightMode.svg';
+import { CURRENCY_SYMBOLS } from 'constants/companyAdmin/enums';
+import CurrencyIcon from 'components/shared/currencyIcon/CurrencyIcon';
 
 const PrelimsListItem = ({ set, showEditModal, showDeleteModal }) => {
-    const colourTheme = useColourTheme();
+    const company = useSelector(selectCompanySettings);
+
     return (
         <tr key={set.id}>
             <td>{set.name}</td>
+
             <td>
-                <img
-                    src={
-                        colourTheme === 'dark'
-                            ? set.type === PRELIMS_TYPES.PERCENT
-                                ? percentSvg
-                                : fixPriceSvg
-                            : set.type === PRELIMS_TYPES.PERCENT
-                            ? percentSvgForLightMode
-                            : fixPriceSvgForLightMode
-                    }
-                    alt="Type of payment"
-                />
+                <CurrencyIcon currency={CURRENCY_SYMBOLS[company.reportingCurrency]} />
             </td>
             <td>{set.value}</td>
 
