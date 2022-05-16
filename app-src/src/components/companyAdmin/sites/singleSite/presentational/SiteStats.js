@@ -72,7 +72,7 @@ const SiteStats = ({
                             </>
                         )}
                         <ActionMenuActionButton
-                            onClick={() => console.log(handleArchive)}
+                            onClick={handleArchive}
                             text={site.isArchived ? 'Un-Archive' : 'Archive'}
                         />
                         {site.accessType === ACCESS_TYPES_VALUES.OWNER && (

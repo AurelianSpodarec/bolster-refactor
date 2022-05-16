@@ -306,7 +306,7 @@ const useCostingAndEstimating = () => {
     }, [selectedTab, prevProps.selectedTab]); // set auto-tick flag on tab change
 
     useEffect(() => {
-        if (!isFetchingFilters && !prevData.isFetchingFilters && willAutoTick) {
+        if (!isFetchingFilters && prevData.isFetchingFilters && willAutoTick) {
             setWillAutoTick(false);
             onChange('selectedItems', buildInitialSelectedItems(filters.allSites));
             onChange('maxPrice', filters.priceMax);
@@ -316,6 +316,7 @@ const useCostingAndEstimating = () => {
 
     useEffect(() => {
         if (!isEmpty(filters.allSites) && isEmpty(prevProps.allSites)) {
+            setWillAutoTick(true);
             onChange('selectedItems', buildInitialSelectedItems(filters.allSites));
         }
     }, [filters.allSites, prevProps.allSites]); // auto-tick everything on first data load
