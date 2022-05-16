@@ -17,7 +17,7 @@ const TooltipFiltersItem = ({
 
     const isOptionExpanded = id === expandedID;
 
-    const filteredOptions = () => {
+    const getFilteredOptions = () => {
         if (searchTerm && allowSearch) {
             return options.filter(option =>
                 option.name.toLowerCase().includes(searchTerm.toLowerCase()),
@@ -50,6 +50,8 @@ const TooltipFiltersItem = ({
         }
     };
 
+    const filteredOptions = getFilteredOptions();
+
     return (
         <>
             <FlexWrapper>
@@ -72,31 +74,35 @@ const TooltipFiltersItem = ({
                     />
                 )}
                 <FlexWrapper direction="column" extraClasses="options-wrapper">
-                    {filteredOptions()?.map(option => {
-                        let isSelected = false;
+                    {filteredOptions && filteredOptions.length ? (
+                        filteredOptions.map(option => {
+                            let isSelected = false;
 
-                        switch (type) {
-                            case TOOLTIP_FILTERS_TYPES.SINGLE_SELECTION:
-                                isSelected = selected === option.id;
-                                break;
-                            case TOOLTIP_FILTERS_TYPES.MULTI_SELECTION:
-                                isSelected = selected.includes(option.id);
-                                break;
-                            default:
-                                isSelected = false;
-                        }
+                            switch (type) {
+                                case TOOLTIP_FILTERS_TYPES.SINGLE_SELECTION:
+                                    isSelected = selected === option.id;
+                                    break;
+                                case TOOLTIP_FILTERS_TYPES.MULTI_SELECTION:
+                                    isSelected = selected.includes(option.id);
+                                    break;
+                                default:
+                                    isSelected = false;
+                            }
 
-                        return (
-                            <FlexWrapper key={option.id} align="center" extraClasses="option">
-                                <Tickbox
-                                    label={option.name}
-                                    name="tickbox"
-                                    checked={isSelected}
-                                    handleChange={() => handleChange(option.id)}
-                                />
-                            </FlexWrapper>
-                        );
-                    })}
+                            return (
+                                <FlexWrapper key={option.id} align="center" extraClasses="option">
+                                    <Tickbox
+                                        label={option.name}
+                                        name="tickbox"
+                                        checked={isSelected}
+                                        handleChange={() => handleChange(option.id)}
+                                    />
+                                </FlexWrapper>
+                            );
+                        })
+                    ) : (
+                        <p>No options found.</p>
+                    )}
                 </FlexWrapper>
             </div>
         </>
