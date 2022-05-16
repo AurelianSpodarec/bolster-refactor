@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import withDrag from 'components/shared/dragDrop/hocs/withDrag';
+
 import ActionMenu from 'components/shared/actionMenu/ActionMenu';
 import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
@@ -10,7 +12,7 @@ import ButtonWrapperInfo from 'components/shared/generic/button/presentational/B
 
 const OptionSetsListItem = ({
     set,
-    set: { id, name, isDefault, isDisabled },
+    set: { id, name, isDefault, isDisabled, isDeleted },
     setLink,
     showEditModal,
     showDeleteModal,
@@ -18,70 +20,97 @@ const OptionSetsListItem = ({
     enableOptionSet,
     disableOptionSet,
     setAsDefault,
+    isSorting,
+    isDragging,
+    connectDropTarget,
+    forwardRef,
     isCompanySet,
-}) => (
-    <tr>
-        <td className="row-link w-checkbox">
-            <FlexWrapper justify="start" align="center">
-                <CheckboxContainer
-                    text=""
-                    name={`pin-set-checkbox-${id}`}
-                    checked={!isDisabled}
-                    handleChange={(_, value) => {
-                        if (value) {
-                            enableOptionSet(set);
-                        } else {
-                            disableOptionSet(set);
-                        }
-                    }}
-                />
-                <Link className="checkbox-text link" to={`/company/pin-options/${setLink}/${id}`}>
-                    {name}
-                </Link>
-            </FlexWrapper>
-        </td>
-        <td>
-            <ButtonWrapper alignment="right">
-                {isDefault && <ButtonWrapperInfo text="Default" ambient="positive" removeSpacing />}
+}) => {
+    let rowClass = 'draggable expandable';
+    if (isDragging) rowClass += ' dragging';
 
-                <ActionMenu>
-                    {!isDefault && (
-                        <ActionMenuActionButton
-                            text="Set as default"
-                            onClick={() => setAsDefault(set)}
-                        />
-                    )}
+    return (
+        <>
+            {connectDropTarget(
+                <tr
+                    className={rowClass}
+                    ref={isSorting ? forwardRef : null}
+                    style={{ display: isSorting && isDeleted ? 'none' : 'table-row' }} // setting as hidden here rather than filtering so sort mode still works
+                >
+                    <td className="row-link w-checkbox">
+                        <FlexWrapper justify="start" align="center">
+                            <CheckboxContainer
+                                text=""
+                                name={`pin-set-checkbox-${id}`}
+                                checked={!isDisabled}
+                                handleChange={(_, value) => {
+                                    if (value) {
+                                        enableOptionSet(set);
+                                    } else {
+                                        disableOptionSet(set);
+                                    }
+                                }}
+                                disabled={isSorting}
+                            />
+                            <Link
+                                className="checkbox-text link"
+                                to={`/company/pin-options/${setLink}/${id}`}
+                            >
+                                {name}
+                            </Link>
+                        </FlexWrapper>
+                    </td>
+                    <td>
+                        <ButtonWrapper alignment="right">
+                            {isDefault && (
+                                <ButtonWrapperInfo
+                                    text="Default"
+                                    ambient="positive"
+                                    removeSpacing
+                                />
+                            )}
 
-                    <ActionMenuActionButton
-                        text="Duplicate"
-                        onClick={() => showDuplicateModal(set)}
-                    />
+                            <ActionMenu disabled={isSorting}>
+                                {!isDefault && (
+                                    <ActionMenuActionButton
+                                        text="Set as default"
+                                        onClick={() => setAsDefault(set)}
+                                    />
+                                )}
 
-                    <ActionMenuActionButton
-                        text="Edit"
-                        onClick={() => showEditModal(set)}
-                        disabled={!isCompanySet}
-                        tooltip={
-                            !isCompanySet
-                                ? 'This is a Bolster Systems created set and cannot be edited. Please duplicate the set first if you would like to make changes.'
-                                : null
-                        }
-                    />
-                    <ActionMenuActionButton
-                        text="Delete"
-                        onClick={() => showDeleteModal(set)}
-                        isNegative
-                        disabled={!isCompanySet}
-                        tooltip={
-                            !isCompanySet
-                                ? 'This is a Bolster Systems created set and cannot be deleted'
-                                : null
-                        }
-                    />
-                </ActionMenu>
-            </ButtonWrapper>
-        </td>
-    </tr>
-);
+                                <ActionMenuActionButton
+                                    text="Duplicate"
+                                    onClick={() => showDuplicateModal(set)}
+                                />
 
-export default OptionSetsListItem;
+                                <ActionMenuActionButton
+                                    text="Edit"
+                                    onClick={() => showEditModal(set)}
+                                    disabled={!isCompanySet}
+                                    tooltip={
+                                        !isCompanySet
+                                            ? 'This is a Bolster Systems created set and cannot be edited. Please duplicate the set first if you would like to make changes.'
+                                            : null
+                                    }
+                                />
+                                <ActionMenuActionButton
+                                    text="Delete"
+                                    onClick={() => showDeleteModal(set)}
+                                    isNegative
+                                    disabled={!isCompanySet}
+                                    tooltip={
+                                        !isCompanySet
+                                            ? 'This is a Bolster Systems created set and cannot be deleted'
+                                            : null
+                                    }
+                                />
+                            </ActionMenu>
+                        </ButtonWrapper>
+                    </td>
+                </tr>,
+            )}
+        </>
+    );
+};
+
+export default withDrag(OptionSetsListItem, 'PIN_OPTION_SETS');
