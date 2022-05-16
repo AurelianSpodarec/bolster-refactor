@@ -1,7 +1,13 @@
 import React from 'react';
 
-const FilterInput = ({ value, handleChange, omitIcon, placeholder = 'Search...' }) => (
-    <div className="filter-input">
+const FilterInput = ({
+    value,
+    handleChange,
+    omitIcon,
+    placeholder = 'Search...',
+    extraContainerClasses = '',
+}) => (
+    <div className={`filter-input ${extraContainerClasses}`}>
         {!omitIcon && <i className="search-icon far fa-search" />}
         <input
             type="text"

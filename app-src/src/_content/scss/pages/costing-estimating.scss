@@ -486,13 +486,14 @@
     overflow-y: scroll;
     transition: visibility 0s, opacity 0.1s linear;
 
+    .search-container {
+      margin-bottom: 15px;
+    }
+
     .options-wrapper {
       .option {
         margin-bottom: 15px;
 
-        &:first-child {
-          margin-top: 15px;
-        }
         &:last-child {
           margin-bottom: 0;
         }

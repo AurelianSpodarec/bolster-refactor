@@ -7,7 +7,7 @@ import FilterInput from '../FilterInput';
 import Tickbox from 'components/shared/generic/form/presentational/Tickbox';
 
 const TooltipFiltersItem = ({
-    option: { id, name, options, type },
+    option: { id, name, options, type, allowSearch },
     expandedID,
     setExpandedID,
     onChange,
@@ -18,7 +18,7 @@ const TooltipFiltersItem = ({
     const isOptionExpanded = id === expandedID;
 
     const filteredOptions = () => {
-        if (searchTerm) {
+        if (searchTerm && allowSearch) {
             return options.filter(option =>
                 option.name.toLowerCase().includes(searchTerm.toLowerCase()),
             );
@@ -64,7 +64,13 @@ const TooltipFiltersItem = ({
             </FlexWrapper>
 
             <div className={`graph-filter-options border ${isOptionExpanded ? 'active' : ''}`}>
-                <FilterInput value={searchTerm} handleChange={(_, value) => setSearchTerm(value)} />
+                {allowSearch && (
+                    <FilterInput
+                        value={searchTerm}
+                        handleChange={(_, value) => setSearchTerm(value)}
+                        extraContainerClasses="search-container"
+                    />
+                )}
                 <FlexWrapper direction="column" extraClasses="options-wrapper">
                     {filteredOptions()?.map(option => {
                         let isSelected = false;
