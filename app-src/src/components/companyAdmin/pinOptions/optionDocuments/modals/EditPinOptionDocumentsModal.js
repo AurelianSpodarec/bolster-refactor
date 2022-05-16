@@ -18,7 +18,7 @@ const EditPinOptionDocumentsModal = ({ hideModal, documentsVersion }) => {
 
     return (
         <ModalOuterContainer hideCloseButton>
-            <ModalHeading title="Edit File" />
+            <ModalHeading title="Add new version" />
 
             <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
                 <Field name="" required>
