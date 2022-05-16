@@ -14,7 +14,7 @@ import {
 } from 'selectors/companyAdmin/pinOptionSets';
 import { selectServicesArr } from 'selectors/companyAdmin/services';
 import { selectPinOptionType } from 'selectors/companyAdmin/pinOptionTypes';
-import { selectSubscriptions } from '../../../../../selectors/superAdmin/companySubscription';
+import { selectSubscriptions } from '../../../../../selectors/companyAdmin/companySubscription';
 
 const useCreateOptionSet = pinOptionTypeID => {
     const [newSetID, setNewSetID] = useState(null);

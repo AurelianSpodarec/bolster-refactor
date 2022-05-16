@@ -4,7 +4,7 @@ import { formatCheckboxListOptions } from 'helpers/generic';
 
 import { selectPinOptionSet } from 'selectors/companyAdmin/pinOptionSets';
 import { selectServicesArr } from 'selectors/companyAdmin/services';
-import { selectSubscriptions } from '../../../../../selectors/superAdmin/companySubscription';
+import { selectSubscriptions } from '../../../../../selectors/companyAdmin/companySubscription';
 
 const useGetAvailableServices = pinOptionSetID => {
     const services = useSelector(selectServicesArr);

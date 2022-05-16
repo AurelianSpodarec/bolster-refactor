@@ -5,7 +5,8 @@ import { isEmpty } from 'helpers/generic';
 import { useForm } from 'helpers/hooks';
 
 import { selectServicesArr } from 'selectors/companyAdmin/services';
-import { selectSubscriptions } from 'selectors/superAdmin/companySubscription';
+import { selectSubscriptions } from 'selectors/companyAdmin/companySubscription';
+import { selectCompanySettings } from 'selectors/companyAdmin/companySettings';
 
 import useSearch from 'hooks/useSearch';
 import {
@@ -23,6 +24,7 @@ const useFilterSets = (sets, selectedTypeID) => {
 
     const servicesArr = useSelector(selectServicesArr);
     const subscriptions = useSelector(selectSubscriptions);
+    const company = useSelector(selectCompanySettings);
 
     const [form, handleChange] = useForm({
         [PIN_OPTIONS_SETS_FILTERS_OPTIONS.SERVICE]: [PIN_OPTIONS_FILTERS_ALL],
@@ -56,7 +58,7 @@ const useFilterSets = (sets, selectedTypeID) => {
                 { id: PIN_OPTIONS_FILTERS_ALL, name: 'All' },
                 {
                     id: PIN_OPTIONS_SETS_FILTERS_CREATED_BY_OPTIONS.COMPANY,
-                    name: 'Company created',
+                    name: `${company?.name ? company.name : 'Company'} created`,
                 },
                 {
                     id: PIN_OPTIONS_SETS_FILTERS_CREATED_BY_OPTIONS.SUPER_ADMIN,
