@@ -47,7 +47,7 @@ const OptionDocumentsList = ({
     );
 
     return (
-        <GridWrapper gap={15} itemsPerRow={5}>
+        <GridWrapper containerClass="horizontal-margin" gap={15} itemsPerRow={5}>
             {documents.map(document => {
                 const latestVersion = getLatestVersionForPinOptionDocument(
                     document.id,
