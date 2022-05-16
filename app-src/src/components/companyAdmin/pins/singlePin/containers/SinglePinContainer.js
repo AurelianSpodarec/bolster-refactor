@@ -12,6 +12,7 @@ import fetchZonesByDrawingID from 'actions/companyAdmin/zones/async/fetchZonesBy
 import { componentDidMount } from '../../../../../helpers/generic';
 import { selectPin } from '../../../../../selectors/companyAdmin/pins';
 import fetchPinOptionVersions from '../../../../../actions/companyAdmin/pinOptions/async/fetchPinOptionVersions';
+import fetchPinOptionTypes from 'actions/companyAdmin/pinOptions/async/fetchPinOptionTypes';
 
 const SinglePinContainer = ({ singlePinTasks }) => {
     const dispatch = useDispatch();
@@ -21,7 +22,8 @@ const SinglePinContainer = ({ singlePinTasks }) => {
 
     componentDidMount(fetchPin);
     useEffect(() => {
-        if (pinID) fetchPin();
+        if (pinID) dispatch(fetchPin);
+        dispatch(fetchPinOptionTypes());
     }, [pinID]);
 
     return <SinglePin isLoading={isLoading} pin={pin} pinTasks={formatPinTasks} />;
