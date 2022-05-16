@@ -1,22 +1,26 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 import useCostingGraphFilters from '../_hooks/useCostingGraphFilters';
-
-import CostingGraphFilterItem from './CostingGraphFilterItem';
+import useClickOutside from 'hooks/useClickOutside';
 
 import { COSTING_GRAPH_FILTER_TYPES } from '../../../../constants/companyAdmin/enums';
-import { useSelector } from 'react-redux';
+
 import { selectServices } from 'selectors/companyAdmin/services';
 import { selectPinOptionVersionsArr } from 'selectors/companyAdmin/pinOptionVersions';
 import { selectCompanyUsers } from '../../../../selectors/companyAdmin/companyUsers';
 
-const CostingGraphFilters = ({ filterFormData, filters, onChange }) => {
+import CostingGraphFilterItem from './CostingGraphFilterItem';
+
+const CostingGraphFilters = ({ filterFormData, filters, onChange, closeFilters }) => {
     const { expandedId, setExpandedId } = useCostingGraphFilters();
     const { priceMin, priceMax, priceStep, operativeCompanyUserIDs, serviceIDs, pinOptionIDs } =
         filters;
     const companyUsers = useSelector(selectCompanyUsers);
     const services = useSelector(selectServices);
     const pinOptionVersions = useSelector(selectPinOptionVersionsArr);
+
+    const ref = useClickOutside(closeFilters);
 
     const filterOptions = [
         {
@@ -68,7 +72,7 @@ const CostingGraphFilters = ({ filterFormData, filters, onChange }) => {
     //         type: COSTING_GRAPH_FILTER_TYPES.PRICE_RANGE,
     //     });
     return (
-        <div className="tooltip-filters border">
+        <div ref={ref} className="tooltip-filters border">
             {filterOptions.map(option => (
                 <CostingGraphFilterItem
                     key={option.id}

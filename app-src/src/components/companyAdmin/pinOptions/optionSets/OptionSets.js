@@ -75,7 +75,7 @@ const OptionSets = ({ selectedTypeID }) => {
                         />
 
                         {showFilters && (
-                            <TooltipFilters>
+                            <TooltipFilters closeFilters={() => setShowFilters(false)}>
                                 {filterOptions.map(option => (
                                     <TooltipFiltersItem
                                         key={option.id}
