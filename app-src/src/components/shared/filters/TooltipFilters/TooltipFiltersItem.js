@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 
+import { TOOLTIP_FILTERS_TYPES } from 'constants/companyAdmin/enums';
+
 import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 import FilterInput from '../FilterInput';
 import Tickbox from 'components/shared/generic/form/presentational/Tickbox';
 
 const TooltipFiltersItem = ({
-    option: { id, name, options, isMultiSelection },
+    option: { id, name, options, type, allowSearch },
     expandedID,
     setExpandedID,
     onChange,
@@ -16,7 +18,7 @@ const TooltipFiltersItem = ({
     const isOptionExpanded = id === expandedID;
 
     const filteredOptions = () => {
-        if (searchTerm) {
+        if (searchTerm && allowSearch) {
             return options.filter(option =>
                 option.name.toLowerCase().includes(searchTerm.toLowerCase()),
             );
@@ -26,7 +28,11 @@ const TooltipFiltersItem = ({
     };
 
     const handleChange = id => {
-        if (isMultiSelection) {
+        if (type === TOOLTIP_FILTERS_TYPES.SINGLE_SELECTION) {
+            onChange(expandedID, id);
+        }
+
+        if (type === TOOLTIP_FILTERS_TYPES.MULTI_SELECTION) {
             if (selected.includes(id)) {
                 if (id === 0) return;
 
@@ -41,8 +47,6 @@ const TooltipFiltersItem = ({
 
                 onChange(expandedID, filteredOptions);
             }
-        } else {
-            onChange(expandedID, id);
         }
     };
 
@@ -59,13 +63,28 @@ const TooltipFiltersItem = ({
                 </button>
             </FlexWrapper>
 
-            <div className={`graph-filter-options border ${isOptionExpanded ? 'active' : ''}`}>
-                <FilterInput value={searchTerm} handleChange={(_, value) => setSearchTerm(value)} />
+            <div className={`tooltip-filter-options border ${isOptionExpanded ? 'active' : ''}`}>
+                {allowSearch && (
+                    <FilterInput
+                        value={searchTerm}
+                        handleChange={(_, value) => setSearchTerm(value)}
+                        extraContainerClasses="search-container"
+                    />
+                )}
                 <FlexWrapper direction="column" extraClasses="options-wrapper">
                     {filteredOptions()?.map(option => {
-                        const isSelected = isMultiSelection
-                            ? selected.includes(option.id)
-                            : selected === option.id;
+                        let isSelected = false;
+
+                        switch (type) {
+                            case TOOLTIP_FILTERS_TYPES.SINGLE_SELECTION:
+                                isSelected = selected === option.id;
+                                break;
+                            case TOOLTIP_FILTERS_TYPES.MULTI_SELECTION:
+                                isSelected = selected.includes(option.id);
+                                break;
+                            default:
+                                isSelected = false;
+                        }
 
                         return (
                             <FlexWrapper key={option.id} align="center" extraClasses="option">

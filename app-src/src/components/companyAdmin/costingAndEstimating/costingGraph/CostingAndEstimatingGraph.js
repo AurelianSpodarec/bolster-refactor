@@ -79,6 +79,7 @@ const CostingAndEstimatingGraph = ({
                                         filterFormData={filterFormData}
                                         filters={filters}
                                         onChange={onChange}
+                                        closeFilters={() => setShowFilterOptions(false)}
                                     />
                                 )}
                             </FlexWrapper>
