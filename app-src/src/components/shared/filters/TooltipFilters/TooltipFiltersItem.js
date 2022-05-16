@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 
+import { TOOLTIP_FILTERS_TYPES } from 'constants/companyAdmin/enums';
+
 import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 import FilterInput from '../FilterInput';
 import Tickbox from 'components/shared/generic/form/presentational/Tickbox';
 
 const TooltipFiltersItem = ({
-    option: { id, name, options, isMultiSelection },
+    option: { id, name, options, type },
     expandedID,
     setExpandedID,
     onChange,
@@ -26,7 +28,11 @@ const TooltipFiltersItem = ({
     };
 
     const handleChange = id => {
-        if (isMultiSelection) {
+        if (type === TOOLTIP_FILTERS_TYPES.SINGLE_SELECTION) {
+            onChange(expandedID, id);
+        }
+
+        if (type === TOOLTIP_FILTERS_TYPES.MULTI_SELECTION) {
             if (selected.includes(id)) {
                 if (id === 0) return;
 
@@ -41,8 +47,6 @@ const TooltipFiltersItem = ({
 
                 onChange(expandedID, filteredOptions);
             }
-        } else {
-            onChange(expandedID, id);
         }
     };
 

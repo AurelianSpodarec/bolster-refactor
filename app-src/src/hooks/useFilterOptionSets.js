@@ -13,6 +13,7 @@ import {
     PIN_OPTIONS_SETS_FILTERS_CREATED_BY_OPTIONS,
     PIN_OPTIONS_FILTERS_ENABLED_DISABLED_OPTIONS,
     PIN_OPTIONS_SETS_FILTERS_OPTIONS,
+    TOOLTIP_FILTERS_TYPES,
 } from 'constants/companyAdmin/enums';
 
 const useFilterSets = (sets, selectedTypeID) => {
@@ -33,6 +34,7 @@ const useFilterSets = (sets, selectedTypeID) => {
         {
             id: PIN_OPTIONS_SETS_FILTERS_OPTIONS.SERVICE,
             name: 'Service',
+            type: TOOLTIP_FILTERS_TYPES.MULTI_SELECTION,
             options: [
                 { id: PIN_OPTIONS_FILTERS_ALL, name: 'All' },
                 ...servicesArr
@@ -43,11 +45,11 @@ const useFilterSets = (sets, selectedTypeID) => {
                     )
                     .map(({ id, name }) => ({ id, name })),
             ],
-            isMultiSelection: true,
         },
         {
             id: PIN_OPTIONS_SETS_FILTERS_OPTIONS.CREATED_BY,
             name: 'Created By',
+            type: TOOLTIP_FILTERS_TYPES.SINGLE_SELECTION,
             options: [
                 { id: PIN_OPTIONS_FILTERS_ALL, name: 'All' },
                 {
@@ -59,11 +61,11 @@ const useFilterSets = (sets, selectedTypeID) => {
                     name: 'Bolster created',
                 },
             ],
-            isMultiSelection: false,
         },
         {
             id: PIN_OPTIONS_SETS_FILTERS_OPTIONS.ENABLED_DISABLED,
             name: 'Enabled / Disabled',
+            type: TOOLTIP_FILTERS_TYPES.SINGLE_SELECTION,
             options: [
                 { id: PIN_OPTIONS_FILTERS_ALL, name: 'All' },
                 { id: PIN_OPTIONS_FILTERS_ENABLED_DISABLED_OPTIONS.ENABLED, name: 'Enabled' },
@@ -72,7 +74,6 @@ const useFilterSets = (sets, selectedTypeID) => {
                     name: 'Disabled',
                 },
             ],
-            isMultiSelection: false,
         },
     ];
 

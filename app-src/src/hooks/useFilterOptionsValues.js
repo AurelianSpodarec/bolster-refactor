@@ -5,6 +5,7 @@ import {
     PIN_OPTIONS_FILTERS_ALL,
     PIN_OPTIONS_FILTERS_ENABLED_DISABLED_OPTIONS,
     PIN_OPTIONS_VALUES_FILTERS_OPTIONS,
+    TOOLTIP_FILTERS_TYPES,
 } from 'constants/companyAdmin/enums';
 import { useForm } from 'helpers/hooks';
 
@@ -31,6 +32,7 @@ const useFilterOptionValues = (options, isSorting, set) => {
         {
             id: PIN_OPTIONS_VALUES_FILTERS_OPTIONS.SERVICE,
             name: 'Service',
+            type: TOOLTIP_FILTERS_TYPES.MULTI_SELECTION,
             options: [
                 { id: PIN_OPTIONS_FILTERS_ALL, name: 'All' },
                 ...servicesArr
@@ -50,11 +52,11 @@ const useFilterOptionValues = (options, isSorting, set) => {
                     })
                     .map(({ id, name }) => ({ id, name })),
             ],
-            isMultiSelection: true,
         },
         {
             id: PIN_OPTIONS_VALUES_FILTERS_OPTIONS.ENABLED_DISABLED,
             name: 'Enabled / Disabled',
+            type: TOOLTIP_FILTERS_TYPES.SINGLE_SELECTION,
             options: [
                 { id: PIN_OPTIONS_FILTERS_ALL, name: 'All' },
                 { id: PIN_OPTIONS_FILTERS_ENABLED_DISABLED_OPTIONS.ENABLED, name: 'Enabled' },
@@ -63,7 +65,6 @@ const useFilterOptionValues = (options, isSorting, set) => {
                     name: 'Disabled',
                 },
             ],
-            isMultiSelection: false,
         },
     ];
 
