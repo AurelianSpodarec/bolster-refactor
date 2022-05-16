@@ -68,7 +68,7 @@ const CostingGraphFilters = ({ filterFormData, filters, onChange }) => {
     //         type: COSTING_GRAPH_FILTER_TYPES.PRICE_RANGE,
     //     });
     return (
-        <div className="graph-filters-tooltip border">
+        <div className="tooltip-filters border">
             {filterOptions.map(option => (
                 <CostingGraphFilterItem
                     key={option.id}

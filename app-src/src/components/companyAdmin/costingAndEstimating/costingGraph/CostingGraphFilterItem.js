@@ -57,12 +57,13 @@ const CostingGraphFilterItem = ({
                 </button>
             </FlexWrapper>
 
-            <div className={`graph-filter-options border ${isOptionExpanded ? 'active' : ''}`}>
+            <div className={`tooltip-filter-options border ${isOptionExpanded ? 'active' : ''}`}>
                 {type !== 4 ? (
                     <>
                         <FilterInput
                             value={searchTerm}
                             handleChange={(_, value) => setSearchTerm(value)}
+                            extraContainerClasses="search-container"
                         />
                         <FlexWrapper direction="column" extraClasses="options-wrapper">
                             {filteredOptions()?.map(option => {
