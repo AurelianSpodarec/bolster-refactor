@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
     CONFIRM_SUBMIT,
     CREATE_PIN_OPTIONS_SET_MODAL,
+    DUPLICATE_PIN_OPTIONS_SET_MODAL,
     EDIT_PIN_OPTIONS_SET_MODAL,
     ERROR_MODAL,
 } from 'constants/shared/modalTypes';
@@ -60,14 +61,7 @@ const useOptionSetActions = selectedTypeID => {
     };
 
     const showDuplicateModal = set => {
-        dispatch(
-            showModal(CONFIRM_SUBMIT, {
-                handleSubmit: () => dispatch(duplicatePinOptionSet(set.id)),
-                title: `Duplicate ${set.name}?`,
-                message: 'Are you sure you would like to duplicate this set?',
-                submitButtonText: 'Duplicate',
-            }),
-        );
+        dispatch(showModal(DUPLICATE_PIN_OPTIONS_SET_MODAL, { set }));
     };
 
     const enableOptionSet = set => {

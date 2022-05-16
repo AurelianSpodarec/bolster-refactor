@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
+import { CURRENCY_SYMBOLS } from 'constants/companyAdmin/enums';
 import { isEmpty } from 'helpers/generic';
 
 import { selectPinOptionType } from 'selectors/companyAdmin/pinOptionTypes';
@@ -15,7 +16,6 @@ import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActio
 import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
 import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 import ButtonWrapperInfo from 'components/shared/generic/button/presentational/ButtonWrapperInfo';
-import { CURRENCY_SYMBOLS } from 'constants/companyAdmin/enums';
 
 const OptionValuesListItem = ({
     option,
