@@ -55,8 +55,6 @@ const DocumentsList = ({
                                     <LinkButton
                                         href={`${location.pathname}/edit-document/${document.id}`}
                                         icon="far fa-pencil fa-fw"
-                                        source="secondary"
-                                        ambient="positive"
                                         extraClasses="icon-only typography-default-colour"
                                     />
 

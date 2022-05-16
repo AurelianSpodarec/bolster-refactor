@@ -44,15 +44,13 @@ const OperativesList = ({ operatives, documentID, handleDeleteOperativeModal }) 
                     <br />
                     {email}
                 </td>
-                <td>
+                <td className="pull-right">
                     {canEditUser && (
                         <FlexWrapper>
                             <ButtonWrapper>
                                 <LinkButton
                                     href={`/company/drawings/${documentID}/edit-operative/${id}`}
                                     icon="far fa-pencil fa-fw"
-                                    source="secondary"
-                                    ambient="positive"
                                     extraClasses="icon-only typography-default-colour"
                                 />
                             </ButtonWrapper>

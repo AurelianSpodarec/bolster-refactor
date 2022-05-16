@@ -8,6 +8,7 @@ import {
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import { ReactComponent as TrashIcon } from '../../../../_content/images/icons/trash.svg';
 
 const CompaniesAccessList = ({
     companies,
@@ -24,7 +25,7 @@ const CompaniesAccessList = ({
                     {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
                     {company.companyName}
                 </td>
-                <td>
+                <td className="pull-right">
                     {onMobile && <span className="mobile-table-heading">{headers[2]}</span>}
                     {company.accessType === COMPANY_USER_ROLE_TYPES.OWNER
                         ? '(Owner)'
@@ -33,9 +34,7 @@ const CompaniesAccessList = ({
                                   <ButtonWrapper>
                                       <LinkButton
                                           href={`${parentId}/edit-company/${company.companyID}`}
-                                          icon="far fa-edit fa-fw"
-                                          source="secondary"
-                                          ambient="positive"
+                                          icon="far fa-pencil fa-fw"
                                           extraClasses="icon-only typography-default-colour"
                                       />
                                   </ButtonWrapper>
@@ -54,7 +53,7 @@ const CompaniesAccessList = ({
                                 {'>'} {service.serviceName}{' '}
                                 {service.state === PERMISSION_STATES.PENDING && <i> (Pending)</i>}
                             </td>
-                            <td>
+                            <td className="pull-right">
                                 {!service.inherited && accessType === ACCESS_TYPES_VALUES.OWNER && (
                                     <ButtonWrapper>
                                         <ActionButton
@@ -64,7 +63,7 @@ const CompaniesAccessList = ({
                                                     service.serviceName,
                                                 );
                                             }}
-                                            icon="far fa-minus fa-fw"
+                                            svgIconComponent={TrashIcon}
                                             source="secondary"
                                             ambient="positive"
                                             extraClasses="icon-only typography-default-colour"
