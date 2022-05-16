@@ -17,7 +17,7 @@ import {
     TOOLTIP_FILTERS_TYPES,
 } from 'constants/companyAdmin/enums';
 
-const useFilterSets = (sets, selectedTypeID) => {
+const useFilterSets = (sets, isSorting, selectedTypeID) => {
     const { searchTerm, handleUpdateSearch } = useSearch();
     const [showFilters, setShowFilters] = useState(false);
     const [expandedID, setExpandedID] = useState(null);
@@ -89,7 +89,11 @@ const useFilterSets = (sets, selectedTypeID) => {
     const getFilteredSets = () => {
         const sortedSets = getSortedSets();
 
-        const initialFilters = sortedSets.filter(set => {
+        const typeFilters = sortedSets.filter(set => set.pinOptionTypeID === selectedTypeID);
+
+        if (isSorting) return typeFilters;
+
+        const initialFilters = typeFilters.filter(set => {
             if (!set.name.toLowerCase().includes(searchTerm.toLowerCase())) return false;
             if (set.pinOptionTypeID !== selectedTypeID) return false;
             if (set.isDeleted) return false;

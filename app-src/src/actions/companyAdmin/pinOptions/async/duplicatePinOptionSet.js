@@ -22,11 +22,11 @@ export const duplicatePinOptionSetFailure = error => ({
     error,
 });
 
-export default setID => async dispatch => {
+export default (setID, postBody) => async dispatch => {
     dispatch(duplicatePinOptionSetRequest());
 
     return axios
-        .post(`${API_URL}/pinoptions/sets/${setID}/duplicate`, null, getHeaders())
+        .post(`${API_URL}/pinoptions/sets/${setID}/duplicate`, postBody, getHeaders())
         .then(res => dispatch(duplicatePinOptionSetSuccess(res.data)))
         .catch(err => dispatch(duplicatePinOptionSetFailure(err.message)));
 };

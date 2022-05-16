@@ -1,6 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
+import { ReactComponent as SortAscIcon } from '_content/images/icons/sort-asc.svg';
+
 import { isEmpty } from 'helpers/generic';
 
 import { selectPinOptionType } from 'selectors/companyAdmin/pinOptionTypes';
@@ -10,6 +12,9 @@ import useFetchPinOptionSets from 'components/companyAdmin/hooks/useFetchPinOpti
 
 import useOptionSetActions from './hooks/useOptionSetActions';
 import useFilterOptionSets from 'hooks/useFilterOptionSets';
+import useUpdateOptionSetSort from './hooks/useUpdateOptionSetSort';
+
+import withDropZone from 'components/shared/dragDrop/hocs/withDropZone';
 
 import FilterRow from 'components/shared/filters/FilterRow';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
@@ -20,12 +25,15 @@ import ActionButton from 'components/shared/generic/button/presentational/Action
 import TooltipFilters from 'components/shared/filters/TooltipFilters/TooltipFilters';
 import TooltipFiltersItem from 'components/shared/filters/TooltipFilters/TooltipFiltersItem';
 
-const OptionSets = ({ selectedTypeID }) => {
+const OptionSets = ({ forwardRef, selectedTypeID }) => {
     const selectedPinOptionType = useSelector(state => selectPinOptionType(state, selectedTypeID));
     const { companyID } = useSelector(selectJwtData);
 
     const { pinOptionSetsArr, isFetchingPinOptionSets, pinOptionSetsFetchError } =
         useFetchPinOptionSets();
+
+    const { isSorting, handleToggleSort, handleUpdateSort, moveItem } =
+        useUpdateOptionSetSort(pinOptionSetsArr);
 
     const {
         filteredSets,
@@ -38,7 +46,7 @@ const OptionSets = ({ selectedTypeID }) => {
         filterOptions,
         form,
         handleChange,
-    } = useFilterOptionSets(pinOptionSetsArr, selectedTypeID);
+    } = useFilterOptionSets(pinOptionSetsArr, isSorting, selectedTypeID);
 
     const {
         showAddModal,
@@ -90,6 +98,14 @@ const OptionSets = ({ selectedTypeID }) => {
                         )}
                     </div>
 
+                    {/* <ActionButton
+                        svgIconComponent={SortAscIcon}
+                        iconOnly
+                        source={isSorting ? 'primary' : 'secondary'}
+                        size="medium"
+                        onClick={handleToggleSort}
+                    /> */}
+
                     <ActionButton
                         text="Add"
                         icon="plus"
@@ -107,24 +123,32 @@ const OptionSets = ({ selectedTypeID }) => {
                 noDataMessage="There is no data to display."
                 isFetching={isFetchingPinOptionSets}
                 error={pinOptionSetsFetchError}
+                withoutTBody
+                extraClasses={isSorting ? 'dragging' : ''}
             >
-                {filteredSets.map(set => (
-                    <OptionSetsListItem
-                        key={set.id}
-                        set={set}
-                        setLink={setLink}
-                        showEditModal={showEditModal}
-                        showDeleteModal={showDeleteModal}
-                        showDuplicateModal={showDuplicateModal}
-                        enableOptionSet={enableOptionSet}
-                        disableOptionSet={disableOptionSet}
-                        setAsDefault={setAsDefault}
-                        isCompanySet={set.companyID === companyID}
-                    />
-                ))}
+                <tbody ref={isSorting ? forwardRef : null} className={isSorting ? 'dragging' : ''}>
+                    {filteredSets.map((set, index) => (
+                        <OptionSetsListItem
+                            key={set.id}
+                            index={index}
+                            set={set}
+                            setLink={setLink}
+                            showEditModal={showEditModal}
+                            showDeleteModal={showDeleteModal}
+                            showDuplicateModal={showDuplicateModal}
+                            enableOptionSet={enableOptionSet}
+                            disableOptionSet={disableOptionSet}
+                            setAsDefault={setAsDefault}
+                            isSorting={isSorting}
+                            onMove={moveItem}
+                            onDrop={handleUpdateSort}
+                            isCompanySet={set.companyID === companyID}
+                        />
+                    ))}
+                </tbody>
             </Table>
         </>
     );
 };
 
-export default OptionSets;
+export default withDropZone(OptionSets, 'PIN_OPTION_SETS');
