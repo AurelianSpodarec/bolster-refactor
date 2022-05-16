@@ -54,7 +54,8 @@ const InvoiceDetails = ({
                     ) : (
                         <ActionButton
                             text="Delete invoice requested"
-                            ambient="negative"
+                            source="secondary"
+                            ambient="positive"
                             svgIconComponent={TrashIcon}
                             size="small"
                         />
