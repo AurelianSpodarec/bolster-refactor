@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { isEmpty } from 'helpers/generic';
 
 import { selectPinOptionType } from 'selectors/companyAdmin/pinOptionTypes';
+import { selectCompanySettings } from 'selectors/companyAdmin/companySettings';
 
 import withDrag from 'components/shared/dragDrop/hocs/withDrag';
 
@@ -14,6 +15,7 @@ import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActio
 import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
 import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 import ButtonWrapperInfo from 'components/shared/generic/button/presentational/ButtonWrapperInfo';
+import { CURRENCY_SYMBOLS } from 'constants/companyAdmin/enums';
 
 const OptionValuesListItem = ({
     option,
@@ -31,6 +33,7 @@ const OptionValuesListItem = ({
     forwardRef,
     isCompanySet,
 }) => {
+    const company = useSelector(selectCompanySettings);
     const pinOptionType = useSelector(state => selectPinOptionType(state, typeID));
     const typeSlug = pinOptionType.slug;
 
@@ -38,6 +41,8 @@ const OptionValuesListItem = ({
     if (isDragging) rowClass += ' dragging';
 
     const hasPriceBreaks = pinOptionType.hasCosting && !isEmpty(priceBreaks);
+
+    const currencySymbol = CURRENCY_SYMBOLS[company.reportingCurrency] ?? '£';
 
     return (
         <>
@@ -77,7 +82,9 @@ const OptionValuesListItem = ({
                     </td>
                     <td>
                         <ButtonWrapper alignment="right">
-                            {hasPriceBreaks && <ButtonWrapperInfo text="£" disabled large />}
+                            {hasPriceBreaks && (
+                                <ButtonWrapperInfo text={currencySymbol} disabled large />
+                            )}
 
                             {pinOptionType.hasDocuments && (
                                 <LinkButton
