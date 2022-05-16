@@ -88,6 +88,7 @@ function costingAndEstimatingResultsReducer(state = {}, action) {
         case FETCH_COSTING_AND_ESTIMATING_RESULTS_SUCCESS:
             return action.payload;
         case FETCH_COSTING_AND_ESTIMATING_RESULTS_REQUEST:
+            return {};
         default:
             return state;
     }
