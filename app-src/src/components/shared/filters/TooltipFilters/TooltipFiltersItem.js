@@ -67,9 +67,18 @@ const TooltipFiltersItem = ({
                 <FilterInput value={searchTerm} handleChange={(_, value) => setSearchTerm(value)} />
                 <FlexWrapper direction="column" extraClasses="options-wrapper">
                     {filteredOptions()?.map(option => {
-                        const isSelected = isMultiSelection
-                            ? selected.includes(option.id)
-                            : selected === option.id;
+                        let isSelected = false;
+
+                        switch (type) {
+                            case TOOLTIP_FILTERS_TYPES.SINGLE_SELECTION:
+                                isSelected = selected === option.id;
+                                break;
+                            case TOOLTIP_FILTERS_TYPES.MULTI_SELECTION:
+                                isSelected = selected.includes(option.id);
+                                break;
+                            default:
+                                isSelected = false;
+                        }
 
                         return (
                             <FlexWrapper key={option.id} align="center" extraClasses="option">
