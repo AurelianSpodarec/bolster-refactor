@@ -161,11 +161,7 @@ const PinAnswer = ({ trimmedAnswer, type, answers, question }) => {
                         {`${answerValue.textValue}${total > 1 ? ` (${current} of ${total})` : ''}`}{' '}
                         measurements:
                     </p>
-                    {measurement.length && <p>Length: {measurement.length}mm</p>}
-                    {measurement.width && <p>Width: {measurement.width}mm</p>}
-                    {measurement.height && <p>Height: {measurement.height}mm</p>}
-                    {measurement.diameter && <p>Diameter: {measurement.diameter}mm</p>}
-                    {measurement.volume && <p>Volume: {measurement.volume}ml</p>}
+                    <p>{answerValue.measurement}</p>
                 </div>
             );
             measurementOutputs.push(measurementOutput);
