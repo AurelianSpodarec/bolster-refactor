@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
     CONFIRM_SUBMIT,
     CREATE_PIN_OPTIONS_VALUE_MODAL,
+    DUPLICATE_PIN_OPTIONS_VALUE_MODAL,
     EDIT_PIN_OPTIONS_VALUE_MODAL,
     ERROR_MODAL,
 } from 'constants/shared/modalTypes';
@@ -57,14 +58,7 @@ const useOptionValueActions = (typeID, setID) => {
     };
 
     const showDuplicateModal = option => {
-        dispatch(
-            showModal(CONFIRM_SUBMIT, {
-                handleSubmit: () => dispatch(duplicatePinOptionValue(option.id)),
-                title: `Duplicate ${option.name}?`,
-                message: 'Are you sure you would like to duplicate this option?',
-                submitButtonText: 'Duplicate',
-            }),
-        );
+        dispatch(showModal(DUPLICATE_PIN_OPTIONS_VALUE_MODAL, { option }));
     };
 
     const enableOptionValue = option => {

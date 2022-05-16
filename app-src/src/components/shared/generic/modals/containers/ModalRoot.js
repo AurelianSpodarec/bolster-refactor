@@ -145,6 +145,7 @@ import {
     CREATE_ADMIN_PIN_OPTIONS_VALUE_MODAL,
     EDIT_ADMIN_PIN_OPTIONS_VALUE_MODAL,
     DUPLICATE_PIN_OPTIONS_SET_MODAL,
+    DUPLICATE_PIN_OPTIONS_VALUE_MODAL,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -289,6 +290,7 @@ import LinkPrelimModal from '../../../../companyAdmin/costingAndEstimating/modal
 import AdminCreateOptionValueModal from '../../../../superAdmin/pinOptions/optionValues/modals/CreateOptionValueModal';
 import AdminEditOptionValueModal from '../../../../superAdmin/pinOptions/optionValues/modals/EditOptionValueModal';
 import DuplicateOptionSetModal from 'components/companyAdmin/pinOptions/optionSets/modals/DuplicateOptionSetModal';
+import DuplicateOptionValueModal from 'components/companyAdmin/pinOptions/optionValues/modals/DuplicateOptionValueModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModalContainer,
@@ -434,6 +436,7 @@ const MODAL_COMPONENTS = {
     [GENERATE_COSTING_ESTIMATING_REPORT_MODAL]: GenerateCostingEstimatingReportModal,
     [GENERATE_COSTING_ESTIMATING_REPORT_SUCCESS_MODAL]: GenerateCostingEstimatingReportSuccessModal,
     [DUPLICATE_PIN_OPTIONS_SET_MODAL]: DuplicateOptionSetModal,
+    [DUPLICATE_PIN_OPTIONS_VALUE_MODAL]: DuplicateOptionValueModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {
