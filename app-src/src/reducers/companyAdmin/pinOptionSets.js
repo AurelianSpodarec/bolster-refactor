@@ -26,6 +26,7 @@ import {
     SET_OPTION_SET_AS_DEFAULT_REQUEST,
     SET_OPTION_SET_AS_DEFAULT_SUCCESS,
     SET_OPTION_SET_AS_DEFAULT_FAILURE,
+    REORDER_PIN_OPTION_SETS,
 } from 'constants/actionTypes/pinOptions';
 import { updateObjDefaultOnFailure, updateObjDefaultOnRequest } from 'helpers/pinOptions';
 import { SET_API_FIELD_ERRORS } from 'constants/actionTypes/generic';
@@ -166,6 +167,7 @@ function duplicateSuccessReducer(state = false, action) {
 function setsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_PIN_OPTION_SETS_SUCCESS:
+        case REORDER_PIN_OPTION_SETS:
             return convertArrToObj(action.payload);
         case CREATE_PIN_OPTION_SET_SUCCESS:
         case EDIT_PIN_OPTION_SET_SUCCESS:
