@@ -13,6 +13,7 @@ class FloorBreadcrumbContainer extends Component {
         siteID: 0,
         buildingName: '',
         buildingID: 0,
+        hasSetDetails: false,
     };
 
     render() {
@@ -46,25 +47,31 @@ class FloorBreadcrumbContainer extends Component {
     };
 
     componentDidMount = () => {
-        const { sites, buildings } = this.props;
+        const { sites, buildings, floor } = this.props;
 
-        if (Object.values(sites).length && Object.values(buildings).length) {
+        if (Object.values(sites).length && Object.values(buildings).length && buildings[floor.id]) {
             this._setFloorDetails();
         }
     };
 
     componentDidUpdate = prevProps => {
         const { floor, buildings, fetchSingleSite, fetchSingleBuilding, sites } = this.props;
-
-        if (!prevProps.floor.id && !!floor.id) {
+        const isFloorFetched = !prevProps.floor.id && !!floor.id;
+        if (isFloorFetched && !buildings[floor.buildingID]) {
             fetchSingleBuilding(floor.buildingID);
         }
-
-        if (!Object.values(prevProps.buildings).length && Object.values(buildings).length) {
+        const isBuildingFetched =
+            !prevProps.buildings[floor.buildingID] && buildings[floor.buildingID];
+        if (isBuildingFetched && !sites[buildings[floor.buildingID].siteID]) {
             fetchSingleSite(buildings[floor.buildingID].siteID);
         }
-        if (!Object.values(prevProps.sites).length && Object.values(sites).length) {
-            this._setFloorDetails();
+        const isSiteFetched =
+            !prevProps.sites[buildings[floor.buildingID]?.siteID] &&
+            sites[buildings[floor.buildingID]?.siteID];
+        const hasAll =
+            floor.id && buildings[floor.buildingID] && sites[buildings[floor.buildingID].siteID];
+        if (isFloorFetched || isBuildingFetched || isSiteFetched) {
+            if (hasAll) this._setFloorDetails();
         }
     };
 }
