@@ -39,9 +39,7 @@ const AddSiteForm = ({
                         required
                     />
                 </Field>
-            </div>
 
-            <div className="size-lg-6 size-md-12">
                 <Field name="Client name">
                     <TextInputContainer
                         value={client}
@@ -49,11 +47,7 @@ const AddSiteForm = ({
                         handleChange={handleInputChange}
                     />
                 </Field>
-            </div>
-        </div>
 
-        <div className="size-lg-12">
-            <div className="size-lg-6 size-md-12">
                 <Field name="Address line 1" required>
                     <TextInputContainer
                         value={addressLine1}
@@ -62,9 +56,7 @@ const AddSiteForm = ({
                         required
                     />
                 </Field>
-            </div>
 
-            <div className="size-lg-6 size-md-12">
                 <Field name="Address line 2">
                     <TextInputContainer
                         value={addressLine2}
@@ -72,11 +64,7 @@ const AddSiteForm = ({
                         handleChange={handleInputChange}
                     />
                 </Field>
-            </div>
-        </div>
 
-        <div className="size-lg-12">
-            <div className="size-lg-6 size-md-12">
                 <Field name="Postcode" required>
                     <TextInputContainer
                         value={postcode}
@@ -85,57 +73,64 @@ const AddSiteForm = ({
                         required
                     />
                 </Field>
+
+                {isCostingEnabled &&
+                    types.map(type => {
+                        const sets = typeSets[type.id] ?? [];
+                        const options = sets.map(set => ({
+                            text: set.name,
+                            value: set.id,
+                        }));
+                        const isSelected = selectedPinOptionTypes[type.id];
+                        return (
+                            <>
+                                <Field
+                                    labelClasses="no-capitalise"
+                                    name={`Set ${type.namePlural} for site?`}
+                                    key={type.id}
+                                >
+                                    <CheckboxContainer
+                                        name={type.id}
+                                        checked={selectedPinOptionTypes[type.id]}
+                                        handleChange={handlePinOptionTypeChange}
+                                        label={`Set ${type.namePlural} for site?`}
+                                        labelClasses="no-capitalise"
+                                    />
+                                </Field>
+                                {isSelected && (
+                                    <Field name={type.namePlural}>
+                                        <CheckboxListContainer
+                                            name={type.id}
+                                            text=""
+                                            isNumberValues
+                                            handleChange={handlePinOptionSetChange}
+                                            options={options}
+                                            selectedOptions={selectedPinOptionSets[type.id] ?? []}
+                                        />
+                                    </Field>
+                                )}
+                            </>
+                        );
+                    })}
             </div>
+            <div className="size-lg-6 size-md-12">
+                {isUsingBolsterLabels && <BolsterLabelExample name={name} hierarchy="Site" />}
+            </div>
+
+            <BlockButtonWrapper>
+                {isFetchingHierarchies ? (
+                    <ActionButton
+                        text="Please wait..."
+                        icon="fa fa-spinner fa-spin"
+                        disabled="true"
+                    />
+                ) : (
+                    <ActionButton type="submit" text="Confirm" icon="check" />
+                )}
+
+                <ActionButton source="secondary" text="Cancel" onClick={hideModal} />
+            </BlockButtonWrapper>
         </div>
-        {isCostingEnabled &&
-            types.map(type => {
-                const sets = typeSets[type.id] ?? [];
-                const options = sets.map(set => ({
-                    text: set.name,
-                    value: set.id,
-                }));
-                const isSelected = selectedPinOptionTypes[type.id];
-                return (
-                    <>
-                        <Field
-                            labelClasses="no-capitalise"
-                            name={`Set ${type.namePlural} for site?`}
-                            key={type.id}
-                        >
-                            <CheckboxContainer
-                                name={type.id}
-                                checked={selectedPinOptionTypes[type.id]}
-                                handleChange={handlePinOptionTypeChange}
-                                label={`Set ${type.namePlural} for site?`}
-                                labelClasses="no-capitalise"
-                            />
-                        </Field>
-                        {isSelected && (
-                            <Field name={type.namePlural}>
-                                <CheckboxListContainer
-                                    name={type.id}
-                                    text=""
-                                    isNumberValues
-                                    handleChange={handlePinOptionSetChange}
-                                    options={options}
-                                    selectedOptions={selectedPinOptionSets[type.id] ?? []}
-                                />
-                            </Field>
-                        )}
-                    </>
-                );
-            })}
-        {isUsingBolsterLabels && <BolsterLabelExample name={name} hierarchy="Site" />}
-
-        <BlockButtonWrapper>
-            {isFetchingHierarchies ? (
-                <ActionButton text="Please wait..." icon="fa fa-spinner fa-spin" disabled="true" />
-            ) : (
-                <ActionButton type="submit" text="Confirm" icon="check" />
-            )}
-
-            <ActionButton source="secondary" text="Cancel" onClick={hideModal} />
-        </BlockButtonWrapper>
     </Form>
 );
 
