@@ -167,13 +167,6 @@ const useFilterSets = (sets, isSorting, selectedTypeID) => {
                 if (formHidden === PIN_OPTIONS_FILTERS_HIDDEN_OPTIONS.HIDDEN && set.isHidden) {
                     return false;
                 }
-
-                if (
-                    formHidden === PIN_OPTIONS_FILTERS_ENABLED_DISABLED_OPTIONS.DISABLED &&
-                    !set.isHidden
-                ) {
-                    return false;
-                }
             }
 
             return true;
