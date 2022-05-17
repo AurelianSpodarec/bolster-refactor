@@ -21,3 +21,11 @@ export const COMPANY_TRACKING_UPDATE_INFO = {
     2: 'contactedAfterThreeMonths',
     3: 'contactedAfterElevenMonths',
 };
+
+export const SA_PIN_OPTIONS_SETS_FILTERS_OPTIONS = {
+    SERVICE: 1,
+};
+
+export const SA_PIN_OPTIONS_VALUES_FILTERS_OPTIONS = {
+    SERVICE: 1,
+};
