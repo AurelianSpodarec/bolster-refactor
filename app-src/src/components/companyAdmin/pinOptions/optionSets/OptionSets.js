@@ -11,7 +11,7 @@ import { selectJwtData } from 'selectors/shared/jwt';
 import useFetchPinOptionSets from 'components/companyAdmin/hooks/useFetchPinOptionSets';
 
 import useOptionSetActions from './hooks/useOptionSetActions';
-import useFilterOptionSets from 'hooks/useFilterOptionSets';
+import useFilterOptionSets from './hooks/useFilterOptionSets';
 import useUpdateOptionSetSort from './hooks/useUpdateOptionSetSort';
 
 import withDropZone from 'components/shared/dragDrop/hocs/withDropZone';

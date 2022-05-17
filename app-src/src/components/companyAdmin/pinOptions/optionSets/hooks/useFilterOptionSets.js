@@ -18,7 +18,7 @@ import {
     PIN_OPTIONS_FILTERS_HIDDEN_OPTIONS,
 } from 'constants/companyAdmin/enums';
 
-const useFilterSets = (sets, isSorting, selectedTypeID) => {
+const useFilterOptionSets = (sets, isSorting, selectedTypeID) => {
     const { searchTerm, handleUpdateSearch } = useSearch();
     const [showFilters, setShowFilters] = useState(false);
     const [expandedID, setExpandedID] = useState(null);
@@ -105,7 +105,6 @@ const useFilterSets = (sets, isSorting, selectedTypeID) => {
         const sortedSets = getSortedSets();
 
         const typeFilters = sortedSets.filter(set => set.pinOptionTypeID === selectedTypeID);
-        console.log(typeFilters);
 
         if (isSorting) return typeFilters;
 
@@ -192,4 +191,4 @@ const useFilterSets = (sets, isSorting, selectedTypeID) => {
     };
 };
 
-export default useFilterSets;
+export default useFilterOptionSets;

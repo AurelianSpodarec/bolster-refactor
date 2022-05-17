@@ -10,7 +10,7 @@ import { selectPinOptionTypesArr } from 'selectors/companyAdmin/pinOptionTypes';
 import { selectPinOptionSet } from 'selectors/companyAdmin/pinOptionSets';
 import { selectJwtData } from 'selectors/shared/jwt';
 
-import useFilterOptionValues from '../../../../hooks/useFilterOptionsValues';
+import useFilterOptionValues from './hooks/useFilterOptionsValues';
 import useGetOptionsForSet from './hooks/useGetOptionsForSet';
 import useOptionValueActions from './hooks/useOptionValueActions';
 import useUpdateOptionValueSort from './hooks/useUpdateOptionValueSort';

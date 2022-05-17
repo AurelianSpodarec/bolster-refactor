@@ -7,8 +7,9 @@ import { ReactComponent as SortAscIcon } from '_content/images/icons/sort-asc.sv
 import { isEmpty } from 'helpers/generic';
 
 import { selectPinOptionTypesArr } from '../../../../selectors/superAdmin/pinOptionTypes';
+import { selectPinOptionSet } from 'selectors/superAdmin/pinOptionSets';
 
-import useFilterOptionValues from '../../../../hooks/useFilterOptionsValues';
+import useFilterOptionValues from './hooks/useFilterOptionsValues';
 import useGetOptionsForSet from './hooks/useGetOptionsForSet';
 import useOptionValueActions from './hooks/useOptionValueActions';
 import useUpdateOptionValueSort from './hooks/useUpdateOptionValueSort';
@@ -29,6 +30,7 @@ const OptionValuesList = ({ forwardRef, hasFetched }) => {
     const specificType = pinOptionTypesArr.find(curType => curType.slug === type);
     const typeID = specificType ? specificType.id : null;
 
+    const parentSet = useSelector(state => selectPinOptionSet(state, setID));
     const pinOptionsForSet = useGetOptionsForSet(typeID, parseInt(setID));
 
     const { isSorting, handleToggleSort, handleUpdateSort, moveItem } =
@@ -37,6 +39,7 @@ const OptionValuesList = ({ forwardRef, hasFetched }) => {
     const { filteredOptionValues, searchTerm, handleUpdateSearch } = useFilterOptionValues(
         pinOptionsForSet,
         isSorting,
+        parentSet,
     );
 
     const { showAddModal, showEditModal, showDeleteModal } = useOptionValueActions(typeID, setID);

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import useFetchPinOptionSets from '../../hooks/useFetchPinOptionSets';
-import useFilterOptionSets from 'hooks/useFilterOptionSets';
+import useFilterOptionSets from './hooks/useFilterOptionSets';
 
 import { selectPinOptionType } from '../../../../selectors/superAdmin/pinOptionTypes';
 
