@@ -7,10 +7,6 @@ import usePrevious from 'hooks/usePrevious';
 import useCurrentHierarchyID from './useCurrentHierarchyID';
 import useCurrentHierarchyType from './useCurrentHierarchyType';
 
-import fetchAllSites from 'actions/companyAdmin/sites/async/fetchAllSites';
-import fetchAllFloors from 'actions/companyAdmin/floors/async/fetchAllFloors';
-import fetchAllDrawings from 'actions/companyAdmin/drawings/async/fetchAllDrawings';
-import fetchAllBuildings from 'actions/companyAdmin/buildings/async/fetchAllBuildings';
 import fetchCostingAndEstimatingResults from 'actions/companyAdmin/costingAndEstimating/fetchCostingAndEstimatingResults';
 import fetchCostingAndEstimatingFilters from 'actions/companyAdmin/costingAndEstimating/fetchCostingAndEstimatingFilters';
 
@@ -32,7 +28,6 @@ import {
 import { costingAndEstimatingType } from '../../../../constants/companyAdmin/enums';
 import { selectPrelimPostSuccess } from '../../../../selectors/companyAdmin/prelims';
 import { isEmpty } from 'helpers/generic';
-import fetchAllServices from 'actions/companyAdmin/services/async/fetchAllServices';
 import fetchPinOptionTypes from 'actions/companyAdmin/pinOptions/async/fetchPinOptionTypes';
 import fetchPinOptions from 'actions/companyAdmin/pinOptions/async/fetchPinOptions';
 import fetchPinOptionSets from 'actions/companyAdmin/pinOptions/async/fetchPinOptionSets';
@@ -40,7 +35,6 @@ import fetchPinOptionVersions from 'actions/companyAdmin/pinOptions/async/fetchP
 import fetchCompanyUsers from '../../../../actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 
 const useCostingAndEstimating = () => {
-    const [lastFetch, setLastFetch] = useState(0); // For debounce
     const [willAutoTick, setWillAutoTick] = useState(false);
 
     const filters = useSelector(selectCostingAndEstimatingFilters);
@@ -95,7 +89,6 @@ const useCostingAndEstimating = () => {
                 children.forEach(child => {
                     addAllChildren(child, selectedItems);
                 });
-            return;
         };
         data.forEach(datum => addAllChildren(datum, selectedItems));
 
@@ -116,15 +109,15 @@ const useCostingAndEstimating = () => {
         } else onChange('selectedItems', buildInitialSelectedItems(filters.allSites));
     };
 
-    const initialFormData = {
+    const initialFormData = () => ({
         dateRange: {
             startDate: moment().subtract(7, 'days').toDate(),
             endDate: moment().toDate(),
         },
-        selectedItems: buildInitialSelectedItems(filters.allSites), // TODO - makes the first fetch happen twice
-        maxPrice: filters.priceMax,
-        minPrice: 0,
-    };
+        selectedItems: buildInitialSelectedItems([], true), // TODO - makes the first fetch happen twice
+        maxPrice: null,
+        minPrice: null,
+    });
     const [formData, onChange] = useForm(initialFormData);
     const prevProps = usePrevious({
         formData,
@@ -204,7 +197,6 @@ const useCostingAndEstimating = () => {
             children.forEach(child => {
                 propagateToChildren(child, value, selectedItems);
             });
-            return;
         };
 
         const selectedItems = { ...formData.selectedItems };
@@ -263,34 +255,24 @@ const useCostingAndEstimating = () => {
 
     useEffect(() => {
         batch(() => {
-            dispatch(fetchAllBuildings());
-            dispatch(fetchAllSites());
-            dispatch(fetchAllFloors());
-            dispatch(fetchAllDrawings());
-            dispatch(fetchCostingAndEstimatingResults(cAndEPostBody));
             dispatch(fetchCostingAndEstimatingFilters(cAndEPostBody));
             dispatch(fetchCompanyUsers());
-            dispatch(fetchAllServices());
             dispatch(fetchPinOptionTypes());
             dispatch(fetchPinOptionSets());
             dispatch(fetchPinOptions());
             dispatch(fetchPinOptionVersions());
         });
-        setLastFetch(moment().valueOf());
         setWillAutoTick(true);
     }, []); // Fetch all data on page load
 
     useEffect(() => {
         if (formData !== prevProps.formData) {
-            if (moment().valueOf() - lastFetch > 1000) {
-                batch(() => {
-                    dispatch(fetchCostingAndEstimatingResults(cAndEPostBody));
-                    dispatch(fetchCostingAndEstimatingFilters(cAndEPostBody));
-                });
-                setLastFetch(moment().valueOf()); // Primitive debounce - normal function didn't work
-            }
+            batch(() => {
+                dispatch(fetchCostingAndEstimatingResults(cAndEPostBody));
+                dispatch(fetchCostingAndEstimatingFilters(cAndEPostBody));
+            });
         }
-    }, [formData, prevProps.formData]); // Fetch all data on filter change
+    }, [formData, prevProps.formData, cAndEPostBody]); // Fetch all data on filter change
 
     useEffect(() => {
         if (prelimPostSuccess && !prevData.prelimPostSuccess) {
@@ -299,20 +281,12 @@ const useCostingAndEstimating = () => {
     }, [prelimPostSuccess, prevData.prelimPostSuccess]); // Re-fetch results data on prelim post success
 
     useEffect(() => {
-        if (selectedTab !== prevProps.selectedTab) {
-            onChange('selectedItems', buildInitialSelectedItems([], true));
-            setWillAutoTick(true);
-        }
-    }, [selectedTab, prevProps.selectedTab]); // set auto-tick flag on tab change
-
-    useEffect(() => {
         if (!isFetchingFilters && prevData.isFetchingFilters && willAutoTick) {
             setWillAutoTick(false);
             onChange('selectedItems', buildInitialSelectedItems(filters.allSites));
             onChange('maxPrice', filters.priceMax);
-            dispatch(fetchCostingAndEstimatingResults(cAndEPostBody));
         }
-    }, [willAutoTick, isFetchingFilters, prevData.isFetchingFilters]); // Auto-tick after filters fetch if flag is set
+    }, [willAutoTick, isFetchingFilters, prevData.isFetchingFilters, filters, cAndEPostBody]); // Auto-tick after filters fetch if flag is set
 
     useEffect(() => {
         if (!isEmpty(filters.allSites) && isEmpty(prevProps.allSites)) {

@@ -4,12 +4,14 @@ import { BUILDING_TABS } from 'constants/shared/tabNames';
 import BuildingGeneralOverview from '../presentational/BuildingGeneralOverview';
 import HierarchyAdvancedReport from 'components/companyAdmin/reports/createReport/components/presentational/HierarchyAdvancedReport';
 import CostingAndEstimating from '../../../costingAndEstimating/CostingAndEstimating';
+import Costing from '../../../costingAndEstimating/Costing';
+import Estimating from '../../../costingAndEstimating/Estimating';
 
 const BuildingRouteContainer = ({ selectedTab }) => {
     const contentOptions = {
         [BUILDING_TABS.GENERAL_OVERVIEW]: BuildingGeneralOverview,
-        [BUILDING_TABS.ESTIMATING]: CostingAndEstimating,
-        [BUILDING_TABS.COSTING]: CostingAndEstimating,
+        [BUILDING_TABS.ESTIMATING]: Estimating,
+        [BUILDING_TABS.COSTING]: Costing,
         [BUILDING_TABS.GENERATE_REPORT]: HierarchyAdvancedReport,
     };
 
