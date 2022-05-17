@@ -9,6 +9,8 @@ import FieldOutput from 'components/shared/generic/fieldOutput/presentational/Fi
 import { boolToYesNo, isEmpty } from 'helpers/generic';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import { selectPinOptionVersions } from '../../../../../selectors/companyAdmin/pinOptionVersions';
+import { selectCompanySettings } from 'selectors/companyAdmin/companySettings';
+import { selectPinOptionType } from 'selectors/companyAdmin/pinOptionTypes';
 
 const PinAnswer = ({ trimmedAnswer, type, answers, question }) => {
     const dispatch = useDispatch();
@@ -17,6 +19,10 @@ const PinAnswer = ({ trimmedAnswer, type, answers, question }) => {
 
     const notFoundResponse = null;
     let inner;
+
+    const company = useSelector(selectCompanySettings);
+    const pinOptionType = useSelector(state => selectPinOptionType(state, question.optionType));
+    const isCosting = company.isCostingEnabled && pinOptionType.hasCosting;
 
     if (!curAnswer?.answerValues || curAnswer.answerValues.length === 0) {
         return notFoundResponse;
@@ -135,6 +141,7 @@ const PinAnswer = ({ trimmedAnswer, type, answers, question }) => {
     }
 
     let measurementOutputs = [];
+    let quantityOutputs = [];
 
     if (!isEmpty(curAnswer.measurements)) {
         const { answerValues, measurements } = curAnswer;
@@ -154,14 +161,35 @@ const PinAnswer = ({ trimmedAnswer, type, answers, question }) => {
                         {`${answerValue.textValue}${total > 1 ? ` (${current} of ${total})` : ''}`}{' '}
                         measurements:
                     </p>
-                    {measurement.length && <p>Length: {measurement.length}mm</p>}
-                    {measurement.width && <p>Width: {measurement.width}mm</p>}
-                    {measurement.height && <p>Height: {measurement.height}mm</p>}
-                    {measurement.diameter && <p>Diameter: {measurement.diameter}mm</p>}
-                    {measurement.volume && <p>Volume: {measurement.volume}ml</p>}
+                    <p>{answerValue.measurement}</p>
                 </div>
             );
             measurementOutputs.push(measurementOutput);
+        }
+    }
+
+    if (!isEmpty(curAnswer.pinHistoryAnswerValueQuantities) && isCosting) {
+        const { pinHistoryAnswerValueQuantities } = curAnswer;
+
+        for (let i = 0; i < pinHistoryAnswerValueQuantities.length; i++) {
+            const quantity = pinHistoryAnswerValueQuantities[i];
+
+            const answerValue = curAnswerValues.find(
+                ({ pinOptionVersionID }) => pinOptionVersionID === quantity.pinHistoryAnswerValueID,
+            );
+
+            const quantityOutput = (
+                <div
+                    key={`${quantity.pinHistoryAnswerValueID} + ' - ${i}'`}
+                    className="pin-answer-measurements"
+                >
+                    <p className="pin-answer-measurements-heading">
+                        {`${answerValue.textValue} quantities:`}
+                    </p>
+                    <p>{quantity.quantity}</p>
+                </div>
+            );
+            quantityOutputs.push(quantityOutput);
         }
     }
 
@@ -173,6 +201,7 @@ const PinAnswer = ({ trimmedAnswer, type, answers, question }) => {
         >
             {inner}
             {measurementOutputs}
+            {quantityOutputs}
         </FieldOutput>
     );
 };
