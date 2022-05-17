@@ -70,19 +70,19 @@ const useFilterOptionValues = (options, isSorting, set) => {
                 },
             ],
         },
-        {
-            id: PIN_OPTIONS_VALUES_FILTERS_OPTIONS.HIDDEN,
-            name: 'Hidden',
-            type: TOOLTIP_FILTERS_TYPES.SINGLE_SELECTION,
-            allowSearch: false,
-            options: [
-                { id: PIN_OPTIONS_FILTERS_ALL, name: 'All' },
-                {
-                    id: PIN_OPTIONS_FILTERS_HIDDEN_OPTIONS.HIDDEN,
-                    name: 'Hidden',
-                },
-            ],
-        },
+        // {
+        //     id: PIN_OPTIONS_VALUES_FILTERS_OPTIONS.HIDDEN,
+        //     name: 'Hidden',
+        //     type: TOOLTIP_FILTERS_TYPES.SINGLE_SELECTION,
+        //     allowSearch: false,
+        //     options: [
+        //         { id: PIN_OPTIONS_FILTERS_ALL, name: 'All' },
+        //         {
+        //             id: PIN_OPTIONS_FILTERS_HIDDEN_OPTIONS.HIDDEN,
+        //             name: 'Hidden',
+        //         },
+        //     ],
+        // },
     ];
 
     const getFilteredOptionValues = () => {
