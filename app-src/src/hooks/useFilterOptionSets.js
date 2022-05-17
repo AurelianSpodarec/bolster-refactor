@@ -90,7 +90,6 @@ const useFilterSets = (sets, isSorting, selectedTypeID) => {
         const sortedSets = getSortedSets();
 
         const typeFilters = sortedSets.filter(set => set.pinOptionTypeID === selectedTypeID);
-        console.log(typeFilters);
 
         if (isSorting) return typeFilters;
 
