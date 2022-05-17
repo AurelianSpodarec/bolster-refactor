@@ -57,6 +57,7 @@ const OptionValuesList = ({ forwardRef, hasFetched }) => {
         showAddModal,
         showEditModal,
         showDeleteModal,
+        showHideModal,
         showDuplicateModal,
         enableOptionValue,
         disableOptionValue,
@@ -152,6 +153,7 @@ const OptionValuesList = ({ forwardRef, hasFetched }) => {
                             typeID={typeID}
                             showEditModal={showEditModal}
                             showDeleteModal={showDeleteModal}
+                            showHideModal={showHideModal}
                             showDuplicateModal={showDuplicateModal}
                             enableOptionValue={enableOptionValue}
                             disableOptionValue={disableOptionValue}

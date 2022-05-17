@@ -57,6 +57,11 @@ const useOptionValueActions = (typeID, setID) => {
         );
     };
 
+    const showHideModal = set => {
+        console.log('hide');
+        // dispatch(showModal(HIDE_PIN_OPTIONS_VALUE_MODAL, { set }));
+    };
+
     const showDuplicateModal = option => {
         dispatch(showModal(DUPLICATE_PIN_OPTIONS_VALUE_MODAL, { option }));
     };
@@ -83,6 +88,7 @@ const useOptionValueActions = (typeID, setID) => {
         showAddModal,
         showEditModal,
         showDeleteModal,
+        showHideModal,
         showDuplicateModal,
         enableOptionValue,
         disableOptionValue,

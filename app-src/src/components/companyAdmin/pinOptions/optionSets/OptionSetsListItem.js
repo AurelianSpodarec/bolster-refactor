@@ -25,9 +25,11 @@ const OptionSetsListItem = ({
     connectDropTarget,
     forwardRef,
     isCompanySet,
+    showHideModal,
 }) => {
     let rowClass = 'draggable expandable';
     if (isDragging) rowClass += ' dragging';
+    const createdByAdmin = false;
 
     return (
         <>
@@ -104,6 +106,14 @@ const OptionSetsListItem = ({
                                             : null
                                     }
                                 />
+
+                                {createdByAdmin && (
+                                    <ActionMenuActionButton
+                                        text="Hide"
+                                        onClick={() => showHideModal(set)}
+                                        isNegative
+                                    />
+                                )}
                             </ActionMenu>
                         </ButtonWrapper>
                     </td>
