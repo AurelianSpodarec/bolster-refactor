@@ -2,8 +2,6 @@ import React from 'react';
 import { Redirect, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import { ReactComponent as SortAscIcon } from '_content/images/icons/sort-asc.svg';
-
 import { isEmpty } from 'helpers/generic';
 
 import { selectPinOptionTypesArr } from '../../../../selectors/superAdmin/pinOptionTypes';
@@ -12,7 +10,6 @@ import { selectPinOptionSet } from 'selectors/superAdmin/pinOptionSets';
 import useFilterOptionValues from './hooks/useFilterOptionsValues';
 import useGetOptionsForSet from './hooks/useGetOptionsForSet';
 import useOptionValueActions from './hooks/useOptionValueActions';
-import useUpdateOptionValueSort from './hooks/useUpdateOptionValueSort';
 import useShouldRedirectFromOptionValues from './hooks/useShouldRedirectFromOptionValues';
 
 import withDropZone from 'components/shared/dragDrop/hocs/withDropZone';
@@ -23,6 +20,8 @@ import Table from 'components/shared/generic/tables/presentational/Table';
 import OptionValuesListItem from './OptionValuesListItem';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import TooltipFilters from 'components/shared/filters/TooltipFilters/TooltipFilters';
+import TooltipFiltersItem from 'components/shared/filters/TooltipFilters/TooltipFiltersItem';
 
 const OptionValuesList = ({ forwardRef, hasFetched }) => {
     const { setID, type } = useParams();
@@ -33,14 +32,18 @@ const OptionValuesList = ({ forwardRef, hasFetched }) => {
     const parentSet = useSelector(state => selectPinOptionSet(state, setID));
     const pinOptionsForSet = useGetOptionsForSet(typeID, parseInt(setID));
 
-    const { isSorting, handleToggleSort, handleUpdateSort, moveItem } =
-        useUpdateOptionValueSort(pinOptionsForSet);
-
-    const { filteredOptionValues, searchTerm, handleUpdateSearch } = useFilterOptionValues(
-        pinOptionsForSet,
-        isSorting,
-        parentSet,
-    );
+    const {
+        filteredOptionValues,
+        searchTerm,
+        handleUpdateSearch,
+        showFilters,
+        setShowFilters,
+        expandedID,
+        setExpandedID,
+        filterOptions,
+        form,
+        handleChange,
+    } = useFilterOptionValues(pinOptionsForSet, parentSet);
 
     const { showAddModal, showEditModal, showDeleteModal } = useOptionValueActions(typeID, setID);
 
@@ -58,17 +61,35 @@ const OptionValuesList = ({ forwardRef, hasFetched }) => {
                     value={searchTerm}
                     handleChange={handleUpdateSearch}
                     placeholder="Search"
-                    disabled={isSorting}
                 />
 
                 <ButtonWrapper alignment="right">
-                    <ActionButton
-                        svgIconComponent={SortAscIcon}
-                        iconOnly
-                        source={isSorting ? 'primary' : 'secondary'}
-                        size="medium"
-                        onClick={handleToggleSort}
-                    />
+                    <div>
+                        <ActionButton
+                            icon="filter"
+                            iconOnly
+                            source="secondary"
+                            size="medium"
+                            iconEqualSize
+                            onClick={() => setShowFilters(!showFilters)}
+                            extraClasses={showFilters ? 'active' : ''}
+                        />
+
+                        {showFilters && (
+                            <TooltipFilters closeFilters={() => setShowFilters(false)}>
+                                {filterOptions.map(option => (
+                                    <TooltipFiltersItem
+                                        key={option.id}
+                                        option={option}
+                                        expandedID={expandedID}
+                                        setExpandedID={setExpandedID}
+                                        onChange={handleChange}
+                                        selected={form[option.id]}
+                                    />
+                                ))}
+                            </TooltipFilters>
+                        )}
+                    </div>
 
                     <ActionButton
                         text="Add"
@@ -76,7 +97,6 @@ const OptionValuesList = ({ forwardRef, hasFetched }) => {
                         ambient="positive"
                         size="medium"
                         onClick={showAddModal}
-                        disabled={isSorting}
                     />
                 </ButtonWrapper>
             </FilterRow>
@@ -88,28 +108,21 @@ const OptionValuesList = ({ forwardRef, hasFetched }) => {
                 noDataMessage="There is no data to display."
                 isFetching={false}
                 error={null}
-                withoutTBody
-                extraClasses={isSorting ? 'dragging' : ''}
             >
-                <tbody ref={isSorting ? forwardRef : null} className={isSorting ? 'dragging' : ''}>
-                    {filteredOptionValues.map((option, index) => (
-                        <OptionValuesListItem
-                            key={option.id}
-                            index={index}
-                            option={option}
-                            setID={setID}
-                            typeID={typeID}
-                            showEditModal={showEditModal}
-                            showDeleteModal={showDeleteModal}
-                            isSorting={isSorting}
-                            onMove={moveItem}
-                            onDrop={handleUpdateSort}
-                        />
-                    ))}
-                </tbody>
+                {filteredOptionValues.map((option, index) => (
+                    <OptionValuesListItem
+                        key={option.id}
+                        index={index}
+                        option={option}
+                        setID={setID}
+                        typeID={typeID}
+                        showEditModal={showEditModal}
+                        showDeleteModal={showDeleteModal}
+                    />
+                ))}
             </Table>
         </>
     );
 };
 
-export default withDropZone(OptionValuesList, 'PIN_OPTION_VALUES');
+export default OptionValuesList;

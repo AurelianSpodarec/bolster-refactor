@@ -3,8 +3,6 @@ import { useSelector } from 'react-redux';
 
 import { isEmpty } from 'helpers/generic';
 
-import withDrag from 'components/shared/dragDrop/hocs/withDrag';
-
 import { selectPinOptionType } from '../../../../selectors/superAdmin/pinOptionTypes';
 
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
@@ -19,51 +17,36 @@ const OptionValuesListItem = ({
     typeID,
     showEditModal,
     showDeleteModal,
-    isSorting,
-    isDragging,
-    connectDropTarget,
-    forwardRef,
 }) => {
     const pinOptionType = useSelector(state => selectPinOptionType(state, typeID));
     const typeSlug = pinOptionType.slug;
 
-    let rowClass = 'draggable expandable';
-    if (isDragging) rowClass += ' dragging';
-
     const hasPriceBreaks = pinOptionType.hasCosting && !isEmpty(priceBreaks);
 
     return (
-        <>
-            {connectDropTarget(
-                <tr className={rowClass} ref={isSorting ? forwardRef : null}>
-                    <td>{name}</td>
-                    <td>
-                        <ButtonWrapper alignment="right">
-                            {hasPriceBreaks && <p className="button-wrapper-info disabled">£</p>}
+        <tr>
+            <td>{name}</td>
+            <td>
+                <ButtonWrapper alignment="right">
+                    {hasPriceBreaks && <p className="button-wrapper-info disabled">£</p>}
 
-                            <LinkButton
-                                text="Documents"
-                                href={`/admin/pin-options/${typeSlug}/${setID}/option/${id}/documents`}
-                                disabled={isSorting}
-                            />
+                    <LinkButton
+                        text="Documents"
+                        href={`/admin/pin-options/${typeSlug}/${setID}/option/${id}/documents`}
+                    />
 
-                            <ActionMenu disabled={isSorting}>
-                                <ActionMenuActionButton
-                                    text="Edit"
-                                    onClick={() => showEditModal(option)}
-                                />
-                                <ActionMenuActionButton
-                                    text="Delete"
-                                    onClick={() => showDeleteModal(option)}
-                                    isNegative
-                                />
-                            </ActionMenu>
-                        </ButtonWrapper>
-                    </td>
-                </tr>,
-            )}
-        </>
+                    <ActionMenu>
+                        <ActionMenuActionButton text="Edit" onClick={() => showEditModal(option)} />
+                        <ActionMenuActionButton
+                            text="Delete"
+                            onClick={() => showDeleteModal(option)}
+                            isNegative
+                        />
+                    </ActionMenu>
+                </ButtonWrapper>
+            </td>
+        </tr>
     );
 };
 
-export default withDrag(OptionValuesListItem, 'PIN_OPTION_VALUES');
+export default OptionValuesListItem;
