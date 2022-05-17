@@ -9,17 +9,16 @@ import { selectPinOptionType } from 'selectors/companyAdmin/pinOptionTypes';
 import useCreateOptionValue from '../hooks/useCreateOptionValue';
 import useGetAvailableServices from '../hooks/useGetAvailableServices';
 
-import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import ModalHeading from 'components/shared/generic/modals/presentational/ModalHeading';
 import ButtonMultiDropdown from 'components/shared/filters/ButtonMultiDropdown';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import NumberInputContainer from 'components/shared/generic/form/containers/NumberInputContainer';
+import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
 
 const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
     const pinOptionType = useSelector(state => selectPinOptionType(state, pinOptionTypeID));
@@ -45,9 +44,10 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
     const measurementTypeOutput = MEASUREMENT_TYPES_OUTPUTS_PLURAL[form.measurementType];
 
     return (
-        <ModalOuterContainer hideCloseButton>
-            <ModalHeading title={`Add ${singularTypeName}`}>
-                {!!availableServiceOptions.length && (
+        <FlexModalOuter
+            title={`Add ${singularTypeName}`}
+            headingChildren={
+                !!availableServiceOptions.length && (
                     <ButtonMultiDropdown
                         buttonText="Services"
                         name="serviceIDs"
@@ -57,9 +57,9 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                         isNumberValues
                         scrollElementID="modal-block"
                     />
-                )}
-            </ModalHeading>
-
+                )
+            }
+        >
             <p className="generic-text size-lg-12">
                 {`Create an ${singularTypeName}${
                     pinOptionType.hasCosting ? ' and apply prices to different measurements' : ''
@@ -210,7 +210,7 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                     </ButtonWrapper>
                 </BlockButtonWrapper>
             </Form>
-        </ModalOuterContainer>
+        </FlexModalOuter>
     );
 };
 
