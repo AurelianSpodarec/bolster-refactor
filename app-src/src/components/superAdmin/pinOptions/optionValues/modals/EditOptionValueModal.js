@@ -1,17 +1,18 @@
-import { useSelector } from 'react-redux';
 import React from 'react';
-import ModalOuterContainer from '../../../../shared/generic/modals/containers/ModalOuterContainer';
-import ModalHeading from '../../../../shared/generic/modals/presentational/ModalHeading';
+import { useSelector } from 'react-redux';
+
+import { selectPinOptionSet } from '../../../../../selectors/superAdmin/pinOptionSets';
+import { selectServicesArr } from '../../../../../selectors/superAdmin/services';
+
+import useEditOptionValue from '../hooks/useEditOptionValue';
+
 import ButtonMultiDropdown from '../../../../shared/filters/ButtonMultiDropdown';
 import Form from '../../../../shared/generic/form/containers/Form';
 import Field from '../../../../shared/generic/form/presentational/Field';
 import TextInputContainer from '../../../../shared/generic/form/containers/TextInputContainer';
 import ActionButton from '../../../../shared/generic/button/presentational/ActionButton';
-import BlockButtonWrapper from '../../../../shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ButtonWrapper from '../../../../shared/generic/button/presentational/ButtonWrapper';
-import { selectServicesArr } from '../../../../../selectors/superAdmin/services';
-import useEditOptionValue from '../hooks/useEditOptionValue';
-import { selectPinOptionSet } from '../../../../../selectors/superAdmin/pinOptionSets';
+import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
 
 const EditOptionValueModal = ({ option }) => {
     const { form, handleChange, handleSubmit, isPosting } = useEditOptionValue(option);
@@ -26,9 +27,10 @@ const EditOptionValueModal = ({ option }) => {
         }));
 
     return (
-        <ModalOuterContainer hideCloseButton>
-            <ModalHeading title={`Edit ${option.name}`}>
-                {!!serviceOptions.length && (
+        <FlexModalOuter
+            title={`Edit ${option.name}`}
+            headingChildren={
+                !!serviceOptions.length && (
                     <ButtonMultiDropdown
                         buttonText="Services"
                         name="serviceIDs"
@@ -38,47 +40,48 @@ const EditOptionValueModal = ({ option }) => {
                         isNumberValues
                         scrollElementID="modal-block"
                     />
-                )}
-            </ModalHeading>
+                )
+            }
+        >
+            <Form onSubmit={handleSubmit} className="generic-form flex-content-wrapper size-lg-12">
+                <div className="flex-content">
+                    <div className="form-fields-container">
+                        <Field name="Name" required>
+                            <TextInputContainer
+                                name="name"
+                                value={form.name}
+                                handleChange={handleChange}
+                                placeholder="Type name"
+                                required
+                            />
+                        </Field>
 
-            <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
-                <Field name="Name" required>
-                    <TextInputContainer
-                        name="name"
-                        value={form.name}
-                        handleChange={handleChange}
-                        placeholder="Type name"
-                        required
+                        <Field name="Short Name" labelClasses="small-margin">
+                            <p className="generic-text size-lg-12">
+                                This is how the pin option will output through the app.
+                            </p>
+                            <TextInputContainer
+                                name="shortName"
+                                value={form.shortName}
+                                handleChange={handleChange}
+                                placeholder="Type short name"
+                            />
+                        </Field>
+                    </div>
+                </div>
+
+                <ButtonWrapper alignment="right" extraClasses="flex-modal-footer">
+                    <ActionButton
+                        text="Save"
+                        icon={isPosting ? 'spinner' : 'save'}
+                        iconSpin={isPosting}
+                        ambient="positive"
+                        disabled={isPosting}
+                        type="submit"
                     />
-                </Field>
-
-                <Field name="Short Name" labelClasses="small-margin">
-                    <p className="generic-text size-lg-12">
-                        This is how the pin option will output through the app.
-                    </p>
-                    <TextInputContainer
-                        name="shortName"
-                        value={form.shortName}
-                        handleChange={handleChange}
-                        placeholder="Type short name"
-                    />
-                </Field>
-
-                <BlockButtonWrapper>
-                    <ButtonWrapper alignment="right">
-                        <ActionButton
-                            text="Save"
-                            icon={isPosting ? 'spinner' : 'save'}
-                            iconSpin={isPosting}
-                            ambient="positive"
-                            size="medium"
-                            disabled={isPosting}
-                            type="submit"
-                        />
-                    </ButtonWrapper>
-                </BlockButtonWrapper>
+                </ButtonWrapper>
             </Form>
-        </ModalOuterContainer>
+        </FlexModalOuter>
     );
 };
 
