@@ -140,8 +140,6 @@ import {
     CREATE_COSTING_AND_ESTIMATING_PRELIM_MODAL,
     LINK_PRELIM_MODAL,
     EDIT_LINK_PRELIM_MODAL,
-    GENERATE_COSTING_ESTIMATING_REPORT_MODAL,
-    GENERATE_COSTING_ESTIMATING_REPORT_SUCCESS_MODAL,
     CREATE_ADMIN_PIN_OPTIONS_VALUE_MODAL,
     EDIT_ADMIN_PIN_OPTIONS_VALUE_MODAL,
     DUPLICATE_PIN_OPTIONS_SET_MODAL,
@@ -177,7 +175,7 @@ import PayInvoiceModalContainer from 'components/companyAdmin/invoices/shared/pa
 import PaymentErrorModalContainer from './PaymentErrorModalContainer';
 import PinPhotoModal from '../presentational/PinPhotoModal';
 import RenameTemplateSectionModalContainer from 'components/superAdmin/templateBuilder/setSection/containers/EditTemplateSectionModalContainer';
-import SuccessModalContainer from './SuccessModalContainer';
+import SuccessModal from '../presentational/SuccessModal';
 import ConfirmDeleteModal from '../presentational/ConfirmDeleteModal';
 import ConfirmArchiveModal from '../presentational/ConfirmArchiveModal';
 import ConfirmSubmitModal from '../presentational/ConfirmSubmitModal';
@@ -283,8 +281,6 @@ import AdminCreateOptionSetModal from 'components/superAdmin/pinOptions/optionSe
 import AdminEditOptionSetModal from 'components/superAdmin/pinOptions/optionSets/modals/EditOptionSetModal';
 import EditSitePinOptionSetsModal from '../../../../companyAdmin/sites/editSitePinOptionSets/presentational/EditSitePinOptionSetsModal';
 import CreateCostingAndEstimatingPrelimModal from 'components/companyAdmin/costingAndEstimating/modals/CreateCostingAndEstimatingPrelimModal';
-import GenerateCostingEstimatingReportModal from '../presentational/GenerateCostingEstimatingReportModal';
-import GenerateCostingEstimatingReportSuccessModal from '../presentational/GenerateCostingEstimatingReportSuccessModal';
 import EditLinkPrelimModal from 'components/companyAdmin/costingAndEstimating/modals/EditLinkPrelimModal';
 import LinkPrelimModal from '../../../../companyAdmin/costingAndEstimating/modals/LinkPrelimModal';
 import AdminCreateOptionValueModal from '../../../../superAdmin/pinOptions/optionValues/modals/CreateOptionValueModal';
@@ -326,7 +322,7 @@ const MODAL_COMPONENTS = {
     [PIN_IMAGE]: PinPhotoModal,
     [RENAME_TEMPLATE_SECTION]: RenameTemplateSectionModalContainer,
     [COPY_TEMPLATE]: CopyTemplateModalContainer,
-    [SUCCESS_MODAL]: SuccessModalContainer.WrappedComponent,
+    [SUCCESS_MODAL]: SuccessModal,
     [EDIT_DRAWING]: EditDrawingModalContainer,
     [CONFIRM_EDIT_PIN]: ConfirmEditPinModalContainer,
     [ADD_SITE]: AddSiteModal,
@@ -433,8 +429,6 @@ const MODAL_COMPONENTS = {
     [CREATE_COSTING_AND_ESTIMATING_PRELIM_MODAL]: CreateCostingAndEstimatingPrelimModal,
     [LINK_PRELIM_MODAL]: LinkPrelimModal,
     [EDIT_LINK_PRELIM_MODAL]: EditLinkPrelimModal,
-    [GENERATE_COSTING_ESTIMATING_REPORT_MODAL]: GenerateCostingEstimatingReportModal,
-    [GENERATE_COSTING_ESTIMATING_REPORT_SUCCESS_MODAL]: GenerateCostingEstimatingReportSuccessModal,
     [DUPLICATE_PIN_OPTIONS_SET_MODAL]: DuplicateOptionSetModal,
     [DUPLICATE_PIN_OPTIONS_VALUE_MODAL]: DuplicateOptionValueModal,
 };

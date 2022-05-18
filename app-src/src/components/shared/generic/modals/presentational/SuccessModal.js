@@ -14,9 +14,9 @@ const SuccessModal = ({
 }) => (
     <ModalOuterContainer>
         <BlockHeading title={title} />
-        <BlockButtonWrapper>
-            <p className="generic-text">{message}</p>
+        <p className="generic-text">{message}</p>
 
+        <BlockButtonWrapper>
             {link && linkMessage && (
                 <ButtonContainer
                     setColour="#2eac58"
