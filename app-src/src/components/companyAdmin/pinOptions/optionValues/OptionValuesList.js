@@ -59,6 +59,7 @@ const OptionValuesList = ({ forwardRef, hasFetched }) => {
         showDeleteModal,
         showHideModal,
         showDuplicateModal,
+        showMoveModal,
         enableOptionValue,
         disableOptionValue,
     } = useOptionValueActions(typeID, setID);
@@ -155,6 +156,7 @@ const OptionValuesList = ({ forwardRef, hasFetched }) => {
                             showDeleteModal={showDeleteModal}
                             showHideModal={showHideModal}
                             showDuplicateModal={showDuplicateModal}
+                            showMoveModal={showMoveModal}
                             enableOptionValue={enableOptionValue}
                             disableOptionValue={disableOptionValue}
                             isSorting={isSorting}

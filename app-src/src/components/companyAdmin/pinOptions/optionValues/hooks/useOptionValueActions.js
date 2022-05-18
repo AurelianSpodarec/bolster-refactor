@@ -2,11 +2,12 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
-    CONFIRM_SUBMIT,
+    CONFIRM_DELETE,
     CREATE_PIN_OPTIONS_VALUE_MODAL,
     DUPLICATE_PIN_OPTIONS_VALUE_MODAL,
     EDIT_PIN_OPTIONS_VALUE_MODAL,
     ERROR_MODAL,
+    MOVE_PIN_OPTION_MODAL,
 } from 'constants/shared/modalTypes';
 import { usePrevious } from 'helpers/hooks';
 
@@ -20,7 +21,6 @@ import {
     selectPinOptionsPostSuccess,
 } from 'selectors/companyAdmin/pinOptions';
 import deletePinOptionValue from 'actions/companyAdmin/pinOptions/async/deletePinOptionValue';
-import duplicatePinOptionValue from 'actions/companyAdmin/pinOptions/async/duplicatePinOptionValue';
 
 const useOptionValueActions = (typeID, setID) => {
     const dispatch = useDispatch();
@@ -47,12 +47,10 @@ const useOptionValueActions = (typeID, setID) => {
         const { name, ...rest } = option;
 
         dispatch(
-            showModal(CONFIRM_SUBMIT, {
-                handleSubmit: () => dispatch(deletePinOptionValue({ ...rest })),
+            showModal(CONFIRM_DELETE, {
+                handleDelete: () => dispatch(deletePinOptionValue({ ...rest })),
                 title: `Delete ${name}?`,
                 message: 'Are you sure you would like to delete this option?',
-                submitButtonText: 'Delete',
-                submitButtonIcon: 'trash-alt',
             }),
         );
     };
@@ -64,6 +62,10 @@ const useOptionValueActions = (typeID, setID) => {
 
     const showDuplicateModal = option => {
         dispatch(showModal(DUPLICATE_PIN_OPTIONS_VALUE_MODAL, { option }));
+    };
+
+    const showMoveModal = option => {
+        dispatch(showModal(MOVE_PIN_OPTION_MODAL, { option }));
     };
 
     const enableOptionValue = option => {
@@ -90,6 +92,7 @@ const useOptionValueActions = (typeID, setID) => {
         showDeleteModal,
         showHideModal,
         showDuplicateModal,
+        showMoveModal,
         enableOptionValue,
         disableOptionValue,
     };

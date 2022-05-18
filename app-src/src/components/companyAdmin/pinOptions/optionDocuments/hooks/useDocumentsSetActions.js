@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
-    CONFIRM_SUBMIT,
+    CONFIRM_DELETE,
     CREATE_PIN_OPTION_DOCUMENTS_MODAL,
     EDIT_PIN_OPTION_DOCUMENTS_MODAL,
     ERROR_MODAL,
@@ -33,12 +33,10 @@ const useDocumentsSetActions = optionID => {
 
     const showDeleteModal = (document, documentsVersion) => {
         dispatch(
-            showModal(CONFIRM_SUBMIT, {
-                handleSubmit: () => dispatch(deletePinOptionDocument(document)),
+            showModal(CONFIRM_DELETE, {
+                handleDelete: () => dispatch(deletePinOptionDocument(document)),
                 title: `Delete ${documentsVersion.name}?`,
                 message: 'Are you sure you would like to delete this document?',
-                submitButtonText: 'Delete',
-                submitButtonIcon: 'trash-alt',
             }),
         );
     };

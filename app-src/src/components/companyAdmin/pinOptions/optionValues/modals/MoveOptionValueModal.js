@@ -1,0 +1,48 @@
+import React from 'react';
+
+import useMoveOptionValue from '../hooks/useMoveOptionValue';
+
+import FlexModalOuter from '../../../../shared/generic/modals/presentational/FlexModalOuter';
+import Form from '../../../../shared/generic/form/containers/Form';
+import ButtonWrapper from '../../../../shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from '../../../../shared/generic/button/presentational/ActionButton';
+import Field from '../../../../shared/generic/form/presentational/Field';
+import DropdownContainer from '../../../../shared/generic/form/containers/DropdownContainer';
+
+const MoveOptionValueModal = ({ option, hideModal }) => {
+    const { optionSetOptionsObj, setID, setSetID, handleSubmit, isPosting } =
+        useMoveOptionValue(option);
+    return (
+        <FlexModalOuter title="Move pin option value to a different set">
+            <Form onSubmit={handleSubmit} className="generic-form flex-content-wrapper size-lg-12">
+                <div className="flex-content">
+                    <div className="form-fields-container">
+                        <Field name="Select set" required>
+                            <DropdownContainer
+                                name="setID"
+                                options={Object.values(optionSetOptionsObj)}
+                                value={optionSetOptionsObj[setID]}
+                                selectedOption={optionSetOptionsObj[setID]}
+                                handleChange={(_, value) => setSetID(value)}
+                                required
+                            />
+                        </Field>
+                    </div>
+                </div>
+
+                <ButtonWrapper alignment="right" extraClasses="flex-modal-footer">
+                    <ActionButton text="Cancel" source="secondary" onClick={hideModal} />
+                    <ActionButton
+                        text="Confirm"
+                        icon={isPosting ? 'spinner' : 'check'}
+                        iconSpin={isPosting}
+                        disabled={isPosting}
+                        type="submit"
+                    />
+                </ButtonWrapper>
+            </Form>
+        </FlexModalOuter>
+    );
+};
+
+export default MoveOptionValueModal;
