@@ -1,15 +1,13 @@
 import { useEffect, useMemo } from 'react';
-import useBlockTabs from '../../../shared/tabs/hooks/useBlockTabs';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { isEmpty } from '../../../../helpers/generic';
-
 import setPinOptionsTypesSelectedTabID from '../../../../actions/superAdmin/pinOptions/sync/setPinOptionsTypesSelectedTabID';
-
 import {
     selectPinOptionTypesArr,
     selectPinOptionTypesSelectedTabID,
 } from '../../../../selectors/superAdmin/pinOptionTypes';
+
+import useBlockTabs from '../../../shared/tabs/hooks/useBlockTabs';
 
 import OptionSets from '../optionSets/OptionSets';
 
@@ -24,10 +22,6 @@ const usePinOptionsTabs = () => {
             .forEach(({ id, tabName }) =>
                 tabsList.push({ id, name: tabName, component: OptionSets }),
             );
-
-        if (!isEmpty(pinOptionTypesArr)) {
-            tabsList.push({ id: 'prelims', name: 'Prelims', component: null });
-        }
 
         return tabsList;
     }, [pinOptionTypesArr]);
