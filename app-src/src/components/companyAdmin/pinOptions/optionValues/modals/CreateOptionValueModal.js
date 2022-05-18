@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { measurementDropdownOptions } from 'constants/shared/dropdowns';
@@ -18,8 +18,10 @@ import ButtonMultiDropdown from 'components/shared/filters/ButtonMultiDropdown';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import NumberInputContainer from 'components/shared/generic/form/containers/NumberInputContainer';
 import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
+import JustToCheckModal from './JustToCheckModal';
 
 const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
+    const [showJustToCheckModal, setShowJustToCheckModal] = useState(false);
     const pinOptionType = useSelector(state => selectPinOptionType(state, pinOptionTypeID));
     const singularTypeName = pinOptionType.name;
 
@@ -222,9 +224,16 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                         ambient="positive"
                         disabled={isPosting}
                         type="submit"
+                        onClick={() => setShowJustToCheckModal(true)}
                     />
                 </ButtonWrapper>
             </Form>
+            <JustToCheckModal
+                title="whatever"
+                text="whatever"
+                showJustToCheckModal={showJustToCheckModal}
+                setShowJustToCheckModal={setShowJustToCheckModal}
+            />
         </FlexModalOuter>
     );
 };
