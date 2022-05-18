@@ -2,11 +2,7 @@ import showModal from 'actions/shared/generic/modals/sync/showModal';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-    ERROR_MODAL,
-    GENERATE_COSTING_ESTIMATING_REPORT_MODAL,
-    GENERATE_COSTING_ESTIMATING_REPORT_SUCCESS_MODAL,
-} from 'constants/shared/modalTypes';
+import { ERROR_MODAL, LOADING_DATA, SUCCESS_MODAL } from 'constants/shared/modalTypes';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 import {
     selectCostingAndEstimatingPostError,
@@ -42,11 +38,7 @@ const CartReportForm = ({ cAndEPostBody }) => {
         if (postSuccess && !prevProps.postSuccess) {
             dispatch(hideModal());
             history.push('/company/reports');
-            dispatch(
-                showModal(GENERATE_COSTING_ESTIMATING_REPORT_SUCCESS_MODAL, {
-                    hideModal: dispatch(hideModal),
-                }),
-            );
+            dispatch(showModal(SUCCESS_MODAL, { message: 'Your report is now being generated.' }));
         }
         if (error && !prevProps.error) {
             dispatch(hideModal());
@@ -63,7 +55,7 @@ const CartReportForm = ({ cAndEPostBody }) => {
 
     const handleSubmit = () => {
         dispatch(createCostingAndEstimatingReport(postBody));
-        dispatch(showModal(GENERATE_COSTING_ESTIMATING_REPORT_MODAL));
+        dispatch(showModal(LOADING_DATA, { message: 'Generating Report. Please wait...' }));
     };
 
     return (
