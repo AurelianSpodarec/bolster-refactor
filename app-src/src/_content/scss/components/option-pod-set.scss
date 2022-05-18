@@ -1,0 +1,55 @@
+.option-pod-set-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+
+.option-pod-set {
+
+    button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 150px;
+      min-height: 60px;
+      padding: 10px 0;
+      margin: 10px;
+      border: 2px solid var(--typography-default);
+      border-radius: 7.5px;
+      background-color: transparent;
+      color: var(--typography-default);
+    
+      .icon {
+        font-size: 200%;
+        color: var(--typography-default);
+      }
+
+      .svg-icon {
+        width: auto;
+        height: 30px;
+
+        &.path-stroke {
+          path {
+            stroke: var(--typography-default);
+          }
+        }
+
+        &.path-fill {
+          path {
+            fill: var(--typography-default);
+          }
+        }
+
+        + .text {
+          margin-left: 8px;
+          color: var(--typography-default);
+        }
+      }
+
+    }
+
+      &.selected {
+        button {
+          border-color: var(--positive-stroke);
+        }
+      }
+  }
+}
