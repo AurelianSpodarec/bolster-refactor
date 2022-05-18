@@ -1,57 +1,48 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { connect, useDispatch } from 'react-redux';
 
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 import OptionPodSetList from '../presentational/OptionsPodSetList';
+import { usePrevious } from 'helpers/hooks';
 
-class OptionPodSetListContainer extends Component {
-    state = {
-        showFieldError: false,
-    };
-    render() {
-        const { showFieldError } = this.state;
-        const {
-            options,
-            error,
-            errorsVisible,
-            selectedOptions,
-            name,
-            classes,
-            allOptionsDisabled = false,
-            hideDisabled = false,
-            isNumberValues,
-        } = this.props;
-        const errorMessage = showFieldError || errorsVisible ? error : null;
-        return (
-            <OptionPodSetList
-                selectedOptions={selectedOptions}
-                options={options}
-                handleChange={this.handleChange}
-                error={errorMessage}
-                name={name}
-                classes={classes}
-                allOptionsDisabled={allOptionsDisabled}
-                hideDisabled={hideDisabled}
-                isNumberValues={isNumberValues}
-            />
-        );
-    }
+const OptionPodSetListContainer = ({
+    options,
+    error,
+    errorsVisible,
+    selectedOptions,
+    name,
+    classes,
+    allOptionsDisabled = false,
+    hideDisabled = false,
+    isNumberValues,
+    required,
+    addFieldError,
+    removeFieldError,
+    requiredMessage,
+    handleChange,
+}) => {
+    const dispatch = useDispatch();
+    const [showFieldError, setShowFieldError] = useState(false);
+    const errorMessage = showFieldError || errorsVisible ? error : null;
+    const prevProps = usePrevious({ selectedOptions });
 
-    componentDidMount = () => this._validate();
+    useEffect(() => {
+        validate();
+        if (prevProps.length !== selectedOptions.length) {
+            validate();
 
-    componentDidUpdate = ({ selectedOptions: prevCheckedValues }) => {
-        const { selectedOptions } = this.props;
-        const { showFieldError } = this.state;
-        if (prevCheckedValues.length !== selectedOptions.length) {
-            this._validate();
-
-            if (!showFieldError) this.setState({ showFieldError: true });
+            if (!showFieldError) setShowFieldError(true);
         }
+    }, [selectedOptions]);
+
+    const validate = () => {
+        if (required && !selectedOptions.length) {
+            dispatch(addFieldError(name, requiredMessage || 'This is a required field.'));
+        } else if (error) dispatch(removeFieldError(name));
     };
 
-    handleChange = (name, _, value) => {
-        const { selectedOptions, handleChange, isNumberValues } = this.props;
+    const onChange = (name, _, value) => {
         const formattedValue = isNumberValues ? parseInt(value) : value;
 
         const updatedValues = selectedOptions.includes(formattedValue)
@@ -60,22 +51,20 @@ class OptionPodSetListContainer extends Component {
         handleChange(name, updatedValues);
     };
 
-    _validate = () => {
-        const {
-            name,
-            error,
-            required,
-            addFieldError,
-            removeFieldError,
-            selectedOptions,
-            requiredMessage,
-        } = this.props;
-
-        if (required && !selectedOptions.length) {
-            addFieldError(name, requiredMessage || 'This is a required field.');
-        } else if (error) removeFieldError(name);
-    };
-}
+    return (
+        <OptionPodSetList
+            selectedOptions={selectedOptions}
+            options={options}
+            handleChange={onChange}
+            error={errorMessage}
+            name={name}
+            classes={classes}
+            allOptionsDisabled={allOptionsDisabled}
+            hideDisabled={hideDisabled}
+            isNumberValues={isNumberValues}
+        />
+    );
+};
 
 const mapStateToProps = (
     {

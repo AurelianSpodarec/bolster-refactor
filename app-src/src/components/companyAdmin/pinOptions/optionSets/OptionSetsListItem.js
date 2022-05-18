@@ -102,7 +102,7 @@ const OptionSetsListItem = ({
                                     disabled={!isCompanySet}
                                     tooltip={
                                         !isCompanySet
-                                            ? 'This is a Bolster Systems created set and cannot be deleted'
+                                            ? 'This is a Bolster Systems created set and cannot be deleted.'
                                             : null
                                     }
                                 />
