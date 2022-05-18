@@ -19,7 +19,7 @@ import ButtonWrapperInfo from 'components/shared/generic/button/presentational/B
 
 const OptionValuesListItem = ({
     option,
-    option: { id, name, isDisabled, priceBreaks, isDeleted },
+    option: { id, name, isDisabled, priceBreaks, isDeleted, companyID },
     setID,
     typeID,
     showEditModal,
@@ -31,7 +31,6 @@ const OptionValuesListItem = ({
     isDragging,
     connectDropTarget,
     forwardRef,
-    isCompanySet,
     showHideModal,
 }) => {
     const company = useSelector(selectCompanySettings);
@@ -45,6 +44,8 @@ const OptionValuesListItem = ({
     const hasPriceBreaks = pinOptionType.hasCosting && !isEmpty(priceBreaks);
 
     const currencySymbol = CURRENCY_SYMBOLS[company.reportingCurrency] ?? '£';
+
+    const isCompanyOption = !!companyID;
 
     return (
         <>
@@ -70,7 +71,7 @@ const OptionValuesListItem = ({
                                 disabled={isSorting}
                                 keepTextColorOnDisable
                             />
-                            {isCompanySet ? (
+                            {isCompanyOption ? (
                                 <button
                                     className="checkbox-text link"
                                     onClick={() => showEditModal(option)}
@@ -103,9 +104,9 @@ const OptionValuesListItem = ({
                                 <ActionMenuActionButton
                                     text="Edit"
                                     onClick={() => showEditModal(option)}
-                                    disabled={!isCompanySet}
+                                    disabled={!isCompanyOption}
                                     tooltip={
-                                        !isCompanySet
+                                        !isCompanyOption
                                             ? 'This is a Bolster Systems created option and cannot be edited. Please duplicate the option first if you would like to make changes.'
                                             : null
                                     }
@@ -114,10 +115,10 @@ const OptionValuesListItem = ({
                                     text="Delete"
                                     onClick={() => showDeleteModal(option)}
                                     isNegative
-                                    disabled={!isCompanySet}
+                                    disabled={!isCompanyOption}
                                     tooltip={
-                                        !isCompanySet
-                                            ? 'This is a Bolster Systems created option and cannot be deleted'
+                                        !isCompanyOption
+                                            ? 'This is a Bolster Systems created option and cannot be deleted.'
                                             : null
                                     }
                                 />
