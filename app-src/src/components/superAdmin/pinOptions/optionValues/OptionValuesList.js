@@ -12,8 +12,6 @@ import useGetOptionsForSet from './hooks/useGetOptionsForSet';
 import useOptionValueActions from './hooks/useOptionValueActions';
 import useShouldRedirectFromOptionValues from './hooks/useShouldRedirectFromOptionValues';
 
-import withDropZone from 'components/shared/dragDrop/hocs/withDropZone';
-
 import FilterRow from 'components/shared/filters/FilterRow';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import Table from 'components/shared/generic/tables/presentational/Table';
@@ -23,7 +21,7 @@ import ActionButton from 'components/shared/generic/button/presentational/Action
 import TooltipFilters from 'components/shared/filters/TooltipFilters/TooltipFilters';
 import TooltipFiltersItem from 'components/shared/filters/TooltipFilters/TooltipFiltersItem';
 
-const OptionValuesList = ({ forwardRef, hasFetched }) => {
+const OptionValuesList = ({ hasFetched }) => {
     const { setID, type } = useParams();
     const pinOptionTypesArr = useSelector(selectPinOptionTypesArr);
     const specificType = pinOptionTypesArr.find(curType => curType.slug === type);
