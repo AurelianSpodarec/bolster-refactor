@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect, useDispatch } from 'react-redux';
 
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
