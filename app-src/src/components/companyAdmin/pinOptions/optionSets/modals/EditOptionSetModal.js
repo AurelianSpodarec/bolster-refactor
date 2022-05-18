@@ -2,22 +2,21 @@ import React from 'react';
 
 import useEditOptionSet from '../hooks/useEditOptionSet';
 
-import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import Form from 'components/shared/generic/form/containers/Form';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import Field from 'components/shared/generic/form/presentational/Field';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import ModalHeading from 'components/shared/generic/modals/presentational/ModalHeading';
 import ButtonMultiDropdown from 'components/shared/filters/ButtonMultiDropdown';
+import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
 
 const EditOptionSetModal = ({ set }) => {
     const { form, handleChange, handleSubmit, isPosting, serviceOptions } = useEditOptionSet(set);
 
     return (
-        <ModalOuterContainer hideCloseButton>
-            <ModalHeading title={`Edit ${set.name}`}>
+        <FlexModalOuter
+            title={`Edit ${set.name}`}
+            headingChildren={
                 <ButtonMultiDropdown
                     buttonText="Services"
                     name="serviceIDs"
@@ -27,34 +26,35 @@ const EditOptionSetModal = ({ set }) => {
                     isNumberValues
                     scrollElementID="modal-block"
                 />
-            </ModalHeading>
+            }
+        >
+            <Form onSubmit={handleSubmit} className="generic-form flex-content-wrapper size-lg-12">
+                <div className="flex-content">
+                    <div className="form-fields-container">
+                        <Field name="Name" required>
+                            <TextInputContainer
+                                name="name"
+                                value={form.name}
+                                handleChange={handleChange}
+                                placeholder="Type name"
+                                required
+                            />
+                        </Field>
+                    </div>
+                </div>
 
-            <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
-                <Field name="Name" required>
-                    <TextInputContainer
-                        name="name"
-                        value={form.name}
-                        handleChange={handleChange}
-                        placeholder="Type name"
-                        required
+                <ButtonWrapper alignment="right" extraClasses="flex-modal-footer">
+                    <ActionButton
+                        text="Save"
+                        icon={isPosting ? 'spinner' : 'save'}
+                        iconSpin={isPosting}
+                        ambient="positive"
+                        disabled={isPosting}
+                        type="submit"
                     />
-                </Field>
-
-                <BlockButtonWrapper>
-                    <ButtonWrapper alignment="right">
-                        <ActionButton
-                            text="Save"
-                            icon={isPosting ? 'spinner' : 'save'}
-                            iconSpin={isPosting}
-                            ambient="positive"
-                            size="medium"
-                            disabled={isPosting}
-                            type="submit"
-                        />
-                    </ButtonWrapper>
-                </BlockButtonWrapper>
+                </ButtonWrapper>
             </Form>
-        </ModalOuterContainer>
+        </FlexModalOuter>
     );
 };
 
