@@ -1,0 +1,85 @@
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
+import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
+import OptionPodSet from '../presentational/OptionPodSet';
+
+class OptionPodSetContainer extends Component {
+    state = {
+        showFieldError: false,
+        firstValidated: false,
+    };
+    render() {
+        const { showFieldError } = this.state;
+        const {
+            checked,
+            name,
+            errorsVisible,
+            disabled,
+            error,
+            id,
+            text,
+            value,
+            classes,
+            // fromList prop prevents errors from displaying on the individual checkbox when the list itself will be displaying the error
+            fromList,
+            hideDisabled,
+            keepTextColorOnDisable,
+        } = this.props;
+
+        const errorMessage = showFieldError || errorsVisible ? error : null;
+        return (
+            <OptionPodSet
+                checked={checked}
+                handleChange={this.handleChange}
+                name={name}
+                id={id}
+                error={errorMessage}
+                disabled={disabled}
+                text={text}
+                value={value}
+                classes={classes}
+                fromList={fromList}
+                hideDisabled={hideDisabled}
+                keepTextColorOnDisable={keepTextColorOnDisable}
+            />
+        );
+    }
+    componentDidMount = () => {
+        this._validate();
+    };
+
+    componentDidUpdate = ({ checked: prevChecked }) => {
+        if (this.props.checked !== prevChecked) this._validate();
+    };
+
+    componentWillUnmount = () => {
+        const { name, error, removeFieldError } = this.props;
+        if (error) removeFieldError(name);
+    };
+
+    handleChange = ({ target: { name, checked, value } }) =>
+        this.props.handleChange(name, checked, value);
+
+    _validate() {
+        const { required, checked, addFieldError, removeFieldError, name, error } = this.props;
+        if (required && !checked) {
+            addFieldError(name, 'This is a required field.');
+        } else if (error) {
+            removeFieldError(name);
+        }
+    }
+}
+
+const mapStateToProps = ({ shared: { fieldErrorsReducer } }, ownProps) => ({
+    error: fieldErrorsReducer.fieldErrors[ownProps.name],
+    errorsVisible: fieldErrorsReducer.errorsVisible,
+});
+
+const mapDispatchToProps = dispatch => ({
+    addFieldError: (name, error) => dispatch(addFieldError(name, error)),
+    removeFieldError: name => dispatch(removeFieldError(name)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(OptionPodSetContainer);

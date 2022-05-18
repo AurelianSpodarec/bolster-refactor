@@ -6,8 +6,8 @@ import Form from 'components/shared/generic/form/containers/Form';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BolsterLabelExample from 'components/shared/generic/form/presentational/BolsterLabelExample';
 import CheckboxContainer from '../../../../shared/generic/form/containers/CheckboxContainer';
-import CheckboxListContainer from '../../../../shared/generic/form/containers/CheckboxListContainer';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import OptionsPodSetListContainer from 'components/shared/generic/form/containers/OptionPodSetListContainer';
 
 const AddSiteForm = ({
     handleSubmit,
@@ -73,49 +73,49 @@ const AddSiteForm = ({
                         required
                     />
                 </Field>
-
-                {isCostingEnabled &&
-                    types.map(type => {
-                        const sets = typeSets[type.id] ?? [];
-                        const options = sets.map(set => ({
-                            text: set.name,
-                            value: set.id,
-                        }));
-                        const isSelected = selectedPinOptionTypes[type.id];
-                        return (
-                            <>
-                                <Field
-                                    labelClasses="no-capitalise"
-                                    name={`Set ${type.namePlural} for site?`}
-                                    key={type.id}
-                                >
-                                    <CheckboxContainer
-                                        name={type.id}
-                                        checked={selectedPinOptionTypes[type.id]}
-                                        handleChange={handlePinOptionTypeChange}
-                                        label={`Set ${type.namePlural} for site?`}
-                                        labelClasses="no-capitalise"
-                                    />
-                                </Field>
-                                {isSelected && (
-                                    <Field name={type.namePlural}>
-                                        <CheckboxListContainer
-                                            name={type.id}
-                                            text=""
-                                            isNumberValues
-                                            handleChange={handlePinOptionSetChange}
-                                            options={options}
-                                            selectedOptions={selectedPinOptionSets[type.id] ?? []}
-                                        />
-                                    </Field>
-                                )}
-                            </>
-                        );
-                    })}
             </div>
             <div className="size-lg-6 size-md-12">
                 {isUsingBolsterLabels && <BolsterLabelExample name={name} hierarchy="Site" />}
             </div>
+
+            {isCostingEnabled &&
+                types.map(type => {
+                    const sets = typeSets[type.id] ?? [];
+                    const options = sets.map(set => ({
+                        text: set.name,
+                        value: set.id,
+                    }));
+                    const isSelected = selectedPinOptionTypes[type.id];
+
+                    return (
+                        <>
+                            <Field
+                                labelClasses="no-capitalise"
+                                name={`Set ${type.namePlural} for site?`}
+                                key={type.id}
+                            >
+                                <CheckboxContainer
+                                    name={type.id}
+                                    checked={selectedPinOptionTypes[type.id]}
+                                    handleChange={handlePinOptionTypeChange}
+                                    label={`Set ${type.namePlural} for site?`}
+                                    labelClasses="no-capitalise"
+                                />
+                            </Field>
+                            {isSelected && (
+                                <Field name={type.namePlural}>
+                                    <OptionsPodSetListContainer
+                                        name={type.id}
+                                        isNumberValues
+                                        options={options}
+                                        handleChange={handlePinOptionSetChange}
+                                        selectedOptions={selectedPinOptionSets[type.id] ?? []}
+                                    />
+                                </Field>
+                            )}
+                        </>
+                    );
+                })}
 
             <BlockButtonWrapper>
                 {isFetchingHierarchies ? (
