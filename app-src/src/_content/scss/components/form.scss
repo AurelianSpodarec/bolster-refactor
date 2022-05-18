@@ -30,6 +30,12 @@
   }
 }
 
+// to be wrapped around form fields if generic form has had calc width removed
+.form-fields-container {
+  width: calc(100% + 15px);
+  margin-left: -7.5px;
+}
+
 // multi select
 .multi-select {
   float: left;
