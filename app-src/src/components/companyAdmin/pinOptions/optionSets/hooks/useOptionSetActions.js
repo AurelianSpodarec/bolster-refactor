@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
-    CONFIRM_SUBMIT,
+    CONFIRM_DELETE,
     CREATE_PIN_OPTIONS_SET_MODAL,
     DUPLICATE_PIN_OPTIONS_SET_MODAL,
     EDIT_PIN_OPTIONS_SET_MODAL,
@@ -23,7 +23,6 @@ import {
     selectPinOptionSetsPostError,
 } from 'selectors/companyAdmin/pinOptionSets';
 import deletePinOptionSet from 'actions/companyAdmin/pinOptions/async/deletePinOptionSet';
-import duplicatePinOptionSet from 'actions/companyAdmin/pinOptions/async/duplicatePinOptionSet';
 
 const useOptionSetActions = selectedTypeID => {
     const dispatch = useDispatch();
@@ -55,12 +54,10 @@ const useOptionSetActions = selectedTypeID => {
 
     const showDeleteModal = set => {
         dispatch(
-            showModal(CONFIRM_SUBMIT, {
-                handleSubmit: () => dispatch(deletePinOptionSet(set.id)),
+            showModal(CONFIRM_DELETE, {
+                handleDelete: () => dispatch(deletePinOptionSet(set.id)),
                 title: `Delete ${set.name}?`,
                 message: 'Are you sure you would like to delete this set?',
-                submitButtonText: 'Delete',
-                submitButtonIcon: 'trash-alt',
             }),
         );
     };
