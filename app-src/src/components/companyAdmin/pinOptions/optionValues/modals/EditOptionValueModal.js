@@ -241,6 +241,7 @@ const EditOptionValueModal = ({ option, typeID }) => {
                         ambient="positive"
                         disabled={isPosting}
                         type="submit"
+                        onClick={() => setShowJustToCheckModal(true)}
                     />
                 </ButtonWrapper>
             </Form>
@@ -248,7 +249,7 @@ const EditOptionValueModal = ({ option, typeID }) => {
             {selectedPinOptionType.tabName === 'Installations' && (
                 <JustToCheckModal
                     title="Overwrite prices?"
-                    text="Saving will overwrite previous pricing "
+                    text="Saving will overwrite previous pricing"
                     showJustToCheckModal={showJustToCheckModal}
                     setShowJustToCheckModal={setShowJustToCheckModal}
                 />
