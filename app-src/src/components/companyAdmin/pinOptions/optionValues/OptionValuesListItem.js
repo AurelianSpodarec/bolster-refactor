@@ -118,7 +118,7 @@ const OptionValuesListItem = ({
                                     disabled={!isCompanyOption}
                                     tooltip={
                                         !isCompanyOption
-                                            ? 'This is a Bolster Systems created option and cannot be deleted'
+                                            ? 'This is a Bolster Systems created option and cannot be deleted.'
                                             : null
                                     }
                                 />
