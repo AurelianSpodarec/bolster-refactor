@@ -6,7 +6,7 @@ const TooltipFilters = ({ children, closeFilters }) => {
     const ref = useClickOutside(closeFilters);
 
     return (
-        <div ref={ref} className="tooltip-filters border static-width full-option-height right">
+        <div ref={ref} className="tooltip-filters border static-width right">
             {children}
         </div>
     );

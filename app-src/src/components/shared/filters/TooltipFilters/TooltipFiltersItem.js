@@ -65,7 +65,11 @@ const TooltipFiltersItem = ({
                 </button>
             </FlexWrapper>
 
-            <div className={`tooltip-filter-options border ${isOptionExpanded ? 'active' : ''}`}>
+            <div
+                className={`tooltip-filter-options border ${isOptionExpanded ? 'active' : ''} ${
+                    options && options.length <= 10 ? 'full-option-height' : ''
+                }`}
+            >
                 {allowSearch && (
                     <FilterInput
                         value={searchTerm}

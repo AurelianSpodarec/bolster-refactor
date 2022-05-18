@@ -1,11 +1,13 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import useFetchPinOptionSets from '../../hooks/useFetchPinOptionSets';
-import useFilterOptionSets from 'hooks/useFilterOptionSets';
+import useFilterOptionSets from './hooks/useFilterOptionSets';
 
 import { selectPinOptionType } from '../../../../selectors/superAdmin/pinOptionTypes';
 
 import { isEmpty } from 'helpers/generic';
+
+import useOptionSetActions from './hooks/useOptionSetActions';
 
 import FilterRow from 'components/shared/filters/FilterRow';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
@@ -14,7 +16,8 @@ import ButtonWrapper from 'components/shared/generic/button/presentational/Butto
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 
 import OptionSetsListItem from './OptionSetsListItem';
-import useOptionSetActions from './hooks/useOptionSetActions';
+import TooltipFilters from 'components/shared/filters/TooltipFilters/TooltipFilters';
+import TooltipFiltersItem from 'components/shared/filters/TooltipFilters/TooltipFiltersItem';
 
 const OptionSets = ({ selectedTypeID }) => {
     const selectedPinOptionType = useSelector(state => selectPinOptionType(state, selectedTypeID));
@@ -22,11 +25,18 @@ const OptionSets = ({ selectedTypeID }) => {
     const { pinOptionSetsArr, isFetchingPinOptionSets, pinOptionSetsFetchError } =
         useFetchPinOptionSets();
 
-    const { filteredSets, searchTerm, handleUpdateSearch } = useFilterOptionSets(
-        pinOptionSetsArr,
-        false,
-        selectedTypeID,
-    );
+    const {
+        filteredSets,
+        searchTerm,
+        handleUpdateSearch,
+        showFilters,
+        setShowFilters,
+        expandedID,
+        setExpandedID,
+        filterOptions,
+        form,
+        handleChange,
+    } = useFilterOptionSets(pinOptionSetsArr, selectedTypeID);
 
     const { showAddModal, showEditModal, showDeleteModal } = useOptionSetActions(selectedTypeID);
 
@@ -43,14 +53,32 @@ const OptionSets = ({ selectedTypeID }) => {
                 />
 
                 <ButtonWrapper alignment="right">
-                    {/* <ActionButton
-                        icon="filter"
-                        iconOnly
-                        source="secondary"
-                        size="medium"
-                        iconEqualSize
-                        onClick={() => console.log('open filters')}
-                    /> */}
+                    <div>
+                        <ActionButton
+                            icon="filter"
+                            iconOnly
+                            source="secondary"
+                            size="medium"
+                            iconEqualSize
+                            onClick={() => setShowFilters(!showFilters)}
+                            extraClasses={showFilters ? 'active' : ''}
+                        />
+
+                        {showFilters && (
+                            <TooltipFilters closeFilters={() => setShowFilters(false)}>
+                                {filterOptions.map(option => (
+                                    <TooltipFiltersItem
+                                        key={option.id}
+                                        option={option}
+                                        expandedID={expandedID}
+                                        setExpandedID={setExpandedID}
+                                        onChange={handleChange}
+                                        selected={form[option.id]}
+                                    />
+                                ))}
+                            </TooltipFilters>
+                        )}
+                    </div>
 
                     <ActionButton
                         text="Add"
