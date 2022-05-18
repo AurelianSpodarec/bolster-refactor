@@ -229,8 +229,8 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                 </ButtonWrapper>
             </Form>
             <JustToCheckModal
-                title="whatever"
-                text="whatever"
+                title="Overwrite prices?"
+                text="Saving will overwrite previous pricing"
                 showJustToCheckModal={showJustToCheckModal}
                 setShowJustToCheckModal={setShowJustToCheckModal}
             />
