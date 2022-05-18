@@ -40,7 +40,7 @@ const useOptionValueActions = (typeID, setID) => {
     };
 
     const showEditModal = option => {
-        dispatch(showModal(EDIT_PIN_OPTIONS_VALUE_MODAL, { option }));
+        dispatch(showModal(EDIT_PIN_OPTIONS_VALUE_MODAL, { option, typeID }));
     };
 
     const showDeleteModal = option => {

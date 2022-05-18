@@ -21,10 +21,11 @@ import DropdownContainer from '../../../../shared/generic/form/containers/Dropdo
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
 
-const EditOptionValueModal = ({ option }) => {
+const EditOptionValueModal = ({ option, typeID }) => {
     const pinOptionType = useSelector(state => selectPinOptionType(state, option.pinOptionTypeID));
     const [showJustToCheckModal, setShowJustToCheckModal] = useState(false);
     const canEditMeasurement = option.costMeasurementType === null;
+    const selectedPinOptionType = useSelector(state => selectPinOptionType(state, typeID));
 
     const {
         form,
@@ -243,12 +244,15 @@ const EditOptionValueModal = ({ option }) => {
                     />
                 </ButtonWrapper>
             </Form>
-            <JustToCheckModal
-                title="Overwrite prices?"
-                text="Saving will overwrite previous pricing "
-                showJustToCheckModal={showJustToCheckModal}
-                setShowJustToCheckModal={setShowJustToCheckModal}
-            />
+
+            {selectedPinOptionType.tabName === 'Installations' && (
+                <JustToCheckModal
+                    title="Overwrite prices?"
+                    text="Saving will overwrite previous pricing "
+                    showJustToCheckModal={showJustToCheckModal}
+                    setShowJustToCheckModal={setShowJustToCheckModal}
+                />
+            )}
         </FlexModalOuter>
     );
 };
