@@ -7,6 +7,7 @@ import {
     DUPLICATE_PIN_OPTIONS_VALUE_MODAL,
     EDIT_PIN_OPTIONS_VALUE_MODAL,
     ERROR_MODAL,
+    MOVE_PIN_OPTION_MODAL,
 } from 'constants/shared/modalTypes';
 import { usePrevious } from 'helpers/hooks';
 
@@ -66,6 +67,10 @@ const useOptionValueActions = (typeID, setID) => {
         dispatch(showModal(DUPLICATE_PIN_OPTIONS_VALUE_MODAL, { option }));
     };
 
+    const showMoveModal = option => {
+        dispatch(showModal(MOVE_PIN_OPTION_MODAL, { option }));
+    };
+
     const enableOptionValue = option => {
         const { name, ...rest } = option;
         if (!isPosting) dispatch(enablePinOptionValue({ ...rest }));
@@ -90,6 +95,7 @@ const useOptionValueActions = (typeID, setID) => {
         showDeleteModal,
         showHideModal,
         showDuplicateModal,
+        showMoveModal,
         enableOptionValue,
         disableOptionValue,
     };

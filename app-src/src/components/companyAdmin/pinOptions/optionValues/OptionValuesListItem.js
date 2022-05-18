@@ -25,6 +25,7 @@ const OptionValuesListItem = ({
     showEditModal,
     showDeleteModal,
     showDuplicateModal,
+    showMoveModal,
     enableOptionValue,
     disableOptionValue,
     isSorting,
@@ -99,6 +100,16 @@ const OptionValuesListItem = ({
                                 <ActionMenuActionButton
                                     text="Duplicate"
                                     onClick={() => showDuplicateModal(option)}
+                                />
+                                <ActionMenuActionButton
+                                    text="Move"
+                                    onClick={() => showMoveModal(option)}
+                                    disabled={!isCompanySet}
+                                    tooltip={
+                                        !isCompanySet
+                                            ? 'This is a Bolster Systems created option and cannot be edited. Please duplicate the option first if you would like to make changes.'
+                                            : null
+                                    }
                                 />
                                 <ActionMenuActionButton
                                     text="Edit"
