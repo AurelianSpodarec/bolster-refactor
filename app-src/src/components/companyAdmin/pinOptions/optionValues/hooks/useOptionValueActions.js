@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import {
     CONFIRM_DELETE,
-    CONFIRM_SUBMIT,
     CREATE_PIN_OPTIONS_VALUE_MODAL,
     DUPLICATE_PIN_OPTIONS_VALUE_MODAL,
     EDIT_PIN_OPTIONS_VALUE_MODAL,
