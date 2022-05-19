@@ -1,23 +1,26 @@
 import React from 'react';
-import ModalOuterContainer from '../containers/ModalOuterContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+
 import ActionButton from '../../button/presentational/ActionButton';
+import FlexModalOuter from './FlexModalOuter';
+import ButtonWrapper from '../../button/presentational/ButtonWrapper';
 
 const ConfirmArchiveModal = ({
     handleArchive,
     hideModal,
     message = 'Are you sure you want to archive this?',
-    archive = true,
 }) => (
-    <ModalOuterContainer>
-        <BlockHeading title="Archive Confirmation" />
-        <p className="generic-text intro-text size-lg-12">{message}</p>
-        <BlockButtonWrapper>
-            <ActionButton type="submit" text="Confirm" icon="check" onClick={handleArchive} />
+    <FlexModalOuter title="Archive Confirmation">
+        <div className="flex-content-wrapper">
+            <div className="flex-content">
+                <p className="generic-text size-lg-12">{message}</p>
+            </div>
+        </div>
+
+        <ButtonWrapper alignment="right" extraClasses="flex-modal-footer">
             <ActionButton source="secondary" text="Cancel" onClick={hideModal} />
-        </BlockButtonWrapper>
-    </ModalOuterContainer>
+            <ActionButton type="submit" text="Confirm" icon="check" onClick={handleArchive} />
+        </ButtonWrapper>
+    </FlexModalOuter>
 );
 
 export default ConfirmArchiveModal;

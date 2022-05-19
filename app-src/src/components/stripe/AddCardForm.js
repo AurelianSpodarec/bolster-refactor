@@ -13,7 +13,6 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import fetchCard from 'actions/companyAdmin/cards/async/fetchCard';
 import setPrimaryCard from 'actions/companyAdmin/cards/async/setPrimaryCard';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 
@@ -103,80 +102,89 @@ class CheckoutForm extends Component {
         };
 
         return (
-            <form onSubmit={this.submit}>
-                <div className="checkout">
-                    <Field name="Name on card" sizeClasses="size-lg-4 size-md-12" required>
-                        <TextInputContainer
-                            value={name}
-                            name="name"
-                            type="text"
-                            placeholder="Please enter your card name"
-                            handleChange={this.handleChange}
-                        />
-                    </Field>
-                    <div className="size-lg-12">
-                        <Field
-                            name="Card number"
-                            sizeClasses="size-lg-4 size-md-12 stripe-text-input"
-                            required
-                        >
-                            <CardNumberElement {...createOptions()} onChange={this.handleChange} />
+            <form className="flex-content-wrapper" onSubmit={this.submit}>
+                <div className="flex-content">
+                    <div className="form-fields-container">
+                        <Field name="Name on card" sizeClasses="size-lg-4 size-md-12" required>
+                            <TextInputContainer
+                                value={name}
+                                name="name"
+                                type="text"
+                                placeholder="Please enter your card name"
+                                handleChange={this.handleChange}
+                            />
                         </Field>
-                        <Field
-                            name="Expiration date"
-                            sizeClasses="size-lg-4 size-md-12 stripe-text-input"
-                            required
-                        >
-                            <CardExpiryElement {...createOptions()} onChange={this.handleChange} />
-                        </Field>
-                        <Field
-                            name="CVC"
-                            sizeClasses="size-lg-4 size-md-12 stripe-text-input"
-                            required
-                        >
-                            <CardCVCElement {...createOptions()} onChange={this.handleChange} />
-                        </Field>
-                        {errorMessage && nameProvided ? (
-                            <div
-                                className="size-lg-12"
-                                style={{ paddingLeft: 7.5, paddingRight: 7.5, marginBottom: 15 }}
+                        <div className="size-lg-12">
+                            <Field
+                                name="Card number"
+                                sizeClasses="size-lg-4 size-md-12 stripe-text-input"
+                                required
                             >
-                                <p className="info-message error size-lg-12">{errorMessage}</p>
-                            </div>
-                        ) : (
-                            <></>
-                        )}
-                        {!nameProvided ? (
-                            <div
-                                className="size-lg-12"
-                                style={{ paddingLeft: 7.5, paddingRight: 7.5, marginBottom: 15 }}
+                                <CardNumberElement
+                                    {...createOptions()}
+                                    onChange={this.handleChange}
+                                />
+                            </Field>
+                            <Field
+                                name="Expiration date"
+                                sizeClasses="size-lg-4 size-md-12 stripe-text-input"
+                                required
                             >
-                                <p className="info-message error size-lg-12">
-                                    You must provide a card name.
-                                </p>
-                            </div>
-                        ) : (
-                            <></>
-                        )}
-
-                        <BlockButtonWrapper>
-                            <ButtonWrapper alignment="right">
-                                <ActionButton
-                                    text="Cancel"
-                                    onClick={() => close()}
-                                    source="secondary"
-                                    size="small"
+                                <CardExpiryElement
+                                    {...createOptions()}
+                                    onChange={this.handleChange}
                                 />
-                                <ActionButton
-                                    text="Confirm"
-                                    icon="check"
-                                    size="small"
-                                    onClick={this.clickSubmit}
-                                />
-                            </ButtonWrapper>
-                        </BlockButtonWrapper>
+                            </Field>
+                            <Field
+                                name="CVC"
+                                sizeClasses="size-lg-4 size-md-12 stripe-text-input"
+                                required
+                            >
+                                <CardCVCElement {...createOptions()} onChange={this.handleChange} />
+                            </Field>
+                            {errorMessage && nameProvided ? (
+                                <div
+                                    className="size-lg-12"
+                                    style={{
+                                        paddingLeft: 7.5,
+                                        paddingRight: 7.5,
+                                        marginBottom: 15,
+                                    }}
+                                >
+                                    <p className="info-message error size-lg-12">{errorMessage}</p>
+                                </div>
+                            ) : (
+                                <></>
+                            )}
+                            {!nameProvided ? (
+                                <div
+                                    className="size-lg-12"
+                                    style={{
+                                        paddingLeft: 7.5,
+                                        paddingRight: 7.5,
+                                        marginBottom: 15,
+                                    }}
+                                >
+                                    <p className="info-message error size-lg-12">
+                                        You must provide a card name.
+                                    </p>
+                                </div>
+                            ) : (
+                                <></>
+                            )}
+                        </div>
                     </div>
                 </div>
+
+                <ButtonWrapper alignment="right" extraClasses="flex-modal-footer">
+                    <ActionButton text="Cancel" onClick={() => close()} source="secondary" />
+                    <ActionButton
+                        text="Confirm"
+                        icon="check"
+                        onClick={this.clickSubmit}
+                        type="submit"
+                    />
+                </ButtonWrapper>
             </form>
         );
     }
