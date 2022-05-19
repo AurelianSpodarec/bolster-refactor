@@ -240,7 +240,6 @@ const EditOptionValueModal = ({ option, typeID }) => {
                         iconSpin={isPosting}
                         ambient="positive"
                         disabled={isPosting}
-                        type="submit"
                         onClick={() => setShowJustToCheckModal(true)}
                     />
                 </ButtonWrapper>
