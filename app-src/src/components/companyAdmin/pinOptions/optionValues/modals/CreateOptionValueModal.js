@@ -42,13 +42,18 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
     const isMultiplePriceBreaks = priceBreaksLength > 1;
 
     const measurementTypeOutput = MEASUREMENT_TYPES_OUTPUTS_PLURAL[form.measurementType];
+    const isNotModified =
+        form.name === '' &&
+        form.shortName === '' &&
+        form.measurementType === null &&
+        form.serviceIDs.length === 0;
 
     return (
         <FlexModalOuter
             title={`Add ${singularTypeName}`}
             showClosingConfirmationModal={showClosingConfirmationModal}
             setShowClosingConfirmationModal={setShowClosingConfirmationModal}
-            closingConfirmation={true}
+            closingConfirmation={!isNotModified}
             headingChildren={
                 !!availableServiceOptions.length && (
                     <ButtonMultiDropdown

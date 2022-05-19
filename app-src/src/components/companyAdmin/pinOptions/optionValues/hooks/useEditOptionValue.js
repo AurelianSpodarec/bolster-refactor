@@ -176,6 +176,7 @@ const useEditOptionValue = option => {
 
     return {
         form,
+        latestPinOptionVersion,
         handleChange,
         handlePriceBreakChange,
         handleAddPriceBreak,
@@ -185,6 +186,7 @@ const useEditOptionValue = option => {
         isPosting,
         error,
         setError,
+        initialPriceBreaks,
     };
 };
 

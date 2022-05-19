@@ -39,7 +39,21 @@ const EditOptionValueModal = ({ option, typeID }) => {
         isPosting,
         error,
         setError,
+        latestPinOptionVersion,
+        initialPriceBreaks,
     } = useEditOptionValue(option);
+
+    const isServiceIDsModified =
+        form.serviceIDs.length === 0
+            ? form.serviceIDs.length === 0
+            : form.serviceIDs === option.serviceIDs;
+
+    const isNotModified =
+        form.name === latestPinOptionVersion.name &&
+        form.shortName === latestPinOptionVersion.shortName &&
+        isServiceIDsModified &&
+        form.costMeasurementType === option.costMeasurementType &&
+        JSON.stringify(form.measurementPriceBreaks) === JSON.stringify(initialPriceBreaks);
 
     const availableServiceOptions = useGetAvailableServices(option.pinOptionSetID);
 
@@ -66,7 +80,7 @@ const EditOptionValueModal = ({ option, typeID }) => {
             title={`Edit ${option.name}`}
             showClosingConfirmationModal={showClosingConfirmationModal}
             setShowClosingConfirmationModal={setShowClosingConfirmationModal}
-            closingConfirmation={true}
+            closingConfirmation={!isNotModified}
             headingChildren={
                 !!availableServiceOptions.length && (
                     <ButtonMultiDropdown
