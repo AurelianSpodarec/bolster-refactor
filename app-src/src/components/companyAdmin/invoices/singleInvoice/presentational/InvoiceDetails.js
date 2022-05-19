@@ -10,6 +10,8 @@ import { formatCurrency } from 'helpers/generic';
 import { INVOICE_GEN_URL } from 'config';
 import { ReactComponent as TrashIcon } from '../../../../../_content/images/icons/trash.svg';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
 
 const InvoiceDetails = ({
     isFetching,
@@ -33,33 +35,36 @@ const InvoiceDetails = ({
     return (
         <BlockContainer error={error} isEmpty={!id} isFetching={isFetching}>
             <BlockHeading title="Invoice Details">
-                <a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href={`${INVOICE_GEN_URL}/${guid}/invoice-${id}`}
-                    className="button blue"
-                    download={`invoice-${id}.pdf`}
-                >
-                    <i className="fa fa-download fa-fw" /> Download Invoice
-                </a>
+                <ButtonWrapper alignment="right">
+                    {showDeleteButton &&
+                        (!isRequestedForDelete ? (
+                            <ActionButton
+                                text="Request Delete Invoice"
+                                onClick={toggleConfirmDeleteModal}
+                                icon="envelope"
+                                size="small"
+                            />
+                        ) : (
+                            <ActionButton
+                                text="Delete invoice requested"
+                                source="secondary"
+                                ambient="positive"
+                                svgIconComponent={TrashIcon}
+                                size="small"
+                                disabled
+                            />
+                        ))}
 
-                {showDeleteButton &&
-                    (!isRequestedForDelete ? (
-                        <ActionButton
-                            text="Request Delete Invoice"
-                            onClick={toggleConfirmDeleteModal}
-                            icon="envelope"
-                            size="small"
-                        />
-                    ) : (
-                        <ActionButton
-                            text="Delete invoice requested"
-                            source="secondary"
-                            ambient="positive"
-                            svgIconComponent={TrashIcon}
-                            size="small"
-                        />
-                    ))}
+                    <LinkButton
+                        text="Download Invoice"
+                        icon="download"
+                        href={`${INVOICE_GEN_URL}/${guid}/invoice-${id}`}
+                        isExternalLink
+                        openInNewTab
+                        isDownloadable
+                        downloadName={`invoice-${id}.pdf`}
+                    />
+                </ButtonWrapper>
             </BlockHeading>
 
             <FieldOutput

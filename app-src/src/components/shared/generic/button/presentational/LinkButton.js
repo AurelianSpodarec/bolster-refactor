@@ -15,6 +15,11 @@ const LinkButton = ({
     ambient = 'primary', // primary, positive, negative
     size = 'small', // medium, small
     extraClasses = '',
+    // external links (external pages, downloads)
+    isExternalLink = false,
+    openInNewTab = false,
+    isDownloadable = false,
+    downloadName = '',
 }) => {
     const iconWeightLookup = {
         solid: 'fa',
@@ -29,10 +34,43 @@ const LinkButton = ({
         iconSpin ? 'fa-spin' : ''
     }`;
 
+    const InnerContent = () => (
+        <>
+            {icon && !iconRight && <i className={dynamicIconClass}></i>}
+            {!icon && SvgIconComponent && !iconRight && <SvgIconComponent className="svg-icon" />}
+            {text && !iconOnly && <span className="text">{text}</span>}
+            {icon && iconRight && <i className={dynamicIconClass}></i>}
+            {!icon && SvgIconComponent && iconRight && <SvgIconComponent className="svg-icon" />}
+        </>
+    );
+
+    if (isExternalLink) {
+        const targetAttr = openInNewTab ? '_blank' : '_self';
+        const relAttr = openInNewTab ? 'noopener noreferrer' : '';
+        const downloadAttr =
+            isDownloadable && downloadName ? downloadName : isDownloadable ? true : false;
+
+        return (
+            <a
+                target={targetAttr}
+                rel={relAttr}
+                href={href}
+                className={`${dynamicButtonClass} ${extraClasses}`}
+                download={downloadAttr}
+                data-source={source}
+                data-ambient={ambient}
+                data-size={size}
+                data-disabled={disabled}
+            >
+                <InnerContent />
+            </a>
+        );
+    }
+
     return (
         <Link
             to={href}
-            className={`custom-button flex-row align-center ${extraClasses} ${dynamicButtonClass}`}
+            className={`${dynamicButtonClass} ${extraClasses}`}
             data-source={source}
             data-ambient={ambient}
             data-size={size}
@@ -41,11 +79,7 @@ const LinkButton = ({
                 if (disabled) e.preventDefault();
             }}
         >
-            {icon && !iconRight && <i className={dynamicIconClass}></i>}
-            {!icon && SvgIconComponent && !iconRight && <SvgIconComponent className="svg-icon" />}
-            {text && !iconOnly && <span className="text">{text}</span>}
-            {icon && iconRight && <i className={dynamicIconClass}></i>}
-            {!icon && SvgIconComponent && iconRight && <SvgIconComponent className="svg-icon" />}
+            <InnerContent />
         </Link>
     );
 };
