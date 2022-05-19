@@ -5,12 +5,12 @@ import useFetchPinOptionsBatch from '../../../hooks/useFetchPinOptionsBatch';
 import { isEmpty } from '../../../../../helpers/generic';
 import { usePrevious } from '../../../../../helpers/hooks';
 
-const useFetchBatchForOptionDocuments = optionID => {
+const useFetchBatchForOptionDocuments = () => {
     const [hasFetched, setHasFetched] = useState(false);
     const { services, isFetchingServices, servicesError } = useFetchServices();
 
     const { allDocuments, allDocumentsVersions, documentsError, isFetchingDocuments } =
-        useFetchPinOptionDocuments(optionID);
+        useFetchPinOptionDocuments();
 
     const {
         pinOptionTypes,

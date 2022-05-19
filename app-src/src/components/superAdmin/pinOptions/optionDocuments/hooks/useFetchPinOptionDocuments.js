@@ -11,7 +11,7 @@ import { selectPinOptionDocumentsVersionsArr } from '../../../../../selectors/su
 import fetchPinOptionsDocuments from '../../../../../actions/superAdmin/pinOptionsDocuments/async/fetchPinOptionsDocuments';
 import fetchPinOptionsDocumentsVersions from '../../../../../actions/superAdmin/pinOptionsDocuments/async/fetchPinOptionsDocumentsVersions';
 
-const useFetchPinOptionDocuments = optionID => {
+const useFetchPinOptionDocuments = () => {
     const dispatch = useDispatch();
     const allDocuments = useSelector(selectPinOptionDocumentsArr);
     const isFetchingDocuments = useSelector(selectPinOptionDocumentsIsFetching);
@@ -20,8 +20,8 @@ const useFetchPinOptionDocuments = optionID => {
 
     useEffect(() => {
         batch(() => {
-            dispatch(fetchPinOptionsDocuments(optionID));
-            dispatch(fetchPinOptionsDocumentsVersions(optionID));
+            dispatch(fetchPinOptionsDocuments());
+            dispatch(fetchPinOptionsDocumentsVersions());
         });
     }, [dispatch]);
 
