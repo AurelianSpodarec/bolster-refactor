@@ -1,9 +1,11 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 
 import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 
 const JustToCheckModal = ({
     title = 'Overwrite prices?',
@@ -13,6 +15,7 @@ const JustToCheckModal = ({
     backButtonText = 'Go Back',
     stayButtonText = 'Overwrite',
 }) => {
+    const dispatch = useDispatch();
     return (
         showJustToCheckModal && (
             <div className="just-to-check-modal-container size-lg-12">
@@ -38,7 +41,11 @@ const JustToCheckModal = ({
                                     source="secondary"
                                     text={backButtonText}
                                     size="medium"
-                                    onClick={() => setShowJustToCheckModal(false)}
+                                    onClick={
+                                        backButtonText === 'Leave'
+                                            ? () => dispatch(hideModal())
+                                            : setShowJustToCheckModal(false)
+                                    }
                                 />
                             </BlockButtonWrapper>
                         </BlockContainer>
