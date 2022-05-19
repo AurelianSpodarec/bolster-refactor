@@ -24,6 +24,7 @@ import FlexModalOuter from 'components/shared/generic/modals/presentational/Flex
 const EditOptionValueModal = ({ option, typeID }) => {
     const pinOptionType = useSelector(state => selectPinOptionType(state, option.pinOptionTypeID));
     const [showJustToCheckModal, setShowJustToCheckModal] = useState(false);
+    const [showClosingConfirmationModal, setShowClosingConfirmationModal] = useState(false);
     const canEditMeasurement = option.costMeasurementType === null;
     const selectedPinOptionType = useSelector(state => selectPinOptionType(state, typeID));
 
@@ -63,6 +64,9 @@ const EditOptionValueModal = ({ option, typeID }) => {
     return (
         <FlexModalOuter
             title={`Edit ${option.name}`}
+            showClosingConfirmationModal={showClosingConfirmationModal}
+            setShowClosingConfirmationModal={setShowClosingConfirmationModal}
+            closingConfirmation={true}
             headingChildren={
                 !!availableServiceOptions.length && (
                     <ButtonMultiDropdown
@@ -247,8 +251,6 @@ const EditOptionValueModal = ({ option, typeID }) => {
 
             {selectedPinOptionType.tabName === 'Installations' && (
                 <JustToCheckModal
-                    title="Overwrite prices?"
-                    text="Saving will overwrite previous pricing"
                     showJustToCheckModal={showJustToCheckModal}
                     setShowJustToCheckModal={setShowJustToCheckModal}
                 />
