@@ -49,7 +49,7 @@ const OptionDocuments = () => {
                         text="Upload"
                         icon="file-plus"
                         size="medium"
-                        onClick={() => console.log('show add modal')}
+                        onClick={() => showAddModal(optionID)}
                     />
                 </ButtonWrapper>
             </FlexHeading>
