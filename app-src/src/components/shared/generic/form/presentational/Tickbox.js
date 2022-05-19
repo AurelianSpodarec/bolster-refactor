@@ -14,7 +14,7 @@ const Tickbox = ({ checked, handleChange, name, value, classes = '', label }) =>
                 value={value}
             />
             <span className="checkmark"></span>
-            {label}
+            <p>{label}</p>
         </label>
     );
 };

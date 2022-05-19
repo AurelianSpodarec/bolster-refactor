@@ -16,6 +16,7 @@ import { useHistory } from 'react-router-dom';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
 import Field from 'components/shared/generic/form/presentational/Field';
+import Tickbox from '../../../shared/generic/form/presentational/Tickbox';
 
 const CartReportForm = ({ cAndEPostBody }) => {
     const dispatch = useDispatch();
@@ -32,6 +33,7 @@ const CartReportForm = ({ cAndEPostBody }) => {
         projectName: '',
         projectDescription: '',
         clientName: '',
+        generateCSV: false,
     });
 
     useEffect(() => {
@@ -86,6 +88,15 @@ const CartReportForm = ({ cAndEPostBody }) => {
                     required
                     placeholder="Insert text here..."
                     disableResize
+                />
+            </Field>
+            <Field>
+                <Tickbox
+                    label="Generate CSV"
+                    name="generateCSV"
+                    checked={reportFormData.generateCSV}
+                    handleChange={handleChange}
+                    classes="form"
                 />
             </Field>
             <Field classes="no-margin">
