@@ -1,15 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import CreateBuildingsFormContainer from '../containers/CreateBuildingsFormContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
 
 const CreateBuildingsModal = ({ siteID, isUsingBolsterLabels }) => (
-    <ModalOuterContainer extraClasses={`${isUsingBolsterLabels ? 'w-label-example' : ''}`}>
-        <BlockHeading title={'Create Buildings'} />
+    <FlexModalOuter
+        title="Create Buildings"
+        extraClasses={`${isUsingBolsterLabels ? 'w-label-example' : ''}`}
+    >
         <CreateBuildingsFormContainer siteID={siteID} isUsingBolsterLabels={isUsingBolsterLabels} />
-    </ModalOuterContainer>
+    </FlexModalOuter>
 );
 
 const mapStateToProps = ({

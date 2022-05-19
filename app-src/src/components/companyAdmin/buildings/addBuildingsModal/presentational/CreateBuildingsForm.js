@@ -17,16 +17,21 @@ const CreateBuildingsForm = ({
     siteName,
     isFetchingHierarchies,
 }) => (
-    <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
-        <div className="size-lg-12">
-            <BuildingFormFieldsNoLabel
-                buildings={buildings}
-                updateBuilding={updateBuilding}
-                removeBuilding={removeBuilding}
-                siteName={siteName}
-            />
+    <Form onSubmit={handleSubmit} className="generic-form flex-content-wrapper size-lg-12">
+        <div className="flex-content">
+            <div className="form-fields-container size-lg-12">
+                <div className="size-lg-12">
+                    <BuildingFormFieldsNoLabel
+                        buildings={buildings}
+                        updateBuilding={updateBuilding}
+                        removeBuilding={removeBuilding}
+                        siteName={siteName}
+                    />
+                </div>
+            </div>
         </div>
-        <FlexWrapper justify="between">
+
+        <FlexWrapper justify="between" extraClasses="flex-modal-footer">
             <ActionButton
                 type="button"
                 text="Add another building"
@@ -38,15 +43,13 @@ const CreateBuildingsForm = ({
 
             <ButtonWrapper>
                 <ActionButton source="secondary" text="Cancel" onClick={handleClose} />
-                {isFetchingHierarchies ? (
-                    <ActionButton
-                        text="Please wait..."
-                        icon="fa fa-spinner fa-spin"
-                        disabled="true"
-                    />
-                ) : (
-                    <ActionButton type="submit" text="Confirm" icon="check" />
-                )}
+                <ActionButton
+                    type="submit"
+                    text={isFetchingHierarchies ? 'Please wait...' : 'Confirm'}
+                    icon={isFetchingHierarchies ? 'spinner' : 'check'}
+                    iconSpin={isFetchingHierarchies}
+                    disabled={isFetchingHierarchies}
+                />
             </ButtonWrapper>
         </FlexWrapper>
     </Form>
