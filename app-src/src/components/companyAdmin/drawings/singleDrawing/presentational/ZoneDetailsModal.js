@@ -2,8 +2,6 @@ import React from 'react';
 
 import { PIN_STATUS_IDS, PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
 
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import { isEmpty } from 'helpers/generic';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
