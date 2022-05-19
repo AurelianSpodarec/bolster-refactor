@@ -47,6 +47,13 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
     return (
         <FlexModalOuter
             title={`Add ${singularTypeName}`}
+            closingConfirmation={true}
+            showJustToCheckModal={showJustToCheckModal}
+            setShowJustToCheckModal={setShowJustToCheckModal}
+            backModalTitle="Leave installation type?"
+            backModalText="Changes will not be saved"
+            backButtonText="Leave"
+            stayButtonText="Stay and edit"
             headingChildren={
                 !!availableServiceOptions.length && (
                     <ButtonMultiDropdown
