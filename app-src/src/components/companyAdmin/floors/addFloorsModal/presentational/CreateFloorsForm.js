@@ -21,40 +21,49 @@ const CreateFloorsForm = ({
     isUsingBolsterLabels,
     isFetchingHierarchies,
 }) => (
-    <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
-        <div className="size-lg-12">
-            {floors.map(floor => (
-                <>
-                    <div
-                        className={`size-lg-${isUsingBolsterLabels ? '6' : '12'} size-md-12`}
-                        key={floor.id}
-                    >
-                        <Field name="Floor name" required>
-                            <TextInputContainer
-                                name={`${floor.id}.*.name`}
-                                value={floor.name}
-                                handleChange={(name, value) => updateFloor(name, value, floor.id)}
-                                required
-                            />
-                        </Field>
-                    </div>
+    <Form onSubmit={handleSubmit} className="generic-form flex-content-wrapper size-lg-12">
+        <div className="flex-content">
+            <div className="form-fields-container size-lg-12">
+                <div className="size-lg-12">
+                    {floors.map(floor => (
+                        <>
+                            <div
+                                className={`size-lg-${
+                                    isUsingBolsterLabels ? '6' : '12'
+                                } size-md-12`}
+                                key={floor.id}
+                            >
+                                <Field name="Floor name" required>
+                                    <TextInputContainer
+                                        name={`${floor.id}.*.name`}
+                                        value={floor.name}
+                                        handleChange={(name, value) =>
+                                            updateFloor(name, value, floor.id)
+                                        }
+                                        required
+                                    />
+                                </Field>
+                            </div>
 
-                    {floors.length > 1 && (
-                        <BlockButtonWrapper>
-                            <ActionButton
-                                type="button"
-                                svgIconComponent={TrashIcon}
-                                onClick={() => removeFloor(floor.id)}
-                                ambient="positive"
-                                source="secondary"
-                                iconOnly
-                            />
-                        </BlockButtonWrapper>
-                    )}
-                </>
-            ))}
+                            {floors.length > 1 && (
+                                <BlockButtonWrapper>
+                                    <ActionButton
+                                        type="button"
+                                        svgIconComponent={TrashIcon}
+                                        onClick={() => removeFloor(floor.id)}
+                                        ambient="positive"
+                                        source="secondary"
+                                        iconOnly
+                                    />
+                                </BlockButtonWrapper>
+                            )}
+                        </>
+                    ))}
+                </div>
+            </div>
         </div>
-        <FlexWrapper justify="between">
+
+        <FlexWrapper justify="between" extraClasses="flex-modal-footer">
             <ActionButton
                 type="button"
                 text="Add another floor"
@@ -66,15 +75,13 @@ const CreateFloorsForm = ({
 
             <ButtonWrapper>
                 <ActionButton source="secondary" text="Cancel" onClick={handleClose} />
-                {isFetchingHierarchies ? (
-                    <ActionButton
-                        text="Please wait..."
-                        icon="fa fa-spinner fa-spin"
-                        disabled="true"
-                    />
-                ) : (
-                    <ActionButton type="submit" text="Confirm" icon="check" />
-                )}
+                <ActionButton
+                    type="submit"
+                    text={isFetchingHierarchies ? 'Please wait...' : 'Confirm'}
+                    icon={isFetchingHierarchies ? 'spinner' : 'check'}
+                    iconSpin={isFetchingHierarchies}
+                    disabled={isFetchingHierarchies}
+                />
             </ButtonWrapper>
         </FlexWrapper>
     </Form>

@@ -22,11 +22,11 @@ export const fetchPinOptionsDocumentsFailure = error => ({
     error,
 });
 
-export default optionID => async dispatch => {
+export default () => async dispatch => {
     dispatch(fetchPinOptionsDocumentsRequest());
 
     return axios
-        .get(`${ADMIN_API_URL}/pinoptions/documents/${optionID}`, getHeaders())
+        .get(`${ADMIN_API_URL}/pinoptions/documents`, getHeaders())
         .then(res => dispatch(fetchPinOptionsDocumentsSuccess(res.data)))
         .catch(err => dispatch(fetchPinOptionsDocumentsFailure(err.message)));
 };

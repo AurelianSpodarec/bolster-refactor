@@ -17,7 +17,7 @@ class EditFloorFormContainer extends Component {
     render() {
         const { isUsingBolsterLabels, error } = this.props;
         return (
-            <BlockContainer error={error} contentClass="no-padding">
+            <BlockContainer error={error} contentClass="no-padding" noWhiteBackground>
                 <EditFloorForm
                     {...this.state}
                     floorID={this.props.floorID}
@@ -29,6 +29,13 @@ class EditFloorFormContainer extends Component {
             </BlockContainer>
         );
     }
+
+    componentDidMount = async () => {
+        const { floor } = this.props;
+        if (floor.id > 0) {
+            this._setFormDetails();
+        }
+    };
 
     componentDidUpdate = prevProps => {
         const { floor } = this.props;

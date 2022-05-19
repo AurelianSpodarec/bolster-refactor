@@ -1,18 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import CreateFloorsFormContainer from '../containers/CreateFloorsFormContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
 
 const CreateFloorsModal = ({ buildingID, isUsingBolsterLabels }) => (
-    <ModalOuterContainer extraClasses={`${isUsingBolsterLabels ? 'w-label-example' : ''}`}>
-        <BlockHeading title="Create Floors" />
+    <FlexModalOuter
+        title="Create Floors"
+        extraClasses={`${isUsingBolsterLabels ? 'w-label-example' : ''}`}
+    >
         <CreateFloorsFormContainer
             buildingID={buildingID}
             isUsingBolsterLabels={isUsingBolsterLabels}
         />
-    </ModalOuterContainer>
+    </FlexModalOuter>
 );
 
 const mapStateToProps = ({

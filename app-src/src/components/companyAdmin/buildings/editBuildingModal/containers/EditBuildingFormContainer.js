@@ -16,7 +16,7 @@ class BuildingEditFormContainer extends Component {
     render() {
         const { isUsingBolsterLabels, error } = this.props;
         return (
-            <BlockContainer error={error} contentClass="no-padding">
+            <BlockContainer error={error} contentClass="no-padding" noWhiteBackground>
                 <BuildingEditForm
                     {...this.state}
                     handleInputChange={this.handleInputChange}
