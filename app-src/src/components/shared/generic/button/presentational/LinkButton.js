@@ -61,6 +61,9 @@ const LinkButton = ({
                 data-ambient={ambient}
                 data-size={size}
                 data-disabled={disabled}
+                onClick={e => {
+                    if (disabled) e.preventDefault();
+                }}
             >
                 <InnerContent />
             </a>
