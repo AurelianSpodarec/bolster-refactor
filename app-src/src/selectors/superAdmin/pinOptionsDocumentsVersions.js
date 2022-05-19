@@ -1,15 +1,15 @@
 export const selectPinOptionDocumentsVersions = state =>
-    state.companyAdmin.pinOptionDocumentsVersionsReducer.documentsVersions;
+    state.superAdmin.pinOptionDocumentsVersionsReducer.documentsVersions;
 export const selectPinOptionDocumentsVersionsArr = state =>
     Object.values(selectPinOptionDocumentsVersions(state));
 
 export const selectPinOptionDocumentsVersionsIsFetching = state =>
-    state.companyAdmin.pinOptionDocumentsVersionsReducer.isFetching;
+    state.superAdmin.pinOptionDocumentsVersionsReducer.isFetching;
 export const selectPinOptionDocumentsVersionsFetchError = state =>
-    state.companyAdmin.pinOptionDocumentsVersionsReducer.fetchError;
+    state.superAdmin.pinOptionDocumentsVersionsReducer.fetchError;
 export const selectPinOptionDocumentsVersionsIsPosting = state =>
-    state.companyAdmin.pinOptionDocumentsVersionsReducer.isPosting;
+    state.superAdmin.pinOptionDocumentsVersionsReducer.isPosting;
 export const selectPinOptionDocumentsVersionsPostError = state =>
-    state.companyAdmin.pinOptionDocumentsVersionsReducer.postError;
+    state.superAdmin.pinOptionDocumentsVersionsReducer.postError;
 export const selectPinOptionDocumentsVersionsPostSuccess = state =>
-    state.companyAdmin.pinOptionDocumentsVersionsReducer.postSuccess;
+    state.superAdmin.pinOptionDocumentsVersionsReducer.postSuccess;

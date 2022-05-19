@@ -3,6 +3,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import useFetchBatchForOptionDocuments from './hooks/useFetchBatchForOptionDocuments';
+import useDocumentsSetActions from './hooks/useDocumentsSetActions';
 
 import { isEmpty } from '../../../../helpers/generic';
 
@@ -27,7 +28,7 @@ const OptionDocuments = () => {
         hasFetched,
         allDocuments,
         allDocumentsVersions,
-    } = useFetchBatchForOptionDocuments(optionID);
+    } = useFetchBatchForOptionDocuments();
 
     const latestPinOptionVersion = useSelector(state =>
         selectLatestVersionForPinOption(state, specificOption?.id),
@@ -37,6 +38,8 @@ const OptionDocuments = () => {
         specificOption && !isEmpty(latestPinOptionVersion)
             ? latestPinOptionVersion.name
             : 'Loading...';
+
+    const { showAddModal, showEditModal, showDeleteModal } = useDocumentsSetActions(optionID);
 
     return (
         <>
@@ -60,8 +63,8 @@ const OptionDocuments = () => {
                 <OptionDocumentsList
                     optionID={optionID}
                     hasFetched={hasFetched}
-                    // showDeleteModal={showDeleteModal}
-                    // showEditModal={showEditModal}
+                    showDeleteModal={showDeleteModal}
+                    showEditModal={showEditModal}
                     allDocuments={allDocuments}
                     allDocumentsVersions={allDocumentsVersions}
                 />
