@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
-
 import FlexWrapper from '../../flexWrapper/FlexWrapper';
-import JustToCheckModal from 'components/companyAdmin/pinOptions/optionValues/modals/JustToCheckModal';
+import ClosingConfirmationModal from '../../../../shared/generic/modals/presentational/ClosingConfirmationModal';
 
 const ModalHeading = ({
     children,
@@ -12,17 +11,11 @@ const ModalHeading = ({
     blockClasses = '',
     headerClasses = '',
     hideCloseButton,
+    showClosingConfirmationModal,
+    setShowClosingConfirmationModal,
     closingConfirmation = false,
-    backButtonText,
-    stayButtonText,
-    backModalTitle,
-    backModalText,
 }) => {
     const dispatch = useDispatch();
-    const [showClosingConfirmationModal, setClosingConfirmationModal] = useState(false);
-
-    console.log(backModalTitle);
-
     return (
         <FlexWrapper
             extraClasses={`block-heading ${blockClasses}`}
@@ -39,7 +32,7 @@ const ModalHeading = ({
                         className="close"
                         onClick={() =>
                             closingConfirmation
-                                ? setClosingConfirmationModal(true)
+                                ? setShowClosingConfirmationModal(true)
                                 : dispatch(hideModal())
                         }
                     >
@@ -48,13 +41,9 @@ const ModalHeading = ({
                 )}
             </FlexWrapper>
             {showClosingConfirmationModal && (
-                <JustToCheckModal
-                    title={backModalTitle}
-                    text={backModalText}
-                    showJustToCheckModal={showClosingConfirmationModal}
-                    setShowJustToCheckModal={setClosingConfirmationModal}
-                    backButtonText={backButtonText}
-                    stayButtonText={stayButtonText}
+                <ClosingConfirmationModal
+                    showClosingConfirmationModal={showClosingConfirmationModal}
+                    setShowClosingConfirmationModal={setShowClosingConfirmationModal}
                 />
             )}
         </FlexWrapper>

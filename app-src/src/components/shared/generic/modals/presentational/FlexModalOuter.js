@@ -7,13 +7,9 @@ const FlexModalOuter = ({
     headingChildren,
     title = '',
     extraClasses = '',
+    showClosingConfirmationModal,
+    setShowClosingConfirmationModal,
     closingConfirmation,
-    showJustToCheckModal,
-    setShowJustToCheckModal,
-    backButtonText,
-    stayButtonText,
-    backModalTitle,
-    backModalText,
 }) => (
     <div className="flex-modal-container size-lg-12">
         <div className="bg" />
@@ -22,13 +18,9 @@ const FlexModalOuter = ({
             <ModalHeading
                 title={title}
                 blockClasses="flex-modal-header"
+                showClosingConfirmationModal={showClosingConfirmationModal}
+                setShowClosingConfirmationModal={setShowClosingConfirmationModal}
                 closingConfirmation={closingConfirmation}
-                showJustToCheckModal={showJustToCheckModal}
-                setShowJustToCheckModal={setShowJustToCheckModal}
-                backButtonText={backButtonText}
-                stayButtonText={stayButtonText}
-                backModalTitle={backModalTitle}
-                backModalText={backModalText}
             >
                 {headingChildren}
             </ModalHeading>

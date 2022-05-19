@@ -18,10 +18,9 @@ import ButtonMultiDropdown from 'components/shared/filters/ButtonMultiDropdown';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import NumberInputContainer from 'components/shared/generic/form/containers/NumberInputContainer';
 import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
-import JustToCheckModal from './JustToCheckModal';
 
 const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
-    const [showJustToCheckModal, setShowJustToCheckModal] = useState(false);
+    const [showClosingConfirmationModal, setShowClosingConfirmationModal] = useState(false);
     const pinOptionType = useSelector(state => selectPinOptionType(state, pinOptionTypeID));
     const singularTypeName = pinOptionType.name;
 
@@ -47,13 +46,9 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
     return (
         <FlexModalOuter
             title={`Add ${singularTypeName}`}
+            showClosingConfirmationModal={showClosingConfirmationModal}
+            setShowClosingConfirmationModal={setShowClosingConfirmationModal}
             closingConfirmation={true}
-            showJustToCheckModal={showJustToCheckModal}
-            setShowJustToCheckModal={setShowJustToCheckModal}
-            backModalTitle="Leave installation type?"
-            backModalText="Changes will not be saved"
-            backButtonText="Leave"
-            stayButtonText="Stay and edit"
             headingChildren={
                 !!availableServiceOptions.length && (
                     <ButtonMultiDropdown
@@ -231,16 +226,9 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                         ambient="positive"
                         disabled={isPosting}
                         type="submit"
-                        onClick={() => setShowJustToCheckModal(true)}
                     />
                 </ButtonWrapper>
             </Form>
-            <JustToCheckModal
-                title="Overwrite prices?"
-                text="Saving will overwrite previous pricing"
-                showJustToCheckModal={showJustToCheckModal}
-                setShowJustToCheckModal={setShowJustToCheckModal}
-            />
         </FlexModalOuter>
     );
 };
