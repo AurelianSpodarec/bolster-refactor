@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import {
     CONFIRM_DELETE,
-    CREATE_PIN_OPTION_DOCUMENTS_MODAL,
-    EDIT_PIN_OPTION_DOCUMENTS_MODAL,
+    CREATE_ADMIN_PIN_OPTION_DOCUMENTS_MODAL,
+    EDIT_ADMIN_PIN_OPTION_DOCUMENTS_MODAL,
     ERROR_MODAL,
 } from 'constants/shared/modalTypes';
 import { usePrevious } from 'helpers/hooks';
@@ -14,8 +14,8 @@ import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 import {
     selectPinOptionDocumentsPostError,
     selectPinOptionDocumentsPostSuccess,
-} from 'selectors/companyAdmin/pinOptionsDocuments';
-import deletePinOptionDocument from 'actions/companyAdmin/pinOptionsDocuments/async/deletePinOptionDocument';
+} from 'selectors/superAdmin/pinOptionsDocuments';
+// import deletePinOptionDocument from 'actions/superAdmin/pinOptionsDocuments/async/deletePinOptionDocument';
 
 const useDocumentsSetActions = optionID => {
     const dispatch = useDispatch();
@@ -24,11 +24,11 @@ const useDocumentsSetActions = optionID => {
     const prevProps = usePrevious({ postError, postSuccess });
 
     const showAddModal = () => {
-        dispatch(showModal(CREATE_PIN_OPTION_DOCUMENTS_MODAL, { optionID }));
+        dispatch(showModal(CREATE_ADMIN_PIN_OPTION_DOCUMENTS_MODAL, { optionID }));
     };
 
     const showEditModal = documentsVersion => {
-        dispatch(showModal(EDIT_PIN_OPTION_DOCUMENTS_MODAL, { documentsVersion }));
+        dispatch(showModal(EDIT_ADMIN_PIN_OPTION_DOCUMENTS_MODAL, { documentsVersion }));
     };
 
     const showDeleteModal = (document, documentsVersion) => {
