@@ -3,8 +3,6 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import DocumentResponsesTable from '../presentational/DocumentResponsesTable';
-import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 const DocumentResponsesTableContainer = ({ responses, isFetching }) => {
     return <DocumentResponsesTable responses={responses} isFetching={isFetching} />;
@@ -29,8 +27,4 @@ const mapStateToProps = (
     };
 };
 
-const mapDispatchToProps = { showModal, hideModal };
-
-export default withRouter(
-    connect(mapStateToProps, mapDispatchToProps)(DocumentResponsesTableContainer),
-);
+export default withRouter(connect(mapStateToProps)(DocumentResponsesTableContainer));

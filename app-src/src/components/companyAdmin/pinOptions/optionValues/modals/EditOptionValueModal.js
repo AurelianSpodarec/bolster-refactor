@@ -43,7 +43,7 @@ const EditOptionValueModal = ({ option, typeID }) => {
         initialPriceBreaks,
     } = useEditOptionValue(option);
 
-    const isServiceIDsModified =
+    const isServiceIDNotsModified =
         form.serviceIDs.length === 0
             ? form.serviceIDs.length === 0
             : form.serviceIDs === option.serviceIDs;
@@ -51,7 +51,11 @@ const EditOptionValueModal = ({ option, typeID }) => {
     const isNotModified =
         form.name === latestPinOptionVersion.name &&
         form.shortName === latestPinOptionVersion.shortName &&
-        isServiceIDsModified &&
+        isServiceIDNotsModified &&
+        form.costMeasurementType === option.costMeasurementType &&
+        JSON.stringify(form.measurementPriceBreaks) === JSON.stringify(initialPriceBreaks);
+
+    const isMeasurementNotModified =
         form.costMeasurementType === option.costMeasurementType &&
         JSON.stringify(form.measurementPriceBreaks) === JSON.stringify(initialPriceBreaks);
 
@@ -259,11 +263,12 @@ const EditOptionValueModal = ({ option, typeID }) => {
                         ambient="positive"
                         disabled={isPosting}
                         onClick={() => setShowJustToCheckModal(true)}
+                        type={isMeasurementNotModified ? 'submit' : 'button'}
                     />
                 </ButtonWrapper>
             </Form>
 
-            {selectedPinOptionType.tabName === 'Installations' && (
+            {selectedPinOptionType.tabName === 'Installations' && !isMeasurementNotModified && (
                 <JustToCheckModal
                     showJustToCheckModal={showJustToCheckModal}
                     setShowJustToCheckModal={setShowJustToCheckModal}

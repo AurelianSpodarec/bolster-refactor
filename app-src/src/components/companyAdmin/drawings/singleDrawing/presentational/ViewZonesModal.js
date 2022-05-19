@@ -1,9 +1,6 @@
 import React from 'react';
 import QRCode from 'qrcode.react';
 
-import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ZoneListItem from './ZoneListItem';
 import ModalOuter from 'components/shared/generic/modals/presentational/ModalOuter';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
@@ -57,11 +54,10 @@ const ViewZonesModal = ({
                     {selectedQR && (
                         <ModalOuter hideCloseButton extraClasses="qr-view">
                             <QRCode value={selectedQR} size={200} />
-                            <ActionButton
-                                text="Close"
-                                source="secondary"
-                                onClick={() => selectQR(null)}
-                            />
+                            <div style={{ height: 5 }} />
+                            <ButtonWrapper alignment="right">
+                                <ActionButton text="Close" onClick={() => selectQR(null)} />
+                            </ButtonWrapper>
                         </ModalOuter>
                     )}
                 </div>
