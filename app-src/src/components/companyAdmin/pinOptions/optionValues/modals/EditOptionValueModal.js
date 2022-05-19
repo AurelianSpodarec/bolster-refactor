@@ -16,7 +16,7 @@ import ButtonWrapper from 'components/shared/generic/button/presentational/Butto
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import ButtonMultiDropdown from 'components/shared/filters/ButtonMultiDropdown';
 import NumberInputContainer from 'components/shared/generic/form/containers/NumberInputContainer';
-import JustToCheckModal from './JustToCheckModal';
+import JustToCheckModal from '../../../../shared/generic/modals/presentational/JustToCheckModal';
 import DropdownContainer from '../../../../shared/generic/form/containers/DropdownContainer';
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
