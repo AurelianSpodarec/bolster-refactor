@@ -23,6 +23,7 @@ const Select = ({
     omitPlaceholder = false,
     classes = '',
     optionListClasses = '',
+    forceListAbove = false,
 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [hasOpened, setHasOpened] = useState(false);
@@ -63,7 +64,7 @@ const Select = ({
             </div>
 
             {isOpen && (
-                <div className="option-selection">
+                <div className={`option-selection ${forceListAbove ? 'top' : ''}`}>
                     {search && !!options.length && (
                         <div className="search-box" onClick={e => e.stopPropagation()}>
                             <input
