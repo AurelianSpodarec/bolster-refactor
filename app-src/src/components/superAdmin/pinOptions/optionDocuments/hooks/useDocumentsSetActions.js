@@ -15,7 +15,7 @@ import {
     selectPinOptionDocumentsPostError,
     selectPinOptionDocumentsPostSuccess,
 } from 'selectors/superAdmin/pinOptionsDocuments';
-// import deletePinOptionDocument from 'actions/superAdmin/pinOptionsDocuments/async/deletePinOptionDocument';
+import deletePinOptionDocument from 'actions/superAdmin/pinOptionsDocuments/async/deletePinOptionDocument';
 
 const useDocumentsSetActions = optionID => {
     const dispatch = useDispatch();
