@@ -4,8 +4,9 @@ import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import useEditOptionValue from 'components/companyAdmin/pinOptions/optionValues/hooks/useEditOptionValue';
 
-const JustToCheckModal = ({ showJustToCheckModal, setShowJustToCheckModal }) => {
+const JustToCheckModal = ({ showJustToCheckModal, setShowJustToCheckModal, handleSubmit }) => {
     return (
         showJustToCheckModal && (
             <div className="just-to-check-modal-container size-lg-12">
@@ -25,7 +26,8 @@ const JustToCheckModal = ({ showJustToCheckModal, setShowJustToCheckModal }) => 
                                 <ActionButton
                                     text="Overwrite"
                                     size="medium"
-                                    onClick={() => setShowJustToCheckModal(false)}
+                                    onClick={handleSubmit}
+                                    type="submit"
                                 />
                                 <ActionButton
                                     source="secondary"

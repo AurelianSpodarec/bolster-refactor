@@ -270,6 +270,7 @@ const EditOptionValueModal = ({ option, typeID }) => {
 
             {selectedPinOptionType.tabName === 'Installations' && !isMeasurementNotModified && (
                 <JustToCheckModal
+                    handleSubmit={handleSubmit}
                     showJustToCheckModal={showJustToCheckModal}
                     setShowJustToCheckModal={setShowJustToCheckModal}
                 />
