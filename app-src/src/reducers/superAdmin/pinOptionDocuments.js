@@ -8,6 +8,9 @@ import {
     ADMIN_CREATE_PIN_OPTION_DOCUMENT_REQUEST,
     ADMIN_CREATE_PIN_OPTION_DOCUMENT_SUCCESS,
     ADMIN_CREATE_PIN_OPTION_DOCUMENT_FAILURE,
+    ADMIN_DELETE_PIN_OPTION_DOCUMENT_REQUEST,
+    ADMIN_DELETE_PIN_OPTION_DOCUMENT_SUCCESS,
+    ADMIN_DELETE_PIN_OPTION_DOCUMENT_FAILURE,
 } from 'constants/actionTypes/pinOptionsDocuments';
 
 export default combineReducers({
@@ -52,6 +55,8 @@ function pinOptionDocumentsReducer(state = {}, action) {
                 action.payload.pinOptionDocument.id,
                 action.payload.pinOptionDocument,
             );
+        case ADMIN_DELETE_PIN_OPTION_DOCUMENT_SUCCESS:
+            return updateObj(state, action.payload.id, { ...action.payload, isDeleted: true });
         default:
             return state;
     }
@@ -60,9 +65,12 @@ function pinOptionDocumentsReducer(state = {}, action) {
 function isPostingReducer(state = false, action) {
     switch (action.type) {
         case ADMIN_CREATE_PIN_OPTION_DOCUMENT_REQUEST:
+        case ADMIN_DELETE_PIN_OPTION_DOCUMENT_REQUEST:
             return true;
         case ADMIN_CREATE_PIN_OPTION_DOCUMENT_SUCCESS:
         case ADMIN_CREATE_PIN_OPTION_DOCUMENT_FAILURE:
+        case ADMIN_DELETE_PIN_OPTION_DOCUMENT_SUCCESS:
+        case ADMIN_DELETE_PIN_OPTION_DOCUMENT_FAILURE:
             return false;
         default:
             return state;
@@ -72,8 +80,10 @@ function isPostingReducer(state = false, action) {
 function postErrorReducer(state = null, action) {
     switch (action.type) {
         case ADMIN_CREATE_PIN_OPTION_DOCUMENT_REQUEST:
+        case ADMIN_DELETE_PIN_OPTION_DOCUMENT_REQUEST:
             return null;
         case ADMIN_CREATE_PIN_OPTION_DOCUMENT_FAILURE:
+        case ADMIN_DELETE_PIN_OPTION_DOCUMENT_FAILURE:
             return action.error;
         default:
             return state;
@@ -84,8 +94,11 @@ function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case ADMIN_CREATE_PIN_OPTION_DOCUMENT_REQUEST:
         case ADMIN_CREATE_PIN_OPTION_DOCUMENT_FAILURE:
+        case ADMIN_DELETE_PIN_OPTION_DOCUMENT_REQUEST:
+        case ADMIN_DELETE_PIN_OPTION_DOCUMENT_FAILURE:
             return false;
         case ADMIN_CREATE_PIN_OPTION_DOCUMENT_SUCCESS:
+        case ADMIN_DELETE_PIN_OPTION_DOCUMENT_SUCCESS:
             return true;
         default:
             return state;
