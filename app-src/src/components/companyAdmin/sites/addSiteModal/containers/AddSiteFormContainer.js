@@ -62,6 +62,7 @@ class AddSiteFormContainer extends Component {
                 isFetching={isFetching}
                 error={error}
                 contentClass="no-padding no-border"
+                noWhiteBackground={!isFetching && !error}
             >
                 <AddSiteForm
                     {...this.state}
