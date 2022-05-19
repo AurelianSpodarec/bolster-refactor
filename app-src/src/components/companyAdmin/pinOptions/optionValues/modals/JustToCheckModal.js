@@ -6,10 +6,12 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 
 const JustToCheckModal = ({
-    title = '',
-    text = '',
+    title = 'Overwrite prices?',
+    text = 'Saving will overwrite previous pricing',
     showJustToCheckModal,
     setShowJustToCheckModal,
+    backButtonText = 'Go Back',
+    stayButtonText = 'Overwrite',
 }) => {
     return (
         showJustToCheckModal && (
@@ -26,16 +28,15 @@ const JustToCheckModal = ({
                             <p className="generic-text">{text}</p>
 
                             <BlockButtonWrapper additionalClasses="just-to-check-modal-buttons">
+                                {/* ####### change on click action ######## */}
                                 <ActionButton
-                                    source="secondary"
-                                    text="Go back"
+                                    text={stayButtonText}
                                     size="medium"
                                     onClick={() => setShowJustToCheckModal(false)}
                                 />
-
-                                {/* ####### change on click action ######## */}
                                 <ActionButton
-                                    text="Overwrite"
+                                    source="secondary"
+                                    text={backButtonText}
                                     size="medium"
                                     onClick={() => setShowJustToCheckModal(false)}
                                 />
