@@ -23,6 +23,8 @@ import TextAreaContainer from 'components/shared/generic/form/containers/TextAre
 import { enumFormat } from 'helpers/generic';
 import useEditAlert from '../hierarchys/hooks/useEditAlert';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 
 const EditAlertModal = ({ id, hideModal }) => {
     const alert = useSelector(state => selectAlert(state, id));
@@ -40,115 +42,112 @@ const EditAlertModal = ({ id, hideModal }) => {
     }`;
 
     return (
-        <ModalOuterContainer>
-            <BlockHeading title="Edit alert" />
+        <FlexModalOuter title="Edit alert">
+            <Form className="generic-form flex-content-wrapper" onSubmit={handleSubmit}>
+                <div className="flex-content">
+                    <div className="form-fields-container">
+                        <div className="size-lg-12">
+                            <Field name="Name" required>
+                                <TextInputContainer
+                                    handleChange={handleChange}
+                                    name="name"
+                                    value={form.name}
+                                    required
+                                />
+                            </Field>
 
-            <Form className="generic-form" onSubmit={handleSubmit}>
-                <div className="size-lg-12">
-                    <Field name="Name" required>
-                        <TextInputContainer
-                            handleChange={handleChange}
-                            name="name"
-                            value={form.name}
-                            required
-                        />
-                    </Field>
+                            <Field name="Description" required>
+                                <TextAreaContainer
+                                    handleChange={handleChange}
+                                    name="description"
+                                    value={form.description}
+                                    required
+                                />
+                            </Field>
 
-                    <Field name="Description" required>
-                        <TextAreaContainer
-                            handleChange={handleChange}
-                            name="description"
-                            value={form.description}
-                            required
-                        />
-                    </Field>
-
-                    <div className="size-lg-6">
-                        <Field name="Alert Method" required>
-                            <Select
-                                value={form.method}
-                                onChange={handleChange}
-                                name="method"
-                                options={methodOptions}
-                                omitPlaceholder
-                                required
-                            />
-                        </Field>
-                    </div>
-
-                    <div className="size-lg-6">
-                        <Field name="Date" required>
-                            <DatePickerContainer
-                                selected={form.date}
-                                onChange={val => handleChange('date', val)}
-                                name="date"
-                                required
-                            />
-                        </Field>
-                    </div>
-
-                    <div className="size-lg-6">
-                        <Field name="Frequency Type" required>
-                            <Select
-                                value={form.frequencyType}
-                                onChange={handleChange}
-                                name="frequencyType"
-                                options={Object.values(frequencyTypeOptions)}
-                                omitPlaceholder
-                                required
-                            />
-                        </Field>
-                    </div>
-
-                    {form.frequencyType !== ALERT_FREQUENCY_TYPES.ONCE && (
-                        <>
                             <div className="size-lg-6">
-                                <Field name="Frequency" required>
-                                    <TextInputContainer
-                                        type="number"
-                                        name="frequencyAmount"
-                                        value={form.frequencyAmount}
-                                        handleChange={handleChange}
-                                        minNum={1}
-                                        validationRegExp={NUMBER_GREATER_THAN_ZERO}
+                                <Field name="Alert Method" required>
+                                    <Select
+                                        value={form.method}
+                                        onChange={handleChange}
+                                        name="method"
+                                        options={methodOptions}
+                                        omitPlaceholder
                                         required
                                     />
                                 </Field>
                             </div>
-                        </>
-                    )}
 
-                    <Field styles={{ minHeight: 0 }}>
-                        <p className="size-lg-12 info-message">
-                            {+form.frequencyType === ALERT_FREQUENCY_TYPES.ONCE
-                                ? 'Alert will be sent once.'
-                                : `Alert will be sent every ${
-                                      frequencyAmountNum > 1 ? `${form.frequencyAmount} ` : ''
-                                  }${frequencySuffix}.`}
-                        </p>
-                    </Field>
+                            <div className="size-lg-6">
+                                <Field name="Date" required>
+                                    <DatePickerContainer
+                                        selected={form.date}
+                                        onChange={val => handleChange('date', val)}
+                                        name="date"
+                                        required
+                                    />
+                                </Field>
+                            </div>
+
+                            <div className="size-lg-6">
+                                <Field name="Frequency Type" required>
+                                    <Select
+                                        value={form.frequencyType}
+                                        onChange={handleChange}
+                                        name="frequencyType"
+                                        options={Object.values(frequencyTypeOptions)}
+                                        omitPlaceholder
+                                        required
+                                    />
+                                </Field>
+                            </div>
+
+                            {form.frequencyType !== ALERT_FREQUENCY_TYPES.ONCE && (
+                                <>
+                                    <div className="size-lg-6">
+                                        <Field name="Frequency" required>
+                                            <TextInputContainer
+                                                type="number"
+                                                name="frequencyAmount"
+                                                value={form.frequencyAmount}
+                                                handleChange={handleChange}
+                                                minNum={1}
+                                                validationRegExp={NUMBER_GREATER_THAN_ZERO}
+                                                required
+                                            />
+                                        </Field>
+                                    </div>
+                                </>
+                            )}
+
+                            <Field styles={{ minHeight: 0 }}>
+                                <p className="size-lg-12 info-message">
+                                    {+form.frequencyType === ALERT_FREQUENCY_TYPES.ONCE
+                                        ? 'Alert will be sent once.'
+                                        : `Alert will be sent every ${
+                                              frequencyAmountNum > 1
+                                                  ? `${form.frequencyAmount} `
+                                                  : ''
+                                          }${frequencySuffix}.`}
+                                </p>
+                            </Field>
+                        </div>
+                    </div>
                 </div>
 
-                <BlockButtonWrapper>
-                    {isPosting ? (
-                        <ActionButton
-                            text="Editing..."
-                            icon="fa fa-spinner fa-spin"
-                            disabled="true"
-                        />
-                    ) : (
-                        <ActionButton
-                            type="submit"
-                            text="Confirm"
-                            icon="check"
-                            onClick={handleSubmit}
-                        />
-                    )}
-
+                <ButtonWrapper alignment="right" extraClasses="flex-modal-footer">
                     <ActionButton source="secondary" text="Cancel" onClick={hideModal} />
-                </BlockButtonWrapper>
+                    <ActionButton
+                        type="submit"
+                        text={isPosting ? 'Editing...' : 'Confirm'}
+                        icon={isPosting ? 'spinner' : 'check'}
+                        iconSpin={isPosting}
+                        disabled={isPosting}
+                        onClick={handleSubmit}
+                    />
+                </ButtonWrapper>
             </Form>
-        </ModalOuterContainer>
+        </FlexModalOuter>
     );
 };
 

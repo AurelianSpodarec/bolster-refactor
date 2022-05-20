@@ -410,6 +410,10 @@
         overflow: hidden;
         max-height: 75%;
         border-radius: 5px;
+
+        &.full-height {
+            max-height: 95%;
+        }
     }
 
     .flex-modal-header, .flex-modal-footer {

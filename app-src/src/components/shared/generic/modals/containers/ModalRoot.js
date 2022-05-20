@@ -46,8 +46,6 @@ import {
     RENAME_TEMPLATE_SECTION,
     SET_LABEL_FIELDS,
     SUCCESS_MODAL,
-    FILTER_FIELDS,
-    CLIENT_FILTER_FIELDS,
     UNLINK_DEVICE,
     REVOKE_ADMIN_ACCESS,
     RESTRICT_ADMIN_PAYMENTS,
@@ -69,7 +67,6 @@ import {
     ADMIN_CONFIRM_SET_IS_INVOICE_PAID,
     ADMIN_DELETE_INVOICE,
     ADMIN_RESTORE_INVOICE,
-    DELETE_INVOICE,
     ADD_MULTIPLE_SERVICES_TO_SUBSCRIPTION,
     GENERATE_QR_CODES,
     DOCUMENT_VIEW,
@@ -171,8 +168,6 @@ import EditTemplateQuestionModalContainer from 'components/superAdmin/templateBu
 import EditUserPasswordModalContainer from './EditUserPasswordModalContainer';
 import EditUserModalContainer from './EditUserModalContainer';
 import ErrorModal from '../presentational/ErrorModal';
-import FilterFieldsModalContainer from 'components/companyAdmin/reports/createReport/components/containers/FilterFieldsModalContainer';
-import ClientFilterFieldsModalContainer from 'components/client/reports/createReport/components/containers/FilterFieldsModalContainer';
 import PayInvoiceModalContainer from 'components/companyAdmin/invoices/shared/payInvoiceModal/containers/PayInvoiceModalContainer';
 import PaymentErrorModalContainer from './PaymentErrorModalContainer';
 import PinPhotoModal from '../presentational/PinPhotoModal';
@@ -317,8 +312,6 @@ const MODAL_COMPONENTS = {
     [EDIT_TEMPLATE_QUESTION]: EditTemplateQuestionModalContainer,
     [EDIT_USER]: EditUserModalContainer,
     [EDIT_USER_PASSWORD]: EditUserPasswordModalContainer,
-    [FILTER_FIELDS]: FilterFieldsModalContainer,
-    [CLIENT_FILTER_FIELDS]: ClientFilterFieldsModalContainer,
     [PAY_INVOICE]: PayInvoiceModalContainer,
     [PAYMENT_ERROR]: PaymentErrorModalContainer,
     [PAYMENT_SUCCESS]: PaymentSuccessModalContainer,
