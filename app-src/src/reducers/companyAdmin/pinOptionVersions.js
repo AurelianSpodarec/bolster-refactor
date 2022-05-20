@@ -14,6 +14,9 @@ import {
     DUPLICATE_PIN_OPTION_VALUE_REQUEST,
     DUPLICATE_PIN_OPTION_VALUE_SUCCESS,
     DUPLICATE_PIN_OPTION_VALUE_FAILURE,
+    SET_OPTION_VALUE_AS_HIDDEN_REQUEST,
+    SET_OPTION_VALUE_AS_HIDDEN_SUCCESS,
+    SET_OPTION_VALUE_AS_HIDDEN_FAILURE,
 } from 'constants/actionTypes/pinOptions';
 import { SET_API_FIELD_ERRORS } from 'constants/actionTypes/generic';
 
@@ -54,6 +57,7 @@ function isPostingReducer(state = false, action) {
         case CREATE_PIN_OPTION_VALUE_REQUEST:
         case EDIT_PIN_OPTION_VALUE_REQUEST:
         case DUPLICATE_PIN_OPTION_VALUE_REQUEST:
+        case SET_OPTION_VALUE_AS_HIDDEN_REQUEST:
             return true;
         case CREATE_PIN_OPTION_VALUE_SUCCESS:
         case CREATE_PIN_OPTION_VALUE_FAILURE:
@@ -62,6 +66,8 @@ function isPostingReducer(state = false, action) {
         case DUPLICATE_PIN_OPTION_VALUE_SUCCESS:
         case DUPLICATE_PIN_OPTION_VALUE_FAILURE:
         case SET_API_FIELD_ERRORS:
+        case SET_OPTION_VALUE_AS_HIDDEN_SUCCESS:
+        case SET_OPTION_VALUE_AS_HIDDEN_FAILURE:
             return false;
         default:
             return state;
@@ -73,10 +79,12 @@ function postErrorReducer(state = null, action) {
         case CREATE_PIN_OPTION_VALUE_REQUEST:
         case EDIT_PIN_OPTION_VALUE_REQUEST:
         case DUPLICATE_PIN_OPTION_VALUE_REQUEST:
+        case SET_OPTION_VALUE_AS_HIDDEN_REQUEST:
             return null;
         case CREATE_PIN_OPTION_VALUE_FAILURE:
         case EDIT_PIN_OPTION_VALUE_FAILURE:
         case DUPLICATE_PIN_OPTION_VALUE_FAILURE:
+        case SET_OPTION_VALUE_AS_HIDDEN_FAILURE:
             return action.error;
         default:
             return state;
@@ -88,10 +96,12 @@ function postSuccessReducer(state = false, action) {
         case CREATE_PIN_OPTION_VALUE_REQUEST:
         case EDIT_PIN_OPTION_VALUE_REQUEST:
         case DUPLICATE_PIN_OPTION_VALUE_REQUEST:
+        case SET_OPTION_VALUE_AS_HIDDEN_REQUEST:
             return false;
         case CREATE_PIN_OPTION_VALUE_SUCCESS:
         case EDIT_PIN_OPTION_VALUE_SUCCESS:
         case DUPLICATE_PIN_OPTION_VALUE_SUCCESS:
+        case SET_OPTION_VALUE_AS_HIDDEN_SUCCESS:
             return true;
         default:
             return state;
@@ -110,6 +120,14 @@ function versionsReducer(state = {}, action) {
                 action.payload.pinOptionVersion.id,
                 action.payload.pinOptionVersion,
             );
+        case SET_OPTION_VALUE_AS_HIDDEN_SUCCESS:
+        case SET_OPTION_VALUE_AS_HIDDEN_FAILURE:
+            return updateObj(state, action.payload.id, action.payload);
+        case SET_OPTION_VALUE_AS_HIDDEN_REQUEST:
+            return updateObj(state, action.payload.id, {
+                ...action.payload,
+                isHidden: !action.payload.isHidden,
+            });
         default:
             return state;
     }
