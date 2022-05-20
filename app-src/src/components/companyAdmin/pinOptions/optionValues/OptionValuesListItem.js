@@ -33,11 +33,11 @@ const OptionValuesListItem = ({
     connectDropTarget,
     forwardRef,
     showHideModal,
+    isCompanySet,
 }) => {
     const company = useSelector(selectCompanySettings);
     const pinOptionType = useSelector(state => selectPinOptionType(state, typeID));
     const typeSlug = pinOptionType.slug;
-    const createdByAdmin = false;
 
     let rowClass = 'draggable expandable';
     if (isDragging) rowClass += ' dragging';
@@ -134,7 +134,7 @@ const OptionValuesListItem = ({
                                     }
                                 />
 
-                                {createdByAdmin && (
+                                {!isCompanySet && (
                                     <ActionMenuActionButton
                                         text="Hide"
                                         onClick={() => showHideModal(option)}

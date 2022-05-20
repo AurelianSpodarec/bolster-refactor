@@ -29,7 +29,6 @@ const OptionSetsListItem = ({
 }) => {
     let rowClass = 'draggable expandable';
     if (isDragging) rowClass += ' dragging';
-    const createdByAdmin = false;
 
     return (
         <>
@@ -107,7 +106,7 @@ const OptionSetsListItem = ({
                                     }
                                 />
 
-                                {createdByAdmin && (
+                                {!isCompanySet && (
                                     <ActionMenuActionButton
                                         text="Hide"
                                         onClick={() => showHideModal(set)}

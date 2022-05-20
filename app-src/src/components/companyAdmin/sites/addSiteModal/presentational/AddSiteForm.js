@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Field from 'components/shared/generic/form/presentational/Field';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import Form from 'components/shared/generic/form/containers/Form';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BolsterLabelExample from 'components/shared/generic/form/presentational/BolsterLabelExample';
@@ -28,6 +27,10 @@ const AddSiteForm = ({
     selectedPinOptionTypes,
     handlePinOptionSetChange,
     selectedPinOptionSets,
+    handlePinOptionDocumentsTypesChange,
+    selectedPinOptionDocumentsTypes,
+    handlePinOptionDocumentsSetsChange,
+    selectedPinOptionDocumentsSets,
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form flex-content-wrapper size-lg-12">
         <div className="flex-content">
@@ -90,14 +93,16 @@ const AddSiteForm = ({
                                 text: set.name,
                                 value: set.id,
                             }));
-                            const isSelected = selectedPinOptionTypes[type.id];
+                            const isTypeSetsSelected = selectedPinOptionTypes[type.id];
+                            const isTypeDocumentsSelected =
+                                selectedPinOptionDocumentsTypes[type.id];
+                            const { hasDocuments } = type;
 
                             return (
-                                <>
+                                <React.Fragment key={type.id}>
                                     <Field
                                         labelClasses="no-capitalise"
                                         name={`Set ${type.namePlural} for site?`}
-                                        key={type.id}
                                     >
                                         <CheckboxContainer
                                             name={type.id}
@@ -107,7 +112,7 @@ const AddSiteForm = ({
                                             labelClasses="no-capitalise"
                                         />
                                     </Field>
-                                    {isSelected && (
+                                    {isTypeSetsSelected && (
                                         <Field name={type.namePlural}>
                                             <OptionsPodSetListContainer
                                                 name={type.id}
@@ -120,7 +125,45 @@ const AddSiteForm = ({
                                             />
                                         </Field>
                                     )}
-                                </>
+
+                                    {hasDocuments && (
+                                        <>
+                                            <Field
+                                                labelClasses="no-capitalise"
+                                                name={`Set ${type.name} documents for site?`}
+                                            >
+                                                <CheckboxContainer
+                                                    name={type.id}
+                                                    checked={
+                                                        selectedPinOptionDocumentsTypes[type.id]
+                                                    }
+                                                    handleChange={
+                                                        handlePinOptionDocumentsTypesChange
+                                                    }
+                                                    label={`Set ${type.name} documents for site?`}
+                                                    labelClasses="no-capitalise"
+                                                />
+                                            </Field>
+                                            {isTypeDocumentsSelected && (
+                                                <Field name={type.namePlural}>
+                                                    <OptionsPodSetListContainer
+                                                        name={type.id}
+                                                        isNumberValues
+                                                        options={options}
+                                                        handleChange={
+                                                            handlePinOptionDocumentsSetsChange
+                                                        }
+                                                        selectedOptions={
+                                                            selectedPinOptionDocumentsSets[
+                                                                type.id
+                                                            ] ?? []
+                                                        }
+                                                    />
+                                                </Field>
+                                            )}
+                                        </>
+                                    )}
+                                </React.Fragment>
                             );
                         })}
                 </div>
