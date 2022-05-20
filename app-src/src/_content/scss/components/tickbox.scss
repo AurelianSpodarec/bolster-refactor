@@ -11,8 +11,16 @@
   user-select: none;
   height: 20px;
 
+  p {
+    font-size: 14px;
+  }
+
   &.large-text {
     font-size: 150%;
+
+    p {
+      font-size: 17px;
+    }
   }
 
   &.form {
