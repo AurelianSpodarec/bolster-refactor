@@ -21,6 +21,8 @@ import { selectSubscriptions } from '../../../../../selectors/companyAdmin/compa
 const EditSitePinOptionSetsContainer = ({ site }) => {
     const [selectedPinOptionTypes, setSelectedPinOptionTypes] = useState({});
     const [selectedPinOptionSets, setSelectedPinOptionSets] = useState({});
+    const [selectedPinOptionTypeDocuments, setSelectedPinOptionTypeDocuments] = useState({});
+    const [selectedPinOptionSetDocuments, setSelectedPinOptionSetDocuments] = useState({});
 
     const types = useSelector(selectPinOptionTypes);
     const sets = useSelector(selectPinOptionSets);
@@ -69,7 +71,11 @@ const EditSitePinOptionSetsContainer = ({ site }) => {
         const pinOptionSets = Object.entries(selectedPinOptionSets)
             .filter(([, value]) => value.length > 0)
             .map(([key, value]) => ({ pinOptionTypeID: key, pinOptionSetIDs: value }));
-        const postBody = { pinOptionSets };
+        const pinOptionSetDocuments = Object.entries(selectedPinOptionSetDocuments)
+            .filter(([, value]) => value.length > 0)
+            .map(([key, value]) => ({ pinOptionTypeID: key, pinOptionSetIDs: value }));
+
+        const postBody = { pinOptionSets, pinOptionSetDocuments };
         dispatch(editSitePinOptionSets(site.id, postBody));
         dispatch(hideModal());
     };
@@ -82,6 +88,16 @@ const EditSitePinOptionSetsContainer = ({ site }) => {
     };
     const handlePinOptionSetChange = (type, value) => {
         setSelectedPinOptionSets({ ...selectedPinOptionSets, [type]: value });
+    };
+
+    const handlePinOptionTypeDocumentsChange = (type, value) => {
+        setSelectedPinOptionTypeDocuments({ ...selectedPinOptionTypeDocuments, [type]: value });
+        if (!value) {
+            setSelectedPinOptionSetDocuments({ ...selectedPinOptionSetDocuments, [type]: [] });
+        }
+    };
+    const handlePinOptionSetDocumentsChange = (type, value) => {
+        setSelectedPinOptionSetDocuments({ ...selectedPinOptionSetDocuments, [type]: value });
     };
 
     const typesToDisplay = Object.values(types).filter(type => type.hasSiteLinks);
@@ -104,11 +120,15 @@ const EditSitePinOptionSetsContainer = ({ site }) => {
                 isFetching={isFetching}
                 handlePinOptionTypeChange={handlePinOptionTypeChange}
                 handlePinOptionSetChange={handlePinOptionSetChange}
+                handlePinOptionTypeDocumentsChange={handlePinOptionTypeDocumentsChange}
+                handlePinOptionSetDocumentsChange={handlePinOptionSetDocumentsChange}
                 handleSubmit={handleSubmit}
                 types={typesToDisplay}
                 typeSets={typeSets}
                 selectedPinOptionTypes={selectedPinOptionTypes}
                 selectedPinOptionSets={selectedPinOptionSets}
+                selectedPinOptionTypeDocuments={selectedPinOptionTypeDocuments}
+                selectedPinOptionSetDocuments={selectedPinOptionSetDocuments}
                 hideModal={() => dispatch(hideModal())}
             />
         </BlockContainer>

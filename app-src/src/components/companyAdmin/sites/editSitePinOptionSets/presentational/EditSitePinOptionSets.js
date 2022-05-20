@@ -3,15 +3,19 @@ import Form from '../../../../shared/generic/form/containers/Form';
 import Field from '../../../../shared/generic/form/presentational/Field';
 import CheckboxContainer from '../../../../shared/generic/form/containers/CheckboxContainer';
 import CheckboxListContainer from '../../../../shared/generic/form/containers/CheckboxListContainer';
-import BlockButtonWrapper from '../../../../shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import OptionsPodSetListContainer from 'components/shared/generic/form/containers/OptionPodSetListContainer';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 
 const EditSitePinOptionSets = ({
     handlePinOptionSetChange,
     handlePinOptionTypeChange,
+    handlePinOptionTypeDocumentsChange,
+    handlePinOptionSetDocumentsChange,
     selectedPinOptionSets,
     selectedPinOptionTypes,
+    selectedPinOptionTypeDocuments,
+    selectedPinOptionSetDocuments,
     types,
     isFetching,
     typeSets,
@@ -27,7 +31,11 @@ const EditSitePinOptionSets = ({
                         text: set.name,
                         value: set.id,
                     }));
-                    const isSelected = selectedPinOptionTypes[type.id];
+                    const isTypeSetsSelected = selectedPinOptionTypes[type.id];
+                    const isTypeDocumentsSelected = selectedPinOptionTypeDocuments[type.id];
+
+                    const { hasDocuments } = type;
+
                     return (
                         <React.Fragment key={type.id}>
                             <Field
@@ -43,17 +51,46 @@ const EditSitePinOptionSets = ({
                                     labelClasses="no-capitalise"
                                 />
                             </Field>
-                            {isSelected && (
+                            {isTypeSetsSelected && (
                                 <Field name={type.namePlural}>
-                                    <CheckboxListContainer
+                                    <OptionsPodSetListContainer
                                         name={type.id}
                                         isNumberValues
-                                        text=""
                                         handleChange={handlePinOptionSetChange}
                                         options={options}
                                         selectedOptions={selectedPinOptionSets[type.id] ?? []}
                                     />
                                 </Field>
+                            )}
+
+                            {hasDocuments && (
+                                <>
+                                    <Field
+                                        labelClasses="no-capitalise"
+                                        name={`Set ${type.name} documents for site?`}
+                                    >
+                                        <CheckboxContainer
+                                            name={type.id}
+                                            checked={selectedPinOptionTypeDocuments[type.id]}
+                                            handleChange={handlePinOptionTypeDocumentsChange}
+                                            label={`Set ${type.name} documents for site?`}
+                                            labelClasses="no-capitalise"
+                                        />
+                                    </Field>
+                                    {isTypeDocumentsSelected && (
+                                        <Field name={type.namePlural}>
+                                            <OptionsPodSetListContainer
+                                                name={type.id}
+                                                isNumberValues
+                                                options={options}
+                                                handleChange={handlePinOptionSetDocumentsChange}
+                                                selectedOptions={
+                                                    selectedPinOptionSetDocuments[type.id] ?? []
+                                                }
+                                            />
+                                        </Field>
+                                    )}
+                                </>
                             )}
                         </React.Fragment>
                     );
