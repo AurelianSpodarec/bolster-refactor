@@ -162,7 +162,6 @@ const OptionValuesList = ({ forwardRef, hasFetched }) => {
                             isSorting={isSorting}
                             onMove={moveItem}
                             onDrop={handleUpdateSort}
-                            isCompanySet={isCompanySet}
                         />
                     ))}
                 </tbody>
