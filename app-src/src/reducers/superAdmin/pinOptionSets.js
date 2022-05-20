@@ -14,6 +14,9 @@ import {
     DELETE_ADMIN_PIN_OPTION_SET_REQUEST,
     DELETE_ADMIN_PIN_OPTION_SET_SUCCESS,
     DELETE_ADMIN_PIN_OPTION_SET_FAILURE,
+    DUPLICATE_ADMIN_PIN_OPTION_SET_REQUEST,
+    DUPLICATE_ADMIN_PIN_OPTION_SET_SUCCESS,
+    DUPLICATE_ADMIN_PIN_OPTION_SET_FAILURE,
 } from 'constants/actionTypes/pinOptions';
 import { SET_API_FIELD_ERRORS } from '../../constants/actionTypes/generic';
 
@@ -58,6 +61,7 @@ function setsReducer(state = {}, action) {
             return convertArrToObj(action.payload);
         case CREATE_ADMIN_PIN_OPTION_SET_SUCCESS:
         case EDIT_ADMIN_PIN_OPTION_SET_SUCCESS:
+        case DUPLICATE_ADMIN_PIN_OPTION_SET_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
         case DELETE_ADMIN_PIN_OPTION_SET_SUCCESS:
             return removeObjItem(state, action.payload);
@@ -70,12 +74,15 @@ function isPostingReducer(state = false, action) {
     switch (action.type) {
         case CREATE_ADMIN_PIN_OPTION_SET_REQUEST:
         case EDIT_ADMIN_PIN_OPTION_SET_REQUEST:
+        case DUPLICATE_ADMIN_PIN_OPTION_SET_REQUEST:
             return true;
         case CREATE_ADMIN_PIN_OPTION_SET_SUCCESS:
         case CREATE_ADMIN_PIN_OPTION_SET_FAILURE:
         case EDIT_ADMIN_PIN_OPTION_SET_SUCCESS:
         case EDIT_ADMIN_PIN_OPTION_SET_FAILURE:
         case SET_API_FIELD_ERRORS:
+        case DUPLICATE_ADMIN_PIN_OPTION_SET_SUCCESS:
+        case DUPLICATE_ADMIN_PIN_OPTION_SET_FAILURE:
             return false;
         default:
             return state;
@@ -86,9 +93,11 @@ function postErrorReducer(state = null, action) {
     switch (action.type) {
         case CREATE_ADMIN_PIN_OPTION_SET_REQUEST:
         case EDIT_ADMIN_PIN_OPTION_SET_REQUEST:
+        case DUPLICATE_ADMIN_PIN_OPTION_SET_REQUEST:
             return null;
         case CREATE_ADMIN_PIN_OPTION_SET_FAILURE:
         case EDIT_ADMIN_PIN_OPTION_SET_FAILURE:
+        case DUPLICATE_ADMIN_PIN_OPTION_SET_FAILURE:
             return action.error;
         default:
             return state;
@@ -99,9 +108,11 @@ function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case CREATE_ADMIN_PIN_OPTION_SET_REQUEST:
         case EDIT_ADMIN_PIN_OPTION_SET_REQUEST:
+        case DUPLICATE_ADMIN_PIN_OPTION_SET_REQUEST:
             return false;
         case CREATE_ADMIN_PIN_OPTION_SET_SUCCESS:
         case EDIT_ADMIN_PIN_OPTION_SET_SUCCESS:
+        case DUPLICATE_ADMIN_PIN_OPTION_SET_SUCCESS:
             return true;
         default:
             return state;
