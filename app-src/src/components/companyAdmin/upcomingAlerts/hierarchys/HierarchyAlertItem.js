@@ -73,6 +73,7 @@ const HierarchyAlertItem = ({
                         <ActionMenuActionButton
                             onClick={() => dispatch(showModal(DELETE_ALERT_MODAL, { id }))}
                             text="Delete"
+                            isNegative
                         />
                     </ActionMenu>
                 </ButtonWrapper>
