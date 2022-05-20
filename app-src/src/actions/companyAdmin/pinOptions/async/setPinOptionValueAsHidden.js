@@ -28,7 +28,7 @@ export default option => async dispatch => {
     dispatch(setOptionValueAsHiddenRequest(option));
 
     return axios
-        .patch(`${API_URL}/pinoptions/options/${option.id}/hide`, getHeaders())
+        .patch(`${API_URL}/pinoptions/options/${option.id}/hide`, null, getHeaders())
         .then(res => dispatch(setOptionValueAsHiddenSuccess(res.data)))
         .catch(err => dispatch(setOptionValueAsHiddenFailure(err.message, option)));
 };
