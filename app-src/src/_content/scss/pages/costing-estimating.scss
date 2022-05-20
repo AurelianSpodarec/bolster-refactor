@@ -135,7 +135,7 @@
     @include h5title;
   }
 
-  p, span {
+  p, .body-text {
     @include bodyText;
 
     &.error {
@@ -193,12 +193,6 @@
 
   .cursor-pointer {
     cursor: pointer;
-  }
-
-  .custom-button {
-    span {
-      font-size: 15px!important;
-    }
   }
 }
 

@@ -1,10 +1,9 @@
 import React from 'react';
-import ModalOuterContainer from '../containers/ModalOuterContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+
 import Error from '../../misc/presentational/Error';
 import ButtonWrapper from '../../button/presentational/ButtonWrapper';
 import ActionButton from '../../button/presentational/ActionButton';
+import FlexModalOuter from './FlexModalOuter';
 
 const ConfirmSubmitModal = ({
     handleSubmit,
@@ -16,23 +15,25 @@ const ConfirmSubmitModal = ({
     error = null,
     submitAmbient,
 }) => (
-    <ModalOuterContainer>
-        <BlockHeading title={title} />
-        <p className="generic-text intro-text size-lg-12">{message}</p>
-        {error && <Error>{error}</Error>}
-        <BlockButtonWrapper>
-            <ButtonWrapper alignment="right">
-                <ActionButton text="Cancel" onClick={hideModal} size="small" source="secondary" />
-                <ActionButton
-                    text={submitButtonText}
-                    icon={submitButtonIcon}
-                    onClick={handleSubmit}
-                    size="small"
-                    ambient={submitAmbient}
-                />
-            </ButtonWrapper>
-        </BlockButtonWrapper>
-    </ModalOuterContainer>
+    <FlexModalOuter title={title}>
+        <div className="flex-content-wrapper">
+            <div className="flex-content">
+                <p className="generic-text size-lg-12">{message}</p>
+                {error && <Error>{error}</Error>}
+            </div>
+        </div>
+
+        <ButtonWrapper alignment="right" extraClasses="flex-modal-footer">
+            <ActionButton text="Cancel" onClick={hideModal} size="small" source="secondary" />
+            <ActionButton
+                text={submitButtonText}
+                icon={submitButtonIcon}
+                onClick={handleSubmit}
+                size="small"
+                ambient={submitAmbient}
+            />
+        </ButtonWrapper>
+    </FlexModalOuter>
 );
 
 export default ConfirmSubmitModal;

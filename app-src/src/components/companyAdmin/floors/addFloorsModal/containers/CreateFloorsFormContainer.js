@@ -28,7 +28,7 @@ const CreateFloorsFormContainer = ({
         });
 
     return (
-        <BlockContainer error={error} contentClass="no-padding no-border">
+        <BlockContainer error={error} contentClass="no-padding no-border" noWhiteBackground>
             <CreateFloorsForm
                 floors={Object.values(floors)}
                 updateFloor={updateFloor}

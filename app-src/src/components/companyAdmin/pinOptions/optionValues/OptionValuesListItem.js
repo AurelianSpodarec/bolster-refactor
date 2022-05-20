@@ -19,23 +19,25 @@ import ButtonWrapperInfo from 'components/shared/generic/button/presentational/B
 
 const OptionValuesListItem = ({
     option,
-    option: { id, name, isDisabled, priceBreaks, isDeleted },
+    option: { id, name, isDisabled, priceBreaks, isDeleted, companyID },
     setID,
     typeID,
     showEditModal,
     showDeleteModal,
     showDuplicateModal,
+    showMoveModal,
     enableOptionValue,
     disableOptionValue,
     isSorting,
     isDragging,
     connectDropTarget,
     forwardRef,
-    isCompanySet,
+    showHideModal,
 }) => {
     const company = useSelector(selectCompanySettings);
     const pinOptionType = useSelector(state => selectPinOptionType(state, typeID));
     const typeSlug = pinOptionType.slug;
+    const createdByAdmin = false;
 
     let rowClass = 'draggable expandable';
     if (isDragging) rowClass += ' dragging';
@@ -43,6 +45,8 @@ const OptionValuesListItem = ({
     const hasPriceBreaks = pinOptionType.hasCosting && !isEmpty(priceBreaks);
 
     const currencySymbol = CURRENCY_SYMBOLS[company.reportingCurrency] ?? '£';
+
+    const isCompanyOption = !!companyID;
 
     return (
         <>
@@ -68,7 +72,7 @@ const OptionValuesListItem = ({
                                 disabled={isSorting}
                                 keepTextColorOnDisable
                             />
-                            {isCompanySet ? (
+                            {isCompanyOption ? (
                                 <button
                                     className="checkbox-text link"
                                     onClick={() => showEditModal(option)}
@@ -99,11 +103,21 @@ const OptionValuesListItem = ({
                                     onClick={() => showDuplicateModal(option)}
                                 />
                                 <ActionMenuActionButton
+                                    text="Move"
+                                    onClick={() => showMoveModal(option)}
+                                    disabled={!isCompanyOption}
+                                    tooltip={
+                                        !isCompanyOption
+                                            ? 'This is a Bolster Systems created option and cannot be edited. Please duplicate the option first if you would like to make changes.'
+                                            : null
+                                    }
+                                />
+                                <ActionMenuActionButton
                                     text="Edit"
                                     onClick={() => showEditModal(option)}
-                                    disabled={!isCompanySet}
+                                    disabled={!isCompanyOption}
                                     tooltip={
-                                        !isCompanySet
+                                        !isCompanyOption
                                             ? 'This is a Bolster Systems created option and cannot be edited. Please duplicate the option first if you would like to make changes.'
                                             : null
                                     }
@@ -112,13 +126,21 @@ const OptionValuesListItem = ({
                                     text="Delete"
                                     onClick={() => showDeleteModal(option)}
                                     isNegative
-                                    disabled={!isCompanySet}
+                                    disabled={!isCompanyOption}
                                     tooltip={
-                                        !isCompanySet
-                                            ? 'This is a Bolster Systems created option and cannot be deleted'
+                                        !isCompanyOption
+                                            ? 'This is a Bolster Systems created option and cannot be deleted.'
                                             : null
                                     }
                                 />
+
+                                {createdByAdmin && (
+                                    <ActionMenuActionButton
+                                        text="Hide"
+                                        onClick={() => showHideModal(option)}
+                                        isNegative
+                                    />
+                                )}
                             </ActionMenu>
                         </ButtonWrapper>
                     </td>

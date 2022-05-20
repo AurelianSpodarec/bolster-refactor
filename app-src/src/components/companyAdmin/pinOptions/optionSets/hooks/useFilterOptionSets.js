@@ -15,9 +15,10 @@ import {
     PIN_OPTIONS_FILTERS_ENABLED_DISABLED_OPTIONS,
     PIN_OPTIONS_SETS_FILTERS_OPTIONS,
     TOOLTIP_FILTERS_TYPES,
+    PIN_OPTIONS_FILTERS_HIDDEN_OPTIONS,
 } from 'constants/companyAdmin/enums';
 
-const useFilterSets = (sets, isSorting, selectedTypeID) => {
+const useFilterOptionSets = (sets, isSorting, selectedTypeID) => {
     const { searchTerm, handleUpdateSearch } = useSearch();
     const [showFilters, setShowFilters] = useState(false);
     const [expandedID, setExpandedID] = useState(null);
@@ -30,6 +31,7 @@ const useFilterSets = (sets, isSorting, selectedTypeID) => {
         [PIN_OPTIONS_SETS_FILTERS_OPTIONS.SERVICE]: [PIN_OPTIONS_FILTERS_ALL],
         [PIN_OPTIONS_SETS_FILTERS_OPTIONS.CREATED_BY]: PIN_OPTIONS_FILTERS_ALL,
         [PIN_OPTIONS_SETS_FILTERS_OPTIONS.ENABLED_DISABLED]: PIN_OPTIONS_FILTERS_ALL,
+        [PIN_OPTIONS_SETS_FILTERS_OPTIONS.HIDDEN]: PIN_OPTIONS_FILTERS_ALL,
     });
 
     const filterOptions = [
@@ -80,6 +82,19 @@ const useFilterSets = (sets, isSorting, selectedTypeID) => {
                 },
             ],
         },
+        // {
+        //     id: PIN_OPTIONS_SETS_FILTERS_OPTIONS.HIDDEN,
+        //     name: 'Hidden',
+        //     type: TOOLTIP_FILTERS_TYPES.SINGLE_SELECTION,
+        //     allowSearch: false,
+        //     options: [
+        //         { id: PIN_OPTIONS_FILTERS_ALL, name: 'All' },
+        //         {
+        //             id: PIN_OPTIONS_FILTERS_HIDDEN_OPTIONS.HIDDEN,
+        //             name: 'Hidden',
+        //         },
+        //     ],
+        // },
     ];
 
     const getSortedSets = () => {
@@ -104,6 +119,7 @@ const useFilterSets = (sets, isSorting, selectedTypeID) => {
             const formServices = form[PIN_OPTIONS_SETS_FILTERS_OPTIONS.SERVICE];
             const formCreatedBy = form[PIN_OPTIONS_SETS_FILTERS_OPTIONS.CREATED_BY];
             const formEnabledDisabled = form[PIN_OPTIONS_SETS_FILTERS_OPTIONS.ENABLED_DISABLED];
+            const formHidden = form[PIN_OPTIONS_SETS_FILTERS_OPTIONS.HIDDEN];
 
             if (
                 formServices.length &&
@@ -147,6 +163,12 @@ const useFilterSets = (sets, isSorting, selectedTypeID) => {
                 }
             }
 
+            if (formHidden && !formHidden !== PIN_OPTIONS_FILTERS_ALL) {
+                if (formHidden === PIN_OPTIONS_FILTERS_HIDDEN_OPTIONS.HIDDEN && set.isHidden) {
+                    return false;
+                }
+            }
+
             return true;
         });
 
@@ -169,4 +191,4 @@ const useFilterSets = (sets, isSorting, selectedTypeID) => {
     };
 };
 
-export default useFilterSets;
+export default useFilterOptionSets;

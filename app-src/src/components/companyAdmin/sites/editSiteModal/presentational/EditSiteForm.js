@@ -18,72 +18,75 @@ const EditSiteForm = ({
     postcode,
     isUsingBolsterLabels,
 }) => (
-    <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
-        <div className="size-lg-12">
-            <div className="size-lg-6 size-md-12">
-                <Field name="Site name" required>
-                    <TextInputContainer
-                        name="name"
-                        value={name}
-                        handleChange={handleInputChange}
-                        required
-                    />
-                </Field>
-            </div>
+    <Form onSubmit={handleSubmit} className="generic-form flex-content-wrapper size-lg-12">
+        <div className="flex-content">
+            <div className="form-fields-container">
+                <div className="size-lg-12">
+                    <div className="size-lg-6 size-md-12">
+                        <Field name="Site name" required>
+                            <TextInputContainer
+                                name="name"
+                                value={name}
+                                handleChange={handleInputChange}
+                                required
+                            />
+                        </Field>
+                    </div>
 
-            <div className="size-lg-6 size-md-12">
-                <Field name="Client name" required>
-                    <TextInputContainer
-                        value={client}
-                        name="client"
-                        handleChange={handleInputChange}
-                    />
-                </Field>
+                    <div className="size-lg-6 size-md-12">
+                        <Field name="Client name" required>
+                            <TextInputContainer
+                                value={client}
+                                name="client"
+                                handleChange={handleInputChange}
+                            />
+                        </Field>
+                    </div>
+                </div>
+
+                <div className="size-lg-12">
+                    <div className="size-lg-6 size-md-12">
+                        <Field name="Address line 1" required>
+                            <TextInputContainer
+                                value={addressLine1}
+                                name="addressLine1"
+                                handleChange={handleInputChange}
+                                required
+                            />
+                        </Field>
+                    </div>
+
+                    <div className="size-lg-6 size-md-12">
+                        <Field name="Address line 2">
+                            <TextInputContainer
+                                value={addressLine2}
+                                name="addressLine2"
+                                handleChange={handleInputChange}
+                            />
+                        </Field>
+                    </div>
+                </div>
+
+                <div className="size-lg-12">
+                    <div className="size-lg-6 size-md-12">
+                        <Field name="Postcode" required>
+                            <TextInputContainer
+                                value={postcode}
+                                name="postcode"
+                                handleChange={handleInputChange}
+                                required
+                            />
+                        </Field>
+                    </div>
+                </div>
+                {isUsingBolsterLabels && <BolsterLabelExample name={name} hierarchy="Site" />}
             </div>
         </div>
 
-        <div className="size-lg-12">
-            <div className="size-lg-6 size-md-12">
-                <Field name="Address line 1" required>
-                    <TextInputContainer
-                        value={addressLine1}
-                        name="addressLine1"
-                        handleChange={handleInputChange}
-                        required
-                    />
-                </Field>
-            </div>
-
-            <div className="size-lg-6 size-md-12">
-                <Field name="Address line 2">
-                    <TextInputContainer
-                        value={addressLine2}
-                        name="addressLine2"
-                        handleChange={handleInputChange}
-                    />
-                </Field>
-            </div>
-        </div>
-
-        <div className="size-lg-12">
-            <div className="size-lg-6 size-md-12">
-                <Field name="Postcode" required>
-                    <TextInputContainer
-                        value={postcode}
-                        name="postcode"
-                        handleChange={handleInputChange}
-                        required
-                    />
-                </Field>
-            </div>
-        </div>
-        {isUsingBolsterLabels && <BolsterLabelExample name={name} hierarchy="Site" />}
-        <div className="size-lg-12">
-            <ButtonWrapper alignment="right">
-                <ActionButton text="Cancel" onClick={hideModal} source="secondary" size="small" />
-                <ActionButton text="Confirm" type="submit" icon="check" size="small" />
-            </ButtonWrapper>
-        </div>
+        <ButtonWrapper alignment="right" extraClasses="flex-modal-footer">
+            <ActionButton text="Cancel" onClick={hideModal} source="secondary" size="small" />
+            <ActionButton text="Confirm" type="submit" icon="check" size="small" />
+        </ButtonWrapper>
     </Form>
 );
 

@@ -30,6 +30,12 @@
   }
 }
 
+// to be wrapped around form fields if generic form has had calc width removed
+.form-fields-container {
+  width: calc(100% + 15px);
+  margin-left: -7.5px;
+}
+
 // multi select
 .multi-select {
   float: left;
@@ -668,6 +674,7 @@
 
   p {
     text-align: center;
+    font-size: 14px;
 
     .button {
       font-size: 12px;
@@ -1084,6 +1091,7 @@
 
     .placeholder {
       padding: 6px 5px;
+      font-size: 14px;
     }
 
     .option {
@@ -1092,6 +1100,7 @@
       padding: 2.5px 5px;
       margin: 5px;
       background-color: var(--navigation-primary);
+      font-size: 14px;
       cursor: default;
 
       &.option-hidden {
@@ -1150,6 +1159,11 @@
     @include rounded-bottom(3px);
     white-space: nowrap;
 
+    &.top {
+      top: auto;
+      bottom: 100%;
+    }
+
     .search-box {
       float: left;
       width: 100%;
@@ -1189,6 +1203,7 @@
       .option {
         cursor: pointer;
         white-space: nowrap;
+        font-size: 14px;
 
         &:hover,
         &.active {

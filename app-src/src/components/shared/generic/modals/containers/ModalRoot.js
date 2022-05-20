@@ -46,8 +46,6 @@ import {
     RENAME_TEMPLATE_SECTION,
     SET_LABEL_FIELDS,
     SUCCESS_MODAL,
-    FILTER_FIELDS,
-    CLIENT_FILTER_FIELDS,
     UNLINK_DEVICE,
     REVOKE_ADMIN_ACCESS,
     RESTRICT_ADMIN_PAYMENTS,
@@ -69,7 +67,6 @@ import {
     ADMIN_CONFIRM_SET_IS_INVOICE_PAID,
     ADMIN_DELETE_INVOICE,
     ADMIN_RESTORE_INVOICE,
-    DELETE_INVOICE,
     ADD_MULTIPLE_SERVICES_TO_SUBSCRIPTION,
     GENERATE_QR_CODES,
     DOCUMENT_VIEW,
@@ -141,17 +138,17 @@ import {
     CREATE_COSTING_AND_ESTIMATING_PRELIM_MODAL,
     LINK_PRELIM_MODAL,
     EDIT_LINK_PRELIM_MODAL,
-    GENERATE_COSTING_ESTIMATING_REPORT_MODAL,
-    GENERATE_COSTING_ESTIMATING_REPORT_SUCCESS_MODAL,
     CREATE_ADMIN_PIN_OPTIONS_VALUE_MODAL,
     EDIT_ADMIN_PIN_OPTIONS_VALUE_MODAL,
     DUPLICATE_PIN_OPTIONS_SET_MODAL,
     DUPLICATE_PIN_OPTIONS_VALUE_MODAL,
+    MOVE_PIN_OPTION_MODAL,
+    CREATE_ADMIN_PIN_OPTION_DOCUMENTS_MODAL,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 
-import AddCardModalContainer from 'components/companyAdmin/subscription/cardManagement/addCardModal/containers/AddCardModalContainer';
+import AddCardModal from 'components/companyAdmin/subscription/cardManagement/addCardModal/presentational/AddCardModal';
 import AddServiceToSubscriptionModalContainer from 'components/companyAdmin/subscription/AddServiceToSubscriptionModal/containers/AddServiceToSubscriptionModalContainer';
 import AddMulitpleServicesToSubscriptionModalContainer from 'components/companyAdmin/subscription/AddMultipleServicesToSubscriptionModal/containers/AddMulitpleServicesToSubscriptionModalContainer';
 import AddTemplateModalContainer from 'components/superAdmin/templateBuilder/setTemplate/containers/AddTemplateModalContainer';
@@ -172,13 +169,11 @@ import EditTemplateQuestionModalContainer from 'components/superAdmin/templateBu
 import EditUserPasswordModalContainer from './EditUserPasswordModalContainer';
 import EditUserModalContainer from './EditUserModalContainer';
 import ErrorModal from '../presentational/ErrorModal';
-import FilterFieldsModalContainer from 'components/companyAdmin/reports/createReport/components/containers/FilterFieldsModalContainer';
-import ClientFilterFieldsModalContainer from 'components/client/reports/createReport/components/containers/FilterFieldsModalContainer';
 import PayInvoiceModalContainer from 'components/companyAdmin/invoices/shared/payInvoiceModal/containers/PayInvoiceModalContainer';
 import PaymentErrorModalContainer from './PaymentErrorModalContainer';
 import PinPhotoModal from '../presentational/PinPhotoModal';
 import RenameTemplateSectionModalContainer from 'components/superAdmin/templateBuilder/setSection/containers/EditTemplateSectionModalContainer';
-import SuccessModalContainer from './SuccessModalContainer';
+import SuccessModal from '../presentational/SuccessModal';
 import ConfirmDeleteModal from '../presentational/ConfirmDeleteModal';
 import ConfirmArchiveModal from '../presentational/ConfirmArchiveModal';
 import ConfirmSubmitModal from '../presentational/ConfirmSubmitModal';
@@ -214,7 +209,6 @@ import SiteManagementConfirmMoveModalContainer from 'components/superAdmin/siteM
 import ConfirmSetIsInvoicePaidModalContainer from 'components/superAdmin/invoices/confirmSetIsInvoicePaidModal/containers/ConfirmSetIsInvoicePaidModalContainer';
 import SuperAdminConfirmDeleteInvoiceModalContainer from 'components/superAdmin/invoices/superAdminConfirmDeleteInvoiceModal/containers/SuperAdminConfirmDeleteInvoiceModalContainer';
 import SuperAdminConfirmRestoreInvoiceModalContainer from 'components/superAdmin/invoices/superAdminConfirmRestoreInvoiceModal/containers/SuperAdminConfirmRestoreInvoiceModalContainer';
-import ConfirmDeleteInvoiceModalContainer from 'components/companyAdmin/invoices/confirmDeleteInvoiceModal/containers/ConfirmDeleteInvoiceModalContainer';
 import AddCompanyAdminModalContainer from 'components/superAdmin/companies/singleCompany/containers/AddCompanyAdminModalContainer';
 import GenerateQRCodesModalContainer from './GenerateQRCodesModalContainer';
 import RestrictPaymentsModalContainer from './RestrictPaymentsModalContainer';
@@ -285,17 +279,17 @@ import AdminCreateOptionSetModal from 'components/superAdmin/pinOptions/optionSe
 import AdminEditOptionSetModal from 'components/superAdmin/pinOptions/optionSets/modals/EditOptionSetModal';
 import EditSitePinOptionSetsModal from '../../../../companyAdmin/sites/editSitePinOptionSets/presentational/EditSitePinOptionSetsModal';
 import CreateCostingAndEstimatingPrelimModal from 'components/companyAdmin/costingAndEstimating/modals/CreateCostingAndEstimatingPrelimModal';
-import GenerateCostingEstimatingReportModal from '../presentational/GenerateCostingEstimatingReportModal';
-import GenerateCostingEstimatingReportSuccessModal from '../presentational/GenerateCostingEstimatingReportSuccessModal';
 import EditLinkPrelimModal from 'components/companyAdmin/costingAndEstimating/modals/EditLinkPrelimModal';
 import LinkPrelimModal from '../../../../companyAdmin/costingAndEstimating/modals/LinkPrelimModal';
 import AdminCreateOptionValueModal from '../../../../superAdmin/pinOptions/optionValues/modals/CreateOptionValueModal';
 import AdminEditOptionValueModal from '../../../../superAdmin/pinOptions/optionValues/modals/EditOptionValueModal';
 import DuplicateOptionSetModal from 'components/companyAdmin/pinOptions/optionSets/modals/DuplicateOptionSetModal';
 import DuplicateOptionValueModal from 'components/companyAdmin/pinOptions/optionValues/modals/DuplicateOptionValueModal';
+import MoveOptionValueModal from '../../../../companyAdmin/pinOptions/optionValues/modals/MoveOptionValueModal';
+import AdminCreatePinOptionDocumentsModal from '../../../../superAdmin/pinOptions/optionDocuments/modals/CreatePinOptionDocumentsModal';
 
 const MODAL_COMPONENTS = {
-    [ADD_CARD]: AddCardModalContainer,
+    [ADD_CARD]: AddCardModal,
     [ADD_SERVICE_TO_SUBSCRIPTION]: AddServiceToSubscriptionModalContainer,
     [ADD_TEMPLATE]: AddTemplateModalContainer,
     [ADD_TEMPLATE_QUESTION]: AddTemplateQuestionModalContainer,
@@ -320,15 +314,13 @@ const MODAL_COMPONENTS = {
     [EDIT_TEMPLATE_QUESTION]: EditTemplateQuestionModalContainer,
     [EDIT_USER]: EditUserModalContainer,
     [EDIT_USER_PASSWORD]: EditUserPasswordModalContainer,
-    [FILTER_FIELDS]: FilterFieldsModalContainer,
-    [CLIENT_FILTER_FIELDS]: ClientFilterFieldsModalContainer,
     [PAY_INVOICE]: PayInvoiceModalContainer,
     [PAYMENT_ERROR]: PaymentErrorModalContainer,
     [PAYMENT_SUCCESS]: PaymentSuccessModalContainer,
     [PIN_IMAGE]: PinPhotoModal,
     [RENAME_TEMPLATE_SECTION]: RenameTemplateSectionModalContainer,
     [COPY_TEMPLATE]: CopyTemplateModalContainer,
-    [SUCCESS_MODAL]: SuccessModalContainer.WrappedComponent,
+    [SUCCESS_MODAL]: SuccessModal,
     [EDIT_DRAWING]: EditDrawingModalContainer,
     [CONFIRM_EDIT_PIN]: ConfirmEditPinModalContainer,
     [ADD_SITE]: AddSiteModal,
@@ -360,7 +352,6 @@ const MODAL_COMPONENTS = {
     [ADMIN_CONFIRM_SET_IS_INVOICE_PAID]: ConfirmSetIsInvoicePaidModalContainer,
     [ADMIN_DELETE_INVOICE]: SuperAdminConfirmDeleteInvoiceModalContainer,
     [ADMIN_RESTORE_INVOICE]: SuperAdminConfirmRestoreInvoiceModalContainer,
-    [DELETE_INVOICE]: ConfirmDeleteInvoiceModalContainer,
     [REQUEST_DELETE_INVOICE]: RequestDeleteInvoiceModal,
     [ADD_MULTIPLE_SERVICES_TO_SUBSCRIPTION]: AddMulitpleServicesToSubscriptionModalContainer,
     [GENERATE_QR_CODES]: GenerateQRCodesModalContainer,
@@ -436,10 +427,10 @@ const MODAL_COMPONENTS = {
     [CREATE_COSTING_AND_ESTIMATING_PRELIM_MODAL]: CreateCostingAndEstimatingPrelimModal,
     [LINK_PRELIM_MODAL]: LinkPrelimModal,
     [EDIT_LINK_PRELIM_MODAL]: EditLinkPrelimModal,
-    [GENERATE_COSTING_ESTIMATING_REPORT_MODAL]: GenerateCostingEstimatingReportModal,
-    [GENERATE_COSTING_ESTIMATING_REPORT_SUCCESS_MODAL]: GenerateCostingEstimatingReportSuccessModal,
     [DUPLICATE_PIN_OPTIONS_SET_MODAL]: DuplicateOptionSetModal,
     [DUPLICATE_PIN_OPTIONS_VALUE_MODAL]: DuplicateOptionValueModal,
+    [MOVE_PIN_OPTION_MODAL]: MoveOptionValueModal,
+    [CREATE_ADMIN_PIN_OPTION_DOCUMENTS_MODAL]: AdminCreatePinOptionDocumentsModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

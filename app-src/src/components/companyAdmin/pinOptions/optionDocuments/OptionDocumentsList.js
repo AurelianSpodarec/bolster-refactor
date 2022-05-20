@@ -34,7 +34,10 @@ const OptionDocumentsList = ({
 
     const ActionMenuItems = ({ document, documentsVersion }) => (
         <>
-            <ActionMenuActionButton text="Edit" onClick={() => showEditModal(documentsVersion)} />
+            <ActionMenuActionButton
+                text="Add new version"
+                onClick={() => showEditModal(documentsVersion)}
+            />
             <ActionMenuActionButton
                 text="Delete"
                 onClick={() => showDeleteModal(document, documentsVersion)}
@@ -44,7 +47,7 @@ const OptionDocumentsList = ({
     );
 
     return (
-        <GridWrapper gap={15} itemsPerRow={5}>
+        <GridWrapper containerClass="horizontal-margin" gap={15} itemsPerRow={5}>
             {documents.map(document => {
                 const latestVersion = getLatestVersionForPinOptionDocument(
                     document.id,

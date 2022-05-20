@@ -20,7 +20,7 @@ class EditSiteFormContainer extends Component {
         const { isUsingBolsterLabels, error, siteID, hideModal } = this.props;
 
         return (
-            <BlockContainer error={error} contentClass="no-padding">
+            <BlockContainer error={error} contentClass="no-padding" noWhiteBackground>
                 <EditSiteForm
                     {...this.state}
                     handleInputChange={this.handleInputChange}

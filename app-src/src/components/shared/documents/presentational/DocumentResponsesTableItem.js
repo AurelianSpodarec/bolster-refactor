@@ -1,7 +1,8 @@
 import React from 'react';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 
 const DocumentResponsesTableItem = ({ response, handleShowModal }) => (
     <tr>
@@ -13,9 +14,14 @@ const DocumentResponsesTableItem = ({ response, handleShowModal }) => (
             <DateTimeContainer date={response.syncedOn} />
         </td>
         <td>
-            <BlockButtonWrapper>
-                <ButtonContainer handleClick={handleShowModal}>More info</ButtonContainer>
-            </BlockButtonWrapper>
+            <ButtonWrapper alignment="right">
+                <ActionButton
+                    text="More info"
+                    source="secondary"
+                    ambient="positive"
+                    onClick={handleShowModal}
+                />
+            </ButtonWrapper>
         </td>
     </tr>
 );

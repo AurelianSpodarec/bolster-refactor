@@ -4,13 +4,9 @@ import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import useEditOptionValue from 'components/companyAdmin/pinOptions/optionValues/hooks/useEditOptionValue';
 
-const JustToCheckModal = ({
-    title = '',
-    text = '',
-    showJustToCheckModal,
-    setShowJustToCheckModal,
-}) => {
+const JustToCheckModal = ({ showJustToCheckModal, setShowJustToCheckModal, handleSubmit }) => {
     return (
         showJustToCheckModal && (
             <div className="just-to-check-modal-container size-lg-12">
@@ -20,22 +16,22 @@ const JustToCheckModal = ({
                     <BlockContainer contentClass="just-to-check-content-container">
                         <BlockContainer contentClass="flex-column">
                             <FlexWrapper className="block-heading" justify="between" align="center">
-                                <h3 className="heading heading-3 flex">{title}</h3>
+                                <h3 className="heading heading-3 flex">Overwrite prices?</h3>
                             </FlexWrapper>
 
-                            <p className="generic-text">{text}</p>
+                            <p className="generic-text">Saving will overwrite previous pricing</p>
 
                             <BlockButtonWrapper additionalClasses="just-to-check-modal-buttons">
-                                <ActionButton
-                                    source="secondary"
-                                    text="Go back"
-                                    size="medium"
-                                    onClick={() => setShowJustToCheckModal(false)}
-                                />
-
                                 {/* ####### change on click action ######## */}
                                 <ActionButton
                                     text="Overwrite"
+                                    size="medium"
+                                    onClick={handleSubmit}
+                                    type="submit"
+                                />
+                                <ActionButton
+                                    source="secondary"
+                                    text="Go Back"
                                     size="medium"
                                     onClick={() => setShowJustToCheckModal(false)}
                                 />

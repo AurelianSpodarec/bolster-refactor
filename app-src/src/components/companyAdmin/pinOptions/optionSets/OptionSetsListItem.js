@@ -25,9 +25,11 @@ const OptionSetsListItem = ({
     connectDropTarget,
     forwardRef,
     isCompanySet,
+    showHideModal,
 }) => {
     let rowClass = 'draggable expandable';
     if (isDragging) rowClass += ' dragging';
+    const createdByAdmin = false;
 
     return (
         <>
@@ -100,10 +102,18 @@ const OptionSetsListItem = ({
                                     disabled={!isCompanySet}
                                     tooltip={
                                         !isCompanySet
-                                            ? 'This is a Bolster Systems created set and cannot be deleted'
+                                            ? 'This is a Bolster Systems created set and cannot be deleted.'
                                             : null
                                     }
                                 />
+
+                                {createdByAdmin && (
+                                    <ActionMenuActionButton
+                                        text="Hide"
+                                        onClick={() => showHideModal(set)}
+                                        isNegative
+                                    />
+                                )}
                             </ActionMenu>
                         </ButtonWrapper>
                     </td>

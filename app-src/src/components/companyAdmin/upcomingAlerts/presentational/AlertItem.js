@@ -12,7 +12,6 @@ import {
     DATE_TIME_IDS,
 } from 'constants/companyAdmin/enums';
 import { companyUser } from 'selectors/companyAdmin/companyUser';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import { DELETE_ALERT_MODAL, EDIT_ALERT_MODAL } from 'constants/shared/modalTypes';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
@@ -120,6 +119,7 @@ const AlertItem = ({
                         <ActionMenuActionButton
                             onClick={() => dispatch(showModal(DELETE_ALERT_MODAL, { id }))}
                             text="Delete"
+                            isNegative
                         />
                     </ActionMenu>
                 </ButtonWrapper>

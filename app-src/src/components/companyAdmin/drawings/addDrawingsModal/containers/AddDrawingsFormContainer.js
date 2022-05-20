@@ -87,7 +87,12 @@ const AddDrawingsFormContainer = ({
         }));
 
     return (
-        <BlockContainer isFetching={isFetching} error={error} contentClass="no-padding no-border">
+        <BlockContainer
+            isFetching={isFetching}
+            error={error}
+            contentClass="no-padding no-border"
+            noWhiteBackground
+        >
             <AddDrawingsForm
                 drawings={Object.values(drawings)}
                 updateDrawing={updateDrawing}

@@ -13,6 +13,7 @@ import DatePickerPresentational from 'components/shared/generic/form/presentatio
 import { FLOORPLAN_STATES } from 'constants/companyAdmin/enums';
 import ActionButton from '../../../../shared/generic/button/presentational/ActionButton';
 import ButtonWrapper from '../../../../shared/generic/button/presentational/ButtonWrapper';
+import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
 
 const getFileName = src => src.match('[^/]*$')[0];
 const EditDrawingModal = ({
@@ -29,9 +30,11 @@ const EditDrawingModal = ({
     drawingNotStarted,
 }) => {
     return (
-        <ModalOuterContainer extraClasses={`${isUsingBolsterLabels ? 'w-label-example' : ''}`}>
-            <BlockHeading title="Edit drawing">
-                {latestFloorplanState === FLOORPLAN_STATES.COMPLETE && (
+        <FlexModalOuter
+            title="Edit drawing"
+            extraClasses={`${isUsingBolsterLabels ? 'w-label-example' : ''}`}
+            headingChildren={
+                latestFloorplanState === FLOORPLAN_STATES.COMPLETE && (
                     <ActionButton
                         text="Download current floorplan"
                         onClick={() =>
@@ -46,76 +49,83 @@ const EditDrawingModal = ({
                         source="secondary"
                         ambient="positive"
                     />
-                )}
-            </BlockHeading>
-            {doesRequireCreditToReplaceFloorplan ? (
-                <p className="generic-text size-lg-12">
-                    Note: updating the floorplan for this drawing will cost a credit.
-                </p>
-            ) : (
-                <p className="generic-text size-lg-12">
-                    Note: This will not cost you a credit as this is a{' '}
-                    {latestFloorplanState === FLOORPLAN_STATES.FAILEDCANCELLED
-                        ? 'failed upload'
-                        : 'recently created drawing'}
-                    .
-                </p>
-            )}
-
-            <Form className="generic-form" onSubmit={handleSubmit}>
-                <div className={isUsingBolsterLabels ? 'size-lg-6 size-md-12' : 'size-lg-12'}>
-                    <Field name="Drawing name" required>
-                        <TextInputContainer
-                            name="name"
-                            value={name}
-                            handleChange={handleChange}
-                            required
-                        />
-                    </Field>
-                    <Field name="Change floorplan">
-                        <p>Please upload your drawing in .pdf, .jpg or .png format.</p> <br />
-                        <FileUploadContainer
-                            name="file"
-                            value={file}
-                            handleChange={handleChange}
-                            acceptedTypes={[
-                                'application/pdf',
-                                'image/jpg',
-                                'image/jpeg',
-                                'image/png',
-                            ]}
-                        />
-                    </Field>
-                    {drawingNotStarted && (
-                        <Field name="Start Date">
-                            <DatePickerPresentational
-                                name="startDate"
-                                selected={startDate}
-                                onChange={handleStartDateChange}
-                                placeholderText="Date"
-                            />
-                        </Field>
+                )
+            }
+        >
+            <Form className="generic-form flex-content-wrapper" onSubmit={handleSubmit}>
+                <div className="flex-content">
+                    {doesRequireCreditToReplaceFloorplan ? (
+                        <p className="generic-text size-lg-12">
+                            Note: updating the floorplan for this drawing will cost a credit.
+                        </p>
+                    ) : (
+                        <p className="generic-text size-lg-12">
+                            Note: This will not cost you a credit as this is a{' '}
+                            {latestFloorplanState === FLOORPLAN_STATES.FAILEDCANCELLED
+                                ? 'failed upload'
+                                : 'recently created drawing'}
+                            .
+                        </p>
                     )}
+
+                    <div className="form-fields-container">
+                        <div
+                            className={isUsingBolsterLabels ? 'size-lg-6 size-md-12' : 'size-lg-12'}
+                        >
+                            <Field name="Drawing name" required>
+                                <TextInputContainer
+                                    name="name"
+                                    value={name}
+                                    handleChange={handleChange}
+                                    required
+                                />
+                            </Field>
+                            <Field name="Change floorplan">
+                                <p>Please upload your drawing in .pdf, .jpg or .png format.</p>{' '}
+                                <br />
+                                <FileUploadContainer
+                                    name="file"
+                                    value={file}
+                                    handleChange={handleChange}
+                                    acceptedTypes={[
+                                        'application/pdf',
+                                        'image/jpg',
+                                        'image/jpeg',
+                                        'image/png',
+                                    ]}
+                                />
+                            </Field>
+                            {drawingNotStarted && (
+                                <Field name="Start Date">
+                                    <DatePickerPresentational
+                                        name="startDate"
+                                        selected={startDate}
+                                        onChange={handleStartDateChange}
+                                        placeholderText="Date"
+                                    />
+                                </Field>
+                            )}
+                        </div>
+                    </div>
                 </div>
 
-                <div className="size-lg-12">
-                    <ButtonWrapper alignment="right">
-                        <ActionButton
-                            text="Cancel"
-                            onClick={hideModal}
-                            source="secondary"
-                            size="small"
-                        />
-                        <ActionButton
-                            text={filesUploading ? 'Please wait...' : 'Confirm'}
-                            icon={filesUploading ? 'fa fa-spinner fa-spin' : 'check'}
-                            type="submit"
-                            size="small"
-                        />
-                    </ButtonWrapper>
-                </div>
+                <ButtonWrapper alignment="right" extraClasses="flex-modal-footer">
+                    <ActionButton
+                        text="Cancel"
+                        onClick={hideModal}
+                        source="secondary"
+                        size="small"
+                    />
+                    <ActionButton
+                        text={filesUploading ? 'Please wait...' : 'Confirm'}
+                        icon={filesUploading ? 'spinner' : 'check'}
+                        iconSpin={filesUploading}
+                        type="submit"
+                        size="small"
+                    />
+                </ButtonWrapper>
             </Form>
-        </ModalOuterContainer>
+        </FlexModalOuter>
     );
 };
 

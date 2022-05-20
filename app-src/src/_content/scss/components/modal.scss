@@ -1,5 +1,5 @@
 // modal
-.modal-container {
+.modal-container, .flex-modal-container {
     position: fixed;
     top: 0;
     left: 0;
@@ -395,7 +395,58 @@
         .close {
             position: relative;
             margin-left: 15px;
+            padding: 0;
         }
+    }
+}
+
+// flex modal
+.flex-modal-container {
+    .modal-block {
+        display: flex;
+        flex-direction: column;
+        background-color: var(--background-container);
+        border: 1px solid var(--background-stroke);
+        overflow: hidden;
+        max-height: 75%;
+        border-radius: 5px;
+
+        &.full-height {
+            max-height: 95%;
+        }
+    }
+
+    .flex-modal-header, .flex-modal-footer {
+        padding: 15px;
+    }
+
+    .flex-modal-header {
+        margin-bottom: 0;
+        border-bottom: 1px solid var(--background-stroke);
+    }
+
+    .flex-modal-footer {
+        margin-top: 0;
+        border-top: 1px solid var(--background-stroke);
+    }
+
+    .flex-content-wrapper {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        overflow: hidden;
+
+        &.generic-form {
+            width: 100%;
+            margin-left: 0;
+        }
+    }
+
+    .flex-content {
+        flex: 1;
+        overflow: auto;
+        overflow-x: hidden;
+        padding: 15px;
     }
 }
 
@@ -446,7 +497,7 @@
     }
 
     .just-to-check-modal-block {
-        max-width: 35%;
+        max-width: 45%;
     }
 
     .just-to-check-content-container {    

@@ -10,7 +10,7 @@ import { selectPinOptionTypesArr } from 'selectors/companyAdmin/pinOptionTypes';
 import { selectPinOptionSet } from 'selectors/companyAdmin/pinOptionSets';
 import { selectJwtData } from 'selectors/shared/jwt';
 
-import useFilterOptionValues from '../../../../hooks/useFilterOptionsValues';
+import useFilterOptionValues from './hooks/useFilterOptionsValues';
 import useGetOptionsForSet from './hooks/useGetOptionsForSet';
 import useOptionValueActions from './hooks/useOptionValueActions';
 import useUpdateOptionValueSort from './hooks/useUpdateOptionValueSort';
@@ -57,7 +57,9 @@ const OptionValuesList = ({ forwardRef, hasFetched }) => {
         showAddModal,
         showEditModal,
         showDeleteModal,
+        showHideModal,
         showDuplicateModal,
+        showMoveModal,
         enableOptionValue,
         disableOptionValue,
     } = useOptionValueActions(typeID, setID);
@@ -152,13 +154,14 @@ const OptionValuesList = ({ forwardRef, hasFetched }) => {
                             typeID={typeID}
                             showEditModal={showEditModal}
                             showDeleteModal={showDeleteModal}
+                            showHideModal={showHideModal}
                             showDuplicateModal={showDuplicateModal}
+                            showMoveModal={showMoveModal}
                             enableOptionValue={enableOptionValue}
                             disableOptionValue={disableOptionValue}
                             isSorting={isSorting}
                             onMove={moveItem}
                             onDrop={handleUpdateSort}
-                            isCompanySet={isCompanySet}
                         />
                     ))}
                 </tbody>

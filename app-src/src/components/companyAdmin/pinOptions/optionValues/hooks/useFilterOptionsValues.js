@@ -5,6 +5,7 @@ import {
     PIN_OPTIONS_FILTERS_ALL,
     PIN_OPTIONS_FILTERS_ENABLED_DISABLED_OPTIONS,
     PIN_OPTIONS_VALUES_FILTERS_OPTIONS,
+    PIN_OPTIONS_FILTERS_HIDDEN_OPTIONS,
     TOOLTIP_FILTERS_TYPES,
 } from 'constants/companyAdmin/enums';
 import { useForm } from 'helpers/hooks';
@@ -12,8 +13,8 @@ import { useForm } from 'helpers/hooks';
 import { selectServicesArr } from 'selectors/companyAdmin/services';
 import { selectSubscriptions } from 'selectors/companyAdmin/companySubscription';
 
-import useSearch from './useSearch';
 import { isEmpty } from 'helpers/generic';
+import useSearch from 'hooks/useSearch';
 
 const useFilterOptionValues = (options, isSorting, set) => {
     const { searchTerm, handleUpdateSearch } = useSearch();
@@ -26,6 +27,7 @@ const useFilterOptionValues = (options, isSorting, set) => {
     const [form, handleChange] = useForm({
         [PIN_OPTIONS_VALUES_FILTERS_OPTIONS.SERVICE]: [PIN_OPTIONS_FILTERS_ALL],
         [PIN_OPTIONS_VALUES_FILTERS_OPTIONS.ENABLED_DISABLED]: PIN_OPTIONS_FILTERS_ALL,
+        [PIN_OPTIONS_VALUES_FILTERS_OPTIONS.HIDDEN]: PIN_OPTIONS_FILTERS_ALL,
     });
 
     const filterOptions = [
@@ -68,6 +70,19 @@ const useFilterOptionValues = (options, isSorting, set) => {
                 },
             ],
         },
+        // {
+        //     id: PIN_OPTIONS_VALUES_FILTERS_OPTIONS.HIDDEN,
+        //     name: 'Hidden',
+        //     type: TOOLTIP_FILTERS_TYPES.SINGLE_SELECTION,
+        //     allowSearch: false,
+        //     options: [
+        //         { id: PIN_OPTIONS_FILTERS_ALL, name: 'All' },
+        //         {
+        //             id: PIN_OPTIONS_FILTERS_HIDDEN_OPTIONS.HIDDEN,
+        //             name: 'Hidden',
+        //         },
+        //     ],
+        // },
     ];
 
     const getFilteredOptionValues = () => {
@@ -82,6 +97,7 @@ const useFilterOptionValues = (options, isSorting, set) => {
         const formFilters = initialFilters.filter(set => {
             const formServices = form[PIN_OPTIONS_VALUES_FILTERS_OPTIONS.SERVICE];
             const formEnabledDisabled = form[PIN_OPTIONS_VALUES_FILTERS_OPTIONS.ENABLED_DISABLED];
+            const formHidden = form[PIN_OPTIONS_VALUES_FILTERS_OPTIONS.HIDDEN];
 
             if (
                 formServices.length &&
@@ -105,6 +121,12 @@ const useFilterOptionValues = (options, isSorting, set) => {
                     formEnabledDisabled === PIN_OPTIONS_FILTERS_ENABLED_DISABLED_OPTIONS.DISABLED &&
                     !set.isDisabled
                 ) {
+                    return false;
+                }
+            }
+
+            if (formHidden && !formHidden !== PIN_OPTIONS_FILTERS_ALL) {
+                if (formHidden === PIN_OPTIONS_FILTERS_HIDDEN_OPTIONS.HIDDEN && set.isHidden) {
                     return false;
                 }
             }

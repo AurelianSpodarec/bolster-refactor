@@ -99,7 +99,7 @@ const EditSitePinOptionSetsContainer = ({ site }) => {
             return acc;
         }, {});
     return (
-        <BlockContainer isFetching={isFetching}>
+        <BlockContainer isFetching={isFetching} noWhiteBackground>
             <EditSitePinOptionSets
                 isFetching={isFetching}
                 handlePinOptionTypeChange={handlePinOptionTypeChange}

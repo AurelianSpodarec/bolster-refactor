@@ -1,14 +1,12 @@
 import React from 'react';
 
-import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import AddSiteFormContainer from '../containers/AddSiteFormContainer';
+import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
 
 const AddSiteModal = () => (
-    <ModalOuterContainer>
-        <BlockHeading title={'Add Site'} />
+    <FlexModalOuter title="Add Site">
         <AddSiteFormContainer />
-    </ModalOuterContainer>
+    </FlexModalOuter>
 );
 
 export default AddSiteModal;

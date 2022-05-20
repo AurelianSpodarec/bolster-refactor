@@ -11,7 +11,7 @@ import { selectJwtData } from 'selectors/shared/jwt';
 import useFetchPinOptionSets from 'components/companyAdmin/hooks/useFetchPinOptionSets';
 
 import useOptionSetActions from './hooks/useOptionSetActions';
-import useFilterOptionSets from 'hooks/useFilterOptionSets';
+import useFilterOptionSets from './hooks/useFilterOptionSets';
 import useUpdateOptionSetSort from './hooks/useUpdateOptionSetSort';
 
 import withDropZone from 'components/shared/dragDrop/hocs/withDropZone';
@@ -52,6 +52,7 @@ const OptionSets = ({ forwardRef, selectedTypeID }) => {
         showAddModal,
         showEditModal,
         showDeleteModal,
+        showHideModal,
         showDuplicateModal,
         enableOptionSet,
         disableOptionSet,
@@ -135,6 +136,7 @@ const OptionSets = ({ forwardRef, selectedTypeID }) => {
                             setLink={setLink}
                             showEditModal={showEditModal}
                             showDeleteModal={showDeleteModal}
+                            showHideModal={showHideModal}
                             showDuplicateModal={showDuplicateModal}
                             enableOptionSet={enableOptionSet}
                             disableOptionSet={disableOptionSet}

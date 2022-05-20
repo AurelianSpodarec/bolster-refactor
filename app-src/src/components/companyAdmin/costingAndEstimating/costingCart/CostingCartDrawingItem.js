@@ -20,8 +20,8 @@ const CostingCartDrawingItem = ({ drawing }) => {
 
     return (
         <FlexWrapper direction="row" justify="between" align="center" extraClasses="sub-item">
-            <span>{specificDrawing?.name}</span>
-            <span>{`${cost < 0 ? '-' : ''}${currencySymbol}${
+            <span className="body-text">{specificDrawing?.name}</span>
+            <span className="body-text">{`${cost < 0 ? '-' : ''}${currencySymbol}${
                 !Number.isNaN(cost) ? formatCurrency(cost, false) : '0.00'
             }`}</span>
         </FlexWrapper>

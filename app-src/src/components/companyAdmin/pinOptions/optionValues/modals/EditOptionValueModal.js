@@ -9,24 +9,24 @@ import { selectPinOptionType } from 'selectors/companyAdmin/pinOptionTypes';
 import useEditOptionValue from '../hooks/useEditOptionValue';
 import useGetAvailableServices from '../hooks/useGetAvailableServices';
 
-import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import ModalHeading from 'components/shared/generic/modals/presentational/ModalHeading';
 import ButtonMultiDropdown from 'components/shared/filters/ButtonMultiDropdown';
 import NumberInputContainer from 'components/shared/generic/form/containers/NumberInputContainer';
-import JustToCheckModal from './JustToCheckModal';
+import JustToCheckModal from '../../../../shared/generic/modals/presentational/JustToCheckModal';
 import DropdownContainer from '../../../../shared/generic/form/containers/DropdownContainer';
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
+import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
 
-const EditOptionValueModal = ({ option }) => {
+const EditOptionValueModal = ({ option, typeID }) => {
     const pinOptionType = useSelector(state => selectPinOptionType(state, option.pinOptionTypeID));
     const [showJustToCheckModal, setShowJustToCheckModal] = useState(false);
+    const [showClosingConfirmationModal, setShowClosingConfirmationModal] = useState(false);
     const canEditMeasurement = option.costMeasurementType === null;
+    const selectedPinOptionType = useSelector(state => selectPinOptionType(state, typeID));
 
     const {
         form,
@@ -39,7 +39,25 @@ const EditOptionValueModal = ({ option }) => {
         isPosting,
         error,
         setError,
+        latestPinOptionVersion,
+        initialPriceBreaks,
     } = useEditOptionValue(option);
+
+    const isServiceIDNotsModified =
+        form.serviceIDs.length === 0
+            ? form.serviceIDs.length === 0
+            : form.serviceIDs === option.serviceIDs;
+
+    const isNotModified =
+        form.name === latestPinOptionVersion.name &&
+        form.shortName === latestPinOptionVersion.shortName &&
+        isServiceIDNotsModified &&
+        form.costMeasurementType === option.costMeasurementType &&
+        JSON.stringify(form.measurementPriceBreaks) === JSON.stringify(initialPriceBreaks);
+
+    const isMeasurementNotModified =
+        form.costMeasurementType === option.costMeasurementType &&
+        JSON.stringify(form.measurementPriceBreaks) === JSON.stringify(initialPriceBreaks);
 
     const availableServiceOptions = useGetAvailableServices(option.pinOptionSetID);
 
@@ -62,9 +80,13 @@ const EditOptionValueModal = ({ option }) => {
     };
 
     return (
-        <ModalOuterContainer hideCloseButton>
-            <ModalHeading title={`Edit ${option.name}`}>
-                {!!availableServiceOptions.length && (
+        <FlexModalOuter
+            title={`Edit ${option.name}`}
+            showClosingConfirmationModal={showClosingConfirmationModal}
+            setShowClosingConfirmationModal={setShowClosingConfirmationModal}
+            closingConfirmation={!isNotModified}
+            headingChildren={
+                !!availableServiceOptions.length && (
                     <ButtonMultiDropdown
                         buttonText="Services"
                         name="serviceIDs"
@@ -74,172 +96,186 @@ const EditOptionValueModal = ({ option }) => {
                         isNumberValues
                         scrollElementID="modal-block"
                     />
-                )}
-            </ModalHeading>
-
-            <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
-                <Field name="Name" required>
-                    <TextInputContainer
-                        name="name"
-                        value={form.name}
-                        handleChange={handleChange}
-                        placeholder="Type name"
-                        required
-                    />
-                </Field>
-
-                <Field name="Short Name" labelClasses="small-margin">
-                    <p className="generic-text size-lg-12">
-                        This is how the pin option will output through the app.
-                    </p>
-
-                    <TextInputContainer
-                        name="shortName"
-                        value={form.shortName}
-                        handleChange={handleChange}
-                        placeholder="Type short name"
-                    />
-                </Field>
-
-                {pinOptionType.hasCosting && (
-                    <>
-                        <Field name="Unit of Measurement">
-                            <MeasurementWrapper>
-                                <DropdownContainer
-                                    name="costMeasurementType"
-                                    options={Object.values(measurementDropdownOptions)}
-                                    selectedOption={
-                                        measurementDropdownOptions[form.costMeasurementType]
-                                    }
-                                    handleChange={handleChange}
-                                    disabled={!canEditMeasurement}
-                                />
-                            </MeasurementWrapper>
+                )
+            }
+        >
+            <Form onSubmit={handleSubmit} className="generic-form flex-content-wrapper size-lg-12">
+                <div className="flex-content">
+                    <div className="form-fields-container">
+                        <Field name="Name" required>
+                            <TextInputContainer
+                                name="name"
+                                value={form.name}
+                                handleChange={handleChange}
+                                placeholder="Type name"
+                                required
+                            />
                         </Field>
 
-                        {!!form.costMeasurementType && (
+                        <Field name="Short Name" labelClasses="small-margin">
+                            <p className="generic-text size-lg-12">
+                                This is how the pin option will output through the app.
+                            </p>
+
+                            <TextInputContainer
+                                name="shortName"
+                                value={form.shortName}
+                                handleChange={handleChange}
+                                placeholder="Type short name"
+                            />
+                        </Field>
+
+                        {pinOptionType.hasCosting && (
                             <>
-                                {!canEditMeasurement && (
-                                    <Field name="Quick Price Edit (%)">
-                                        <NumberInputContainer
-                                            name="quickPriceEdit"
-                                            value={form.quickPriceEdit}
-                                            handleChange={handleQuickPriceEditChange}
-                                            placeholder="Type percentage"
+                                <Field name="Unit of Measurement">
+                                    <MeasurementWrapper>
+                                        <DropdownContainer
+                                            name="costMeasurementType"
+                                            options={Object.values(measurementDropdownOptions)}
+                                            selectedOption={
+                                                measurementDropdownOptions[form.costMeasurementType]
+                                            }
+                                            handleChange={handleChange}
+                                            disabled={!canEditMeasurement}
                                         />
-                                    </Field>
-                                )}
+                                    </MeasurementWrapper>
+                                </Field>
 
-                                {measurementTypeOutput && (
-                                    <Field classes="no-min-height">
-                                        <p className="generic-text size-lg-12">
-                                            {`Please enter your measurement breakpoints in ${measurementTypeOutput}.`}
-                                        </p>
-                                    </Field>
-                                )}
+                                {!!form.costMeasurementType && (
+                                    <>
+                                        {!canEditMeasurement && (
+                                            <Field name="Quick Price Edit (%)">
+                                                <NumberInputContainer
+                                                    name="quickPriceEdit"
+                                                    value={form.quickPriceEdit}
+                                                    handleChange={handleQuickPriceEditChange}
+                                                    placeholder="Type percentage"
+                                                />
+                                            </Field>
+                                        )}
 
-                                <div className="measurement-fields-grid">
-                                    <Field name="Measurement" />
-                                    <Field name="Price" />
-                                    <Field name="" />
+                                        {measurementTypeOutput && (
+                                            <Field classes="no-min-height">
+                                                <p className="generic-text size-lg-12">
+                                                    {`Please enter your measurement breakpoints in ${measurementTypeOutput}.`}
+                                                </p>
+                                            </Field>
+                                        )}
 
-                                    {form.measurementPriceBreaks.map((priceBreak, index) => {
-                                        const isLast = index === priceBreaksLength - 1;
+                                        <div className="measurement-fields-grid">
+                                            <Field name="Measurement" />
+                                            <Field name="Price" />
+                                            <Field name="" />
 
-                                        return (
-                                            <React.Fragment key={index}>
-                                                <Field>
-                                                    <NumberInputContainer
-                                                        name={`measurementPriceBreaks[${index}].value`}
-                                                        value={priceBreak.value}
-                                                        placeholder="Type value"
-                                                        minNum={0}
-                                                        handleFocus={() => {
-                                                            if (isLast) handleAddPriceBreak();
-                                                        }}
-                                                        handleChange={(_, value) => {
-                                                            handlePriceBreakChange(
-                                                                index,
-                                                                'value',
-                                                                value,
-                                                            );
-                                                            setError(null);
-                                                        }}
-                                                        disableMouseWheelControl
-                                                        disableUpDownArrowControl
-                                                    />
-                                                </Field>
+                                            {form.measurementPriceBreaks.map(
+                                                (priceBreak, index) => {
+                                                    const isLast = index === priceBreaksLength - 1;
 
-                                                <Field>
-                                                    <NumberInputContainer
-                                                        name={`measurementPriceBreaks[${index}].cost`}
-                                                        value={priceBreak.cost}
-                                                        placeholder="Type price"
-                                                        minNum={0}
-                                                        handleFocus={() => {
-                                                            if (isLast) handleAddPriceBreak();
-                                                        }}
-                                                        handleChange={(_, value) => {
-                                                            handlePriceBreakChange(
-                                                                index,
-                                                                'cost',
-                                                                value,
-                                                            );
-                                                            setError(null);
-                                                        }}
-                                                        disableMouseWheelControl
-                                                        disableUpDownArrowControl
-                                                    />
-                                                </Field>
+                                                    return (
+                                                        <React.Fragment key={index}>
+                                                            <Field>
+                                                                <NumberInputContainer
+                                                                    name={`measurementPriceBreaks[${index}].value`}
+                                                                    value={priceBreak.value}
+                                                                    placeholder="Type value"
+                                                                    minNum={0}
+                                                                    handleFocus={() => {
+                                                                        if (isLast)
+                                                                            handleAddPriceBreak();
+                                                                    }}
+                                                                    handleChange={(_, value) => {
+                                                                        handlePriceBreakChange(
+                                                                            index,
+                                                                            'value',
+                                                                            value,
+                                                                        );
+                                                                        setError(null);
+                                                                    }}
+                                                                    disableMouseWheelControl
+                                                                    disableUpDownArrowControl
+                                                                />
+                                                            </Field>
 
-                                                <Field>
-                                                    <ActionButton
-                                                        source="secondary"
-                                                        icon="trash-alt"
-                                                        iconOnly
-                                                        iconWeight="regular"
-                                                        disabled={!isMultiplePriceBreaks}
-                                                        onClick={() => {
-                                                            handleRemovePriceBreak(index);
-                                                        }}
-                                                    />
-                                                </Field>
-                                            </React.Fragment>
-                                        );
-                                    })}
-                                </div>
+                                                            <Field>
+                                                                <NumberInputContainer
+                                                                    name={`measurementPriceBreaks[${index}].cost`}
+                                                                    value={priceBreak.cost}
+                                                                    placeholder="Type price"
+                                                                    minNum={0}
+                                                                    handleFocus={() => {
+                                                                        if (isLast)
+                                                                            handleAddPriceBreak();
+                                                                    }}
+                                                                    handleChange={(_, value) => {
+                                                                        handlePriceBreakChange(
+                                                                            index,
+                                                                            'cost',
+                                                                            value,
+                                                                        );
+                                                                        setError(null);
+                                                                    }}
+                                                                    disableMouseWheelControl
+                                                                    disableUpDownArrowControl
+                                                                />
+                                                            </Field>
 
-                                {error && (
-                                    <Field classes="no-min-height">
-                                        <p className="error red-text text-accent-4">{error}</p>
-                                    </Field>
+                                                            <Field>
+                                                                <ActionButton
+                                                                    source="secondary"
+                                                                    icon="trash-alt"
+                                                                    iconOnly
+                                                                    iconWeight="regular"
+                                                                    disabled={
+                                                                        !isMultiplePriceBreaks
+                                                                    }
+                                                                    onClick={() => {
+                                                                        handleRemovePriceBreak(
+                                                                            index,
+                                                                        );
+                                                                    }}
+                                                                />
+                                                            </Field>
+                                                        </React.Fragment>
+                                                    );
+                                                },
+                                            )}
+                                        </div>
+
+                                        {error && (
+                                            <Field classes="no-min-height">
+                                                <p className="error red-text text-accent-4">
+                                                    {error}
+                                                </p>
+                                            </Field>
+                                        )}
+                                    </>
                                 )}
                             </>
                         )}
-                    </>
-                )}
+                    </div>
+                </div>
 
-                <BlockButtonWrapper>
-                    <ButtonWrapper alignment="right">
-                        <ActionButton
-                            text="Save"
-                            icon={isPosting ? 'spinner' : 'save'}
-                            iconSpin={isPosting}
-                            ambient="positive"
-                            size="medium"
-                            disabled={isPosting}
-                            type="submit"
-                        />
-                    </ButtonWrapper>
-                </BlockButtonWrapper>
+                <ButtonWrapper alignment="right" extraClasses="flex-modal-footer">
+                    <ActionButton
+                        text="Save"
+                        icon={isPosting ? 'spinner' : 'save'}
+                        iconSpin={isPosting}
+                        ambient="positive"
+                        disabled={isPosting}
+                        onClick={() => setShowJustToCheckModal(true)}
+                        type={isMeasurementNotModified ? 'submit' : 'button'}
+                    />
+                </ButtonWrapper>
             </Form>
-            <JustToCheckModal
-                title="Overwrite prices?"
-                text="Saving will overwrite previous pricing "
-                showJustToCheckModal={showJustToCheckModal}
-                setShowJustToCheckModal={setShowJustToCheckModal}
-            />
-        </ModalOuterContainer>
+
+            {selectedPinOptionType.tabName === 'Installations' && !isMeasurementNotModified && (
+                <JustToCheckModal
+                    handleSubmit={handleSubmit}
+                    showJustToCheckModal={showJustToCheckModal}
+                    setShowJustToCheckModal={setShowJustToCheckModal}
+                />
+            )}
+        </FlexModalOuter>
     );
 };
 

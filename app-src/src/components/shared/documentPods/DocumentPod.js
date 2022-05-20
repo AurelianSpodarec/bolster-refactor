@@ -26,6 +26,7 @@ const DocumentPod = ({ name, lastUpdated, actionMenuItems, s3Key }) => {
             showModal(DOCUMENT_VIEW, {
                 image: `${RAW_S3_STORAGE_URL}/${s3Key}${isPDF ? removePDFPanels : '?width=1500'}`,
                 type: isPDF ? PDF : IMAGE,
+                title: name,
             }),
         );
     };

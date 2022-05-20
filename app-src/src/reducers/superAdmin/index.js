@@ -45,6 +45,8 @@ import pinOptionTypesReducer from './pinOptionTypes';
 import pinOptionSetsReducer from './pinOptionSets';
 import pinOptionsReducer from './pinOptions';
 import pinOptionVersionsReducer from './pinOptionVersions';
+import pinOptionDocumentsReducer from './pinOptionDocuments';
+import pinOptionDocumentsVersionsReducer from './pinOptionDocumentsVersions';
 
 export default combineReducers({
     activityLogReducer,
@@ -63,6 +65,8 @@ export default combineReducers({
     pinOptionTypesReducer,
     pinOptionSetsReducer,
     pinOptionVersionsReducer,
+    pinOptionDocumentsReducer,
+    pinOptionDocumentsVersionsReducer,
     contactSubmissionsReducer,
     floorsReducer,
     invoicePaymentsReducer,

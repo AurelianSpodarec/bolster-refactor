@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
-import { FILTER_FIELDS, CONFIRM_SUBMIT, LOADING_DATA } from 'constants/shared/modalTypes';
+import { CONFIRM_SUBMIT, LOADING_DATA } from 'constants/shared/modalTypes';
 
 import FurtherFiltration from '../presentational/FurtherFiltration';
 import PinSelectorContainer from 'components/shared/pinSelector/container/PinSelectorContainer';
@@ -177,11 +177,6 @@ class FurtherFiltrationContainer extends Component {
             addFilter: !this.state.addFilter,
             filterToEditID: null,
         });
-    };
-
-    addCustomField = () => {
-        const { showModal, customQuestions } = this.props;
-        showModal(FILTER_FIELDS, { customQuestions });
     };
 
     handleShowCustomFieldModal = id => {
