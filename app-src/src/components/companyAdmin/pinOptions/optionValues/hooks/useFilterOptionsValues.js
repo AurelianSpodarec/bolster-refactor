@@ -95,6 +95,8 @@ const useFilterOptionValues = (options, isSorting, set) => {
         const initialFilters = options.filter(opt => {
             if (!opt.name.toLowerCase().includes(searchTerm.toLowerCase())) return false;
             if (opt.isDeleted) return false;
+            if (opt.isHidden && form[PIN_OPTIONS_VALUES_FILTERS_OPTIONS.HIDDEN_NOT_HIDDEN] !== 2)
+                return false;
             return true;
         });
 

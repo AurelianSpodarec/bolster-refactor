@@ -116,7 +116,9 @@ const useFilterOptionSets = (sets, isSorting, selectedTypeID) => {
             if (!set.name.toLowerCase().includes(searchTerm.toLowerCase())) return false;
             if (set.pinOptionTypeID !== selectedTypeID) return false;
             if (set.isDeleted) return false;
-            // if (set.isHidden) return false;
+            if (set.isHidden && form[PIN_OPTIONS_SETS_FILTERS_OPTIONS.HIDDEN_NOT_HIDDEN] !== 2)
+                return false;
+
             return true;
         });
 
