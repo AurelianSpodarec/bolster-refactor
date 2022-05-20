@@ -134,7 +134,7 @@ const OptionValuesListItem = ({
                                     }
                                 />
 
-                                {isCompanySet && (
+                                {!isCompanySet && (
                                     <ActionMenuActionButton
                                         text="Hide"
                                         onClick={() => showHideModal(option)}

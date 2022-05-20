@@ -106,7 +106,7 @@ const OptionSetsListItem = ({
                                     }
                                 />
 
-                                {isCompanySet && (
+                                {!isCompanySet && (
                                     <ActionMenuActionButton
                                         text="Hide"
                                         onClick={() => showHideModal(set)}
