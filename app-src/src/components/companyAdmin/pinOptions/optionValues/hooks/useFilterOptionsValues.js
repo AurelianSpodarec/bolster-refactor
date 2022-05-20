@@ -70,19 +70,23 @@ const useFilterOptionValues = (options, isSorting, set) => {
                 },
             ],
         },
-        // {
-        //     id: PIN_OPTIONS_VALUES_FILTERS_OPTIONS.HIDDEN,
-        //     name: 'Hidden',
-        //     type: TOOLTIP_FILTERS_TYPES.SINGLE_SELECTION,
-        //     allowSearch: false,
-        //     options: [
-        //         { id: PIN_OPTIONS_FILTERS_ALL, name: 'All' },
-        //         {
-        //             id: PIN_OPTIONS_FILTERS_HIDDEN_OPTIONS.HIDDEN,
-        //             name: 'Hidden',
-        //         },
-        //     ],
-        // },
+        {
+            id: PIN_OPTIONS_VALUES_FILTERS_OPTIONS.HIDDEN_NOT_HIDDEN,
+            name: 'Hidden / Not Hidden',
+            type: TOOLTIP_FILTERS_TYPES.SINGLE_SELECTION,
+            allowSearch: false,
+            options: [
+                { id: PIN_OPTIONS_FILTERS_ALL, name: 'All' },
+                {
+                    id: PIN_OPTIONS_FILTERS_HIDDEN_NOT_HIDDEN_OPTIONS.NOT_HIDDEN,
+                    name: 'Not Hidden',
+                },
+                {
+                    id: PIN_OPTIONS_FILTERS_HIDDEN_NOT_HIDDEN_OPTIONS.HIDDEN,
+                    name: 'Hidden',
+                },
+            ],
+        },
     ];
 
     const getFilteredOptionValues = () => {
@@ -97,7 +101,7 @@ const useFilterOptionValues = (options, isSorting, set) => {
         const formFilters = initialFilters.filter(set => {
             const formServices = form[PIN_OPTIONS_VALUES_FILTERS_OPTIONS.SERVICE];
             const formEnabledDisabled = form[PIN_OPTIONS_VALUES_FILTERS_OPTIONS.ENABLED_DISABLED];
-            const formHidden = form[PIN_OPTIONS_VALUES_FILTERS_OPTIONS.HIDDEN];
+            const formHiddenNotHidden = form[PIN_OPTIONS_VALUES_FILTERS_OPTIONS.HIDDEN_NOT_HIDDEN];
 
             if (
                 formServices.length &&
@@ -125,8 +129,19 @@ const useFilterOptionValues = (options, isSorting, set) => {
                 }
             }
 
-            if (formHidden && !formHidden !== PIN_OPTIONS_FILTERS_ALL) {
-                if (formHidden === PIN_OPTIONS_FILTERS_HIDDEN_NOT_HIDDEN_OPTIONS && set.isHidden) {
+            if (formHiddenNotHidden && !formHiddenNotHidden !== PIN_OPTIONS_FILTERS_ALL) {
+                if (
+                    formHiddenNotHidden ===
+                        PIN_OPTIONS_FILTERS_HIDDEN_NOT_HIDDEN_OPTIONS.NOT_HIDDEN &&
+                    set.isHidden
+                ) {
+                    return false;
+                }
+
+                if (
+                    formHiddenNotHidden === PIN_OPTIONS_FILTERS_HIDDEN_NOT_HIDDEN_OPTIONS.HIDDEN &&
+                    !set.isHidden
+                ) {
                     return false;
                 }
             }

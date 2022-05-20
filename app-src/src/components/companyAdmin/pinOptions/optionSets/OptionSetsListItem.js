@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import withDrag from 'components/shared/dragDrop/hocs/withDrag';
@@ -9,10 +10,12 @@ import ButtonWrapper from 'components/shared/generic/button/presentational/Butto
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 import ButtonWrapperInfo from 'components/shared/generic/button/presentational/ButtonWrapperInfo';
+import setOptionSetAsHidden from 'actions/companyAdmin/pinOptions/async/setOptionSetAsHidden';
+import setOptionSetAsNotHidden from 'actions/companyAdmin/pinOptions/async/setOptionSetAsNotHidden';
 
 const OptionSetsListItem = ({
     set,
-    set: { id, name, isDefault, isDisabled, isDeleted },
+    set: { id, name, isDefault, isDisabled, isDeleted, isHidden },
     setLink,
     showEditModal,
     showDeleteModal,
@@ -25,8 +28,8 @@ const OptionSetsListItem = ({
     connectDropTarget,
     forwardRef,
     isCompanySet,
-    showHideModal,
 }) => {
+    const dispatch = useDispatch();
     let rowClass = 'draggable expandable';
     if (isDragging) rowClass += ' dragging';
 
@@ -108,8 +111,12 @@ const OptionSetsListItem = ({
 
                                 {!isCompanySet && (
                                     <ActionMenuActionButton
-                                        text="Hide"
-                                        onClick={() => showHideModal(set)}
+                                        text={isHidden ? 'Undo hide' : 'Hide'}
+                                        onClick={
+                                            isHidden
+                                                ? () => dispatch(setOptionSetAsNotHidden(set))
+                                                : () => dispatch(setOptionSetAsHidden(set))
+                                        }
                                         isNegative
                                     />
                                 )}
