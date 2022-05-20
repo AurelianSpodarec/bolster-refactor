@@ -4,8 +4,6 @@ import PieChart from 'components/shared/stats/presentational/PieChart';
 import SiteDetails from './SiteDetails';
 import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import { ReactComponent as TrashIcon } from '../../../../../_content/images/icons/trash.svg';
-import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
 import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionMenu from 'components/shared/actionMenu/ActionMenu';
@@ -76,7 +74,11 @@ const SiteStats = ({
                             text={site.isArchived ? 'Un-Archive' : 'Archive'}
                         />
                         {site.accessType === ACCESS_TYPES_VALUES.OWNER && (
-                            <ActionMenuActionButton onClick={handleDelete} text="Delete" />
+                            <ActionMenuActionButton
+                                onClick={handleDelete}
+                                text="Delete"
+                                isNegative
+                            />
                         )}
                     </ActionMenu>
                     {site.accessType === ACCESS_TYPES_VALUES.OWNER && (

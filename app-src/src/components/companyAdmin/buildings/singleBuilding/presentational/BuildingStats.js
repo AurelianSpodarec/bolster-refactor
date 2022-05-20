@@ -5,7 +5,6 @@ import BuildingDetails from './BuildingDetails';
 import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
 import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import { ReactComponent as TrashIcon } from '../../../../../_content/images/icons/trash.svg';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionMenu from 'components/shared/actionMenu/ActionMenu';
 import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
@@ -62,7 +61,11 @@ const BuildingStats = ({
                             />
 
                             {building.accessType === ACCESS_TYPES_VALUES.OWNER && (
-                                <ActionMenuActionButton onClick={handleDelete} text="Delete" />
+                                <ActionMenuActionButton
+                                    onClick={handleDelete}
+                                    text="Delete"
+                                    isNegative
+                                />
                             )}
                         </ActionMenu>
                     </ButtonWrapper>
