@@ -21,9 +21,18 @@ class AddSiteFormContainer extends Component {
         dateToSend: '',
         selectedPinOptionTypes: {},
         selectedPinOptionSets: {},
+        selectedPinOptionTypeDocuments: {},
+        selectedPinOptionSetDocuments: {},
     };
 
     render() {
+        const {
+            selectedPinOptionTypes,
+            selectedPinOptionSets,
+            selectedPinOptionTypeDocuments,
+            selectedPinOptionSetDocuments,
+        } = this.state;
+
         const {
             isUsingBolsterLabels,
             isFetching,
@@ -70,6 +79,8 @@ class AddSiteFormContainer extends Component {
                     handleDateChange={this.handleDateChange}
                     handlePinOptionTypeChange={this.handlePinOptionTypeChange}
                     handlePinOptionSetChange={this.handlePinOptionSetChange}
+                    handlePinOptionTypeDocumentsChange={this.handlePinOptionTypeDocumentsChange}
+                    handlePinOptionSetDocumentsChange={this.handlePinOptionSetDocumentsChange}
                     handleSubmit={this.handleSubmit}
                     hideModal={this.props.hideModal}
                     isUsingBolsterLabels={isUsingBolsterLabels}
@@ -78,8 +89,10 @@ class AddSiteFormContainer extends Component {
                     isFetchingHierarchies={isFetchingHierarchies}
                     types={typesToDisplay}
                     typeSets={typeSets}
-                    selectedPinOptionTypes={this.state.selectedPinOptionTypes}
-                    selectedPinOptionSets={this.state.selectedPinOptionSets}
+                    selectedPinOptionTypes={selectedPinOptionTypes}
+                    selectedPinOptionSets={selectedPinOptionSets}
+                    selectedPinOptionTypeDocuments={selectedPinOptionTypeDocuments}
+                    selectedPinOptionSetDocuments={selectedPinOptionSetDocuments}
                     isCostingEnabled={isCostingEnabled}
                 />
             </BlockContainer>
@@ -127,12 +140,14 @@ class AddSiteFormContainer extends Component {
     };
 
     handlePinOptionTypeChange = (type, value) => {
+        const { selectedPinOptionTypes, selectedPinOptionSets } = this.state;
+
         this.setState({
-            selectedPinOptionTypes: { ...this.state.selectedPinOptionTypes, [type]: value },
+            selectedPinOptionTypes: { ...selectedPinOptionTypes, [type]: value },
             selectedPinOptionSets: {
-                ...this.state.selectedPinOptionSets,
+                ...selectedPinOptionSets,
                 // resets selected sets if type is un-selected
-                [type]: value ? this.state.selectedPinOptionSets[type] : [],
+                [type]: value ? selectedPinOptionSets[type] : [],
             },
         });
     };
@@ -146,12 +161,49 @@ class AddSiteFormContainer extends Component {
         });
     };
 
+    handlePinOptionTypeDocumentsChange = (type, value) => {
+        const { selectedPinOptionTypeDocuments, selectedPinOptionSetDocuments } = this.state;
+
+        this.setState({
+            selectedPinOptionTypeDocuments: {
+                ...selectedPinOptionTypeDocuments,
+                [type]: value,
+            },
+            selectedPinOptionSetDocuments: {
+                ...selectedPinOptionSetDocuments,
+                // resets selected sets if type is un-selected
+                [type]: value ? selectedPinOptionSetDocuments[type] : [],
+            },
+        });
+    };
+
+    handlePinOptionSetDocumentsChange = (type, value) => {
+        this.setState({
+            selectedPinOptionSetDocuments: {
+                ...this.state.selectedPinOptionSetDocuments,
+                [type]: value,
+            },
+        });
+    };
+
     handleSubmit = e => {
         e.preventDefault();
         const { hideModal, createSite } = this.props;
-        const { name, client, addressLine1, addressLine2, postcode, selectedPinOptionSets } =
-            this.state;
+        const {
+            name,
+            client,
+            addressLine1,
+            addressLine2,
+            postcode,
+            selectedPinOptionSets,
+            selectedPinOptionSetDocuments,
+        } = this.state;
+
         const pinOptionSets = Object.entries(selectedPinOptionSets)
+            .filter(([, value]) => value.length > 0)
+            .map(([key, value]) => ({ pinOptionTypeID: key, pinOptionSetIDs: value }));
+
+        const pinOptionSetDocuments = Object.entries(selectedPinOptionSetDocuments)
             .filter(([, value]) => value.length > 0)
             .map(([key, value]) => ({ pinOptionTypeID: key, pinOptionSetIDs: value }));
 
@@ -162,6 +214,7 @@ class AddSiteFormContainer extends Component {
             addressLine2,
             postcode,
             pinOptionSets,
+            pinOptionSetDocuments,
         };
 
         createSite(postBody);
