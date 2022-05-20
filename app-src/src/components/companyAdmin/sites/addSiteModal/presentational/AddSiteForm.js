@@ -27,10 +27,10 @@ const AddSiteForm = ({
     selectedPinOptionTypes,
     handlePinOptionSetChange,
     selectedPinOptionSets,
-    handlePinOptionTypeDocumentsChange,
-    selectedPinOptionTypeDocuments,
-    handlePinOptionSetDocumentsChange,
-    selectedPinOptionSetDocuments,
+    handlePinOptionDocumentsTypesChange,
+    selectedPinOptionDocumentsTypes,
+    handlePinOptionDocumentsSetsChange,
+    selectedPinOptionDocumentsSets,
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form flex-content-wrapper size-lg-12">
         <div className="flex-content">
@@ -94,7 +94,8 @@ const AddSiteForm = ({
                                 value: set.id,
                             }));
                             const isTypeSetsSelected = selectedPinOptionTypes[type.id];
-                            const isTypeDocumentsSelected = selectedPinOptionTypeDocuments[type.id];
+                            const isTypeDocumentsSelected =
+                                selectedPinOptionDocumentsTypes[type.id];
                             const { hasDocuments } = type;
 
                             return (
@@ -134,10 +135,10 @@ const AddSiteForm = ({
                                                 <CheckboxContainer
                                                     name={type.id}
                                                     checked={
-                                                        selectedPinOptionTypeDocuments[type.id]
+                                                        selectedPinOptionDocumentsTypes[type.id]
                                                     }
                                                     handleChange={
-                                                        handlePinOptionTypeDocumentsChange
+                                                        handlePinOptionDocumentsTypesChange
                                                     }
                                                     label={`Set ${type.name} documents for site?`}
                                                     labelClasses="no-capitalise"
@@ -150,10 +151,10 @@ const AddSiteForm = ({
                                                         isNumberValues
                                                         options={options}
                                                         handleChange={
-                                                            handlePinOptionSetDocumentsChange
+                                                            handlePinOptionDocumentsSetsChange
                                                         }
                                                         selectedOptions={
-                                                            selectedPinOptionSetDocuments[
+                                                            selectedPinOptionDocumentsSets[
                                                                 type.id
                                                             ] ?? []
                                                         }
