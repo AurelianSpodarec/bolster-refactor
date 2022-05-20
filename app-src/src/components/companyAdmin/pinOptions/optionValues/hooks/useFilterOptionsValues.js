@@ -4,8 +4,8 @@ import { useSelector } from 'react-redux';
 import {
     PIN_OPTIONS_FILTERS_ALL,
     PIN_OPTIONS_FILTERS_ENABLED_DISABLED_OPTIONS,
+    PIN_OPTIONS_FILTERS_HIDDEN_NOT_HIDDEN_OPTIONS,
     PIN_OPTIONS_VALUES_FILTERS_OPTIONS,
-    PIN_OPTIONS_FILTERS_HIDDEN_OPTIONS,
     TOOLTIP_FILTERS_TYPES,
 } from 'constants/companyAdmin/enums';
 import { useForm } from 'helpers/hooks';
@@ -126,7 +126,7 @@ const useFilterOptionValues = (options, isSorting, set) => {
             }
 
             if (formHidden && !formHidden !== PIN_OPTIONS_FILTERS_ALL) {
-                if (formHidden === PIN_OPTIONS_FILTERS_HIDDEN_OPTIONS.HIDDEN && set.isHidden) {
+                if (formHidden === PIN_OPTIONS_FILTERS_HIDDEN_NOT_HIDDEN_OPTIONS && set.isHidden) {
                     return false;
                 }
             }
