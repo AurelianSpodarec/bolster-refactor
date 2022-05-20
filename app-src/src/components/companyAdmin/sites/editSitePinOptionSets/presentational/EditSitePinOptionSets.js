@@ -10,12 +10,12 @@ import ButtonWrapper from 'components/shared/generic/button/presentational/Butto
 const EditSitePinOptionSets = ({
     handlePinOptionSetChange,
     handlePinOptionTypeChange,
-    handlePinOptionTypeDocumentsChange,
-    handlePinOptionSetDocumentsChange,
+    handlePinOptionDocumentsTypesChange,
+    handlePinOptionDocumentsSetsChange,
     selectedPinOptionSets,
     selectedPinOptionTypes,
-    selectedPinOptionTypeDocuments,
-    selectedPinOptionSetDocuments,
+    selectedPinOptionDocumentsTypes,
+    selectedPinOptionDocumentsSets,
     types,
     isFetching,
     typeSets,
@@ -32,7 +32,7 @@ const EditSitePinOptionSets = ({
                         value: set.id,
                     }));
                     const isTypeSetsSelected = selectedPinOptionTypes[type.id];
-                    const isTypeDocumentsSelected = selectedPinOptionTypeDocuments[type.id];
+                    const isTypeDocumentsSelected = selectedPinOptionDocumentsTypes[type.id];
 
                     const { hasDocuments } = type;
 
@@ -71,8 +71,8 @@ const EditSitePinOptionSets = ({
                                     >
                                         <CheckboxContainer
                                             name={type.id}
-                                            checked={selectedPinOptionTypeDocuments[type.id]}
-                                            handleChange={handlePinOptionTypeDocumentsChange}
+                                            checked={selectedPinOptionDocumentsTypes[type.id]}
+                                            handleChange={handlePinOptionDocumentsTypesChange}
                                             label={`Set ${type.name} documents for site?`}
                                             labelClasses="no-capitalise"
                                         />
@@ -83,9 +83,9 @@ const EditSitePinOptionSets = ({
                                                 name={type.id}
                                                 isNumberValues
                                                 options={options}
-                                                handleChange={handlePinOptionSetDocumentsChange}
+                                                handleChange={handlePinOptionDocumentsSetsChange}
                                                 selectedOptions={
-                                                    selectedPinOptionSetDocuments[type.id] ?? []
+                                                    selectedPinOptionDocumentsSets[type.id] ?? []
                                                 }
                                             />
                                         </Field>

@@ -21,16 +21,16 @@ class AddSiteFormContainer extends Component {
         dateToSend: '',
         selectedPinOptionTypes: {},
         selectedPinOptionSets: {},
-        selectedPinOptionTypeDocuments: {},
-        selectedPinOptionSetDocuments: {},
+        selectedPinOptionDocumentsTypes: {},
+        selectedPinOptionDocumentsSets: {},
     };
 
     render() {
         const {
             selectedPinOptionTypes,
             selectedPinOptionSets,
-            selectedPinOptionTypeDocuments,
-            selectedPinOptionSetDocuments,
+            selectedPinOptionDocumentsTypes,
+            selectedPinOptionDocumentsSets,
         } = this.state;
 
         const {
@@ -79,8 +79,8 @@ class AddSiteFormContainer extends Component {
                     handleDateChange={this.handleDateChange}
                     handlePinOptionTypeChange={this.handlePinOptionTypeChange}
                     handlePinOptionSetChange={this.handlePinOptionSetChange}
-                    handlePinOptionTypeDocumentsChange={this.handlePinOptionTypeDocumentsChange}
-                    handlePinOptionSetDocumentsChange={this.handlePinOptionSetDocumentsChange}
+                    handlePinOptionDocumentsTypesChange={this.handlePinOptionDocumentsTypesChange}
+                    handlePinOptionDocumentsSetsChange={this.handlePinOptionDocumentsSetsChange}
                     handleSubmit={this.handleSubmit}
                     hideModal={this.props.hideModal}
                     isUsingBolsterLabels={isUsingBolsterLabels}
@@ -91,8 +91,8 @@ class AddSiteFormContainer extends Component {
                     typeSets={typeSets}
                     selectedPinOptionTypes={selectedPinOptionTypes}
                     selectedPinOptionSets={selectedPinOptionSets}
-                    selectedPinOptionTypeDocuments={selectedPinOptionTypeDocuments}
-                    selectedPinOptionSetDocuments={selectedPinOptionSetDocuments}
+                    selectedPinOptionDocumentsTypes={selectedPinOptionDocumentsTypes}
+                    selectedPinOptionDocumentsSets={selectedPinOptionDocumentsSets}
                     isCostingEnabled={isCostingEnabled}
                 />
             </BlockContainer>
@@ -110,8 +110,8 @@ class AddSiteFormContainer extends Component {
         const {
             selectedPinOptionTypes,
             selectedPinOptionSets,
-            selectedPinOptionTypeDocuments,
-            selectedPinOptionSetDocuments,
+            selectedPinOptionDocumentsTypes,
+            selectedPinOptionDocumentsSets,
         } = this.state;
 
         if (postSuccess && !prevProps.postSuccess) {
@@ -132,18 +132,18 @@ class AddSiteFormContainer extends Component {
                 }
             });
         }
-        if (selectedPinOptionTypeDocuments !== prevState.selectedPinOptionTypeDocuments) {
-            Object.keys(selectedPinOptionTypeDocuments).forEach(typeID => {
+        if (selectedPinOptionDocumentsTypes !== prevState.selectedPinOptionDocumentsTypes) {
+            Object.keys(selectedPinOptionDocumentsTypes).forEach(typeID => {
                 if (
-                    selectedPinOptionTypeDocuments[typeID] &&
-                    !prevState.selectedPinOptionTypeDocuments[typeID]
+                    selectedPinOptionDocumentsTypes[typeID] &&
+                    !prevState.selectedPinOptionDocumentsTypes[typeID]
                 ) {
                     const defaultSetIDs = Object.values(sets)
                         .filter(set => set.pinOptionTypeID === +typeID && set.isDefault)
                         .map(set => set.id);
                     this.setState({
-                        selectedPinOptionSetDocuments: {
-                            ...selectedPinOptionSetDocuments,
+                        selectedPinOptionDocumentsSets: {
+                            ...selectedPinOptionDocumentsSets,
                             [typeID]: defaultSetIDs,
                         },
                     });
@@ -184,26 +184,26 @@ class AddSiteFormContainer extends Component {
         });
     };
 
-    handlePinOptionTypeDocumentsChange = (type, value) => {
-        const { selectedPinOptionTypeDocuments, selectedPinOptionSetDocuments } = this.state;
+    handlePinOptionDocumentsTypesChange = (type, value) => {
+        const { selectedPinOptionDocumentsTypes, selectedPinOptionDocumentsSets } = this.state;
 
         this.setState({
-            selectedPinOptionTypeDocuments: {
-                ...selectedPinOptionTypeDocuments,
+            selectedPinOptionDocumentsTypes: {
+                ...selectedPinOptionDocumentsTypes,
                 [type]: value,
             },
-            selectedPinOptionSetDocuments: {
-                ...selectedPinOptionSetDocuments,
+            selectedPinOptionDocumentsSets: {
+                ...selectedPinOptionDocumentsSets,
                 // resets selected sets if type is un-selected
-                [type]: value ? selectedPinOptionSetDocuments[type] : [],
+                [type]: value ? selectedPinOptionDocumentsSets[type] : [],
             },
         });
     };
 
-    handlePinOptionSetDocumentsChange = (type, value) => {
+    handlePinOptionDocumentsSetsChange = (type, value) => {
         this.setState({
-            selectedPinOptionSetDocuments: {
-                ...this.state.selectedPinOptionSetDocuments,
+            selectedPinOptionDocumentsSets: {
+                ...this.state.selectedPinOptionDocumentsSets,
                 [type]: value,
             },
         });
@@ -219,14 +219,14 @@ class AddSiteFormContainer extends Component {
             addressLine2,
             postcode,
             selectedPinOptionSets,
-            selectedPinOptionSetDocuments,
+            selectedPinOptionDocumentsSets,
         } = this.state;
 
         const pinOptionSets = Object.entries(selectedPinOptionSets)
             .filter(([, value]) => value.length > 0)
             .map(([key, value]) => ({ pinOptionTypeID: key, pinOptionSetIDs: value }));
 
-        const pinOptionSetDocuments = Object.entries(selectedPinOptionSetDocuments)
+        const pinOptionSetDocuments = Object.entries(selectedPinOptionDocumentsSets)
             .filter(([, value]) => value.length > 0)
             .map(([key, value]) => ({ pinOptionTypeID: key, pinOptionSetIDs: value }));
 

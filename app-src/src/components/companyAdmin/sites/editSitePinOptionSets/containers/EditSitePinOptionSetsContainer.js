@@ -23,8 +23,8 @@ const EditSitePinOptionSetsContainer = ({ site }) => {
     const [hasUpdatedDocumentsSets, setHasUpdatedDocumentsSets] = useState(false);
     const [selectedPinOptionTypes, setSelectedPinOptionTypes] = useState({});
     const [selectedPinOptionSets, setSelectedPinOptionSets] = useState({});
-    const [selectedPinOptionTypeDocuments, setSelectedPinOptionTypeDocuments] = useState({});
-    const [selectedPinOptionSetDocuments, setSelectedPinOptionSetDocuments] = useState({});
+    const [selectedPinOptionDocumentsTypes, setSelectedPinOptionDocumentsTypes] = useState({});
+    const [selectedPinOptionDocumentsSets, setSelectedPinOptionDocumentsSets] = useState({});
 
     const types = useSelector(selectPinOptionTypes);
     const sets = useSelector(selectPinOptionSets);
@@ -34,7 +34,7 @@ const EditSitePinOptionSetsContainer = ({ site }) => {
     const prevProps = usePrevious({
         isFetching,
         selectedPinOptionTypes,
-        selectedPinOptionTypeDocuments,
+        selectedPinOptionDocumentsTypes,
     });
     const { serviceIDs } = useSelector(selectSubscriptions);
 
@@ -60,8 +60,8 @@ const EditSitePinOptionSetsContainer = ({ site }) => {
 
             setSelectedPinOptionSets(site.pinOptionSetIDsByType);
             setSelectedPinOptionTypes(selectedTypes);
-            setSelectedPinOptionSetDocuments(site.pinOptionDocumentSetIDsByType);
-            setSelectedPinOptionTypeDocuments(selectedTypeDocuments);
+            setSelectedPinOptionDocumentsSets(site.pinOptionDocumentSetIDsByType);
+            setSelectedPinOptionDocumentsTypes(selectedTypeDocuments);
         }
     }, [types, sets, isFetching]);
 
@@ -81,17 +81,17 @@ const EditSitePinOptionSetsContainer = ({ site }) => {
     }, [selectedPinOptionTypes, sets]);
 
     useEffect(() => {
-        Object.keys(selectedPinOptionTypeDocuments).forEach(typeID => {
+        Object.keys(selectedPinOptionDocumentsTypes).forEach(typeID => {
             if (
-                selectedPinOptionTypeDocuments[typeID] &&
-                !prevProps.selectedPinOptionTypeDocuments[typeID]
+                selectedPinOptionDocumentsTypes[typeID] &&
+                !prevProps.selectedPinOptionDocumentsTypes[typeID]
             ) {
                 if (hasUpdatedDocumentsSets) {
                     const defaultSetIDs = Object.values(sets)
                         .filter(set => set.pinOptionTypeID === +typeID && set.isDefault)
                         .map(set => set.id);
-                    setSelectedPinOptionSetDocuments({
-                        ...selectedPinOptionSetDocuments,
+                    setSelectedPinOptionDocumentsSets({
+                        ...selectedPinOptionDocumentsSets,
                         [typeID]: defaultSetIDs,
                     });
                 } else {
@@ -99,13 +99,13 @@ const EditSitePinOptionSetsContainer = ({ site }) => {
                 }
             }
         });
-    }, [selectedPinOptionTypeDocuments, sets]);
+    }, [selectedPinOptionDocumentsTypes, sets]);
 
     const handleSubmit = () => {
         const pinOptionSets = Object.entries(selectedPinOptionSets)
             .filter(([, value]) => value.length > 0)
             .map(([key, value]) => ({ pinOptionTypeID: key, pinOptionSetIDs: value }));
-        const pinOptionSetDocuments = Object.entries(selectedPinOptionSetDocuments)
+        const pinOptionSetDocuments = Object.entries(selectedPinOptionDocumentsSets)
             .filter(([, value]) => value.length > 0)
             .map(([key, value]) => ({ pinOptionTypeID: key, pinOptionSetIDs: value }));
 
@@ -124,14 +124,14 @@ const EditSitePinOptionSetsContainer = ({ site }) => {
         setSelectedPinOptionSets({ ...selectedPinOptionSets, [type]: value });
     };
 
-    const handlePinOptionTypeDocumentsChange = (type, value) => {
-        setSelectedPinOptionTypeDocuments({ ...selectedPinOptionTypeDocuments, [type]: value });
+    const handlePinOptionDocumentsTypesChange = (type, value) => {
+        setSelectedPinOptionDocumentsTypes({ ...selectedPinOptionDocumentsTypes, [type]: value });
         if (!value) {
-            setSelectedPinOptionSetDocuments({ ...selectedPinOptionSetDocuments, [type]: [] });
+            setSelectedPinOptionDocumentsSets({ ...selectedPinOptionDocumentsSets, [type]: [] });
         }
     };
-    const handlePinOptionSetDocumentsChange = (type, value) => {
-        setSelectedPinOptionSetDocuments({ ...selectedPinOptionSetDocuments, [type]: value });
+    const handlePinOptionDocumentsSetsChange = (type, value) => {
+        setSelectedPinOptionDocumentsSets({ ...selectedPinOptionDocumentsSets, [type]: value });
     };
 
     const typesToDisplay = Object.values(types).filter(type => type.hasSiteLinks);
@@ -154,15 +154,15 @@ const EditSitePinOptionSetsContainer = ({ site }) => {
                 isFetching={isFetching}
                 handlePinOptionTypeChange={handlePinOptionTypeChange}
                 handlePinOptionSetChange={handlePinOptionSetChange}
-                handlePinOptionTypeDocumentsChange={handlePinOptionTypeDocumentsChange}
-                handlePinOptionSetDocumentsChange={handlePinOptionSetDocumentsChange}
+                handlePinOptionDocumentsTypesChange={handlePinOptionDocumentsTypesChange}
+                handlePinOptionDocumentsSetsChange={handlePinOptionDocumentsSetsChange}
                 handleSubmit={handleSubmit}
                 types={typesToDisplay}
                 typeSets={typeSets}
                 selectedPinOptionTypes={selectedPinOptionTypes}
                 selectedPinOptionSets={selectedPinOptionSets}
-                selectedPinOptionTypeDocuments={selectedPinOptionTypeDocuments}
-                selectedPinOptionSetDocuments={selectedPinOptionSetDocuments}
+                selectedPinOptionDocumentsTypes={selectedPinOptionDocumentsTypes}
+                selectedPinOptionDocumentsSets={selectedPinOptionDocumentsSets}
                 hideModal={() => dispatch(hideModal())}
             />
         </BlockContainer>
