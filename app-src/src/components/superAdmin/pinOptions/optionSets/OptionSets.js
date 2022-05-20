@@ -38,7 +38,8 @@ const OptionSets = ({ selectedTypeID }) => {
         handleChange,
     } = useFilterOptionSets(pinOptionSetsArr, selectedTypeID);
 
-    const { showAddModal, showEditModal, showDeleteModal } = useOptionSetActions(selectedTypeID);
+    const { showAddModal, showEditModal, showDeleteModal, showDuplicateModal } =
+        useOptionSetActions(selectedTypeID);
 
     const setLink = selectedPinOptionType.slug;
 
@@ -105,6 +106,7 @@ const OptionSets = ({ selectedTypeID }) => {
                         setLink={setLink}
                         showEditModal={showEditModal}
                         showDeleteModal={showDeleteModal}
+                        showDuplicateModal={showDuplicateModal}
                     />
                 ))}
             </Table>
