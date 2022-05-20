@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
     CONFIRM_DELETE,
     CREATE_ADMIN_PIN_OPTIONS_SET_MODAL,
+    DUPLICATE_ADMIN_PIN_OPTIONS_SET_MODAL,
     EDIT_ADMIN_PIN_OPTIONS_SET_MODAL,
     ERROR_MODAL,
 } from 'constants/shared/modalTypes';
@@ -53,6 +54,10 @@ const useOptionSetActions = selectedTypeID => {
         );
     };
 
+    const showDuplicateModal = set => {
+        dispatch(showModal(DUPLICATE_ADMIN_PIN_OPTIONS_SET_MODAL, { set }));
+    };
+
     useEffect(() => {
         if (deleteSuccess && !prevProps.deleteSuccess) {
             dispatch(hideModal());
@@ -67,6 +72,7 @@ const useOptionSetActions = selectedTypeID => {
         showAddModal,
         showEditModal,
         showDeleteModal,
+        showDuplicateModal,
     };
 };
 

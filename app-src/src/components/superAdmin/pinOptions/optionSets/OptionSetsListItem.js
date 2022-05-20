@@ -11,6 +11,7 @@ const OptionSetsListItem = ({
     setLink,
     showEditModal,
     showDeleteModal,
+    showDuplicateModal,
 }) => (
     <tr>
         <td className="row-link w-checkbox">
@@ -20,6 +21,10 @@ const OptionSetsListItem = ({
             <ButtonWrapper alignment="right">
                 <ActionMenu>
                     <ActionMenuActionButton text="Edit" onClick={() => showEditModal(set)} />
+                    <ActionMenuActionButton
+                        text="Duplicate"
+                        onClick={() => showDuplicateModal(set)}
+                    />
                     <ActionMenuActionButton
                         text="Delete"
                         onClick={() => showDeleteModal(set)}
