@@ -19,6 +19,8 @@ import editSitePinOptionSets from '../../../../../actions/companyAdmin/sites/asy
 import { selectSubscriptions } from '../../../../../selectors/companyAdmin/companySubscription';
 
 const EditSitePinOptionSetsContainer = ({ site }) => {
+    const [hasUpdatedSets, setHasUpdatedSets] = useState(false);
+    const [hasUpdatedDocumentsSets, setHasUpdatedDocumentsSets] = useState(false);
     const [selectedPinOptionTypes, setSelectedPinOptionTypes] = useState({});
     const [selectedPinOptionSets, setSelectedPinOptionSets] = useState({});
     const [selectedPinOptionTypeDocuments, setSelectedPinOptionTypeDocuments] = useState({});
@@ -29,7 +31,11 @@ const EditSitePinOptionSetsContainer = ({ site }) => {
     const isFetchingSets = useSelector(selectPinOptionSetsIsFetching);
     const isFetchingTypes = useSelector(selectPinOptionTypesIsFetching);
     const isFetching = isFetchingSets || isFetchingTypes;
-    const prevProps = usePrevious({ isFetching, selectedPinOptionTypes });
+    const prevProps = usePrevious({
+        isFetching,
+        selectedPinOptionTypes,
+        selectedPinOptionTypeDocuments,
+    });
     const { serviceIDs } = useSelector(selectSubscriptions);
 
     const dispatch = useDispatch();
@@ -42,30 +48,58 @@ const EditSitePinOptionSetsContainer = ({ site }) => {
     useEffect(() => {
         if (!isFetching && prevProps.isFetching) {
             const selectedTypes = {};
+            const selectedTypeDocuments = {};
             Object.values(sets).forEach(set => {
                 if (site.pinOptionSetIDsByType[set.pinOptionTypeID]?.length) {
                     selectedTypes[set.pinOptionTypeID] = true;
+                }
+                if (site.pinOptionDocumentSetIDsByType[set.pinOptionTypeID]?.length) {
+                    selectedTypeDocuments[set.pinOptionTypeID] = true;
                 }
             });
 
             setSelectedPinOptionSets(site.pinOptionSetIDsByType);
             setSelectedPinOptionTypes(selectedTypes);
+            setSelectedPinOptionSetDocuments(site.pinOptionDocumentSetIDsByType);
+            setSelectedPinOptionTypeDocuments(selectedTypeDocuments);
         }
     }, [types, sets, isFetching]);
 
     useEffect(() => {
         Object.keys(selectedPinOptionTypes).forEach(typeID => {
             if (selectedPinOptionTypes[typeID] && !prevProps.selectedPinOptionTypes[typeID]) {
-                const hasExistingSets = site.pinOptionSetIDsByType[typeID]?.length;
-                if (!hasExistingSets) {
+                if (hasUpdatedSets) {
                     const defaultSetIDs = Object.values(sets)
                         .filter(set => set.pinOptionTypeID === +typeID && set.isDefault)
                         .map(set => set.id);
                     setSelectedPinOptionSets({ ...selectedPinOptionSets, [typeID]: defaultSetIDs });
+                } else {
+                    setHasUpdatedSets(true);
                 }
             }
         });
     }, [selectedPinOptionTypes, sets]);
+
+    useEffect(() => {
+        Object.keys(selectedPinOptionTypeDocuments).forEach(typeID => {
+            if (
+                selectedPinOptionTypeDocuments[typeID] &&
+                !prevProps.selectedPinOptionTypeDocuments[typeID]
+            ) {
+                if (hasUpdatedDocumentsSets) {
+                    const defaultSetIDs = Object.values(sets)
+                        .filter(set => set.pinOptionTypeID === +typeID && set.isDefault)
+                        .map(set => set.id);
+                    setSelectedPinOptionSetDocuments({
+                        ...selectedPinOptionSetDocuments,
+                        [typeID]: defaultSetIDs,
+                    });
+                } else {
+                    setHasUpdatedDocumentsSets(true);
+                }
+            }
+        });
+    }, [selectedPinOptionTypeDocuments, sets]);
 
     const handleSubmit = () => {
         const pinOptionSets = Object.entries(selectedPinOptionSets)

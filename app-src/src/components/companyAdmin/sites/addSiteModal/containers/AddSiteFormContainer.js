@@ -107,7 +107,12 @@ class AddSiteFormContainer extends Component {
 
     componentDidUpdate = (prevProps, prevState) => {
         const { postSuccess, history, updatedSiteID, sets } = this.props;
-        const { selectedPinOptionTypes, selectedPinOptionSets } = this.state;
+        const {
+            selectedPinOptionTypes,
+            selectedPinOptionSets,
+            selectedPinOptionTypeDocuments,
+            selectedPinOptionSetDocuments,
+        } = this.state;
 
         if (postSuccess && !prevProps.postSuccess) {
             history.push(`/company/sites/${updatedSiteID}`);
@@ -121,6 +126,24 @@ class AddSiteFormContainer extends Component {
                     this.setState({
                         selectedPinOptionSets: {
                             ...selectedPinOptionSets,
+                            [typeID]: defaultSetIDs,
+                        },
+                    });
+                }
+            });
+        }
+        if (selectedPinOptionTypeDocuments !== prevState.selectedPinOptionTypeDocuments) {
+            Object.keys(selectedPinOptionTypeDocuments).forEach(typeID => {
+                if (
+                    selectedPinOptionTypeDocuments[typeID] &&
+                    !prevState.selectedPinOptionTypeDocuments[typeID]
+                ) {
+                    const defaultSetIDs = Object.values(sets)
+                        .filter(set => set.pinOptionTypeID === +typeID && set.isDefault)
+                        .map(set => set.id);
+                    this.setState({
+                        selectedPinOptionSetDocuments: {
+                            ...selectedPinOptionSetDocuments,
                             [typeID]: defaultSetIDs,
                         },
                     });
