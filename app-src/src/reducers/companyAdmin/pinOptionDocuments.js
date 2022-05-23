@@ -15,6 +15,7 @@ import {
     FETCH_PIN_OPTION_DOCUMENTS_REQUEST,
     FETCH_PIN_OPTION_DOCUMENTS_SUCCESS,
 } from 'constants/actionTypes/pinOptionsDocuments';
+import { SET_API_FIELD_ERRORS } from '../../constants/actionTypes/generic';
 
 export default combineReducers({
     documents: pinOptionDocumentsReducer,
@@ -68,6 +69,7 @@ function isPostingReducer(state = false, action) {
         case EDIT_PIN_OPTION_DOCUMENT_FAILURE:
         case DELETE_PIN_OPTION_DOCUMENT_SUCCESS:
         case DELETE_PIN_OPTION_DOCUMENT_FAILURE:
+        case SET_API_FIELD_ERRORS:
             return false;
         default:
             return state;
@@ -106,7 +108,6 @@ function postSuccessReducer(state = false, action) {
         case CREATE_PIN_OPTION_DOCUMENT_REQUEST:
         case EDIT_PIN_OPTION_DOCUMENT_REQUEST:
         case DELETE_PIN_OPTION_DOCUMENT_REQUEST:
-        case CREATE_PIN_OPTION_DOCUMENT_FAILURE:
             return false;
         case EDIT_PIN_OPTION_DOCUMENT_SUCCESS:
         case DELETE_PIN_OPTION_DOCUMENT_SUCCESS:

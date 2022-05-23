@@ -97,6 +97,7 @@ function setDynamicFieldsSingle({
     defaultValue,
     file,
     optionConfigurations,
+    pinOptionSetIDs,
     ...otherFields
 }) {
     let dynamicFields = {};
@@ -145,7 +146,7 @@ function setDynamicFieldsSingle({
         case VALS.PIN_OPTION_TYPES:
         case VALS.MULTI_PIN_OPTION_TYPES:
         case VALS.MULTI_MULTI_PIN_OPTION_TYPES:
-            dynamicFields = { optionType, defaultValue };
+            dynamicFields = { optionType, defaultValue, pinOptionSetIDs };
             break;
         case VALS.STATIC_IMAGE:
             dynamicFields = { file };

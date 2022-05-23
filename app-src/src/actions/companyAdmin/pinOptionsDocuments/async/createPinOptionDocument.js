@@ -1,12 +1,12 @@
 import axios from 'axios';
 
 import { API_URL } from 'config';
-import { getHeaders } from 'helpers/api';
+import { getHeaders, handleErrors } from 'helpers/api';
 
 import {
     CREATE_PIN_OPTION_DOCUMENT_REQUEST,
     CREATE_PIN_OPTION_DOCUMENT_SUCCESS,
-    FETCH_PIN_OPTION_DOCUMENTS_FAILURE,
+    CREATE_PIN_OPTION_DOCUMENT_FAILURE,
 } from '../../../../constants/actionTypes/pinOptionsDocuments';
 
 export const createPinOptionDocumentsRequest = () => ({
@@ -19,7 +19,7 @@ export const createPinOptionDocumentsSuccess = payload => ({
 });
 
 export const createPinOptionDocumentsFailure = error => ({
-    type: FETCH_PIN_OPTION_DOCUMENTS_FAILURE,
+    type: CREATE_PIN_OPTION_DOCUMENT_FAILURE,
     error,
 });
 
@@ -29,5 +29,5 @@ export default (postBody, id) => async dispatch => {
     return axios
         .post(`${API_URL}/pinoptions/document/${id}`, postBody, getHeaders())
         .then(res => dispatch(createPinOptionDocumentsSuccess(res.data)))
-        .catch(err => dispatch(createPinOptionDocumentsFailure(err.message)));
+        .catch(err => dispatch(handleErrors(createPinOptionDocumentsFailure)(err)));
 };

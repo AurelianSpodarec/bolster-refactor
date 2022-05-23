@@ -15,6 +15,7 @@ import fetchTemplateForCompany from 'actions/superAdmin/companies/async/fetchTem
 import deleteTemplate from 'actions/superAdmin/templateBuilder/async/deleteTemplate';
 import fetchPinOptionsForCompany from '../../../../../actions/superAdmin/pinOptions/async/fetchPinOptionsForCompany';
 import fetchPinOptionVersionsForCompany from '../../../../../actions/superAdmin/pinOptions/async/fetchPinOptionVersionsForCompany';
+import fetchPinOptionSets from '../../../../../actions/superAdmin/pinOptions/async/fetchPinOptionSets';
 
 class TemplateBuilderContainer extends Component {
     render() {
@@ -142,6 +143,9 @@ const mapDispatchToProps = (
         batch(() => {
             dispatch(fetchTemplateForCompany(companyID, templateUUID));
             dispatch(fetchAllServices());
+            dispatch(fetchPinOptionSets());
+            dispatch(fetchPinOptionsForCompany(companyID));
+            dispatch(fetchPinOptionVersionsForCompany(companyID));
             dispatch(fetchSingleCompany(companyID));
             dispatch(fetchPinOptionsForCompany(companyID));
             dispatch(fetchPinOptionVersionsForCompany(companyID));
