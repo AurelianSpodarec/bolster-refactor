@@ -7,15 +7,14 @@ import Tabs from '../presentational/Tabs';
 
 const MenuTabsContainer = () => {
     const dispatch = useDispatch();
-    const { menuTabs, selectedMenuTab, isSuperAdmin, isClientAccess, isCompanyAdmin } = useSelector(
-        mapStateToProps,
-    );
+    const { menuTabs, selectedMenuTab, isSuperAdmin, isClientAccess, isCompanyAdmin } =
+        useSelector(mapStateToProps);
 
     let filteredTabs = menuTabs;
 
-    if (!isSuperAdmin) filteredTabs = menuTabs.filter(tab => tab !== 'Super Admin');
-    if (!isCompanyAdmin) filteredTabs = menuTabs.filter(tab => tab !== 'Admin');
-    if (!isClientAccess) filteredTabs = menuTabs.filter(tab => tab !== 'Client Access');
+    if (!isSuperAdmin) filteredTabs = filteredTabs.filter(tab => tab !== 'Super Admin');
+    if (!isCompanyAdmin) filteredTabs = filteredTabs.filter(tab => tab !== 'Admin');
+    if (!isClientAccess) filteredTabs = filteredTabs.filter(tab => tab !== 'Client Access');
 
     return (
         <Tabs
