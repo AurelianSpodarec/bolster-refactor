@@ -24,7 +24,7 @@ const EditTemplateQuestionModalContainerFN = ({
     pinOptions,
     template,
 }) => {
-    const { serviceID } = template;
+    const { serviceID, companyID } = template;
 
     useEffect(handleMount, []);
 
@@ -47,6 +47,7 @@ const EditTemplateQuestionModalContainerFN = ({
             handlePrereqOptionsChange={handlePrereqOptionsChange}
             pinOptions={pinOptions}
             serviceID={serviceID}
+            companyID={companyID}
         />
     );
 

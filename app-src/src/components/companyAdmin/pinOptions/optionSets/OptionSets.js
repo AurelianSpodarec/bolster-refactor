@@ -53,6 +53,7 @@ const OptionSets = ({ forwardRef, selectedTypeID }) => {
         showEditModal,
         showDeleteModal,
         showDuplicateModal,
+        showMergeModal,
         enableOptionSet,
         disableOptionSet,
         setAsDefault,
@@ -136,6 +137,7 @@ const OptionSets = ({ forwardRef, selectedTypeID }) => {
                             showEditModal={showEditModal}
                             showDeleteModal={showDeleteModal}
                             showDuplicateModal={showDuplicateModal}
+                            showMergeModal={showMergeModal}
                             enableOptionSet={enableOptionSet}
                             disableOptionSet={disableOptionSet}
                             setAsDefault={setAsDefault}

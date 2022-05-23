@@ -5,7 +5,7 @@ import TextInputForm from '../presentational/TextInputForm';
 import NumberInputForm from '../presentational/NumberInputForm';
 import MultiOptionFormContainer from './MultiOptionFormContainer';
 import MultiPhotoForm from '../presentational/MultiPhotoForm';
-import OptionTypeFrom from '../presentational/OptionTypeForm';
+import OptionTypeForm from '../presentational/OptionTypeForm';
 
 const {
     SINGLE_LINE,
@@ -35,9 +35,9 @@ const SpecificFieldsRoute = ({ questionType, ...otherProps }) => {
         [MULTI_DROPDOWN]: MultiOptionFormContainer,
         [MULTI_MULTI_DROPDOWN]: MultiOptionFormContainer,
         [RADIO]: MultiOptionFormContainer,
-        [PIN_OPTION_TYPES]: OptionTypeFrom,
-        [MULTI_PIN_OPTION_TYPES]: OptionTypeFrom,
-        [MULTI_MULTI_PIN_OPTION_TYPES]: OptionTypeFrom,
+        [PIN_OPTION_TYPES]: OptionTypeForm,
+        [MULTI_PIN_OPTION_TYPES]: OptionTypeForm,
+        [MULTI_MULTI_PIN_OPTION_TYPES]: OptionTypeForm,
         [CHECKBOX]: NoFields,
         [SIGNATURE]: NoFields,
         [SINGLE_PHOTO]: NoFields,

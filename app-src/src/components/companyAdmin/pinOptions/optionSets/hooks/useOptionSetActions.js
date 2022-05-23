@@ -7,6 +7,7 @@ import {
     DUPLICATE_PIN_OPTIONS_SET_MODAL,
     EDIT_PIN_OPTIONS_SET_MODAL,
     ERROR_MODAL,
+    MERGE_PIN_OPTION_SETS_MODAL,
 } from 'constants/shared/modalTypes';
 import { usePrevious } from 'helpers/hooks';
 
@@ -61,6 +62,10 @@ const useOptionSetActions = selectedTypeID => {
         dispatch(showModal(DUPLICATE_PIN_OPTIONS_SET_MODAL, { set }));
     };
 
+    const showMergeModal = set => {
+        dispatch(showModal(MERGE_PIN_OPTION_SETS_MODAL, { set }));
+    };
+
     const enableOptionSet = set => {
         if (!isPosting) dispatch(enablePinOptionSet(set));
     };
@@ -90,6 +95,7 @@ const useOptionSetActions = selectedTypeID => {
         showEditModal,
         showDeleteModal,
         showDuplicateModal,
+        showMergeModal,
         enableOptionSet,
         disableOptionSet,
         setAsDefault,

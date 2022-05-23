@@ -5,35 +5,45 @@ import { convertEnumToDropdownOptions } from 'helpers/generic';
 import { PIN_OPTION_TYPES_ENUM } from 'constants/companyAdmin/enums';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import Select from 'components/shared/generic/form/presentational/Select';
+import { useSelector } from 'react-redux';
+import { selectPinOptionSets } from '../../../../../selectors/superAdmin/pinOptionSets';
+import MultiSelect from '../../../../shared/generic/form/presentational/MultiSelect';
+import { selectPinOptions } from '../../../../../selectors/superAdmin/pinOptions';
+import {
+    selectPinOptionVersions,
+    selectPinOptionVersionsArr,
+} from '../../../../../selectors/superAdmin/pinOptionVersions';
+import { getLatestVersionForPinOption } from '../../../../../helpers/pinOptions';
 
 const options = convertEnumToDropdownOptions(PIN_OPTION_TYPES_ENUM);
 
-const OptionTypeFrom = ({
+const OptionTypeForm = ({
     handleInputChange,
     optionType,
     dropdownOptions = [],
     defaultValue,
+    pinOptionSetIDs,
     serviceID,
+    companyID,
 }) => {
-    const getOptions = () => {
-        const convertedOptions = dropdownOptions
-            .reduce((acc, opt) => {
-                if (opt.type === +optionType) {
-                    if (serviceID && opt.serviceIDs?.length) {
-                        if (opt.serviceIDs.includes(+serviceID)) {
-                            acc.push({ label: opt.name, value: opt.name });
-                        }
-                    } else {
-                        acc.push({ label: opt.name, value: opt.name });
-                    }
-                }
+    const pinOptionSets = useSelector(selectPinOptionSets);
+    const setOptions = Object.values(pinOptionSets)
+        .filter(set => !set.isDeleted && !set.isDisabled)
+        .filter(set => +optionType === set.pinOptionTypeID)
+        .filter(set => !set.companyID || set.companyID === companyID)
+        .map(set => ({ label: set.name, value: set.id }));
 
-                return acc;
-            }, [])
-            .sort((a, b) => a.label.toLowerCase().localeCompare(b.label.toLowerCase()));
-
-        return convertedOptions;
-    };
+    const pinOptions = useSelector(selectPinOptions);
+    const pinOptionVersions = useSelector(selectPinOptionVersionsArr);
+    const pinOptionOptions = Object.values(pinOptions)
+        .filter(opt => !pinOptionSetIDs?.length || pinOptionSetIDs.includes(opt.pinOptionSetID))
+        .map(opt => {
+            const latestVersion = getLatestVersionForPinOption(opt.id, pinOptionVersions);
+            return {
+                label: latestVersion.name,
+                value: opt.id,
+            };
+        });
 
     return (
         <>
@@ -47,11 +57,23 @@ const OptionTypeFrom = ({
                     required
                 />
             </Field>
+            {optionType && (
+                <Field name="Option set">
+                    <MultiSelect
+                        name="pinOptionSetIDs"
+                        value={pinOptionSetIDs ?? []}
+                        options={setOptions}
+                        placeholder="--- select option set ---"
+                        onChange={handleInputChange}
+                        required
+                    />
+                </Field>
+            )}
             {options[optionType] && (
                 <Field name="Option Default Value">
                     <Select
                         name="defaultValue"
-                        options={getOptions()}
+                        options={pinOptionOptions}
                         value={defaultValue}
                         onChange={handleInputChange}
                     />
@@ -61,4 +83,4 @@ const OptionTypeFrom = ({
     );
 };
 
-export default OptionTypeFrom;
+export default OptionTypeForm;

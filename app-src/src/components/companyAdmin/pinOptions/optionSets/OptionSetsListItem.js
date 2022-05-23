@@ -20,6 +20,7 @@ const OptionSetsListItem = ({
     showEditModal,
     showDeleteModal,
     showDuplicateModal,
+    showMergeModal,
     enableOptionSet,
     disableOptionSet,
     setAsDefault,
@@ -98,6 +99,16 @@ const OptionSetsListItem = ({
                                     }
                                 />
                                 <ActionMenuActionButton
+                                    text="Merge"
+                                    onClick={() => showMergeModal(set)}
+                                    disabled={!isCompanySet}
+                                    tooltip={
+                                        !isCompanySet
+                                            ? 'This is a Bolster Systems created set and cannot be merged. Please duplicate the set first if you would like to make changes.'
+                                            : null
+                                    }
+                                />
+                                <ActionMenuActionButton
                                     text="Delete"
                                     onClick={() => showDeleteModal(set)}
                                     isNegative
@@ -117,7 +128,6 @@ const OptionSetsListItem = ({
                                                 ? () => dispatch(setOptionSetAsNotHidden(set))
                                                 : () => dispatch(setOptionSetAsHidden(set))
                                         }
-                                        isNegative
                                     />
                                 )}
                             </ActionMenu>
