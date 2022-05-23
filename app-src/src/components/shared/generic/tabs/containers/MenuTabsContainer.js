@@ -13,7 +13,7 @@ const MenuTabsContainer = () => {
     let filteredTabs = menuTabs;
 
     if (!isSuperAdmin) filteredTabs = filteredTabs.filter(tab => tab !== 'Super Admin');
-    if (!isCompanyAdmin || isClientAccess)
+    if (!isCompanyAdmin || (isClientAccess && !isSuperAdmin))
         filteredTabs = filteredTabs.filter(tab => tab !== 'Admin');
     if (!isClientAccess) filteredTabs = filteredTabs.filter(tab => tab !== 'Client Access');
 
