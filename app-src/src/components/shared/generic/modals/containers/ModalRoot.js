@@ -145,6 +145,7 @@ import {
     MOVE_PIN_OPTION_MODAL,
     CREATE_ADMIN_PIN_OPTION_DOCUMENTS_MODAL,
     DUPLICATE_ADMIN_PIN_OPTIONS_SET_MODAL,
+    DUPLICATE_ADMIN_PIN_OPTIONS_VALUE_MODAL,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -289,6 +290,7 @@ import DuplicateAdminOptionSetModal from 'components/superAdmin/pinOptions/optio
 import DuplicateOptionValueModal from 'components/companyAdmin/pinOptions/optionValues/modals/DuplicateOptionValueModal';
 import MoveOptionValueModal from '../../../../companyAdmin/pinOptions/optionValues/modals/MoveOptionValueModal';
 import AdminCreatePinOptionDocumentsModal from '../../../../superAdmin/pinOptions/optionDocuments/modals/CreatePinOptionDocumentsModal';
+import AdminDuplicateOptionValueModal from '../../../../superAdmin/pinOptions/optionSets/modals/DuplicateOptionValueModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModal,
@@ -431,6 +433,7 @@ const MODAL_COMPONENTS = {
     [EDIT_LINK_PRELIM_MODAL]: EditLinkPrelimModal,
     [DUPLICATE_PIN_OPTIONS_SET_MODAL]: DuplicateOptionSetModal,
     [DUPLICATE_PIN_OPTIONS_VALUE_MODAL]: DuplicateOptionValueModal,
+    [DUPLICATE_ADMIN_PIN_OPTIONS_VALUE_MODAL]: AdminDuplicateOptionValueModal,
     [DUPLICATE_ADMIN_PIN_OPTIONS_SET_MODAL]: DuplicateAdminOptionSetModal,
     [MOVE_PIN_OPTION_MODAL]: MoveOptionValueModal,
     [CREATE_ADMIN_PIN_OPTION_DOCUMENTS_MODAL]: AdminCreatePinOptionDocumentsModal,

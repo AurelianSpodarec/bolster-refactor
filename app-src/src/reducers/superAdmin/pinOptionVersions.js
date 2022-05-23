@@ -4,6 +4,7 @@ import { convertArrToObj, updateObj } from 'helpers/generic';
 
 import {
     CREATE_ADMIN_PIN_OPTION_SUCCESS,
+    DUPLICATE_ADMIN_PIN_OPTION_VALUE_SUCCESS,
     EDIT_ADMIN_PIN_OPTION_SUCCESS,
     FETCH_ADMIN_PIN_OPTION_VERSIONS_FAILURE,
     FETCH_ADMIN_PIN_OPTION_VERSIONS_FOR_COMPANY_FAILURE,
@@ -54,6 +55,7 @@ function versionsReducer(state = {}, action) {
             return convertArrToObj(action.payload);
         case CREATE_ADMIN_PIN_OPTION_SUCCESS:
         case EDIT_ADMIN_PIN_OPTION_SUCCESS:
+        case DUPLICATE_ADMIN_PIN_OPTION_VALUE_SUCCESS:
             return updateObj(
                 state,
                 action.payload.pinOptionVersion.id,
