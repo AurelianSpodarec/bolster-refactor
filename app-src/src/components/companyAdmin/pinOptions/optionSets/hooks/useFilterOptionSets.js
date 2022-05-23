@@ -15,7 +15,7 @@ import {
     PIN_OPTIONS_FILTERS_ENABLED_DISABLED_OPTIONS,
     PIN_OPTIONS_SETS_FILTERS_OPTIONS,
     TOOLTIP_FILTERS_TYPES,
-    PIN_OPTIONS_FILTERS_HIDDEN_OPTIONS,
+    PIN_OPTIONS_FILTERS_HIDDEN_NOT_HIDDEN_OPTIONS,
 } from 'constants/companyAdmin/enums';
 
 const useFilterOptionSets = (sets, isSorting, selectedTypeID) => {
@@ -31,7 +31,7 @@ const useFilterOptionSets = (sets, isSorting, selectedTypeID) => {
         [PIN_OPTIONS_SETS_FILTERS_OPTIONS.SERVICE]: [PIN_OPTIONS_FILTERS_ALL],
         [PIN_OPTIONS_SETS_FILTERS_OPTIONS.CREATED_BY]: PIN_OPTIONS_FILTERS_ALL,
         [PIN_OPTIONS_SETS_FILTERS_OPTIONS.ENABLED_DISABLED]: PIN_OPTIONS_FILTERS_ALL,
-        [PIN_OPTIONS_SETS_FILTERS_OPTIONS.HIDDEN]: PIN_OPTIONS_FILTERS_ALL,
+        [PIN_OPTIONS_SETS_FILTERS_OPTIONS.HIDDEN_NOT_HIDDEN]: PIN_OPTIONS_FILTERS_ALL,
     });
 
     const filterOptions = [
@@ -82,19 +82,23 @@ const useFilterOptionSets = (sets, isSorting, selectedTypeID) => {
                 },
             ],
         },
-        // {
-        //     id: PIN_OPTIONS_SETS_FILTERS_OPTIONS.HIDDEN,
-        //     name: 'Hidden',
-        //     type: TOOLTIP_FILTERS_TYPES.SINGLE_SELECTION,
-        //     allowSearch: false,
-        //     options: [
-        //         { id: PIN_OPTIONS_FILTERS_ALL, name: 'All' },
-        //         {
-        //             id: PIN_OPTIONS_FILTERS_HIDDEN_OPTIONS.HIDDEN,
-        //             name: 'Hidden',
-        //         },
-        //     ],
-        // },
+        {
+            id: PIN_OPTIONS_SETS_FILTERS_OPTIONS.HIDDEN_NOT_HIDDEN,
+            name: 'Hidden / Not Hidden',
+            type: TOOLTIP_FILTERS_TYPES.SINGLE_SELECTION,
+            allowSearch: false,
+            options: [
+                { id: PIN_OPTIONS_FILTERS_ALL, name: 'All' },
+                {
+                    id: PIN_OPTIONS_FILTERS_HIDDEN_NOT_HIDDEN_OPTIONS.NOT_HIDDEN,
+                    name: 'Not Hidden',
+                },
+                {
+                    id: PIN_OPTIONS_FILTERS_HIDDEN_NOT_HIDDEN_OPTIONS.HIDDEN,
+                    name: 'Hidden',
+                },
+            ],
+        },
     ];
 
     const getSortedSets = () => {
@@ -112,6 +116,9 @@ const useFilterOptionSets = (sets, isSorting, selectedTypeID) => {
             if (!set.name.toLowerCase().includes(searchTerm.toLowerCase())) return false;
             if (set.pinOptionTypeID !== selectedTypeID) return false;
             if (set.isDeleted) return false;
+            if (set.isHidden && form[PIN_OPTIONS_SETS_FILTERS_OPTIONS.HIDDEN_NOT_HIDDEN] !== 2)
+                return false;
+
             return true;
         });
 
@@ -119,7 +126,7 @@ const useFilterOptionSets = (sets, isSorting, selectedTypeID) => {
             const formServices = form[PIN_OPTIONS_SETS_FILTERS_OPTIONS.SERVICE];
             const formCreatedBy = form[PIN_OPTIONS_SETS_FILTERS_OPTIONS.CREATED_BY];
             const formEnabledDisabled = form[PIN_OPTIONS_SETS_FILTERS_OPTIONS.ENABLED_DISABLED];
-            const formHidden = form[PIN_OPTIONS_SETS_FILTERS_OPTIONS.HIDDEN];
+            const formHiddenNotHidden = form[PIN_OPTIONS_SETS_FILTERS_OPTIONS.HIDDEN_NOT_HIDDEN];
 
             if (
                 formServices.length &&
@@ -163,8 +170,19 @@ const useFilterOptionSets = (sets, isSorting, selectedTypeID) => {
                 }
             }
 
-            if (formHidden && !formHidden !== PIN_OPTIONS_FILTERS_ALL) {
-                if (formHidden === PIN_OPTIONS_FILTERS_HIDDEN_OPTIONS.HIDDEN && set.isHidden) {
+            if (formHiddenNotHidden && !formHiddenNotHidden !== PIN_OPTIONS_FILTERS_ALL) {
+                if (
+                    formHiddenNotHidden ===
+                        PIN_OPTIONS_FILTERS_HIDDEN_NOT_HIDDEN_OPTIONS.NOT_HIDDEN &&
+                    set.isHidden
+                ) {
+                    return false;
+                }
+
+                if (
+                    formHiddenNotHidden === PIN_OPTIONS_FILTERS_HIDDEN_NOT_HIDDEN_OPTIONS.HIDDEN &&
+                    !set.isHidden
+                ) {
                     return false;
                 }
             }

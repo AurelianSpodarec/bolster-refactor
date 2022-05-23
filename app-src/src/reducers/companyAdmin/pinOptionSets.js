@@ -30,6 +30,9 @@ import {
     SET_OPTION_SET_AS_HIDDEN_REQUEST,
     SET_OPTION_SET_AS_HIDDEN_SUCCESS,
     SET_OPTION_SET_AS_HIDDEN_FAILURE,
+    SET_OPTION_SET_AS_NOT_HIDDEN_REQUEST,
+    SET_OPTION_SET_AS_NOT_HIDDEN_SUCCESS,
+    SET_OPTION_SET_AS_NOT_HIDDEN_FAILURE,
 } from 'constants/actionTypes/pinOptions';
 import { updateObjDefaultOnFailure, updateObjDefaultOnRequest } from 'helpers/pinOptions';
 import { SET_API_FIELD_ERRORS } from 'constants/actionTypes/generic';
@@ -78,6 +81,7 @@ function isPostingReducer(state = false, action) {
         case DUPLICATE_PIN_OPTION_SET_REQUEST:
         case SET_OPTION_SET_AS_DEFAULT_REQUEST:
         case SET_OPTION_SET_AS_HIDDEN_REQUEST:
+        case SET_OPTION_SET_AS_NOT_HIDDEN_REQUEST:
             return true;
         case CREATE_PIN_OPTION_SET_SUCCESS:
         case CREATE_PIN_OPTION_SET_FAILURE:
@@ -96,6 +100,8 @@ function isPostingReducer(state = false, action) {
         case SET_API_FIELD_ERRORS:
         case SET_OPTION_SET_AS_HIDDEN_SUCCESS:
         case SET_OPTION_SET_AS_HIDDEN_FAILURE:
+        case SET_OPTION_SET_AS_NOT_HIDDEN_SUCCESS:
+        case SET_OPTION_SET_AS_NOT_HIDDEN_FAILURE:
             return false;
         default:
             return state;
@@ -112,6 +118,7 @@ function postErrorReducer(state = null, action) {
         case DUPLICATE_PIN_OPTION_SET_REQUEST:
         case SET_OPTION_SET_AS_DEFAULT_REQUEST:
         case SET_OPTION_SET_AS_HIDDEN_REQUEST:
+        case SET_OPTION_SET_AS_NOT_HIDDEN_REQUEST:
             return null;
         case CREATE_PIN_OPTION_SET_FAILURE:
         case EDIT_PIN_OPTION_SET_FAILURE:
@@ -121,6 +128,7 @@ function postErrorReducer(state = null, action) {
         case DUPLICATE_PIN_OPTION_SET_FAILURE:
         case SET_OPTION_SET_AS_DEFAULT_FAILURE:
         case SET_OPTION_SET_AS_HIDDEN_FAILURE:
+        case SET_OPTION_SET_AS_NOT_HIDDEN_FAILURE:
             return action.error;
         default:
             return state;
@@ -137,6 +145,7 @@ function postSuccessReducer(state = false, action) {
         case DUPLICATE_PIN_OPTION_SET_REQUEST:
         case SET_OPTION_SET_AS_DEFAULT_REQUEST:
         case SET_OPTION_SET_AS_HIDDEN_REQUEST:
+        case SET_OPTION_SET_AS_NOT_HIDDEN_REQUEST:
             return false;
         case CREATE_PIN_OPTION_SET_SUCCESS:
         case EDIT_PIN_OPTION_SET_SUCCESS:
@@ -146,6 +155,7 @@ function postSuccessReducer(state = false, action) {
         case DUPLICATE_PIN_OPTION_SET_SUCCESS:
         case SET_OPTION_SET_AS_DEFAULT_SUCCESS:
         case SET_OPTION_SET_AS_HIDDEN_SUCCESS:
+        case SET_OPTION_SET_AS_NOT_HIDDEN_SUCCESS:
             return true;
         default:
             return state;
@@ -189,6 +199,8 @@ function setsReducer(state = {}, action) {
         case DUPLICATE_PIN_OPTION_SET_SUCCESS:
         case SET_OPTION_SET_AS_HIDDEN_SUCCESS:
         case SET_OPTION_SET_AS_HIDDEN_FAILURE:
+        case SET_OPTION_SET_AS_NOT_HIDDEN_SUCCESS:
+        case SET_OPTION_SET_AS_NOT_HIDDEN_FAILURE:
             return updateObj(state, action.payload.id, action.payload);
         case SET_OPTION_SET_AS_DEFAULT_FAILURE:
             return updateObjDefaultOnFailure(state, action.newDefaultSet, action.oldDefaultSet);
@@ -198,6 +210,7 @@ function setsReducer(state = {}, action) {
                 ...action.payload,
                 isDisabled: !action.payload.isDisabled,
             });
+        case SET_OPTION_SET_AS_NOT_HIDDEN_REQUEST:
         case SET_OPTION_SET_AS_HIDDEN_REQUEST:
             return updateObj(state, action.payload.id, {
                 ...action.payload,

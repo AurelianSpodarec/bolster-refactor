@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { CURRENCY_SYMBOLS } from 'constants/companyAdmin/enums';
 import { isEmpty } from 'helpers/generic';
@@ -16,10 +16,12 @@ import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActio
 import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
 import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 import ButtonWrapperInfo from 'components/shared/generic/button/presentational/ButtonWrapperInfo';
+import setPinOptionValueAsHidden from 'actions/companyAdmin/pinOptions/async/setPinOptionValueAsHidden';
+import setPinOptionValueAsNotHidden from 'actions/companyAdmin/pinOptions/async/setPinOptionValueAsNotHidden';
 
 const OptionValuesListItem = ({
     option,
-    option: { id, name, isDisabled, priceBreaks, isDeleted, companyID },
+    option: { id, name, isDisabled, priceBreaks, isDeleted, companyID, isHidden },
     setID,
     typeID,
     showEditModal,
@@ -32,9 +34,8 @@ const OptionValuesListItem = ({
     isDragging,
     connectDropTarget,
     forwardRef,
-    showHideModal,
-    isCompanySet,
 }) => {
+    const dispatch = useDispatch();
     const company = useSelector(selectCompanySettings);
     const pinOptionType = useSelector(state => selectPinOptionType(state, typeID));
     const typeSlug = pinOptionType.slug;
@@ -134,10 +135,15 @@ const OptionValuesListItem = ({
                                     }
                                 />
 
-                                {!isCompanySet && (
+                                {!isCompanyOption && (
                                     <ActionMenuActionButton
-                                        text="Hide"
-                                        onClick={() => showHideModal(option)}
+                                        text={isHidden ? 'Undo hide' : 'Hide'}
+                                        onClick={
+                                            isHidden
+                                                ? () =>
+                                                      dispatch(setPinOptionValueAsNotHidden(option))
+                                                : () => dispatch(setPinOptionValueAsHidden(option))
+                                        }
                                         isNegative
                                     />
                                 )}

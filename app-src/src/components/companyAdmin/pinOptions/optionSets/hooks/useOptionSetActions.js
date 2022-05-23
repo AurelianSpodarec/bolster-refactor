@@ -47,11 +47,6 @@ const useOptionSetActions = selectedTypeID => {
         dispatch(showModal(EDIT_PIN_OPTIONS_SET_MODAL, { set }));
     };
 
-    const showHideModal = set => {
-        console.log('hide');
-        // dispatch(showModal(HIDE_PIN_OPTIONS_SET_MODAL, { set }));
-    };
-
     const showDeleteModal = set => {
         dispatch(
             showModal(CONFIRM_DELETE, {
@@ -94,7 +89,6 @@ const useOptionSetActions = selectedTypeID => {
         showAddModal,
         showEditModal,
         showDeleteModal,
-        showHideModal,
         showDuplicateModal,
         enableOptionSet,
         disableOptionSet,
