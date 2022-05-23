@@ -43,7 +43,8 @@ const OptionValuesList = ({ hasFetched }) => {
         handleChange,
     } = useFilterOptionValues(pinOptionsForSet, parentSet);
 
-    const { showAddModal, showEditModal, showDeleteModal } = useOptionValueActions(typeID, setID);
+    const { showAddModal, showEditModal, showDeleteModal, showDuplicateModal } =
+        useOptionValueActions(typeID, setID);
 
     const shouldRedirect = useShouldRedirectFromOptionValues(hasFetched);
 
@@ -116,6 +117,7 @@ const OptionValuesList = ({ hasFetched }) => {
                         typeID={typeID}
                         showEditModal={showEditModal}
                         showDeleteModal={showDeleteModal}
+                        showDuplicateModal={showDuplicateModal}
                     />
                 ))}
             </Table>

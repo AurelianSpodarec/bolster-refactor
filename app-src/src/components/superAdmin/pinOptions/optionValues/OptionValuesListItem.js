@@ -17,6 +17,7 @@ const OptionValuesListItem = ({
     typeID,
     showEditModal,
     showDeleteModal,
+    showDuplicateModal,
 }) => {
     const pinOptionType = useSelector(state => selectPinOptionType(state, typeID));
     const typeSlug = pinOptionType.slug;
@@ -37,6 +38,10 @@ const OptionValuesListItem = ({
 
                     <ActionMenu>
                         <ActionMenuActionButton text="Edit" onClick={() => showEditModal(option)} />
+                        <ActionMenuActionButton
+                            text="Duplicate"
+                            onClick={() => showDuplicateModal(option)}
+                        />
                         <ActionMenuActionButton
                             text="Delete"
                             onClick={() => showDeleteModal(option)}

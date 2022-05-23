@@ -17,6 +17,9 @@ import {
     EDIT_ADMIN_PIN_OPTION_REQUEST,
     EDIT_ADMIN_PIN_OPTION_SUCCESS,
     EDIT_ADMIN_PIN_OPTION_FAILURE,
+    DUPLICATE_ADMIN_PIN_OPTION_VALUE_REQUEST,
+    DUPLICATE_ADMIN_PIN_OPTION_VALUE_FAILURE,
+    DUPLICATE_ADMIN_PIN_OPTION_VALUE_SUCCESS,
 } from 'constants/actionTypes/pinOptions';
 
 export default combineReducers({
@@ -66,6 +69,7 @@ function optionsReducer(state = {}, action) {
             return removeObjItem(state, action.payload);
         case CREATE_ADMIN_PIN_OPTION_SUCCESS:
         case EDIT_ADMIN_PIN_OPTION_SUCCESS:
+        case DUPLICATE_ADMIN_PIN_OPTION_VALUE_SUCCESS:
             return updateObj(state, action.payload.pinOption.id, action.payload.pinOption);
 
         default:
@@ -77,11 +81,14 @@ function isPostingReducer(state = false, action) {
     switch (action.type) {
         case CREATE_ADMIN_PIN_OPTION_REQUEST:
         case EDIT_ADMIN_PIN_OPTION_REQUEST:
+        case DUPLICATE_ADMIN_PIN_OPTION_VALUE_REQUEST:
             return true;
         case CREATE_ADMIN_PIN_OPTION_FAILURE:
         case CREATE_ADMIN_PIN_OPTION_SUCCESS:
         case EDIT_ADMIN_PIN_OPTION_FAILURE:
         case EDIT_ADMIN_PIN_OPTION_SUCCESS:
+        case DUPLICATE_ADMIN_PIN_OPTION_VALUE_FAILURE:
+        case DUPLICATE_ADMIN_PIN_OPTION_VALUE_SUCCESS:
             return false;
         default:
             return state;
@@ -92,9 +99,11 @@ function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case CREATE_ADMIN_PIN_OPTION_REQUEST:
         case EDIT_ADMIN_PIN_OPTION_REQUEST:
+        case DUPLICATE_ADMIN_PIN_OPTION_VALUE_REQUEST:
             return false;
         case CREATE_ADMIN_PIN_OPTION_SUCCESS:
         case EDIT_ADMIN_PIN_OPTION_SUCCESS:
+        case DUPLICATE_ADMIN_PIN_OPTION_VALUE_SUCCESS:
             return true;
         default:
             return state;
@@ -105,9 +114,11 @@ function postErrorReducer(state = null, action) {
     switch (action.type) {
         case CREATE_ADMIN_PIN_OPTION_REQUEST:
         case EDIT_ADMIN_PIN_OPTION_REQUEST:
+        case DUPLICATE_ADMIN_PIN_OPTION_VALUE_REQUEST:
             return null;
         case CREATE_ADMIN_PIN_OPTION_FAILURE:
         case EDIT_ADMIN_PIN_OPTION_FAILURE:
+        case DUPLICATE_ADMIN_PIN_OPTION_VALUE_FAILURE:
             return action.error;
         default:
             return state;
