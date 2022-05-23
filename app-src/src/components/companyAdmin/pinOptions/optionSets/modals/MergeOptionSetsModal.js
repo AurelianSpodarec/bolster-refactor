@@ -16,12 +16,12 @@ const MergeOptionSetsModal = ({ set, hideModal }) => {
             <Form onSubmit={handleSubmit} className="generic-form flex-content-wrapper size-lg-12">
                 <div className="flex-content">
                     <div className="form-fields-container">
-                        <Field name="Select set" required>
+                        <Field name="Select a set to merge into" required>
                             <DropdownContainer
-                                name="setID"
+                                name="selectedID"
                                 options={Object.values(setOptions)}
-                                value={setOptions[form.setID]}
-                                selectedOption={setOptions[form.setID]}
+                                value={setOptions[form.selectedID]}
+                                selectedOption={setOptions[form.selectedID]}
                                 handleChange={handleChange}
                                 required
                             />

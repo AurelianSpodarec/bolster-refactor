@@ -1,19 +1,27 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { convertArrToObj } from '../../../../../helpers/generic';
-import { useForm } from 'helpers/hooks';
+import { useForm, usePrevious } from 'helpers/hooks';
 
+import hideModal from 'actions/shared/generic/modals/sync/hideModal';
+import mergePinOptionSets from 'actions/companyAdmin/pinOptions/async/mergePinOptionSets';
 import { selectPinOptionSetsArr } from '../../../../../selectors/companyAdmin/pinOptionSets';
-import { selectPinOptionsIsPosting } from '../../../../../selectors/companyAdmin/pinOptions';
+import {
+    selectPinOptionSetsIsPosting,
+    selectPinOptionSetsPostSuccess,
+} from 'selectors/companyAdmin/pinOptionSets';
 
 const useMergeOptionSets = set => {
     const dispatch = useDispatch();
     const optionSetsArr = useSelector(selectPinOptionSetsArr);
-    const isPosting = useSelector(selectPinOptionsIsPosting);
+    const isPosting = useSelector(selectPinOptionSetsIsPosting);
+    const postSuccess = useSelector(selectPinOptionSetsPostSuccess);
+
+    const prevProps = usePrevious({ postSuccess });
 
     const [form, handleChange] = useForm({
-        setID: null,
+        selectedID: null,
     });
 
     const setOptions = useMemo(() => {
@@ -39,8 +47,17 @@ const useMergeOptionSets = set => {
     }, [optionSetsArr, set]);
 
     const handleSubmit = () => {
-        // to submit
+        const postBody = {
+            selectedID: form.selectedID,
+            mergeID: set.id,
+        };
+
+        dispatch(mergePinOptionSets(set.id, postBody));
     };
+
+    useEffect(() => {
+        if (postSuccess && !prevProps.postSuccess) dispatch(hideModal());
+    }, [postSuccess, prevProps.postSuccess]);
 
     return { setOptions, form, handleChange, handleSubmit, isPosting };
 };
