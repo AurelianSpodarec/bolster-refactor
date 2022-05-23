@@ -213,6 +213,7 @@ export default function (WrappedComponent) {
                 defaultValue,
                 optionType,
                 optionColour,
+                pinOptionSetIDs,
             } = this.props.fields;
 
             switch (questionType) {
@@ -236,7 +237,7 @@ export default function (WrappedComponent) {
                 case VALS.PIN_OPTION_TYPES:
                 case VALS.MULTI_PIN_OPTION_TYPES:
                 case VALS.MULTI_MULTI_PIN_OPTION_TYPES:
-                    return { optionType, defaultValue };
+                    return { optionType, defaultValue, pinOptionSetIDs };
                 default:
                     return {};
             }

@@ -43,6 +43,7 @@ const initialQuestionFields = {
     isRequiredVal: null,
     prefillStatuses: [],
     statusPrefills: {},
+    pinOptionSetIDs: [],
 };
 
 export default combineReducers({

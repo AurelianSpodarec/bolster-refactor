@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import { API_URL } from 'config';
-import { getHeaders } from 'helpers/api';
+import { getHeaders, handleErrors } from 'helpers/api';
 import {
     EDIT_PIN_OPTION_DOCUMENT_REQUEST,
     EDIT_PIN_OPTION_DOCUMENT_SUCCESS,
@@ -31,5 +31,5 @@ export default (id, postBody) => async dispatch => {
             dispatch(editPinOptionDocumentsSuccess(res.data));
         })
 
-        .catch(err => dispatch(editPinOptionDocumentsFailure(err.message)));
+        .catch(err => dispatch(handleErrors(editPinOptionDocumentsFailure)(err)));
 };
