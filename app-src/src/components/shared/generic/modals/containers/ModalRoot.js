@@ -145,6 +145,7 @@ import {
     CREATE_ADMIN_PIN_OPTION_DOCUMENTS_MODAL,
     DUPLICATE_ADMIN_PIN_OPTIONS_SET_MODAL,
     DUPLICATE_ADMIN_PIN_OPTIONS_VALUE_MODAL,
+    MERGE_PIN_OPTION_SETS_MODAL,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -289,6 +290,7 @@ import DuplicateOptionValueModal from 'components/companyAdmin/pinOptions/option
 import MoveOptionValueModal from '../../../../companyAdmin/pinOptions/optionValues/modals/MoveOptionValueModal';
 import AdminCreatePinOptionDocumentsModal from '../../../../superAdmin/pinOptions/optionDocuments/modals/CreatePinOptionDocumentsModal';
 import AdminDuplicateOptionValueModal from '../../../../superAdmin/pinOptions/optionSets/modals/DuplicateOptionValueModal';
+import MergeOptionSetsModal from 'components/companyAdmin/pinOptions/optionSets/modals/MergeOptionSetsModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModal,
@@ -434,6 +436,7 @@ const MODAL_COMPONENTS = {
     [DUPLICATE_ADMIN_PIN_OPTIONS_SET_MODAL]: DuplicateAdminOptionSetModal,
     [MOVE_PIN_OPTION_MODAL]: MoveOptionValueModal,
     [CREATE_ADMIN_PIN_OPTION_DOCUMENTS_MODAL]: AdminCreatePinOptionDocumentsModal,
+    [MERGE_PIN_OPTION_SETS_MODAL]: MergeOptionSetsModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {
