@@ -8,7 +8,7 @@ import { selectPinOptionType } from '../../../../../selectors/companyAdmin/pinOp
 
 const DropdownOptions = ({
     isRequired,
-    question: { id, defaultValue, optionType },
+    question: { id, defaultValue, optionType, pinOptionSetIDs },
     answers,
     handleChange,
     edit,
@@ -41,6 +41,7 @@ const DropdownOptions = ({
         drawing,
         originalPinOptionAns,
         edit,
+        pinOptionSetIDs,
     );
 
     const [firstValue] = questionValue;

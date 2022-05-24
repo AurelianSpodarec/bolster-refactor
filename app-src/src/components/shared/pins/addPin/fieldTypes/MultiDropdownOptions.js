@@ -8,7 +8,7 @@ import { selectPinOptionType } from '../../../../../selectors/companyAdmin/pinOp
 
 const MultiDropdownOptions = ({
     isRequired,
-    question: { id, defaultValue, optionType },
+    question: { id, defaultValue, optionType, pinOptionSetIDs },
     answers,
     edit,
     handleChange,
@@ -40,6 +40,7 @@ const MultiDropdownOptions = ({
         drawing,
         originalPinOptionAns,
         edit,
+        pinOptionSetIDs,
     );
     // ! If a user is editing a pin that has a dropdown option that's no longer available,
     //    this needs to be kept as an option.
