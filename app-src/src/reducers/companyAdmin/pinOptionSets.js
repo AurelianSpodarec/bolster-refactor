@@ -36,6 +36,9 @@ import {
     MERGE_PIN_OPTION_SETS_REQUEST,
     MERGE_PIN_OPTION_SETS_SUCCESS,
     MERGE_PIN_OPTION_SETS_FAILURE,
+    QUICK_EDIT_OPTION_SET_REQUEST,
+    QUICK_EDIT_OPTION_SET_SUCCESS,
+    QUICK_EDIT_OPTION_SET_FAILURE,
 } from 'constants/actionTypes/pinOptions';
 import { updateObjDefaultOnFailure, updateObjDefaultOnRequest } from 'helpers/pinOptions';
 import { SET_API_FIELD_ERRORS } from 'constants/actionTypes/generic';
@@ -86,6 +89,7 @@ function isPostingReducer(state = false, action) {
         case SET_OPTION_SET_AS_HIDDEN_REQUEST:
         case SET_OPTION_SET_AS_NOT_HIDDEN_REQUEST:
         case MERGE_PIN_OPTION_SETS_REQUEST:
+        case QUICK_EDIT_OPTION_SET_REQUEST:
             return true;
         case CREATE_PIN_OPTION_SET_SUCCESS:
         case CREATE_PIN_OPTION_SET_FAILURE:
@@ -108,6 +112,8 @@ function isPostingReducer(state = false, action) {
         case SET_OPTION_SET_AS_NOT_HIDDEN_FAILURE:
         case MERGE_PIN_OPTION_SETS_SUCCESS:
         case MERGE_PIN_OPTION_SETS_FAILURE:
+        case QUICK_EDIT_OPTION_SET_SUCCESS:
+        case QUICK_EDIT_OPTION_SET_FAILURE:
             return false;
         default:
             return state;
@@ -126,6 +132,7 @@ function postErrorReducer(state = null, action) {
         case SET_OPTION_SET_AS_HIDDEN_REQUEST:
         case SET_OPTION_SET_AS_NOT_HIDDEN_REQUEST:
         case MERGE_PIN_OPTION_SETS_REQUEST:
+        case QUICK_EDIT_OPTION_SET_REQUEST:
             return null;
         case CREATE_PIN_OPTION_SET_FAILURE:
         case EDIT_PIN_OPTION_SET_FAILURE:
@@ -137,6 +144,7 @@ function postErrorReducer(state = null, action) {
         case SET_OPTION_SET_AS_HIDDEN_FAILURE:
         case SET_OPTION_SET_AS_NOT_HIDDEN_FAILURE:
         case MERGE_PIN_OPTION_SETS_FAILURE:
+        case QUICK_EDIT_OPTION_SET_FAILURE:
             return action.error;
         default:
             return state;
@@ -155,6 +163,7 @@ function postSuccessReducer(state = false, action) {
         case SET_OPTION_SET_AS_HIDDEN_REQUEST:
         case SET_OPTION_SET_AS_NOT_HIDDEN_REQUEST:
         case MERGE_PIN_OPTION_SETS_REQUEST:
+        case QUICK_EDIT_OPTION_SET_REQUEST:
             return false;
         case CREATE_PIN_OPTION_SET_SUCCESS:
         case EDIT_PIN_OPTION_SET_SUCCESS:
@@ -166,6 +175,7 @@ function postSuccessReducer(state = false, action) {
         case SET_OPTION_SET_AS_HIDDEN_SUCCESS:
         case SET_OPTION_SET_AS_NOT_HIDDEN_SUCCESS:
         case MERGE_PIN_OPTION_SETS_SUCCESS:
+        case QUICK_EDIT_OPTION_SET_SUCCESS:
             return true;
         default:
             return state;
@@ -211,6 +221,7 @@ function setsReducer(state = {}, action) {
         case SET_OPTION_SET_AS_HIDDEN_FAILURE:
         case SET_OPTION_SET_AS_NOT_HIDDEN_SUCCESS:
         case SET_OPTION_SET_AS_NOT_HIDDEN_FAILURE:
+        case QUICK_EDIT_OPTION_SET_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
         case SET_OPTION_SET_AS_DEFAULT_FAILURE:
             return updateObjDefaultOnFailure(state, action.newDefaultSet, action.oldDefaultSet);

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useForm, usePrevious } from 'helpers/hooks';
 
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
-import mergePinOptionSets from 'actions/companyAdmin/pinOptions/async/mergePinOptionSets';
+import quickEditPinOptionSet from 'actions/companyAdmin/pinOptions/async/quickEditPinOptionSet';
 import {
     selectPinOptionSetsIsPosting,
     selectPinOptionSetsPostSuccess,
@@ -23,11 +23,10 @@ const useQuickEditOptionSet = set => {
 
     const handleSubmit = () => {
         const postBody = {
-            selectedID: form.selectedID,
-            mergeID: set.id,
+            percentageIncrease: form.percentageIncrease,
         };
 
-        dispatch(mergePinOptionSets(set.id, postBody));
+        dispatch(quickEditPinOptionSet(set.id, postBody));
     };
 
     useEffect(() => {
