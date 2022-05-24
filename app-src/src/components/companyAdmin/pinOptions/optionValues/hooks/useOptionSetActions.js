@@ -11,12 +11,10 @@ const useOptionSetActions = set => {
     };
 
     const showQuickEditModal = () => {
-        console.log('showQuickEdit');
         dispatch(showModal(QUICK_EDIT_OPTION_SET_MODAL, { set, hideModal }));
     };
 
     const showEditSetModal = () => {
-        console.log('showEditSet');
         // dispatch(showModal(QUICK_EDIT_OPTION_SET_MODAL, { set, hideModal }));
     };
 
