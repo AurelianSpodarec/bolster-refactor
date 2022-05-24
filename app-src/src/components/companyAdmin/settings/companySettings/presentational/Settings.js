@@ -6,7 +6,6 @@ import { FILE_STORAGE_URL } from 'config';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import Block from 'components/shared/generic/block/presentational/Block';
 import {
-    TEMPLATE_USAGE_RULES,
     VAT_TYPE_NAME,
     VAT_TYPES,
     DEFAULT_SITES_SORT_NAMES,
@@ -286,12 +285,6 @@ const Settings = ({ isFetching, error, companySettings: company, onMobile }) => 
 
                     <Block>
                         <BlockHeading title="Template Settings" />
-                        <FieldOutput
-                            title="Default Template Usage Rule"
-                            description={TEMPLATE_USAGE_RULES[company.defaultTemplateUsageRule]}
-                            fieldClass="no-h-padding"
-                            sizeClass="size-lg-12"
-                        />
                         <FieldOutput
                             title="Default Sites list sort"
                             description={DEFAULT_SITES_SORT_NAMES[company.defaultSitesSort]}
