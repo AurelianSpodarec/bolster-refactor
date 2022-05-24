@@ -15,6 +15,7 @@ const useMoveOptionValue = option => {
     const isPosting = useSelector(selectPinOptionsIsPosting);
 
     const [setID, setSetID] = useState(null);
+    const [name, setName] = useState(() => option.name);
 
     useEffect(() => {
         dispatch(fetchPinOptionSets());
@@ -46,10 +47,10 @@ const useMoveOptionValue = option => {
     }, [optionSetsObj, option]);
 
     const handleSubmit = () => {
-        dispatch(movePinOption(option.id, setID));
+        dispatch(movePinOption(option.id, setID, name));
     };
 
-    return { optionSetOptionsObj, setID, setSetID, handleSubmit, isPosting };
+    return { optionSetOptionsObj, setID, setSetID, name, setName, handleSubmit, isPosting };
 };
 
 export default useMoveOptionValue;
