@@ -8,9 +8,10 @@ import ButtonWrapper from '../../../../shared/generic/button/presentational/Butt
 import ActionButton from '../../../../shared/generic/button/presentational/ActionButton';
 import Field from '../../../../shared/generic/form/presentational/Field';
 import DropdownContainer from '../../../../shared/generic/form/containers/DropdownContainer';
+import TextInputContainer from '../../../../shared/generic/form/containers/TextInputContainer';
 
 const MoveOptionValueModal = ({ option, hideModal }) => {
-    const { optionSetOptionsObj, setID, setSetID, handleSubmit, isPosting } =
+    const { optionSetOptionsObj, setID, setSetID, name, setName, handleSubmit, isPosting } =
         useMoveOptionValue(option);
     return (
         <FlexModalOuter title="Move pin option value to a different set">
@@ -24,6 +25,14 @@ const MoveOptionValueModal = ({ option, hideModal }) => {
                                 value={optionSetOptionsObj[setID]}
                                 selectedOption={optionSetOptionsObj[setID]}
                                 handleChange={(_, value) => setSetID(value)}
+                                required
+                            />
+                        </Field>
+                        <Field name="Option name" required>
+                            <TextInputContainer
+                                name="name"
+                                value={name}
+                                handleChange={(_, value) => setName(value)}
                                 required
                             />
                         </Field>
