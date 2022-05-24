@@ -6,11 +6,11 @@ import FilterFieldsModal from '../presentational/FilterFieldsModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFilter';
 import updateFilterQuestionField from 'actions/companyAdmin/reports/sync/updateFilterQuestionField';
+import fetchAllOptionValues from 'actions/companyAdmin/manufacturers/async/fetchAllOptionValues';
 import { convertArrToObj } from 'helpers/generic';
 import removeFilterQuestion from 'actions/companyAdmin/reports/sync/removeFilterQuestion';
 import withUpdateOnChange from '../hocs/withUpdateOnChange';
 import { QUESTION_TYPE_NUMBERS as QTN } from 'constants/shared/templateBuilder';
-
 
 const questionTypeOptions = [
     { label: 'Free Form', value: 1 },
@@ -53,7 +53,7 @@ class FilterFieldsModalContainer extends Component {
     }
 
     componentDidMount = () => {
-        const { field } = this.props;
+        const { field, fetchAllOptionValues } = this.props;
         // add an option if none exist, makes modal reusable for edit
         if (field) {
             const { selectedQuestions, questionValues, selectedValues, exactMatch } = field;
@@ -67,6 +67,7 @@ class FilterFieldsModalContainer extends Component {
         } else {
             this.addFreeFormVal();
         }
+        fetchAllOptionValues();
     };
 
     _showFreeForm = () => {
@@ -153,7 +154,6 @@ class FilterFieldsModalContainer extends Component {
 
         await updateFilterQuestionField(id, filterItem);
         toggleAddFilter();
-
     };
 
     _getShouldForceExactMatch = () => {
@@ -161,20 +161,17 @@ class FilterFieldsModalContainer extends Component {
         const { customQuestions } = this.props;
         const questionsObj = convertArrToObj(customQuestions);
 
-        const forceTypes = [
-            QTN.CHECKBOX,
-            QTN.NUMBER,
-        ];
-        const shouldForce = selectedQuestions
-            .some(qID => forceTypes.includes(questionsObj[qID].type));
+        const forceTypes = [QTN.CHECKBOX, QTN.NUMBER];
+        const shouldForce = selectedQuestions.some(qID =>
+            forceTypes.includes(questionsObj[qID].type),
+        );
 
         return shouldForce;
-
-    }
+    };
 
     _getValidValueOptions = () => {
         const { selectedQuestions } = this.state;
-        const { customQuestions } = this.props;
+        const { customQuestions, optionValues } = this.props;
         const questionsObj = convertArrToObj(customQuestions);
 
         const options = selectedQuestions
@@ -183,7 +180,10 @@ class FilterFieldsModalContainer extends Component {
             .map(q => ({ ...q, options: this.formatOptions(q.options) }))
             .reduce((a, b) => a.concat(b.options), []);
 
-        return [...new Set(options)].map(op => ({ label: op, value: op }));
+        return [...new Set(options)].map(op => {
+            if (optionValues[op]) return { value: op, label: optionValues[op].name };
+            return { label: op, value: op };
+        });
     };
 
     // ? sometimes the options are a stringified array, this will seperate into normal options
@@ -233,6 +233,7 @@ const mapStateToProps = (
                 fields,
                 customFilters: { questionOptions = [], questions },
             },
+            manufacturersOptionValuesReducer: { manufacturersOptionValues },
         },
     },
     { id },
@@ -240,6 +241,12 @@ const mapStateToProps = (
     field: fields[id],
     questionOptions: convertArrToObj(questionOptions),
     customQuestions: questions,
+    optionValues: Object.values(manufacturersOptionValues).reduce((acc, curr) => {
+        for (const [key, value] of Object.entries(curr)) {
+            acc[key] = value;
+        }
+        return acc;
+    }, {}),
 });
 
 const mapDispatchToProps = {
@@ -247,6 +254,7 @@ const mapDispatchToProps = {
     updateReportFilter,
     updateFilterQuestionField,
     removeFilterQuestion,
+    fetchAllOptionValues,
 };
 
 export default withUpdateOnChange(
