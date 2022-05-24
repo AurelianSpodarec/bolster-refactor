@@ -60,11 +60,18 @@ export const useFilterPinOptions = (
     drawing,
     originalPinOptionAns,
     edit,
+    questionPinOptionIDs,
 ) => {
     let formattedOpts;
     const filteredOptions = useMemo(
         () =>
+            // set at question level takes priority
             options.filter(option => {
+                if (questionPinOptionIDs?.length) {
+                    if (!questionPinOptionIDs.includes(option.pinOptionSetID)) {
+                        return false;
+                    }
+                }
                 if (type?.hasSiteLinks) {
                     const setsForType = drawing?.pinOptionSetIDsByType?.[type?.id];
                     if (!setsForType?.length) {
@@ -80,9 +87,11 @@ export const useFilterPinOptions = (
                 if (!hasAnswer && (option.isDeleted || option.isDisabled)) {
                     return false;
                 }
+                // check company has access to company
                 if (option.companyID !== companyID && option.companyID !== null) {
                     return false;
                 }
+                // check option is correct type
                 return option.pinOptionTypeID === type?.id;
             }),
         [questionValue, options, companyID, type, drawing],
