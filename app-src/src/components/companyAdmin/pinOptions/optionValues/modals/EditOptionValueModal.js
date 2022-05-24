@@ -210,7 +210,7 @@ const EditOptionValueModal = ({ option, typeID }) => {
                                                                         handlePriceBreakChange(
                                                                             index,
                                                                             'cost',
-                                                                            value,
+                                                                            value.toFixed(2),
                                                                         );
                                                                         setError(null);
                                                                     }}
