@@ -15,11 +15,13 @@ import ButtonWrapper from 'components/shared/generic/button/presentational/Butto
 import ActionMenu from 'components/shared/actionMenu/ActionMenu';
 import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import useOptionSetActions from './hooks/useOptionSetActions';
 
 const OptionValues = () => {
     const { isAnyEmpty, isAnyFetching, isAnyErrored, hasFetched } = useFetchBatchForOptionValues();
     const { setID } = useParams();
     const parentSet = useSelector(state => selectPinOptionSet(state, setID));
+    const { showQuickEditModal, showEditSetModal } = useOptionSetActions(parentSet);
 
     const name = !isEmpty(parentSet) ? parentSet.name : 'Loading...';
 
@@ -32,12 +34,12 @@ const OptionValues = () => {
                         size="medium"
                         ambient="positive"
                         source="secondary"
-                        onClick={() => {}}
+                        onClick={showQuickEditModal}
                     />
                     <ActionMenu disabled={false}>
                         <ActionMenuActionButton
                             text="Edit"
-                            onClick={() => {}}
+                            onClick={showEditSetModal}
                             disabled={false}
                             tooltip={null}
                         />
