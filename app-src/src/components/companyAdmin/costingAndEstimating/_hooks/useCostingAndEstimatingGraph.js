@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectCompanyCurrency } from '../../../../selectors/companyAdmin/companySettings';
 import { CURRENCY_SYMBOLS } from '../../../../constants/companyAdmin/enums';
+import moment from 'moment';
 
 const useCostingAndEstimatingGraph = graph => {
     const colourTheme = useColourTheme();
@@ -73,11 +74,15 @@ const useCostingAndEstimatingGraph = graph => {
                         display: true,
                         zeroLineColor: colourTheme === 'dark' ? '#494c5b' : '#F2F2F2',
                         color: 'transparent',
-                        tickMarkLength: false,
+                        // tickMarkLength: false,
                     },
                     ticks: {
-                        display: false,
+                        // display: false,
                         beginAtZero: true,
+                        callback: val => {
+                            console.log(moment(val).utc().format());
+                            return val;
+                        },
                     },
                 },
             ],
@@ -88,11 +93,12 @@ const useCostingAndEstimatingGraph = graph => {
                         display: true,
                         zeroLineColor: colourTheme === 'dark' ? '#494c5b' : '#F2F2F2',
                         color: 'transparent',
-                        tickMarkLength: false,
+                        // tickMarkLength: false,
                     },
                     ticks: {
-                        display: false,
+                        // display: false,
                         beginAtZero: true,
+                        callback: val => `${currencySymbol}${formatCurrency(val)}`,
                     },
                 },
             ],

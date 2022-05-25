@@ -54,7 +54,8 @@ export default function (WrappedComponent) {
         };
 
         render() {
-            const { serviceID, labelType, companyID, ...otherFields } = this.state;
+            const { serviceID, labelType, ...otherFields } = this.state;
+            const { companyID } = this.props;
             const serviceOptions = this._getSeviceOptions();
 
             return (
