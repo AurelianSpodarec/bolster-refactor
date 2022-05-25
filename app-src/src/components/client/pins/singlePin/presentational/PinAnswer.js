@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 
 import { FILE_STORAGE_URL, RAW_S3_STORAGE_URL } from 'config';
 import { QUESTION_TYPE_NUMBERS as TYPES } from 'constants/shared/templateBuilder';
@@ -14,7 +14,6 @@ import ButtonContainer from 'components/shared/generic/button/containers/ButtonC
 const PinAnswer = ({ trimmedAnswer, type, answers, question }) => {
     const dispatch = useDispatch();
     const curAnswer = { ...answers.find(item => +item.id === +trimmedAnswer.id) };
-    // const versions = useSelector(selectPinOptionVersions);
 
     const notFoundResponse = null;
     let inner;
@@ -23,12 +22,10 @@ const PinAnswer = ({ trimmedAnswer, type, answers, question }) => {
         return notFoundResponse;
     }
     const curAnswerValues = curAnswer.answerValues.map(value => {
-        if (!value.pinOptionVersionID) return value;
+        if (!value.pinOptionVersionName) return value;
         return {
             ...value,
-            // map version name to textValue for output
-            // textValue: versions[value.pinOptionVersionID]?.name,
-            textValue: 'Placeholder',
+            textValue: value.pinOptionVersionName,
         };
     });
 
