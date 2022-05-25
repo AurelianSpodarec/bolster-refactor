@@ -83,6 +83,14 @@ const useEditOptionValue = option => {
 
                 const isValueSame = value + '' === initialPriceBreak.value + '';
 
+                if (!percentageValue && isValueSame) {
+                    return {
+                        id: initialPriceBreak.id,
+                        value: initialPriceBreak.value,
+                        cost: initialPriceBreak.cost,
+                    };
+                }
+
                 let newCost = cost;
 
                 if (isValueSame) {
@@ -95,6 +103,8 @@ const useEditOptionValue = option => {
                         const percentageChange = (valueNum / 100) * costAsNumber;
                         newCost = costAsNumber + percentageChange;
                     }
+
+                    newCost = newCost.toFixed(2);
                 }
 
                 return {
@@ -106,7 +116,7 @@ const useEditOptionValue = option => {
 
             return {
                 value: value + '',
-                cost: value + '',
+                cost: cost + '',
             };
         });
 
