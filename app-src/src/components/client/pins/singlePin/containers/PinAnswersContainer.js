@@ -3,25 +3,12 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PinAnswer from '../presentational/PinAnswer';
 
-const PinAnswersContainer = ({
-    questionType,
-    questions,
-    pinAnswers,
-    pinHistory,
-    status,
-    relevantAnswer,
-    question,
-    optionValuesLookup,
-}) => (
+const PinAnswersContainer = ({ questionType, pinAnswers, relevantAnswer, question }) => (
     <PinAnswer
         question={question}
         answers={pinAnswers}
         trimmedAnswer={relevantAnswer}
-        questions={questions}
         type={questionType}
-        pinHistory={pinHistory}
-        status={status}
-        optionValuesLookup={optionValuesLookup}
     />
 );
 
@@ -29,16 +16,13 @@ const mapStateToProps = (
     {
         client: {
             pinAnswersReducer: { answers },
-            templateQuestionsReducer: { questions },
         },
     },
     { questionID, pinHistory },
 ) => {
     const pinAnswers = Object.values(answers);
     return {
-        status: pinHistory.status,
         pinAnswers,
-        questions: Object.values(questions),
         relevantAnswer:
             pinAnswers.find(
                 answer =>
