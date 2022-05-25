@@ -7,9 +7,9 @@ const PinQuestionsContainer = ({ relevantQuestions, pinHistory }) => (
 );
 
 const mapStateToProps = ({ client: { templateQuestionsReducer } }, { sectionID }) => ({
-    relevantQuestions: Object.values(templateQuestionsReducer.questions).filter(
-        ({ templateSectionID }) => templateSectionID === sectionID,
-    ),
+    relevantQuestions: Object.values(templateQuestionsReducer.questions)
+        .filter(({ templateSectionID }) => templateSectionID === sectionID)
+        .sort((a, b) => a.sort - b.sort),
 });
 
 export default connect(mapStateToProps)(PinQuestionsContainer);
