@@ -44,10 +44,7 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
 
     const measurementTypeOutput = MEASUREMENT_TYPES_OUTPUTS_PLURAL[form.measurementType];
     const isNotModified =
-        form.name === '' &&
-        form.shortName === '' &&
-        form.measurementType === null &&
-        form.serviceIDs.length === 0;
+        !form.name && !form.shortName && !form.measurementType && !form.serviceIDs.length;
 
     return (
         <FlexModalOuter
