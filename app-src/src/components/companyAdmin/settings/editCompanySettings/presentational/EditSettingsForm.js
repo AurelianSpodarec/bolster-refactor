@@ -21,7 +21,6 @@ const currencyOptions = enumFormat(CURRENCY_NAMES);
 const EditSettingsForm = ({
     handleInputChange,
     handleSubmit,
-    templateUsageRules,
     filesUploading,
     location,
     name,
@@ -41,7 +40,6 @@ const EditSettingsForm = ({
     telephone,
     fax,
     isEditButtonEnabled,
-    selectedRule,
     timeZoneOptions,
     timeZone,
     dateFormatOptions,
@@ -233,19 +231,7 @@ const EditSettingsForm = ({
                     />
                 </Field>
             </div>
-            <div className="size-lg-12">
-                <Field name="Default Template Usage Rule" sizeClasses="size-lg-12" required>
-                    <DropdownContainer
-                        placeholder="-- select rule --"
-                        name="defaultTemplateUsageRule"
-                        options={templateUsageRules}
-                        value={selectedRule}
-                        selectedOption={selectedRule}
-                        handleChange={handleInputChange}
-                        required
-                    />
-                </Field>
-            </div>
+            <div className="size-lg-12"></div>
             <div className="size-lg-12">
                 <Field name="Default sites list sort" sizeClasses="size-lg-6 size-md-12">
                     <Select

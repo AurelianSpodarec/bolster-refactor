@@ -6,7 +6,6 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import Field from 'components/shared/generic/form/presentational/Field';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import Select from 'components/shared/generic/form/presentational/Select';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
@@ -17,8 +16,6 @@ const InviteCompanyForm = ({
     serviceOptions,
     checkedServices,
     handleChange,
-    templateUsageRule,
-    templateRules,
     showMoreServicesMesssage,
     cancelURL = location.pathname.replace('/invite-company', ''),
 }) => (
@@ -36,18 +33,6 @@ const InviteCompanyForm = ({
                     hideDisabled
                 />
             </Field>
-            <Field name="Set Template Usage Rule" required>
-                <Select
-                    placeholder="-- select rule --"
-                    name={'templateUsageRule'}
-                    options={templateRules}
-                    value={templateUsageRule}
-                    selectedOption={templateUsageRule}
-                    onChange={handleChange}
-                    required
-                />
-            </Field>
-
             <BlockButtonWrapper>
                 {showMoreServicesMesssage && (
                     <p className="generic-text size-lg-12">
