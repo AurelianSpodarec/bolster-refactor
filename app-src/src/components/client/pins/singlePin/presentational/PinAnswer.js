@@ -19,10 +19,6 @@ const PinAnswer = ({ trimmedAnswer, type, answers, question }) => {
     const notFoundResponse = null;
     let inner;
 
-    // const company = useSelector(selectCompanySettings);
-    // const pinOptionType = useSelector(state => selectPinOptionType(state, question.optionType));
-    // const isCosting = company.isCostingEnabled && pinOptionType.hasCosting;
-
     if (!curAnswer?.answerValues || curAnswer.answerValues.length === 0) {
         return notFoundResponse;
     }
