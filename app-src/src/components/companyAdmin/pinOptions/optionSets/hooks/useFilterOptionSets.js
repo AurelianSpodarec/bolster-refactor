@@ -113,11 +113,17 @@ const useFilterOptionSets = (sets, isSorting, selectedTypeID) => {
         if (isSorting) return typeFilters;
 
         const initialFilters = typeFilters.filter(set => {
+            console.log(form);
             if (!set.name.toLowerCase().includes(searchTerm.toLowerCase())) return false;
             if (set.pinOptionTypeID !== selectedTypeID) return false;
             if (set.isDeleted) return false;
-            if (set.isHidden && form[PIN_OPTIONS_SETS_FILTERS_OPTIONS.HIDDEN_NOT_HIDDEN] !== 2)
+            if (
+                set.isHidden &&
+                !!form[PIN_OPTIONS_SETS_FILTERS_OPTIONS.HIDDEN_NOT_HIDDEN] &&
+                form[PIN_OPTIONS_SETS_FILTERS_OPTIONS.HIDDEN_NOT_HIDDEN] !== 2
+            ) {
                 return false;
+            }
 
             return true;
         });
