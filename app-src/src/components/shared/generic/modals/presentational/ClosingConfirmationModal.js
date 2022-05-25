@@ -1,11 +1,12 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
+import hideModal from 'actions/shared/generic/modals/sync/hideModal';
+
 import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import hideModal from 'actions/shared/generic/modals/sync/hideModal';
+import ButtonWrapper from '../../button/presentational/ButtonWrapper';
 
 const ClosingConfirmationModal = ({
     title = 'Leave?',
@@ -39,11 +40,11 @@ const ClosingConfirmationModal = ({
         }
     };
     return (
-        <div className="just-to-check-modal-container size-lg-12">
-            <div className="just-to-check-bg" />
+        <div className="closing-confirm-modal-container size-lg-12">
+            <div className="bg" />
 
-            <div className="modal-block just-to-check-modal-block">
-                <BlockContainer contentClass="just-to-check-content-container">
+            <div className="modal-block closing-confirm-modal-block">
+                <BlockContainer contentClass="closing-confirm-content-container">
                     <BlockContainer contentClass="flex-column">
                         <FlexWrapper className="block-heading" justify="between" align="center">
                             <h3 className="heading heading-3 flex">{title}</h3>
@@ -51,13 +52,7 @@ const ClosingConfirmationModal = ({
 
                         <p className="generic-text">{description}</p>
 
-                        <BlockButtonWrapper additionalClasses="just-to-check-modal-buttons">
-                            <ActionButton
-                                text={primaryButtonText}
-                                size="medium"
-                                onClick={handlePrimaryButtonClick}
-                                type={primaryButtonType}
-                            />
+                        <ButtonWrapper alignment="right" extraClasses="modal-buttons">
                             <ActionButton
                                 text={secondaryButtonText}
                                 source="secondary"
@@ -65,7 +60,13 @@ const ClosingConfirmationModal = ({
                                 type={secondaryButtonType}
                                 onClick={handleSecondaryButtonClick}
                             />
-                        </BlockButtonWrapper>
+                            <ActionButton
+                                text={primaryButtonText}
+                                size="medium"
+                                onClick={handlePrimaryButtonClick}
+                                type={primaryButtonType}
+                            />
+                        </ButtonWrapper>
                     </BlockContainer>
                 </BlockContainer>
             </div>
