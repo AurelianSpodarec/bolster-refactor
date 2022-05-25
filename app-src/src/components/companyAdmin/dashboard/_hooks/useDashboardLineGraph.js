@@ -69,7 +69,7 @@ const useDashboardLineGraph = graph => {
                         display: true,
                         zeroLineColor: colourTheme === 'dark' ? '#494c5b' : '#F2F2F2',
                         // color: 'transparent',
-                        tickMarkLength: false,
+                        // tickMarkLength: false,
                     },
                     ticks: {
                         // display: false,
@@ -84,11 +84,12 @@ const useDashboardLineGraph = graph => {
                         display: true,
                         zeroLineColor: colourTheme === 'dark' ? '#494c5b' : '#F2F2F2',
                         color: 'transparent',
-                        tickMarkLength: false,
+                        // tickMarkLength: false,
                     },
                     ticks: {
                         // display: false,
                         beginAtZero: true,
+                        callback: val => `${currencySymbol}${formatCurrency(val)}`,
                     },
                 },
             ],
