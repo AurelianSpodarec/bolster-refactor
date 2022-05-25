@@ -11,6 +11,7 @@ import { convertArrToObj } from 'helpers/generic';
 import removeFilterQuestion from 'actions/companyAdmin/reports/sync/removeFilterQuestion';
 import withUpdateOnChange from '../hocs/withUpdateOnChange';
 import { QUESTION_TYPE_NUMBERS as QTN } from 'constants/shared/templateBuilder';
+import { DROPDOWN_OPTION_VALS } from 'constants/companyAdmin/enums';
 
 const questionTypeOptions = [
     { label: 'Free Form', value: 1 },
@@ -177,19 +178,19 @@ class FilterFieldsModalContainer extends Component {
         const options = selectedQuestions
             .map(id => questionsObj[id])
             .filter(q => q && q.options)
-            .map(q => ({ ...q, options: this.formatOptions(q.options) }))
+            .map(q => ({ ...q, options: this.formatOptions(q.options, q.optionType) }))
             .reduce((a, b) => a.concat(b.options), []);
 
-        return [...new Set(options)].map(op => {
-            if (optionValues[op]) return { value: op, label: optionValues[op].name };
-            return { label: op, value: op };
-        });
+        return [...new Set(options)].map(op => ({ label: op, value: op }));
     };
 
     // ? sometimes the options are a stringified array, this will seperate into normal options
-    formatOptions = options => {
+    formatOptions = (options, optionType) => {
+        const { optionValues } = this.props;
         const newOptions = [];
         options.forEach(opt => {
+            if (optionType === 3) {
+            }
             if (/^\[.*\]$/g.test(opt)) {
                 newOptions.push(
                     ...opt
@@ -204,7 +205,12 @@ class FilterFieldsModalContainer extends Component {
                 );
             } else newOptions.push(opt);
         });
-        return newOptions;
+        return newOptions.map(opt => {
+            if (optionType === DROPDOWN_OPTION_VALS.installationTypes && optionValues[opt])
+                return optionValues[opt].name;
+            // Check for Installation type and look up redux
+            else return opt;
+        });
     };
 
     _getQuestionOptions = () => {
