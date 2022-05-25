@@ -189,8 +189,6 @@ class FilterFieldsModalContainer extends Component {
         const { optionValues } = this.props;
         const newOptions = [];
         options.forEach(opt => {
-            if (optionType === 3) {
-            }
             if (/^\[.*\]$/g.test(opt)) {
                 newOptions.push(
                     ...opt
