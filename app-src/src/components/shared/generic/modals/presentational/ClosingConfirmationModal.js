@@ -8,11 +8,37 @@ import ActionButton from 'components/shared/generic/button/presentational/Action
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 
 const ClosingConfirmationModal = ({
-    showClosingConfirmationModal,
-    setShowClosingConfirmationModal,
+    title = 'Leave?',
+    description = 'Changes will not be saved.',
+    primaryButtonText = 'Confirm',
+    secondaryButtonText = 'Cancel',
+    primaryButtonType = 'button',
+    secondaryButtonType = 'button',
+    handlePrimaryButton,
+    handleSecondaryButton,
 }) => {
     const dispatch = useDispatch();
-    return showClosingConfirmationModal ? (
+
+    const closeModal = () => {
+        dispatch(hideModal());
+    };
+
+    const handlePrimaryButtonClick = () => {
+        if (handlePrimaryButton) {
+            handlePrimaryButton();
+        } else {
+            closeModal();
+        }
+    };
+
+    const handleSecondaryButtonClick = () => {
+        if (handleSecondaryButton) {
+            handleSecondaryButton();
+        } else {
+            closeModal();
+        }
+    };
+    return (
         <div className="just-to-check-modal-container size-lg-12">
             <div className="just-to-check-bg" />
 
@@ -20,29 +46,31 @@ const ClosingConfirmationModal = ({
                 <BlockContainer contentClass="just-to-check-content-container">
                     <BlockContainer contentClass="flex-column">
                         <FlexWrapper className="block-heading" justify="between" align="center">
-                            <h3 className="heading heading-3 flex">Leave installation type?</h3>
+                            <h3 className="heading heading-3 flex">{title}</h3>
                         </FlexWrapper>
 
-                        <p className="generic-text">Changes will not be saved</p>
+                        <p className="generic-text">{description}</p>
 
                         <BlockButtonWrapper additionalClasses="just-to-check-modal-buttons">
                             <ActionButton
-                                text="Stay and edit"
+                                text={primaryButtonText}
                                 size="medium"
-                                onClick={() => setShowClosingConfirmationModal(false)}
+                                onClick={handlePrimaryButtonClick}
+                                type={primaryButtonType}
                             />
                             <ActionButton
+                                text={secondaryButtonText}
                                 source="secondary"
-                                text="Leave"
                                 size="medium"
-                                onClick={() => dispatch(hideModal())}
+                                type={secondaryButtonType}
+                                onClick={handleSecondaryButtonClick}
                             />
                         </BlockButtonWrapper>
                     </BlockContainer>
                 </BlockContainer>
             </div>
         </div>
-    ) : null;
+    );
 };
 
 export default ClosingConfirmationModal;
