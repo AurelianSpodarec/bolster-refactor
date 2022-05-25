@@ -16,17 +16,17 @@ import ButtonWrapper from 'components/shared/generic/button/presentational/Butto
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import ButtonMultiDropdown from 'components/shared/filters/ButtonMultiDropdown';
 import NumberInputContainer from 'components/shared/generic/form/containers/NumberInputContainer';
-import JustToCheckModal from '../../../../shared/generic/modals/presentational/JustToCheckModal';
 import DropdownContainer from '../../../../shared/generic/form/containers/DropdownContainer';
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
+import ClosingConfirmationModal from 'components/shared/generic/modals/presentational/ClosingConfirmationModal';
 
-const EditOptionValueModal = ({ option, typeID }) => {
+const EditOptionValueModal = ({ option }) => {
     const pinOptionType = useSelector(state => selectPinOptionType(state, option.pinOptionTypeID));
     const [showJustToCheckModal, setShowJustToCheckModal] = useState(false);
     const [showClosingConfirmationModal, setShowClosingConfirmationModal] = useState(false);
     const canEditMeasurement = option.costMeasurementType === null;
-    const selectedPinOptionType = useSelector(state => selectPinOptionType(state, typeID));
+    const singularTypeName = pinOptionType.name;
 
     const {
         form,
@@ -39,25 +39,9 @@ const EditOptionValueModal = ({ option, typeID }) => {
         isPosting,
         error,
         setError,
-        latestPinOptionVersion,
-        initialPriceBreaks,
+        isMeasurementNotModified,
+        isNotModified,
     } = useEditOptionValue(option);
-
-    const isServiceIDNotsModified =
-        form.serviceIDs.length === 0
-            ? form.serviceIDs.length === 0
-            : form.serviceIDs === option.serviceIDs;
-
-    const isNotModified =
-        form.name === latestPinOptionVersion.name &&
-        form.shortName === latestPinOptionVersion.shortName &&
-        isServiceIDNotsModified &&
-        form.costMeasurementType === option.costMeasurementType &&
-        JSON.stringify(form.measurementPriceBreaks) === JSON.stringify(initialPriceBreaks);
-
-    const isMeasurementNotModified =
-        form.costMeasurementType === option.costMeasurementType &&
-        JSON.stringify(form.measurementPriceBreaks) === JSON.stringify(initialPriceBreaks);
 
     const availableServiceOptions = useGetAvailableServices(option.pinOptionSetID);
 
@@ -82,9 +66,7 @@ const EditOptionValueModal = ({ option, typeID }) => {
     return (
         <FlexModalOuter
             title={`Edit ${option.name}`}
-            showClosingConfirmationModal={showClosingConfirmationModal}
-            setShowClosingConfirmationModal={setShowClosingConfirmationModal}
-            closingConfirmation={!isNotModified}
+            handleClose={!isNotModified ? () => setShowClosingConfirmationModal(true) : null}
             headingChildren={
                 !!availableServiceOptions.length && (
                     <ButtonMultiDropdown
@@ -210,7 +192,7 @@ const EditOptionValueModal = ({ option, typeID }) => {
                                                                         handlePriceBreakChange(
                                                                             index,
                                                                             'cost',
-                                                                            value.toFixed(2),
+                                                                            value,
                                                                         );
                                                                         setError(null);
                                                                     }}
@@ -262,17 +244,35 @@ const EditOptionValueModal = ({ option, typeID }) => {
                         iconSpin={isPosting}
                         ambient="positive"
                         disabled={isPosting}
-                        onClick={() => setShowJustToCheckModal(true)}
+                        onClick={
+                            !isMeasurementNotModified ? () => setShowJustToCheckModal(true) : null
+                        }
                         type={isMeasurementNotModified ? 'submit' : 'button'}
                     />
                 </ButtonWrapper>
+
+                {pinOptionType.hasCosting && !isMeasurementNotModified && showJustToCheckModal && (
+                    <ClosingConfirmationModal
+                        title="Overwrite prices?"
+                        description="Saving will overwrite previous pricing."
+                        primaryButtonText="Overwrite"
+                        secondaryButtonText="Go back"
+                        primaryButtonType="submit"
+                        handlePrimaryButton={() => {
+                            handleSubmit();
+                            setShowJustToCheckModal(false);
+                        }}
+                        handleSecondaryButton={() => setShowJustToCheckModal(false)}
+                    />
+                )}
             </Form>
 
-            {selectedPinOptionType.tabName === 'Installations' && !isMeasurementNotModified && (
-                <JustToCheckModal
-                    handleSubmit={handleSubmit}
-                    showJustToCheckModal={showJustToCheckModal}
-                    setShowJustToCheckModal={setShowJustToCheckModal}
+            {showClosingConfirmationModal && (
+                <ClosingConfirmationModal
+                    title={`Leave ${singularTypeName.toLowerCase()}?`}
+                    primaryButtonText="Stay and edit"
+                    secondaryButtonText="Leave"
+                    handlePrimaryButton={() => setShowClosingConfirmationModal(false)}
                 />
             )}
         </FlexModalOuter>

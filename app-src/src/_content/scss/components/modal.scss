@@ -1,5 +1,4 @@
-// modal
-.modal-container, .flex-modal-container {
+@mixin modal-container() {
     position: fixed;
     top: 0;
     left: 0;
@@ -8,15 +7,24 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+@mixin modal-background() {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: black;
+    opacity: 0.8;
+}
+
+// modal
+.modal-container, .flex-modal-container {
+    @include modal-container();
 
     .bg {
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 100%;
-        background: black;
-        opacity: 0.8;
+        @include modal-background();
     }
 
     .modal-block {
@@ -476,41 +484,30 @@
 }
 
 
-//justToCheckModal
-
-.just-to-check-modal-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
+// closing confirmation modals
+.closing-confirm-modal-container {
+    @include modal-container();
     z-index: 2000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
-    .just-to-check-bg {
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 100%;   
+    .bg {
+        @include modal-background();
+        opacity: 0.5;
     }
 
-    .just-to-check-modal-block {
-        max-width: 45%;
+    .closing-confirm-modal-block {
+        width: 500px;
+        border-radius: 15px;
     }
 
-    .just-to-check-content-container {    
-        border: 1px solid var(--background-stroke);
+    .closing-confirm-content-container {
+        padding: 0;
 
         p {
             margin-top: 20px; 
         }
+    }
 
-        .just-to-check-modal-buttons {
-            display: 'flex';
-            justify-content: space-between;    
-        }
-    } 
-
+    .modal-buttons {
+        margin-top: 10px;
+    }
 }

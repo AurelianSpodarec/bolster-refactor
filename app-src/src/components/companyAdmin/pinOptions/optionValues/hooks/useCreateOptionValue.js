@@ -108,6 +108,10 @@ const useCreateOptionValue = (pinOptionTypeID, pinOptionSetID) => {
         if (postSuccess && !prevProps.postSuccess) dispatch(hideModal());
     }, [postSuccess, prevProps.postSuccess]);
 
+    // check modifications
+    const isNotModified =
+        !form.name && !form.shortName && !form.measurementType && !form.serviceIDs.length;
+
     return {
         form,
         handleChange,
@@ -118,6 +122,7 @@ const useCreateOptionValue = (pinOptionTypeID, pinOptionSetID) => {
         isPosting,
         error,
         setError,
+        isNotModified,
     };
 };
 

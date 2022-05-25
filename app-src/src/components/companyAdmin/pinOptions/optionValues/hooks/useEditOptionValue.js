@@ -42,8 +42,8 @@ const useEditOptionValue = option => {
         const priceBreaks = option.priceBreaks.map(priceBreak => {
             return {
                 id: priceBreak.id,
-                value: priceBreak.value,
-                cost: priceBreak.cost,
+                value: priceBreak.value + '',
+                cost: priceBreak.cost + '',
             };
         });
 
@@ -83,6 +83,14 @@ const useEditOptionValue = option => {
 
                 const isValueSame = value + '' === initialPriceBreak.value + '';
 
+                if (!percentageValue && isValueSame) {
+                    return {
+                        id: initialPriceBreak.id,
+                        value: initialPriceBreak.value,
+                        cost: initialPriceBreak.cost,
+                    };
+                }
+
                 let newCost = cost;
 
                 if (isValueSame) {
@@ -91,21 +99,24 @@ const useEditOptionValue = option => {
                     if (valueNum <= -100) {
                         newCost = '0';
                     } else {
-                        const percentageChange = (valueNum / 100) * initialPriceBreak.cost;
-                        newCost = initialPriceBreak.cost + percentageChange;
+                        const costAsNumber = Number(initialPriceBreak.cost);
+                        const percentageChange = (valueNum / 100) * costAsNumber;
+                        newCost = costAsNumber + percentageChange;
                     }
+
+                    newCost = newCost.toFixed(2);
                 }
 
                 return {
                     id: initialPriceBreak.id,
-                    value,
-                    cost: newCost,
+                    value: value + '',
+                    cost: newCost + '',
                 };
             }
 
             return {
-                value,
-                cost,
+                value: value + '',
+                cost: cost + '',
             };
         });
 
@@ -174,9 +185,24 @@ const useEditOptionValue = option => {
         if (postSuccess && !prevProps.postSuccess) dispatch(hideModal());
     }, [postSuccess, prevProps.postSuccess]);
 
+    // check modifications
+    const isServiceIDsNotModified = !option.serviceIDs
+        ? isEmpty(form.serviceIDs)
+        : form.serviceIDs.every(id => option.serviceIDs.includes(id)) &&
+          option.serviceIDs.every(id => form.serviceIDs.includes(id));
+
+    const isMeasurementNotModified =
+        form.costMeasurementType === option.costMeasurementType &&
+        JSON.stringify(form.measurementPriceBreaks) === JSON.stringify(initialPriceBreaks);
+
+    const isNotModified =
+        form.name === latestPinOptionVersion.name &&
+        form.shortName === latestPinOptionVersion.shortName &&
+        isServiceIDsNotModified &&
+        isMeasurementNotModified;
+
     return {
         form,
-        latestPinOptionVersion,
         handleChange,
         handlePriceBreakChange,
         handleAddPriceBreak,
@@ -186,7 +212,8 @@ const useEditOptionValue = option => {
         isPosting,
         error,
         setError,
-        initialPriceBreaks,
+        isMeasurementNotModified,
+        isNotModified,
     };
 };
 
