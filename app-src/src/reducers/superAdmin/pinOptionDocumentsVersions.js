@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 import { convertArrToObj, updateObj } from 'helpers/generic';
 import {
     ADMIN_CREATE_PIN_OPTION_DOCUMENT_SUCCESS,
+    ADMIN_EDIT_OPTION_DOCUMENT_SUCCESS,
     ADMIN_FETCH_PIN_OPTION_DOCUMENTS_VERSIONS_FAILURE,
     ADMIN_FETCH_PIN_OPTION_DOCUMENTS_VERSIONS_REQUEST,
     ADMIN_FETCH_PIN_OPTION_DOCUMENTS_VERSIONS_SUCCESS,
@@ -44,9 +45,11 @@ function pinOptionDocumentsVersionsReducer(state = {}, action) {
         case ADMIN_CREATE_PIN_OPTION_DOCUMENT_SUCCESS:
             return updateObj(
                 state,
-                action.payload.pinOptionDocumentVersion.id,
+                action.payload.pinOptionDocumentVersion.pinOptionDocumentID,
                 action.payload.pinOptionDocumentVersion,
             );
+        case ADMIN_EDIT_OPTION_DOCUMENT_SUCCESS:
+            return updateObj(state, action.payload.pinOptionDocumentID, action.payload);
         default:
             return state;
     }
