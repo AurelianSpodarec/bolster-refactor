@@ -71,8 +71,7 @@ export const useFilterPinOptions = (
                     if (!questionPinOptionIDs.includes(option.pinOptionSetID)) {
                         return false;
                     }
-                }
-                if (type?.hasSiteLinks) {
+                } else if (type?.hasSiteLinks) {
                     const setsForType = drawing?.pinOptionSetIDsByType?.[type?.id];
                     if (!setsForType?.length) {
                         if (!option.isDefault) return false;
