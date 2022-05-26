@@ -232,7 +232,7 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
 
             {showClosingConfirmationModal && (
                 <ClosingConfirmationModal
-                    title={`Leave ${singularTypeName.toLowerCase()}?`}
+                    title={`Leave ${singularTypeName}?`}
                     primaryButtonText="Stay and edit"
                     secondaryButtonText="Leave"
                     handlePrimaryButton={() => setShowClosingConfirmationModal(false)}

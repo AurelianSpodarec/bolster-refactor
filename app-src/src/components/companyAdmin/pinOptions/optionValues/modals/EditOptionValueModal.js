@@ -269,7 +269,7 @@ const EditOptionValueModal = ({ option }) => {
 
             {showClosingConfirmationModal && (
                 <ClosingConfirmationModal
-                    title={`Leave ${singularTypeName.toLowerCase()}?`}
+                    title={`Leave ${singularTypeName}?`}
                     primaryButtonText="Stay and edit"
                     secondaryButtonText="Leave"
                     handlePrimaryButton={() => setShowClosingConfirmationModal(false)}

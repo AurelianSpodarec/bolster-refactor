@@ -32,8 +32,6 @@ const useEditOptionValue = option => {
 
     const pinOptionType = useSelector(state => selectPinOptionType(state, option.pinOptionTypeID));
 
-    const prevProps = usePrevious({ postError, postSuccess });
-
     const getInitialPriceBreak = () => {
         const emptyPriceBreak = { value: '', cost: '' };
 
@@ -65,6 +63,12 @@ const useEditOptionValue = option => {
         measurementPriceBreaks: initialPriceBreaks,
         quickPriceEdit: '',
         costMeasurementType: option.costMeasurementType,
+    });
+
+    const prevProps = usePrevious({
+        postError,
+        postSuccess,
+        costMeasurementType: form.costMeasurementType,
     });
 
     const disableAdd = +form.costMeasurementType === MEASUREMENT_TYPES.FIXED;
@@ -104,7 +108,9 @@ const useEditOptionValue = option => {
                         newCost = costAsNumber + percentageChange;
                     }
 
-                    newCost = newCost.toFixed(2);
+                    if (newCost % 1 !== 0) {
+                        newCost = newCost.toFixed(2);
+                    }
                 }
 
                 return {
@@ -177,6 +183,14 @@ const useEditOptionValue = option => {
         }
     }, [form.costMeasurementType]);
 
+    // reset price breaks when deselecting measurement unit
+    useEffect(() => {
+        if (!form.costMeasurementType && prevProps.costMeasurementType) {
+            console.log('do your thing');
+            handleChange('measurementPriceBreaks', initialPriceBreaks);
+        }
+    }, [form.costMeasurementType, prevProps.costMeasurementType]);
+
     useEffect(() => {
         if (postError && !prevProps.postError) dispatch(showModal(ERROR_MODAL));
     }, [postError, prevProps.postError]);
@@ -191,8 +205,12 @@ const useEditOptionValue = option => {
         : form.serviceIDs.every(id => option.serviceIDs.includes(id)) &&
           option.serviceIDs.every(id => form.serviceIDs.includes(id));
 
+    const isMeasurementUnitNotModified = option.costMeasurementType
+        ? form.costMeasurementType === option.costMeasurementType
+        : !form.costMeasurementType;
+
     const isMeasurementNotModified =
-        form.costMeasurementType === option.costMeasurementType &&
+        isMeasurementUnitNotModified &&
         JSON.stringify(form.measurementPriceBreaks) === JSON.stringify(initialPriceBreaks);
 
     const isNotModified =
