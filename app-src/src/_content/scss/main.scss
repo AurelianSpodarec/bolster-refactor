@@ -224,6 +224,7 @@ em {
         top: 28%;
         left: 9%;
         white-space: nowrap;
+        color: black;
 
         p {
           @include swiss721-medium;
@@ -234,16 +235,17 @@ em {
         position: absolute;
         font-size: 80%;
         width: 100%;
-        top: 29%;
+        top: 26%;
         left: 5%;
         white-space: nowrap;
+        color: black;
 
         p {
           @include swiss721-roman;
         }
 
         &.for-trim {
-          top: 57%;
+          top: 48%;
           left: 4%;
         }
       }
