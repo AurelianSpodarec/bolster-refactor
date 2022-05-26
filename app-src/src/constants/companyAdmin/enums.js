@@ -531,6 +531,8 @@ export const ACTIVITY_LOG_REFERENCE_TYPES = {
     TWO_FACTOR_AUTH: 36,
     COMPANY_DOCUMENT: 37,
     COMPANY_DOCUMENT_FOLDER: 38,
+    PIN_OPTION_FOLDER: 39,
+    PIN_OPTION_DOCUMENT: 40,
 };
 
 export const ACTIVITY_LOG_REFERENCE_VALUES = {
@@ -573,6 +575,8 @@ export const ACTIVITY_LOG_REFERENCE_VALUES = {
     36: 'Two Factor Auth',
     37: 'Company Document',
     38: 'Company Document Folder',
+    39: 'Pin Option Folder',
+    40: 'Pin Option Document',
 };
 
 export const COMPANY_REPORTS_OUTPUT_TYPES = {

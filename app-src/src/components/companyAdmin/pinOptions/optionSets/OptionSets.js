@@ -32,8 +32,7 @@ const OptionSets = ({ forwardRef, selectedTypeID }) => {
     const { pinOptionSetsArr, isFetchingPinOptionSets, pinOptionSetsFetchError } =
         useFetchPinOptionSets();
 
-    const { isSorting, handleToggleSort, handleUpdateSort, moveItem } =
-        useUpdateOptionSetSort(pinOptionSetsArr);
+    const { isSorting, handleUpdateSort, moveItem } = useUpdateOptionSetSort(pinOptionSetsArr);
 
     const {
         filteredSets,

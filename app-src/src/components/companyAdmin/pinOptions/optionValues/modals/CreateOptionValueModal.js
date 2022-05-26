@@ -18,6 +18,7 @@ import ButtonMultiDropdown from 'components/shared/filters/ButtonMultiDropdown';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import NumberInputContainer from 'components/shared/generic/form/containers/NumberInputContainer';
 import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
+import ClosingConfirmationModal from 'components/shared/generic/modals/presentational/ClosingConfirmationModal';
 
 const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
     const [showClosingConfirmationModal, setShowClosingConfirmationModal] = useState(false);
@@ -34,6 +35,7 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
         isPosting,
         error,
         setError,
+        isNotModified,
     } = useCreateOptionValue(pinOptionTypeID, pinOptionSetID);
 
     const availableServiceOptions = useGetAvailableServices(pinOptionSetID);
@@ -42,18 +44,11 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
     const isMultiplePriceBreaks = priceBreaksLength > 1;
 
     const measurementTypeOutput = MEASUREMENT_TYPES_OUTPUTS_PLURAL[form.measurementType];
-    const isNotModified =
-        form.name === '' &&
-        form.shortName === '' &&
-        form.measurementType === null &&
-        form.serviceIDs.length === 0;
 
     return (
         <FlexModalOuter
             title={`Add ${singularTypeName}`}
-            showClosingConfirmationModal={showClosingConfirmationModal}
-            setShowClosingConfirmationModal={setShowClosingConfirmationModal}
-            closingConfirmation={!isNotModified}
+            handleClose={!isNotModified ? () => setShowClosingConfirmationModal(true) : null}
             headingChildren={
                 !!availableServiceOptions.length && (
                     <ButtonMultiDropdown
@@ -234,6 +229,15 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                     />
                 </ButtonWrapper>
             </Form>
+
+            {showClosingConfirmationModal && (
+                <ClosingConfirmationModal
+                    title={`Leave ${singularTypeName.toLowerCase()}?`}
+                    primaryButtonText="Stay and edit"
+                    secondaryButtonText="Leave"
+                    handlePrimaryButton={() => setShowClosingConfirmationModal(false)}
+                />
+            )}
         </FlexModalOuter>
     );
 };
