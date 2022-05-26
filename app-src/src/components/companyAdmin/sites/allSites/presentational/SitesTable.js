@@ -13,7 +13,6 @@ const SitesTable = ({
     items,
     isFetching,
     error,
-    handleAddSite,
     forwardRef,
     isSorting,
     toggleIsSortingSites,
@@ -42,13 +41,6 @@ const SitesTable = ({
                             size="medium"
                         />
                     )}
-                    <ActionButton
-                        onClick={handleAddSite}
-                        icon="fa fa-plus"
-                        text="Add site"
-                        ambient="positive"
-                        size="medium"
-                    />
                 </ButtonWrapper>
             </BlockHeading>
 

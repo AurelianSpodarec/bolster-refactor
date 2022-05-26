@@ -26,7 +26,6 @@ class SitesTableContainer extends Component {
                 items={this._getFilteredSites()}
                 isFetching={isFetching}
                 error={error}
-                handleAddSite={this.handleAddSite}
                 toggleIsSortingSites={this.toggleIsSortingSites}
                 postSitesSort={this.postSitesSort}
             />
@@ -137,10 +136,6 @@ class SitesTableContainer extends Component {
         updateSitesFilters('name', '');
         updateSitesFilters('status', '');
         updateSitesFilters('sortBy', DEFAULT_SITES_SORT.CUSTOM);
-    };
-
-    handleAddSite = () => {
-        this.props.showModal(ADD_SITE);
     };
 
     postSitesSort = () => {
