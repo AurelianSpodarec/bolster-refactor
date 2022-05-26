@@ -104,7 +104,9 @@ const useEditOptionValue = option => {
                         newCost = costAsNumber + percentageChange;
                     }
 
-                    newCost = newCost.toFixed(2);
+                    if (newCost % 1 !== 0) {
+                        newCost = newCost.toFixed(2);
+                    }
                 }
 
                 return {
