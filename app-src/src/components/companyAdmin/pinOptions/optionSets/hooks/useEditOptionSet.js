@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { ERROR_MODAL } from 'constants/shared/modalTypes';
@@ -26,6 +26,7 @@ const useEditOptionSet = set => {
         serviceIDs.includes(service.id),
     );
     const serviceOptions = formatCheckboxListOptions(services);
+    const [servicesError, setServicesError] = useState(false);
 
     const prevProps = usePrevious({ postError, postSuccess });
 
@@ -34,7 +35,20 @@ const useEditOptionSet = set => {
         serviceIDs: set.serviceIDs || [],
     });
 
+    const handleServicesChange = (name, value) => {
+        if (servicesError) {
+            setServicesError(false);
+            handleChange(name, value);
+        } else {
+            handleChange(name, value);
+        }
+    };
+
     const handleSubmit = () => {
+        if (!form.serviceIDs.length) {
+            return setServicesError(true);
+        }
+
         dispatch(editPinOptionSet(set.id, form));
     };
 
@@ -46,7 +60,15 @@ const useEditOptionSet = set => {
         if (postSuccess && !prevProps.postSuccess) dispatch(hideModal());
     }, [postSuccess, prevProps.postSuccess]);
 
-    return { form, handleChange, handleSubmit, isPosting, serviceOptions };
+    return {
+        form,
+        handleChange,
+        handleSubmit,
+        isPosting,
+        serviceOptions,
+        servicesError,
+        handleServicesChange,
+    };
 };
 
 export default useEditOptionSet;

@@ -41,6 +41,8 @@ const EditOptionValueModal = ({ option }) => {
         setError,
         isMeasurementNotModified,
         isNotModified,
+        servicesError,
+        handleServicesChange,
     } = useEditOptionValue(option);
 
     const availableServiceOptions = useGetAvailableServices(option.pinOptionSetID);
@@ -74,9 +76,10 @@ const EditOptionValueModal = ({ option }) => {
                         name="serviceIDs"
                         options={availableServiceOptions}
                         selectedOptions={form.serviceIDs}
-                        handleChange={handleChange}
+                        handleChange={handleServicesChange}
                         isNumberValues
                         scrollElementID="modal-block"
+                        error={servicesError}
                     />
                 )
             }
@@ -243,7 +246,7 @@ const EditOptionValueModal = ({ option }) => {
                         icon={isPosting ? 'spinner' : 'save'}
                         iconSpin={isPosting}
                         ambient="positive"
-                        disabled={isPosting}
+                        disabled={isPosting || servicesError}
                         onClick={
                             !isMeasurementNotModified ? () => setShowJustToCheckModal(true) : null
                         }

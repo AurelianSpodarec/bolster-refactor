@@ -11,7 +11,15 @@ import ButtonMultiDropdown from 'components/shared/filters/ButtonMultiDropdown';
 import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
 
 const EditOptionSetModal = ({ set }) => {
-    const { form, handleChange, handleSubmit, isPosting, serviceOptions } = useEditOptionSet(set);
+    const {
+        form,
+        handleChange,
+        handleSubmit,
+        isPosting,
+        serviceOptions,
+        servicesError,
+        handleServicesChange,
+    } = useEditOptionSet(set);
 
     return (
         <FlexModalOuter
@@ -23,9 +31,10 @@ const EditOptionSetModal = ({ set }) => {
                         name="serviceIDs"
                         options={serviceOptions}
                         selectedOptions={form.serviceIDs}
-                        handleChange={handleChange}
+                        handleChange={handleServicesChange}
                         isNumberValues
                         scrollElementID="modal-block"
+                        error={servicesError}
                     />
                 )
             }
@@ -51,7 +60,7 @@ const EditOptionSetModal = ({ set }) => {
                         icon={isPosting ? 'spinner' : 'save'}
                         iconSpin={isPosting}
                         ambient="positive"
-                        disabled={isPosting}
+                        disabled={isPosting || servicesError}
                         type="submit"
                     />
                 </ButtonWrapper>
