@@ -18,8 +18,15 @@ const CreateOptionSetModal = ({ pinOptionTypeID }) => {
     const pluralTypeName = pinOptionType.namePlural;
     const singularTypeName = pinOptionType.name;
 
-    const { form, handleChange, handleSubmit, isPosting, serviceOptions } =
-        useCreateOptionSet(pinOptionTypeID);
+    const {
+        form,
+        handleChange,
+        handleSubmit,
+        isPosting,
+        serviceOptions,
+        servicesError,
+        handleServicesChange,
+    } = useCreateOptionSet(pinOptionTypeID);
 
     return (
         <FlexModalOuter
@@ -31,9 +38,10 @@ const CreateOptionSetModal = ({ pinOptionTypeID }) => {
                         name="serviceIDs"
                         options={serviceOptions}
                         selectedOptions={form.serviceIDs}
-                        handleChange={handleChange}
+                        handleChange={handleServicesChange}
                         isNumberValues
                         scrollElementID="modal-block"
+                        error={servicesError}
                     />
                 )
             }
@@ -70,7 +78,7 @@ const CreateOptionSetModal = ({ pinOptionTypeID }) => {
                         icon={isPosting ? 'spinner' : 'save'}
                         iconSpin={isPosting}
                         ambient="positive"
-                        disabled={isPosting}
+                        disabled={isPosting || servicesError}
                         type="submit"
                     />
                 </ButtonWrapper>

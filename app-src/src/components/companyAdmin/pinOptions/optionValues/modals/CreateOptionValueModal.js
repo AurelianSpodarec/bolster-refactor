@@ -36,6 +36,8 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
         error,
         setError,
         isNotModified,
+        servicesError,
+        handleServicesChange,
     } = useCreateOptionValue(pinOptionTypeID, pinOptionSetID);
 
     const availableServiceOptions = useGetAvailableServices(pinOptionSetID);
@@ -56,9 +58,10 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                         name="serviceIDs"
                         options={availableServiceOptions}
                         selectedOptions={form.serviceIDs}
-                        handleChange={handleChange}
+                        handleChange={handleServicesChange}
                         isNumberValues
                         scrollElementID="modal-block"
+                        error={servicesError}
                     />
                 )
             }
@@ -224,7 +227,7 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                         icon={isPosting ? 'spinner' : 'save'}
                         iconSpin={isPosting}
                         ambient="positive"
-                        disabled={isPosting}
+                        disabled={isPosting || servicesError}
                         type="submit"
                     />
                 </ButtonWrapper>

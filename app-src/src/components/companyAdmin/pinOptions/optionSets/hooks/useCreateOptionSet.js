@@ -18,6 +18,7 @@ import { selectSubscriptions } from '../../../../../selectors/companyAdmin/compa
 
 const useCreateOptionSet = pinOptionTypeID => {
     const [newSetID, setNewSetID] = useState(null);
+    const [servicesError, setServicesError] = useState(false);
 
     const dispatch = useDispatch();
     const history = useHistory();
@@ -48,11 +49,22 @@ const useCreateOptionSet = pinOptionTypeID => {
 
         if (serviceOptions.length === 1) {
             postBody = { ...postBody, serviceIDs: [serviceOptions[0].value] };
+        } else if (serviceOptions.length > 1 && !form.serviceIDs.length) {
+            return setServicesError(true);
         }
 
         dispatch(createPinOptionSet(postBody)).then(({ payload }) => {
             if (payload) setNewSetID(payload.id);
         });
+    };
+
+    const handleServicesChange = (name, value) => {
+        if (servicesError) {
+            setServicesError(false);
+            handleChange(name, value);
+        } else {
+            handleChange(name, value);
+        }
     };
 
     useEffect(() => {
@@ -72,7 +84,15 @@ const useCreateOptionSet = pinOptionTypeID => {
         }
     }, [newSetID, prevProps.newSetID]);
 
-    return { form, handleChange, handleSubmit, isPosting, serviceOptions };
+    return {
+        form,
+        handleChange,
+        handleSubmit,
+        isPosting,
+        serviceOptions,
+        servicesError,
+        handleServicesChange,
+    };
 };
 
 export default useCreateOptionSet;
