@@ -17,6 +17,9 @@ import {
     DUPLICATE_ADMIN_PIN_OPTION_SET_REQUEST,
     DUPLICATE_ADMIN_PIN_OPTION_SET_SUCCESS,
     DUPLICATE_ADMIN_PIN_OPTION_SET_FAILURE,
+    FETCH_ADMIN_PIN_OPTION_SETS_FOR_COMPANY_SUCCESS,
+    FETCH_ADMIN_PIN_OPTION_SETS_FOR_COMPANY_REQUEST,
+    FETCH_ADMIN_PIN_OPTION_SETS_FOR_COMPANY_FAILURE,
 } from 'constants/actionTypes/pinOptions';
 import { SET_API_FIELD_ERRORS } from '../../constants/actionTypes/generic';
 
@@ -35,9 +38,12 @@ export default combineReducers({
 function isFetchingReducer(state = false, action) {
     switch (action.type) {
         case FETCH_ADMIN_PIN_OPTION_SETS_REQUEST:
+        case FETCH_ADMIN_PIN_OPTION_SETS_FOR_COMPANY_REQUEST:
             return true;
         case FETCH_ADMIN_PIN_OPTION_SETS_SUCCESS:
         case FETCH_ADMIN_PIN_OPTION_SETS_FAILURE:
+        case FETCH_ADMIN_PIN_OPTION_SETS_FOR_COMPANY_FAILURE:
+        case FETCH_ADMIN_PIN_OPTION_SETS_FOR_COMPANY_SUCCESS:
             return false;
         default:
             return state;
@@ -47,8 +53,10 @@ function isFetchingReducer(state = false, action) {
 function fetchErrorReducer(state = null, action) {
     switch (action.type) {
         case FETCH_ADMIN_PIN_OPTION_SETS_REQUEST:
+        case FETCH_ADMIN_PIN_OPTION_SETS_FOR_COMPANY_REQUEST:
             return null;
         case FETCH_ADMIN_PIN_OPTION_SETS_FAILURE:
+        case FETCH_ADMIN_PIN_OPTION_SETS_FOR_COMPANY_FAILURE:
             return action.error;
         default:
             return state;
@@ -58,6 +66,7 @@ function fetchErrorReducer(state = null, action) {
 function setsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_ADMIN_PIN_OPTION_SETS_SUCCESS:
+        case FETCH_ADMIN_PIN_OPTION_SETS_FOR_COMPANY_SUCCESS:
             return convertArrToObj(action.payload);
         case CREATE_ADMIN_PIN_OPTION_SET_SUCCESS:
         case EDIT_ADMIN_PIN_OPTION_SET_SUCCESS:
