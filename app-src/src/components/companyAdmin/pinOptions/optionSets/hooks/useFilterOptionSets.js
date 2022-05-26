@@ -113,7 +113,6 @@ const useFilterOptionSets = (sets, isSorting, selectedTypeID) => {
         if (isSorting) return typeFilters;
 
         const initialFilters = typeFilters.filter(set => {
-            console.log(form);
             if (!set.name.toLowerCase().includes(searchTerm.toLowerCase())) return false;
             if (set.pinOptionTypeID !== selectedTypeID) return false;
             if (set.isDeleted) return false;

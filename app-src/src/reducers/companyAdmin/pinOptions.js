@@ -33,6 +33,7 @@ import {
     SET_OPTION_VALUE_AS_NOT_HIDDEN_REQUEST,
     SET_OPTION_VALUE_AS_NOT_HIDDEN_SUCCESS,
     SET_OPTION_VALUE_AS_NOT_HIDDEN_FAILURE,
+    QUICK_EDIT_OPTION_SET_SUCCESS,
 } from 'constants/actionTypes/pinOptions';
 import { SET_API_FIELD_ERRORS } from 'constants/actionTypes/generic';
 
@@ -163,6 +164,7 @@ function optionsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_PIN_OPTIONS_SUCCESS:
         case REORDER_PIN_OPTION_VALUES:
+        case QUICK_EDIT_OPTION_SET_SUCCESS:
             return convertArrToObj(action.payload);
         case ENABLE_PIN_OPTION_VALUE_SUCCESS:
         case DISABLE_PIN_OPTION_VALUE_SUCCESS:
