@@ -79,8 +79,6 @@ const useCostingAndEstimatingGraph = graph => {
                     ticks: {
                         // display: false,
                         beginAtZero: true,
-                        callback: val =>
-                            moment(val.split('/').reverse().join('-')).utc().format('MMM DD'),
                     },
                 },
             ],
