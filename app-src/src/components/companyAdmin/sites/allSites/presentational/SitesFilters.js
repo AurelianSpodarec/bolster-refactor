@@ -86,6 +86,30 @@ const SitesListFilters = ({
                     className="sites-search"
                 />
                 <ButtonWrapper alignment="right">
+                    <div style={{ marginRight: '1em' }}>
+                        <ButtonDropdown
+                            buttonText="All Sites"
+                            name="status"
+                            options={statusOptions}
+                            value={selectedStatus}
+                            handleChange={handleChange}
+                            isNumberValues
+                            scrollElementID="modal-block"
+                            size="medium"
+                        />
+                    </div>
+                    <div style={{ marginRight: '1em' }}>
+                        <ButtonDropdown
+                            buttonText="Sort by"
+                            name="sortBy"
+                            options={sortOptions}
+                            value={selectedSort}
+                            handleChange={handleChange}
+                            isNumberValues
+                            scrollElementID="modal-block"
+                            size="medium"
+                        />
+                    </div>
                     {isSorting ? (
                         <ActionButton
                             onClick={toggleIsSortingSites}
@@ -105,30 +129,6 @@ const SitesListFilters = ({
                             size="medium"
                         />
                     )}
-                    <div style={{ marginLeft: '1em' }}>
-                        <ButtonDropdown
-                            buttonText="All Sites"
-                            name="status"
-                            options={statusOptions}
-                            value={selectedStatus}
-                            handleChange={handleChange}
-                            isNumberValues
-                            scrollElementID="modal-block"
-                            size="medium"
-                        />
-                    </div>
-                    <div style={{ marginLeft: '1em' }}>
-                        <ButtonDropdown
-                            buttonText="Sort by"
-                            name="sortBy"
-                            options={sortOptions}
-                            value={selectedSort}
-                            handleChange={handleChange}
-                            isNumberValues
-                            scrollElementID="modal-block"
-                            size="medium"
-                        />
-                    </div>
                 </ButtonWrapper>
             </>
         )}
