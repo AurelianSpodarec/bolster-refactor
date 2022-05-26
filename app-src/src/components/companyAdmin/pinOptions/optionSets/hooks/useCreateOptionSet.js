@@ -41,10 +41,14 @@ const useCreateOptionSet = pinOptionTypeID => {
     });
 
     const handleSubmit = () => {
-        const postBody = {
+        let postBody = {
             ...form,
             pinOptionTypeID,
         };
+
+        if (serviceOptions.length === 1) {
+            postBody = { ...postBody, serviceIDs: [serviceOptions[0].value] };
+        }
 
         dispatch(createPinOptionSet(postBody)).then(({ payload }) => {
             if (payload) setNewSetID(payload.id);

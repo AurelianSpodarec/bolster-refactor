@@ -68,7 +68,7 @@ const EditOptionValueModal = ({ option }) => {
             title={`Edit ${option.name}`}
             handleClose={!isNotModified ? () => setShowClosingConfirmationModal(true) : null}
             headingChildren={
-                !!availableServiceOptions.length && (
+                availableServiceOptions.length > 1 && (
                     <ButtonMultiDropdown
                         buttonText="Services"
                         name="serviceIDs"

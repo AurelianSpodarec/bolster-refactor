@@ -20,19 +20,22 @@ const CreateOptionSetModal = ({ pinOptionTypeID }) => {
 
     const { form, handleChange, handleSubmit, isPosting, serviceOptions } =
         useCreateOptionSet(pinOptionTypeID);
+
     return (
         <FlexModalOuter
             title={`Create ${singularTypeName} Set`}
             headingChildren={
-                <ButtonMultiDropdown
-                    buttonText="Services"
-                    name="serviceIDs"
-                    options={serviceOptions}
-                    selectedOptions={form.serviceIDs}
-                    handleChange={handleChange}
-                    isNumberValues
-                    scrollElementID="modal-block"
-                />
+                serviceOptions.length > 1 && (
+                    <ButtonMultiDropdown
+                        buttonText="Services"
+                        name="serviceIDs"
+                        options={serviceOptions}
+                        selectedOptions={form.serviceIDs}
+                        handleChange={handleChange}
+                        isNumberValues
+                        scrollElementID="modal-block"
+                    />
+                )
             }
         >
             <Form onSubmit={handleSubmit} className="generic-form flex-content-wrapper size-lg-12">
