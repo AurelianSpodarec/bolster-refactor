@@ -193,8 +193,12 @@ const useEditOptionValue = option => {
         : form.serviceIDs.every(id => option.serviceIDs.includes(id)) &&
           option.serviceIDs.every(id => form.serviceIDs.includes(id));
 
+    const isMeasurementUnitNotModified = option.costMeasurementType
+        ? form.costMeasurementType === option.costMeasurementType
+        : !form.costMeasurementType;
+
     const isMeasurementNotModified =
-        form.costMeasurementType === option.costMeasurementType &&
+        isMeasurementUnitNotModified &&
         JSON.stringify(form.measurementPriceBreaks) === JSON.stringify(initialPriceBreaks);
 
     const isNotModified =
