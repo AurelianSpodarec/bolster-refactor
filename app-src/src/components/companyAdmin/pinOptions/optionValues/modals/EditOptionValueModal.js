@@ -39,25 +39,9 @@ const EditOptionValueModal = ({ option }) => {
         isPosting,
         error,
         setError,
-        latestPinOptionVersion,
-        initialPriceBreaks,
+        isMeasurementNotModified,
+        isNotModified,
     } = useEditOptionValue(option);
-
-    const isServiceIDNotsModified =
-        form.serviceIDs.length === 0
-            ? form.serviceIDs.length === 0
-            : form.serviceIDs === option.serviceIDs;
-
-    const isNotModified =
-        form.name === latestPinOptionVersion.name &&
-        form.shortName === latestPinOptionVersion.shortName &&
-        isServiceIDNotsModified &&
-        form.costMeasurementType === option.costMeasurementType &&
-        JSON.stringify(form.measurementPriceBreaks) === JSON.stringify(initialPriceBreaks);
-
-    const isMeasurementNotModified =
-        form.costMeasurementType === option.costMeasurementType &&
-        JSON.stringify(form.measurementPriceBreaks) === JSON.stringify(initialPriceBreaks);
 
     const availableServiceOptions = useGetAvailableServices(option.pinOptionSetID);
 
@@ -208,7 +192,7 @@ const EditOptionValueModal = ({ option }) => {
                                                                         handlePriceBreakChange(
                                                                             index,
                                                                             'cost',
-                                                                            value.toFixed(2),
+                                                                            value,
                                                                         );
                                                                         setError(null);
                                                                     }}

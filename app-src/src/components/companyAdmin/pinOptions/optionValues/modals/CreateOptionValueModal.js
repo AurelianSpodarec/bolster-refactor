@@ -35,6 +35,7 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
         isPosting,
         error,
         setError,
+        isNotModified,
     } = useCreateOptionValue(pinOptionTypeID, pinOptionSetID);
 
     const availableServiceOptions = useGetAvailableServices(pinOptionSetID);
@@ -43,11 +44,6 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
     const isMultiplePriceBreaks = priceBreaksLength > 1;
 
     const measurementTypeOutput = MEASUREMENT_TYPES_OUTPUTS_PLURAL[form.measurementType];
-    const isNotModified =
-        form.name === '' &&
-        form.shortName === '' &&
-        form.measurementType === null &&
-        form.serviceIDs.length === 0;
 
     return (
         <FlexModalOuter
