@@ -27,7 +27,7 @@ const useFilterOptionValues = (options, isSorting, set) => {
     const [form, handleChange] = useForm({
         [PIN_OPTIONS_VALUES_FILTERS_OPTIONS.SERVICE]: [PIN_OPTIONS_FILTERS_ALL],
         [PIN_OPTIONS_VALUES_FILTERS_OPTIONS.ENABLED_DISABLED]: PIN_OPTIONS_FILTERS_ALL,
-        [PIN_OPTIONS_VALUES_FILTERS_OPTIONS.HIDDEN]: PIN_OPTIONS_FILTERS_ALL,
+        [PIN_OPTIONS_VALUES_FILTERS_OPTIONS.HIDDEN_NOT_HIDDEN]: PIN_OPTIONS_FILTERS_ALL,
     });
 
     const filterOptions = [
@@ -95,7 +95,11 @@ const useFilterOptionValues = (options, isSorting, set) => {
         const initialFilters = options.filter(opt => {
             if (!opt.name.toLowerCase().includes(searchTerm.toLowerCase())) return false;
             if (opt.isDeleted) return false;
-            if (opt.isHidden && form[PIN_OPTIONS_VALUES_FILTERS_OPTIONS.HIDDEN_NOT_HIDDEN] !== 2)
+            if (
+                opt.isHidden &&
+                !!form[PIN_OPTIONS_VALUES_FILTERS_OPTIONS.HIDDEN_NOT_HIDDEN] &&
+                form[PIN_OPTIONS_VALUES_FILTERS_OPTIONS.HIDDEN_NOT_HIDDEN] !== 2
+            )
                 return false;
             return true;
         });
