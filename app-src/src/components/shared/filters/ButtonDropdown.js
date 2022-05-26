@@ -43,7 +43,7 @@ const ButtonDropdown = ({
     return (
         <>
             <ActionButton
-                text={!!value ? optionLabels[value] : buttonText}
+                text={value ? optionLabels[value] : buttonText}
                 source="secondary"
                 ambient="positive"
                 onClick={() => setShowList(!showList)}
