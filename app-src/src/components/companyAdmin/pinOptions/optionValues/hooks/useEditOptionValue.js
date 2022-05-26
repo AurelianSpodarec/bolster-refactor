@@ -21,6 +21,7 @@ import useUpdatePriceBreaks from './useUpdatePriceBreaks';
 
 const useEditOptionValue = option => {
     const [error, setError] = useState(null);
+    const [servicesError, setServicesError] = useState(false);
 
     const dispatch = useDispatch();
     const isPosting = useSelector(selectPinOptionsIsPosting);
@@ -129,6 +130,15 @@ const useEditOptionValue = option => {
         handleChange('measurementPriceBreaks', updatedValues);
     };
 
+    const handleServicesChange = (name, value) => {
+        if (servicesError) {
+            setServicesError(false);
+            handleChange(name, value);
+        } else {
+            handleChange(name, value);
+        }
+    };
+
     const handleSubmit = () => {
         const { name, shortName, serviceIDs, measurementPriceBreaks, costMeasurementType } = form;
 
@@ -137,6 +147,10 @@ const useEditOptionValue = option => {
             shortName,
             serviceIDs,
         };
+
+        if (!serviceIDs.length) {
+            return setServicesError(true);
+        }
 
         if (pinOptionType.hasCosting && costMeasurementType) {
             const anyIncompletePriceBreaks = measurementPriceBreaks.some(priceBreak => {
@@ -232,6 +246,8 @@ const useEditOptionValue = option => {
         setError,
         isMeasurementNotModified,
         isNotModified,
+        handleServicesChange,
+        servicesError,
     };
 };
 

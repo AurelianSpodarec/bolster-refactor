@@ -3428,5 +3428,11 @@ input {
   padding: 10px;
 }
 
+.error-asterisk {
+  font-size: 160%;
+  color: var(--negative-default);
+  margin-right: 5px;
+}
+
 // mobile
 @import './dashboard-mobile.scss';

@@ -565,13 +565,16 @@ button {
         // negative ambient
         &[data-ambient="negative"] {
             color: var(--negative-default);
+
+            &.bordered {
+                border-color: var(--negative-default);
+            }
         }
     }
 
     &.transparent {
         background-color: transparent!important;
         color: var(--typography-default)!important;;
-
     }
 }
 

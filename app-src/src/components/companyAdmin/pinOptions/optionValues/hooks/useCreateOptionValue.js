@@ -16,9 +16,11 @@ import {
 import { selectPinOptionType } from 'selectors/companyAdmin/pinOptionTypes';
 
 import useUpdatePriceBreaks from './useUpdatePriceBreaks';
+import useGetAvailableServices from './useGetAvailableServices';
 
 const useCreateOptionValue = (pinOptionTypeID, pinOptionSetID) => {
     const [error, setError] = useState(null);
+    const [servicesError, setServicesError] = useState(false);
 
     const dispatch = useDispatch();
     const isPosting = useSelector(selectPinOptionsIsPosting);
@@ -53,16 +55,24 @@ const useCreateOptionValue = (pinOptionTypeID, pinOptionSetID) => {
     const { handlePriceBreakChange, handleAddPriceBreak, handleRemovePriceBreak } =
         useUpdatePriceBreaks(form, handleChange, disableAdd);
 
+    const serviceOptions = useGetAvailableServices(pinOptionSetID);
+
     const handleSubmit = () => {
         const { name, shortName, serviceIDs, measurementType, measurementPriceBreaks } = form;
 
-        const postBody = {
+        let postBody = {
             name,
             shortName,
             serviceIDs,
             pinOptionTypeID,
             pinOptionSetID,
         };
+
+        if (serviceOptions.length === 1) {
+            postBody = { ...postBody, serviceIDs: [serviceOptions[0].value] };
+        } else if (serviceOptions.length > 1 && !form.serviceIDs.length) {
+            return setServicesError(true);
+        }
 
         if (pinOptionType.hasCosting && measurementType) {
             const anyIncompletePriceBreaks = measurementPriceBreaks.some(
@@ -95,6 +105,15 @@ const useCreateOptionValue = (pinOptionTypeID, pinOptionSetID) => {
         }
 
         dispatch(createPinOptionValue(postBody));
+    };
+
+    const handleServicesChange = (name, value) => {
+        if (servicesError) {
+            setServicesError(false);
+            handleChange(name, value);
+        } else {
+            handleChange(name, value);
+        }
     };
 
     // only one measurement entry needed for fixed price
@@ -136,6 +155,8 @@ const useCreateOptionValue = (pinOptionTypeID, pinOptionSetID) => {
         error,
         setError,
         isNotModified,
+        servicesError,
+        handleServicesChange,
     };
 };
 

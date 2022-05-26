@@ -11,21 +11,32 @@ import ButtonMultiDropdown from 'components/shared/filters/ButtonMultiDropdown';
 import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
 
 const EditOptionSetModal = ({ set }) => {
-    const { form, handleChange, handleSubmit, isPosting, serviceOptions } = useEditOptionSet(set);
+    const {
+        form,
+        handleChange,
+        handleSubmit,
+        isPosting,
+        serviceOptions,
+        servicesError,
+        handleServicesChange,
+    } = useEditOptionSet(set);
 
     return (
         <FlexModalOuter
             title={`Edit ${set.name}`}
             headingChildren={
-                <ButtonMultiDropdown
-                    buttonText="Services"
-                    name="serviceIDs"
-                    options={serviceOptions}
-                    selectedOptions={form.serviceIDs}
-                    handleChange={handleChange}
-                    isNumberValues
-                    scrollElementID="modal-block"
-                />
+                serviceOptions.length > 1 && (
+                    <ButtonMultiDropdown
+                        buttonText="Services"
+                        name="serviceIDs"
+                        options={serviceOptions}
+                        selectedOptions={form.serviceIDs}
+                        handleChange={handleServicesChange}
+                        isNumberValues
+                        scrollElementID="modal-block"
+                        error={servicesError}
+                    />
+                )
             }
         >
             <Form onSubmit={handleSubmit} className="generic-form flex-content-wrapper size-lg-12">
@@ -49,7 +60,7 @@ const EditOptionSetModal = ({ set }) => {
                         icon={isPosting ? 'spinner' : 'save'}
                         iconSpin={isPosting}
                         ambient="positive"
-                        disabled={isPosting}
+                        disabled={isPosting || servicesError}
                         type="submit"
                     />
                 </ButtonWrapper>
