@@ -221,7 +221,6 @@ function setsReducer(state = {}, action) {
         case SET_OPTION_SET_AS_HIDDEN_FAILURE:
         case SET_OPTION_SET_AS_NOT_HIDDEN_SUCCESS:
         case SET_OPTION_SET_AS_NOT_HIDDEN_FAILURE:
-        case QUICK_EDIT_OPTION_SET_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
         case SET_OPTION_SET_AS_DEFAULT_FAILURE:
             return updateObjDefaultOnFailure(state, action.newDefaultSet, action.oldDefaultSet);
