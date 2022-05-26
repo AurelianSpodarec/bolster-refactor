@@ -144,7 +144,6 @@ const OptionValuesListItem = ({
                                                       dispatch(setPinOptionValueAsNotHidden(option))
                                                 : () => dispatch(setPinOptionValueAsHidden(option))
                                         }
-                                        isNegative
                                     />
                                 )}
                             </ActionMenu>
