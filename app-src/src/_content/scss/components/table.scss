@@ -496,6 +496,10 @@
     float: left;
     width: 27%;
 
+    &.sites-search {
+      width: 40%;
+    }
+
     input {
       padding: {
         top: 8px;

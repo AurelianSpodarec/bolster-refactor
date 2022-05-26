@@ -7,12 +7,11 @@ import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 import { ACCESS_TYPES_VALUES, DEFAULT_SITES_SORT } from 'constants/companyAdmin/enums';
 
-import { ADD_SITE, ERROR_MODAL } from 'constants/shared/modalTypes';
+import { ERROR_MODAL } from 'constants/shared/modalTypes';
 
 import SitesTable from '../presentational/SitesTable';
 import { hierarchySort } from 'helpers/generic';
 import updateHierarchyAddState from 'actions/companyAdmin/hierarchy/sync/updateHierarchyAddState';
-import updateSitesFilters from 'actions/companyAdmin/sites/sync/updateSitesFilters';
 import postSitesSort from 'actions/companyAdmin/sites/async/postSitesSort';
 import setHierarchyIsSorting from 'actions/companyAdmin/hierarchy/sync/setHierarchyIsSorting';
 
@@ -26,7 +25,6 @@ class SitesTableContainer extends Component {
                 items={this._getFilteredSites()}
                 isFetching={isFetching}
                 error={error}
-                toggleIsSortingSites={this.toggleIsSortingSites}
                 postSitesSort={this.postSitesSort}
             />
         );
@@ -128,16 +126,6 @@ class SitesTableContainer extends Component {
         }
     };
 
-    toggleIsSortingSites = e => {
-        e.preventDefault();
-
-        const { updateSitesFilters, setHierarchyIsSorting, isSorting } = this.props;
-        setHierarchyIsSorting(!isSorting);
-        updateSitesFilters('name', '');
-        updateSitesFilters('status', '');
-        updateSitesFilters('sortBy', DEFAULT_SITES_SORT.CUSTOM);
-    };
-
     postSitesSort = () => {
         this.props.postSitesSort(this.props.sites);
     };
@@ -164,7 +152,6 @@ const mapDispatchToProps = {
     showModal,
     hideModal,
     updateHierarchyAddState,
-    updateSitesFilters,
     postSitesSort,
     setHierarchyIsSorting,
 };

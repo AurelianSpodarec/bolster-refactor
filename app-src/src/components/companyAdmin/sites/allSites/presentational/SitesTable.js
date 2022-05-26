@@ -3,10 +3,7 @@ import React from 'react';
 import Table from 'components/shared/generic/tables/presentational/Table';
 import SitesList from './SitesList';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import withDropZone from 'components/shared/dragDrop/hocs/withDropZone';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 
 const SitesTable = ({
     headers,
@@ -15,35 +12,10 @@ const SitesTable = ({
     error,
     forwardRef,
     isSorting,
-    toggleIsSortingSites,
     postSitesSort,
 }) => {
     return (
         <BlockContainer>
-            <BlockHeading title="Sites" classes="w-table">
-                <ButtonWrapper alignment="right">
-                    {isSorting ? (
-                        <ActionButton
-                            onClick={toggleIsSortingSites}
-                            icon="far fa-check"
-                            text="Finish Sort"
-                            ambient="positive"
-                            source="secondary"
-                            size="medium"
-                        />
-                    ) : (
-                        <ActionButton
-                            onClick={toggleIsSortingSites}
-                            icon="far fa-sort"
-                            text="Sort Mode"
-                            source="secondary"
-                            ambient="positive"
-                            size="medium"
-                        />
-                    )}
-                </ButtonWrapper>
-            </BlockHeading>
-
             <Table
                 withActions
                 headers={headers}
