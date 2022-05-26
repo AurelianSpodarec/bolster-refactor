@@ -16,6 +16,7 @@ const ButtonMultiDropdown = ({
     handleChange = () => {},
     isNumberValues,
     scrollElementID,
+    error = null,
 }) => {
     const [showList, setShowList] = useState(false);
 
@@ -38,12 +39,14 @@ const ButtonMultiDropdown = ({
 
     return (
         <>
+            {error && <p className="error-asterisk">*</p>}
             <ActionButton
                 text={buttonText}
                 source="secondary"
-                ambient="positive"
+                ambient={error ? 'negative' : 'positive'}
                 onClick={() => setShowList(!showList)}
                 forwardRef={buttonRef}
+                extraClasses="bordered"
             />
 
             <div
