@@ -27,19 +27,25 @@ const useCreateOptionValue = (pinOptionTypeID, pinOptionSetID) => {
 
     const pinOptionType = useSelector(state => selectPinOptionType(state, pinOptionTypeID));
 
-    const prevProps = usePrevious({ postError, postSuccess });
+    const initialPriceBreaks = [
+        {
+            value: '',
+            cost: '',
+        },
+    ];
 
     const [form, handleChange] = useForm({
         name: '',
         shortName: '',
         serviceIDs: [],
         measurementType: null,
-        measurementPriceBreaks: [
-            {
-                value: '',
-                cost: '',
-            },
-        ],
+        measurementPriceBreaks: initialPriceBreaks,
+    });
+
+    const prevProps = usePrevious({
+        postError,
+        postSuccess,
+        measurementType: form.measurementType,
     });
 
     const disableAdd = +form.measurementType === MEASUREMENT_TYPES.FIXED;
@@ -99,6 +105,13 @@ const useCreateOptionValue = (pinOptionTypeID, pinOptionSetID) => {
             handleChange('measurementPriceBreaks', measurementFields);
         }
     }, [form.measurementType]);
+
+    // reset price breaks when deselecting measurement unit
+    useEffect(() => {
+        if (!form.measurementType && prevProps.measurementType) {
+            handleChange('measurementPriceBreaks', initialPriceBreaks);
+        }
+    }, [form.measurementType, prevProps.measurementType]);
 
     useEffect(() => {
         if (postError && !prevProps.postError) dispatch(showModal(ERROR_MODAL));
