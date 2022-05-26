@@ -53,6 +53,7 @@ const CartReportForm = ({ cAndEPostBody }) => {
         projectName: reportFormData.projectName,
         projectDescription: reportFormData.projectDescription,
         clientName: reportFormData.clientName,
+        generateCSV: reportFormData.generateCSV,
     };
 
     const handleSubmit = () => {
