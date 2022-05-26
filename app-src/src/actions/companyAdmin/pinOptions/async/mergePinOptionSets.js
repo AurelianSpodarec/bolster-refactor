@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import { API_URL } from 'config';
-import { getHeaders } from 'helpers/api';
+import { getHeaders, handleErrors } from 'helpers/api';
 import {
     MERGE_PIN_OPTION_SETS_REQUEST,
     MERGE_PIN_OPTION_SETS_SUCCESS,
@@ -29,5 +29,7 @@ export default (mergedSetID, postBody) => async dispatch => {
     return axios
         .post(`${API_URL}/pinoptions/sets/merge`, postBody, getHeaders())
         .then(res => dispatch(mergePinOptionSetsSuccess(mergedSetID, res.data)))
-        .catch(err => dispatch(mergePinOptionSetsFailure(err.message)));
+        .catch(err => {
+            dispatch(handleErrors(mergePinOptionSetsFailure)(err));
+        });
 };
