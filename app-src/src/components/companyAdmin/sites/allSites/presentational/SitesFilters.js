@@ -1,9 +1,9 @@
 import React from 'react';
 
 import Search from 'components/shared/generic/form/presentational/Search';
-import Select from 'components/shared/generic/form/presentational/Select';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import ButtonDropdown from 'components/shared/filters/ButtonDropdown';
 
 const SitesListFilters = ({
     name,
@@ -27,23 +27,31 @@ const SitesListFilters = ({
                 />
                 <div className="table-filter">
                     <p>Filter by status:</p>
-                    <Select
-                        placeholder="All sites"
-                        name="status"
-                        options={statusOptions}
-                        value={selectedStatus}
-                        onChange={handleChange}
-                    />
+                    <ButtonWrapper alignment="right">
+                        <ButtonDropdown
+                            buttonText="All Sites"
+                            name="status"
+                            options={statusOptions}
+                            value={selectedStatus}
+                            handleChange={handleChange}
+                            isNumberValues
+                            scrollElementID="modal-block"
+                        />
+                    </ButtonWrapper>
                 </div>
                 <div className="table-filter">
                     <p>Sort by:</p>
-                    <Select
-                        name="sortBy"
-                        options={sortOptions}
-                        value={selectedSort}
-                        onChange={handleChange}
-                        omitPlaceholder
-                    />
+                    <ButtonWrapper alignment="right">
+                        <ButtonDropdown
+                            buttonText="Sort by"
+                            name="sortBy"
+                            options={sortOptions}
+                            value={selectedSort}
+                            handleChange={handleChange}
+                            isNumberValues
+                            scrollElementID="modal-block"
+                        />
+                    </ButtonWrapper>
                 </div>
                 <div className="table-filter">
                     <p>Sort Mode: </p>
@@ -55,7 +63,6 @@ const SitesListFilters = ({
                                 text="Finish Sort"
                                 ambient="positive"
                                 source="secondary"
-                                size="medium"
                             />
                         ) : (
                             <ActionButton
@@ -64,7 +71,6 @@ const SitesListFilters = ({
                                 text="Sort Mode"
                                 source="secondary"
                                 ambient="positive"
-                                size="medium"
                             />
                         )}
                     </ButtonWrapper>
@@ -100,24 +106,28 @@ const SitesListFilters = ({
                         />
                     )}
                     <div style={{ marginLeft: '1em' }}>
-                        <Select
-                            placeholder="All sites"
+                        <ButtonDropdown
+                            buttonText="All Sites"
                             name="status"
                             options={statusOptions}
                             value={selectedStatus}
-                            onChange={handleChange}
+                            handleChange={handleChange}
+                            isNumberValues
+                            scrollElementID="modal-block"
+                            size="medium"
                         />
-                        {/* <p>Filter by status:</p> */}
                     </div>
                     <div style={{ marginLeft: '1em' }}>
-                        <Select
+                        <ButtonDropdown
+                            buttonText="Sort by"
                             name="sortBy"
                             options={sortOptions}
                             value={selectedSort}
-                            onChange={handleChange}
-                            omitPlaceholder
+                            handleChange={handleChange}
+                            isNumberValues
+                            scrollElementID="modal-block"
+                            size="medium"
                         />
-                        {/* <p>Sort by:</p> */}
                     </div>
                 </ButtonWrapper>
             </>
