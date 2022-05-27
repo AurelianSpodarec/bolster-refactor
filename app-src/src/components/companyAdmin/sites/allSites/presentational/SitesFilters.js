@@ -20,8 +20,9 @@ const SitesListFilters = ({
                 <Search
                     value={name}
                     name="name"
-                    placeholder="Search by site name..."
+                    placeholder="Search"
                     handleChange={handleChange}
+                    hideIcon
                 />
                 <div className="table-filter">
                     <p>Filter by status:</p>
@@ -65,9 +66,10 @@ const SitesListFilters = ({
                 <Search
                     value={name}
                     name="name"
-                    placeholder="Search by site name..."
+                    placeholder="Search"
                     handleChange={handleChange}
                     className="sites-search"
+                    hideIcon
                 />
                 <ButtonWrapper alignment="right">
                     <div style={{ marginRight: '1em' }}>

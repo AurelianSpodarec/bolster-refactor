@@ -17,7 +17,7 @@ const SitesTable = ({
     sortName,
 }) => {
     return (
-        <BlockContainer>
+        <BlockContainer contentClass="content-stroke no-bottom-spacing">
             <Table
                 withActions
                 headers={headers}
