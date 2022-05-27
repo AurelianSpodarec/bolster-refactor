@@ -11,8 +11,6 @@ const SitesListFilters = ({
     selectedStatus,
     handleChange,
     onMobile,
-    sortOptions,
-    selectedSort,
     isSorting,
     toggleIsSortingSites,
 }) => (
@@ -33,20 +31,6 @@ const SitesListFilters = ({
                             name="status"
                             options={statusOptions}
                             value={selectedStatus}
-                            handleChange={handleChange}
-                            isNumberValues
-                            scrollElementID="modal-block"
-                        />
-                    </ButtonWrapper>
-                </div>
-                <div className="table-filter">
-                    <p>Sort by:</p>
-                    <ButtonWrapper alignment="right">
-                        <ButtonDropdown
-                            buttonText="Sort by"
-                            name="sortBy"
-                            options={sortOptions}
-                            value={selectedSort}
                             handleChange={handleChange}
                             isNumberValues
                             scrollElementID="modal-block"
@@ -92,18 +76,6 @@ const SitesListFilters = ({
                             name="status"
                             options={statusOptions}
                             value={selectedStatus}
-                            handleChange={handleChange}
-                            isNumberValues
-                            scrollElementID="modal-block"
-                            size="medium"
-                        />
-                    </div>
-                    <div style={{ marginRight: '1em' }}>
-                        <ButtonDropdown
-                            buttonText="Sort by"
-                            name="sortBy"
-                            options={sortOptions}
-                            value={selectedSort}
                             handleChange={handleChange}
                             isNumberValues
                             scrollElementID="modal-block"

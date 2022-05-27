@@ -7,13 +7,11 @@ import setHierarchyIsSorting from 'actions/companyAdmin/hierarchy/sync/setHierar
 import { companyAdminSitesSort } from 'constants/shared/sortAndFilterOptions';
 
 import SitesFilters from '../presentational/SitesFilters';
-import { DEFAULT_SITES_SORT_NAMES, DEFAULT_SITES_SORT } from 'constants/companyAdmin/enums';
-import { enumFormat } from 'helpers/generic';
 
 class SitesFiltersContainer extends Component {
     render() {
         const { isSorting } = this.props;
-        const { name, status, sortBy } = this.props.filters;
+        const { name, status } = this.props.filters;
         const { statusOptions } = companyAdminSitesSort;
 
         return (
@@ -21,8 +19,6 @@ class SitesFiltersContainer extends Component {
                 name={name}
                 statusOptions={Object.values(statusOptions)}
                 selectedStatus={status}
-                sortOptions={enumFormat(DEFAULT_SITES_SORT_NAMES)}
-                selectedSort={sortBy}
                 handleChange={this.handleChange}
                 onMobile={this.props.onMobile}
                 isSorting={isSorting}
@@ -32,11 +28,10 @@ class SitesFiltersContainer extends Component {
     }
 
     componentDidMount = () => {
-        const { updateSitesFilters, defaultSitesSort } = this.props;
+        const { updateSitesFilters } = this.props;
 
         updateSitesFilters('name', '');
         updateSitesFilters('status', 'active');
-        updateSitesFilters('sortBy', defaultSitesSort || 1);
     };
 
     handleChange = (name, value) => {
@@ -50,7 +45,6 @@ class SitesFiltersContainer extends Component {
         setHierarchyIsSorting(!isSorting);
         updateSitesFilters('name', '');
         updateSitesFilters('status', '');
-        updateSitesFilters('sortBy', DEFAULT_SITES_SORT.CUSTOM);
     };
 }
 
