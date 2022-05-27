@@ -3,8 +3,9 @@
   display: flex;
   align-items: center;
   width: 100%;
-  background-color: var(--input-secondary);
-  @include rounded-all(21px);
+  background-color: transparent;
+  border: 1.5px solid var(--typography-greyed-out);
+  @include rounded-all(8px);
 
   &.header-nav {
     input {
