@@ -269,6 +269,11 @@
     font-size: 14px;
     @include ubuntu-medium;
     padding-top: 0;
+
+    .sort-icon {
+      margin-left: 5px;
+      font-size: 12px;
+    }
   }
 
   td {

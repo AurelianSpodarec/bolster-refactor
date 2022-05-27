@@ -6,6 +6,7 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 import { ACCESS_TYPES_VALUES, DEFAULT_SITES_SORT } from 'constants/companyAdmin/enums';
+import { TABLE_SORT_DIRECTIONS } from 'constants/shared/tables';
 
 import { ERROR_MODAL } from 'constants/shared/modalTypes';
 
@@ -15,17 +16,75 @@ import updateHierarchyAddState from 'actions/companyAdmin/hierarchy/sync/updateH
 import postSitesSort from 'actions/companyAdmin/sites/async/postSitesSort';
 import setHierarchyIsSorting from 'actions/companyAdmin/hierarchy/sync/setHierarchyIsSorting';
 
+const { ASC, DESC } = TABLE_SORT_DIRECTIONS;
+const columnNames = ['Site name', 'Client', 'Created on', 'Owned by', 'Permissions', ''];
 class SitesTableContainer extends Component {
+    state = {
+        sortFunc: null,
+        sortDirection: null,
+        sortName: null,
+    };
+
     render() {
+        const { sortDirection, sortName } = this.state;
         const { isFetching, error, isSorting } = this.props;
+
+        const columns = [
+            {
+                key: 1,
+                name: columnNames[0],
+                onClick: () => {
+                    const sortFunc = (a, b) => a.name.localeCompare(b.name);
+                    this.updateSortFunc(sortFunc, columnNames[0]);
+                },
+            },
+            {
+                key: 2,
+                name: columnNames[1],
+                onClick: () => {
+                    const sortFunc = (a, b) => a.client.localeCompare(b.client);
+                    this.updateSortFunc(sortFunc, columnNames[1]);
+                },
+            },
+            {
+                key: 3,
+                name: columnNames[2],
+                onClick: () => {
+                    const sortFunc = (a, b) =>
+                        new Date(a.createdOn).getTime() - new Date(b.createdOn).getTime();
+                    this.updateSortFunc(sortFunc, columnNames[2]);
+                },
+            },
+            {
+                key: 4,
+                name: columnNames[3],
+                onClick: () => {
+                    const sortFunc = (a, b) => a.ownerCompanyName.localeCompare(b.ownerCompanyName);
+                    this.updateSortFunc(sortFunc, columnNames[3]);
+                },
+            },
+            {
+                key: 5,
+                name: columnNames[4],
+                onClick: null,
+            },
+            {
+                key: 6,
+                name: columnNames[5],
+                onClick: null,
+            },
+        ];
+
         return (
             <SitesTable
                 isSorting={isSorting}
-                headers={['Site name', 'Client', 'Created on', 'Owned by', 'Permissions', '']}
+                headers={columns}
                 items={this._getFilteredSites()}
                 isFetching={isFetching}
                 error={error}
                 postSitesSort={this.postSitesSort}
+                sortDirection={sortDirection}
+                sortName={sortName}
             />
         );
     }
@@ -89,11 +148,12 @@ class SitesTableContainer extends Component {
     };
 
     _getSortedSites = sites => {
+        const { sortFunc, sortDirection } = this.state;
         const {
             isSorting,
             filters: { sortBy },
         } = this.props;
-        const { CUSTOM, DATE_ASC, DATE_DESC, NAME_ASC, NAME_DESC } = DEFAULT_SITES_SORT;
+        const { DATE_ASC, DATE_DESC, NAME_ASC, NAME_DESC } = DEFAULT_SITES_SORT;
         const dateKeys = [DATE_DESC, DATE_ASC];
         const nameKeys = [NAME_ASC, NAME_DESC];
         // eslint-disable-next-line
@@ -107,7 +167,15 @@ class SitesTableContainer extends Component {
         const order = descKeys.includes(+sortBy) ? 'desc' : 'asc';
 
         // default sort order as per api
-        if (+sortBy === CUSTOM || isSorting) return sites.sort(hierarchySort);
+        if (isSorting) return sites.sort(hierarchySort);
+
+        if (sortFunc) {
+            if (sortDirection === DESC) {
+                return sites.sort(sortFunc).reverse();
+            }
+
+            return sites.sort(sortFunc);
+        }
 
         if (order === 'desc') {
             if (key === 'createdOn') {
@@ -128,6 +196,22 @@ class SitesTableContainer extends Component {
 
     postSitesSort = () => {
         this.props.postSitesSort(this.props.sites);
+    };
+
+    updateSortFunc = (sort, name) => {
+        const { sortDirection } = this.state;
+
+        if (sortDirection === ASC) {
+            this.setState({ sortFunc: sort, sortDirection: DESC, sortName: name });
+            return;
+        }
+
+        if (sortDirection === DESC) {
+            this.setState({ sortFunc: null, sortDirection: null, sortName: null });
+            return;
+        }
+
+        this.setState({ sortFunc: sort, sortDirection: ASC, sortName: name });
     };
 }
 

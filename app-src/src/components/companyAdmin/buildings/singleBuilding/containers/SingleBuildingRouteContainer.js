@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { BUILDING_TABS } from 'constants/shared/tabNames';
 import BuildingGeneralOverview from '../presentational/BuildingGeneralOverview';
 import HierarchyAdvancedReport from 'components/companyAdmin/reports/createReport/components/presentational/HierarchyAdvancedReport';
-import CostingAndEstimating from '../../../costingAndEstimating/CostingAndEstimating';
 import Costing from '../../../costingAndEstimating/Costing';
 import Estimating from '../../../costingAndEstimating/Estimating';
 
