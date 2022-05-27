@@ -3,7 +3,6 @@ import React from 'react';
 import { FILE_STORAGE_URL } from 'config';
 import RedPin from '_content/images/map-markers/red-pin2x.png';
 
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import ActionButton from '../../button/presentational/ActionButton';
 import FlexModalOuter from './FlexModalOuter';
 import ButtonWrapper from '../../button/presentational/ButtonWrapper';

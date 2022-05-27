@@ -19,8 +19,6 @@ import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 const LoginFormContainer = ({
     showModal,
-    addFieldError,
-    showFieldErrors,
     fetchCompanySettings,
     postLogin,
     postSuccess,

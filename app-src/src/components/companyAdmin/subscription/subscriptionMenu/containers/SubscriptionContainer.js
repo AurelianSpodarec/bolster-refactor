@@ -9,7 +9,6 @@ import fetchAllInvoices from 'actions/companyAdmin/invoices/async/fetchAllInvoic
 import fetchAllCards from 'actions/companyAdmin/cards/async/fetchAllCards';
 import fetchAllCredits from 'actions/companyAdmin/credits/fetchAllCredits';
 import fetchCostOfCredits from 'actions/companyAdmin/credits/fetchCostOfCredits';
-import { isEmpty } from '../../../../../helpers/generic';
 import { getDecodedJWT } from '../../../../../helpers/api';
 
 class SubscriptionContainer extends Component {

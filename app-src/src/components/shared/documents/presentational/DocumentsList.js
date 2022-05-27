@@ -5,7 +5,6 @@ import DeleteDocumentContainer from '../containers/DeleteDocumentContainer';
 import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
-import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 
 const DocumentsList = ({
     documents,

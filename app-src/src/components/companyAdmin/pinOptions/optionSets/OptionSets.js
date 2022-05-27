@@ -1,8 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { ReactComponent as SortAscIcon } from '_content/images/icons/sort-asc.svg';
-
 import { isEmpty } from 'helpers/generic';
 
 import { selectPinOptionType } from 'selectors/companyAdmin/pinOptionTypes';

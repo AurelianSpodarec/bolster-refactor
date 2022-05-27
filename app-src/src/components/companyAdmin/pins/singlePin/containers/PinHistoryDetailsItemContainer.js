@@ -24,6 +24,7 @@ class PinHistoryDetailsItemContainer extends Component {
             loggedInCompanyID,
             historyPinTask,
             company,
+            templateVersions,
         } = this.props;
 
         const editedByUser = users[history.lastEditedByCompanyUserID];
@@ -31,8 +32,10 @@ class PinHistoryDetailsItemContainer extends Component {
             ? `${editedByUser.userFirstName} ${editedByUser.userLastName}`
             : null;
 
-        const template = pin ? templates[pin.templateID] : null;
-        const templateName = template ? template.name : null;
+        const historyTemplateVersion = templateVersions[history.templateVersionID];
+        const historyTemplateID = historyTemplateVersion?.templateID;
+        const historyTemplate = templates[historyTemplateID];
+        const templateName = historyTemplate ? historyTemplate.name : null;
 
         const historyCreatedByCompanyID = history.createdByCompanyID;
 
@@ -95,6 +98,7 @@ const mapStateToProps = (
             pinsReducer: { singlePin, isFetching: isFetchingPin },
             companyUsersReducer: { users, isFetching: isFetchingUsers },
             templatesReducer: { pinTemplates, isFetching: isFetchingTemplate },
+            templateVersionsReducer: { versions },
             pinTasksReducer: { singlePinTasks },
             companySettingsReducer: { companySettings },
         },
@@ -114,6 +118,7 @@ const mapStateToProps = (
             pinTask => pinTask.actionedByPinHistoryID === ownProps.history.id,
         ) || null,
     company: companySettings,
+    templateVersions: versions,
 });
 
 const mapDispatchToProps = {

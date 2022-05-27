@@ -52,7 +52,7 @@ class FilterFieldsModalContainer extends Component {
     }
 
     componentDidMount = () => {
-        const { field } = this.props;
+        const { field, fetchAllOptionValues } = this.props;
         // add an option if none exist, makes modal reusable for edit
         if (field) {
             const { selectedQuestions, questionValues, selectedValues, exactMatch } = field;
@@ -66,6 +66,7 @@ class FilterFieldsModalContainer extends Component {
         } else {
             this.addFreeFormVal();
         }
+        fetchAllOptionValues();
     };
 
     _showFreeForm = () => {
@@ -175,14 +176,17 @@ class FilterFieldsModalContainer extends Component {
         const options = selectedQuestions
             .map(id => questionsObj[id])
             .filter(q => q && q.options)
-            .map(q => ({ ...q, options: this.formatOptions(q.options) }))
+            .map(q => ({ ...q, options: this.formatOptions(q.options, q.optionType) }))
             .reduce((a, b) => a.concat(b.options), []);
 
         return [...new Set(options)].map(op => ({ label: op, value: op }));
     };
 
     // ? sometimes the options are a stringified array, this will seperate into normal options
-    formatOptions = options => {
+    formatOptions = (
+        options,
+        // optionType
+    ) => {
         const newOptions = [];
         options.forEach(opt => {
             if (/^\[.*\]$/g.test(opt)) {
@@ -200,6 +204,13 @@ class FilterFieldsModalContainer extends Component {
             } else newOptions.push(opt);
         });
         return newOptions;
+        // todo pin option filtering
+        // return newOptions.map(opt => {
+        //     if (optionType === DROPDOWN_OPTION_VALS.installationTypes && optionValues[opt])
+        //         return optionValues[opt].name;
+        //     // Check for Installation type and look up redux
+        //     else return opt;
+        // });
     };
 
     _getQuestionOptions = () => {
@@ -228,6 +239,7 @@ const mapStateToProps = (
                 fields,
                 customFilters: { questionOptions = [], questions },
             },
+            manufacturersOptionValuesReducer: { manufacturersOptionValues },
         },
     },
     { id },
@@ -235,6 +247,12 @@ const mapStateToProps = (
     field: fields[id],
     questionOptions: convertArrToObj(questionOptions),
     customQuestions: questions,
+    optionValues: Object.values(manufacturersOptionValues).reduce((acc, curr) => {
+        for (const [key, value] of Object.entries(curr)) {
+            acc[key] = value;
+        }
+        return acc;
+    }, {}),
 });
 
 const mapDispatchToProps = {

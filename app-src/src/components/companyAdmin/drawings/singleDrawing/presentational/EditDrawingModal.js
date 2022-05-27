@@ -2,8 +2,6 @@ import React from 'react';
 import fileDownload from 'js-file-download';
 import { connect } from 'react-redux';
 
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';

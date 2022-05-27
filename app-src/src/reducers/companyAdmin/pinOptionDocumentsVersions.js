@@ -7,7 +7,6 @@ import {
     FETCH_PIN_OPTION_DOCUMENTS_VERSIONS_SUCCESS,
     CREATE_PIN_OPTION_DOCUMENT_SUCCESS,
     EDIT_PIN_OPTION_DOCUMENT_SUCCESS,
-    ADMIN_EDIT_OPTION_DOCUMENT_SUCCESS,
 } from 'constants/actionTypes/pinOptionsDocuments';
 
 export default combineReducers({

@@ -2,7 +2,6 @@ import React from 'react';
 import Form from '../../../../shared/generic/form/containers/Form';
 import Field from '../../../../shared/generic/form/presentational/Field';
 import CheckboxContainer from '../../../../shared/generic/form/containers/CheckboxContainer';
-import CheckboxListContainer from '../../../../shared/generic/form/containers/CheckboxListContainer';
 import OptionsPodSetListContainer from 'components/shared/generic/form/containers/OptionPodSetListContainer';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';

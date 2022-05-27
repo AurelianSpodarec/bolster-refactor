@@ -7,7 +7,6 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
-import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import Select from 'components/shared/generic/form/presentational/Select';
