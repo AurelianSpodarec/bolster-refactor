@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectCompanyCurrency } from '../../../../selectors/companyAdmin/companySettings';
 import { CURRENCY_SYMBOLS } from '../../../../constants/companyAdmin/enums';
-import moment from 'moment';
 
 const useCostingAndEstimatingGraph = graph => {
     const colourTheme = useColourTheme();

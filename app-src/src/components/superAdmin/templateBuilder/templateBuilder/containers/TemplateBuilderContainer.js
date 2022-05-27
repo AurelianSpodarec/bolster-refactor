@@ -15,7 +15,6 @@ import fetchTemplateForCompany from 'actions/superAdmin/companies/async/fetchTem
 import deleteTemplate from 'actions/superAdmin/templateBuilder/async/deleteTemplate';
 import fetchPinOptionsForCompany from '../../../../../actions/superAdmin/pinOptions/async/fetchPinOptionsForCompany';
 import fetchPinOptionVersionsForCompany from '../../../../../actions/superAdmin/pinOptions/async/fetchPinOptionVersionsForCompany';
-import fetchPinOptionSets from '../../../../../actions/superAdmin/pinOptions/async/fetchPinOptionSets';
 import fetchPinOptionSetsForCompany from '../../../../../actions/superAdmin/pinOptions/async/fetchPinOptionSetsForCompany';
 
 class TemplateBuilderContainer extends Component {

@@ -5,7 +5,6 @@ import { isEmpty } from 'helpers/generic';
 import { useForm } from 'helpers/hooks';
 
 import { selectServicesArr } from 'selectors/superAdmin/services';
-import { selectSubscriptions } from 'selectors/companyAdmin/companySubscription';
 
 import useSearch from 'hooks/useSearch';
 import { PIN_OPTIONS_FILTERS_ALL, TOOLTIP_FILTERS_TYPES } from 'constants/companyAdmin/enums';

@@ -6,7 +6,6 @@ import Form from 'components/shared/generic/form/containers/Form';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import ButtonWrapper from '../../../../../shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from '../../../../../shared/generic/button/presentational/ActionButton';
-import { ReactComponent as TrashIcon } from '../../../../../../_content/images/icons/trash.svg';
 
 const EditTemplateQuestionModal = ({
     options,

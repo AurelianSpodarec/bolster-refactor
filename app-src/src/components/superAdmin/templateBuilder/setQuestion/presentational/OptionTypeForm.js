@@ -9,10 +9,7 @@ import { useSelector } from 'react-redux';
 import { selectPinOptionSets } from '../../../../../selectors/superAdmin/pinOptionSets';
 import MultiSelect from '../../../../shared/generic/form/presentational/MultiSelect';
 import { selectPinOptions } from '../../../../../selectors/superAdmin/pinOptions';
-import {
-    selectPinOptionVersions,
-    selectPinOptionVersionsArr,
-} from '../../../../../selectors/superAdmin/pinOptionVersions';
+import { selectPinOptionVersionsArr } from '../../../../../selectors/superAdmin/pinOptionVersions';
 import { getLatestVersionForPinOption } from '../../../../../helpers/pinOptions';
 
 const options = convertEnumToDropdownOptions(PIN_OPTION_TYPES_ENUM);
@@ -20,10 +17,8 @@ const options = convertEnumToDropdownOptions(PIN_OPTION_TYPES_ENUM);
 const OptionTypeForm = ({
     handleInputChange,
     optionType,
-    dropdownOptions = [],
     defaultValue,
     pinOptionSetIDs,
-    serviceID,
     companyID,
 }) => {
     const pinOptionSets = useSelector(selectPinOptionSets);

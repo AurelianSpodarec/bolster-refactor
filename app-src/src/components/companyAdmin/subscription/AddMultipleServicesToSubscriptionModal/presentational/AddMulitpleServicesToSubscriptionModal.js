@@ -1,14 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import RadioButton from 'components/shared/generic/form/presentational/RadioButton';
 import { PAYMENT_IDS } from 'constants/companyAdmin/enums';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import { formatNumber } from 'helpers/generic';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';

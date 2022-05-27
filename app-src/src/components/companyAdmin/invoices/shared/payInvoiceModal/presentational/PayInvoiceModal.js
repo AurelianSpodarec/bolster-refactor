@@ -1,10 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import Form from 'components/shared/generic/form/containers/Form';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import Field from 'components/shared/generic/form/presentational/Field';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
