@@ -49,7 +49,6 @@ class DropdownContainer extends Component {
     componentDidUpdate = ({ selectedOption: prevValue }) => {
         const { selectedOption } = this.props;
         if (selectedOption?.value !== prevValue?.value) {
-            console.log({ selectedOption, prevValue });
             this._validate(selectedOption);
         }
     };
@@ -80,7 +79,6 @@ class DropdownContainer extends Component {
             removeFieldError,
         } = this.props;
         const validateError = validate(value);
-        console.log({ error, validateError });
         if (required && !value) {
             addFieldError(name, 'This is a required field.');
         } else if (validateError && validateError.length) {
