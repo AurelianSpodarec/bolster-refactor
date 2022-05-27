@@ -30,6 +30,7 @@ const SitesTable = ({
                 isSortable
                 sortDirection={sortDirection}
                 sortName={sortName}
+                disabledSort={isSorting}
             >
                 <SitesList
                     forwardRef={forwardRef}

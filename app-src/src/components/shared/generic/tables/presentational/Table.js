@@ -25,6 +25,7 @@ const Table = ({
     isSortable,
     sortDirection,
     sortName,
+    disabledSort,
 }) => {
     return (
         <table className={`generic-table ${withActions ? 'with-actions' : ''} ${extraClasses}`}>
@@ -37,14 +38,17 @@ const Table = ({
                                 key={i}
                                 style={{
                                     width: tableColumnWidths.length ? tableColumnWidths[i] : 'auto',
-                                    cursor: isSortable && header.onClick ? 'pointer' : 'auto',
+                                    cursor:
+                                        isSortable && header.onClick && !disabledSort
+                                            ? 'pointer'
+                                            : 'auto',
                                 }}
-                                onClick={isSortable ? header.onClick : null}
+                                onClick={isSortable && !disabledSort ? header.onClick : null}
                             >
                                 {isSortable ? (
                                     <span>
                                         {header.name}{' '}
-                                        {header.onClick && (
+                                        {header.onClick && !disabledSort && (
                                             <i
                                                 className={`sort-icon fa fa-${
                                                     sortName === header.name &&
