@@ -6,12 +6,10 @@ import FilterFieldsModal from '../presentational/FilterFieldsModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import updateReportFilter from 'actions/companyAdmin/reports/sync/updateReportFilter';
 import updateFilterQuestionField from 'actions/companyAdmin/reports/sync/updateFilterQuestionField';
-import fetchAllOptionValues from 'actions/companyAdmin/manufacturers/async/fetchAllOptionValues';
 import { convertArrToObj } from 'helpers/generic';
 import removeFilterQuestion from 'actions/companyAdmin/reports/sync/removeFilterQuestion';
 import withUpdateOnChange from '../hocs/withUpdateOnChange';
 import { QUESTION_TYPE_NUMBERS as QTN } from 'constants/shared/templateBuilder';
-import { DROPDOWN_OPTION_VALS } from 'constants/companyAdmin/enums';
 
 const questionTypeOptions = [
     { label: 'Free Form', value: 1 },
@@ -172,7 +170,7 @@ class FilterFieldsModalContainer extends Component {
 
     _getValidValueOptions = () => {
         const { selectedQuestions } = this.state;
-        const { customQuestions, optionValues } = this.props;
+        const { customQuestions } = this.props;
         const questionsObj = convertArrToObj(customQuestions);
 
         const options = selectedQuestions
@@ -185,8 +183,10 @@ class FilterFieldsModalContainer extends Component {
     };
 
     // ? sometimes the options are a stringified array, this will seperate into normal options
-    formatOptions = (options, optionType) => {
-        const { optionValues } = this.props;
+    formatOptions = (
+        options,
+        // optionType
+    ) => {
         const newOptions = [];
         options.forEach(opt => {
             if (/^\[.*\]$/g.test(opt)) {
@@ -203,12 +203,14 @@ class FilterFieldsModalContainer extends Component {
                 );
             } else newOptions.push(opt);
         });
-        return newOptions.map(opt => {
-            if (optionType === DROPDOWN_OPTION_VALS.installationTypes && optionValues[opt])
-                return optionValues[opt].name;
-            // Check for Installation type and look up redux
-            else return opt;
-        });
+        return newOptions;
+        // todo pin option filtering
+        // return newOptions.map(opt => {
+        //     if (optionType === DROPDOWN_OPTION_VALS.installationTypes && optionValues[opt])
+        //         return optionValues[opt].name;
+        //     // Check for Installation type and look up redux
+        //     else return opt;
+        // });
     };
 
     _getQuestionOptions = () => {
@@ -258,7 +260,6 @@ const mapDispatchToProps = {
     updateReportFilter,
     updateFilterQuestionField,
     removeFilterQuestion,
-    fetchAllOptionValues,
 };
 
 export default withUpdateOnChange(
