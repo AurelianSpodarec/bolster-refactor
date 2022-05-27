@@ -8,15 +8,15 @@ import useClickOutside from 'hooks/useClickOutside';
 import ActionButton from '../generic/button/presentational/ActionButton';
 import FlexWrapper from '../generic/flexWrapper/FlexWrapper';
 
-const ButtonMultiDropdown = ({
+const ButtonDropdown = ({
     buttonText = '',
     name,
     options = [],
-    selectedOptions = [],
+    value,
     handleChange = () => {},
-    isNumberValues,
     scrollElementID,
-    error = null,
+    size = 'small',
+    closeOnChange = true,
 }) => {
     const [showList, setShowList] = useState(false);
 
@@ -35,18 +35,20 @@ const ButtonMultiDropdown = ({
 
     const listRef = useClickOutside(closeMenu);
 
-    const isAllSelected = options.every(opt => selectedOptions.includes(opt.value));
+    const optionLabels = options.reduce((acc, curr) => {
+        acc[curr.value] = curr.label;
+        return acc;
+    }, {});
 
     return (
         <>
-            {error && <p className="error-asterisk">*</p>}
             <ActionButton
-                text={buttonText}
+                text={value ? optionLabels[value] : buttonText}
                 source="secondary"
-                ambient={error ? 'negative' : 'positive'}
+                ambient="positive"
                 onClick={() => setShowList(!showList)}
                 forwardRef={buttonRef}
-                extraClasses="bordered"
+                size={size}
             />
 
             <div
@@ -61,30 +63,29 @@ const ButtonMultiDropdown = ({
                 />
 
                 <div className="list-content">
-                    <button
-                        className="dropdown-list-button"
-                        onClick={() => {
-                            if (isAllSelected) {
-                                _handleDeselectAll();
-                            } else {
-                                _handleSelectAll();
-                            }
-                        }}
-                    >
-                        <span className="text">{isAllSelected ? 'Deselect' : 'Select'} All</span>
-                    </button>
+                    {!!value && (
+                        <button
+                            className="dropdown-list-button"
+                            onClick={() => _handleDeselectAll()}
+                        >
+                            <span className="text">Reset</span>
+                        </button>
+                    )}
 
-                    {options.map(({ text, value, isDisabled }) => {
-                        const isSelected = selectedOptions.includes(value);
+                    {options.map(option => {
+                        const isSelected = value === option.value;
 
                         return (
                             <button
                                 className={`dropdown-list-button ${isSelected ? 'active' : ''}`}
-                                key={value}
-                                onClick={() => _handleChange(value)}
-                                disabled={isDisabled}
+                                key={option.value}
+                                onClick={e => {
+                                    e.preventDefault();
+                                    _handleChange(option.value);
+                                }}
+                                disabled={option.isDisabled}
                             >
-                                <span className="text">{text}</span>
+                                <span className="text">{option.label}</span>
 
                                 {isSelected && (
                                     <FlexWrapper autoWidth align="center">
@@ -100,22 +101,13 @@ const ButtonMultiDropdown = ({
     );
 
     function _handleChange(value) {
-        const formattedValue = isNumberValues ? parseInt(value) : value;
-
-        const updatedValues = selectedOptions.includes(formattedValue)
-            ? selectedOptions.filter(val => formattedValue !== val)
-            : [...selectedOptions, formattedValue];
-        handleChange(name, updatedValues);
-    }
-
-    function _handleSelectAll() {
-        const updatedValues = options.map(opt => opt.value);
-        handleChange(name, updatedValues);
+        handleChange(name, value);
+        if (closeOnChange) closeMenu();
     }
 
     function _handleDeselectAll() {
-        handleChange(name, []);
+        handleChange(name, null);
     }
 };
 
-export default ButtonMultiDropdown;
+export default ButtonDropdown;

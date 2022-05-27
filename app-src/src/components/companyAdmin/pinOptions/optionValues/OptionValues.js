@@ -1,12 +1,14 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import { isEmpty } from 'helpers/generic';
 
+import setPinOptionsTypesSelectedTabID from 'actions/companyAdmin/pinOptions/sync/setPinOptionsTypesSelectedTabID';
 import { selectPinOptionSet } from 'selectors/companyAdmin/pinOptionSets';
 
 import useFetchBatchForOptionValues from './hooks/useFetchBatchForOptionValues';
+import useOptionSetActions from './hooks/useOptionSetActions';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import OptionValuesList from './OptionValuesList';
@@ -15,13 +17,19 @@ import ButtonWrapper from 'components/shared/generic/button/presentational/Butto
 import ActionMenu from 'components/shared/actionMenu/ActionMenu';
 import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import useOptionSetActions from './hooks/useOptionSetActions';
 
 const OptionValues = () => {
+    const dispatch = useDispatch();
     const { isAnyEmpty, isAnyFetching, isAnyErrored, hasFetched } = useFetchBatchForOptionValues();
     const { setID } = useParams();
     const parentSet = useSelector(state => selectPinOptionSet(state, setID));
     const { showQuickEditModal, showEditSetModal } = useOptionSetActions(parentSet);
+
+    useEffect(() => {
+        if (!isEmpty(parentSet)) {
+            dispatch(setPinOptionsTypesSelectedTabID(parentSet.pinOptionTypeID));
+        }
+    }, [parentSet]);
 
     const name = !isEmpty(parentSet) ? parentSet.name : 'Loading...';
 

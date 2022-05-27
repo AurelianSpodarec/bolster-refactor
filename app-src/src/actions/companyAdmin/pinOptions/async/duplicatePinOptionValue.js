@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import { API_URL } from 'config';
-import { getHeaders } from 'helpers/api';
+import { getHeaders, handleErrors } from 'helpers/api';
 import {
     DUPLICATE_PIN_OPTION_VALUE_REQUEST,
     DUPLICATE_PIN_OPTION_VALUE_SUCCESS,
@@ -28,5 +28,7 @@ export default (pinOptionID, postBody) => async dispatch => {
     return axios
         .post(`${API_URL}/pinoptions/options/${pinOptionID}/duplicate`, postBody, getHeaders())
         .then(res => dispatch(duplicatePinOptionValueSuccess(res.data)))
-        .catch(err => dispatch(duplicatePinOptionValueFailure(err.message)));
+        .catch(err => {
+            dispatch(handleErrors(duplicatePinOptionValueFailure)(err));
+        });
 };
