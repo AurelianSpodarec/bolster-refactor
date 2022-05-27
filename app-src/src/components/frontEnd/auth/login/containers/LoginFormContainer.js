@@ -109,16 +109,6 @@ const LoginFormContainer = ({
         const { isSuperAdmin, isCompanyAdmin, companyUserType, companyID, isClientAccess } =
             await authenticate();
 
-        if (+companyUserType === ROLES.OPERATIVE) {
-            localStorage.removeItem('token');
-            addFieldError(
-                'password',
-                'Operatives logins are not permitted to use the desktop site.',
-            );
-            showFieldErrors();
-            return;
-        }
-
         if (+companyUserType === ROLES.OWNER) {
             const { payload, type } = await fetchCompanySettings();
             if (type === FETCH_COMPANY_SETTINGS_SUCCESS) {
