@@ -10,6 +10,7 @@ import { convertArrToObj } from 'helpers/generic';
 import removeFilterQuestion from 'actions/companyAdmin/reports/sync/removeFilterQuestion';
 import withUpdateOnChange from '../hocs/withUpdateOnChange';
 import { QUESTION_TYPE_NUMBERS as QTN } from 'constants/shared/templateBuilder';
+import fetchPinOptions from '../../../../../../actions/companyAdmin/pinOptions/async/fetchPinOptions';
 
 const questionTypeOptions = [
     { label: 'Free Form', value: 1 },
@@ -52,7 +53,7 @@ class FilterFieldsModalContainer extends Component {
     }
 
     componentDidMount = () => {
-        const { field, fetchAllOptionValues } = this.props;
+        const { field, fetchPinOptions } = this.props;
         // add an option if none exist, makes modal reusable for edit
         if (field) {
             const { selectedQuestions, questionValues, selectedValues, exactMatch } = field;
@@ -66,7 +67,8 @@ class FilterFieldsModalContainer extends Component {
         } else {
             this.addFreeFormVal();
         }
-        fetchAllOptionValues();
+
+        fetchPinOptions();
     };
 
     _showFreeForm = () => {
@@ -239,7 +241,6 @@ const mapStateToProps = (
                 fields,
                 customFilters: { questionOptions = [], questions },
             },
-            manufacturersOptionValuesReducer: { manufacturersOptionValues },
         },
     },
     { id },
@@ -247,12 +248,6 @@ const mapStateToProps = (
     field: fields[id],
     questionOptions: convertArrToObj(questionOptions),
     customQuestions: questions,
-    optionValues: Object.values(manufacturersOptionValues).reduce((acc, curr) => {
-        for (const [key, value] of Object.entries(curr)) {
-            acc[key] = value;
-        }
-        return acc;
-    }, {}),
 });
 
 const mapDispatchToProps = {
@@ -260,6 +255,7 @@ const mapDispatchToProps = {
     updateReportFilter,
     updateFilterQuestionField,
     removeFilterQuestion,
+    fetchPinOptions,
 };
 
 export default withUpdateOnChange(
