@@ -29,7 +29,5 @@ export default (mergedSetID, postBody) => async dispatch => {
     return axios
         .post(`${API_URL}/pinoptions/sets/merge`, postBody, getHeaders())
         .then(res => dispatch(mergePinOptionSetsSuccess(mergedSetID, res.data)))
-        .catch(err => {
-            dispatch(handleErrors(mergePinOptionSetsFailure)(err));
-        });
+        .catch(err => dispatch(handleErrors(mergePinOptionSetsFailure)(err)));
 };
