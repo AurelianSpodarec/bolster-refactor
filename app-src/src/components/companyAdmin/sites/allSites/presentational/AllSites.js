@@ -32,7 +32,7 @@ const AllSites = () => {
                 </ButtonWrapper>
             </PageHeading>
 
-            <BlockContainer>
+            <BlockContainer contentClass="content-stroke">
                 <SitesFiltersContainer />
             </BlockContainer>
 

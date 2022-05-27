@@ -83,4 +83,8 @@
     &.background-gradient {
         background: linear-gradient(226.13deg, var(--background-container) 6.92%, var(--background-default) 101.53%);
     }
+
+    &.content-stroke {
+        background-color: var(--background-stroke);
+    }
 }

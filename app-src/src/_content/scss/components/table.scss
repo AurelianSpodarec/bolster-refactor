@@ -135,10 +135,14 @@
         }
       }
     }
+
+    tr {
+      background-color: var(--background-container);
+    }
   }
 
   tr {
-    border-bottom: 2px solid var(--background-stroke);
+    border-bottom: 1.5px solid var(--background-stroke);
     min-height: 43px;
 
     &:last-child {
@@ -205,11 +209,7 @@
           }
 
           td:first-child {
-            padding-left: 60px;
-            padding: {
-              top: 0;
-              bottom: 0;
-            }
+            padding: 0 0 0 60px;
 
             &.table-container {
               padding: 0;
@@ -259,9 +259,11 @@
     }
   }
 
-  th,
+  th {
+    padding: 15px 20px;
+  }
   td {
-    padding: 10px 15px;
+    padding: 20px 20px;
   }
 
   //using pixel font size for indented tables
