@@ -243,16 +243,18 @@ class SitesTableContainer extends Component {
 
     // update sort based on column and current sort direction
     updateSortFunc = (sort, name) => {
-        const { sortDirection } = this.state;
+        const { sortDirection, sortName } = this.state;
 
-        if (sortDirection === ASC) {
-            this.setState({ sortFunc: sort, sortDirection: DESC, sortName: name });
-            return;
-        }
+        if (name === sortName) {
+            if (sortDirection === ASC) {
+                this.setState({ sortDirection: DESC });
+                return;
+            }
 
-        if (sortDirection === DESC) {
-            this.setState({ sortFunc: null, sortDirection: null, sortName: null });
-            return;
+            if (sortDirection === DESC) {
+                this.setState({ sortFunc: null, sortDirection: null, sortName: null });
+                return;
+            }
         }
 
         this.setState({ sortFunc: sort, sortDirection: ASC, sortName: name });
