@@ -4,17 +4,17 @@ import { withRouter } from 'react-router-dom';
 
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
+import setHierarchyIsSorting from 'actions/companyAdmin/hierarchy/sync/setHierarchyIsSorting';
+import updateHierarchyAddState from 'actions/companyAdmin/hierarchy/sync/updateHierarchyAddState';
+import postSitesSort from 'actions/companyAdmin/sites/async/postSitesSort';
 
 import { ACCESS_TYPES_VALUES, DEFAULT_SITES_SORT } from 'constants/companyAdmin/enums';
 import { TABLE_SORT_DIRECTIONS } from 'constants/shared/tables';
-
+import { hierarchySort } from 'helpers/generic';
+import { formatPermissions } from './SitesListItemContainer';
 import { ERROR_MODAL } from 'constants/shared/modalTypes';
 
 import SitesTable from '../presentational/SitesTable';
-import { hierarchySort } from 'helpers/generic';
-import updateHierarchyAddState from 'actions/companyAdmin/hierarchy/sync/updateHierarchyAddState';
-import postSitesSort from 'actions/companyAdmin/sites/async/postSitesSort';
-import setHierarchyIsSorting from 'actions/companyAdmin/hierarchy/sync/setHierarchyIsSorting';
 
 const { ASC, DESC } = TABLE_SORT_DIRECTIONS;
 const columnNames = ['Site name', 'Client', 'Created on', 'Owned by', 'Permissions', ''];
@@ -66,7 +66,15 @@ class SitesTableContainer extends Component {
             {
                 key: 5,
                 name: columnNames[4],
-                onClick: null,
+                onClick: () => {
+                    const sortFunc = (a, b) => {
+                        const aPermissions = formatPermissions(a.permissions, a.accessType);
+                        const bPermissions = formatPermissions(b.permissions, b.accessType);
+
+                        return aPermissions.localeCompare(bPermissions);
+                    };
+                    this.updateSortFunc(sortFunc, columnNames[4]);
+                },
             },
             {
                 key: 6,
