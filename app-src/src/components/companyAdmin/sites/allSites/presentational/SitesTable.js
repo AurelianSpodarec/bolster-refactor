@@ -13,6 +13,8 @@ const SitesTable = ({
     forwardRef,
     isSorting,
     postSitesSort,
+    sortDirection,
+    sortName,
 }) => {
     return (
         <BlockContainer contentClass="content-stroke no-bottom-spacing">
@@ -25,6 +27,10 @@ const SitesTable = ({
                 noDataMessage="No sites to display"
                 withoutTBody
                 extraClasses={`${isSorting ? 'dragging' : ''}`}
+                isSortable
+                sortDirection={sortDirection}
+                sortName={sortName}
+                disabledSort={isSorting}
             >
                 <SitesList
                     forwardRef={forwardRef}
