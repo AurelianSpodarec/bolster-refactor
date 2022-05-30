@@ -18,6 +18,9 @@ import SitesTable from '../presentational/SitesTable';
 
 const { ASC, DESC } = TABLE_SORT_DIRECTIONS;
 const columnNames = ['Site name', 'Client', 'Created on', 'Owned by', 'Permissions', ''];
+
+const nameSortFunc = (a, b) => a.name.localeCompare(b.name);
+const dateSortFunc = (a, b) => new Date(a.createdOn).getTime() - new Date(b.createdOn).getTime();
 class SitesTableContainer extends Component {
     state = {
         sortFunc: null,
@@ -34,8 +37,7 @@ class SitesTableContainer extends Component {
                 key: 1,
                 name: columnNames[0],
                 onClick: () => {
-                    const sortFunc = (a, b) => a.name.localeCompare(b.name);
-                    this.updateSortFunc(sortFunc, columnNames[0]);
+                    this.updateSortFunc(nameSortFunc, columnNames[0]);
                 },
             },
             {
@@ -50,9 +52,7 @@ class SitesTableContainer extends Component {
                 key: 3,
                 name: columnNames[2],
                 onClick: () => {
-                    const sortFunc = (a, b) =>
-                        new Date(a.createdOn).getTime() - new Date(b.createdOn).getTime();
-                    this.updateSortFunc(sortFunc, columnNames[2]);
+                    this.updateSortFunc(dateSortFunc, columnNames[2]);
                 },
             },
             {
@@ -98,8 +98,43 @@ class SitesTableContainer extends Component {
     }
 
     componentDidMount = () => {
-        const { setHierarchyIsSorting } = this.props;
+        const { setHierarchyIsSorting, filters } = this.props;
         setHierarchyIsSorting(false);
+
+        // update sort based on saved filters
+        const { sortBy } = filters;
+        const { DATE_ASC, DATE_DESC, NAME_ASC, NAME_DESC } = DEFAULT_SITES_SORT;
+
+        switch (sortBy) {
+            case DATE_ASC:
+                this.setState({
+                    sortFunc: dateSortFunc,
+                    sortDirection: ASC,
+                    sortName: columnNames[2],
+                });
+                break;
+            case DATE_DESC:
+                this.setState({
+                    sortFunc: dateSortFunc,
+                    sortDirection: DESC,
+                    sortName: columnNames[2],
+                });
+                break;
+            case NAME_ASC:
+                this.setState({
+                    sortFunc: nameSortFunc,
+                    sortDirection: ASC,
+                    sortName: columnNames[0],
+                });
+                break;
+            case NAME_DESC:
+                this.setState({
+                    sortFunc: nameSortFunc,
+                    sortDirection: DESC,
+                    sortName: columnNames[0],
+                });
+                break;
+        }
     };
 
     componentDidUpdate = prevProps => {
@@ -206,6 +241,7 @@ class SitesTableContainer extends Component {
         this.props.postSitesSort(this.props.sites);
     };
 
+    // update sort based on column and current sort direction
     updateSortFunc = (sort, name) => {
         const { sortDirection } = this.state;
 
