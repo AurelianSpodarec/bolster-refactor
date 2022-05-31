@@ -60,7 +60,6 @@ const OptionTypeForm = ({
                         options={setOptions}
                         placeholder="--- select option set ---"
                         onChange={handleInputChange}
-                        required
                     />
                 </Field>
             )}
