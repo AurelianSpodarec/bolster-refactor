@@ -200,7 +200,6 @@ const useEditOptionValue = option => {
     // reset price breaks when deselecting measurement unit
     useEffect(() => {
         if (!form.costMeasurementType && prevProps.costMeasurementType) {
-            console.log('do your thing');
             handleChange('measurementPriceBreaks', initialPriceBreaks);
         }
     }, [form.costMeasurementType, prevProps.costMeasurementType]);
@@ -227,9 +226,13 @@ const useEditOptionValue = option => {
         isMeasurementUnitNotModified &&
         JSON.stringify(form.measurementPriceBreaks) === JSON.stringify(initialPriceBreaks);
 
+    const isShortNameNotModified = latestPinOptionVersion.shortName
+        ? form.shortName === latestPinOptionVersion.shortName
+        : !form.shortName;
+
     const isNotModified =
         form.name === latestPinOptionVersion.name &&
-        form.shortName === latestPinOptionVersion.shortName &&
+        isShortNameNotModified &&
         isServiceIDsNotModified &&
         isMeasurementNotModified;
 
