@@ -98,7 +98,7 @@ export default function (WrappedComponent) {
             let prereqValueOptions = [];
 
             prereqs.forEach(prereq => {
-                const { questionType, optionType, options, name, uuid } = prereq;
+                const { questionType, optionType, options, name, uuid, pinOptionSetIDs } = prereq;
 
                 let curPrereqOptions = [];
 
@@ -110,7 +110,7 @@ export default function (WrappedComponent) {
                         { label: 'False', value: 'false' },
                     ];
                 } else if (optionType) {
-                    curPrereqOptions = this._getPinOptionsByType(optionType);
+                    curPrereqOptions = this._getPinOptionsByType(optionType, pinOptionSetIDs);
                 } else if (options) {
                     curPrereqOptions = options.map(opt => ({
                         label: opt.text,
@@ -147,12 +147,15 @@ export default function (WrappedComponent) {
             }));
         };
 
-        _getPinOptionsByType = optionType => {
+        _getPinOptionsByType = (optionType, pinOptionSetIDs) => {
             const { pinOptions, pinOptionVersions } = this.props;
 
             const optionsWithLatestVersion = Object.values(pinOptions)
                 .filter(opt => !opt.isDeleted && !opt.isDisabled)
                 .filter(opt => opt.pinOptionTypeID === optionType)
+                .filter(
+                    opt => !pinOptionSetIDs?.length || pinOptionSetIDs.includes(opt.pinOptionSetID),
+                )
                 .map(opt => ({
                     ...opt,
                     latestVersion: pinOptionVersions[opt.latestVersionID],
