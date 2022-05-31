@@ -31,6 +31,7 @@ import CompanyTimesheetsRoutes from './CompanyTimesheetsRoutes';
 import FaqsRoutes from './FaqsRoutes';
 import DrawingUploadLog from 'components/superAdmin/drawingUploadLog/DrawingUploadLog';
 import PinOptionsRoutes from './PinOptionsRoutes';
+import PushNotificationsRoutes from './PushNotificationsRoutes';
 
 const AdminRoutes = ({ base = '/admin' }) => (
     <SwitchWith404>
@@ -63,6 +64,7 @@ const AdminRoutes = ({ base = '/admin' }) => (
         <Route path={`${base}/bug-reports`} component={BugReportsRoutes} />
         <Route path={`${base}/company-timesheets`} component={CompanyTimesheetsRoutes} />
         <Route path={`${base}/pin-options`} component={PinOptionsRoutes} />
+        <Route path={`${base}/push-notifications`} component={PushNotificationsRoutes} />
     </SwitchWith404>
 );
 
