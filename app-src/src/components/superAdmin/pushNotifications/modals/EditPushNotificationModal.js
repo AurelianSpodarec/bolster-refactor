@@ -16,9 +16,9 @@ import ButtonWrapper from 'components/shared/generic/button/presentational/Butto
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import DatePickerContainer from 'components/shared/generic/form/containers/DatePickerContainer';
 import Select from 'components/shared/generic/form/presentational/Select';
+import PickListContainer from 'components/shared/generic/form/containers/PickListContainer';
 
 import useEditPushNotification from '../hooks/useEditPushNotification';
-import PickListContainer from 'components/shared/generic/form/containers/PickListContainer';
 
 const CreatePushNotificationModal = ({ notification }) => {
     const { form, handleChange, handleSubmit, isPosting } = useEditPushNotification(notification);

@@ -28,7 +28,7 @@ const PushNotifications = () => {
             </FlexHeading>
             <BlockContainer>
                 <Table
-                    headers={['Title', 'Message', 'Frequency', 'Date', 'Last sent on', '']}
+                    headers={['Title', 'Message', 'Frequency', 'Days', 'Date', 'Last sent on', '']}
                     noData={isEmpty(pushNotifications)}
                     noDataMessage="There are no push notifications to display."
                     isFetching={isFetching}
