@@ -23,7 +23,10 @@ const PushNotificationListItem = ({
         <td>
             <ButtonWrapper alignment="right">
                 <ActionMenu>
-                    <ActionMenuActionButton text="Edit" onClick={handleEditNotification} />
+                    <ActionMenuActionButton
+                        text="Edit"
+                        onClick={() => handleEditNotification(notification)}
+                    />
                     <ActionMenuActionButton
                         text="Delete"
                         onClick={() => handleDeleteNotification(notification)}
