@@ -9,6 +9,7 @@ import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActio
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 
 const PushNotificationListItem = ({
+    notification,
     notification: { title, message, frequency, date, lastSentOn },
     handleEditNotification,
     handleDeleteNotification,
@@ -25,7 +26,7 @@ const PushNotificationListItem = ({
                     <ActionMenuActionButton text="Edit" onClick={handleEditNotification} />
                     <ActionMenuActionButton
                         text="Delete"
-                        onClick={handleDeleteNotification}
+                        onClick={() => handleDeleteNotification(notification)}
                         isNegative
                     />
                 </ActionMenu>
