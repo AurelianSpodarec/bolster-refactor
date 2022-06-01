@@ -32,6 +32,7 @@ import BugReportRoutes from './BugReportRoutes';
 import DocumentLibraryRoutes from './DocumentLibraryRoutes';
 import JobReferencesRoutes from './JobReferencesRoutes';
 import PinOptionsRoutes from './PinOptionsRoutes';
+import PushNotificationsRoutes from './PushNotificationsRoutes';
 // import withTermsAuth from '../../hocs/withTermsAuth';
 
 const CompanyRoutes = ({ base = '/company' }) => (
@@ -75,6 +76,10 @@ const CompanyRoutes = ({ base = '/company' }) => (
             component={withSubscriptionAuth(JobReferencesRoutes)}
         />
         <Route path={`${base}/pin-options`} component={withSubscriptionAuth(PinOptionsRoutes)} />
+        <Route
+            path={`${base}/push-notifications`}
+            component={withSubscriptionAuth(PushNotificationsRoutes)}
+        />
     </SwitchWith404>
 );
 

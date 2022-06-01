@@ -189,6 +189,13 @@ export const companyNavMenuItems = [
                 clientAccessRestriction: false,
             },
             {
+                name: 'Push Notifications',
+                link: '/company/push-notifications',
+                showWhenNotSubscribed: false,
+                paymentRestriction: false,
+                clientAccessRestriction: false,
+            },
+            {
                 name: 'Activity Log',
                 link: '/company/activity-log',
                 showWhenNotSubscribed: false,
