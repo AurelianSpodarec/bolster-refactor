@@ -4,6 +4,8 @@ import { isEmpty } from 'helpers/generic';
 
 import useFetchPushNotifications from './hooks/useFetchPushNotifications';
 import usePushNotificationActions from './hooks/usePushNotificationActions';
+import useFetchCompanyUsers from '../hooks/useFetchCompanyUsers';
+import useFetchSites from '../hooks/useFetchSites';
 
 import Table from 'components/shared/generic/tables/presentational/Table';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
@@ -15,6 +17,9 @@ const PushNotifications = () => {
     const { pushNotifications, isFetching, error } = useFetchPushNotifications();
     const { handleAddNotification, handleEditNotification, handleDeleteNotification } =
         usePushNotificationActions();
+
+    useFetchSites();
+    useFetchCompanyUsers();
 
     return (
         <>
