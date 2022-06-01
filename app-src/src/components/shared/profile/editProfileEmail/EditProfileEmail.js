@@ -22,7 +22,6 @@ const EditProfileEmail = () => {
     const prevProps = usePrevious({ postSuccess, error, shouldShowMergeModal });
     const [{ email, password }, handleChange] = useForm({ email: '', password: '' });
     const handleSubmit = (confirmMerge = false) => {
-        console.log('hello');
         const postBody = { email, password, confirmMerge };
         dispatch(changeProfileEmail(postBody));
     };
