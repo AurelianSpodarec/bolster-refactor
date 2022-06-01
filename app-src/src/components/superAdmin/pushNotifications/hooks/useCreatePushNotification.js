@@ -32,7 +32,7 @@ const useCreatePushNotification = () => {
             target: PUSH_NOTIFICATION_TARGET_VALUES.ALL,
             recurrenceDays:
                 +form.frequency === PUSH_NOTIFICATION_FREQUENCY_VALUES.WEEKLY
-                    ? handleDaysConversion()
+                    ? handleDaysConversion(recurrenceDays)
                     : null,
         };
 

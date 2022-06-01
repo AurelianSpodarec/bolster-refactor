@@ -5,7 +5,7 @@ import {
     PUSH_NOTIFICATION_TARGET_VALUES,
 } from 'constants/shared/enums';
 
-import createPushNotification from 'actions/superAdmin/pushNotifications/async/createPushNotification';
+import editPushNotification from 'actions/superAdmin/pushNotifications/async/editPushNotification';
 import { selectAdminPushNotificationsIsPosting } from 'selectors/superAdmin/pushNotifications';
 
 import { useForm } from 'helpers/hooks';
@@ -36,7 +36,7 @@ const useEditPushNotification = notification => {
                     : null,
         };
 
-        dispatch(createPushNotification(postBody));
+        dispatch(editPushNotification(notification.id, postBody));
     };
 
     return { form, handleChange, handleSubmit, isPosting };
