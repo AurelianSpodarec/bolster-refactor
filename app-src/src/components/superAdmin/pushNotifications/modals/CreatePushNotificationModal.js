@@ -7,18 +7,22 @@ import FlexModalOuter from 'components/shared/generic/modals/presentational/Flex
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 
+import useCreatePushNotification from '../hooks/useCreatePushNotification';
+
 const CreatePushNotificationModal = () => {
+    const { form, handleChange, handleSubmit, isPosting } = useCreatePushNotification();
+
     return (
         <FlexModalOuter title="Create Push Notification">
-            <Form onSubmit={() => {}} className="generic-form flex-content-wrapper size-lg-12">
+            <Form onSubmit={handleSubmit} className="generic-form flex-content-wrapper size-lg-12">
                 <div className="flex-content">
                     <div className="form-fields-container">
-                        <Field name="Name" required>
+                        <Field name="Title" required>
                             <TextInputContainer
-                                name="name"
-                                value=""
-                                handleChange={() => {}}
-                                placeholder="Type name"
+                                name="title"
+                                value={form.title}
+                                handleChange={handleChange}
+                                placeholder="Enter title"
                                 required
                             />
                         </Field>
@@ -28,10 +32,10 @@ const CreatePushNotificationModal = () => {
                 <ButtonWrapper alignment="right" extraClasses="flex-modal-footer">
                     <ActionButton
                         text="Save"
-                        // icon={isPosting ? 'spinner' : 'save'}
-                        // iconSpin={isPosting}
+                        icon={isPosting ? 'spinner' : 'save'}
+                        iconSpin={isPosting}
                         ambient="positive"
-                        // disabled={isPosting}
+                        disabled={isPosting}
                         type="submit"
                     />
                 </ButtonWrapper>
