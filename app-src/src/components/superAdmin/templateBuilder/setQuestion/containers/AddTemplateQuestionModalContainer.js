@@ -3,7 +3,6 @@ import uuid from 'uuid/v1';
 
 import TemplateQuestionFormModal from '../presentational/TemplateQuestionFormModal';
 import withSetQuestion from '../hocs/withSetQuestion';
-import { useParams } from 'react-router-dom';
 
 const AddTemplateQuestionModalContainer = ({
     fields: { questionType, questionTypeOptions, prereqUUIDs, ...fields },
@@ -24,8 +23,7 @@ const AddTemplateQuestionModalContainer = ({
     pinOptions,
     template,
 }) => {
-    const { serviceID } = template;
-    const { companyID } = useParams();
+    const { serviceID, companyID } = template;
 
     return (
         <TemplateQuestionFormModal

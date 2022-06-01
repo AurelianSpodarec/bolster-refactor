@@ -25,7 +25,7 @@ const OptionTypeForm = ({
     const setOptions = Object.values(pinOptionSets)
         .filter(set => !set.isDeleted && !set.isDisabled)
         .filter(set => +optionType === set.pinOptionTypeID)
-        .filter(set => !set.companyID || set.companyID === companyID)
+        .filter(set => !set.companyID || set.companyID === +companyID)
         .map(set => ({ label: set.name, value: set.id }));
 
     const pinOptions = useSelector(selectPinOptions);
