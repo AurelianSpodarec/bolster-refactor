@@ -38,7 +38,10 @@ import pinOptionTypesReducer from './pinOptionTypes';
 import pinOptionVersionsReducer from './pinOptionVersions';
 import pinsReducer from './pins';
 import prelimsReducer from './prelims';
-
+import pinOptionDocumentsReducer from './pinOptionDocuments';
+import pinOptionDocumentsVersionsReducer from './pinOptionDocumentsVersions';
+import pinTasksReducer from './pinTasks';
+import pushNotificationsReducer from './pushNotifications';
 import searchReducer from './search';
 import servicesReducer from './services';
 import recentUpdatesReducer from './recentUpdates';
@@ -67,9 +70,6 @@ import timesheetPinStatsReducer from './timesheetPinStats';
 import userPinFeedsReducer from './userPinFeeds';
 import bugReportsReducer from './bugReports';
 import documentLibraryReducer from './documentLibrary';
-import pinTasksReducer from './pinTasks';
-import pinOptionDocumentsReducer from './pinOptionDocuments';
-import pinOptionDocumentsVersionsReducer from './pinOptionDocumentsVersions';
 
 export default combineReducers({
     activityLogReducer,
@@ -121,6 +121,7 @@ export default combineReducers({
     pinsReducer,
     pinTasksReducer,
     prelimsReducer,
+    pushNotificationsReducer,
     qrCodesReducer,
     recentUpdatesReducer,
     reportsReducer,
