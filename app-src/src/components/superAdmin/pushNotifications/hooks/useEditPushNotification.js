@@ -9,7 +9,7 @@ import createPushNotification from 'actions/superAdmin/pushNotifications/async/c
 import { selectAdminPushNotificationsIsPosting } from 'selectors/superAdmin/pushNotifications';
 
 import { useForm } from 'helpers/hooks';
-import { handleDaysConversion } from 'helpers/generic';
+import { getDaysFromBitMask, handleDaysConversion } from 'helpers/generic';
 
 const useEditPushNotification = notification => {
     const dispatch = useDispatch();
@@ -21,7 +21,7 @@ const useEditPushNotification = notification => {
         message: notification.message,
         date: new Date(notification.date),
         frequency: notification.frequency,
-        recurrenceDays: notification.recurrenceDays ? notification.recurrenceDays : [],
+        recurrenceDays: getDaysFromBitMask(notification.recurrenceDays),
     });
 
     const handleSubmit = () => {

@@ -528,5 +528,22 @@ export function debounce(func, wait, immediate) {
 
 //API takes a bitmask of days of the week https://docs.microsoft.com/en-us/dotnet/api/System.FlagsAttribute?view=net-6.0
 export const handleDaysConversion = (days: number[]) => {
-    return days.reduce((res, item) => res + RECURRENCE_DAYS_VALUES[item], 0);
+    return days.reduce((res, item) => res + item, 0);
+};
+
+export const getDaysFromBitMask = (bitmask: number | null) => {
+    if (!bitmask) return [];
+
+    const { MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY } =
+        RECURRENCE_DAYS_VALUES;
+
+    const hasMon = bitmask & MONDAY;
+    const hasTue = bitmask & TUESDAY;
+    const hasWed = bitmask & WEDNESDAY;
+    const hasThu = bitmask & THURSDAY;
+    const hasFri = bitmask & FRIDAY;
+    const hasSat = bitmask & SATURDAY;
+    const hasSun = bitmask & SUNDAY;
+
+    return [hasMon, hasTue, hasWed, hasThu, hasFri, hasSat, hasSun].filter(val => val);
 };
