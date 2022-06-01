@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import {
     CONFIRM_DELETE,
-    CREATE_ADMIN_PUSH_NOTIFICATION_MODAL,
-    EDIT_ADMIN_PUSH_NOTIFICATION_MODAL,
+    CREATE_PUSH_NOTIFICATION_MODAL,
+    EDIT_PUSH_NOTIFICATION_MODAL,
     ERROR_MODAL,
 } from 'constants/shared/modalTypes';
 import { usePrevious } from 'helpers/hooks';
@@ -26,11 +26,11 @@ const usePushNotificationActions = () => {
     const prevProps = usePrevious({ postError, postSuccess });
 
     const handleAddNotification = () => {
-        dispatch(showModal(CREATE_ADMIN_PUSH_NOTIFICATION_MODAL));
+        dispatch(showModal(CREATE_PUSH_NOTIFICATION_MODAL));
     };
 
     const handleEditNotification = notification => {
-        dispatch(showModal(EDIT_ADMIN_PUSH_NOTIFICATION_MODAL, { notification }));
+        dispatch(showModal(EDIT_PUSH_NOTIFICATION_MODAL, { notification }));
     };
 
     const handleDeleteNotification = notification => {

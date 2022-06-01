@@ -1,13 +1,13 @@
 export const PUSH_NOTIFICATION_TARGET_VALUES = {
     ALL: 1,
     SITE: 2,
-    USER: 3,
+    USERS: 3,
 };
 
 export const PUSH_NOTIFICATION_TARGET_NAMES = {
     1: 'All',
     2: 'Site',
-    3: 'User',
+    3: 'Users',
 };
 
 export const PUSH_NOTIFICATION_FREQUENCY_VALUES = {
