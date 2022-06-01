@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { convertArrToObj } from 'helpers/generic';
+import { convertArrToObj, updateObj } from 'helpers/generic';
 import {
     FETCH_ADMIN_PUSH_NOTIFICATIONS_REQUEST,
     FETCH_ADMIN_PUSH_NOTIFICATIONS_SUCCESS,
@@ -9,6 +9,7 @@ import {
     CREATE_ADMIN_PUSH_NOTIFICATION_SUCCESS,
     CREATE_ADMIN_PUSH_NOTIFICATION_FAILURE,
 } from 'constants/actionTypes/pushNotifications';
+import { SET_API_FIELD_ERRORS } from 'constants/actionTypes/generic';
 
 export default combineReducers({
     pushNotifications: pushNotificationsReducer,
@@ -46,6 +47,8 @@ function pushNotificationsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_ADMIN_PUSH_NOTIFICATIONS_SUCCESS:
             return convertArrToObj(action.payload);
+        case CREATE_ADMIN_PUSH_NOTIFICATION_SUCCESS:
+            return updateObj(state, action.payload.id, action.payload);
         default:
             return state;
     }
@@ -57,6 +60,7 @@ function isPostingReducer(state = false, action) {
             return true;
         case CREATE_ADMIN_PUSH_NOTIFICATION_SUCCESS:
         case CREATE_ADMIN_PUSH_NOTIFICATION_FAILURE:
+        case SET_API_FIELD_ERRORS:
             return false;
         default:
             return state;
