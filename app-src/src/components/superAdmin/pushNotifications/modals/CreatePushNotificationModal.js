@@ -1,6 +1,10 @@
 import React from 'react';
 
-import { PUSH_NOTIFICATION_FREQUENCY_NAMES } from 'constants/shared/enums';
+import {
+    PUSH_NOTIFICATION_FREQUENCY_VALUES,
+    PUSH_NOTIFICATION_FREQUENCY_NAMES,
+    RECURRENCE_DAYS_SHORT_NAMES,
+} from 'constants/shared/enums';
 import { enumFormat } from 'helpers/generic';
 
 import Form from 'components/shared/generic/form/containers/Form';
@@ -14,14 +18,16 @@ import DatePickerContainer from 'components/shared/generic/form/containers/DateP
 import Select from 'components/shared/generic/form/presentational/Select';
 
 import useCreatePushNotification from '../hooks/useCreatePushNotification';
+import PickListContainer from 'components/shared/generic/form/containers/PickListContainer';
 
 const CreatePushNotificationModal = () => {
     const { form, handleChange, handleSubmit, isPosting } = useCreatePushNotification();
 
     const frequencyOptions = enumFormat(PUSH_NOTIFICATION_FREQUENCY_NAMES);
+    const dayOptions = enumFormat(RECURRENCE_DAYS_SHORT_NAMES, 'text');
 
     return (
-        <FlexModalOuter title="Create Push Notification">
+        <FlexModalOuter title="Create Push Notification" extraClasses="push-notification-modal">
             <Form onSubmit={handleSubmit} className="generic-form flex-content-wrapper size-lg-12">
                 <div className="flex-content">
                     <div className="form-fields-container">
@@ -67,6 +73,20 @@ const CreatePushNotificationModal = () => {
                                 />
                             </Field>
                         </div>
+
+                        {form.frequency === PUSH_NOTIFICATION_FREQUENCY_VALUES.WEEKLY && (
+                            <div className="size-lg-6">
+                                <Field name="Days" required>
+                                    <PickListContainer
+                                        name="recurrenceDays"
+                                        value={form.recurrenceDays}
+                                        handleChange={handleChange}
+                                        options={dayOptions}
+                                        required
+                                    />
+                                </Field>
+                            </div>
+                        )}
                     </div>
                 </div>
 

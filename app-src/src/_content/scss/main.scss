@@ -3112,7 +3112,7 @@ input {
   }
 }
 
-.create-pin-task-modal, .edit-pin-task-modal {
+.create-pin-task-modal, .edit-pin-task-modal, .push-notification-modal {
   @include reactDatePickerStyles();
 
   .pick-list {

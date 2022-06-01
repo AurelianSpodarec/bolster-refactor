@@ -43,3 +43,13 @@ export const RECURRENCE_DAYS_NAMES = {
     32: 'Saturday',
     64: 'Sunday',
 };
+
+export const RECURRENCE_DAYS_SHORT_NAMES = {
+    1: 'M',
+    2: 'T',
+    4: 'W',
+    8: 'T',
+    16: 'F',
+    32: 'S',
+    64: 'S',
+};
