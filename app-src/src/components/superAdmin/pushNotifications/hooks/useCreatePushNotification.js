@@ -17,6 +17,7 @@ import {
 } from 'selectors/superAdmin/pushNotifications';
 
 import { useForm, usePrevious } from 'helpers/hooks';
+import { handleDaysConversion } from 'helpers/generic';
 
 const useCreatePushNotification = () => {
     const dispatch = useDispatch();
@@ -36,9 +37,15 @@ const useCreatePushNotification = () => {
     });
 
     const handleSubmit = () => {
+        const { recurrenceDays, ...rest } = form;
+
         const postBody = {
-            ...form,
+            ...rest,
             target: PUSH_NOTIFICATION_TARGET_VALUES.ALL,
+            recurrenceDays:
+                +form.frequency === PUSH_NOTIFICATION_FREQUENCY_VALUES.WEEKLY
+                    ? handleDaysConversion(recurrenceDays)
+                    : null,
         };
 
         dispatch(createPushNotification(postBody));

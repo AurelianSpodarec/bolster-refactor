@@ -5,6 +5,7 @@ import find from 'lodash/find';
 import { DATE_TIME_DEFAULTS } from '../constants/companyAdmin/enums';
 import { videoFormats } from 'constants/shared/media';
 import _ from 'lodash';
+import { RECURRENCE_DAYS_VALUES } from 'constants/shared/enums';
 
 export function convertArrToObj(arr, field = 'id') {
     return arr.reduce((acc, item) => {
@@ -524,3 +525,8 @@ export function debounce(func, wait, immediate) {
         if (callNow) func.apply(context, args);
     };
 }
+
+//API takes a bitmask of days of the week https://docs.microsoft.com/en-us/dotnet/api/System.FlagsAttribute?view=net-6.0
+export const handleDaysConversion = (days: number[]) => {
+    return days.reduce((res, item) => res + RECURRENCE_DAYS_VALUES[item], 0);
+};
