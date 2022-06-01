@@ -1,12 +1,9 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 
 import { isEmpty } from 'helpers/generic';
-import { CREATE_ADMIN_PUSH_NOTIFICATION_MODAL } from 'constants/shared/modalTypes';
-
-import showModal from 'actions/shared/generic/modals/sync/showModal';
 
 import useFetchPushNotifications from './hooks/useFetchPushNotifications';
+import usePushNotificationActions from './hooks/usePushNotificationActions';
 
 import Table from 'components/shared/generic/tables/presentational/Table';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
@@ -15,9 +12,9 @@ import ActionButton from 'components/shared/generic/button/presentational/Action
 import PushNotificationListItem from './PushNotificationListItem';
 
 const PushNotifications = () => {
-    const dispatch = useDispatch();
-
     const { pushNotifications, isFetching, error } = useFetchPushNotifications();
+    const { handleAddNotification, handleEditNotification, handleDeleteNotification } =
+        usePushNotificationActions();
 
     return (
         <>
@@ -26,7 +23,7 @@ const PushNotifications = () => {
                     text="Add new"
                     icon="plus"
                     size="medium"
-                    onClick={() => dispatch(showModal(CREATE_ADMIN_PUSH_NOTIFICATION_MODAL))}
+                    onClick={handleAddNotification}
                 />
             </FlexHeading>
             <BlockContainer>
@@ -43,6 +40,8 @@ const PushNotifications = () => {
                             <PushNotificationListItem
                                 key={notification.id}
                                 notification={notification}
+                                handleEditNotification={handleEditNotification}
+                                handleDeleteNotification={handleDeleteNotification}
                             />
                         ))}
                 </Table>
