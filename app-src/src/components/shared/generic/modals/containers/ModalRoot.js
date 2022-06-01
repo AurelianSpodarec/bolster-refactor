@@ -149,7 +149,10 @@ import {
     MERGE_PIN_OPTION_SETS_MODAL,
     QUICK_EDIT_OPTION_SET_MODAL,
     EDIT_ADMIN_PIN_OPTION_DOCUMENTS_MODAL,
+    CREATE_PUSH_NOTIFICATION_MODAL,
+    EDIT_PUSH_NOTIFICATION_MODAL,
     CREATE_ADMIN_PUSH_NOTIFICATION_MODAL,
+    EDIT_ADMIN_PUSH_NOTIFICATION_MODAL,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -298,7 +301,10 @@ import AdminDuplicateOptionValueModal from '../../../../superAdmin/pinOptions/op
 import MergeOptionSetsModal from 'components/companyAdmin/pinOptions/optionSets/modals/MergeOptionSetsModal';
 import QuickEditOptionSetModal from 'components/companyAdmin/pinOptions/optionSets/modals/QuickEditOptionSetModal';
 import AdminEditPinOptionDocumentsModal from 'components/superAdmin/pinOptions/optionDocuments/modals/EditPinOptionDocumentsModal';
+import CreatePushNotificationModal from 'components/companyAdmin/pushNotifications/modals/CreatePushNotificationModal';
+import EditPushNotificationModal from 'components/companyAdmin/pushNotifications/modals/EditPushNotificationModal';
 import AdminCreatePushNotificationModal from 'components/superAdmin/pushNotifications/modals/CreatePushNotificationModal';
+import AdminEditPushNotificationModal from 'components/superAdmin/pushNotifications/modals/EditPushNotificationModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModal,
@@ -448,7 +454,10 @@ const MODAL_COMPONENTS = {
     [MERGE_PIN_OPTION_SETS_MODAL]: MergeOptionSetsModal,
     [QUICK_EDIT_OPTION_SET_MODAL]: QuickEditOptionSetModal,
     [EDIT_ADMIN_PIN_OPTION_DOCUMENTS_MODAL]: AdminEditPinOptionDocumentsModal,
+    [CREATE_PUSH_NOTIFICATION_MODAL]: CreatePushNotificationModal,
+    [EDIT_PUSH_NOTIFICATION_MODAL]: EditPushNotificationModal,
     [CREATE_ADMIN_PUSH_NOTIFICATION_MODAL]: AdminCreatePushNotificationModal,
+    [EDIT_ADMIN_PUSH_NOTIFICATION_MODAL]: AdminEditPushNotificationModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

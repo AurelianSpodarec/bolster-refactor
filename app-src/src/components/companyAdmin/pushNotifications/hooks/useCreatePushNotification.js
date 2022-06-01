@@ -5,8 +5,8 @@ import {
     PUSH_NOTIFICATION_TARGET_VALUES,
 } from 'constants/shared/enums';
 
-import createPushNotification from 'actions/superAdmin/pushNotifications/async/createPushNotification';
-import { selectAdminPushNotificationsIsPosting } from 'selectors/superAdmin/pushNotifications';
+import createPushNotification from 'actions/companyAdmin/pushNotifications/async/createPushNotification';
+import { selectPushNotificationsIsPosting } from 'selectors/companyAdmin/pushNotifications';
 
 import { useForm } from 'helpers/hooks';
 import { handleDaysConversion } from 'helpers/generic';
@@ -14,11 +14,14 @@ import { handleDaysConversion } from 'helpers/generic';
 const useCreatePushNotification = () => {
     const dispatch = useDispatch();
 
-    const isPosting = useSelector(selectAdminPushNotificationsIsPosting);
+    const isPosting = useSelector(selectPushNotificationsIsPosting);
 
     const [form, handleChange] = useForm({
         title: '',
         message: '',
+        target: PUSH_NOTIFICATION_TARGET_VALUES.ALL,
+        siteID: null,
+        userIDs: [],
         date: '',
         frequency: PUSH_NOTIFICATION_FREQUENCY_VALUES.ONCE,
         recurrenceDays: [],
@@ -29,7 +32,6 @@ const useCreatePushNotification = () => {
 
         const postBody = {
             ...rest,
-            target: PUSH_NOTIFICATION_TARGET_VALUES.ALL,
             recurrenceDays:
                 +form.frequency === PUSH_NOTIFICATION_FREQUENCY_VALUES.WEEKLY
                     ? handleDaysConversion(recurrenceDays)

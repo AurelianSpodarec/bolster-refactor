@@ -66,3 +66,15 @@ export const getIconFromExt = ext => {
 };
 export const doPinsHaveIcons = (pins = []) =>
     pins.some(pin => pin.templatePinImageS3Key || pin.servicePinImageS3Key);
+
+// area specific dropdown formats
+export function formatSitesForDropdownOptions(sites) {
+    return sites.map(({ id, name }) => ({ value: id, label: name }));
+}
+
+export function formatUsersForDropdownOptions(users) {
+    return users.map(({ id, userFirstName, userLastName, userEmail }) => ({
+        value: id,
+        label: `${userFirstName} ${userLastName} <${userEmail}>`,
+    }));
+}

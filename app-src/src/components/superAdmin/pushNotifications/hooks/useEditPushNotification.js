@@ -5,23 +5,23 @@ import {
     PUSH_NOTIFICATION_TARGET_VALUES,
 } from 'constants/shared/enums';
 
-import createPushNotification from 'actions/superAdmin/pushNotifications/async/createPushNotification';
+import editPushNotification from 'actions/superAdmin/pushNotifications/async/editPushNotification';
 import { selectAdminPushNotificationsIsPosting } from 'selectors/superAdmin/pushNotifications';
 
 import { useForm } from 'helpers/hooks';
-import { handleDaysConversion } from 'helpers/generic';
+import { getDaysFromBitMask, handleDaysConversion } from 'helpers/generic';
 
-const useCreatePushNotification = () => {
+const useEditPushNotification = notification => {
     const dispatch = useDispatch();
 
     const isPosting = useSelector(selectAdminPushNotificationsIsPosting);
 
     const [form, handleChange] = useForm({
-        title: '',
-        message: '',
-        date: '',
-        frequency: PUSH_NOTIFICATION_FREQUENCY_VALUES.ONCE,
-        recurrenceDays: [],
+        title: notification.title,
+        message: notification.message,
+        date: new Date(notification.date),
+        frequency: notification.frequency,
+        recurrenceDays: getDaysFromBitMask(notification.recurrenceDays),
     });
 
     const handleSubmit = () => {
@@ -36,10 +36,10 @@ const useCreatePushNotification = () => {
                     : null,
         };
 
-        dispatch(createPushNotification(postBody));
+        dispatch(editPushNotification(notification.id, postBody));
     };
 
     return { form, handleChange, handleSubmit, isPosting };
 };
 
-export default useCreatePushNotification;
+export default useEditPushNotification;
