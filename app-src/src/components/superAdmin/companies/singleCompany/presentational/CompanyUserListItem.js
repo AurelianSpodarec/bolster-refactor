@@ -18,8 +18,6 @@ const CompanyUserListItem = ({ user, handleModalClick, tableColumnWidths }) => {
         }
     }, []);
 
-    console.log(COMPANY_USER_ROLE_IDS[String(user.type)]);
-
     return (
         <tr ref={row} className={`${isRowRed ? 'red-row' : ''}`}>
             <td style={{ width: tableColumnWidths[0] }} className="cell-break-all">
