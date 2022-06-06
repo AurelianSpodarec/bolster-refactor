@@ -71,6 +71,8 @@ const OptionValuesList = ({ forwardRef, hasFetched }) => {
         return <Redirect to="/company/pin-options" />;
     }
 
+    const columnWidths = ['85%'];
+
     return (
         <>
             <FilterRow>
@@ -142,6 +144,7 @@ const OptionValuesList = ({ forwardRef, hasFetched }) => {
                 error={null}
                 withoutTBody
                 extraClasses={isSorting ? 'dragging' : ''}
+                tableColumnWidths={columnWidths}
             >
                 <tbody ref={isSorting ? forwardRef : null} className={isSorting ? 'dragging' : ''}>
                     {filteredOptionValues.map((option, index) => (
@@ -160,6 +163,7 @@ const OptionValuesList = ({ forwardRef, hasFetched }) => {
                             isSorting={isSorting}
                             onMove={moveItem}
                             onDrop={handleUpdateSort}
+                            tableColumnWidths={columnWidths}
                         />
                     ))}
                 </tbody>
