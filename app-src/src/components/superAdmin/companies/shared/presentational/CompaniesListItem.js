@@ -3,6 +3,11 @@ import { Link, withRouter } from 'react-router-dom';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import { DATE_TIME_IDS, COMPANY_TYPES, getEnumKey } from 'constants/companyAdmin/enums';
 import { capitaliseWords } from 'helpers/generic';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import { useDispatch } from 'react-redux';
+import disableCompany from 'actions/superAdmin/companies/async/disableCompany';
+import enableCompany from 'actions/superAdmin/companies/async/enableCompany';
+import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
 
 const CompaniesListItem = ({
     company: {
@@ -14,32 +19,51 @@ const CompaniesListItem = ({
         companyType,
         hideOnClientList,
         creditValue,
+        isDisabled,
     },
     match: { url },
-}) => (
-    <tr>
-        <td>{name}</td>
-        <td>{telephone || '-'}</td>
-        <td>{address || '-'}</td>
-        <td>
-            {nextSubscriptionExpiryDate ? (
-                <DateTimeContainer
-                    date={nextSubscriptionExpiryDate}
-                    datetime={DATE_TIME_IDS.DATE}
+    company,
+}) => {
+    const dispatch = useDispatch();
+
+    return (
+        <tr>
+            <td>{name}</td>
+            <td>{telephone || '-'}</td>
+            <td>{address || '-'}</td>
+            <td>
+                {nextSubscriptionExpiryDate ? (
+                    <DateTimeContainer
+                        date={nextSubscriptionExpiryDate}
+                        datetime={DATE_TIME_IDS.DATE}
+                    />
+                ) : (
+                    '-'
+                )}
+            </td>
+            <td>{capitaliseWords(getEnumKey(COMPANY_TYPES, companyType))}</td>
+            <td>{creditValue || 0}</td>
+            <td>{!hideOnClientList ? 'Yes' : 'No'}</td>
+            <td>
+                <LinkButton
+                    text="More info"
+                    href={`${url}/${id}`}
+                    source="secondary"
+                    ambient="positive"
                 />
-            ) : (
-                '-'
-            )}
-        </td>
-        <td>{capitaliseWords(getEnumKey(COMPANY_TYPES, companyType))}</td>
-        <td>{creditValue || 0}</td>
-        <td>{!hideOnClientList ? 'Yes' : 'No'}</td>
-        <td>
-            <Link to={`${url}/${id}`} className="button">
-                More info
-            </Link>
-        </td>
-    </tr>
-);
+            </td>
+            <td>
+                {isDisabled ? (
+                    <ActionButton text="Enable" onClick={() => dispatch(enableCompany(company))} />
+                ) : (
+                    <ActionButton
+                        text="Disable"
+                        onClick={() => dispatch(disableCompany(company))}
+                    />
+                )}
+            </td>
+        </tr>
+    );
+};
 
 export default withRouter(CompaniesListItem);
