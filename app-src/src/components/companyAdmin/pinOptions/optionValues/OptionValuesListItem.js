@@ -34,6 +34,7 @@ const OptionValuesListItem = ({
     isDragging,
     connectDropTarget,
     forwardRef,
+    tableColumnWidths = [],
 }) => {
     const dispatch = useDispatch();
     const company = useSelector(selectCompanySettings);
@@ -57,7 +58,12 @@ const OptionValuesListItem = ({
                     ref={isSorting ? forwardRef : null}
                     style={{ display: isSorting && isDeleted ? 'none' : 'table-row' }} // setting as hidden here rather than filtering so sort mode still works
                 >
-                    <td className="row-link w-checkbox">
+                    <td
+                        className="row-link w-checkbox"
+                        style={{
+                            width: tableColumnWidths.length ? tableColumnWidths[0] : 'auto',
+                        }}
+                    >
                         <FlexWrapper justify="start" align="center">
                             <CheckboxContainer
                                 text=""
@@ -85,7 +91,11 @@ const OptionValuesListItem = ({
                             )}
                         </FlexWrapper>
                     </td>
-                    <td>
+                    <td
+                        style={{
+                            width: tableColumnWidths.length ? tableColumnWidths[1] : 'auto',
+                        }}
+                    >
                         <ButtonWrapper alignment="right">
                             {hasPriceBreaks && (
                                 <ButtonWrapperInfo text={currencySymbol} disabled large />

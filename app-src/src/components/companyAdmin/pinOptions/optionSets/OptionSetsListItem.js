@@ -29,6 +29,7 @@ const OptionSetsListItem = ({
     connectDropTarget,
     forwardRef,
     isCompanySet,
+    tableColumnWidths,
 }) => {
     const dispatch = useDispatch();
     let rowClass = 'draggable expandable';
@@ -42,7 +43,12 @@ const OptionSetsListItem = ({
                     ref={isSorting ? forwardRef : null}
                     style={{ display: isSorting && isDeleted ? 'none' : 'table-row' }} // setting as hidden here rather than filtering so sort mode still works
                 >
-                    <td className="row-link w-checkbox">
+                    <td
+                        className="row-link w-checkbox"
+                        style={{
+                            width: tableColumnWidths.length ? tableColumnWidths[0] : 'auto',
+                        }}
+                    >
                         <FlexWrapper justify="start" align="center">
                             <CheckboxContainer
                                 text=""
@@ -65,7 +71,11 @@ const OptionSetsListItem = ({
                             </Link>
                         </FlexWrapper>
                     </td>
-                    <td>
+                    <td
+                        style={{
+                            width: tableColumnWidths.length ? tableColumnWidths[1] : 'auto',
+                        }}
+                    >
                         <ButtonWrapper alignment="right">
                             {isDefault && (
                                 <ButtonWrapperInfo

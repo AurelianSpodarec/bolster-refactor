@@ -9,11 +9,20 @@ import DashboardBarChartContainer from './DashboardBarChartContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import Block from 'components/shared/generic/block/presentational/Block';
 
-const DashboardCostingCharts = ({ isFetching, error, datasets, showLineGraph }) => {
-    const isDataEmpty = showLineGraph ? isEmpty(datasets) || isEmpty(datasets) : isEmpty(datasets); // TODO - need to check emptiness of costing graph too
+const DashboardCostingCharts = ({
+    isFetching,
+    error,
+    recentPinDatasets,
+    showLineGraph,
+    costEstGraph,
+    costEstGraphTitle,
+}) => {
+    const isDataEmpty = showLineGraph
+        ? isEmpty(costEstGraph?.datasets)
+        : isEmpty(recentPinDatasets);
     return !isIE ? (
         <Block containerClass="flex-row-item size-lg-6 size-md-12">
-            <BlockHeading title={showLineGraph ? 'Costing Totals' : 'Pins added by operatives'} />
+            <BlockHeading title={showLineGraph ? costEstGraphTitle : 'Pins added by operatives'} />
 
             <BlockContainer
                 isFetching={isFetching}
@@ -22,7 +31,11 @@ const DashboardCostingCharts = ({ isFetching, error, datasets, showLineGraph }) 
                 containerClass="size-lg-12"
                 noWhiteBackground
             >
-                {showLineGraph ? <DashboardLineGraph /> : <DashboardBarChartContainer />}
+                {showLineGraph ? (
+                    <DashboardLineGraph costEstGraph={costEstGraph} />
+                ) : (
+                    <DashboardBarChartContainer />
+                )}
             </BlockContainer>
         </Block>
     ) : (
@@ -38,14 +51,17 @@ const mapStateToProps = ({
         dashboardReducer: {
             isFetchingDashPinsStats,
             error,
-            dashRecentPinsStats: { datasets = {} },
-            // TODO - will be another key for costing graph data
+            dashRecentPinsStats: { recentPinDatasets = {} },
+            costEstGraph,
+            costEstGraphTitle,
         },
     },
 }) => ({
     isFetching: isFetchingDashPinsStats,
     error: error,
-    datasets,
+    recentPinDatasets,
+    costEstGraph,
+    costEstGraphTitle,
 });
 
 export default connect(mapStateToProps)(DashboardCostingCharts);

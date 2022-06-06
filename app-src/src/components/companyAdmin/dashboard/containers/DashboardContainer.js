@@ -15,9 +15,15 @@ import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 
 class DashboardContainer extends Component {
     render() {
-        const { isIE10 } = this.props;
+        const { isIE10, costEstGraph, costEstGraphTitle } = this.props;
 
-        return <Dashboard isIE10={isIE10} />;
+        return (
+            <Dashboard
+                isIE10={isIE10}
+                costEstGraph={costEstGraph}
+                costEstGraphTitle={costEstGraphTitle}
+            />
+        );
     }
 
     componentDidMount = () => {
@@ -78,9 +84,14 @@ const mapStateToProps = ({
         isIE10Reducer: { isIE10 },
         profileReducer: { profile },
     },
+    companyAdmin: {
+        dashboardReducer: { costEstGraph, costEstGraphTitle },
+    },
 }) => ({
     isIE10,
     profile,
+    costEstGraph,
+    costEstGraphTitle,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DashboardContainer);
