@@ -1,11 +1,18 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 import {
     PUSH_NOTIFICATION_FREQUENCY_VALUES,
     PUSH_NOTIFICATION_FREQUENCY_NAMES,
     RECURRENCE_DAYS_SHORT_NAMES,
+    PUSH_NOTIFICATION_TARGET_NAMES,
+    PUSH_NOTIFICATION_TARGET_VALUES,
 } from 'constants/shared/enums';
 import { enumFormat } from 'helpers/generic';
+import { formatSitesForDropdownOptions, formatUsersForDropdownOptions } from 'helpers/general';
+
+import { selectSites } from 'selectors/companyAdmin/sites';
+import { selectCompanyUsers } from 'selectors/companyAdmin/companyUsers';
 
 import Form from 'components/shared/generic/form/containers/Form';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
@@ -17,12 +24,19 @@ import ActionButton from 'components/shared/generic/button/presentational/Action
 import DatePickerContainer from 'components/shared/generic/form/containers/DatePickerContainer';
 import Select from 'components/shared/generic/form/presentational/Select';
 import PickListContainer from 'components/shared/generic/form/containers/PickListContainer';
+import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 
 import useEditPushNotification from '../hooks/useEditPushNotification';
 
 const CreatePushNotificationModal = ({ notification }) => {
     const { form, handleChange, handleSubmit, isPosting } = useEditPushNotification(notification);
 
+    const sites = useSelector(selectSites);
+    const users = useSelector(selectCompanyUsers);
+
+    const targetOptions = enumFormat(PUSH_NOTIFICATION_TARGET_NAMES);
+    const siteOptions = formatSitesForDropdownOptions(Object.values(sites));
+    const userOptions = formatUsersForDropdownOptions(Object.values(users));
     const frequencyOptions = enumFormat(PUSH_NOTIFICATION_FREQUENCY_NAMES);
     const dayOptions = enumFormat(RECURRENCE_DAYS_SHORT_NAMES, 'text');
 
@@ -50,6 +64,41 @@ const CreatePushNotificationModal = ({ notification }) => {
                                 required
                             />
                         </Field>
+
+                        <Field name="Send to" required>
+                            <Select
+                                value={form.target}
+                                onChange={handleChange}
+                                name="target"
+                                options={Object.values(targetOptions)}
+                                omitPlaceholder
+                                required
+                            />
+                        </Field>
+
+                        {form.target === PUSH_NOTIFICATION_TARGET_VALUES.SITE && (
+                            <Field name="Site" required>
+                                <Select
+                                    value={form.siteID}
+                                    onChange={handleChange}
+                                    name="siteID"
+                                    options={Object.values(siteOptions)}
+                                    required
+                                />
+                            </Field>
+                        )}
+
+                        {form.target === PUSH_NOTIFICATION_TARGET_VALUES.USERS && (
+                            <Field name="Users" required>
+                                <MultiSelect
+                                    value={form.userIDs}
+                                    onChange={handleChange}
+                                    name="userIDs"
+                                    options={Object.values(userOptions)}
+                                    required
+                                />
+                            </Field>
+                        )}
 
                         <Field name="Date" required>
                             <DatePickerContainer
