@@ -19,6 +19,9 @@ const useEditPushNotification = notification => {
     const [form, handleChange] = useForm({
         title: notification.title,
         message: notification.message,
+        target: notification.target,
+        siteID: notification.siteID,
+        userIDs: notification.userIDs ?? [],
         date: new Date(notification.date),
         frequency: notification.frequency,
         recurrenceDays: getDaysFromBitMask(notification.recurrenceDays),
