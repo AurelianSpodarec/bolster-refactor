@@ -100,11 +100,12 @@ const CreatePushNotificationModal = ({ notification }) => {
                             </Field>
                         )}
 
-                        <Field name="Date" required>
+                        <Field name="Date &amp; Time" required>
                             <DatePickerContainer
                                 selected={form.date}
                                 onChange={val => handleChange('date', val)}
                                 name="date"
+                                showTimeSelect
                                 required
                             />
                         </Field>
