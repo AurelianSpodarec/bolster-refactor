@@ -58,6 +58,8 @@ const OptionSets = ({ forwardRef, selectedTypeID }) => {
 
     const setLink = selectedPinOptionType.slug;
 
+    const columnWidths = ['90%'];
+
     return (
         <>
             <FilterRow>
@@ -123,6 +125,7 @@ const OptionSets = ({ forwardRef, selectedTypeID }) => {
                 error={pinOptionSetsFetchError}
                 withoutTBody
                 extraClasses={isSorting ? 'dragging' : ''}
+                tableColumnWidths={columnWidths}
             >
                 <tbody ref={isSorting ? forwardRef : null} className={isSorting ? 'dragging' : ''}>
                     {filteredSets.map((set, index) => (
@@ -142,6 +145,7 @@ const OptionSets = ({ forwardRef, selectedTypeID }) => {
                             onMove={moveItem}
                             onDrop={handleUpdateSort}
                             isCompanySet={set.companyID === companyID}
+                            tableColumnWidths={columnWidths}
                         />
                     ))}
                 </tbody>
