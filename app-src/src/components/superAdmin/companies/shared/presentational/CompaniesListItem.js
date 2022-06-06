@@ -5,9 +5,8 @@ import { DATE_TIME_IDS, COMPANY_TYPES, getEnumKey } from 'constants/companyAdmin
 import { capitaliseWords } from 'helpers/generic';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import { useDispatch } from 'react-redux';
-import disableCompany from 'actions/superAdmin/companies/async/disableCompany';
-import enableCompany from 'actions/superAdmin/companies/async/enableCompany';
 import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
+import useCompanyActions from '../hooks/useCompanyActions';
 
 const CompaniesListItem = ({
     company: {
@@ -25,6 +24,8 @@ const CompaniesListItem = ({
     company,
 }) => {
     const dispatch = useDispatch();
+
+    const { showEnableCompanyModal, showDisableCompanyModal } = useCompanyActions(company);
 
     return (
         <tr>
@@ -54,12 +55,9 @@ const CompaniesListItem = ({
             </td>
             <td>
                 {isDisabled ? (
-                    <ActionButton text="Enable" onClick={() => dispatch(enableCompany(company))} />
+                    <ActionButton text="Enable" onClick={showEnableCompanyModal} />
                 ) : (
-                    <ActionButton
-                        text="Disable"
-                        onClick={() => dispatch(disableCompany(company))}
-                    />
+                    <ActionButton text="Disable" onClick={showDisableCompanyModal} />
                 )}
             </td>
         </tr>
