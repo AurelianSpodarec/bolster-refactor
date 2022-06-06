@@ -29,6 +29,8 @@ export default combineReducers({
     statusStats: statusStatsReducer,
     operativeData: operativeDataReducer,
     drawingData: drawingDataReducer,
+    costEstGraph: costEstGraphReducer,
+    costEstGraphTitle: costEstGraphTitleReducer,
 });
 
 function isFetchingDashPinsStatsReducer(state = false, action) {
@@ -108,6 +110,24 @@ function drawingDataReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_DASH_STATS_SUCCESS:
             return action.payload.drawingData;
+        default:
+            return state;
+    }
+}
+
+function costEstGraphReducer(state = null, action) {
+    switch (action.type) {
+        case FETCH_DASH_STATS_SUCCESS:
+            return action.payload.costEstGraph;
+        default:
+            return state;
+    }
+}
+
+function costEstGraphTitleReducer(state = null, action) {
+    switch (action.type) {
+        case FETCH_DASH_STATS_SUCCESS:
+            return action.payload.costEstGraphTitle;
         default:
             return state;
     }

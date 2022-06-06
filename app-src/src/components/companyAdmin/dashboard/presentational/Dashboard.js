@@ -9,13 +9,10 @@ import { useConfirmDarkTheme } from 'helpers/hooks';
 import DashboardPinHistoryCharts from '../containers/DashboardPinHistoryCharts';
 import { isIE } from 'react-device-detect';
 import DashboardCostingCharts from '../containers/DashboardCostingCharts';
-// import { useSelector } from 'react-redux';
-// import { selectIsCostingEnabled } from 'selectors/companyAdmin/companySettings';
 
-const Dashboard = ({ isIE10 }) => {
+const Dashboard = ({ isIE10, costEstGraph, costEstGraphTitle }) => {
     useConfirmDarkTheme('/company/profile');
-    // const showLineGraph = useSelector(selectIsCostingEnabled); // TODO - will be based on costing graph data from dashboard response (null/not null)
-    const showLineGraph = false; // Hide for now - waiting on data to be added to dashboard response
+    const showLineGraph = !!costEstGraph;
     return (
         <>
             <PageHeading title="Dashboard" />
