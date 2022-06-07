@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from 'react-redux';
-import moment from 'moment';
 
 import {
     PUSH_NOTIFICATION_FREQUENCY_VALUES,
@@ -12,10 +11,16 @@ import { selectPushNotificationsIsPosting } from 'selectors/companyAdmin/pushNot
 import { useForm } from 'helpers/hooks';
 import { getDaysFromBitMask, handleDaysConversion } from 'helpers/generic';
 
+import useConvertDateTimeToCompanyTimeZone from 'hooks/useConvertDateTimeToCompanyTimeZone';
+import moment from 'moment';
+
 const useEditPushNotification = notification => {
     const dispatch = useDispatch();
 
     const isPosting = useSelector(selectPushNotificationsIsPosting);
+
+    const initialDate = moment(notification.date);
+    console.log(initialDate);
 
     const [form, handleChange] = useForm({
         title: notification.title,
@@ -23,10 +28,12 @@ const useEditPushNotification = notification => {
         target: notification.target,
         siteID: notification.siteID,
         userIDs: notification.userIDs ?? [],
-        date: new Date(notification.date),
+        date: new Date(initialDate),
         frequency: notification.frequency,
         recurrenceDays: getDaysFromBitMask(notification.recurrenceDays),
     });
+
+    const convertedDate = useConvertDateTimeToCompanyTimeZone(form.date);
 
     const handleSubmit = () => {
         const { recurrenceDays, date, ...rest } = form;
@@ -34,7 +41,7 @@ const useEditPushNotification = notification => {
         const postBody = {
             ...rest,
             target: PUSH_NOTIFICATION_TARGET_VALUES.ALL,
-            date: moment(date).format(),
+            date: convertedDate,
             recurrenceDays:
                 +form.frequency === PUSH_NOTIFICATION_FREQUENCY_VALUES.WEEKLY
                     ? handleDaysConversion(recurrenceDays)
