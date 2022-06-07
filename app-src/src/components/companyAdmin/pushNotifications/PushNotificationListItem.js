@@ -1,17 +1,16 @@
 import React from 'react';
-import moment from 'moment';
 
 import {
     PUSH_NOTIFICATION_FREQUENCY_NAMES,
     PUSH_NOTIFICATION_FREQUENCY_VALUES,
     RECURRENCE_DAYS_NAMES,
 } from 'constants/shared/enums';
-import { DATE, DATE_TIME } from 'constants/shared/dateFormats';
 import { getDaysFromBitMask } from 'helpers/generic';
 
 import ActionMenu from 'components/shared/actionMenu/ActionMenu';
 import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
 const PushNotificationListItem = ({
     notification,
@@ -30,8 +29,10 @@ const PushNotificationListItem = ({
                       .join(', ')
                 : 'N/A'}
         </td>
-        <td>{moment(date).format(DATE)}</td>
-        <td>{lastSentOn ? moment(lastSentOn).format(DATE_TIME) : 'Not sent'}</td>
+        <td>
+            <DateTimeContainer date={date} />
+        </td>
+        <td>{lastSentOn ? <DateTimeContainer date={lastSentOn} /> : 'Not sent'}</td>
         <td>
             <ButtonWrapper alignment="right">
                 <ActionMenu>

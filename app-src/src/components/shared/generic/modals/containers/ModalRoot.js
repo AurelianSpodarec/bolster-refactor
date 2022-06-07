@@ -153,6 +153,8 @@ import {
     EDIT_PUSH_NOTIFICATION_MODAL,
     CREATE_ADMIN_PUSH_NOTIFICATION_MODAL,
     EDIT_ADMIN_PUSH_NOTIFICATION_MODAL,
+    ADMIN_DISABLE_COMPANY,
+    ADMIN_ENABLE_COMPANY,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -305,6 +307,8 @@ import CreatePushNotificationModal from 'components/companyAdmin/pushNotificatio
 import EditPushNotificationModal from 'components/companyAdmin/pushNotifications/modals/EditPushNotificationModal';
 import AdminCreatePushNotificationModal from 'components/superAdmin/pushNotifications/modals/CreatePushNotificationModal';
 import AdminEditPushNotificationModal from 'components/superAdmin/pushNotifications/modals/EditPushNotificationModal';
+import DisableCompanyModal from 'components/superAdmin/companies/shared/modals/DisableCompanyModal';
+import EnableCompanyModal from 'components/superAdmin/companies/shared/modals/EnableCompanyModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModal,
@@ -400,6 +404,8 @@ const MODAL_COMPONENTS = {
     [DELETE_DEMO_ACCESS_CODES]: DeleteDemoAccessCodesModal,
     [ENTER_DEMO_ACCESS_CODES]: EnterDemoFullSiteModal,
     [ADMIN_EDIT_COMPANY_OWNER]: EditCompanyOwnerModalContainer,
+    [ADMIN_DISABLE_COMPANY]: DisableCompanyModal,
+    [ADMIN_ENABLE_COMPANY]: EnableCompanyModal,
     [CONFIRM_EMAIL]: ConfirmEmailModal,
     [USER_NEW_DOCUMENT]: NewUserDocumentModal,
     [CREATE_HIERARCHY_ALERT_MODAL]: CreateHierarchyAlertModal,
