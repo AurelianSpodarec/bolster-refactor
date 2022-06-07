@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from 'react-redux';
-import moment from 'moment';
 
 import {
     PUSH_NOTIFICATION_FREQUENCY_VALUES,
@@ -29,12 +28,11 @@ const useEditPushNotification = notification => {
     });
 
     const handleSubmit = () => {
-        const { recurrenceDays, date, ...rest } = form;
+        const { recurrenceDays, ...rest } = form;
 
         const postBody = {
             ...rest,
             target: PUSH_NOTIFICATION_TARGET_VALUES.ALL,
-            date: moment(date).format(),
             recurrenceDays:
                 +form.frequency === PUSH_NOTIFICATION_FREQUENCY_VALUES.WEEKLY
                     ? handleDaysConversion(recurrenceDays)
