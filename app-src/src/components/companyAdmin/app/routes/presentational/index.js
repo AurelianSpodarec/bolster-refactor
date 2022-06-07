@@ -33,53 +33,101 @@ import DocumentLibraryRoutes from './DocumentLibraryRoutes';
 import JobReferencesRoutes from './JobReferencesRoutes';
 import PinOptionsRoutes from './PinOptionsRoutes';
 import PushNotificationsRoutes from './PushNotificationsRoutes';
+import withActiveAccount from '../../hocs/withActiveAccount';
+import AccountDeactivated from 'components/shared/accountDeactivated/AccountDeactivated';
+
 // import withTermsAuth from '../../hocs/withTermsAuth';
 
 const CompanyRoutes = ({ base = '/company' }) => (
     <SwitchWith404>
-        <Route exact path={base} component={withSubscriptionAuth(DashboardContainer)} />
+        <Route
+            exact
+            path={base}
+            component={withActiveAccount(withSubscriptionAuth(DashboardContainer))}
+        />
         <Route path={`${base}/company-selection`} component={CompanySelection} />
-        <Route path={`${base}/buildings`} component={withSubscriptionAuth(BuildingsRoutes)} />
-        <Route path={`${base}/drawings`} component={withSubscriptionAuth(DrawingsRoutes)} />
-        <Route path={`${base}/floors`} component={withSubscriptionAuth(FloorRoutes)} />
-        <Route path={`${base}/headquarters`} component={withSubscriptionAuth(HeadquartersRoutes)} />
-        <Route path={`${base}/invoices`} component={InvoicesRoutes} />
-        <Route path={`${base}/message-centre`} component={withSubscriptionAuth(MessagesRoutes)} />
-        <Route path={`${base}/pins`} component={withSubscriptionAuth(PinRoutes)} />
-        <Route path={`${base}/profile`} component={ProfilesRoutes} />
-        <Route path={`${base}/reports`} component={withSubscriptionAuth(ReportsRoutes)} />
+        <Route
+            path={`${base}/buildings`}
+            component={withActiveAccount(withSubscriptionAuth(BuildingsRoutes))}
+        />
+        <Route
+            path={`${base}/drawings`}
+            component={withActiveAccount(withSubscriptionAuth(DrawingsRoutes))}
+        />
+        <Route
+            path={`${base}/floors`}
+            component={withActiveAccount(withSubscriptionAuth(FloorRoutes))}
+        />
+        <Route
+            path={`${base}/headquarters`}
+            component={withActiveAccount(withSubscriptionAuth(HeadquartersRoutes))}
+        />
+        <Route path={`${base}/invoices`} component={withActiveAccount(InvoicesRoutes)} />
+        <Route
+            path={`${base}/message-centre`}
+            component={withActiveAccount(withSubscriptionAuth(MessagesRoutes))}
+        />
+        <Route
+            path={`${base}/pins`}
+            component={withActiveAccount(withSubscriptionAuth(PinRoutes))}
+        />
+        <Route path={`${base}/profile`} component={withActiveAccount(ProfilesRoutes)} />
+        <Route
+            path={`${base}/reports`}
+            component={withActiveAccount(withSubscriptionAuth(ReportsRoutes))}
+        />
         <Route path={`${base}/recently-deleted`} component={RecentlyDeletedRoutes} />
-        <Route path={`${base}/settings`} component={SettingsRoutes} />
-        <Route path={`${base}/activity-log`} component={ActivityLogRoutes} />
-        <Route path={`${base}/bug-report`} component={BugReportRoutes} />
-        <Route path={`${base}/sites`} component={withSubscriptionAuth(SitesRoutes)} />
-        <Route path={`${base}/subscription`} component={SubscriptionRoutes} />
-        <Route path={`${base}/tools`} component={withSubscriptionAuth(ToolsRoutes)} />
-        <Route path={`${base}/terms`} component={withSubscriptionAuth(TermsRoutes)} />
-        <Route path={`${base}/user-guides`} component={withSubscriptionAuth(UserGuidesRoutes)} />
-        <Route path={`${base}/release-notes`} component={ReleaseNotesRoutes} />
-        <Route path={`${base}/upcoming-alerts`} component={UpcomingAlertsRoutes} />
+        <Route path={`${base}/settings`} component={withActiveAccount(SettingsRoutes)} />
+        <Route path={`${base}/activity-log`} component={withActiveAccount(ActivityLogRoutes)} />
+        <Route path={`${base}/bug-report`} component={withActiveAccount(BugReportRoutes)} />
+        <Route
+            path={`${base}/sites`}
+            component={withActiveAccount(withSubscriptionAuth(SitesRoutes))}
+        />
+        <Route path={`${base}/subscription`} component={withActiveAccount(SubscriptionRoutes)} />
+        <Route
+            path={`${base}/tools`}
+            component={withActiveAccount(withSubscriptionAuth(ToolsRoutes))}
+        />
+        <Route
+            path={`${base}/terms`}
+            component={withActiveAccount(withSubscriptionAuth(TermsRoutes))}
+        />
+        <Route
+            path={`${base}/user-guides`}
+            component={withActiveAccount(withSubscriptionAuth(UserGuidesRoutes))}
+        />
+        <Route path={`${base}/release-notes`} component={withActiveAccount(ReleaseNotesRoutes)} />
+        <Route
+            path={`${base}/upcoming-alerts`}
+            component={withActiveAccount(UpcomingAlertsRoutes)}
+        />
         <Route
             path={`${base}/approved-companies`}
-            component={withSubscriptionAuth(ApprovedCompaniesRoutes)}
+            component={withActiveAccount(withSubscriptionAuth(ApprovedCompaniesRoutes))}
         />
         <Route
             path={`${base}/users-management`}
-            component={withSubscriptionAuth(UserManagementRoutes)}
+            component={withActiveAccount(withSubscriptionAuth(UserManagementRoutes))}
         />
         <Route
             path={`${base}/company-documents`}
-            component={withSubscriptionAuth(DocumentLibraryRoutes)}
+            component={withActiveAccount(withSubscriptionAuth(DocumentLibraryRoutes))}
         />
         <Route
             path={`${base}/job-references`}
-            component={withSubscriptionAuth(JobReferencesRoutes)}
+            component={withActiveAccount(withSubscriptionAuth(JobReferencesRoutes))}
         />
-        <Route path={`${base}/pin-options`} component={withSubscriptionAuth(PinOptionsRoutes)} />
+        <Route
+            path={`${base}/pin-options`}
+            component={withActiveAccount(withSubscriptionAuth(PinOptionsRoutes))}
+        />
         <Route
             path={`${base}/push-notifications`}
-            component={withSubscriptionAuth(PushNotificationsRoutes)}
+            component={withActiveAccount(withSubscriptionAuth(PushNotificationsRoutes))}
         />
+
+        <Route path={`${base}/deactivated`} component={AccountDeactivated} />
     </SwitchWith404>
 );
 
