@@ -15,7 +15,7 @@ export default function (ProtectedComponent) {
         _isActive = () => {
             const { users, companyUserID } = this.props;
 
-            if (!users[companyUserID].isCompanyDisabled) return true;
+            if (!users[companyUserID]?.isCompanyDisabled) return true;
         };
     }
 
