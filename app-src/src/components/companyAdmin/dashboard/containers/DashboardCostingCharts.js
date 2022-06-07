@@ -18,7 +18,7 @@ const DashboardCostingCharts = ({
     costEstGraphTitle,
 }) => {
     const isDataEmpty = showLineGraph
-        ? isEmpty(costEstGraph?.datasets)
+        ? !costEstGraph?.dataSets?.length
         : isEmpty(recentPinDatasets);
     return !isIE ? (
         <Block containerClass="flex-row-item size-lg-6 size-md-12">
