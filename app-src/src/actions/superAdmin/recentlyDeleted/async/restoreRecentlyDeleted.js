@@ -1,26 +1,25 @@
 import axios from 'axios';
 
 import {
-    RESTORE_RECENTLY_DELETED_REQUEST,
-    RESTORE_RECENTLY_DELETED_SUCCESS,
-    RESTORE_RECENTLY_DELETED_FAILURE,
+    ADMIN_RESTORE_RECENTLY_DELETED_REQUEST,
+    ADMIN_RESTORE_RECENTLY_DELETED_SUCCESS,
+    ADMIN_RESTORE_RECENTLY_DELETED_FAILURE,
 } from 'constants/actionTypes/deletedData';
 
 import { ADMIN_API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
 
 export const restoreRecentlyDeletedRequest = () => ({
-    type: RESTORE_RECENTLY_DELETED_REQUEST,
+    type: ADMIN_RESTORE_RECENTLY_DELETED_REQUEST,
 });
 
-export const restoreRecentlyDeletedSuccess = (restoreURI, payload) => ({
-    type: RESTORE_RECENTLY_DELETED_SUCCESS,
+export const restoreRecentlyDeletedSuccess = restoreURI => ({
+    type: ADMIN_RESTORE_RECENTLY_DELETED_SUCCESS,
     restoreURI,
-    payload,
 });
 
 export const restoreRecentlyDeletedFailure = error => ({
-    type: RESTORE_RECENTLY_DELETED_FAILURE,
+    type: ADMIN_RESTORE_RECENTLY_DELETED_FAILURE,
     error,
 });
 
