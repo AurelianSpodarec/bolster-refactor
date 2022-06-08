@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
@@ -7,8 +8,11 @@ import ButtonWrapper from 'components/shared/generic/button/presentational/Butto
 import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import useAutoRenew from './hooks/useAutoRenew';
+import showModal from 'actions/shared/generic/modals/sync/showModal';
+import { ADD_BOLSTER_PLUS } from 'constants/shared/modalTypes';
 
 const BolsterPlusPod = () => {
+    const dispatch = useDispatch();
     const isBolsterPlusActivated = false;
 
     const { handleAutoRenewChange, isAutoRenew } = useAutoRenew(isAutoRenew);
@@ -55,7 +59,11 @@ const BolsterPlusPod = () => {
                     <ActionButton text="Learn more" source="secondary" ambient="positive" />
                 </ButtonWrapper>
                 <ButtonWrapper extraClasses="size-lg-6 margin-top" alignment="right">
-                    <ActionButton text="Upgrade" size="medium" />
+                    <ActionButton
+                        text="Upgrade"
+                        size="medium"
+                        onClick={() => dispatch(showModal(ADD_BOLSTER_PLUS))}
+                    />
                 </ButtonWrapper>
             </FlexWrapper>
         </BlockContainer>

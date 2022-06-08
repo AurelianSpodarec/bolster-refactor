@@ -1,0 +1,167 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+
+import Form from 'components/shared/generic/form/containers/Form';
+import RadioButton from 'components/shared/generic/form/presentational/RadioButton';
+import { PAYMENT_IDS } from 'constants/companyAdmin/enums';
+import Field from 'components/shared/generic/form/presentational/Field';
+import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
+import { formatNumber } from 'helpers/generic';
+import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
+import AddCardFormContainer from '../../cardManagement/addCardModal/containers/AddCardFormContainer';
+import Select from 'components/shared/generic/form/presentational/Select';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
+
+const AddBolsterPlusModal = ({
+    hideModal,
+    handleChange,
+    handleSubmit,
+    paymentType,
+    creditsToBuy = 0,
+    cards,
+    selectedCard,
+    handleCreditsChange,
+    costWithVAT,
+    costWithoutVAT,
+    noCards,
+    addCardVisible,
+    showAddCard,
+    hideAddCard,
+    handleAddCardSuccess,
+    termsAgreed,
+    isPosting,
+    shouldReceiveFreeCredit,
+}) => {
+    if (addCardVisible)
+        return <AddCardFormContainer close={hideAddCard} onSuccess={handleAddCardSuccess} />;
+
+    return (
+        <FlexModalOuter title="Add Bolster Plus Subscription">
+            {/* <Form
+                className="generic-form flex-content-wrapper no-min-heights"
+                onSubmit={handleSubmit}
+            > */}
+            {/* <div className="flex-content">
+                    <p className="generic-text">This service will be added ...</p>
+
+                    <div className="form-fields-container">
+                        <Field sizeClasses="size-lg-6">
+                            <RadioButton
+                                name={'paymentType'}
+                                value={PAYMENT_IDS.CARD}
+                                text="Pay by card"
+                                handleInputChange={handleChange}
+                                checked={+paymentType === PAYMENT_IDS.CARD}
+                                extraDetails={noCards ? 'No cards available' : ''}
+                                disabled={noCards}
+                            />
+                        </Field>
+                        <Field sizeClasses="size-lg-6">
+                            <RadioButton
+                                name={'paymentType'}
+                                value={PAYMENT_IDS.INVOICE}
+                                text="Pay by invoice"
+                                handleInputChange={handleChange}
+                                checked={+paymentType === PAYMENT_IDS.INVOICE}
+                            />
+                        </Field>
+                        {+paymentType === PAYMENT_IDS.CARD && !noCards && (
+                            <>
+                                <Field sizeClasses="size-lg-12">
+                                    <ActionButton
+                                        text="Add new card"
+                                        type="submit"
+                                        onClick={showAddCard}
+                                        icon="plus"
+                                        size="small"
+                                        ambient="positive"
+                                    />
+                                </Field>
+                                <Field sizeClasses="size-lg-12" name="Select Card" required>
+                                    <Select
+                                        required
+                                        name="stripeCardID"
+                                        options={cards}
+                                        omitPlaceholder={!!cards.length}
+                                        placeholder={
+                                            !cards.length
+                                                ? 'Please add a card to use card payments.'
+                                                : 'Loading cards...'
+                                        }
+                                        value={selectedCard}
+                                        onChange={handleChange}
+                                    />
+                                </Field>
+                            </>
+                        )}
+                        <Field name="Credits to buy" sizeClasses="size-lg-12" required>
+                            {shouldReceiveFreeCredit && (
+                                <p className="generic-text field-info">
+                                    If you buy credits in blocks of 10 you will receive 1 free
+                                    credit.
+                                </p>
+                            )}
+                            <TextInputContainer
+                                name="creditsToBuy"
+                                value={creditsToBuy}
+                                handleChange={handleCreditsChange}
+                                placeholder="Number of credits..."
+                                termsAgreed
+                                required
+                                type="number"
+                                validate={value =>
+                                    value <= 0 || value % 1
+                                        ? 'Please enter a positive integer.'
+                                        : ''
+                                }
+                                classes="large"
+                            />
+                        </Field>
+                        {creditsToBuy && (
+                            <p className="generic-text total-text align-right size-lg-12">
+                                Total: £{formatNumber(costWithoutVAT)}
+                                {costWithVAT > costWithoutVAT && (
+                                    <> (£{formatNumber(costWithVAT)} inc. VAT) </>
+                                )}
+                            </p>
+                        )}
+
+                        <div className="size-lg-6 size-md-12">
+                            <Field name="Agree to terms" required>
+                                <p className="generic-text size-lg-12">
+                                    Please check that you agree with the{' '}
+                                    <Link to="/auth/terms" target="_blank" className="switched">
+                                        sales terms
+                                    </Link>{' '}
+                                    to proceed with payment.
+                                </p>
+                                <CheckboxContainer
+                                    checked={termsAgreed}
+                                    handleChange={handleChange}
+                                    name={'termsAgreed'}
+                                    required
+                                />
+                            </Field>
+                        </div>
+                    </div>
+                </div> */}
+
+            <ButtonWrapper alignment="right" extraClasses="flex-modal-footer">
+                <ActionButton text="Cancel" onClick={hideModal} source="secondary" size="medium" />
+                <ActionButton
+                    text="Buy"
+                    type="submit"
+                    icon={isPosting ? 'spinner' : 'check'}
+                    iconSpin={isPosting}
+                    disabled={isPosting}
+                    size="medium"
+                />
+            </ButtonWrapper>
+            {/* </Form> */}
+        </FlexModalOuter>
+    );
+};
+
+export default AddBolsterPlusModal;

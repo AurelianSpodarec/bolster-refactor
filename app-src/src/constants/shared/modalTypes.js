@@ -132,6 +132,7 @@ export const REACTIVATE_USER = 'REACTIVATE_USER';
 export const DISABLE_USER = 'DISABLE_USER';
 export const ENABLE_USER = 'ENABLE_USER';
 export const RESEND_INVITE = 'RESEND_INVITE';
+export const ADD_BOLSTER_PLUS = 'ADD_BOLSTER_PLUS';
 
 //super admin new features
 export const ADD_NEW_FEATURE = 'ADD_NEW_FEATURE';
