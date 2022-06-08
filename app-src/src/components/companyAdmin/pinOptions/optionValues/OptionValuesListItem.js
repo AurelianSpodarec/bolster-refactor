@@ -62,6 +62,7 @@ const OptionValuesListItem = ({
                         className="row-link w-checkbox"
                         style={{
                             width: tableColumnWidths.length ? tableColumnWidths[0] : 'auto',
+                            paddingRight: 0,
                         }}
                     >
                         <FlexWrapper justify="start" align="center">
@@ -94,6 +95,7 @@ const OptionValuesListItem = ({
                     <td
                         style={{
                             width: tableColumnWidths.length ? tableColumnWidths[1] : 'auto',
+                            paddingLeft: 0,
                         }}
                     >
                         <ButtonWrapper alignment="right">
