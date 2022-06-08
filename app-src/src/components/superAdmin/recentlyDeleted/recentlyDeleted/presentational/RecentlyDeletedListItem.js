@@ -1,8 +1,10 @@
 import React from 'react';
 
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 
-const RecentlyDeletedListItem = ({ item, onMobile, headers }) => (
+const RecentlyDeletedListItem = ({ item, onMobile, headers, handleRestore }) => (
     <tr key={item.createdOn}>
         <td>
             {' '}
@@ -30,15 +32,12 @@ const RecentlyDeletedListItem = ({ item, onMobile, headers }) => (
             {onMobile && <span className="mobile-table-heading">{headers[4]}</span>}
             {item.type}
         </td>
-        {/* <td>
-            {' '}
+        <td>
             {onMobile && <span className="mobile-table-heading">{headers[5]}</span>}
             <BlockButtonWrapper>
-                <button className="button green" onClick={() => handleRestore(item.restoreURI)}>
-                    <i className="fal fa-sync" /> Restore
-                </button>
+                <ActionButton text="Restore" onClick={() => handleRestore(item.restoreURI)} />
             </BlockButtonWrapper>
-        </td> */}
+        </td>
     </tr>
 );
 

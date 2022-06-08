@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import RecentlyDeletedListItem from '../presentational/RecentlyDeletedListItem';
-// import restoreRecentlyDeleted from 'actions/superAdmin/recentlyDeleted/async/restoreRecentlyDeleted';
+import restoreRecentlyDeleted from 'actions/superAdmin/recentlyDeleted/async/restoreRecentlyDeleted';
 
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
@@ -29,7 +29,10 @@ class RecentlyDeletedListItemContainer extends Component {
 
         const message = 'Are you sure you would like to restore this data?';
 
-        const handleSubmit = () => restoreRecentlyDeleted(restoreURI);
+        const handleSubmit = () => {
+            hideModal();
+            restoreRecentlyDeleted(restoreURI);
+        };
 
         showModal(CONFIRM_SUBMIT, { handleSubmit, message, hideModal });
     };
@@ -38,7 +41,7 @@ class RecentlyDeletedListItemContainer extends Component {
 const mapDispatchToProps = {
     hideModal,
     showModal,
-    // restoreRecentlyDeleted,
+    restoreRecentlyDeleted,
 };
 
 export default withRouter(connect(null, mapDispatchToProps)(RecentlyDeletedListItemContainer));
