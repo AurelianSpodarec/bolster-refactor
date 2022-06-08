@@ -58,7 +58,7 @@ const OptionSets = ({ forwardRef, selectedTypeID }) => {
 
     const setLink = selectedPinOptionType.slug;
 
-    const columnWidths = ['90%'];
+    const columnWidths = ['100%'];
 
     return (
         <>

@@ -71,7 +71,7 @@ const OptionValuesList = ({ forwardRef, hasFetched }) => {
         return <Redirect to="/company/pin-options" />;
     }
 
-    const columnWidths = ['85%'];
+    const columnWidths = ['100%'];
 
     return (
         <>

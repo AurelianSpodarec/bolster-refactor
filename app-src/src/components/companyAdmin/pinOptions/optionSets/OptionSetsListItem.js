@@ -47,6 +47,7 @@ const OptionSetsListItem = ({
                         className="row-link w-checkbox"
                         style={{
                             width: tableColumnWidths.length ? tableColumnWidths[0] : 'auto',
+                            paddingRight: 0,
                         }}
                     >
                         <FlexWrapper justify="start" align="center">
@@ -74,6 +75,7 @@ const OptionSetsListItem = ({
                     <td
                         style={{
                             width: tableColumnWidths.length ? tableColumnWidths[1] : 'auto',
+                            paddingLeft: 0,
                         }}
                     >
                         <ButtonWrapper alignment="right">
