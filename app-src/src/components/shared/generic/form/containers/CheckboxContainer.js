@@ -25,6 +25,8 @@ class CheckboxContainer extends Component {
             fromList,
             hideDisabled,
             keepTextColorOnDisable,
+            labelToTheLeft,
+            floatToTheRight,
         } = this.props;
 
         const errorMessage = showFieldError || errorsVisible ? error : null;
@@ -42,6 +44,8 @@ class CheckboxContainer extends Component {
                 fromList={fromList}
                 hideDisabled={hideDisabled}
                 keepTextColorOnDisable={keepTextColorOnDisable}
+                labelToTheLeft={labelToTheLeft}
+                floatToTheRight={floatToTheRight}
             />
         );
     }

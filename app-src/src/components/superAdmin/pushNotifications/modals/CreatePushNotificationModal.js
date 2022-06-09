@@ -7,6 +7,8 @@ import {
 } from 'constants/shared/enums';
 import { enumFormat } from 'helpers/generic';
 
+import useCreatePushNotification from '../hooks/useCreatePushNotification';
+
 import Form from 'components/shared/generic/form/containers/Form';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
@@ -17,9 +19,6 @@ import ActionButton from 'components/shared/generic/button/presentational/Action
 import Select from 'components/shared/generic/form/presentational/Select';
 import PickListContainer from 'components/shared/generic/form/containers/PickListContainer';
 import DateTimePickerContainer from 'components/shared/generic/form/containers/DateTimePickerContainer';
-
-import useCreatePushNotification from '../hooks/useCreatePushNotification';
-import DatePickerContainer from 'components/shared/generic/form/containers/DatePickerContainer';
 
 const CreatePushNotificationModal = () => {
     const { form, handleChange, handleSubmit, isPosting } = useCreatePushNotification();
