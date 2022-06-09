@@ -112,6 +112,7 @@ const CreatePushNotificationModal = ({ notification }) => {
                                 value={form.date}
                                 name="date"
                                 onChange={val => handleChange('date', val)}
+                                fixPickerToTop
                                 required
                                 useUtc
                             />

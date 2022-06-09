@@ -10,12 +10,15 @@ const DateTimePicker = ({
     sizeClasses = 'size-lg-12',
     error,
     useUtc,
+    fixPickerToTop,
 }) => (
     <div className={`date-picker ${sizeClasses}`}>
         <Datetime
             value={value}
             onChange={onChange}
             utc={useUtc}
+            dateFormat="DD/MM/YYYY"
+            className={fixPickerToTop ? 'picker-on-top' : null}
             inputProps={{
                 id,
                 placeholder,
