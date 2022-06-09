@@ -36,6 +36,7 @@ class OutputSettingsContainer extends Component {
                 isOAndMManualGeneration,
                 includeFloorplanZones,
                 includeCostingData,
+                includeLabourCostingData,
             },
             options: { showHidden, sortBy },
             furtherFiltrationOption,
@@ -64,6 +65,7 @@ class OutputSettingsContainer extends Component {
                     includeFloorplanZones={includeFloorplanZones}
                     hasZones={hasZones}
                     includeCostingData={includeCostingData}
+                    includeLabourCostingData={includeLabourCostingData}
                 />
                 <CreateReportReloadOptions />
             </>

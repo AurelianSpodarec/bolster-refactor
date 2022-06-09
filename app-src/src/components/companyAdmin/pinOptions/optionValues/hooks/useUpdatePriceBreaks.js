@@ -22,6 +22,7 @@ const useUpdatePriceBreaks = (form, handleChange, disableAdd = false) => {
         const arrayToUpdate = getFormArrayAfterObjAdd(form.measurementPriceBreaks, {
             value: '',
             cost: '',
+            labourCost: '',
         });
 
         handleChange('measurementPriceBreaks', arrayToUpdate);
