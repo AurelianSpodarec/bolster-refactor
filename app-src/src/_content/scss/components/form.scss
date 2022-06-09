@@ -317,6 +317,12 @@
     width: 100%;
     font-size: 140%;
     @include ubuntu;
+    &.floatToTheRight {
+        text-align: center;
+      .outer {
+        right: 0;
+      }
+    }
   }
 
   .outer {
@@ -329,6 +335,10 @@
     border-radius: 20px;
     background-color: $button-grey;
     transition: background-color 0.2s;
+
+    &.labelToTheLeft {
+      left: auto;
+    }
   }
 
   .text {
