@@ -11,14 +11,14 @@ import { selectPushNotificationsIsPosting } from 'selectors/companyAdmin/pushNot
 import { useForm } from 'helpers/hooks';
 import { getDaysFromBitMask, handleDaysConversion } from 'helpers/generic';
 
-import useConvertDateTimeToCompanyTimeZone from 'hooks/useConvertDateTimeToCompanyTimeZone';
+import useConvertDateTimeForCompanyTimeZone from 'hooks/useConvertDateTimeForCompanyTimeZone';
 
 const useEditPushNotification = notification => {
     const dispatch = useDispatch();
 
     const isPosting = useSelector(selectPushNotificationsIsPosting);
 
-    const { originalDateSet } = useConvertDateTimeToCompanyTimeZone(notification.date);
+    const { dateFromUtcToTimeZone } = useConvertDateTimeForCompanyTimeZone(notification.date);
 
     const [form, handleChange] = useForm({
         title: notification.title,
@@ -26,12 +26,12 @@ const useEditPushNotification = notification => {
         target: notification.target,
         siteID: notification.siteID,
         userIDs: notification.userIDs ?? [],
-        date: new Date(originalDateSet),
+        date: new Date(dateFromUtcToTimeZone),
         frequency: notification.frequency,
         recurrenceDays: getDaysFromBitMask(notification.recurrenceDays),
     });
 
-    const { convertedDate } = useConvertDateTimeToCompanyTimeZone(form.date);
+    const { dateFromLocalToTimeZone } = useConvertDateTimeForCompanyTimeZone(form.date);
 
     const handleSubmit = () => {
         const { recurrenceDays, date, ...rest } = form;
@@ -39,7 +39,7 @@ const useEditPushNotification = notification => {
         const postBody = {
             ...rest,
             target: PUSH_NOTIFICATION_TARGET_VALUES.ALL,
-            date: convertedDate,
+            date: dateFromLocalToTimeZone,
             recurrenceDays:
                 +form.frequency === PUSH_NOTIFICATION_FREQUENCY_VALUES.WEEKLY
                     ? handleDaysConversion(recurrenceDays)
