@@ -6,19 +6,23 @@ import { selectCompanySettings } from 'selectors/companyAdmin/companySettings';
 
 const useConvertDateTimeToCompanyTimeZone = date => {
     const companySettings = useSelector(selectCompanySettings);
+    const timeZone = companySettings?.timeZone.id ?? 'Europe/London';
+    const timeZoneFormat = moment.tz(timeZone).format('Z');
 
     const getFormattedDateTime = () => {
         if (!date) return moment().format();
-
-        const timeZone = companySettings?.timeZone.id ?? 'Europe/London';
-        const timeZoneFormat = moment.tz(timeZone).format('Z');
-
         return moment(date).format(`YYYY-MM-DDTHH:mm:ss${timeZoneFormat}`);
     };
 
-    const converted = getFormattedDateTime();
+    const getTimeSetFromCompanyTimeZone = () => {
+        if (!date) return moment().format();
+        return moment(date).format('YYYY-MM-DDTHH:mm:ss+03:00');
+    };
 
-    return converted;
+    const convertedDate = getFormattedDateTime();
+    const originalDateSet = getTimeSetFromCompanyTimeZone();
+
+    return { convertedDate, originalDateSet };
 };
 
 export default useConvertDateTimeToCompanyTimeZone;
