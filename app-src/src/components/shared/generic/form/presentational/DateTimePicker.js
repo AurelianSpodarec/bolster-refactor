@@ -2,6 +2,7 @@ import React from 'react';
 import Datetime from 'react-datetime';
 
 const DateTimePicker = ({
+    id,
     value,
     onChange,
     placeholder,
@@ -16,6 +17,7 @@ const DateTimePicker = ({
             onChange={onChange}
             utc={useUtc}
             inputProps={{
+                id,
                 placeholder,
                 onBlur,
             }}

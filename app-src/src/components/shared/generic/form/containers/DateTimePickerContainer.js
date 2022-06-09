@@ -30,6 +30,7 @@ const DateTimePickerContainer = ({
 
     return (
         <DateTimePicker
+            id={name}
             value={value}
             onChange={onChange}
             placeholder={placeholder}

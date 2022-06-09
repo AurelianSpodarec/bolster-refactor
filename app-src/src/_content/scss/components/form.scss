@@ -212,18 +212,20 @@
       float: left;
       width: 100%;
     }
+  }
 
-    input {
-      float: left;
-      width: 100%;
-      padding: 5px 10px;
-      font-size: 140%;
-      @include ubuntu;
-      border-radius: 2.5px;
-      border: 1px solid var(--background-stroke);;
-      background-color: var(--input-default);
-      color: var(--typography-default);
-    }
+  .react-datepicker-wrapper, .date-picker {
+      input {
+          float: left;
+          width: 100%;
+          padding: 5px 10px;
+          font-size: 140%;
+          @include ubuntu;
+          border-radius: 2.5px;
+          border: 1px solid var(--background-stroke);;
+          background-color: var(--input-default);
+          color: var(--typography-default);
+      }
   }
 
   .sigCanvas {
@@ -1061,7 +1063,7 @@
     color: var(--typography-default);
   }
 
-  .react-datepicker__input-container {
+  .react-datepicker__input-container, .rdt {
     input {
       background-color: var(--navigation-primary);
       color: var(--typography-default);
