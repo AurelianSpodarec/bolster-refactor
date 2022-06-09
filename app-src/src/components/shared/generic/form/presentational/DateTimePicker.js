@@ -16,6 +16,7 @@ const DateTimePicker = ({
             value={value}
             onChange={onChange}
             utc={useUtc}
+            dateFormat="DD/MM/YYYY"
             inputProps={{
                 id,
                 placeholder,
