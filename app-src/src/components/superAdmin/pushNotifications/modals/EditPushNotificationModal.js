@@ -19,6 +19,7 @@ import Select from 'components/shared/generic/form/presentational/Select';
 import PickListContainer from 'components/shared/generic/form/containers/PickListContainer';
 
 import useEditPushNotification from '../hooks/useEditPushNotification';
+import DateTimePickerContainer from 'components/shared/generic/form/containers/DateTimePickerContainer';
 
 const CreatePushNotificationModal = ({ notification }) => {
     const { form, handleChange, handleSubmit, isPosting } = useEditPushNotification(notification);
@@ -52,11 +53,10 @@ const CreatePushNotificationModal = ({ notification }) => {
                         </Field>
 
                         <Field name="Date &amp; Time" required>
-                            <DatePickerContainer
-                                selected={form.date}
-                                onChange={val => handleChange('date', val)}
+                            <DateTimePickerContainer
+                                value={form.date}
                                 name="date"
-                                showTimeSelect
+                                onChange={val => handleChange('date', val)}
                                 required
                             />
                         </Field>
