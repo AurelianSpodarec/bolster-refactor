@@ -23,10 +23,10 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import DatePickerContainer from 'components/shared/generic/form/containers/DatePickerContainer';
 import Select from 'components/shared/generic/form/presentational/Select';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 import PickListContainer from 'components/shared/generic/form/containers/PickListContainer';
+import DateTimePickerContainer from 'components/shared/generic/form/containers/DateTimePickerContainer';
 
 const CreatePushNotificationModal = () => {
     const { form, handleChange, handleSubmit, isPosting } = useCreatePushNotification();
@@ -101,11 +101,10 @@ const CreatePushNotificationModal = () => {
                         )}
 
                         <Field name="Date &amp; Time" required>
-                            <DatePickerContainer
-                                selected={form.date}
-                                onChange={val => handleChange('date', val)}
+                            <DateTimePickerContainer
+                                value={form.date}
                                 name="date"
-                                showTimeSelect
+                                onChange={val => handleChange('date', val)}
                                 required
                             />
                         </Field>
