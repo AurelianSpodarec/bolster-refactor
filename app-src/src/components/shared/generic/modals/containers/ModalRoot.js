@@ -155,6 +155,7 @@ import {
     ADMIN_DISABLE_COMPANY,
     ADMIN_ENABLE_COMPANY,
     ADD_BOLSTER_PLUS,
+    BOLSTER_PLUS_UPGRADE_MODAL,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -309,6 +310,7 @@ import AdminEditPushNotificationModal from 'components/superAdmin/pushNotificati
 import DisableCompanyModal from 'components/superAdmin/companies/shared/modals/DisableCompanyModal';
 import EnableCompanyModal from 'components/superAdmin/companies/shared/modals/EnableCompanyModal';
 import AddBolsterPlusModal from 'components/companyAdmin/subscription/bolsterPlus/modals/AddBolsterPlusModal';
+import BolsterPlusUpgradeModal from '../presentational/BolsterPlusUpgradeModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModal,
@@ -464,6 +466,7 @@ const MODAL_COMPONENTS = {
     [CREATE_ADMIN_PUSH_NOTIFICATION_MODAL]: AdminCreatePushNotificationModal,
     [EDIT_ADMIN_PUSH_NOTIFICATION_MODAL]: AdminEditPushNotificationModal,
     [ADD_BOLSTER_PLUS]: AddBolsterPlusModal,
+    [BOLSTER_PLUS_UPGRADE_MODAL]: BolsterPlusUpgradeModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

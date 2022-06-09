@@ -33,6 +33,8 @@ import fetchPinOptions from 'actions/companyAdmin/pinOptions/async/fetchPinOptio
 import fetchPinOptionSets from 'actions/companyAdmin/pinOptions/async/fetchPinOptionSets';
 import fetchPinOptionVersions from 'actions/companyAdmin/pinOptions/async/fetchPinOptionVersions';
 import fetchCompanyUsers from '../../../../actions/companyAdmin/userManagement/async/fetchCompanyUsers';
+import { BOLSTER_PLUS_UPGRADE_MODAL } from 'constants/shared/modalTypes';
+import showModal from 'actions/shared/generic/modals/sync/showModal';
 
 const useCostingAndEstimating = () => {
     const [willAutoTick, setWillAutoTick] = useState(false);
@@ -294,6 +296,12 @@ const useCostingAndEstimating = () => {
             onChange('selectedItems', buildInitialSelectedItems(filters.allSites));
         }
     }, [filters.allSites, prevProps.allSites]); // auto-tick everything on first data load
+
+    useEffect(() => {
+        if (selectedTab === 'Costing' || selectedTab === 'Estimating') {
+            dispatch(showModal(BOLSTER_PLUS_UPGRADE_MODAL));
+        }
+    });
 
     return {
         filters,
