@@ -99,20 +99,29 @@ const useEditOptionValue = option => {
                 }
 
                 let newCost = cost;
+                let newLabourCost = labourCost;
 
                 if (isValueSame) {
                     const valueNum = Number(percentageValue);
 
                     if (valueNum <= -100) {
                         newCost = '0';
+                        newLabourCost = '0';
                     } else {
                         const costAsNumber = Number(initialPriceBreak.cost);
-                        const percentageChange = (valueNum / 100) * costAsNumber;
-                        newCost = costAsNumber + percentageChange;
+                        const labourCostAsNumber = Number(initialPriceBreak.labourCost);
+                        const costPercentageChange = (valueNum / 100) * costAsNumber;
+                        const labourCostPercentageChange = (valueNum / 100) * labourCostAsNumber;
+                        newCost = costAsNumber + costPercentageChange;
+                        newLabourCost = labourCostAsNumber + labourCostPercentageChange;
                     }
 
                     if (newCost % 1 !== 0) {
                         newCost = newCost.toFixed(2);
+                    }
+
+                    if (newLabourCost % 1 !== 0) {
+                        newLabourCost = newLabourCost.toFixed(2);
                     }
                 }
 
@@ -120,7 +129,7 @@ const useEditOptionValue = option => {
                     id: initialPriceBreak.id,
                     value: value + '',
                     cost: newCost + '',
-                    labourCost: labourCost + '',
+                    labourCost: newLabourCost + '',
                 };
             }
 
