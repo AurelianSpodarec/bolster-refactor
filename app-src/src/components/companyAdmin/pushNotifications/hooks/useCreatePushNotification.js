@@ -11,6 +11,8 @@ import { selectPushNotificationsIsPosting } from 'selectors/companyAdmin/pushNot
 import { useForm } from 'helpers/hooks';
 import { handleDaysConversion } from 'helpers/generic';
 
+import useConvertDateTimeForCompanyTimeZone from 'hooks/useConvertDateTimeForCompanyTimeZone';
+
 const useCreatePushNotification = () => {
     const dispatch = useDispatch();
 
@@ -27,11 +29,14 @@ const useCreatePushNotification = () => {
         recurrenceDays: [],
     });
 
+    const { dateFromLocalToTimeZone } = useConvertDateTimeForCompanyTimeZone(form.date);
+
     const handleSubmit = () => {
-        const { recurrenceDays, ...rest } = form;
+        const { recurrenceDays, date, ...rest } = form;
 
         const postBody = {
             ...rest,
+            date: dateFromLocalToTimeZone,
             recurrenceDays:
                 +form.frequency === PUSH_NOTIFICATION_FREQUENCY_VALUES.WEEKLY
                     ? handleDaysConversion(recurrenceDays)

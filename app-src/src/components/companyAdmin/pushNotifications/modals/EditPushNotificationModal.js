@@ -14,6 +14,8 @@ import { formatSitesForDropdownOptions, formatUsersForDropdownOptions } from 'he
 import { selectSites } from 'selectors/companyAdmin/sites';
 import { selectCompanyUsers } from 'selectors/companyAdmin/companyUsers';
 
+import useEditPushNotification from '../hooks/useEditPushNotification';
+
 import Form from 'components/shared/generic/form/containers/Form';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
@@ -21,12 +23,10 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import DatePickerContainer from 'components/shared/generic/form/containers/DatePickerContainer';
 import Select from 'components/shared/generic/form/presentational/Select';
 import PickListContainer from 'components/shared/generic/form/containers/PickListContainer';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
-
-import useEditPushNotification from '../hooks/useEditPushNotification';
+import DateTimePickerContainer from 'components/shared/generic/form/containers/DateTimePickerContainer';
 
 const CreatePushNotificationModal = ({ notification }) => {
     const { form, handleChange, handleSubmit, isPosting } = useEditPushNotification(notification);
@@ -101,12 +101,20 @@ const CreatePushNotificationModal = ({ notification }) => {
                         )}
 
                         <Field name="Date &amp; Time" required>
-                            <DatePickerContainer
+                            {/* <DatePickerContainer
                                 selected={form.date}
                                 onChange={val => handleChange('date', val)}
                                 name="date"
                                 showTimeSelect
                                 required
+                            /> */}
+                            <DateTimePickerContainer
+                                value={form.date}
+                                name="date"
+                                onChange={val => handleChange('date', val)}
+                                fixPickerToTop
+                                required
+                                useUtc
                             />
                         </Field>
 

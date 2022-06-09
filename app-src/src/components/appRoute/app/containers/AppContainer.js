@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import { withRouter } from 'react-router-dom';
 
+import 'react-datetime/css/react-datetime.css';
+
 import App from '../presentational/App';
 
 import setMobileWidth from 'actions/shared/generic/mobile/sync/setMobileWidth';
