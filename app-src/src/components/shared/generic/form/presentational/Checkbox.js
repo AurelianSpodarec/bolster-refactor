@@ -12,6 +12,8 @@ const Checkbox = ({
     fromList,
     hideDisabled = false,
     keepTextColorOnDisable,
+    labelToTheLeft = false,
+    floatToTheRight = false,
 }) => {
     const greyOutClass = keepTextColorOnDisable ? 'grey-out-input' : 'grey-out';
 
@@ -32,6 +34,7 @@ const Checkbox = ({
             />
             <label
                 htmlFor={name}
+                className={`${floatToTheRight && 'floatToTheRight'}`}
                 // ? ## needs styling for disabled ##
                 // style={disabled ? { color: 'grey' } : {}}
             >
@@ -40,7 +43,7 @@ const Checkbox = ({
                 ) : (
                     <span className="text">&nbsp;</span>
                 )}
-                <span className="outer">
+                <span className={`outer ${labelToTheLeft && 'labelToTheLeft'}`}>
                     <span className="inner" />
                 </span>
             </label>

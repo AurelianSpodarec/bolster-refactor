@@ -13,7 +13,7 @@ import { ADD_BOLSTER_PLUS } from 'constants/shared/modalTypes';
 
 const BolsterPlusPod = () => {
     const dispatch = useDispatch();
-    const isBolsterPlusActivated = false;
+    const isBolsterPlusActivated = true;
 
     const { handleAutoRenewChange, isAutoRenew } = useAutoRenew(isAutoRenew);
 
@@ -30,6 +30,8 @@ const BolsterPlusPod = () => {
                             value={isAutoRenew}
                             handleChange={handleAutoRenewChange}
                             checked={!!isAutoRenew}
+                            labelToTheLeft={true}
+                            floatToTheRight={true}
                         />
                     </FlexWrapper>
                 )}
