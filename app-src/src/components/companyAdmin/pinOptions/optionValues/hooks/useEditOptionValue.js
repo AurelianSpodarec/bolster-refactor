@@ -34,7 +34,7 @@ const useEditOptionValue = option => {
     const pinOptionType = useSelector(state => selectPinOptionType(state, option.pinOptionTypeID));
 
     const getInitialPriceBreak = () => {
-        const emptyPriceBreak = { value: '', cost: '' };
+        const emptyPriceBreak = { value: '', cost: '', labourCost: '' };
 
         if (isEmpty(option.priceBreaks)) return [emptyPriceBreak];
 
@@ -43,6 +43,7 @@ const useEditOptionValue = option => {
                 id: priceBreak.id,
                 value: priceBreak.value + '',
                 cost: priceBreak.cost + '',
+                labourCost: priceBreak.labourCost + '',
             };
         });
 
@@ -80,7 +81,7 @@ const useEditOptionValue = option => {
     const handleQuickPriceEditChange = (name, percentageValue) => {
         handleChange(name, percentageValue);
 
-        const updatedValues = form.measurementPriceBreaks.map(({ id, value, cost }) => {
+        const updatedValues = form.measurementPriceBreaks.map(({ id, value, cost, labourCost }) => {
             if (id) {
                 const initialPriceBreak = initialPriceBreaks.find(
                     priceBreak => priceBreak.id === id,
@@ -93,24 +94,34 @@ const useEditOptionValue = option => {
                         id: initialPriceBreak.id,
                         value: initialPriceBreak.value,
                         cost: initialPriceBreak.cost,
+                        labourCost: initialPriceBreak.labourCost,
                     };
                 }
 
                 let newCost = cost;
+                let newLabourCost = labourCost;
 
                 if (isValueSame) {
                     const valueNum = Number(percentageValue);
 
                     if (valueNum <= -100) {
                         newCost = '0';
+                        newLabourCost = '0';
                     } else {
                         const costAsNumber = Number(initialPriceBreak.cost);
-                        const percentageChange = (valueNum / 100) * costAsNumber;
-                        newCost = costAsNumber + percentageChange;
+                        const labourCostAsNumber = Number(initialPriceBreak.labourCost);
+                        const costPercentageChange = (valueNum / 100) * costAsNumber;
+                        const labourCostPercentageChange = (valueNum / 100) * labourCostAsNumber;
+                        newCost = costAsNumber + costPercentageChange;
+                        newLabourCost = labourCostAsNumber + labourCostPercentageChange;
                     }
 
                     if (newCost % 1 !== 0) {
                         newCost = newCost.toFixed(2);
+                    }
+
+                    if (newLabourCost % 1 !== 0) {
+                        newLabourCost = newLabourCost.toFixed(2);
                     }
                 }
 
@@ -118,12 +129,14 @@ const useEditOptionValue = option => {
                     id: initialPriceBreak.id,
                     value: value + '',
                     cost: newCost + '',
+                    labourCost: newLabourCost + '',
                 };
             }
 
             return {
                 value: value + '',
                 cost: cost + '',
+                labourCost: labourCost + '',
             };
         });
 
@@ -153,16 +166,19 @@ const useEditOptionValue = option => {
         }
 
         if (pinOptionType.hasCosting && costMeasurementType) {
-            const anyIncompletePriceBreaks = measurementPriceBreaks.some(priceBreak => {
-                const { value, cost } = priceBreak;
-                return (value && !cost) || (!value && cost);
-            });
+            const anyIncompletePriceBreaks = measurementPriceBreaks.some(
+                ({ value, cost, labourCost }) => {
+                    if (!value && !cost && !labourCost) return false;
+                    if (!value || !cost || !labourCost) return true;
+                    return false;
+                },
+            );
 
             const anyZeroOrNegativePriceBreaks = measurementPriceBreaks.some(priceBreak => {
-                const { value, cost } = priceBreak;
+                const { value, cost, labourCost } = priceBreak;
 
-                if (!value || !cost) return false;
-                return value <= 0 || cost <= 0;
+                if (!value || !cost || !labourCost) return false;
+                return value <= 0 || cost <= 0 || labourCost <= 0;
             });
 
             if (anyIncompletePriceBreaks) {
@@ -176,7 +192,7 @@ const useEditOptionValue = option => {
             }
 
             const priceBreaksWithoutEmpties = measurementPriceBreaks.filter(
-                ({ value, cost }) => value && cost,
+                ({ value, cost, labourCost }) => value && cost && labourCost,
             );
 
             postBody.costMeasurementType = option.costMeasurementType

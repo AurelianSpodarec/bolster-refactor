@@ -33,6 +33,7 @@ const useCreateOptionValue = (pinOptionTypeID, pinOptionSetID) => {
         {
             value: '',
             cost: '',
+            labourCost: '',
         },
     ];
 
@@ -76,14 +77,18 @@ const useCreateOptionValue = (pinOptionTypeID, pinOptionSetID) => {
 
         if (pinOptionType.hasCosting && measurementType) {
             const anyIncompletePriceBreaks = measurementPriceBreaks.some(
-                ({ value, cost }) => (value && !cost) || (!value && cost),
+                ({ value, cost, labourCost }) => {
+                    if (!value && !cost && !labourCost) return false;
+                    if (!value || !cost || !labourCost) return true;
+                    return false;
+                },
             );
 
             const anyZeroOrNegativePriceBreaks = measurementPriceBreaks.some(priceBreak => {
-                const { value, cost } = priceBreak;
+                const { value, cost, labourCost } = priceBreak;
 
-                if (!value || !cost) return false;
-                return value <= 0 || cost <= 0;
+                if (!value || !cost || !labourCost) return false;
+                return value <= 0 || cost <= 0 || labourCost <= 0;
             });
 
             if (anyIncompletePriceBreaks) {
@@ -97,7 +102,7 @@ const useCreateOptionValue = (pinOptionTypeID, pinOptionSetID) => {
             }
 
             const priceBreaksWithoutEmpties = measurementPriceBreaks.filter(
-                ({ value, cost }) => value && cost,
+                ({ value, cost, labourCost }) => value && cost && labourCost,
             );
 
             postBody.measurementType = measurementType;

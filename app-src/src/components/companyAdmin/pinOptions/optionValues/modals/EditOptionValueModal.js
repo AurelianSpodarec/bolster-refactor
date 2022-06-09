@@ -149,7 +149,8 @@ const EditOptionValueModal = ({ option }) => {
 
                                         <div className="measurement-fields-grid">
                                             <Field name="Measurement" />
-                                            <Field name="Price" />
+                                            <Field name="Sell" />
+                                            <Field name="Labour Cost" />
                                             <Field name="" />
 
                                             {form.measurementPriceBreaks.map(
@@ -195,6 +196,29 @@ const EditOptionValueModal = ({ option }) => {
                                                                         handlePriceBreakChange(
                                                                             index,
                                                                             'cost',
+                                                                            value,
+                                                                        );
+                                                                        setError(null);
+                                                                    }}
+                                                                    disableMouseWheelControl
+                                                                    disableUpDownArrowControl
+                                                                />
+                                                            </Field>
+
+                                                            <Field>
+                                                                <NumberInputContainer
+                                                                    name={`measurementPriceBreaks[${index}].labourCost`}
+                                                                    value={priceBreak.labourCost}
+                                                                    placeholder="Type price"
+                                                                    minNum={0}
+                                                                    handleFocus={() => {
+                                                                        if (isLast)
+                                                                            handleAddPriceBreak();
+                                                                    }}
+                                                                    handleChange={(_, value) => {
+                                                                        handlePriceBreakChange(
+                                                                            index,
+                                                                            'labourCost',
                                                                             value,
                                                                         );
                                                                         setError(null);
