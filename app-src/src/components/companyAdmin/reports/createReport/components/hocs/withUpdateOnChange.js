@@ -260,6 +260,7 @@ export default function (ProtectedComponent) {
                     includeTime,
                     isQuestionFilterExact,
                     includeCostingData,
+                    includeLabourCostingData,
                 },
                 furtherFiltrationOption,
                 excludedPinIDs,
@@ -352,6 +353,7 @@ export default function (ProtectedComponent) {
                 includeTime,
                 isQuestionFilterExact,
                 includeCostingData,
+                includeLabourCostingData,
             };
             return body;
         };
