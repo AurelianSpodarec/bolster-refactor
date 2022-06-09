@@ -39,18 +39,18 @@ const BolsterPlusPod = () => {
             </p>
             {!isBolsterPlusActivated && (
                 <>
-                    <p className="size-lg-12 heading">£3000</p>
+                    <p className="size-lg-12 heading-large">£3000</p>
 
-                    <p className="size-lg-12">Highlights</p>
-                    <h1 className="size-lg-12">
+                    <p className="size-lg-12 heading">Highlights</p>
+                    <p className="size-lg-12">
                         Costing &amp; Estimating (price sites automatically from your schedule of
                         rates)
-                    </h1>
-                    <h1>Timesheets + (export timesheet CSVs, set wages for operatives)</h1>
-                    <h1>25 GB </h1>
-                    <h1>Futher user</h1>
-                    <h1>Customised</h1>
-                    <h1>Dedicated</h1>
+                    </p>
+                    <p>Timesheets + (export timesheet CSVs, set wages for operatives)</p>
+                    <p>25 GB </p>
+                    <p>Futher user</p>
+                    <p>Customised</p>
+                    <p>Dedicated</p>
                 </>
             )}
 
