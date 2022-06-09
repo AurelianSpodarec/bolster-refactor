@@ -31,6 +31,7 @@ const OutputSettings = ({
     includeFloorplanZones,
     hasZones = false,
     includeCostingData,
+    includeLabourCostingData,
 }) => {
     return (
         <div className="size-lg-12">
@@ -120,6 +121,17 @@ const OutputSettings = ({
                                                 name="includeCostingData"
                                                 handleChange={handleFilterChange}
                                                 label="Cost Per Pin"
+                                            />
+                                        </Field>
+                                    )}
+                                    {isCSVGeneration && (
+                                        <Field sizeClasses="size-lg-3 size-md-12">
+                                            <Tickbox
+                                                classes="large-text"
+                                                checked={includeLabourCostingData}
+                                                name="includeLabourCostingData"
+                                                handleChange={handleFilterChange}
+                                                label="Labour Cost Per Pin"
                                             />
                                         </Field>
                                     )}
