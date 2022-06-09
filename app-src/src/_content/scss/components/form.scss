@@ -1076,6 +1076,15 @@
     }
   }
 
+  .rdt {
+    &.picker-on-top {
+      .rdtPicker {
+        bottom: 0;
+        margin-top: 0;
+      }
+    }
+  }
+
   .rdtPicker {
     margin-top: 28px;
     padding: 0;

@@ -16,6 +16,7 @@ const DateTimePickerContainer = ({
     onBlur = () => {},
     sizeClasses = 'size-lg-12',
     useUtc = false,
+    fixPickerToTop = false,
 }) => {
     const dispatch = useDispatch();
     const error = useSelector(state => selectFieldError(state, name));
@@ -38,6 +39,7 @@ const DateTimePickerContainer = ({
             sizeClasses={sizeClasses}
             error={errorMessage}
             useUtc={useUtc}
+            fixPickerToTop={fixPickerToTop}
         />
     );
 
