@@ -2,33 +2,26 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import Form from 'components/shared/generic/form/containers/Form';
-import RadioButton from 'components/shared/generic/form/presentational/RadioButton';
-import { PAYMENT_IDS } from 'constants/companyAdmin/enums';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import { formatNumber } from 'helpers/generic';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import AddCardFormContainer from '../../cardManagement/addCardModal/containers/AddCardFormContainer';
-import Select from 'components/shared/generic/form/presentational/Select';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
+import PaymentMethod from '../../paymentMethod/PaymentMethod';
 
 const BuyCreditsModal = ({
     hideModal,
     handleChange,
     handleSubmit,
-    paymentType,
     creditsToBuy = 0,
-    cards,
     credits,
-    selectedCard,
     handleCreditsChange,
     costWithVAT,
     costWithoutVAT,
-    noCards,
     addCardVisible,
-    showAddCard,
     hideAddCard,
     handleAddCardSuccess,
     termsAgreed,
@@ -47,56 +40,9 @@ const BuyCreditsModal = ({
                 <div className="flex-content">
                     <p className="generic-text">You have {credits} credits available.</p>
 
+                    <PaymentMethod />
+
                     <div className="form-fields-container">
-                        <Field sizeClasses="size-lg-6">
-                            <RadioButton
-                                name={'paymentType'}
-                                value={PAYMENT_IDS.CARD}
-                                text="Pay by card"
-                                handleInputChange={handleChange}
-                                checked={+paymentType === PAYMENT_IDS.CARD}
-                                extraDetails={noCards ? 'No cards available' : ''}
-                                disabled={noCards}
-                            />
-                        </Field>
-                        <Field sizeClasses="size-lg-6">
-                            <RadioButton
-                                name={'paymentType'}
-                                value={PAYMENT_IDS.INVOICE}
-                                text="Pay by invoice"
-                                handleInputChange={handleChange}
-                                checked={+paymentType === PAYMENT_IDS.INVOICE}
-                            />
-                        </Field>
-                        {+paymentType === PAYMENT_IDS.CARD && !noCards && (
-                            <>
-                                <Field sizeClasses="size-lg-12">
-                                    <ActionButton
-                                        text="Add new card"
-                                        type="submit"
-                                        onClick={showAddCard}
-                                        icon="plus"
-                                        size="small"
-                                        ambient="positive"
-                                    />
-                                </Field>
-                                <Field sizeClasses="size-lg-12" name="Select Card" required>
-                                    <Select
-                                        required
-                                        name="stripeCardID"
-                                        options={cards}
-                                        omitPlaceholder={!!cards.length}
-                                        placeholder={
-                                            !cards.length
-                                                ? 'Please add a card to use card payments.'
-                                                : 'Loading cards...'
-                                        }
-                                        value={selectedCard}
-                                        onChange={handleChange}
-                                    />
-                                </Field>
-                            </>
-                        )}
                         <Field name="Credits to buy" sizeClasses="size-lg-12" required>
                             {shouldReceiveFreeCredit && (
                                 <p className="generic-text field-info">
