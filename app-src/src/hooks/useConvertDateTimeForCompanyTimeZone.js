@@ -4,9 +4,9 @@ import 'moment-timezone';
 
 import { selectCompanySettings } from 'selectors/companyAdmin/companySettings';
 
-const useConvertDateTimeForCompanyTimeZone = date => {
+const useConvertDateTimeForCompanyTimeZone = (date, forceLocalTimeZone) => {
     const companySettings = useSelector(selectCompanySettings);
-    const timeZone = companySettings?.timeZone.id ?? 'Europe/London';
+    const timeZone = companySettings?.timeZone?.id ?? 'Europe/London';
     const timeZoneFormat = moment.tz(timeZone).format('Z');
 
     const getTimeZoneDateFromLocalDate = () => {
@@ -22,7 +22,9 @@ const useConvertDateTimeForCompanyTimeZone = date => {
 
         const switchedTimeZone = `${timeZoneFormatSymbol === '+' ? '-' : '+'}${timeZoneFormatTime}`;
 
-        return moment(date).format(`YYYY-MM-DDTHH:mm:ss${switchedTimeZone}`);
+        return moment(date).format(
+            `YYYY-MM-DDTHH:mm:ss${forceLocalTimeZone ? '+00:00' : switchedTimeZone}`,
+        );
     };
 
     const dateFromLocalToTimeZone = getTimeZoneDateFromLocalDate();

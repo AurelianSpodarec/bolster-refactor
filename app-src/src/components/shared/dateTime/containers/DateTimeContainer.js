@@ -4,8 +4,11 @@ import 'moment-timezone';
 import { connect } from 'react-redux';
 import { DATE_TIMES, DATE_TIME_IDS, DATE_TIME_DEFAULTS } from 'constants/companyAdmin/enums';
 
-const DateTimeContainer = ({ date, timeZone, dateFormat, className = '' }) => {
-    const formattedDate = moment.utc(date).tz(timeZone).format(dateFormat);
+const DateTimeContainer = ({ date, timeZone, dateFormat, className = '', forceLocalTimeZone }) => {
+    const formattedDate = moment
+        .utc(date)
+        .tz(forceLocalTimeZone ? 'Europe/London' : timeZone)
+        .format(dateFormat);
     return <span className={className}>{formattedDate}</span>;
 };
 

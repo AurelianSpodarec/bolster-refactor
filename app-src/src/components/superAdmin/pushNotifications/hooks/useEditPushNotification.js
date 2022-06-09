@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
+import 'moment-timezone';
 
 import {
     PUSH_NOTIFICATION_FREQUENCY_VALUES,
@@ -12,15 +13,19 @@ import { selectAdminPushNotificationsIsPosting } from 'selectors/superAdmin/push
 import { useForm } from 'helpers/hooks';
 import { getDaysFromBitMask, handleDaysConversion } from 'helpers/generic';
 
+import useConvertDateTimeForCompanyTimeZone from 'hooks/useConvertDateTimeForCompanyTimeZone';
+
 const useEditPushNotification = notification => {
     const dispatch = useDispatch();
 
     const isPosting = useSelector(selectAdminPushNotificationsIsPosting);
 
+    const { dateFromUtcToTimeZone } = useConvertDateTimeForCompanyTimeZone(notification.date, true);
+
     const [form, handleChange] = useForm({
         title: notification.title,
         message: notification.message,
-        date: new Date(notification.date),
+        date: new Date(dateFromUtcToTimeZone),
         frequency: notification.frequency,
         recurrenceDays: getDaysFromBitMask(notification.recurrenceDays),
     });

@@ -7,6 +7,8 @@ import {
 } from 'constants/shared/enums';
 import { enumFormat } from 'helpers/generic';
 
+import useEditPushNotification from '../hooks/useEditPushNotification';
+
 import Form from 'components/shared/generic/form/containers/Form';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
@@ -14,11 +16,8 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import DatePickerContainer from 'components/shared/generic/form/containers/DatePickerContainer';
 import Select from 'components/shared/generic/form/presentational/Select';
 import PickListContainer from 'components/shared/generic/form/containers/PickListContainer';
-
-import useEditPushNotification from '../hooks/useEditPushNotification';
 import DateTimePickerContainer from 'components/shared/generic/form/containers/DateTimePickerContainer';
 
 const CreatePushNotificationModal = ({ notification }) => {

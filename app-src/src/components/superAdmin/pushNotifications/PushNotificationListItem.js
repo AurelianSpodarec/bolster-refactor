@@ -32,7 +32,9 @@ const PushNotificationListItem = ({
         <td>
             <DateTimeContainer date={date} />
         </td>
-        <td>{lastSentOn ? <DateTimeContainer date={lastSentOn} /> : 'Not sent'}</td>
+        <td>
+            {lastSentOn ? <DateTimeContainer date={lastSentOn} forceLocalTimeZone /> : 'Not sent'}
+        </td>
         <td>
             <ButtonWrapper alignment="right">
                 <ActionMenu>
