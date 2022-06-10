@@ -13,6 +13,7 @@ import ButtonWrapper from '../../button/presentational/ButtonWrapper';
 import ActionButton from '../../button/presentational/ActionButton';
 import FlexWrapper from '../../flexWrapper/FlexWrapper';
 
+// handleClose will be used for any extra actions that might be needed when closing the modal (e.g. change tab)
 const BolsterPlusUpgradeModal = ({ handleClose, hideModal }) => {
     const dispatch = useDispatch();
     const history = useHistory();
