@@ -27,6 +27,11 @@ const BuyCreditsModal = ({
     termsAgreed,
     isPosting,
     shouldReceiveFreeCredit,
+    paymentType,
+    cards,
+    selectedCard,
+    noCards,
+    showAddCard,
 }) => {
     if (addCardVisible)
         return <AddCardFormContainer close={hideAddCard} onSuccess={handleAddCardSuccess} />;
@@ -40,7 +45,15 @@ const BuyCreditsModal = ({
                 <div className="flex-content">
                     <p className="generic-text">You have {credits} credits available.</p>
 
-                    <PaymentMethod />
+                    <PaymentMethod
+                        handleChange={handleChange}
+                        handleSubmit={handleSubmit}
+                        paymentType={paymentType}
+                        cards={cards}
+                        selectedCard={selectedCard}
+                        noCards={noCards}
+                        showAddCard={showAddCard}
+                    />
 
                     <div className="form-fields-container">
                         <Field name="Credits to buy" sizeClasses="size-lg-12" required>
