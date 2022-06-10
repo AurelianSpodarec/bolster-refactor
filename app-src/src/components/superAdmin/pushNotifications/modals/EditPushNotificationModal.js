@@ -4,6 +4,8 @@ import {
     PUSH_NOTIFICATION_FREQUENCY_VALUES,
     PUSH_NOTIFICATION_FREQUENCY_NAMES,
     RECURRENCE_DAYS_SHORT_NAMES,
+    pushNotificationTitleCharLimit,
+    pushNotificationMessageCharLimit,
 } from 'constants/shared/enums';
 import { enumFormat } from 'helpers/generic';
 
@@ -31,22 +33,34 @@ const CreatePushNotificationModal = ({ notification }) => {
             <Form onSubmit={handleSubmit} className="generic-form flex-content-wrapper size-lg-12">
                 <div className="flex-content">
                     <div className="form-fields-container">
-                        <Field name="Title" required>
+                        <Field
+                            name="Title"
+                            valueLength={form.title.length}
+                            charLimit={pushNotificationTitleCharLimit}
+                            required
+                        >
                             <TextInputContainer
                                 name="title"
                                 value={form.title}
                                 handleChange={handleChange}
                                 placeholder="Enter title"
+                                charLimit={pushNotificationTitleCharLimit}
                                 required
                             />
                         </Field>
 
-                        <Field name="Message" required>
+                        <Field
+                            name="Message"
+                            valueLength={form.message.length}
+                            charLimit={pushNotificationMessageCharLimit}
+                            required
+                        >
                             <TextAreaContainer
                                 name="message"
                                 value={form.message}
                                 handleChange={handleChange}
                                 placeholder="Enter message"
+                                charLimit={pushNotificationMessageCharLimit}
                                 required
                             />
                         </Field>
