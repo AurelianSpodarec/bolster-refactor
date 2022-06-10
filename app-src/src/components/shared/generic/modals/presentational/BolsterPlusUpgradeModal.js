@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import { ADD_BOLSTER_PLUS } from 'constants/shared/modalTypes';
+import { bolsterPlusLearnMoreLink } from 'constants/companyAdmin/bolsterPlus';
 
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 
@@ -11,6 +12,7 @@ import BolsterPlusHeading from 'components/companyAdmin/subscription/bolsterPlus
 import BolsterPlusFeatures from 'components/companyAdmin/subscription/bolsterPlus/BolsterPlusFeatures';
 import ButtonWrapper from '../../button/presentational/ButtonWrapper';
 import ActionButton from '../../button/presentational/ActionButton';
+import LinkButton from '../../button/presentational/LinkButton';
 import FlexWrapper from '../../flexWrapper/FlexWrapper';
 
 // handleClose will be used for any extra actions that might be needed when closing the modal (e.g. change tab)
@@ -28,11 +30,13 @@ const BolsterPlusUpgradeModal = ({ handleClose, hideModal }) => {
 
                 <FlexWrapper extraClasses="flex-modal-footer" justify="between">
                     <ButtonWrapper alignment="left">
-                        <ActionButton
+                        <LinkButton
                             text="Learn More"
                             source="secondary"
                             ambient="positive"
-                            onClick={() => {}}
+                            href={bolsterPlusLearnMoreLink}
+                            isExternalLink
+                            openInNewTab
                         />
                     </ButtonWrapper>
                     <ButtonWrapper alignment="right">

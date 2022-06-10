@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 
 import { ADD_BOLSTER_PLUS } from 'constants/shared/modalTypes';
+import { bolsterPlusLearnMoreLink } from 'constants/companyAdmin/bolsterPlus';
 
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 
@@ -9,6 +10,7 @@ import useAutoRenew from './hooks/useAutoRenew';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
@@ -44,7 +46,14 @@ const BolsterPlusPod = () => {
 
             <FlexWrapper align="end">
                 <ButtonWrapper extraClasses="size-lg-6 margin-top" alignment="left">
-                    <ActionButton text="Learn more" source="secondary" ambient="positive" />
+                    <LinkButton
+                        text="Learn More"
+                        source="secondary"
+                        ambient="positive"
+                        href={bolsterPlusLearnMoreLink}
+                        isExternalLink
+                        openInNewTab
+                    />
                 </ButtonWrapper>
                 {!isBolsterPlusActivated && (
                     <ButtonWrapper extraClasses="size-lg-6 margin-top" alignment="right">
