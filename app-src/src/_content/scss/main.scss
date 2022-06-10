@@ -97,6 +97,10 @@ em {
 
 #page-container {
   height: calc(100% - 69px);
+  .blur {
+    filter: blur(2px);
+    -webkit-filter: blur(2px);
+  }
 }
 
 #page-area {
