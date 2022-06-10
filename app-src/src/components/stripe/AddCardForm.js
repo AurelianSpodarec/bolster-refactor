@@ -15,6 +15,7 @@ import fetchCard from 'actions/companyAdmin/cards/async/fetchCard';
 import setPrimaryCard from 'actions/companyAdmin/cards/async/setPrimaryCard';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 
 class CheckoutForm extends Component {
     state = {
@@ -80,7 +81,7 @@ class CheckoutForm extends Component {
 
     render() {
         const { name, errorMessage, nameProvided } = this.state;
-        const { close } = this.props;
+        const { hideModal } = this.props;
         const isDarkMode = JSON.parse(localStorage.getItem('isDarkModeEnabled'));
 
         const createOptions = () => {
@@ -177,7 +178,7 @@ class CheckoutForm extends Component {
                 </div>
 
                 <ButtonWrapper alignment="right" extraClasses="flex-modal-footer">
-                    <ActionButton text="Cancel" onClick={() => close()} source="secondary" />
+                    <ActionButton text="Cancel" onClick={() => hideModal()} source="secondary" />
                     <ActionButton
                         text="Confirm"
                         icon="check"
@@ -215,5 +216,6 @@ const mapStateToProps = ({
 const mapDispatchToProps = {
     fetchCard,
     setPrimaryCard,
+    hideModal,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(injectStripe(CheckoutForm));
