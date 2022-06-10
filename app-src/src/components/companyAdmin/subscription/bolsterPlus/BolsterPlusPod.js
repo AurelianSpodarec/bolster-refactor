@@ -19,21 +19,20 @@ const BolsterPlusPod = () => {
 
     return (
         <BlockContainer>
-            <FlexWrapper extraClasses="margin-bottom-medium">
+            <FlexWrapper extraClasses="margin-bottom-medium" justify="between">
                 <BolsterPlusPodHeading bolsterPlusActivated={isBolsterPlusActivated} />
 
                 {isBolsterPlusActivated && (
-                    <FlexWrapper justify="end" width="6">
-                        <CheckboxContainer
-                            name={'isAutoRenew'}
-                            text="Auto-Renewal"
-                            value={isAutoRenew}
-                            handleChange={handleAutoRenewChange}
-                            checked={!!isAutoRenew}
-                            labelToTheLeft={true}
-                            floatToTheRight={true}
-                        />
-                    </FlexWrapper>
+                    <CheckboxContainer
+                        name={'isAutoRenew'}
+                        text="Auto-Renewal"
+                        value={isAutoRenew}
+                        handleChange={handleAutoRenewChange}
+                        checked={!!isAutoRenew}
+                        classes="auto-width"
+                        labelToTheLeft
+                        forceOnOneLine
+                    />
                 )}
             </FlexWrapper>
             <p className="size-lg-12">
