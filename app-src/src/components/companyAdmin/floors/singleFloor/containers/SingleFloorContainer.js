@@ -9,7 +9,7 @@ import fetchHistoricServicesForCompany from 'actions/companyAdmin/services/async
 
 import SingleFloor from '../presentational/SingleFloor';
 import setTabs from 'actions/shared/generic/tabs/sync/setTabs';
-import { FLOOR_TABS } from 'constants/shared/tabNames';
+import { HIERARCHY_TABS } from 'constants/shared/tabNames';
 import resetFilterOptions from 'actions/companyAdmin/reports/sync/resetFilterOptions';
 import fetchClientsForFloor from 'actions/companyAdmin/clients/async/fetchClientsForFloor';
 import fetchOperativesForFloor from 'actions/companyAdmin/operatives/async/fetchOperativesForFloor';
@@ -29,7 +29,7 @@ class SingleFloorContainer extends Component {
             fetchClientsForFloor,
             setTabs,
         } = this.props;
-        setTabs(Object.values(FLOOR_TABS), FLOOR_TABS.GENERAL_OVERVIEW);
+        setTabs(Object.values(HIERARCHY_TABS), HIERARCHY_TABS.GENERAL_OVERVIEW);
         batch(() => {
             fetchSingleFloor(floorID);
             fetchAllDrawings();
