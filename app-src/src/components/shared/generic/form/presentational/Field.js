@@ -13,9 +13,14 @@ const Field = ({
     styles = {},
     labelClasses = '',
     forceName = false,
+    valueLength,
+    charLimit,
 }) => {
     const titleCaseName = toTitleCase(name);
-    const labelOutput = label ? label : titleCaseName ? titleCaseName : '\u00A0';
+    const titleOutput = label ? label : titleCaseName ? titleCaseName : '\u00A0';
+    const labelOutput = `${titleOutput}${
+        charLimit && valueLength !== undefined ? ` (${valueLength}/${charLimit})` : ''
+    }`;
 
     return (
         <div className={`form-field ${sizeClasses} ${classes} `} style={{ ...styles }}>
