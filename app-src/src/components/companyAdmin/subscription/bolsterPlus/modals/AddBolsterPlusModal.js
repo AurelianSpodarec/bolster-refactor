@@ -6,14 +6,27 @@ import ButtonWrapper from 'components/shared/generic/button/presentational/Butto
 import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 import AddCardFormContainer from '../../cardManagement/addCardModal/containers/AddCardFormContainer';
 import PaymentMethod from '../../paymentMethod/PaymentMethod';
+import usePaymentMethod from '../../paymentMethod/hooks/usePaymentMethod';
 
 const AddBolsterPlusModal = ({
     hideModal,
-    addCardVisible,
+
     hideAddCard,
-    handleAddCardSuccess,
+
     isPosting,
 }) => {
+    const {
+        handleChange,
+        handleSubmit,
+        form,
+        cardOptions,
+        addCardVisible,
+        cards,
+        handleAddCardSuccess,
+        showAddCard,
+    } = usePaymentMethod(showAddCard);
+
+    console.log(addCardVisible);
     if (addCardVisible)
         return <AddCardFormContainer close={hideAddCard} onSuccess={handleAddCardSuccess} />;
 
@@ -22,7 +35,15 @@ const AddBolsterPlusModal = ({
             <div className="flex-content">
                 <p className="generic-text">This service will be added ...</p>
 
-                <PaymentMethod />
+                <PaymentMethod
+                    handleChange={handleChange}
+                    handleSubmit={handleSubmit}
+                    cards={cardOptions}
+                    paymentType={form.paymentType}
+                    selectedCard={form.stripeCardID}
+                    noCards={!cards.length}
+                    showAddCard={showAddCard}
+                />
 
                 <ButtonWrapper alignment="right" extraClasses="flex-modal-footer">
                     <ActionButton
