@@ -1,3 +1,4 @@
+// large heading with logo
 .bolster-plus-heading {
     .title {
         @include ubuntu-medium;
@@ -11,5 +12,14 @@
     .status-icon {
         margin-left: 15px;
         margin-top: 5px;
+    }
+}
+
+// feature of plus (with check icon)
+.bolster-plus-feature {
+    margin-bottom: 10px;
+
+    &:last-child {
+        margin-bottom: 0;
     }
 }

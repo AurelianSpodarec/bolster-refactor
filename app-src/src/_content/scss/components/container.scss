@@ -49,6 +49,13 @@
             font-size: 240%;
             margin: 10px 0 10px 0;
         }
+
+        // bolster plus amount (cost)
+        &.bolster-plus-amount {
+            margin: 10px 0;
+            @include ubuntu-medium;
+            font-size: 32px;
+        }
     }
 
     &.small-padding {

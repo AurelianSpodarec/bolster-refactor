@@ -4,7 +4,7 @@ import { ReactComponent as BolsterPlusLogo } from '../../../../_content/images/l
 
 import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 
-const BolsterPlusPodHeading = ({ bolsterPlusActivated }) => (
+const BolsterPlusHeading = ({ bolsterPlusActivated }) => (
     <FlexWrapper extraClasses="bolster-plus-heading" align="center">
         <BolsterPlusLogo className="logo" title="Bolster Plus logo" />
         <h3 className="title">Bolster Plus</h3>
@@ -16,4 +16,4 @@ const BolsterPlusPodHeading = ({ bolsterPlusActivated }) => (
     </FlexWrapper>
 );
 
-export default BolsterPlusPodHeading;
+export default BolsterPlusHeading;
