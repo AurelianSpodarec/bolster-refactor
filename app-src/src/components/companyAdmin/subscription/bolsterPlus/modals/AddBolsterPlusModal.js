@@ -30,7 +30,11 @@ const AddBolsterPlusModal = ({
     return (
         <FlexModalOuter title="Add Bolster Plus Subscription">
             <div className="flex-content">
-                <p className="generic-text">This service will be added ...</p>
+                <p className="generic-text">
+                    This service will be added to your subscription and will increase your yearly
+                    renewal from £1,250 to £4,250, you will be billed pro-rata for your remaining
+                    subscription, leaving a £250 (exc. VAT) fee to pay now.
+                </p>
 
                 <PaymentMethod
                     handleChange={handleChange}
