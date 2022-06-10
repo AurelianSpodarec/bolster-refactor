@@ -8,6 +8,7 @@
 
 // components
 @import './components/action-menu.scss';
+@import './components/bolster-plus.scss';
 @import './components/breadcrumb.scss';
 @import './components/button.scss';
 @import './components/container.scss';
@@ -2223,6 +2224,10 @@ input {
 
 .margin-bottom {
   margin-bottom: 15px;
+}
+
+.margin-bottom-medium {
+  margin-bottom: 20px;
 }
 
 .timepicker {
