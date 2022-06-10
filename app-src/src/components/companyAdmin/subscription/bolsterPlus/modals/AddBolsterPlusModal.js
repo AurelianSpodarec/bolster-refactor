@@ -11,22 +11,19 @@ import usePaymentMethod from '../../paymentMethod/hooks/usePaymentMethod';
 const AddBolsterPlusModal = ({
     hideModal,
 
-    hideAddCard,
-
     isPosting,
 }) => {
     const {
         handleChange,
         handleSubmit,
         form,
-        cardOptions,
         addCardVisible,
         cards,
         handleAddCardSuccess,
         showAddCard,
-    } = usePaymentMethod(showAddCard);
+        hideAddCard,
+    } = usePaymentMethod();
 
-    console.log(addCardVisible);
     if (addCardVisible)
         return <AddCardFormContainer close={hideAddCard} onSuccess={handleAddCardSuccess} />;
 
@@ -38,11 +35,12 @@ const AddBolsterPlusModal = ({
                 <PaymentMethod
                     handleChange={handleChange}
                     handleSubmit={handleSubmit}
-                    cards={cardOptions}
+                    cards={cards}
                     paymentType={form.paymentType}
                     selectedCard={form.stripeCardID}
                     noCards={!cards.length}
                     showAddCard={showAddCard}
+                    hideAddCard={hideAddCard}
                 />
 
                 <ButtonWrapper alignment="right" extraClasses="flex-modal-footer">
