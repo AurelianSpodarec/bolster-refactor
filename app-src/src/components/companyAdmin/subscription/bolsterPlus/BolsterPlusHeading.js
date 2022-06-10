@@ -4,8 +4,8 @@ import { ReactComponent as BolsterPlusLogo } from '../../../../_content/images/l
 
 import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 
-const BolsterPlusHeading = ({ bolsterPlusActivated }) => (
-    <FlexWrapper extraClasses="bolster-plus-heading" align="center">
+const BolsterPlusHeading = ({ bolsterPlusActivated, extraClasses = '' }) => (
+    <FlexWrapper extraClasses={`bolster-plus-heading ${extraClasses}`} align="center">
         <BolsterPlusLogo className="logo" title="Bolster Plus logo" />
         <h3 className="title">Bolster Plus</h3>
         {bolsterPlusActivated && (

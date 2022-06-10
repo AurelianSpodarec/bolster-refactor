@@ -297,11 +297,11 @@ const useCostingAndEstimating = () => {
         }
     }, [filters.allSites, prevProps.allSites]); // auto-tick everything on first data load
 
-    useEffect(() => {
-        if (selectedTab === 'Costing' || selectedTab === 'Estimating') {
-            dispatch(showModal(BOLSTER_PLUS_UPGRADE_MODAL));
-        }
-    });
+    // useEffect(() => {
+    //     if (selectedTab === 'Costing' || selectedTab === 'Estimating') {
+    //         dispatch(showModal(BOLSTER_PLUS_UPGRADE_MODAL));
+    //     }
+    // });
 
     return {
         filters,
