@@ -1,10 +1,10 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
+
+import { withRouter } from 'react-router-dom';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import { DATE_TIME_IDS, COMPANY_TYPES, getEnumKey } from 'constants/companyAdmin/enums';
 import { capitaliseWords } from 'helpers/generic';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import { useDispatch } from 'react-redux';
 import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
 import useCompanyActions from '../hooks/useCompanyActions';
 
@@ -23,8 +23,6 @@ const CompaniesListItem = ({
     match: { url },
     company,
 }) => {
-    const dispatch = useDispatch();
-
     const { showEnableCompanyModal, showDisableCompanyModal } = useCompanyActions(company);
 
     return (

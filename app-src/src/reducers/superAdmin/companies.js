@@ -164,6 +164,13 @@ function companiesReducer(state = {}, action) {
         case ADMIN_EDIT_COMPANY_FREE_CREDIT_SUCCESS:
         case ADMIN_EDIT_COMPANY_JOB_REF_DROPDOWN_SUCCESS:
             return updateObj(state, action.payload.id, action.payload);
+
+        case ENABLE_COMPANY_REQUEST:
+        case DISABLE_COMPANY_REQUEST:
+            return updateObj(state, action.payload.id, {
+                ...action.payload,
+                isDisabled: !action.payload.isDisabled,
+            });
         default:
             return state;
     }
