@@ -20,6 +20,9 @@ import {
     FETCH_ALL_OPTION_VALUES_REQUEST,
     FETCH_ALL_OPTION_VALUES_SUCCESS,
     FETCH_ALL_OPTION_VALUES_FAILURE,
+    FETCH_ALL_OPTION_VALUES_FOR_DRAWING_REQUEST,
+    FETCH_ALL_OPTION_VALUES_FOR_DRAWING_SUCCESS,
+    FETCH_ALL_OPTION_VALUES_FOR_DRAWING_FAILURE,
 } from 'constants/actionTypes/companyAdminManufacturers';
 import { formatAllOptionValuesByManufacturer } from 'helpers/redux';
 import { REORDER_MANUFACTURER_OPTION_VALUES } from 'constants/actionTypes/dropdownOptions';
@@ -36,11 +39,14 @@ function isFetchingReducer(state = false, action) {
     switch (action.type) {
         case FETCH_OPTION_VALUES_BY_MANUFACTURER_REQUEST:
         case FETCH_ALL_OPTION_VALUES_REQUEST:
+        case FETCH_ALL_OPTION_VALUES_FOR_DRAWING_REQUEST:
             return true;
         case FETCH_OPTION_VALUES_BY_MANUFACTURER_SUCCESS:
         case FETCH_OPTION_VALUES_BY_MANUFACTURER_FAILURE:
         case FETCH_ALL_OPTION_VALUES_SUCCESS:
         case FETCH_ALL_OPTION_VALUES_FAILURE:
+        case FETCH_ALL_OPTION_VALUES_FOR_DRAWING_SUCCESS:
+        case FETCH_ALL_OPTION_VALUES_FOR_DRAWING_FAILURE:
             return false;
         default:
             return state;
@@ -51,9 +57,11 @@ function errorReducer(state = null, action) {
     switch (action.type) {
         case FETCH_OPTION_VALUES_BY_MANUFACTURER_REQUEST:
         case FETCH_ALL_OPTION_VALUES_REQUEST:
+        case FETCH_ALL_OPTION_VALUES_FOR_DRAWING_REQUEST:
             return null;
         case FETCH_OPTION_VALUES_BY_MANUFACTURER_FAILURE:
         case FETCH_ALL_OPTION_VALUES_FAILURE:
+        case FETCH_ALL_OPTION_VALUES_FOR_DRAWING_FAILURE:
             return action.error;
         default:
             return state;
@@ -117,6 +125,8 @@ function manufacturersOptionValuesReducer(state = {}, action) {
             return updateObj(state, action.id, newObj);
         }
         case FETCH_ALL_OPTION_VALUES_SUCCESS:
+            return formatAllOptionValuesByManufacturer(action.payload);
+        case FETCH_ALL_OPTION_VALUES_FOR_DRAWING_SUCCESS:
             return formatAllOptionValuesByManufacturer(action.payload);
         default:
             return state;
