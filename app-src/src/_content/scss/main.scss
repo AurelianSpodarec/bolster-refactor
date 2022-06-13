@@ -435,6 +435,10 @@ em {
       }
     }
 
+    &.large-text {
+      font-size: 30px;
+    }
+
     a {
       text-decoration: underline;
       @include ubuntu-medium;
@@ -443,6 +447,21 @@ em {
       &:hover {
         text-decoration: none;
       }
+
+     &.link-without-decoration {
+ 
+        text-decoration: none;
+        color: var(--typography-default);
+      
+      
+        &:hover {
+          text-decoration: underline;
+        }
+     }
+    }
+
+    &.with-horizontal-margin {
+      margin: 0 20px 0 20px;
     }
   }
 }
@@ -456,8 +475,10 @@ em {
 }
 
 .link-without-decoration {
+ 
   text-decoration: none;
   color: var(--typography-default);
+
 
   &:hover {
     text-decoration: none;
