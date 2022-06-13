@@ -35,6 +35,8 @@ import fetchPinOptionVersions from 'actions/companyAdmin/pinOptions/async/fetchP
 import fetchCompanyUsers from '../../../../actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 import { BOLSTER_PLUS_UPGRADE_MODAL } from 'constants/shared/modalTypes';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
+import selectTab from 'actions/shared/generic/tabs/sync/selectTab';
+import { HIERARCHY_TABS } from 'constants/shared/tabNames';
 
 const useCostingAndEstimating = () => {
     const [willAutoTick, setWillAutoTick] = useState(false);
@@ -297,11 +299,16 @@ const useCostingAndEstimating = () => {
         }
     }, [filters.allSites, prevProps.allSites]); // auto-tick everything on first data load
 
-    useEffect(() => {
-        if (selectedTab === 'Costing' || selectedTab === 'Estimating') {
-            dispatch(showModal(BOLSTER_PLUS_UPGRADE_MODAL));
-        }
-    });
+    // todo commented out until functionality to check for bolster plus is active so we are not blocking the costing / estimating for other test purposes
+    // useEffect(() => {
+    //     if (selectedTab === HIERARCHY_TABS.COSTING || selectedTab === HIERARCHY_TABS.ESTIMATING) {
+    //         dispatch(
+    //             showModal(BOLSTER_PLUS_UPGRADE_MODAL, {
+    //                 handleClose: () => dispatch(selectTab(HIERARCHY_TABS.GENERAL_OVERVIEW)),
+    //             }),
+    //         );
+    //     }
+    // });
 
     return {
         filters,

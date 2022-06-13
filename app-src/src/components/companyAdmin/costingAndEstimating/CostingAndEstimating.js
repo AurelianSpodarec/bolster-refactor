@@ -30,6 +30,7 @@ const CostingAndEstimating = () => {
     } = useCostingAndEstimating();
 
     return (
+        // <div className="blur">
         <GridWrapper gap={2} containerClass="costing-wrapper">
             <CostingAndEstimatingPods
                 data={results?.keyStatistics}
@@ -70,6 +71,7 @@ const CostingAndEstimating = () => {
                 total={results?.graph?.total}
             />
         </GridWrapper>
+        // </div>
     );
 };
 

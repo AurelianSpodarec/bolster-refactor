@@ -7,9 +7,11 @@ import {
     RECURRENCE_DAYS_SHORT_NAMES,
     PUSH_NOTIFICATION_TARGET_VALUES,
     PUSH_NOTIFICATION_TARGET_NAMES,
-    pushNotificationTitleCharLimit,
-    pushNotificationMessageCharLimit,
 } from 'constants/shared/enums';
+import {
+    pushNotificationMessageCharLimit,
+    pushNotificationTitleCharLimit,
+} from 'constants/shared/pushNotifications';
 import { enumFormat } from 'helpers/generic';
 import { formatSitesForDropdownOptions, formatUsersForDropdownOptions } from 'helpers/general';
 

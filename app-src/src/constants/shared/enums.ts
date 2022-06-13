@@ -53,6 +53,3 @@ export const RECURRENCE_DAYS_SHORT_NAMES = {
     32: 'S',
     64: 'S',
 };
-
-export const pushNotificationTitleCharLimit = 100;
-export const pushNotificationMessageCharLimit = 240;

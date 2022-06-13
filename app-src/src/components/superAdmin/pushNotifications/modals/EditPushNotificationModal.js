@@ -4,9 +4,11 @@ import {
     PUSH_NOTIFICATION_FREQUENCY_VALUES,
     PUSH_NOTIFICATION_FREQUENCY_NAMES,
     RECURRENCE_DAYS_SHORT_NAMES,
-    pushNotificationTitleCharLimit,
-    pushNotificationMessageCharLimit,
 } from 'constants/shared/enums';
+import {
+    pushNotificationMessageCharLimit,
+    pushNotificationTitleCharLimit,
+} from 'constants/shared/pushNotifications';
 import { enumFormat } from 'helpers/generic';
 
 import useEditPushNotification from '../hooks/useEditPushNotification';

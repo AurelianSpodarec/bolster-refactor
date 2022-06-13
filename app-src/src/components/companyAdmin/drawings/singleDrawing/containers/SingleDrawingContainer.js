@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect, batch } from 'react-redux';
 
-import { DRAWING_TABS } from 'constants/shared/tabNames';
+import { HIERARCHY_TABS } from 'constants/shared/tabNames';
 import setTabs from 'actions/shared/generic/tabs/sync/setTabs';
 
 import SingleDrawing from '../presentational/SingleDrawing';
@@ -20,9 +20,9 @@ import fetchPinOptionVersions from '../../../../../actions/companyAdmin/pinOptio
 import fetchPinOptions from '../../../../../actions/companyAdmin/pinOptions/async/fetchPinOptions';
 
 const SingleDrawingContainer = ({ drawingID, setTabs, fetchDrawingData }) => {
-    const tabs = Object.values(DRAWING_TABS);
+    const tabs = Object.values(HIERARCHY_TABS);
     componentDidMount(() => {
-        setTabs(tabs, DRAWING_TABS.GENERAL_OVERVIEW);
+        setTabs(tabs, HIERARCHY_TABS.GENERAL_OVERVIEW);
         fetchDrawingData(drawingID);
     });
 

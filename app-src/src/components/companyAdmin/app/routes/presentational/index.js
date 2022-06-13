@@ -62,7 +62,7 @@ const CompanyRoutes = ({ base = '/company' }) => (
             path={`${base}/headquarters`}
             component={withActiveAccount(withSubscriptionAuth(HeadquartersRoutes))}
         />
-        <Route path={`${base}/invoices`} component={withActiveAccount(InvoicesRoutes)} />
+        <Route path={`${base}/invoices`} component={InvoicesRoutes} />
         <Route
             path={`${base}/message-centre`}
             component={withActiveAccount(withSubscriptionAuth(MessagesRoutes))}
