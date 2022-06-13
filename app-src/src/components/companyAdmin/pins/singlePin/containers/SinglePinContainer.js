@@ -11,6 +11,7 @@ import fetchDrawingDropdownOptions from 'actions/companyAdmin/drawings/async/fet
 import fetchAllPinsForDrawing from 'actions/companyAdmin/pins/async/fetchAllPinsForDrawing';
 import fetchAllOptionValues from 'actions/companyAdmin/manufacturers/async/fetchAllOptionValues';
 import fetchZonesByDrawingID from 'actions/companyAdmin/zones/async/fetchZonesByDrawingID';
+import fetchAllOptionValuesForDrawing from 'actions/companyAdmin/manufacturers/async/fetchAllOptionValuesForDrawing';
 
 class SinglePinContainer extends Component {
     state = { isLoading: true };
@@ -41,6 +42,7 @@ class SinglePinContainer extends Component {
             fetchSinglePin,
             fetchPinsForInspectionLog,
             fetchAllOptionValues,
+            fetchAllOptionValuesForDrawing,
             fetchZonesByDrawingID,
         } = this.props;
 
@@ -61,6 +63,7 @@ class SinglePinContainer extends Component {
                 this.setState({ isLoading: false });
                 if (drawingID) {
                     fetchPinsForInspectionLog(drawingID, pinId);
+                    fetchAllOptionValuesForDrawing(drawingID);
                 }
             });
     };
@@ -106,6 +109,8 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchAllPinsForDrawing(id, pinIDToKeep)),
     fetchAllOptionValues: () => dispatch(fetchAllOptionValues()),
     fetchZonesByDrawingID: drawingID => fetchZonesByDrawingID(drawingID),
+    fetchAllOptionValuesForDrawing: drawingID =>
+        dispatch(fetchAllOptionValuesForDrawing(drawingID)),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SinglePinContainer));
