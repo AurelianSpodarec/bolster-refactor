@@ -156,6 +156,7 @@ import {
     ADMIN_ENABLE_COMPANY,
     ADD_BOLSTER_PLUS,
     BOLSTER_PLUS_UPGRADE_MODAL,
+    BUY_BOLSTER_PLUS_CONFIRMATION,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -311,6 +312,7 @@ import DisableCompanyModal from 'components/superAdmin/companies/shared/modals/D
 import EnableCompanyModal from 'components/superAdmin/companies/shared/modals/EnableCompanyModal';
 import AddBolsterPlusModal from 'components/companyAdmin/subscription/bolsterPlus/modals/AddBolsterPlusModal';
 import BolsterPlusUpgradeModal from '../presentational/BolsterPlusUpgradeModal';
+import BuyBolsterPlusConfirmationModal from 'components/companyAdmin/subscription/bolsterPlus/modals/BuyBolsterPlusConfirmationModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModal,
@@ -467,6 +469,7 @@ const MODAL_COMPONENTS = {
     [EDIT_ADMIN_PUSH_NOTIFICATION_MODAL]: AdminEditPushNotificationModal,
     [ADD_BOLSTER_PLUS]: AddBolsterPlusModal,
     [BOLSTER_PLUS_UPGRADE_MODAL]: BolsterPlusUpgradeModal,
+    [BUY_BOLSTER_PLUS_CONFIRMATION]: BuyBolsterPlusConfirmationModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

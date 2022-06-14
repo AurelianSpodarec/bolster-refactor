@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 
 import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
@@ -7,12 +8,11 @@ import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 import AddCardFormContainer from '../../cardManagement/addCardModal/containers/AddCardFormContainer';
 import PaymentMethod from '../../paymentMethod/PaymentMethod';
 import usePaymentMethod from '../../paymentMethod/hooks/usePaymentMethod';
+import showModal from 'actions/shared/generic/modals/sync/showModal';
+import { BUY_BOLSTER_PLUS_CONFIRMATION } from 'constants/shared/modalTypes';
 
-const AddBolsterPlusModal = ({
-    hideModal,
-
-    isPosting,
-}) => {
+const AddBolsterPlusModal = ({ hideModal }) => {
+    const dispatch = useDispatch();
     const {
         handleChange,
         handleSubmit,
@@ -56,10 +56,7 @@ const AddBolsterPlusModal = ({
                     />
                     <ActionButton
                         text="Buy"
-                        type="submit"
-                        icon={isPosting ? 'spinner' : ''}
-                        iconSpin={isPosting}
-                        disabled={isPosting}
+                        onClick={() => dispatch(showModal(BUY_BOLSTER_PLUS_CONFIRMATION))}
                         size="medium"
                     />
                 </ButtonWrapper>
