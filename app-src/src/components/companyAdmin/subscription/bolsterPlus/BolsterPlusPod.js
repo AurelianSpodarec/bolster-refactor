@@ -19,9 +19,9 @@ import BolsterPlusFeatures from './BolsterPlusFeatures';
 
 const BolsterPlusPod = () => {
     const dispatch = useDispatch();
-    const isBolsterPlusActivated = false;
+    const isBolsterPlusActivated = true;
 
-    const { handleAutoRenewChange, isAutoRenew } = useAutoRenew(isAutoRenew);
+    const { handleAutoRenewChange, form } = useAutoRenew();
 
     return (
         <BlockContainer>
@@ -32,9 +32,9 @@ const BolsterPlusPod = () => {
                     <CheckboxContainer
                         name={'isAutoRenew'}
                         text="Auto-Renewal"
-                        value={isAutoRenew}
+                        value={form.isAutoRenew}
                         handleChange={handleAutoRenewChange}
-                        checked={!!isAutoRenew}
+                        checked={!!form.isAutoRenew}
                         classes="auto-width"
                         labelToTheLeft
                         forceOnOneLine
