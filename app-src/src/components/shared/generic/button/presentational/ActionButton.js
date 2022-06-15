@@ -19,15 +19,16 @@ const ActionButton = ({
     extraClasses = '',
     tooltip,
     forwardRef,
+    minWidth,
 }) => {
     const iconWeightLookup = {
         solid: 'fa',
         regular: 'far',
         light: 'fal',
     };
-    const dynamicButtonClass = `custom-button flex-row align-center justify-${
-        iconRight ? 'end' : 'start'
-    } ${iconOnly ? 'icon-only' : ''}`;
+    const dynamicButtonClass = `custom-button flex-row align-center justify-center ${
+        iconOnly ? 'icon-only' : ''
+    }`;
 
     const dynamicIconClass = `icon ${iconWeightLookup[iconWeight] || 'fa'} fa-${icon} ${
         iconSpin ? 'fa-spin' : ''
@@ -51,6 +52,7 @@ const ActionButton = ({
             data-source={source}
             data-ambient={ambient}
             data-size={size}
+            style={minWidth ? { minWidth } : {}}
         >
             <span className="text-container" data-tip={tooltip}>
                 {icon && !iconRight && <i className={dynamicIconClass}></i>}

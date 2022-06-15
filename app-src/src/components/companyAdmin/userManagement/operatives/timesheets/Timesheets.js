@@ -41,11 +41,17 @@ const Timesheets = ({ selectedTab }) => {
                         size="medium"
                         text="Export CSV"
                         icon="file-csv"
+                        minWidth={'150px'}
                         onClick={() => {}}
                     />
                 )}
                 {selectedTab === TIMESHEETS_TABS.WAGES && (
-                    <ActionButton size="medium" text="Pay Rates" onClick={() => {}} />
+                    <ActionButton
+                        size="medium"
+                        text="Pay Rates"
+                        minWidth={'150px'}
+                        onClick={() => {}}
+                    />
                 )}
                 <TabsContainer classes="hierarchy-tabs" />
             </PageHeading>
