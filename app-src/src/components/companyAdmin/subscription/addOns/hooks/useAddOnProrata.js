@@ -7,11 +7,15 @@ const useAddOnProrata = () => {
     const dispatch = useDispatch();
     const addonProrataCost = useSelector(selectAddonProrataCost);
 
+    const currentAnnualCostWithVAT = addonProrataCost.currentAnnualCostWithVAT;
+    const newAnnualCostWithVAT = addonProrataCost.newAnnualCostWithVAT;
+    const proRataCost = addonProrataCost.proRataCost;
+
     useEffect(() => {
         dispatch(fetchAddonProrataCost());
     }, []);
 
-    return { addonProrataCost };
+    return { addonProrataCost, proRataCost, currentAnnualCostWithVAT, newAnnualCostWithVAT };
 };
 
 export default useAddOnProrata;
