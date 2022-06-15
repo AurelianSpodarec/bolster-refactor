@@ -48,6 +48,8 @@ const useCostingAndEstimating = () => {
     const fetchError = useSelector(selectCostingAndEstimatingFetchError);
     const prelimPostSuccess = useSelector(selectPrelimPostSuccess);
 
+    const isBolsterPlusActivated = true;
+
     const prevData = usePrevious({
         filters,
         results,
@@ -301,14 +303,17 @@ const useCostingAndEstimating = () => {
 
     // todo commented out until functionality to check for bolster plus is active so we are not blocking the costing / estimating for other test purposes
     // useEffect(() => {
-    //     if (selectedTab === HIERARCHY_TABS.COSTING || selectedTab === HIERARCHY_TABS.ESTIMATING) {
+    //     if (
+    //         (selectedTab === HIERARCHY_TABS.COSTING && !isBolsterPlusActivated) ||
+    //         (selectedTab === HIERARCHY_TABS.ESTIMATING && !isBolsterPlusActivated)
+    //     ) {
     //         dispatch(
     //             showModal(BOLSTER_PLUS_UPGRADE_MODAL, {
     //                 handleClose: () => dispatch(selectTab(HIERARCHY_TABS.GENERAL_OVERVIEW)),
     //             }),
     //         );
     //     }
-    // });
+    // }, [dispatch, isBolsterPlusActivated, selectedTab]);
 
     return {
         filters,
@@ -328,6 +333,7 @@ const useCostingAndEstimating = () => {
         fetchError,
         selectedTab,
         cAndEPostBody,
+        isBolsterPlusActivated,
     };
 };
 

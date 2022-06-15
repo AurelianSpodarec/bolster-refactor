@@ -11,6 +11,7 @@ const Timesheets = () => {
     const { isFetching, companyUserIDs, titleData, setTitleData } = useTimesheetsTitle();
 
     return (
+        // <div className="blur">
         <>
             <PageHeading
                 title={
@@ -36,6 +37,7 @@ const Timesheets = () => {
             </PageHeading>
             <TimesheetsRouteContainer setTitleData={setTitleData} />
         </>
+        // </div>
     );
 };
 
