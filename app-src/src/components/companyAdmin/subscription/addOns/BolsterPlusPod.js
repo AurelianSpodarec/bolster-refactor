@@ -16,11 +16,11 @@ import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import BolsterPlusHeading from './BolsterPlusHeading';
 import BolsterPlusFeatures from './BolsterPlusFeatures';
+import useBolsterPlus from './hooks/useBolsterPlus';
 
 const BolsterPlusPod = () => {
     const dispatch = useDispatch();
-    const isBolsterPlusActivated = true;
-
+    const { isBolsterPlusActivated } = useBolsterPlus();
     const { handleAutoRenewChange, form } = useAutoRenew();
 
     return (

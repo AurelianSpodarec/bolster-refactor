@@ -8,8 +8,8 @@ import { bolsterPlusLearnMoreLink } from 'constants/companyAdmin/bolsterPlus';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 
 import FlexModalOuter from './FlexModalOuter';
-import BolsterPlusHeading from 'components/companyAdmin/subscription/bolsterPlus/BolsterPlusHeading';
-import BolsterPlusFeatures from 'components/companyAdmin/subscription/bolsterPlus/BolsterPlusFeatures';
+import BolsterPlusHeading from 'components/companyAdmin/subscription/addOns/BolsterPlusHeading';
+import BolsterPlusFeatures from 'components/companyAdmin/subscription/addOns/BolsterPlusFeatures';
 import ButtonWrapper from '../../button/presentational/ButtonWrapper';
 import ActionButton from '../../button/presentational/ActionButton';
 import LinkButton from '../../button/presentational/LinkButton';

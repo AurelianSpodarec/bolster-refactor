@@ -310,9 +310,9 @@ import AdminCreatePushNotificationModal from 'components/superAdmin/pushNotifica
 import AdminEditPushNotificationModal from 'components/superAdmin/pushNotifications/modals/EditPushNotificationModal';
 import DisableCompanyModal from 'components/superAdmin/companies/shared/modals/DisableCompanyModal';
 import EnableCompanyModal from 'components/superAdmin/companies/shared/modals/EnableCompanyModal';
-import AddBolsterPlusModal from 'components/companyAdmin/subscription/bolsterPlus/modals/AddBolsterPlusModal';
+import AddBolsterPlusModal from 'components/companyAdmin/subscription/addOns/modals/AddBolsterPlusModal';
 import BolsterPlusUpgradeModal from '../presentational/BolsterPlusUpgradeModal';
-import BuyBolsterPlusConfirmationModal from 'components/companyAdmin/subscription/bolsterPlus/modals/BuyBolsterPlusConfirmationModal';
+import BuyBolsterPlusConfirmationModal from 'components/companyAdmin/subscription/addOns/modals/BuyBolsterPlusConfirmationModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModal,
