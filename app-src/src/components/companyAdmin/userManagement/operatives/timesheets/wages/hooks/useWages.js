@@ -10,6 +10,7 @@ import {
 const useWages = () => {
     const dispatch = useDispatch();
     const [userFilter, setUserFilter] = useState('');
+    const [selectedUserIDs, setSelectedUserIDs] = useState([]);
 
     const companyUsers = useSelector(selectCompanyUsers) || [];
     const isFetching = useSelector(selectCompanyUsersIsFetching);
@@ -24,11 +25,19 @@ const useWages = () => {
         );
     }, [companyUsers, userFilter]);
 
+    function handleToggleUserID(id) {
+        if (selectedUserIDs.includes(id))
+            setSelectedUserIDs(sids => sids.filter(sid => sid !== id));
+        else setSelectedUserIDs(sids => [...sids, id]);
+    }
+
     useEffect(() => {
         dispatch(fetchCompanyUsers);
     }, []);
 
     return {
+        selectedUserIDs,
+        handleToggleUserID,
         userFilter,
         setUserFilter,
         users: filteredUsers,

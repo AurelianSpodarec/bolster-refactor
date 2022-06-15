@@ -3,9 +3,18 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import Search from 'components/shared/generic/form/presentational/Search';
 import useWages from './hooks/useWages';
+import Tickbox from 'components/shared/generic/form/presentational/Tickbox';
 
 const Wages = () => {
-    const { userFilter, setUserFilter, users, isFetching, fetchError } = useWages();
+    const {
+        selectedUserIDs,
+        handleToggleUserID,
+        userFilter,
+        setUserFilter,
+        users,
+        isFetching,
+        fetchError,
+    } = useWages();
 
     return (
         <div className="width-12 wages-body">
@@ -23,10 +32,14 @@ const Wages = () => {
                 />
                 <div className="users-list">
                     {users.map(({ id, userFirstName, userLastName }, i) => (
-                        <div
-                            className="list-item"
-                            key={`${i}-${id}`}
-                        >{`${userFirstName} ${userLastName}`}</div>
+                        <div className="list-item" key={`${i}-${id}`}>
+                            <Tickbox
+                                name={`select-${id}`}
+                                value={selectedUserIDs.includes(id)}
+                                handleChange={() => handleToggleUserID(id)}
+                            />
+                            <p>{`${userFirstName} ${userLastName}`}</p>
+                        </div>
                     ))}
                 </div>
             </BlockContainer>
