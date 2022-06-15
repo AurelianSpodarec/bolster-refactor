@@ -1,6 +1,6 @@
 import React from 'react';
 import Breakdown from '../breakdown/Breakdown';
-import useTimesheetsOverview from '../hooks/useTimesheetsOverview';
+import useTimesheetsOverview from './hooks/useTimesheetsOverview';
 import TimesheetCalender from '../timesheetCalender/TimesheetCalender';
 
 const GeneralOverview = ({ setTitleData }) => {
