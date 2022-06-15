@@ -48,7 +48,7 @@ const useCostingAndEstimating = () => {
     const fetchError = useSelector(selectCostingAndEstimatingFetchError);
     const prelimPostSuccess = useSelector(selectPrelimPostSuccess);
 
-    const isBolsterPlusActivated = false;
+    const isBolsterPlusActivated = true;
 
     const prevData = usePrevious({
         filters,
@@ -333,6 +333,7 @@ const useCostingAndEstimating = () => {
         fetchError,
         selectedTab,
         cAndEPostBody,
+        isBolsterPlusActivated,
     };
 };
 
