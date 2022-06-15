@@ -7,7 +7,7 @@ import SubscriptionAutoRenewalContainer from '../../autoRenewal/containers/Subsc
 import SubscriptionCreditsContainer from '../../credits/containers/SubscriptionCreditsContainer';
 import CardManagement from '../../cardManagement/presentational/CardManagement';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
-import BolsterPlusPod from '../../bolsterPlus/BolsterPlusPod';
+import BolsterPlusPod from '../../addOns/BolsterPlusPod';
 
 const Subscription = ({ shouldRestrictPayments }) => (
     <>

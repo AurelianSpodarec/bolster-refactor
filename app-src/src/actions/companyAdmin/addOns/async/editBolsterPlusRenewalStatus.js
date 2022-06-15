@@ -5,7 +5,7 @@ import {
     EDIT_BOLSTER_PLUS_RENEWAL_STATUS_REQUEST,
     EDIT_BOLSTER_PLUS_RENEWAL_STATUS_SUCCESS,
     EDIT_BOLSTER_PLUS_RENEWAL_STATUS_FAILURE,
-} from 'constants/actionTypes/bolsterPlus';
+} from 'constants/actionTypes/addOns';
 
 export const editBolsterPlusRenewalStatusRequest = () => ({
     type: EDIT_BOLSTER_PLUS_RENEWAL_STATUS_REQUEST,

@@ -37,7 +37,7 @@ import { BOLSTER_PLUS_UPGRADE_MODAL } from 'constants/shared/modalTypes';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import selectTab from 'actions/shared/generic/tabs/sync/selectTab';
 import { HIERARCHY_TABS } from 'constants/shared/tabNames';
-import useBolsterPlus from 'components/companyAdmin/subscription/bolsterPlus/hooks/useBolsterPlus';
+import useBolsterPlus from 'components/companyAdmin/subscription/addOns/hooks/useBolsterPlus';
 
 const useCostingAndEstimating = () => {
     const [willAutoTick, setWillAutoTick] = useState(false);

@@ -6,7 +6,7 @@ import {
     FETCH_ADDON_PRORATA_COST_REQUEST,
     FETCH_ADDON_PRORATA_COST_SUCCESS,
     FETCH_ADDON_PRORATA_COST_FAILURE,
-} from 'constants/actionTypes/bolsterPlus';
+} from 'constants/actionTypes/addOns';
 
 export const fetchAddonProrataCostRequest = () => ({
     type: FETCH_ADDON_PRORATA_COST_REQUEST,
