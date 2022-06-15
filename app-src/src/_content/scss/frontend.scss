@@ -4285,6 +4285,32 @@ $back-to-top-height: 35px;
 .wages-body {
   display: grid;
   grid-template-columns: 40% 60%;
+
+  .wages-users-list {
+
+    .users-list {
+      margin-top: 20px;
+      max-height: 80vh;
+      overflow-y: auto;
+
+      .list-item {
+        padding: 1.5em;
+        font-size: 100%;
+        border-bottom: 1px solid var(--background-stroke);
+        display: flex;
+        justify-content: flex-start;
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        .tickbox {
+          margin-top: 2px;
+        }
+
+      }
+    }
+  }
 }
 
 
