@@ -33,8 +33,10 @@ import { areArraysEqual } from 'helpers/generic';
 import { setCompanyUserIDs } from 'actions/companyAdmin/timesheets/sync/setSelectedCompanyUserID';
 import fetchTimesheetsWeekDropdownOptions from 'actions/companyAdmin/timesheets/async/fetchTimesheetsWeekDropdownOptions';
 import fetchJobReferences from 'actions/companyAdmin/jobReferences/async/fetchJobReferences';
+import setTabs from 'actions/shared/generic/tabs/sync/setTabs';
+import { TIMESHEETS_TABS } from 'constants/shared/tabNames';
 
-const useTimesheets = () => {
+const useTimesheetsOverview = (setTitleData = () => {}) => {
     const dispatch = useDispatch();
 
     const { timeZone } = useSelector(selectCompanySettings);
@@ -78,15 +80,18 @@ const useTimesheets = () => {
 
     const onPrev = () => {
         const newStartDate = moment(startDate).subtract(7, 'days').format();
+        setTitleData(d => ({ ...d, date: newStartDate }));
         setStartDate(newStartDate);
         setSelectedDate(newStartDate);
     };
     const onNext = () => {
         const newStartDate = moment(startDate).add(7, 'days').format();
+        setTitleData(d => ({ ...d, date: newStartDate }));
         setStartDate(newStartDate);
         setSelectedDate(newStartDate);
     };
     const onToday = () => {
+        setTitleData({ timePeriod: TIME_PERIOD.DAY, date: thisDay });
         setStartDate(thisWeek);
         setTimePeriod(TIME_PERIOD.DAY);
         setSelectedDate(thisDay);
@@ -98,6 +103,7 @@ const useTimesheets = () => {
             .startOf('day')
             .format();
 
+        setTitleData({ date: timezoneDate, timePeriod: TIME_PERIOD.DAY });
         setTimePeriod(TIME_PERIOD.DAY);
         setSelectedDate(timezoneDate);
     };
@@ -106,7 +112,7 @@ const useTimesheets = () => {
             .tz(timeZone?.id ?? 'Europe/London')
             .startOf('isoWeek')
             .format();
-
+        setTitleData({ date: timezoneDate, timePeriod: TIME_PERIOD.WEEK });
         setTimePeriod(TIME_PERIOD.WEEK);
         setSelectedDate(timezoneDate);
     };
@@ -199,6 +205,10 @@ const useTimesheets = () => {
     const prevProps = usePrevious({ companyUserIDs, startDate });
 
     useEffect(() => {
+        dispatch(setTabs(Object.values(TIMESHEETS_TABS), TIMESHEETS_TABS.GENERAL_OVERVIEW));
+    }, []);
+
+    useEffect(() => {
         if (id) {
             const postBody = [parseInt(id)];
             batch(() => {
@@ -271,4 +281,4 @@ const mapCompanyUsers = options => {
     };
 };
 
-export default useTimesheets;
+export default useTimesheetsOverview;
