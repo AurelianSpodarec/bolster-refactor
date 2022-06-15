@@ -4282,6 +4282,11 @@ $back-to-top-height: 35px;
   }
 }
 
+.wages-body {
+  display: grid;
+  grid-template-columns: 40% 60%;
+}
+
 
 @keyframes slidein-left {
   0% {

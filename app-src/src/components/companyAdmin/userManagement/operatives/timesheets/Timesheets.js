@@ -1,32 +1,14 @@
 import React from 'react';
 
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
-import Breakdown from './breakdown/Breakdown';
-import useTimesheets from './hooks/useTimesheets';
-import TimesheetCalender from './timesheetCalender/TimesheetCalender';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
+import TabsContainer from 'components/shared/generic/tabs/containers/TabsContainer';
+import TimesheetsRouteContainer from './TimesheetsRouteContainer';
+import useTimesheetsTitle from './hooks/useTimesheetsTitle';
 
 const Timesheets = () => {
-    const {
-        startDate,
-        selectedDate,
-        timePeriod,
-        companyUserIDs,
-        setCompanyUserIDs,
-        companyUserOptions,
-        disableReportGenPin,
-        isFetching,
-        fetchError,
-        timesheets,
-        totals,
-        onPrev,
-        onNext,
-        onToday,
-        onDaySelect,
-        onWeekSelect,
-        handlePDFReportGeneration,
-    } = useTimesheets();
+    const { isFetching, companyUserIDs, titleData, setTitleData } = useTimesheetsTitle();
 
     return (
         // <div className="blur">
@@ -42,40 +24,18 @@ const Timesheets = () => {
                                 {companyUserIDs.length || 'All'} Users (
                                 <DateTimeContainer
                                     datetime={DATE_TIME_IDS.DATE}
-                                    date={selectedDate}
+                                    date={titleData.date}
                                 />
-                                - {timePeriod})
+                                - {titleData.timePeriod})
                             </>
                         )}
                     </>
                 }
-            />
-            <TimesheetCalender
-                startDate={startDate}
-                selectedDate={selectedDate}
-                timePeriod={timePeriod}
-                companyUserIDs={companyUserIDs}
-                setCompanyUserIDs={setCompanyUserIDs}
-                companyUserOptions={companyUserOptions}
-                isFetching={isFetching}
-                fetchError={fetchError}
-                timesheets={timesheets}
-                totals={totals}
-                onPrev={onPrev}
-                onNext={onNext}
-                onToday={onToday}
-                onDaySelect={onDaySelect}
-                onWeekSelect={onWeekSelect}
-            />
-            <Breakdown
-                selectedDate={selectedDate}
-                timePeriod={timePeriod}
-                isFetching={isFetching}
-                fetchError={fetchError}
-                timesheets={timesheets}
-                handlePDFReportGeneration={handlePDFReportGeneration}
-                disableReportGenPin={disableReportGenPin}
-            />
+                withBackButton
+            >
+                <TabsContainer classes="hierarchy-tabs" />
+            </PageHeading>
+            <TimesheetsRouteContainer setTitleData={setTitleData} />
         </>
         // </div>
     );
