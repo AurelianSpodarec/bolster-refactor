@@ -7,6 +7,7 @@ import Tickbox from 'components/shared/generic/form/presentational/Tickbox';
 
 const Wages = () => {
     const {
+        getUserNameByID,
         selectedUserIDs,
         handleToggleUserID,
         userFilter,
@@ -43,8 +44,16 @@ const Wages = () => {
                     ))}
                 </div>
             </BlockContainer>
-            <BlockContainer className="content-container size-lg-5">
-                <BlockHeading title="### Username ###" />
+            <BlockContainer className="content-container size-lg-7">
+                <BlockHeading
+                    title={
+                        selectedUserIDs.length
+                            ? selectedUserIDs.length === 1
+                                ? getUserNameByID(selectedUserIDs[0])
+                                : 'Multiple Users'
+                            : 'All Users'
+                    }
+                />
             </BlockContainer>
         </div>
     );

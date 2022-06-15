@@ -31,11 +31,18 @@ const useWages = () => {
         else setSelectedUserIDs(sids => [...sids, id]);
     }
 
+    function getUserNameByID(id) {
+        const thisUser = companyUsers[id];
+        if (!thisUser) return '';
+        return `${thisUser.userFirstName} ${thisUser.userLastName}`;
+    }
+
     useEffect(() => {
         dispatch(fetchCompanyUsers);
     }, []);
 
     return {
+        getUserNameByID,
         selectedUserIDs,
         handleToggleUserID,
         userFilter,
