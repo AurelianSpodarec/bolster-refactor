@@ -29,6 +29,7 @@ const Timesheets = () => {
     } = useTimesheets();
 
     return (
+        // <div className="blur">
         <>
             <PageHeading
                 title={
@@ -76,6 +77,7 @@ const Timesheets = () => {
                 disableReportGenPin={disableReportGenPin}
             />
         </>
+        // </div>
     );
 };
 

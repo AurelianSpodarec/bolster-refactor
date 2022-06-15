@@ -1,10 +1,11 @@
-import { TIME_PERIOD } from 'constants/companyAdmin/enums';
 import moment from 'moment';
+import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch, batch } from 'react-redux';
+
+import { TIME_PERIOD } from 'constants/companyAdmin/enums';
 import { selectCompanySettings } from 'selectors/companyAdmin/companySettings';
 import fetchTimesheetsWeek from 'actions/companyAdmin/timesheets/async/fetchTimesheetsWeek';
-import { useParams } from 'react-router-dom';
 import {
     selectFilterByHasClockedIn,
     selectTimesheetOptions,
@@ -42,6 +43,8 @@ const useTimesheets = () => {
     const { id } = useParams();
 
     const query = useQuery();
+
+    const isBolsterPlusActivated = false;
 
     const companyUsersIsFetching = useSelector(selectCompanyUsersIsFetching);
     const companyUsersFetchError = useSelector(selectCompanyUsersFetchError);
@@ -241,6 +244,13 @@ const useTimesheets = () => {
 
         setCompanyUserOptions(companyUserOptions);
     }, [timesheetOptions, filterByHasClockedIn, companyUserIDs]);
+
+    // todo commented out until functionality to check for bolster plus is active so we are not blocking the costing / estimating for other test purposes
+    // useEffect(() => {
+    //     if (!isBolsterPlusActivated) {
+    //         dispatch(showModal(BOLSTER_PLUS_UPGRADE_MODAL));
+    //     }
+    // }, [dispatch, isBolsterPlusActivated]);
 
     return {
         startDate,
