@@ -70,6 +70,7 @@ import timesheetPinStatsReducer from './timesheetPinStats';
 import userPinFeedsReducer from './userPinFeeds';
 import bugReportsReducer from './bugReports';
 import documentLibraryReducer from './documentLibrary';
+import addOnReducer from './bolsterPlus';
 
 export default combineReducers({
     activityLogReducer,
@@ -142,4 +143,5 @@ export default combineReducers({
     timesheetsReducer,
     timesheetPinStatsReducer,
     userPinFeedsReducer,
+    addOnReducer,
 });

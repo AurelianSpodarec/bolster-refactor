@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
+import AddOnProrata from '../AddOnProrata';
 
 const BuyBolsterPlusConfirmationModal = ({ hideModal, isPosting }) => {
     return (
         <FlexModalOuter title="Buy Bolster Plus Subscription">
             <div className="flex-content">
-                <p className="generic-text">Calculations ...</p>
+                <AddOnProrata />
 
                 <ButtonWrapper alignment="right" extraClasses="flex-modal-footer">
                     <ActionButton
