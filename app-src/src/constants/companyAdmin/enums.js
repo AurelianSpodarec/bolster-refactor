@@ -889,3 +889,11 @@ export const TOOLTIP_FILTERS_TYPES = {
     SINGLE_SELECTION: 1,
     MULTI_SELECTION: 2,
 };
+
+export const addOnsType = {
+    BOLSTER_PLUS: 1,
+};
+
+export const addOnsNames = {
+    1: 'BolsterPlus',
+};
