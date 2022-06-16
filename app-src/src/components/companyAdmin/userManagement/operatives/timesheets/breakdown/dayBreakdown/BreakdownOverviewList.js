@@ -112,7 +112,13 @@ const BreakdownOverviewList = ({ timesheets, selectedDate, filterType, filterDir
                             />
                         )}
                         <ActionButton size="small" source="secondary" icon="pencil" iconOnly />
-                        <ActionButton size="small" ambient="negative" icon="trash" iconOnly />
+                        <ActionButton
+                            size="small"
+                            source="secondary"
+                            ambient="negative"
+                            icon="trash"
+                            iconOnly
+                        />
                     </ButtonWrapper>
                 </BlockHeading>
                 <div className="divider" />
