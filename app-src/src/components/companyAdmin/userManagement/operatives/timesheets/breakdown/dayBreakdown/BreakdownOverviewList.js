@@ -23,6 +23,7 @@ import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeCon
 import { selectCompanyTimeZone } from 'selectors/companyAdmin/companySettings';
 import Table from 'components/shared/generic/tables/presentational/Table';
 import HoursWorkedList from './HoursWorkedList';
+import ExpensesList from './ExpensesList';
 
 const BreakdownOverviewList = ({ timesheets, selectedDate, filterType, filterDirection }) => {
     const selectedUserIDs = useSelector(timesheetSelectedCompanyIDs);
@@ -135,8 +136,8 @@ const BreakdownOverviewList = ({ timesheets, selectedDate, filterType, filterDir
                         headers={['Job References', 'Hours Worked', 'Wage Split']}
                         isFetching={false}
                         error={null}
-                        noData={false}
-                        noDataMessage="No hours to display."
+                        noData={!jobReferences.length}
+                        noDataMessage="No jobs to display."
                     >
                         <HoursWorkedList
                             jobReferences={jobReferences}
@@ -147,6 +148,15 @@ const BreakdownOverviewList = ({ timesheets, selectedDate, filterType, filterDir
 
                     <BlockHeading title="Expenses" />
                     <div className="divider" />
+                    <Table
+                        headers={['', '']}
+                        isFetching={false}
+                        error={null}
+                        noData={!expenses.length}
+                        noDataMessage="No expenses to display."
+                    >
+                        <ExpensesList expenses={expenses} expensesTotal={expensesTotal} />
+                    </Table>
                 </BlockContainer>
                 <BlockContainer contentClass="inner-pod">
                     <BlockHeading title="Notes" />
