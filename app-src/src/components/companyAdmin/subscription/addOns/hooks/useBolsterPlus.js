@@ -6,9 +6,9 @@ import { addOnsType } from 'constants/companyAdmin/enums';
 
 const useBolsterPlus = () => {
     const subscriptions = useSelector(selectSubscriptions);
-    const isBolsterPlusActivated = subscriptions.addons?.includes(addOnsType.BOLSTER_PLUS);
-    console.log(subscriptions);
-    console.log(isBolsterPlusActivated);
+    const isBolsterPlusActivated = subscriptions.addons?.some(
+        item => item.addonType === addOnsType.BOLSTER_PLUS,
+    );
 
     return { isBolsterPlusActivated };
 };
