@@ -13,8 +13,6 @@ import { selectCompanyUsers } from 'selectors/companyAdmin/companyUsers';
 import { CURRENCY_SYMBOLS, SHIFT_STATUS, SHIFT_STATUS_REVERSE } from 'constants/companyAdmin/enums';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import ActionMenu from 'components/shared/actionMenu/ActionMenu';
-import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
 import {
     selectCompanyCurrency,
     selectCompanyTimeZone,
