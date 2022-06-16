@@ -4280,8 +4280,22 @@ $back-to-top-height: 35px;
           display: block;
          }
 
-         tr {
-          background-color: transparent;
+         .generic-table {
+          width: unset;
+          margin-left: 0px;
+          margin-bottom: 20px;
+          
+          tr {
+           background-color: transparent;
+
+           &.total-row {
+            font-weight: 500;
+           }
+ 
+           td, th {
+             padding: 10px 5px;
+           }
+          }
          }
 
          .shift-total {

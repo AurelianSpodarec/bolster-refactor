@@ -19,12 +19,18 @@ const getShiftPodData = shift => {
         notes,
     } = shift;
 
+    const jobReferences = clockerEntries.map(({ jobReference, totalHours }) => ({
+        jobRef: jobReference,
+        hoursWorked: totalHours,
+        wageSplit: 0,
+    }));
+
     return {
         timeIn: startOn,
         timeOut: endOn,
         breakTime: formattedBreakHours,
         noOfHistories: 0,
-        jobReferences: [], // { jobRef, hoursWorked, wageSplit }
+        jobReferences, // { jobRef, hoursWorked, wageSplit }
         jobReferencesTotalHours: formattedClockedInHours,
         jobReferencesTotalCost: 0,
         expenses: [], // { name, cost }
