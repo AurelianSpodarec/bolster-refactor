@@ -1,5 +1,6 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
@@ -9,12 +10,25 @@ import AddCardFormContainer from '../../cardManagement/addCardModal/containers/A
 import PaymentMethod from '../../paymentMethod/PaymentMethod';
 import usePaymentMethod from '../../paymentMethod/hooks/usePaymentMethod';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
-import { BUY_BOLSTER_PLUS_CONFIRMATION } from 'constants/shared/modalTypes';
+import { BUY_BOLSTER_PLUS_CONFIRMATION, PAYMENT_ERROR } from 'constants/shared/modalTypes';
 import useAddOnProrata from '../hooks/useAddOnProrata';
 import { formatNumber } from 'helpers/generic';
+import addServiceToSubscription from 'actions/companyAdmin/subscriptions/async/addServiceToSubscription';
+import { addOnsType } from 'constants/companyAdmin/enums';
+import usePrevious from 'hooks/usePrevious';
+import {
+    selectSubscriptionsError,
+    selectSubscriptionsPostError,
+    selectSubscriptionsPostSuccess,
+} from 'selectors/companyAdmin/subscriptions';
 
 const AddBolsterPlusModal = ({ hideModal }) => {
     const dispatch = useDispatch();
+    const postSuccess = useSelector(selectSubscriptionsPostSuccess);
+    const postFailure = useSelector(selectSubscriptionsPostError);
+    const error = useSelector(selectSubscriptionsError);
+    const prevSuccess = usePrevious(postSuccess);
+    const prevFailure = usePrevious(postFailure);
     const {
         handleChange,
         handleSubmit,
@@ -26,10 +40,40 @@ const AddBolsterPlusModal = ({ hideModal }) => {
         hideAddCard,
     } = usePaymentMethod();
 
+    const postBody = {
+        ...form,
+        addonTypes: [addOnsType.BOLSTER_PLUS],
+        creditsToBuy: null,
+        serviceIDs: [],
+    };
+
     if (addCardVisible)
         return <AddCardFormContainer close={hideAddCard} onSuccess={handleAddCardSuccess} />;
 
     const { newAnnualCost, proRataCost, currentAnnualCost } = useAddOnProrata();
+
+    useEffect(() => {
+        if (postSuccess && !prevSuccess) {
+            dispatch(
+                showModal(BUY_BOLSTER_PLUS_CONFIRMATION, {
+                    paymentType: form.paymentType,
+                }),
+            );
+        }
+    }, [postSuccess, prevSuccess]);
+
+    useEffect(() => {
+        if (postFailure && !prevFailure) {
+            dispatch(
+                showModal(PAYMENT_ERROR, {
+                    message:
+                        'There was an error while purchasing your subscription. Please try again.',
+                    resubmit: () => dispatch(addServiceToSubscription(postBody)),
+                    error: error.replace('office', 'invoice'),
+                }),
+            );
+        }
+    }, [postFailure, prevFailure]);
 
     return (
         <FlexModalOuter title="Add Bolster Plus Subscription">
@@ -61,13 +105,9 @@ const AddBolsterPlusModal = ({ hideModal }) => {
                     />
                     <ActionButton
                         text="Buy"
-                        onClick={() =>
-                            dispatch(
-                                showModal(BUY_BOLSTER_PLUS_CONFIRMATION, {
-                                    paymentType: form.paymentType,
-                                }),
-                            )
-                        }
+                        onClick={() => {
+                            dispatch(addServiceToSubscription(postBody));
+                        }}
                         size="medium"
                     />
                 </ButtonWrapper>
@@ -75,7 +115,11 @@ const AddBolsterPlusModal = ({ hideModal }) => {
                 <FlexWrapper justify="end">
                     <p>
                         By clicking Buy you are agreeing with Bolster System {''}
-                        <a to="/auth/terms" target="_blank" className="switched underline">
+                        <a
+                            href="/auth/terms"
+                            target="_blank"
+                            className="switched underline text-colour "
+                        >
                             sales terms
                         </a>
                     </p>
