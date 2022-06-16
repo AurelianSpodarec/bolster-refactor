@@ -55,7 +55,13 @@ const BolsterPlusUpgradeModal = ({ handleClose, hideModal }) => {
                         />
                         <ActionButton
                             text="Upgrade"
-                            onClick={() => dispatch(showModal(ADD_BOLSTER_PLUS))}
+                            onClick={() =>
+                                dispatch(
+                                    showModal(ADD_BOLSTER_PLUS, {
+                                        handleClose: () => handleClose(),
+                                    }),
+                                )
+                            }
                         />
                     </ButtonWrapper>
                 </FlexWrapper>
