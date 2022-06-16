@@ -29,10 +29,10 @@ const BolsterPlusFeatures = ({ bolsterPlusActivated }) => (
                     <Feature>
                         Timesheets + (export timesheet CSVs, set wages for operatives)
                     </Feature>
-                    <Feature>25 GB</Feature>
-                    <Feature>Futher user</Feature>
-                    <Feature>Customised</Feature>
-                    <Feature>Dedicated</Feature>
+                    <Feature>25 GB Document Library</Feature>
+                    <Feature>Futher user managmennt control</Feature>
+                    <Feature>Customised company brochure</Feature>
+                    <Feature>Dedicated training call</Feature>
                 </div>
             </>
         )}
