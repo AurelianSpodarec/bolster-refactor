@@ -897,3 +897,15 @@ export const addOnsType = {
 export const addOnsNames = {
     1: 'BolsterPlus',
 };
+
+export const SHIFT_STATUS = {
+    PENDING: 0,
+    APPROVED: 1,
+    REJECTED: 3,
+};
+
+export const SHIFT_STATUS_REVERSE = {
+    [SHIFT_STATUS.PENDING]: 'Pending',
+    [SHIFT_STATUS.APPROVED]: 'Approved',
+    [SHIFT_STATUS.REJECTED]: 'Rejected',
+};

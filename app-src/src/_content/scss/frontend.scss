@@ -4247,6 +4247,26 @@ $back-to-top-height: 35px;
         }
       }
     }
+
+    .shift-pod {
+      border-width: 2px;
+      border-style: solid;
+      border-color: var(--background-stroke);
+
+      &.pending {
+        border-color: var(--warning-default)
+      }
+      &.approved {
+        border-color: var(--positive-stroke)
+      }
+      &.approved {
+        border-color: var(--negative-default)
+      }
+
+      .inner-pod {
+        background-color: var(--navigation-primary);
+      }
+    }
   }
 
   .day-breakdown-location {

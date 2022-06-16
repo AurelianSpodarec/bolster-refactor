@@ -14,6 +14,12 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import moment from 'moment';
 import getShiftPodData from '../../helpers/getShiftPodData';
 import { selectCompanyUsers } from 'selectors/companyAdmin/companyUsers';
+import { SHIFT_STATUS } from 'constants/companyAdmin/enums';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import ActionMenu from 'components/shared/actionMenu/ActionMenu';
+import ActionMenuContent from 'components/shared/actionMenu/ActionMenuContent';
+import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
 
 const BreakdownOverviewList = ({ timesheets, selectedDate, filterType, filterDirection }) => {
     const selectedUserIDs = useSelector(timesheetSelectedCompanyIDs);
@@ -88,11 +94,25 @@ const BreakdownOverviewList = ({ timesheets, selectedDate, filterType, filterDir
             groupUID,
         } = getShiftPodData(shift);
 
+        const statusClassLookup = {
+            [SHIFT_STATUS.PENDING]: 'pending',
+            [SHIFT_STATUS.APPROVED]: 'approved',
+            [SHIFT_STATUS.REJECTED]: 'rejected',
+        };
+
         return (
-            <BlockContainer key={groupUID} containerClass={`shift-pod`}>
+            <BlockContainer key={shift.id} contentClass={`shift-pod ${statusClassLookup[status]}`}>
                 <BlockHeading
                     title={`${user.userFirstName} ${user.userLastName} (${user.userEmail})`}
-                />
+                >
+                    <ButtonWrapper alignment="right">
+                        <ActionButton size="small" ambient="positive" text="Approve" />
+                        <ActionButton size="small" source="secondary" icon="pencil" iconOnly />
+                        <ActionMenu size="small">
+                            <ActionMenuActionButton text="Option 1" />
+                        </ActionMenu>
+                    </ButtonWrapper>
+                </BlockHeading>
             </BlockContainer>
         );
     });
