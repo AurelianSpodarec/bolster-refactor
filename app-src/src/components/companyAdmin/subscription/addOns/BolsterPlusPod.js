@@ -20,10 +20,10 @@ import useBolsterPlus from './hooks/useBolsterPlus';
 
 const BolsterPlusPod = () => {
     const dispatch = useDispatch();
-    const { isBolsterPlusActivated } = useBolsterPlus();
+    const { isBolsterPlusActivated, isSubscriptionsActivated } = useBolsterPlus();
     const { handleAutoRenewChange, form } = useAutoRenew();
 
-    return (
+    return isSubscriptionsActivated ? (
         <BlockContainer>
             <FlexWrapper extraClasses="margin-bottom-medium" justify="between">
                 <BolsterPlusHeading bolsterPlusActivated={isBolsterPlusActivated} />
@@ -66,7 +66,7 @@ const BolsterPlusPod = () => {
                 )}
             </FlexWrapper>
         </BlockContainer>
-    );
+    ) : null;
 };
 
 export default BolsterPlusPod;

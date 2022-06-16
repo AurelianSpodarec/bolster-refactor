@@ -22,7 +22,7 @@ import {
     selectSubscriptionsPostSuccess,
 } from 'selectors/companyAdmin/subscriptions';
 
-const AddBolsterPlusModal = ({ hideModal }) => {
+const AddBolsterPlusModal = ({ hideModal, handleClose }) => {
     const dispatch = useDispatch();
     const postSuccess = useSelector(selectSubscriptionsPostSuccess);
     const postFailure = useSelector(selectSubscriptionsPostError);
@@ -77,7 +77,18 @@ const AddBolsterPlusModal = ({ hideModal }) => {
     }, [postFailure, prevFailure]);
 
     return (
-        <FlexModalOuter title="Add Bolster Plus Subscription">
+        <FlexModalOuter
+            title="Add Bolster Plus Subscription"
+            handleClose={() => {
+                if (handleClose) {
+                    handleClose();
+                } else {
+                    history.goBack();
+                }
+
+                hideModal();
+            }}
+        >
             <div className="flex-content">
                 <p className="generic-text">
                     This service will be added to your subscription and will increase your yearly
@@ -100,7 +111,15 @@ const AddBolsterPlusModal = ({ hideModal }) => {
                 <ButtonWrapper alignment="right" extraClasses="flex-modal-footer">
                     <ActionButton
                         text="Cancel"
-                        onClick={hideModal}
+                        onClick={() => {
+                            if (handleClose) {
+                                handleClose();
+                            } else {
+                                history.goBack();
+                            }
+
+                            hideModal();
+                        }}
                         source="secondary"
                         size="medium"
                     />

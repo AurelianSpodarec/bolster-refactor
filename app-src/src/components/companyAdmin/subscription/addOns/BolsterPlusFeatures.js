@@ -21,7 +21,8 @@ const BolsterPlusFeatures = ({ bolsterPlusActivated }) => {
             </p>
             {!bolsterPlusActivated && (
                 <>
-                    <p className="bolster-plus-amount size-lg-12">£{proRataCost}</p>
+                    {/* <p className="bolster-plus-amount size-lg-12">£{proRataCost}</p> */}
+                    <p className="bolster-plus-amount size-lg-12">£3000</p>
 
                     <p className="heading size-lg-12">Highlights</p>
                     <div className="size-lg-12">
