@@ -3629,6 +3629,7 @@ $back-to-top-height: 35px;
 
       td {
         cursor: pointer;
+        vertical-align: top;
       }
 
       th, td {
@@ -4281,6 +4282,18 @@ $back-to-top-height: 35px;
 
          tr {
           background-color: transparent;
+         }
+
+         .shift-total {
+          font-size: 160%;
+          color: var(--typography-greyed-out);
+          text-align: right;
+
+          .total {
+            color: var(--typography-default);
+            font-weight: 500;
+            margin-left: 0.6em;
+          }
          }
       }
 

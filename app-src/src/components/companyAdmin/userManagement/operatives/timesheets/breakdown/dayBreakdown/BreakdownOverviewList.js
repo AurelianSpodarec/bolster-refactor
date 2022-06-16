@@ -10,22 +10,27 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import moment from 'moment';
 import getShiftPodData from '../../helpers/getShiftPodData';
 import { selectCompanyUsers } from 'selectors/companyAdmin/companyUsers';
-import { SHIFT_STATUS, SHIFT_STATUS_REVERSE } from 'constants/companyAdmin/enums';
+import { CURRENCY_SYMBOLS, SHIFT_STATUS, SHIFT_STATUS_REVERSE } from 'constants/companyAdmin/enums';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import ActionMenu from 'components/shared/actionMenu/ActionMenu';
 import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
-import { selectCompanyTimeZone } from 'selectors/companyAdmin/companySettings';
+import {
+    selectCompanyCurrency,
+    selectCompanyTimeZone,
+} from 'selectors/companyAdmin/companySettings';
 import Table from 'components/shared/generic/tables/presentational/Table';
 import HoursWorkedList from './HoursWorkedList';
 import ExpensesList from './ExpensesList';
-import { isEmpty } from 'helpers/generic';
+import { formatCurrency, isEmpty } from 'helpers/generic';
 
 const BreakdownOverviewList = ({ timesheets, selectedDate, filterType, filterDirection }) => {
     const selectedUserIDs = useSelector(timesheetSelectedCompanyIDs);
     const filterByHasClockedIn = useSelector(selectFilterByHasClockedIn);
     const users = useSelector(selectCompanyUsers);
     const timeZone = useSelector(selectCompanyTimeZone);
+    const currency = useSelector(selectCompanyCurrency);
+    const currencySymbol = CURRENCY_SYMBOLS[currency];
 
     const shiftsForToday = useMemo(
         () =>
@@ -147,6 +152,7 @@ const BreakdownOverviewList = ({ timesheets, selectedDate, filterType, filterDir
                             jobReferences={jobReferences}
                             jobReferencesTotalCost={jobReferencesTotalCost}
                             jobReferencesTotalHours={jobReferencesTotalHours}
+                            currencySymbol={currencySymbol}
                         />
                     </Table>
 
@@ -159,13 +165,24 @@ const BreakdownOverviewList = ({ timesheets, selectedDate, filterType, filterDir
                         noData={!expenses.length}
                         noDataMessage="No expenses to display."
                     >
-                        <ExpensesList expenses={expenses} expensesTotal={expensesTotal} />
+                        <ExpensesList
+                            expenses={expenses}
+                            expensesTotal={expensesTotal}
+                            currencySymbol={currencySymbol}
+                        />
                     </Table>
+                    <div className="shift-total">
+                        <span>Total exc VAT:</span>
+                        <span className="total">
+                            {currencySymbol}
+                            {formatCurrency(shiftTotal) || '0.00'}
+                        </span>
+                    </div>
                 </BlockContainer>
                 <BlockContainer contentClass="inner-pod">
                     <BlockHeading title="Notes" />
                     <div className="divider" />
-                    {notes.map((note, i) => (
+                    {notes.map(note => (
                         <p key={note.uid}>{note.comments}</p>
                     ))}
                 </BlockContainer>
