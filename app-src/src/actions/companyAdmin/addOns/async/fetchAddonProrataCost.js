@@ -22,11 +22,11 @@ export const fetchAddonProrataCostFailure = error => ({
     error,
 });
 
-export default () => dispatch => {
+export default id => dispatch => {
     dispatch(fetchAddonProrataCostRequest());
 
     axios
-        .get(`${API_URL}/subscriptions/addonproratacost`, getHeaders())
+        .get(`${API_URL}/subscriptions/addonproratacost/${id}`, getHeaders())
         .then(res => dispatch(fetchAddonProrataCostSuccess(res.data)))
         .catch(err => dispatch(fetchAddonProrataCostFailure(err.message)));
 };
