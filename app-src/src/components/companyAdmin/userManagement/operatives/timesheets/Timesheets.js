@@ -36,15 +36,6 @@ const Timesheets = ({ selectedTab }) => {
                 }
                 withBackButton
             >
-                {selectedTab === TIMESHEETS_TABS.GENERAL_OVERVIEW && (
-                    <ActionButton
-                        size="medium"
-                        text="Export CSV"
-                        icon="file-csv"
-                        minWidth={'150px'}
-                        onClick={() => {}}
-                    />
-                )}
                 {selectedTab === TIMESHEETS_TABS.WAGES && (
                     <ActionButton
                         size="medium"
