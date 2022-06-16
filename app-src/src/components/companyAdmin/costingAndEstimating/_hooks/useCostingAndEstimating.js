@@ -37,6 +37,7 @@ import { BOLSTER_PLUS_UPGRADE_MODAL } from 'constants/shared/modalTypes';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import selectTab from 'actions/shared/generic/tabs/sync/selectTab';
 import { HIERARCHY_TABS } from 'constants/shared/tabNames';
+import useBolsterPlus from 'components/companyAdmin/subscription/addOns/hooks/useBolsterPlus';
 
 const useCostingAndEstimating = () => {
     const [willAutoTick, setWillAutoTick] = useState(false);
@@ -47,6 +48,8 @@ const useCostingAndEstimating = () => {
     const isFetchingFilters = useSelector(selectCostingAndEstimatingFiltersIsFetching);
     const fetchError = useSelector(selectCostingAndEstimatingFetchError);
     const prelimPostSuccess = useSelector(selectPrelimPostSuccess);
+
+    const { isBolsterPlusActivated } = useBolsterPlus();
 
     const prevData = usePrevious({
         filters,
@@ -301,14 +304,17 @@ const useCostingAndEstimating = () => {
 
     // todo commented out until functionality to check for bolster plus is active so we are not blocking the costing / estimating for other test purposes
     // useEffect(() => {
-    //     if (selectedTab === HIERARCHY_TABS.COSTING || selectedTab === HIERARCHY_TABS.ESTIMATING) {
+    //     if (
+    //         (selectedTab === HIERARCHY_TABS.COSTING && !isBolsterPlusActivated) ||
+    //         (selectedTab === HIERARCHY_TABS.ESTIMATING && !isBolsterPlusActivated)
+    //     ) {
     //         dispatch(
     //             showModal(BOLSTER_PLUS_UPGRADE_MODAL, {
     //                 handleClose: () => dispatch(selectTab(HIERARCHY_TABS.GENERAL_OVERVIEW)),
     //             }),
     //         );
     //     }
-    // });
+    // }, [dispatch, isBolsterPlusActivated, selectedTab]);
 
     return {
         filters,
@@ -328,6 +334,7 @@ const useCostingAndEstimating = () => {
         fetchError,
         selectedTab,
         cAndEPostBody,
+        isBolsterPlusActivated,
     };
 };
 

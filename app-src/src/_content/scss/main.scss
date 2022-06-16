@@ -84,6 +84,12 @@ em {
   font-style: italic;
 }
 
+a {
+  &.text-colour {
+    color: var(--typography-default);
+  }
+}
+
 .container {
   width: 100%;
   padding: 0 30px;

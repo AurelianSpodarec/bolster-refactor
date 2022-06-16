@@ -49,6 +49,23 @@
     padding: 5px;
     background-color: transparent;
     color: var(--typography-default);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &.medium {
+        font-size: 13px;
+        padding: 5px;
+    }
+
+    &.small {
+        font-size: 9px;
+        padding: 0;
+
+        img {
+            max-width: 18px;
+        }
+    }
 
     i {
         font-size: inherit!important;

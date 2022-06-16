@@ -889,3 +889,23 @@ export const TOOLTIP_FILTERS_TYPES = {
     SINGLE_SELECTION: 1,
     MULTI_SELECTION: 2,
 };
+
+export const addOnsType = {
+    BOLSTER_PLUS: 1,
+};
+
+export const addOnsNames = {
+    1: 'BolsterPlus',
+};
+
+export const SHIFT_STATUS = {
+    PENDING: 0,
+    APPROVED: 1,
+    REJECTED: 3,
+};
+
+export const SHIFT_STATUS_REVERSE = {
+    [SHIFT_STATUS.PENDING]: 'Pending',
+    [SHIFT_STATUS.APPROVED]: 'Approved',
+    [SHIFT_STATUS.REJECTED]: 'Rejected',
+};

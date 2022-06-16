@@ -33,3 +33,9 @@ export const USERS_OPERATIVES_TABS = {
     INACTIVE: 'Inactive',
     ACTIVE: 'Active',
 };
+
+export const TIMESHEETS_TABS = {
+    JOB_REFERENCES: 'Job References',
+    WAGES: 'Wages',
+    GENERAL_OVERVIEW: 'General Overview',
+};

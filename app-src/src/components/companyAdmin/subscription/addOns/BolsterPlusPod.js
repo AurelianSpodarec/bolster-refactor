@@ -16,12 +16,12 @@ import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import BolsterPlusHeading from './BolsterPlusHeading';
 import BolsterPlusFeatures from './BolsterPlusFeatures';
+import useBolsterPlus from './hooks/useBolsterPlus';
 
 const BolsterPlusPod = () => {
     const dispatch = useDispatch();
-    const isBolsterPlusActivated = false;
-
-    const { handleAutoRenewChange, isAutoRenew } = useAutoRenew(isAutoRenew);
+    const { isBolsterPlusActivated } = useBolsterPlus();
+    const { handleAutoRenewChange, form } = useAutoRenew();
 
     return (
         <BlockContainer>
@@ -32,9 +32,9 @@ const BolsterPlusPod = () => {
                     <CheckboxContainer
                         name={'isAutoRenew'}
                         text="Auto-Renewal"
-                        value={isAutoRenew}
+                        value={form.isAutoRenew}
                         handleChange={handleAutoRenewChange}
-                        checked={!!isAutoRenew}
+                        checked={!!form.isAutoRenew}
                         classes="auto-width"
                         labelToTheLeft
                         forceOnOneLine

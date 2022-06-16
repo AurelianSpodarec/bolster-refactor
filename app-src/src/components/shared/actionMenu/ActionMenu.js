@@ -6,7 +6,13 @@ import HamburgerMenuIcon from '../../../_content/images/icons/hamburger-menu-ico
 import HamburgerMenuIconLight from '../../../_content/images/icons/hamburger-menu-icon-light.svg';
 import useColourTheme from 'hooks/useColourTheme';
 
-const ActionMenu = ({ children, ellipsisPosition = 'right', disabled = false, extraClasses }) => {
+const ActionMenu = ({
+    children,
+    ellipsisPosition = 'right',
+    disabled = false,
+    extraClasses,
+    size = 'medium', // medium / small
+}) => {
     const colourTheme = useColourTheme();
     const [showMenu, setShowMenu] = useState(false);
 
@@ -19,7 +25,7 @@ const ActionMenu = ({ children, ellipsisPosition = 'right', disabled = false, ex
     return (
         <div className="action-menu-wrapper flex-row">
             <button
-                className="ellipsis-button"
+                className={`ellipsis-button ${size}`}
                 data-position={ellipsisPosition}
                 onClick={e => {
                     e.preventDefault();

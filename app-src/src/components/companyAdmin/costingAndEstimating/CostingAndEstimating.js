@@ -27,10 +27,11 @@ const CostingAndEstimating = () => {
         fetchError,
         selectedTab,
         cAndEPostBody,
+        isBolsterPlusActivated,
     } = useCostingAndEstimating();
 
     return (
-        // <div className="blur">
+        // <div className={isBolsterPlusActivated ? '' : 'blur'}>
         <GridWrapper gap={2} containerClass="costing-wrapper">
             <CostingAndEstimatingPods
                 data={results?.keyStatistics}
