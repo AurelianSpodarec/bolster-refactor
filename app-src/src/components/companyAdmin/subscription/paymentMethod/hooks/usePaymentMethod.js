@@ -22,7 +22,7 @@ const usePaymentMethod = () => {
 
     const [addCardVisible, setCardVisible] = useState(false);
     const [form, handleChange] = useForm({
-        paymentType: null,
+        paymentType: 2,
         stripeCardID: null,
         idempotencyKey: null,
     });
@@ -73,7 +73,6 @@ const usePaymentMethod = () => {
         }
 
         if (postSuccess && !prevProps.postSuccess) {
-            // fetch();
             showModal(PAYMENT_SUCCESS, {
                 message: `Your order has been successfully placed and your Bolster Plus upgrade ${
                     +paymentType === PAYMENT_IDS.CARD
@@ -84,7 +83,6 @@ const usePaymentMethod = () => {
         }
 
         if (postError && !prevProps.postError) {
-            // fetch();
             showModal(PAYMENT_ERROR, {
                 message:
                     'There was an error while purchasing Bolster Plus upgrade. Please try again.',
