@@ -9,8 +9,9 @@ const useBolsterPlus = () => {
     const isBolsterPlusActivated = subscriptions.addons?.some(
         item => item.addonType === addOnsType.BOLSTER_PLUS,
     );
+    const isSubscriptionsActivated = !subscriptions.isAccessDisabled && !!subscriptions.startOn;
 
-    return { isBolsterPlusActivated };
+    return { isBolsterPlusActivated, isSubscriptionsActivated };
 };
 
 export default useBolsterPlus;
