@@ -8,6 +8,7 @@ const FlexModalOuter = ({
     title = '',
     extraClasses = '',
     handleClose,
+    hideCloseButton,
     hideHeading = false,
 }) => (
     <div className="flex-modal-container size-lg-12">
@@ -19,6 +20,7 @@ const FlexModalOuter = ({
                     title={title}
                     blockClasses="flex-modal-header"
                     handleClose={handleClose}
+                    hideCloseButton={hideCloseButton}
                 >
                     {headingChildren}
                 </ModalHeading>

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 
 import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
@@ -30,6 +31,8 @@ const AddBolsterPlusModal = ({ hideModal, handleClose }) => {
     const error = useSelector(selectSubscriptionsError);
     const prevSuccess = usePrevious(postSuccess);
     const prevFailure = usePrevious(postFailure);
+    const location = useLocation();
+
     const {
         handleChange,
         handleSubmit,
@@ -83,7 +86,11 @@ const AddBolsterPlusModal = ({ hideModal, handleClose }) => {
                 if (handleClose) {
                     handleClose();
                 } else {
-                    history.goBack();
+                    if (location.pathname === '/company/subscription') {
+                        hideModal();
+                    } else {
+                        history.goBack();
+                    }
                 }
 
                 hideModal();
@@ -115,7 +122,11 @@ const AddBolsterPlusModal = ({ hideModal, handleClose }) => {
                             if (handleClose) {
                                 handleClose();
                             } else {
-                                history.goBack();
+                                if (location.pathname === '/company/subscription') {
+                                    hideModal();
+                                } else {
+                                    history.goBack();
+                                }
                             }
 
                             hideModal();
