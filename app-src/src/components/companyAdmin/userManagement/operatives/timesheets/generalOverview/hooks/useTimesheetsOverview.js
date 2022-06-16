@@ -167,12 +167,12 @@ const useTimesheetsOverview = (setTitleData = () => {}) => {
     };
     const totals = timesheets.reduce(
         (acc, timesheet) => {
-            timesheet.clockerEntries.forEach((entry, i) => {
-                acc[i].formattedHours += entry.formattedHours;
-                acc[i].formattedBreakHours += entry.formattedBreakHours;
-                acc[i].totalPins += entry.totalPins;
-                acc[i].jobReferenceIDs = [...acc[i].jobReferenceIDs, ...entry.jobReferenceIDs];
-                acc[i].date = moment(entry.date)
+            timesheet.days.forEach((day, i) => {
+                acc[i].formattedHours += day.formattedHours;
+                acc[i].formattedBreakHours += day.formattedBreakHours;
+                acc[i].totalPins += day.totalPins;
+                acc[i].jobReferenceIDs = [...acc[i].jobReferenceIDs, ...day.jobReferenceIDs];
+                acc[i].date = moment(day.date)
                     .tz(timeZone?.id ?? 'Europe/London')
                     .startOf('day')
                     .format();
@@ -193,10 +193,10 @@ const useTimesheetsOverview = (setTitleData = () => {}) => {
     const formattedTimesheets = timesheets.map(timesheet => {
         return {
             ...timesheet,
-            clockerEntries: timesheet.clockerEntries.map(entry => {
+            days: timesheet.days.map(day => {
                 return {
-                    ...entry,
-                    date: moment(entry.date)
+                    ...day,
+                    date: moment(day.date)
                         .tz(timeZone?.id ?? 'Europe/London')
                         .startOf('day')
                         .format(),
