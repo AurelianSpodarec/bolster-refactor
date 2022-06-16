@@ -18,15 +18,15 @@ import { SHIFT_STATUS } from 'constants/companyAdmin/enums';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import ActionMenu from 'components/shared/actionMenu/ActionMenu';
-import ActionMenuContent from 'components/shared/actionMenu/ActionMenuContent';
 import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
+import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import { selectCompanyTimeZone } from 'selectors/companyAdmin/companySettings';
 
 const BreakdownOverviewList = ({ timesheets, selectedDate, filterType, filterDirection }) => {
     const selectedUserIDs = useSelector(timesheetSelectedCompanyIDs);
-
     const filterByHasClockedIn = useSelector(selectFilterByHasClockedIn);
-
     const users = useSelector(selectCompanyUsers);
+    const timeZone = useSelector(selectCompanyTimeZone);
 
     const selectedDay = useMemo(() => {
         const getDayMatch = day => moment(day.date).isSame(selectedDate, 'day');
@@ -113,6 +113,27 @@ const BreakdownOverviewList = ({ timesheets, selectedDate, filterType, filterDir
                         </ActionMenu>
                     </ButtonWrapper>
                 </BlockHeading>
+                <div className="divider" />
+                <div className="pod-row">
+                    <BlockContainer contentClass="inner-pod">
+                        <div>
+                            <BlockHeading title="Time In" style={{ width: '100%' }} />
+                        </div>
+                        <p>{moment.utc(timeIn).tz(timeZone).format('HH:mm:ss')}</p>
+                    </BlockContainer>
+                    <BlockContainer contentClass="inner-pod">
+                        <BlockHeading title="Time Out" />
+                        <p>{moment.utc(timeOut).tz(timeZone).format('HH:mm:ss')}</p>
+                    </BlockContainer>
+                    <BlockContainer contentClass="inner-pod">
+                        <BlockHeading title="Break Time" />
+                        <p>{moment.utc(breakTime).tz(timeZone).format('HH:mm:ss')}</p>
+                    </BlockContainer>
+                    <BlockContainer contentClass="inner-pod">
+                        <BlockHeading title="Histories" />
+                        <p>{noOfHistories}</p>
+                    </BlockContainer>
+                </div>
             </BlockContainer>
         );
     });
