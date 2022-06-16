@@ -5,6 +5,7 @@ import ButtonWrapper from 'components/shared/generic/button/presentational/Butto
 import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
 import { PAYMENT_IDS } from 'constants/companyAdmin/enums';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
 
 const BuyBolsterPlusConfirmationModal = ({ paymentType, hideModal }) => {
     return (
@@ -17,7 +18,7 @@ const BuyBolsterPlusConfirmationModal = ({ paymentType, hideModal }) => {
                         : ' Your new service will be available for use once the invoice has been paid.'}
                 </p>
                 <ButtonWrapper alignment="right" extraClasses="flex-modal-footer">
-                    <ActionButton text="OK" onClick={hideModal} size="medium" />
+                    <LinkButton text="OK" href="/company/subscription" size="medium" />
                 </ButtonWrapper>
             </BlockContainer>
         </FlexModalOuter>
