@@ -14,7 +14,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import moment from 'moment';
 import getShiftPodData from '../../helpers/getShiftPodData';
 import { selectCompanyUsers } from 'selectors/companyAdmin/companyUsers';
-import { SHIFT_STATUS } from 'constants/companyAdmin/enums';
+import { SHIFT_STATUS, SHIFT_STATUS_REVERSE } from 'constants/companyAdmin/enums';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import ActionMenu from 'components/shared/actionMenu/ActionMenu';
@@ -93,7 +93,16 @@ const BreakdownOverviewList = ({ timesheets, selectedDate, filterType, filterDir
                     title={`${user.userFirstName} ${user.userLastName} (${user.userEmail})`}
                 >
                     <ButtonWrapper alignment="right">
-                        <ActionButton size="small" ambient="positive" text="Approve" />
+                        {status === SHIFT_STATUS.PENDING ? (
+                            <ActionButton size="small" ambient="positive" text={'Approve'} />
+                        ) : (
+                            <ActionButton
+                                size="small"
+                                source="secondary"
+                                text={SHIFT_STATUS_REVERSE[status]}
+                                disabled
+                            />
+                        )}
                         <ActionButton size="small" source="secondary" icon="pencil" iconOnly />
                         <ActionMenu size="small">
                             <ActionMenuActionButton text="Option 1" />
