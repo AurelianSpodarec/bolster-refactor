@@ -114,9 +114,7 @@ const BreakdownOverviewList = ({ timesheets, selectedDate, filterType, filterDir
                             />
                         )}
                         <ActionButton size="small" source="secondary" icon="pencil" iconOnly />
-                        <ActionMenu size="small">
-                            <ActionMenuActionButton text="Option 1" />
-                        </ActionMenu>
+                        <ActionButton size="small" ambient="negative" icon="trash" iconOnly />
                     </ButtonWrapper>
                 </BlockHeading>
                 <div className="divider" />
@@ -141,36 +139,48 @@ const BreakdownOverviewList = ({ timesheets, selectedDate, filterType, filterDir
                 <BlockContainer contentClass="inner-pod">
                     <BlockHeading title="Hours" />
                     <div className="divider" />
-                    <Table
-                        headers={['Job References', 'Hours Worked', 'Wage Split']}
-                        isFetching={false}
-                        error={null}
-                        noData={!jobReferences.length}
-                        noDataMessage="No jobs to display."
-                    >
-                        <HoursWorkedList
-                            jobReferences={jobReferences}
-                            jobReferencesTotalCost={jobReferencesTotalCost}
-                            jobReferencesTotalHours={jobReferencesTotalHours}
-                            currencySymbol={currencySymbol}
-                        />
-                    </Table>
+                    <div className="table-container">
+                        <Table
+                            headers={['Job References', 'Hours Worked', 'Wage Split']}
+                            isFetching={false}
+                            error={null}
+                            noData={!jobReferences.length}
+                            noDataMessage="No jobs to display."
+                        >
+                            <HoursWorkedList
+                                jobReferences={jobReferences}
+                                jobReferencesTotalCost={jobReferencesTotalCost}
+                                jobReferencesTotalHours={jobReferencesTotalHours}
+                                currencySymbol={currencySymbol}
+                            />
+                        </Table>
+                    </div>
 
                     <BlockHeading title="Expenses" />
                     <div className="divider" />
-                    <Table
-                        headers={['', '']}
-                        isFetching={false}
-                        error={null}
-                        noData={!expenses.length}
-                        noDataMessage="No expenses to display."
-                    >
-                        <ExpensesList
-                            expenses={expenses}
-                            expensesTotal={expensesTotal}
-                            currencySymbol={currencySymbol}
-                        />
-                    </Table>
+                    <div className="table-container">
+                        <Table
+                            headers={['', '']}
+                            isFetching={false}
+                            error={null}
+                            noData={!expenses.length}
+                            noDataMessage="No expenses to display."
+                        >
+                            <ExpensesList
+                                expenses={expenses}
+                                expensesTotal={expensesTotal}
+                                currencySymbol={currencySymbol}
+                            />
+                        </Table>
+                        <ButtonWrapper alignment="right">
+                            <ActionButton
+                                size="small"
+                                icon="plus"
+                                text="Create new"
+                                onClick={() => {}}
+                            />
+                        </ButtonWrapper>
+                    </div>
                     <div className="shift-total">
                         <span>Total exc VAT:</span>
                         <span className="total">

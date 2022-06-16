@@ -24,7 +24,7 @@ const HoursWorkedList = ({
         })}
         <tr className="total-row">
             <td>Total</td>
-            <td>{jobReferencesTotalHours}</td>
+            <td>{moment(jobReferencesTotalHours).format('H:mm')}</td>
             <td>
                 {currencySymbol}
                 {jobReferencesTotalCost ? formatCurrency(jobReferencesTotalCost) : '0.00'}

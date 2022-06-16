@@ -4279,11 +4279,14 @@ $back-to-top-height: 35px;
          p {
           display: block;
          }
+         
+         .table-container {
+           margin-bottom: 20px;
+         }
 
          .generic-table {
-          width: unset;
+          width: 100%;
           margin-left: 0px;
-          margin-bottom: 20px;
           
           tr {
            background-color: transparent;
