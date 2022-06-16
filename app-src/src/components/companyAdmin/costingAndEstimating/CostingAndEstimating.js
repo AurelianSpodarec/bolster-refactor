@@ -31,48 +31,48 @@ const CostingAndEstimating = () => {
     } = useCostingAndEstimating();
 
     return (
-        // <div className={isBolsterPlusActivated ? '' : 'blur'}>
-        <GridWrapper gap={2} containerClass="costing-wrapper">
-            <CostingAndEstimatingPods
-                data={results?.keyStatistics}
-                isFetching={isFetchingResults}
-                fetchError={fetchError}
-            />
+        <div className={isBolsterPlusActivated ? '' : 'blur'}>
+            <GridWrapper gap={2} containerClass="costing-wrapper">
+                <CostingAndEstimatingPods
+                    data={results?.keyStatistics}
+                    isFetching={isFetchingResults}
+                    fetchError={fetchError}
+                />
 
-            <CostingCart
-                data={results}
-                isFetching={isFetchingFilters}
-                fetchError={fetchError}
-                selectedTab={selectedTab}
-                formData={filterFormData}
-                cAndEPostBody={cAndEPostBody}
-            />
+                <CostingCart
+                    data={results}
+                    isFetching={isFetchingFilters}
+                    fetchError={fetchError}
+                    selectedTab={selectedTab}
+                    formData={filterFormData}
+                    cAndEPostBody={cAndEPostBody}
+                />
 
-            <CostingAndEstimatingGraph
-                graph={results?.graph}
-                filterFormData={filterFormData}
-                filters={filters}
-                onChange={onChange}
-                onThisWeek={onThisWeek}
-                onPrevWeek={onPrevWeek}
-                onNextWeek={onNextWeek}
-                isFetching={isFetchingResults}
-                fetchError={fetchError}
-            />
+                <CostingAndEstimatingGraph
+                    graph={results?.graph}
+                    filterFormData={filterFormData}
+                    filters={filters}
+                    onChange={onChange}
+                    onThisWeek={onThisWeek}
+                    onPrevWeek={onPrevWeek}
+                    onNextWeek={onNextWeek}
+                    isFetching={isFetchingResults}
+                    fetchError={fetchError}
+                />
 
-            <CostingAndEstimatingFilterList
-                sites={filters.allSites}
-                currentHierarchyLevel={currentHierarchyLevel}
-                selectedItems={filterFormData.selectedItems}
-                handleToggleItem={handleToggleItem}
-                handleToggleAllItems={handleToggleAllItems}
-                isAnythingSelected={isAnythingSelected}
-                isFetching={isFetchingResults}
-                fetchError={fetchError}
-                total={results?.graph?.total}
-            />
-        </GridWrapper>
-        // </div>
+                <CostingAndEstimatingFilterList
+                    sites={filters.allSites}
+                    currentHierarchyLevel={currentHierarchyLevel}
+                    selectedItems={filterFormData.selectedItems}
+                    handleToggleItem={handleToggleItem}
+                    handleToggleAllItems={handleToggleAllItems}
+                    isAnythingSelected={isAnythingSelected}
+                    isFetching={isFetchingResults}
+                    fetchError={fetchError}
+                    total={results?.graph?.total}
+                />
+            </GridWrapper>
+        </div>
     );
 };
 

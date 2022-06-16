@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
@@ -18,6 +17,7 @@ import { addOnsType } from 'constants/companyAdmin/enums';
 import usePrevious from 'hooks/usePrevious';
 import {
     selectSubscriptionsError,
+    selectSubscriptionsIsPosting,
     selectSubscriptionsPostError,
     selectSubscriptionsPostSuccess,
 } from 'selectors/companyAdmin/subscriptions';
@@ -26,6 +26,7 @@ const AddBolsterPlusModal = ({ hideModal }) => {
     const dispatch = useDispatch();
     const postSuccess = useSelector(selectSubscriptionsPostSuccess);
     const postFailure = useSelector(selectSubscriptionsPostError);
+    const isPosting = useSelector(selectSubscriptionsIsPosting);
     const error = useSelector(selectSubscriptionsError);
     const prevSuccess = usePrevious(postSuccess);
     const prevFailure = usePrevious(postFailure);
@@ -68,7 +69,7 @@ const AddBolsterPlusModal = ({ hideModal }) => {
                 showModal(PAYMENT_ERROR, {
                     message:
                         'There was an error while purchasing your subscription. Please try again.',
-                    // resubmit: dispatch(addServiceToSubscription(postBody)),
+                    resubmit: () => dispatch(addServiceToSubscription(postBody)),
                     error: error.replace('office', 'invoice'),
                 }),
             );
@@ -105,6 +106,9 @@ const AddBolsterPlusModal = ({ hideModal }) => {
                     />
                     <ActionButton
                         text="Buy"
+                        icon={isPosting ? 'spinner' : ''}
+                        iconSpin={isPosting}
+                        disabled={isPosting}
                         onClick={() => {
                             dispatch(addServiceToSubscription(postBody));
                         }}
