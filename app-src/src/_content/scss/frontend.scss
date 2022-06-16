@@ -4278,11 +4278,18 @@ $back-to-top-height: 35px;
          p {
           display: block;
          }
+
+         tr {
+          background-color: transparent;
+         }
       }
 
       .pod-row {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
+         div {
+          min-height: calc(100% - 10px);
+         }
       }
     }
   }

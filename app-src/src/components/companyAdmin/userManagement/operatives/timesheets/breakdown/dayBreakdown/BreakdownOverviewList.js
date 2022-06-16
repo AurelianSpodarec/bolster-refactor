@@ -21,6 +21,8 @@ import ActionMenu from 'components/shared/actionMenu/ActionMenu';
 import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import { selectCompanyTimeZone } from 'selectors/companyAdmin/companySettings';
+import Table from 'components/shared/generic/tables/presentational/Table';
+import HoursWorkedList from './HoursWorkedList';
 
 const BreakdownOverviewList = ({ timesheets, selectedDate, filterType, filterDirection }) => {
     const selectedUserIDs = useSelector(timesheetSelectedCompanyIDs);
@@ -61,21 +63,6 @@ const BreakdownOverviewList = ({ timesheets, selectedDate, filterType, filterDir
     console.log({ timesheets, selectedDate, selectedDay, users });
 
     return selectedDay.shifts.map(shift => {
-        // const {
-        //     companyUserID,
-        //     firstName,
-        //     lastName,
-        //     email,
-        //     formattedHours,
-        //     formattedBreakHours,
-        //     formattedClockedInHours,
-        //     jobReferenceIDs,
-        //     totalPins,
-        //     clockIn,
-        //     clockOut,
-        //     clockerNotes,
-        // } = useDayOverview(timesheet, selectedDate);
-
         const user = users[shift.companyUserID] || {};
 
         const {
@@ -83,10 +70,10 @@ const BreakdownOverviewList = ({ timesheets, selectedDate, filterType, filterDir
             timeOut,
             breakTime,
             noOfHistories,
-            jobReferences, // { jobRef, hoursWorked, wageSplit }
+            jobReferences, // [{ jobRef, hoursWorked, wageSplit }]
             jobReferencesTotalHours,
             jobReferencesTotalCost,
-            expenses, // { name, cost }
+            expenses, // [{ name, cost }]
             expensesTotal,
             shiftTotal,
             notes,
@@ -116,9 +103,7 @@ const BreakdownOverviewList = ({ timesheets, selectedDate, filterType, filterDir
                 <div className="divider" />
                 <div className="pod-row">
                     <BlockContainer contentClass="inner-pod">
-                        <div>
-                            <BlockHeading title="Time In" style={{ width: '100%' }} />
-                        </div>
+                        <BlockHeading title="Time In" />
                         <p>{moment.utc(timeIn).tz(timeZone).format('HH:mm:ss')}</p>
                     </BlockContainer>
                     <BlockContainer contentClass="inner-pod">
@@ -134,6 +119,30 @@ const BreakdownOverviewList = ({ timesheets, selectedDate, filterType, filterDir
                         <p>{noOfHistories}</p>
                     </BlockContainer>
                 </div>
+                <BlockContainer contentClass="inner-pod">
+                    <BlockHeading title="Hours" />
+                    <div className="divider" />
+                    <Table
+                        headers={['Job References', 'Hours Worked', 'Wage Split']}
+                        isFetching={false}
+                        error={null}
+                        noData={false}
+                        noDataMessage="No hours to display."
+                    >
+                        <HoursWorkedList
+                            jobReferences={jobReferences}
+                            jobReferencesTotalCost={jobReferencesTotalCost}
+                            jobReferencesTotalHours={jobReferencesTotalHours}
+                        />
+                    </Table>
+
+                    <BlockHeading title="Expenses" />
+                    <div className="divider" />
+                </BlockContainer>
+                <BlockContainer contentClass="inner-pod">
+                    <BlockHeading title="Notes" />
+                    <div className="divider" />
+                </BlockContainer>
             </BlockContainer>
         );
     });
