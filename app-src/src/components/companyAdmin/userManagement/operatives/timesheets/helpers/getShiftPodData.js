@@ -16,6 +16,7 @@ const getShiftPodData = shift => {
         startOn,
         status,
         totalPins,
+        notes,
     } = shift;
 
     return {
@@ -29,7 +30,7 @@ const getShiftPodData = shift => {
         expenses: [], // { name, cost }
         expensesTotal: 0,
         shiftTotal: 0,
-        notes: [],
+        notes,
         status,
         groupUID,
     };

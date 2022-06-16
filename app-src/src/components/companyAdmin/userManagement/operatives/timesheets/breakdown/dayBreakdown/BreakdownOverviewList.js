@@ -2,10 +2,6 @@ import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 import { selectFilterByHasClockedIn } from 'selectors/companyAdmin/timesheets';
-import useDayOverview from '../../hooks/useDayOverview';
-
-import BreakdownNotes from '../BreakdownNotes';
-import BreakdownSummary from '../BreakdownSummary';
 
 import { timesheetFilter, timesheetSort } from './hooks/useOverviewFilters';
 import { timesheetSelectedCompanyIDs } from 'selectors/companyAdmin/timesheets';
@@ -19,11 +15,11 @@ import ButtonWrapper from 'components/shared/generic/button/presentational/Butto
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import ActionMenu from 'components/shared/actionMenu/ActionMenu';
 import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import { selectCompanyTimeZone } from 'selectors/companyAdmin/companySettings';
 import Table from 'components/shared/generic/tables/presentational/Table';
 import HoursWorkedList from './HoursWorkedList';
 import ExpensesList from './ExpensesList';
+import { isEmpty } from 'helpers/generic';
 
 const BreakdownOverviewList = ({ timesheets, selectedDate, filterType, filterDirection }) => {
     const selectedUserIDs = useSelector(timesheetSelectedCompanyIDs);
@@ -31,13 +27,20 @@ const BreakdownOverviewList = ({ timesheets, selectedDate, filterType, filterDir
     const users = useSelector(selectCompanyUsers);
     const timeZone = useSelector(selectCompanyTimeZone);
 
-    const selectedDay = useMemo(() => {
-        const getDayMatch = day => moment(day.date).isSame(selectedDate, 'day');
-        const thisDay = timesheets.reduce((acc, curr) => {
-            return curr.days.find(getDayMatch);
-        }, undefined);
-        return thisDay;
-    }, [selectedDate, timesheets]);
+    const shiftsForToday = useMemo(
+        () =>
+            timesheets.reduce((acc, curr) => {
+                const thisDay = curr.days.find(day => moment(day.date).isSame(selectedDate, 'day'));
+                const todaysShifts = thisDay.shifts.map(shift => {
+                    const notes = thisDay.clockerNotes.filter(note =>
+                        moment(note.createdOn).isSame(selectedDate, 'day'),
+                    );
+                    return { ...shift, notes };
+                });
+                return [...acc, ...todaysShifts];
+            }, []),
+        [selectedDate, timesheets],
+    );
 
     // let formattedTimesheets = [];
 
@@ -59,11 +62,12 @@ const BreakdownOverviewList = ({ timesheets, selectedDate, filterType, filterDir
     //         .sort(timesheetSort(filterType, filterDirection, selectedDate));
     // }
 
-    if (!selectedDay || !selectedDay?.shifts?.length) return <p>No clock in data to display.</p>;
+    if (isEmpty(shiftsForToday) || !shiftsForToday?.length)
+        return <p>No clock in data to display.</p>;
 
-    console.log({ timesheets, selectedDate, selectedDay, users });
+    console.log({ timesheets, selectedDate, shiftsForToday, users });
 
-    return selectedDay.shifts.map(shift => {
+    return shiftsForToday.map(shift => {
         const user = users[shift.companyUserID] || {};
 
         const {
@@ -161,6 +165,9 @@ const BreakdownOverviewList = ({ timesheets, selectedDate, filterType, filterDir
                 <BlockContainer contentClass="inner-pod">
                     <BlockHeading title="Notes" />
                     <div className="divider" />
+                    {notes.map((note, i) => (
+                        <p key={note.uid}>{note.comments}</p>
+                    ))}
                 </BlockContainer>
             </BlockContainer>
         );
