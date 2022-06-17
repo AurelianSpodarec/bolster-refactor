@@ -52,9 +52,9 @@ const BreakdownOverviewList = ({ timesheets, selectedDate, filterType, filterDir
     if (isEmpty(shiftsForToday) || !shiftsForToday?.length)
         return <p>No clock in data to display.</p>;
 
-    return shiftsForToday.map(shift => (
+    return shiftsForToday.map((shift, i) => (
         <ShiftPod
-            key={shift.id}
+            key={`${i}-${shift.id}`}
             shift={shift}
             shiftToEdit={shiftToEdit}
             setShiftToEdit={setShiftToEdit}
