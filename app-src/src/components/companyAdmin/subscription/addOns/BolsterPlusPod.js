@@ -6,7 +6,7 @@ import { bolsterPlusLearnMoreLink } from 'constants/companyAdmin/bolsterPlus';
 
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 
-import useAutoRenew from './hooks/useAutoRenew';
+import useAutoRenew from './hooks/useBolsterPlusAutoRenew';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
@@ -21,7 +21,9 @@ import useBolsterPlus from './hooks/useBolsterPlus';
 const BolsterPlusPod = () => {
     const dispatch = useDispatch();
     const { isBolsterPlusActivated, isSubscriptionsActivated } = useBolsterPlus();
-    const { handleAutoRenewChange, form } = useAutoRenew();
+    const { handlesAutoRenewChange, form } = useAutoRenew();
+
+    console.log(form.renewalStatus);
 
     return isSubscriptionsActivated ? (
         <BlockContainer>
@@ -30,11 +32,10 @@ const BolsterPlusPod = () => {
 
                 {isBolsterPlusActivated && (
                     <CheckboxContainer
-                        name={'isAutoRenew'}
+                        name="renewalStatus"
                         text="Auto-Renewal"
-                        value={form.isAutoRenew}
-                        handleChange={handleAutoRenewChange}
-                        checked={!!form.isAutoRenew}
+                        handleChange={handlesAutoRenewChange}
+                        checked={form.renewalStatus}
                         classes="auto-width"
                         labelToTheLeft
                         forceOnOneLine
