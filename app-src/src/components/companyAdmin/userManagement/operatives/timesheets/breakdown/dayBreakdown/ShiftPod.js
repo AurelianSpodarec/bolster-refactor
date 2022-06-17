@@ -17,9 +17,9 @@ import Table from 'components/shared/generic/tables/presentational/Table';
 import HoursWorkedList from './HoursWorkedList';
 import ExpensesList from './ExpensesList';
 import { formatCurrency } from 'helpers/generic';
-import useEditShift from './hooks/useEditShift';
+import useOverrideShift from './hooks/useOverrideShift';
 
-const ShiftPod = ({ shift, shiftToEdit, setShiftToEdit }) => {
+const ShiftPod = ({ shift, shiftToEdit, setShiftToEdit, selectedDate }) => {
     const users = useSelector(selectCompanyUsers);
     const timeZone = useSelector(selectCompanyTimeZone);
     const currency = useSelector(selectCompanyCurrency);
@@ -43,9 +43,14 @@ const ShiftPod = ({ shift, shiftToEdit, setShiftToEdit }) => {
         groupUID,
     } = getShiftPodData(shift);
 
-    const { formData, handleChange, handleSubmit } = useEditShift(shift);
-
     const handleToggleEdit = () => setShiftToEdit(isEditing ? null : shift.id);
+
+    const { formData, handleChange, handleSubmit, isPosting } = useOverrideShift(
+        shift,
+        handleToggleEdit,
+        selectedDate,
+        isEditing,
+    );
 
     const statusClassLookup = {
         [SHIFT_STATUS.PENDING]: 'pending',
@@ -137,7 +142,9 @@ const ShiftPod = ({ shift, shiftToEdit, setShiftToEdit }) => {
                                     size="small"
                                     text="Submit"
                                     ambient="positive"
-                                    onClick={() => {}}
+                                    onClick={handleSubmit}
+                                    isPosting={isPosting}
+                                    disabled={isPosting}
                                 />
                             </ButtonWrapper>
                         </>

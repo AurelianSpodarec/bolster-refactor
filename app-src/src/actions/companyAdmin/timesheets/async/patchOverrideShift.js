@@ -25,7 +25,7 @@ export const postOverrideShiftFailure = error => ({
 export default (shiftID, postBody) => dispatch => {
     dispatch(postOverrideShiftRequest());
     axios
-        .post(`${API_URL}/clockerEntries/shifts/${shiftID}/override`, postBody, getHeaders())
+        .patch(`${API_URL}/clockerEntries/shifts/${shiftID}/override`, postBody, getHeaders())
         .then(res => dispatch(postOverrideShiftSuccess(res.data)))
         .catch(err => dispatch(postOverrideShiftFailure(err.message)));
 };

@@ -19,6 +19,7 @@ export default combineReducers({
     error: errorReducer,
     isPosting: isPostingReducer,
     postError: postErrorReducer,
+    postSuccess: postSuccessReducer,
     timesheets: timesheetReducer,
     timesheetOptions: timesheetOptionsReducer,
     filterByHasClockedIn: filterByHasClockedInReducer,
@@ -70,6 +71,18 @@ function postErrorReducer(state = null, action) {
             return null;
         case POST_OVERRIDE_SHIFT_FAILURE:
             return action.error;
+        default:
+            return state;
+    }
+}
+
+function postSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case POST_OVERRIDE_SHIFT_REQUEST:
+        case POST_OVERRIDE_SHIFT_FAILURE:
+            return false;
+        case POST_OVERRIDE_SHIFT_SUCCESS:
+            return true;
         default:
             return state;
     }

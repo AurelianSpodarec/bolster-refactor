@@ -58,6 +58,7 @@ const BreakdownOverviewList = ({ timesheets, selectedDate, filterType, filterDir
             shift={shift}
             shiftToEdit={shiftToEdit}
             setShiftToEdit={setShiftToEdit}
+            selectedDate={selectedDate}
         />
     ));
 };
