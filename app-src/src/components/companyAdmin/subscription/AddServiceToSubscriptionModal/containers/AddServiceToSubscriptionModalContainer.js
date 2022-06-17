@@ -13,6 +13,7 @@ import fetchAllSubscriptions from 'actions/companyAdmin/subscriptions/async/fetc
 
 class AddServiceToSubscriptionModalContainer extends Component {
     state = {
+        addonTypes: [],
         paymentType: 2,
         stripeCardID: null,
         termsAgreed: false,
@@ -102,13 +103,14 @@ class AddServiceToSubscriptionModalContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { paymentType, stripeCardID } = this.state;
+        const { paymentType, stripeCardID, addonTypes } = this.state;
         const {
             service: { id },
             addServiceToSubscription,
         } = this.props;
 
         const postBody = {
+            addonTypes,
             paymentType,
             stripeCardID: +paymentType === PAYMENT_IDS.CARD ? stripeCardID : null,
             serviceIDs: [id],
