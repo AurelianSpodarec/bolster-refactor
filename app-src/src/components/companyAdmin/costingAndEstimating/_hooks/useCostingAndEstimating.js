@@ -290,6 +290,8 @@ const useCostingAndEstimating = () => {
         }
     }, [prelimPostSuccess, prevData.prelimPostSuccess]); // Re-fetch results data on prelim post success
 
+    // should depend on payment type!
+
     useEffect(() => {
         if (subscriptionsPostSuccess && !prevData.subscriptionsPostSuccess) {
             dispatch(fetchCostingAndEstimatingResults(cAndEPostBody));
