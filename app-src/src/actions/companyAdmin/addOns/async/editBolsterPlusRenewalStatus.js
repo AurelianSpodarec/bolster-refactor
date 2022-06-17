@@ -24,7 +24,7 @@ export const editBolsterPlusRenewalStatusFailure = error => ({
 export default postBody => dispatch => {
     dispatch(editBolsterPlusRenewalStatusRequest());
     axios
-        .post(`${API_URL}/addon/renewal`, postBody, getHeaders())
+        .post(`${API_URL}/subscriptions/addon/renewal`, postBody, getHeaders())
         .then(({ data }) => dispatch(editBolsterPlusRenewalStatusSuccess(data)))
         .catch(err => {
             const errorAction = handleErrors(editBolsterPlusRenewalStatusFailure);
