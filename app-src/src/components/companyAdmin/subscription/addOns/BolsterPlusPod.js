@@ -23,8 +23,6 @@ const BolsterPlusPod = () => {
     const { isBolsterPlusActivated, isSubscriptionsActivated } = useBolsterPlus();
     const { handlesAutoRenewChange, form } = useAutoRenew();
 
-    console.log(form.renewalStatus);
-
     return isSubscriptionsActivated ? (
         <BlockContainer>
             <FlexWrapper extraClasses="margin-bottom-medium" justify="between">
