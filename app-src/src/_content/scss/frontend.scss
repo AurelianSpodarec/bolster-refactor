@@ -4287,6 +4287,7 @@ $back-to-top-height: 35px;
          .generic-table {
           width: 100%;
           margin-left: 0px;
+          float: unset;
           
           tr {
            background-color: transparent;
@@ -4297,6 +4298,16 @@ $back-to-top-height: 35px;
  
            td, th {
              padding: 10px 5px;
+           }
+
+           .table-time-input {
+              font-size: 16px;
+              font-weight: 400;
+           }
+
+           .generic-input {
+            background-color: transparent;
+            padding: 2px
            }
           }
          }
