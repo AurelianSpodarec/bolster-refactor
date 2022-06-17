@@ -10,7 +10,10 @@ import AddCardFormContainer from '../../cardManagement/addCardModal/containers/A
 import PaymentMethod from '../../paymentMethod/PaymentMethod';
 import usePaymentMethod from '../../paymentMethod/hooks/usePaymentMethod';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
-import { BUY_BOLSTER_PLUS_CONFIRMATION, PAYMENT_ERROR } from 'constants/shared/modalTypes';
+import {
+    BOLSTER_PLUS_PAYMENT_ERROR,
+    BUY_BOLSTER_PLUS_CONFIRMATION,
+} from 'constants/shared/modalTypes';
 import useAddOnProrata from '../hooks/useAddOnProrata';
 import { formatNumber } from 'helpers/generic';
 import addServiceToSubscription from 'actions/companyAdmin/subscriptions/async/addServiceToSubscription';
@@ -61,6 +64,7 @@ const AddBolsterPlusModal = ({ hideModal, handleClose }) => {
             dispatch(
                 showModal(BUY_BOLSTER_PLUS_CONFIRMATION, {
                     paymentType: form.paymentType,
+                    handleClose,
                 }),
             );
         }
@@ -69,11 +73,12 @@ const AddBolsterPlusModal = ({ hideModal, handleClose }) => {
     useEffect(() => {
         if (postFailure && !prevFailure) {
             dispatch(
-                showModal(PAYMENT_ERROR, {
+                showModal(BOLSTER_PLUS_PAYMENT_ERROR, {
                     message:
                         error ||
                         'There was an error while purchasing your subscription. Please try again.',
                     resubmit: () => dispatch(addServiceToSubscription(postBody)),
+                    handleClose,
                 }),
             );
         }

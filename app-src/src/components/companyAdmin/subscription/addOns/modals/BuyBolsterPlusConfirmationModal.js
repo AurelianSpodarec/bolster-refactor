@@ -7,7 +7,7 @@ import { PAYMENT_IDS } from 'constants/companyAdmin/enums';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 
-const BuyBolsterPlusConfirmationModal = ({ paymentType, hideModal }) => {
+const BuyBolsterPlusConfirmationModal = ({ paymentType, hideModal, handleClose }) => {
     const location = useLocation();
     return (
         <FlexModalOuter title="Bolster Plus Purchase Confirmation" hideCloseButton>
@@ -32,8 +32,27 @@ const BuyBolsterPlusConfirmationModal = ({ paymentType, hideModal }) => {
                             />
                         </a>
                     )}
+                    {paymentType === PAYMENT_IDS.CARD ? (
+                        <ActionButton text="OK" size="medium" onClick={() => hideModal()} />
+                    ) : (
+                        <ActionButton
+                            text="OK"
+                            size="medium"
+                            onClick={() => {
+                                if (handleClose) {
+                                    handleClose();
+                                } else {
+                                    if (location.pathname === '/company/subscription') {
+                                        hideModal();
+                                    } else {
+                                        history.goBack();
+                                    }
+                                }
 
-                    <ActionButton text="OK" size="medium" onClick={() => hideModal()} />
+                                hideModal();
+                            }}
+                        />
+                    )}
                 </ButtonWrapper>
             </BlockContainer>
         </FlexModalOuter>

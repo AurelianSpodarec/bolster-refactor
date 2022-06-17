@@ -41,6 +41,7 @@ import {
     LOADING_DATA,
     PAY_INVOICE,
     PAYMENT_ERROR,
+    BOLSTER_PLUS_PAYMENT_ERROR,
     PAYMENT_SUCCESS,
     PIN_IMAGE,
     RENAME_TEMPLATE_SECTION,
@@ -313,6 +314,7 @@ import EnableCompanyModal from 'components/superAdmin/companies/shared/modals/En
 import AddBolsterPlusModal from 'components/companyAdmin/subscription/addOns/modals/AddBolsterPlusModal';
 import BolsterPlusUpgradeModal from '../presentational/BolsterPlusUpgradeModal';
 import BuyBolsterPlusConfirmationModal from 'components/companyAdmin/subscription/addOns/modals/BuyBolsterPlusConfirmationModal';
+import BolsterPlusPaymentErrorModal from 'components/companyAdmin/subscription/addOns/modals/BolsterPlusPaymentErrorModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModal,
@@ -342,6 +344,7 @@ const MODAL_COMPONENTS = {
     [EDIT_USER_PASSWORD]: EditUserPasswordModalContainer,
     [PAY_INVOICE]: PayInvoiceModalContainer,
     [PAYMENT_ERROR]: PaymentErrorModalContainer,
+    [BOLSTER_PLUS_PAYMENT_ERROR]: BolsterPlusPaymentErrorModal,
     [PAYMENT_SUCCESS]: PaymentSuccessModalContainer,
     [PIN_IMAGE]: PinPhotoModal,
     [RENAME_TEMPLATE_SECTION]: RenameTemplateSectionModalContainer,
