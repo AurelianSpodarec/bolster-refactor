@@ -11,6 +11,7 @@ import moment from 'moment';
 
 const Breakdown = ({
     selectedDate,
+    startDate,
     timePeriod,
     isFetching,
     fetchError,
@@ -80,6 +81,7 @@ const Breakdown = ({
                             component: (
                                 <DayBreakdownOverview
                                     selectedDate={selectedDate}
+                                    startDate={startDate}
                                     timesheets={timesheets}
                                     handlePDFReportGeneration={handlePDFReportGeneration}
                                     disableReportGenPin={disableReportGenPin}

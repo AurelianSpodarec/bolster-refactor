@@ -9,7 +9,13 @@ import moment from 'moment';
 import { isEmpty } from 'helpers/generic';
 import ShiftPod from './ShiftPod';
 
-const BreakdownOverviewList = ({ timesheets, selectedDate, filterType, filterDirection }) => {
+const BreakdownOverviewList = ({
+    timesheets,
+    selectedDate,
+    startDate,
+    filterType,
+    filterDirection,
+}) => {
     const selectedUserIDs = useSelector(timesheetSelectedCompanyIDs);
     const filterByHasClockedIn = useSelector(selectFilterByHasClockedIn);
 
@@ -58,7 +64,7 @@ const BreakdownOverviewList = ({ timesheets, selectedDate, filterType, filterDir
             shift={shift}
             shiftToEdit={shiftToEdit}
             setShiftToEdit={setShiftToEdit}
-            selectedDate={selectedDate}
+            startDate={startDate}
         />
     ));
 };
