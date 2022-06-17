@@ -15,6 +15,7 @@ import fetchAllSubscriptions from 'actions/companyAdmin/subscriptions/async/fetc
 
 class AddMulitpleServicesToSubscriptionModalContainer extends Component {
     state = {
+        addonTypes: [],
         paymentType: 2,
         stripeCardID: null,
         termsAgreed: false,
@@ -194,11 +195,13 @@ class AddMulitpleServicesToSubscriptionModalContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { paymentType, stripeCardID, creditsToBuy, serviceIDs, idempotencyKey } = this.state;
+        const { paymentType, stripeCardID, creditsToBuy, serviceIDs, idempotencyKey, addonTypes } =
+            this.state;
         const { addServiceToSubscription, isPosting } = this.props;
 
         if (isPosting) return;
         const postBody = {
+            addonTypes,
             paymentType,
             stripeCardID: +paymentType === PAYMENT_IDS.CARD ? stripeCardID : null,
             serviceIDs: serviceIDs.map(id => parseInt(id)),

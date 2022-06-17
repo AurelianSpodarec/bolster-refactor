@@ -1,26 +1,34 @@
 import React from 'react';
 
 import { formatCurrency } from 'helpers/generic';
+import moment from 'moment';
 
 const HoursWorkedList = ({
     jobReferences = [],
     jobReferencesTotalHours,
     jobReferencesTotalCost,
+    currencySymbol = '£',
 }) => (
     <>
-        {jobReferences.map((jobRef, i) => {
+        {jobReferences.map(({ jobRef, hoursWorked, wageSplit }, i) => {
             return (
                 <tr key={i}>
-                    <td>{jobRef.jobRef}</td>
-                    <td>{jobRef.hoursWorked}</td>
-                    <td>{formatCurrency(jobRef.wageSplit)}</td>
+                    <td>{jobRef || '-'}</td>
+                    <td>{moment(hoursWorked).format('H:mm')}</td>
+                    <td>
+                        {currencySymbol}
+                        {wageSplit ? formatCurrency(wageSplit) : '0.00'}
+                    </td>
                 </tr>
             );
         })}
-        <tr>
+        <tr className="total-row">
             <td>Total</td>
-            <td>{jobReferencesTotalHours}</td>
-            <td>{formatCurrency(jobReferencesTotalCost)}</td>
+            <td>{moment(jobReferencesTotalHours).format('H:mm')}</td>
+            <td>
+                {currencySymbol}
+                {jobReferencesTotalCost ? formatCurrency(jobReferencesTotalCost) : '0.00'}
+            </td>
         </tr>
     </>
 );

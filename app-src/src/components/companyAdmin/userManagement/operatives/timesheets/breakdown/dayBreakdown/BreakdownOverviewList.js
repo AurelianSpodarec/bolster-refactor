@@ -2,10 +2,6 @@ import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 import { selectFilterByHasClockedIn } from 'selectors/companyAdmin/timesheets';
-import useDayOverview from '../../hooks/useDayOverview';
-
-import BreakdownNotes from '../BreakdownNotes';
-import BreakdownSummary from '../BreakdownSummary';
 
 import { timesheetFilter, timesheetSort } from './hooks/useOverviewFilters';
 import { timesheetSelectedCompanyIDs } from 'selectors/companyAdmin/timesheets';
@@ -14,30 +10,40 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import moment from 'moment';
 import getShiftPodData from '../../helpers/getShiftPodData';
 import { selectCompanyUsers } from 'selectors/companyAdmin/companyUsers';
-import { SHIFT_STATUS, SHIFT_STATUS_REVERSE } from 'constants/companyAdmin/enums';
+import { CURRENCY_SYMBOLS, SHIFT_STATUS, SHIFT_STATUS_REVERSE } from 'constants/companyAdmin/enums';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import ActionMenu from 'components/shared/actionMenu/ActionMenu';
-import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
-import { selectCompanyTimeZone } from 'selectors/companyAdmin/companySettings';
+import {
+    selectCompanyCurrency,
+    selectCompanyTimeZone,
+} from 'selectors/companyAdmin/companySettings';
 import Table from 'components/shared/generic/tables/presentational/Table';
 import HoursWorkedList from './HoursWorkedList';
 import ExpensesList from './ExpensesList';
+import { formatCurrency, isEmpty } from 'helpers/generic';
 
 const BreakdownOverviewList = ({ timesheets, selectedDate, filterType, filterDirection }) => {
     const selectedUserIDs = useSelector(timesheetSelectedCompanyIDs);
     const filterByHasClockedIn = useSelector(selectFilterByHasClockedIn);
     const users = useSelector(selectCompanyUsers);
     const timeZone = useSelector(selectCompanyTimeZone);
+    const currency = useSelector(selectCompanyCurrency);
+    const currencySymbol = CURRENCY_SYMBOLS[currency];
 
-    const selectedDay = useMemo(() => {
-        const getDayMatch = day => moment(day.date).isSame(selectedDate, 'day');
-        const thisDay = timesheets.reduce((acc, curr) => {
-            return curr.days.find(getDayMatch);
-        }, undefined);
-        return thisDay;
-    }, [selectedDate, timesheets]);
+    const shiftsForToday = useMemo(
+        () =>
+            timesheets.reduce((acc, curr) => {
+                const thisDay = curr.days.find(day => moment(day.date).isSame(selectedDate, 'day'));
+                const todaysShifts = thisDay.shifts.map(shift => {
+                    const notes = thisDay.clockerNotes.filter(note =>
+                        moment(note.createdOn).isSame(selectedDate, 'day'),
+                    );
+                    return { ...shift, notes };
+                });
+                return [...acc, ...todaysShifts];
+            }, []),
+        [selectedDate, timesheets],
+    );
 
     // let formattedTimesheets = [];
 
@@ -59,11 +65,12 @@ const BreakdownOverviewList = ({ timesheets, selectedDate, filterType, filterDir
     //         .sort(timesheetSort(filterType, filterDirection, selectedDate));
     // }
 
-    if (!selectedDay || !selectedDay?.shifts?.length) return <p>No clock in data to display.</p>;
+    if (isEmpty(shiftsForToday) || !shiftsForToday?.length)
+        return <p>No clock in data to display.</p>;
 
-    console.log({ timesheets, selectedDate, selectedDay, users });
+    console.log({ timesheets, selectedDate, shiftsForToday, users });
 
-    return selectedDay.shifts.map(shift => {
+    return shiftsForToday.map(shift => {
         const user = users[shift.companyUserID] || {};
 
         const {
@@ -105,9 +112,13 @@ const BreakdownOverviewList = ({ timesheets, selectedDate, filterType, filterDir
                             />
                         )}
                         <ActionButton size="small" source="secondary" icon="pencil" iconOnly />
-                        <ActionMenu size="small">
-                            <ActionMenuActionButton text="Option 1" />
-                        </ActionMenu>
+                        <ActionButton
+                            size="small"
+                            source="secondary"
+                            ambient="negative"
+                            icon="trash"
+                            iconOnly
+                        />
                     </ButtonWrapper>
                 </BlockHeading>
                 <div className="divider" />
@@ -132,35 +143,62 @@ const BreakdownOverviewList = ({ timesheets, selectedDate, filterType, filterDir
                 <BlockContainer contentClass="inner-pod">
                     <BlockHeading title="Hours" />
                     <div className="divider" />
-                    <Table
-                        headers={['Job References', 'Hours Worked', 'Wage Split']}
-                        isFetching={false}
-                        error={null}
-                        noData={!jobReferences.length}
-                        noDataMessage="No jobs to display."
-                    >
-                        <HoursWorkedList
-                            jobReferences={jobReferences}
-                            jobReferencesTotalCost={jobReferencesTotalCost}
-                            jobReferencesTotalHours={jobReferencesTotalHours}
-                        />
-                    </Table>
+                    <div className="table-container">
+                        <Table
+                            headers={['Job References', 'Hours Worked', 'Wage Split']}
+                            isFetching={false}
+                            error={null}
+                            noData={!jobReferences.length}
+                            noDataMessage="No jobs to display."
+                        >
+                            <HoursWorkedList
+                                jobReferences={jobReferences}
+                                jobReferencesTotalCost={jobReferencesTotalCost}
+                                jobReferencesTotalHours={jobReferencesTotalHours}
+                                currencySymbol={currencySymbol}
+                            />
+                        </Table>
+                    </div>
 
                     <BlockHeading title="Expenses" />
                     <div className="divider" />
-                    <Table
-                        headers={['', '']}
-                        isFetching={false}
-                        error={null}
-                        noData={!expenses.length}
-                        noDataMessage="No expenses to display."
-                    >
-                        <ExpensesList expenses={expenses} expensesTotal={expensesTotal} />
-                    </Table>
+                    <div className="table-container">
+                        <Table
+                            headers={['', '']}
+                            isFetching={false}
+                            error={null}
+                            noData={!expenses.length}
+                            noDataMessage="No expenses to display."
+                        >
+                            <ExpensesList
+                                expenses={expenses}
+                                expensesTotal={expensesTotal}
+                                currencySymbol={currencySymbol}
+                            />
+                        </Table>
+                        <ButtonWrapper alignment="right">
+                            <ActionButton
+                                size="small"
+                                icon="plus"
+                                text="Create new"
+                                onClick={() => {}}
+                            />
+                        </ButtonWrapper>
+                    </div>
+                    <div className="shift-total">
+                        <span>Total exc VAT:</span>
+                        <span className="total">
+                            {currencySymbol}
+                            {formatCurrency(shiftTotal) || '0.00'}
+                        </span>
+                    </div>
                 </BlockContainer>
                 <BlockContainer contentClass="inner-pod">
                     <BlockHeading title="Notes" />
                     <div className="divider" />
+                    {notes.map(note => (
+                        <p key={note.uid}>{note.comments}</p>
+                    ))}
                 </BlockContainer>
             </BlockContainer>
         );

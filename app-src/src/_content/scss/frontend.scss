@@ -3629,6 +3629,7 @@ $back-to-top-height: 35px;
 
       td {
         cursor: pointer;
+        vertical-align: top;
       }
 
       th, td {
@@ -4278,9 +4279,38 @@ $back-to-top-height: 35px;
          p {
           display: block;
          }
+         
+         .table-container {
+           margin-bottom: 20px;
+         }
 
-         tr {
-          background-color: transparent;
+         .generic-table {
+          width: 100%;
+          margin-left: 0px;
+          
+          tr {
+           background-color: transparent;
+
+           &.total-row {
+            font-weight: 500;
+           }
+ 
+           td, th {
+             padding: 10px 5px;
+           }
+          }
+         }
+
+         .shift-total {
+          font-size: 160%;
+          color: var(--typography-greyed-out);
+          text-align: right;
+
+          .total {
+            color: var(--typography-default);
+            font-weight: 500;
+            margin-left: 0.6em;
+          }
          }
       }
 

@@ -4,7 +4,6 @@ import ButtonWrapper from 'components/shared/generic/button/presentational/Butto
 import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
 import { PAYMENT_IDS } from 'constants/companyAdmin/enums';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 
 const BuyBolsterPlusConfirmationModal = ({ paymentType, hideModal }) => {

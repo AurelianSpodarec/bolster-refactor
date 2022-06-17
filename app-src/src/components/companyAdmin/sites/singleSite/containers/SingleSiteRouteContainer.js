@@ -9,8 +9,8 @@ import Estimating from '../../../costingAndEstimating/Estimating';
 const SiteRouteContainer = ({ selectedTab }) => {
     const contentOptions = {
         [HIERARCHY_TABS.GENERAL_OVERVIEW]: SingleSiteGeneralOverview,
-        [HIERARCHY_TABS.ESTIMATING]: Costing,
-        [HIERARCHY_TABS.COSTING]: Estimating,
+        [HIERARCHY_TABS.ESTIMATING]: Estimating,
+        [HIERARCHY_TABS.COSTING]: Costing,
         [HIERARCHY_TABS.GENERATE_REPORT]: HierarchyAdvancedReport,
     };
 
