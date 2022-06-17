@@ -9,11 +9,16 @@ import {
     FETCH_TIMESHEET_WEEK_SUCCESS,
     TOGGLE_FILTER_BY_HAS_CLOCKED_IN,
     SET_SELECTED_COMPANY_ID,
+    POST_OVERRIDE_SHIFT_REQUEST,
+    POST_OVERRIDE_SHIFT_FAILURE,
+    POST_OVERRIDE_SHIFT_SUCCESS,
 } from 'constants/actionTypes/timesheets';
 
 export default combineReducers({
     isFetching: isFetchingReducer,
     error: errorReducer,
+    isPosting: isPostingReducer,
+    postError: postErrorReducer,
     timesheets: timesheetReducer,
     timesheetOptions: timesheetOptionsReducer,
     filterByHasClockedIn: filterByHasClockedInReducer,
@@ -41,6 +46,30 @@ function errorReducer(state = null, action) {
             return action.error;
         case FETCH_TIMESHEET_WEEK_SUCCESS:
             return null;
+        default:
+            return state;
+    }
+}
+
+function isPostingReducer(state = false, action) {
+    switch (action.type) {
+        case POST_OVERRIDE_SHIFT_REQUEST:
+            return true;
+        case POST_OVERRIDE_SHIFT_SUCCESS:
+        case POST_OVERRIDE_SHIFT_FAILURE:
+            return false;
+        default:
+            return state;
+    }
+}
+
+function postErrorReducer(state = null, action) {
+    switch (action.type) {
+        case POST_OVERRIDE_SHIFT_REQUEST:
+        case POST_OVERRIDE_SHIFT_SUCCESS:
+            return null;
+        case POST_OVERRIDE_SHIFT_FAILURE:
+            return action.error;
         default:
             return state;
     }
