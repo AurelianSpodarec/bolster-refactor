@@ -9,6 +9,8 @@ const HoursWorkedList = ({
     jobReferences = [],
     jobReferencesTotalHours,
     jobReferencesTotalCost,
+    overrideWage,
+    overrideShiftTime,
     currencySymbol = '£',
     formData,
     handleChange,
@@ -34,13 +36,15 @@ const HoursWorkedList = ({
                     <TimePickerContainer
                         value={formData.overrideShiftTime}
                         name="overrideShiftTime"
-                        handleChange={handleChange}
+                        handleChange={val => handleChange('overrideShiftTime', val)}
                         required={false}
                         extraClasses="table-time-input"
                         disableClock={true}
                         format={'HH:mm'}
                         clearIcon={null}
                     />
+                ) : overrideShiftTime ? (
+                    overrideShiftTime.split(':').slice(0, 2).join(':')
                 ) : (
                     moment(jobReferencesTotalHours).format('H:mm')
                 )}
@@ -50,8 +54,10 @@ const HoursWorkedList = ({
                     <CurrencyInput
                         name="overrideWage"
                         value={formData.overrideWage}
-                        handleChange={handleChange}
+                        onChange={handleChange}
                     />
+                ) : !Number.isNaN(overrideWage) ? (
+                    `${currencySymbol}${formatCurrency(overrideWage)}`
                 ) : (
                     `${currencySymbol}${
                         jobReferencesTotalCost ? formatCurrency(jobReferencesTotalCost) : '0.00'

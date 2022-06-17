@@ -22,8 +22,8 @@ const useOverrideShift = (shift, handleToggleEdit, selectedDate, isEditing = fal
     const companyUserIDs = useSelector(timesheetSelectedCompanyIDs);
     const prevProps = usePrevious({ isPosting, postError, postSuccess, isEditing });
 
-    const [formData, handleChange, setFormData] = useForm({
-        overrideShiftTime: overrideShiftTime || '0:00',
+    const [formData, handleChange] = useForm({
+        overrideShiftTime: overrideShiftTime || '00:00',
         overrideWage: overrideWage || '0.00',
     });
 
@@ -45,18 +45,13 @@ const useOverrideShift = (shift, handleToggleEdit, selectedDate, isEditing = fal
         }
     }, [postSuccess, postError, prevProps.postSuccess, prevProps.postError]);
 
-    useEffect(() => {
-        if (isEditing && !prevProps.isEditing) {
-            console.log({ overrideShiftTime, overrideWage });
-            setFormData({
-                overrideShiftTime: overrideShiftTime || '00:00:00',
-                overrideWage: Number.isNaN(overrideWage) ? 0 : overrideWage,
-            });
-        }
-    }, [isEditing, prevProps.isEditing]);
-
     const handleSubmit = () => {
-        dispatch(patchOverrideShift(shift.id, formData));
+        dispatch(
+            patchOverrideShift(shift.id, {
+                ...formData,
+                overrideShiftTime: formData.overrideShiftTime.split(':').slice(0, 2).join(':'),
+            }),
+        );
     };
 
     return {
