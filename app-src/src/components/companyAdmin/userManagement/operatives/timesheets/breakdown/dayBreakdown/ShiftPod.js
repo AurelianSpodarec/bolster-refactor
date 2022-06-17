@@ -19,7 +19,7 @@ import ExpensesList from './ExpensesList';
 import { formatCurrency } from 'helpers/generic';
 import useOverrideShift from './hooks/useOverrideShift';
 
-const ShiftPod = ({ shift, shiftToEdit, setShiftToEdit, selectedDate }) => {
+const ShiftPod = ({ shift, shiftToEdit, setShiftToEdit, startDate }) => {
     const users = useSelector(selectCompanyUsers);
     const timeZone = useSelector(selectCompanyTimeZone);
     const currency = useSelector(selectCompanyCurrency);
@@ -49,7 +49,7 @@ const ShiftPod = ({ shift, shiftToEdit, setShiftToEdit, selectedDate }) => {
     const { formData, handleChange, handleSubmit, isPosting } = useOverrideShift(
         shift,
         handleToggleEdit,
-        selectedDate,
+        startDate,
         isEditing,
     );
 
