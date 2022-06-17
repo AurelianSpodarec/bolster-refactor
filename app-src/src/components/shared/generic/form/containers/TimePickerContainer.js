@@ -10,6 +10,8 @@ const TimePickerContainer = ({
     sizeClasses = 'size-lg-12',
     value,
     required = true,
+    format = 'hh:mm a',
+    clearIcon,
 }) => (
     <TimePicker
         onChange={handleChange}
@@ -21,7 +23,8 @@ const TimePickerContainer = ({
         hourAriaLabel="Hour"
         hourPlaceholder="HH"
         minutePlaceholder="MM"
-        format="hh:mm a"
+        format={format}
+        clearIcon={clearIcon}
     />
 );
 
