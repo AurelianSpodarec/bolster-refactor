@@ -71,9 +71,9 @@ const AddBolsterPlusModal = ({ hideModal, handleClose }) => {
             dispatch(
                 showModal(PAYMENT_ERROR, {
                     message:
+                        error ||
                         'There was an error while purchasing your subscription. Please try again.',
                     resubmit: () => dispatch(addServiceToSubscription(postBody)),
-                    error: error.replace('office', 'invoice'),
                 }),
             );
         }
