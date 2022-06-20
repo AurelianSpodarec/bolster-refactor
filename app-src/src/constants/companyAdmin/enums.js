@@ -901,7 +901,7 @@ export const addOnsNames = {
 export const SHIFT_STATUS = {
     PENDING: 0,
     APPROVED: 1,
-    REJECTED: 3,
+    REJECTED: 2,
 };
 
 export const SHIFT_STATUS_REVERSE = {

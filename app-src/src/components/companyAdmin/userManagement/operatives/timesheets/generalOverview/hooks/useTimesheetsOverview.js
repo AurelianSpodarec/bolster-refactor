@@ -13,6 +13,8 @@ import {
     selectTimesheetsFetchError,
     selectTimesheetsIsFetching,
     timesheetSelectedCompanyIDs,
+    selectTimesheetsPostSuccess,
+    selectTimesheetsDeleteSuccess,
 } from 'selectors/companyAdmin/timesheets';
 import {
     selectUserPinFeeds,
@@ -55,6 +57,8 @@ const useTimesheetsOverview = (setTitleData = () => {}) => {
     const timesheetsFetchError = useSelector(selectTimesheetsFetchError);
     const timesheets = useSelector(selectTimesheets);
     const timesheetOptions = useSelector(selectTimesheetOptions);
+    const postSuccess = useSelector(selectTimesheetsPostSuccess);
+    const deleteSuccess = useSelector(selectTimesheetsDeleteSuccess);
 
     const jobReferencesIsFetching = useSelector(selectJobReferencesIsFetching);
 
@@ -205,7 +209,7 @@ const useTimesheetsOverview = (setTitleData = () => {}) => {
         };
     });
 
-    const prevProps = usePrevious({ companyUserIDs, startDate });
+    const prevProps = usePrevious({ companyUserIDs, startDate, postSuccess, deleteSuccess });
 
     useEffect(() => {
         dispatch(setTabs(Object.values(TIMESHEETS_TABS), TIMESHEETS_TABS.GENERAL_OVERVIEW));
@@ -237,6 +241,16 @@ const useTimesheetsOverview = (setTitleData = () => {}) => {
             dispatch(fetchTimesheetsWeekDropdownOptions(startDate));
         }
     }, [dispatch, companyUserIDs, startDate]);
+
+    useEffect(() => {
+        if (
+            (postSuccess && !prevProps.postSuccess) ||
+            (deleteSuccess && !prevProps.deleteSuccess)
+        ) {
+            dispatch(fetchTimesheetsWeek(companyUserIDs, startDate));
+            dispatch(fetchTimesheetsWeekDropdownOptions(startDate));
+        }
+    }, [dispatch, postSuccess, deleteSuccess, prevProps.postSuccess, prevProps.deleteSuccess]);
 
     useEffect(() => {
         let companyUserOptions = timesheetOptions.map(mapCompanyUsers);

@@ -18,8 +18,18 @@ import HoursWorkedList from './HoursWorkedList';
 import ExpensesList from './ExpensesList';
 import { formatCurrency } from 'helpers/generic';
 import useOverrideShift from './hooks/useOverrideShift';
+import ActionMenu from 'components/shared/actionMenu/ActionMenu';
+import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
 
-const ShiftPod = ({ shift, shiftToEdit, setShiftToEdit, startDate }) => {
+const ShiftPod = ({
+    shift,
+    shiftToEdit,
+    setShiftToEdit,
+    startDate,
+    handleShowRejectShiftModal,
+    handleShowApproveShiftModal,
+    handleShowDeleteShiftModal,
+}) => {
     const users = useSelector(selectCompanyUsers);
     const timeZone = useSelector(selectCompanyTimeZone);
     const currency = useSelector(selectCompanyCurrency);
@@ -59,12 +69,19 @@ const ShiftPod = ({ shift, shiftToEdit, setShiftToEdit, startDate }) => {
         [SHIFT_STATUS.REJECTED]: 'rejected',
     };
 
+    console.log({ status, class: statusClassLookup[status] });
+
     return (
         <BlockContainer contentClass={`shift-pod ${statusClassLookup[status]}`}>
             <BlockHeading title={`${user.userFirstName} ${user.userLastName} (${user.userEmail})`}>
                 <ButtonWrapper alignment="right">
                     {status === SHIFT_STATUS.PENDING ? (
-                        <ActionButton size="small" ambient="positive" text={'Approve'} />
+                        <ActionButton
+                            size="small"
+                            ambient="positive"
+                            text={'Approve'}
+                            onClick={() => handleShowApproveShiftModal(shift.id)}
+                        />
                     ) : (
                         <ActionButton
                             size="small"
@@ -80,13 +97,24 @@ const ShiftPod = ({ shift, shiftToEdit, setShiftToEdit, startDate }) => {
                         iconOnly
                         onClick={handleToggleEdit}
                     />
-                    <ActionButton
-                        size="small"
-                        source="secondary"
-                        ambient="negative"
-                        icon="trash"
-                        iconOnly
-                    />
+                    <ActionMenu size="small">
+                        {status !== SHIFT_STATUS.APPROVED && (
+                            <ActionMenuActionButton
+                                text="Approve"
+                                onClick={() => handleShowApproveShiftModal(shift.id)}
+                            />
+                        )}
+                        {status !== SHIFT_STATUS.REJECTED && (
+                            <ActionMenuActionButton
+                                text="Reject"
+                                onClick={() => handleShowRejectShiftModal(shift.id)}
+                            />
+                        )}
+                        <ActionMenuActionButton
+                            text="Delete"
+                            onClick={() => handleShowDeleteShiftModal(shift.id)}
+                        />
+                    </ActionMenu>
                 </ButtonWrapper>
             </BlockHeading>
             <div className="divider" />

@@ -89,8 +89,10 @@ const Select = ({
                         {filteredOptions.map((opt, i) => (
                             <p
                                 key={`${opt.value} - ${i}`}
-                                className={`option ${value === opt.value ? 'active' : ''}`}
-                                onClick={e => handleSelect(e, opt.value)}
+                                className={`option ${value === opt.value ? 'active' : ''} ${
+                                    opt.onClick ? 'clickable' : ''
+                                }`}
+                                onClick={e => handleSelect(e, opt)}
                             >
                                 {opt.label}
                             </p>
@@ -130,11 +132,18 @@ const Select = ({
         setSearch(e.target.value);
     }
 
-    function handleSelect(e, clicked) {
+    function handleSelect(e, option) {
         e.preventDefault();
 
-        if (value === clicked) return;
-        onChange(name, clicked);
+        if (option === null) {
+            onChange(name, option);
+        } else if (option.onClick) {
+            option.onClick();
+        } else {
+            if (value === option.value) return;
+
+            onChange(name, option.value);
+        }
     }
 };
 

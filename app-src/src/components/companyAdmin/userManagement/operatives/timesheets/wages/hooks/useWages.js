@@ -9,8 +9,10 @@ import {
 
 const useWages = () => {
     const dispatch = useDispatch();
+
     const [userFilter, setUserFilter] = useState('');
     const [selectedUserIDs, setSelectedUserIDs] = useState([]);
+    const [selectedPayRate, setSelectedPayRate] = useState(null);
 
     const companyUsers = useSelector(selectCompanyUsers) || [];
     const isFetching = useSelector(selectCompanyUsersIsFetching);
@@ -50,6 +52,8 @@ const useWages = () => {
         users: filteredUsers,
         isFetching,
         fetchError,
+        selectedPayRate,
+        setSelectedPayRate,
     };
 };
 

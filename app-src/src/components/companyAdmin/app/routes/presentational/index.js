@@ -30,7 +30,6 @@ import CompanySelection from 'components/companyAdmin/companySelection/CompanySe
 import UpcomingAlertsRoutes from './UpcomingAlertsRoutes';
 import BugReportRoutes from './BugReportRoutes';
 import DocumentLibraryRoutes from './DocumentLibraryRoutes';
-import JobReferencesRoutes from './JobReferencesRoutes';
 import PinOptionsRoutes from './PinOptionsRoutes';
 import PushNotificationsRoutes from './PushNotificationsRoutes';
 import withActiveAccount from '../../hocs/withActiveAccount';
@@ -113,10 +112,6 @@ const CompanyRoutes = ({ base = '/company' }) => (
         <Route
             path={`${base}/company-documents`}
             component={withActiveAccount(withSubscriptionAuth(DocumentLibraryRoutes))}
-        />
-        <Route
-            path={`${base}/job-references`}
-            component={withActiveAccount(withSubscriptionAuth(JobReferencesRoutes))}
         />
         <Route
             path={`${base}/pin-options`}

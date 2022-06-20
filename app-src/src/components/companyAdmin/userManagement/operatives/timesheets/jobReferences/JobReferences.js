@@ -19,6 +19,7 @@ import Block from 'components/shared/generic/block/presentational/Block';
 import Table from 'components/shared/generic/tables/presentational/Table';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
 import JobReferenceTableItem from './JobReferenceTableItem';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 
 const headers = ['Name', 'Description', ''];
 
@@ -43,32 +44,30 @@ const JobReferences = () => {
     if (!companySettings.isJobReferenceDropdownEnabled) return <Redirect to="/company" />;
 
     return (
-        <>
-            <PageHeading title="Job References" withBackButton />
-            <Block>
-                <BlockHeading title="Job References">
-                    <button
-                        className="button green"
-                        onClick={() => dispatch(showModal(CREATE_JOB_REFERENCE))}
-                    >
-                        <i className="fa fa-plus" /> Create
-                    </button>
-                </BlockHeading>
+        <Block>
+            <BlockHeading title="Job References">
+                <ActionButton
+                    text="Create"
+                    ambient="positive"
+                    size="medium"
+                    icon="plus"
+                    onClick={() => dispatch(showModal(CREATE_JOB_REFERENCE))}
+                />
+            </BlockHeading>
 
-                <Table
-                    noData={isEmpty(jobReferences)}
-                    isFetching={isFetching}
-                    error={fetchError}
-                    headers={headers}
-                    noDataMessage="There is no job references to display"
-                    withActions
-                >
-                    {sortedJobReferences.map(jobReference => (
-                        <JobReferenceTableItem key={jobReference.id} jobReference={jobReference} />
-                    ))}
-                </Table>
-            </Block>
-        </>
+            <Table
+                noData={isEmpty(jobReferences)}
+                isFetching={isFetching}
+                error={fetchError}
+                headers={headers}
+                noDataMessage="There is no job references to display"
+                withActions
+            >
+                {sortedJobReferences.map(jobReference => (
+                    <JobReferenceTableItem key={jobReference.id} jobReference={jobReference} />
+                ))}
+            </Table>
+        </Block>
     );
 };
 

@@ -8,6 +8,9 @@ import { timesheetSelectedCompanyIDs } from 'selectors/companyAdmin/timesheets';
 import moment from 'moment';
 import { isEmpty } from 'helpers/generic';
 import ShiftPod from './ShiftPod';
+import useRejectShift from '../hooks/useRejectShift';
+import useApproveShift from '../hooks/useApproveShift';
+import useDeleteShift from '../hooks/useDeleteShift';
 
 const BreakdownOverviewList = ({
     timesheets,
@@ -37,6 +40,10 @@ const BreakdownOverviewList = ({
     }, [selectedDate, timesheets]);
 
     const [shiftToEdit, setShiftToEdit] = useState(null);
+
+    const { handleShowRejectShiftModal } = useRejectShift(shiftsForToday);
+    const { handleShowApproveShiftModal } = useApproveShift(shiftsForToday);
+    const { handleShowDeleteShiftModal } = useDeleteShift(shiftsForToday);
 
     // let formattedTimesheets = [];
 
@@ -68,6 +75,9 @@ const BreakdownOverviewList = ({
             shiftToEdit={shiftToEdit}
             setShiftToEdit={setShiftToEdit}
             startDate={startDate}
+            handleShowRejectShiftModal={handleShowRejectShiftModal}
+            handleShowApproveShiftModal={handleShowApproveShiftModal}
+            handleShowDeleteShiftModal={handleShowDeleteShiftModal}
         />
     ));
 };

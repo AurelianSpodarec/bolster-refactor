@@ -159,6 +159,10 @@ import {
     ADD_BOLSTER_PLUS,
     BOLSTER_PLUS_UPGRADE_MODAL,
     BUY_BOLSTER_PLUS_CONFIRMATION,
+    REJECT_SHIFT,
+    APPROVE_SHIFT,
+    DELETE_SHIFT,
+    PAY_RATES_MODAL,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -274,9 +278,9 @@ import CreatePinTaskModal from 'components/companyAdmin/userManagement/pinTasks/
 import EditPinTaskModal from 'components/companyAdmin/userManagement/pinTasks/editPinTaskModal/EditPinTaskModal';
 import EditPinTaskSeriesModal from 'components/companyAdmin/userManagement/pinTasks/editPinTaskSeriesModal/EditPinTaskSeriesModal';
 import ViewPinTaskModal from 'components/companyAdmin/userManagement/pinTasks/viewTaskNoteModal/ViewTaskNoteModal';
-import CreateJobReferenceModal from 'components/companyAdmin/jobReferences/CreateJobReferenceModal';
-import EditJobReferenceModal from 'components/companyAdmin/jobReferences/EditJobReferenceModal';
-import DeleteJobReferenceModal from 'components/companyAdmin/jobReferences/DeleteJobReferenceModal';
+import CreateJobReferenceModal from 'components/companyAdmin/userManagement/operatives/timesheets/jobReferences/modals/CreateJobReferenceModal';
+import EditJobReferenceModal from 'components/companyAdmin/userManagement/operatives/timesheets/jobReferences/modals/EditJobReferenceModal';
+import DeleteJobReferenceModal from 'components/companyAdmin/userManagement/operatives/timesheets/jobReferences/modals/DeleteJobReferenceModal';
 import DrawingExpiryModal from '../presentational/DrawingExpiryModal';
 import EditJobRefDropdownModal from './EditJobRefDropdownModalContainer';
 import EditUserEmailModal from '../../../../superAdmin/users/editUsers/EditUserEmailModal';
@@ -317,6 +321,10 @@ import AddBolsterPlusModal from 'components/companyAdmin/subscription/addOns/mod
 import BolsterPlusUpgradeModal from '../presentational/BolsterPlusUpgradeModal';
 import BuyBolsterPlusConfirmationModal from 'components/companyAdmin/subscription/addOns/modals/BuyBolsterPlusConfirmationModal';
 import BolsterPlusPaymentErrorModal from 'components/companyAdmin/subscription/addOns/modals/BolsterPlusPaymentErrorModal';
+import ConfirmRejectShiftModalContainer from '../containers/ConfirmRejectShiftModalContainer';
+import ConfirmApproveShiftModalContainer from './ConfirmApproveShiftModalContainer';
+import ConfirmDeleteShiftModalContainer from './ConfirmDeleteShiftModalContainer';
+import PayRatesModal from '../../../../companyAdmin/userManagement/operatives/timesheets/wages/modals/PayRatesModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModal,
@@ -419,6 +427,9 @@ const MODAL_COMPONENTS = {
     [USER_NEW_DOCUMENT]: NewUserDocumentModal,
     [CREATE_HIERARCHY_ALERT_MODAL]: CreateHierarchyAlertModal,
     [GENERATE_TIMESHEET_REPORT]: GenerateTimesheetReportModal,
+    [REJECT_SHIFT]: ConfirmRejectShiftModalContainer,
+    [APPROVE_SHIFT]: ConfirmApproveShiftModalContainer,
+    [DELETE_SHIFT]: ConfirmDeleteShiftModalContainer,
     [EXPANDED_MEDIA]: ExpandedMediaModal,
     [MESSAGE_CENTRE_DRAWING_EXPIRY]: ExpiringDrawingsModal,
     [EDIT_ALERT_MODAL]: EditAlertModal,
@@ -476,6 +487,7 @@ const MODAL_COMPONENTS = {
     [ADD_BOLSTER_PLUS]: AddBolsterPlusModal,
     [BOLSTER_PLUS_UPGRADE_MODAL]: BolsterPlusUpgradeModal,
     [BUY_BOLSTER_PLUS_CONFIRMATION]: BuyBolsterPlusConfirmationModal,
+    [PAY_RATES_MODAL]: PayRatesModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {
