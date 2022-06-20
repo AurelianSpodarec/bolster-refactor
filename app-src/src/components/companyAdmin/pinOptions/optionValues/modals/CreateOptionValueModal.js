@@ -84,7 +84,7 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                         </p>
                     )}
 
-                    <div className="form-fields-container">
+                    <div className="form-fields-container size-lg-12">
                         <Field name="Name" required>
                             <TextInputContainer
                                 name="name"
@@ -130,8 +130,8 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                                         )}
 
                                         <div className="measurement-fields-grid">
-                                            <Field name="Measurement" />
-                                            <Field name="Sell" />
+                                            <Field name="Measurement" required />
+                                            <Field name="Sell" required />
                                             <Field name="Labour Cost" />
                                             <Field name="" />
 
