@@ -12,7 +12,10 @@ import { usePrevious } from 'helpers/hooks';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import deleteJobReference from 'actions/companyAdmin/jobReferences/async/deleteJobReference';
+import enableJobReference from 'actions/companyAdmin/jobReferences/async/enableJobReference';
+import disableJobReference from 'actions/companyAdmin/jobReferences/async/disableJobReference';
 import {
+    selectJobReferencesIsPosting,
     selectJobReferencesPostError,
     selectJobReferencesPostSuccess,
 } from 'selectors/companyAdmin/jobReferences';
@@ -20,6 +23,7 @@ import {
 const useJobReferenceActions = () => {
     const dispatch = useDispatch();
 
+    const isPosting = useSelector(selectJobReferencesIsPosting);
     const postError = useSelector(selectJobReferencesPostError);
     const postSuccess = useSelector(selectJobReferencesPostSuccess);
 
@@ -43,6 +47,14 @@ const useJobReferenceActions = () => {
         );
     };
 
+    const handleEnableJobReference = jobReference => {
+        if (!isPosting) dispatch(enableJobReference(jobReference));
+    };
+
+    const handleDisableJobReference = jobReference => {
+        if (!isPosting) dispatch(disableJobReference(jobReference));
+    };
+
     useEffect(() => {
         if (postSuccess && !prevProps.postSuccess) dispatch(hideModal());
     }, [postSuccess, prevProps.postSuccess]);
@@ -51,7 +63,13 @@ const useJobReferenceActions = () => {
         if (postError && !prevProps.postError) dispatch(showModal(ERROR_MODAL));
     }, [postError, prevProps.postError]);
 
-    return { handleCreateJobReference, handleEditJobReference, handleDeleteJobReference };
+    return {
+        handleCreateJobReference,
+        handleEditJobReference,
+        handleDeleteJobReference,
+        handleEnableJobReference,
+        handleDisableJobReference,
+    };
 };
 
 export default useJobReferenceActions;

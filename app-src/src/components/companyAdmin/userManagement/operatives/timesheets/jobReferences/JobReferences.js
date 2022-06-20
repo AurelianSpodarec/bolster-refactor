@@ -1,14 +1,12 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import {
     selectCompanySettingsIsFetching,
     selectCompanySettings,
 } from 'selectors/companyAdmin/companySettings';
 
-import { CREATE_JOB_REFERENCE } from 'constants/shared/modalTypes';
 import { isEmpty } from 'helpers/generic';
 
 import useFetchJobReferences from './hooks/useFetchJobReferences';
@@ -24,13 +22,17 @@ import ActionButton from 'components/shared/generic/button/presentational/Action
 const headers = ['Name', 'Description', ''];
 
 const JobReferences = () => {
-    const dispatch = useDispatch();
     const { jobReferences, isFetching, fetchError } = useFetchJobReferences();
     const isFetchingCompanySettings = useSelector(selectCompanySettingsIsFetching);
     const companySettings = useSelector(selectCompanySettings);
 
-    const { handleCreateJobReference, handleEditJobReference, handleDeleteJobReference } =
-        useJobReferenceActions();
+    const {
+        handleCreateJobReference,
+        handleEditJobReference,
+        handleDeleteJobReference,
+        handleEnableJobReference,
+        handleDisableJobReference,
+    } = useJobReferenceActions();
 
     const sortedJobReferences = Object.values(jobReferences).sort((a, b) =>
         a.name.localeCompare(b.name),
@@ -72,6 +74,8 @@ const JobReferences = () => {
                         jobReference={jobReference}
                         handleEditJobReference={handleEditJobReference}
                         handleDeleteJobReference={handleDeleteJobReference}
+                        handleEnableJobReference={handleEnableJobReference}
+                        handleDisableJobReference={handleDisableJobReference}
                     />
                 ))}
             </Table>
