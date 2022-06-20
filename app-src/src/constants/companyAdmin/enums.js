@@ -27,19 +27,21 @@ export const DOCUMENT_TYPE = {
 };
 
 export const COMPANY_USER_ROLE_TYPES = {
-    OWNER: 100,
+    OWNER: 999,
+    ADMIN_PLUS: 100,
     ADMIN: 75,
     OPERATIVE: 50,
     CLIENT: 25,
-    DELETED: 1000,
+    DELETED: -1,
 };
 
 export const COMPANY_USER_ROLE_IDS = {
+    '-1': 'Deleted',
     25: 'Client Access',
     50: 'Operative',
     75: 'Admin',
-    100: 'Owner',
-    1000: 'Deleted',
+    100: 'Admin Plus',
+    999: 'Owner',
 };
 
 export const COMPANY_USER_ROLE_STATUS_VALUES = {
