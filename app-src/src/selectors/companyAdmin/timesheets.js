@@ -4,6 +4,11 @@ export const selectTimesheetsIsPosting = state => state.companyAdmin.timesheetsR
 export const selectTimesheetsPostError = state => state.companyAdmin.timesheetsReducer.postError;
 export const selectTimesheetsPostSuccess = state =>
     state.companyAdmin.timesheetsReducer.postSuccess;
+export const selectTimesheetsIsDeleting = state => state.companyAdmin.timesheetsReducer.isDeleting;
+export const selectTimesheetsDeleteError = state =>
+    state.companyAdmin.timesheetsReducer.deleteError;
+export const selectTimesheetsDeleteSuccess = state =>
+    state.companyAdmin.timesheetsReducer.deleteSuccess;
 export const selectTimesheets = state => state.companyAdmin.timesheetsReducer.timesheets;
 export const selectTimesheetOptions = state =>
     state.companyAdmin.timesheetsReducer.timesheetOptions;

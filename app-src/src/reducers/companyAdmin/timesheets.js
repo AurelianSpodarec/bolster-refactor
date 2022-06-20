@@ -18,6 +18,9 @@ import {
     POST_APPROVE_SHIFT_REQUEST,
     POST_APPROVE_SHIFT_FAILURE,
     POST_APPROVE_SHIFT_SUCCESS,
+    DELETE_SHIFT_REQUEST,
+    DELETE_SHIFT_FAILURE,
+    DELETE_SHIFT_SUCCESS,
 } from 'constants/actionTypes/timesheets';
 
 export default combineReducers({
@@ -30,6 +33,9 @@ export default combineReducers({
     timesheetOptions: timesheetOptionsReducer,
     filterByHasClockedIn: filterByHasClockedInReducer,
     selectedCompanyUserIDs: selectedCompanyUserIDsReducer,
+    isDeleting: isDeletingReducer,
+    deleteError: deleteErrorReducer,
+    deleteSuccess: deleteSuccessReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -106,6 +112,42 @@ function postSuccessReducer(state = false, action) {
         case POST_OVERRIDE_SHIFT_SUCCESS:
         case POST_REJECT_SHIFT_SUCCESS:
         case POST_APPROVE_SHIFT_SUCCESS:
+            return true;
+        default:
+            return state;
+    }
+}
+
+function isDeletingReducer(state = false, action) {
+    switch (action.type) {
+        case DELETE_SHIFT_REQUEST:
+            return true;
+        case DELETE_SHIFT_SUCCESS:
+        case DELETE_SHIFT_FAILURE:
+            return false;
+        default:
+            return state;
+    }
+}
+
+function deleteErrorReducer(state = null, action) {
+    switch (action.type) {
+        case DELETE_SHIFT_REQUEST:
+        case DELETE_SHIFT_SUCCESS:
+            return null;
+        case DELETE_SHIFT_FAILURE:
+            return action.error;
+        default:
+            return state;
+    }
+}
+
+function deleteSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case DELETE_SHIFT_REQUEST:
+        case DELETE_SHIFT_FAILURE:
+            return false;
+        case DELETE_SHIFT_SUCCESS:
             return true;
         default:
             return state;
