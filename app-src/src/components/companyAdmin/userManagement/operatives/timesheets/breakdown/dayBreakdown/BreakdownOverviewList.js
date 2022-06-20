@@ -19,20 +19,23 @@ const BreakdownOverviewList = ({
     const selectedUserIDs = useSelector(timesheetSelectedCompanyIDs);
     const filterByHasClockedIn = useSelector(selectFilterByHasClockedIn);
 
-    const shiftsForToday = useMemo(
-        () =>
-            timesheets.reduce((acc, curr) => {
+    const shiftsForToday = useMemo(() => {
+        try {
+            return timesheets.reduce((acc, curr) => {
                 const thisDay = curr.days.find(day => moment(day.date).isSame(selectedDate, 'day'));
-                const todaysShifts = thisDay.shifts.map(shift => {
+                const todaysShifts = thisDay.shifts?.map(shift => {
                     const notes = thisDay.clockerNotes.filter(note =>
                         moment(note.createdOn).isSame(selectedDate, 'day'),
                     );
                     return { ...shift, notes };
                 });
                 return [...acc, ...todaysShifts];
-            }, []),
-        [selectedDate, timesheets],
-    );
+            }, []);
+        } catch (e) {
+            return [];
+        }
+    }, [selectedDate, timesheets]);
+
     const [shiftToEdit, setShiftToEdit] = useState(null);
 
     // let formattedTimesheets = [];
