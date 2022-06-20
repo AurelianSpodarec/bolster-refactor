@@ -148,8 +148,8 @@ const EditOptionValueModal = ({ option }) => {
                                         )}
 
                                         <div className="measurement-fields-grid">
-                                            <Field name="Measurement" />
-                                            <Field name="Sell" />
+                                            <Field name="Measurement" required />
+                                            <Field name="Sell" required />
                                             <Field name="Labour Cost" />
                                             <Field name="" />
 
