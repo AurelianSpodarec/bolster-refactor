@@ -195,13 +195,13 @@ const AddMulitpleServicesToSubscriptionModal = ({
                     </ButtonWrapper>
                     <FlexWrapper justify="end">
                         <p>
-                            By clicking Buy you are agreeing with Bolster System {''}
+                            Upon clicking 'Buy' you are agreeing to Bolster Systems {''}
                             <a
                                 href="/auth/terms"
                                 target="_blank"
                                 className="switched underline text-colour "
                             >
-                                sales terms
+                                sales terms.
                             </a>
                         </p>
                     </FlexWrapper>
