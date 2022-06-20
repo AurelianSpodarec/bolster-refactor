@@ -9,6 +9,7 @@ import moment from 'moment';
 import { isEmpty } from 'helpers/generic';
 import ShiftPod from './ShiftPod';
 import useRejectShift from '../hooks/useRejectShift';
+import useApproveShift from '../hooks/useApproveShift';
 
 const BreakdownOverviewList = ({
     timesheets,
@@ -40,6 +41,7 @@ const BreakdownOverviewList = ({
     const [shiftToEdit, setShiftToEdit] = useState(null);
 
     const { handleShowRejectShiftModal } = useRejectShift(shiftsForToday);
+    const { handleShowApproveShiftModal } = useApproveShift(shiftsForToday);
 
     // let formattedTimesheets = [];
 
@@ -72,6 +74,7 @@ const BreakdownOverviewList = ({
             setShiftToEdit={setShiftToEdit}
             startDate={startDate}
             handleShowRejectShiftModal={handleShowRejectShiftModal}
+            handleShowApproveShiftModal={handleShowApproveShiftModal}
         />
     ));
 };

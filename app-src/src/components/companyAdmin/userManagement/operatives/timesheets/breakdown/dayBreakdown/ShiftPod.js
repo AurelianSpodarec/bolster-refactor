@@ -27,6 +27,7 @@ const ShiftPod = ({
     setShiftToEdit,
     startDate,
     handleShowRejectShiftModal,
+    handleShowApproveShiftModal,
 }) => {
     const users = useSelector(selectCompanyUsers);
     const timeZone = useSelector(selectCompanyTimeZone);
@@ -74,7 +75,12 @@ const ShiftPod = ({
             <BlockHeading title={`${user.userFirstName} ${user.userLastName} (${user.userEmail})`}>
                 <ButtonWrapper alignment="right">
                     {status === SHIFT_STATUS.PENDING ? (
-                        <ActionButton size="small" ambient="positive" text={'Approve'} />
+                        <ActionButton
+                            size="small"
+                            ambient="positive"
+                            text={'Approve'}
+                            onClick={() => handleShowApproveShiftModal(shift.id)}
+                        />
                     ) : (
                         <ActionButton
                             size="small"
@@ -90,16 +96,12 @@ const ShiftPod = ({
                         iconOnly
                         onClick={handleToggleEdit}
                     />
-                    {/* <ActionButton
-                        size="small"
-                        source="secondary"
-                        ambient="negative"
-                        icon="trash"
-                        iconOnly
-                    /> */}
                     <ActionMenu size="small">
                         {status !== SHIFT_STATUS.APPROVED && (
-                            <ActionMenuActionButton text="Approve" onClick={() => {}} />
+                            <ActionMenuActionButton
+                                text="Approve"
+                                onClick={() => handleShowApproveShiftModal(shift.id)}
+                            />
                         )}
                         {status !== SHIFT_STATUS.REJECTED && (
                             <ActionMenuActionButton

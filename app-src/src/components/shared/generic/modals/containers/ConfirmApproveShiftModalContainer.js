@@ -13,7 +13,7 @@ const ConfirmApproveShiftModalContainer = ({
     hideModal,
 }) => (
     <ConfirmApproveShiftModal
-        handleReject={() => handleApprove(shiftID)}
+        handleApprove={() => handleApprove(shiftID)}
         hideModal={e => {
             e.preventDefault();
             hideModal();
@@ -27,7 +27,7 @@ const mapDispatchToProps = dispatch => ({
     hideModal: () => {
         dispatch(hideModal());
     },
-    handleReject: shiftID => {
+    handleApprove: shiftID => {
         dispatch(postApproveShift(shiftID));
         dispatch(hideModal());
     },
