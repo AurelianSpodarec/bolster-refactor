@@ -2,6 +2,7 @@ import React from 'react';
 
 import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 import useAddOnProrata from './hooks/useAddOnProrata';
+import { formatNumber } from 'helpers/generic';
 
 const Feature = ({ children }) => (
     <FlexWrapper extraClasses="bolster-plus-feature">
@@ -21,8 +22,13 @@ const BolsterPlusFeatures = ({ bolsterPlusActivated }) => {
             </p>
             {!bolsterPlusActivated && (
                 <>
-                    {/* <p className="bolster-plus-amount size-lg-12">£{proRataCost}</p> */}
-                    <p className="bolster-plus-amount size-lg-12">£3000</p>
+                    <p className="bolster-plus-amount size-lg-12">
+                        £{formatNumber(3000)} per annum (calculated pro-rata)
+                    </p>
+                    <p className="size-lg-12">
+                        £{formatNumber(proRataCost)} due today inline with your current service
+                        subscription
+                    </p>
 
                     <p className="heading size-lg-12">Highlights</p>
                     <div className="size-lg-12">
