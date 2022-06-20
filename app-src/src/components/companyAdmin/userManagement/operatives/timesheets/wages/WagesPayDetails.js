@@ -4,15 +4,17 @@ import useGetCompanyPayRates from './hooks/useGetCompanyPayRates';
 
 import BlockContainer from '../../../../../shared/generic/block/containers/BlockContainer';
 import BlockHeading from '../../../../../shared/generic/blockHeading/presentational/BlockHeading';
-import FunctionalMultiSelect from '../../../../../shared/generic/form/presentational/FunctionalMultiSelect';
+import Select from '../../../../../shared/generic/form/presentational/Select';
+import Field from '../../../../../shared/generic/form/presentational/Field';
 
-const WagesPayDetails = ({ selectedUserIDs, getUserNameByID }) => {
-    const { companyPayRates } = useGetCompanyPayRates();
+const WagesPayDetails = ({
+    selectedUserIDs,
+    getUserNameByID,
+    selectedPayRate,
+    setSelectedPayRate,
+}) => {
+    const { companyPayRateOptions } = useGetCompanyPayRates();
 
-    const options = [
-        { value: 1, label: 'opt 1' },
-        { value: 2, label: 'opt 2' },
-    ];
     return (
         <BlockContainer className="content-container size-lg-7">
             <BlockHeading
@@ -25,9 +27,14 @@ const WagesPayDetails = ({ selectedUserIDs, getUserNameByID }) => {
                 }
             />
 
-            <h4 className="heading heading-4">Pay Details</h4>
-
-            <FunctionalMultiSelect options={options} />
+            <Field name="Pay Details" classes="no-padding">
+                <Select
+                    options={companyPayRateOptions}
+                    value={selectedPayRate}
+                    onChange={(_, value) => setSelectedPayRate(value)}
+                    optionListClasses="large"
+                />
+            </Field>
         </BlockContainer>
     );
 };
