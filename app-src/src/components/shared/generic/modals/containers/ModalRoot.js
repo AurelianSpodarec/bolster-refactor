@@ -160,6 +160,7 @@ import {
     BUY_BOLSTER_PLUS_CONFIRMATION,
     REJECT_SHIFT,
     APPROVE_SHIFT,
+    DELETE_SHIFT,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -319,6 +320,7 @@ import BuyBolsterPlusConfirmationModal from 'components/companyAdmin/subscriptio
 import BolsterPlusPaymentErrorModal from 'components/companyAdmin/subscription/addOns/modals/BolsterPlusPaymentErrorModal';
 import ConfirmRejectShiftModalContainer from '../containers/ConfirmRejectShiftModalContainer';
 import ConfirmApproveShiftModalContainer from './ConfirmApproveShiftModalContainer';
+import ConfirmDeleteShiftModalContainer from './ConfirmDeleteShiftModalContainer';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModal,
@@ -423,6 +425,7 @@ const MODAL_COMPONENTS = {
     [GENERATE_TIMESHEET_REPORT]: GenerateTimesheetReportModal,
     [REJECT_SHIFT]: ConfirmRejectShiftModalContainer,
     [APPROVE_SHIFT]: ConfirmApproveShiftModalContainer,
+    [DELETE_SHIFT]: ConfirmDeleteShiftModalContainer,
     [EXPANDED_MEDIA]: ExpandedMediaModal,
     [MESSAGE_CENTRE_DRAWING_EXPIRY]: ExpiringDrawingsModal,
     [EDIT_ALERT_MODAL]: EditAlertModal,
