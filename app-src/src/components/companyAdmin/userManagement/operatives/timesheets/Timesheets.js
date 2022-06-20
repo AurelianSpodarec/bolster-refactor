@@ -7,12 +7,14 @@ import TabsContainer from 'components/shared/generic/tabs/containers/TabsContain
 import TimesheetsRouteContainer from './TimesheetsRouteContainer';
 import useTimesheetsTitle from './hooks/useTimesheetsTitle';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { TIMESHEETS_TABS } from 'constants/shared/tabNames';
+import { showModal } from '../../../../../actions/shared/generic/modals/sync/showModal';
+import { PAY_RATES_MODAL } from '../../../../../constants/shared/modalTypes';
 
 const Timesheets = ({ selectedTab }) => {
+    const dispatch = useDispatch();
     const { isFetching, companyUserIDs, titleData, setTitleData } = useTimesheetsTitle();
-
     return (
         // <div className="blur">
         <>
@@ -41,7 +43,7 @@ const Timesheets = ({ selectedTab }) => {
                         size="medium"
                         text="Pay Rates"
                         minWidth={'150px'}
-                        onClick={() => {}}
+                        onClick={() => dispatch(showModal(PAY_RATES_MODAL))}
                     />
                 )}
                 <TabsContainer classes="hierarchy-tabs" />

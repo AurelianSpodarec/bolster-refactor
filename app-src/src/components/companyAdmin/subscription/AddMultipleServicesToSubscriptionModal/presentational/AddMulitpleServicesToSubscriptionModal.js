@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
@@ -7,7 +6,6 @@ import RadioButton from 'components/shared/generic/form/presentational/RadioButt
 import { PAYMENT_IDS } from 'constants/companyAdmin/enums';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import { formatNumber } from 'helpers/generic';
-import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import Select from 'components/shared/generic/form/presentational/Select';
@@ -28,7 +26,6 @@ const AddMulitpleServicesToSubscriptionModal = ({
     proRataCost,
     showAddCard,
     noCards,
-    termsAgreed,
     checkedServices,
     handleCreditsChange,
     costWithVAT = 0,
