@@ -14,6 +14,8 @@ const Wages = () => {
         users,
         isFetching,
         fetchError,
+        selectedPayRate,
+        setSelectedPayRate,
     } = useWages();
 
     return (
@@ -28,7 +30,12 @@ const Wages = () => {
                 fetchError={fetchError}
             />
 
-            <WagesPayDetails selectedUserIDs={selectedUserIDs} getUserNameByID={getUserNameByID} />
+            <WagesPayDetails
+                selectedUserIDs={selectedUserIDs}
+                getUserNameByID={getUserNameByID}
+                selectedPayRate={selectedPayRate}
+                setSelectedPayRate={setSelectedPayRate}
+            />
         </div>
     );
 };

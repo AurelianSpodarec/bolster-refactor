@@ -89,7 +89,9 @@ const Select = ({
                         {filteredOptions.map((opt, i) => (
                             <p
                                 key={`${opt.value} - ${i}`}
-                                className={`option ${value === opt.value ? 'active' : ''}`}
+                                className={`option ${value === opt.value ? 'active' : ''} ${
+                                    opt.onClick ? 'clickable' : ''
+                                }`}
                                 onClick={e => handleSelect(e, opt)}
                             >
                                 {opt.label}
