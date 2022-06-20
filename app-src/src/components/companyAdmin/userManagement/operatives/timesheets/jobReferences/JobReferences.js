@@ -12,8 +12,8 @@ import { CREATE_JOB_REFERENCE } from 'constants/shared/modalTypes';
 import { isEmpty } from 'helpers/generic';
 
 import useFetchJobReferences from './hooks/useFetchJobReferences';
+import useJobReferenceActions from './hooks/useJobReferenceActions';
 
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import Block from 'components/shared/generic/block/presentational/Block';
 import Table from 'components/shared/generic/tables/presentational/Table';
@@ -28,6 +28,9 @@ const JobReferences = () => {
     const { jobReferences, isFetching, fetchError } = useFetchJobReferences();
     const isFetchingCompanySettings = useSelector(selectCompanySettingsIsFetching);
     const companySettings = useSelector(selectCompanySettings);
+
+    const { handleCreateJobReference, handleEditJobReference, handleDeleteJobReference } =
+        useJobReferenceActions();
 
     const sortedJobReferences = Object.values(jobReferences).sort((a, b) =>
         a.name.localeCompare(b.name),
@@ -51,7 +54,7 @@ const JobReferences = () => {
                     ambient="positive"
                     size="medium"
                     icon="plus"
-                    onClick={() => dispatch(showModal(CREATE_JOB_REFERENCE))}
+                    onClick={handleCreateJobReference}
                 />
             </BlockHeading>
 
@@ -64,7 +67,12 @@ const JobReferences = () => {
                 withActions
             >
                 {sortedJobReferences.map(jobReference => (
-                    <JobReferenceTableItem key={jobReference.id} jobReference={jobReference} />
+                    <JobReferenceTableItem
+                        key={jobReference.id}
+                        jobReference={jobReference}
+                        handleEditJobReference={handleEditJobReference}
+                        handleDeleteJobReference={handleDeleteJobReference}
+                    />
                 ))}
             </Table>
         </Block>
