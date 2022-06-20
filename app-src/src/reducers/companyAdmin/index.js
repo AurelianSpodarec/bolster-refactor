@@ -71,6 +71,7 @@ import userPinFeedsReducer from './userPinFeeds';
 import bugReportsReducer from './bugReports';
 import documentLibraryReducer from './documentLibrary';
 import addOnReducer from './addOns';
+import payRatesReducer from './payRates';
 
 export default combineReducers({
     activityLogReducer,
@@ -110,6 +111,7 @@ export default combineReducers({
     messageCentreReducer,
     operativeAlertsReducer,
     operativesReducer,
+    payRatesReducer,
     pendingInvitesReducer,
     pinAnswersReducer,
     pinHistoriesReducer,
