@@ -14,6 +14,8 @@ import {
     EDIT_JOB_REF_DROPDOWN,
 } from 'constants/shared/modalTypes';
 
+import useCompanyActions from '../../shared/hooks/useCompanyActions';
+
 const CompanyInfoContainer = ({
     company,
     isFetching,
@@ -22,6 +24,8 @@ const CompanyInfoContainer = ({
     toggleCompanyOnClientList,
     showModal,
 }) => {
+    const { showEnableCompanyModal, showDisableCompanyModal } = useCompanyActions(company);
+
     return (
         <BlockContainer isFetching={isFetching} error={error} isEmpty={!company}>
             <div className="size-lg-6 size-md-12">
@@ -34,6 +38,8 @@ const CompanyInfoContainer = ({
                 handleShowEditAddressModal={handleShowEditAddressModal}
                 handleShowEditFreeCreditModal={handleShowEditFreeCreditModal}
                 handleShowEditJobRefDropdownModal={handleShowEditJobRefDropdownModal}
+                showEnableCompanyModal={showEnableCompanyModal}
+                showDisableCompanyModal={showDisableCompanyModal}
             />
         </BlockContainer>
     );
