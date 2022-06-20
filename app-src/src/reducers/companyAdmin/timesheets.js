@@ -15,6 +15,9 @@ import {
     POST_REJECT_SHIFT_REQUEST,
     POST_REJECT_SHIFT_FAILURE,
     POST_REJECT_SHIFT_SUCCESS,
+    POST_APPROVE_SHIFT_REQUEST,
+    POST_APPROVE_SHIFT_FAILURE,
+    POST_APPROVE_SHIFT_SUCCESS,
 } from 'constants/actionTypes/timesheets';
 
 export default combineReducers({
@@ -59,11 +62,14 @@ function isPostingReducer(state = false, action) {
     switch (action.type) {
         case POST_OVERRIDE_SHIFT_REQUEST:
         case POST_REJECT_SHIFT_REQUEST:
+        case POST_APPROVE_SHIFT_REQUEST:
             return true;
         case POST_OVERRIDE_SHIFT_SUCCESS:
         case POST_OVERRIDE_SHIFT_FAILURE:
         case POST_REJECT_SHIFT_SUCCESS:
         case POST_REJECT_SHIFT_FAILURE:
+        case POST_APPROVE_SHIFT_SUCCESS:
+        case POST_APPROVE_SHIFT_FAILURE:
             return false;
         default:
             return state;
@@ -76,9 +82,12 @@ function postErrorReducer(state = null, action) {
         case POST_OVERRIDE_SHIFT_SUCCESS:
         case POST_REJECT_SHIFT_REQUEST:
         case POST_REJECT_SHIFT_SUCCESS:
+        case POST_APPROVE_SHIFT_REQUEST:
+        case POST_APPROVE_SHIFT_SUCCESS:
             return null;
         case POST_OVERRIDE_SHIFT_FAILURE:
         case POST_REJECT_SHIFT_FAILURE:
+        case POST_APPROVE_SHIFT_FAILURE:
             return action.error;
         default:
             return state;
@@ -91,9 +100,12 @@ function postSuccessReducer(state = false, action) {
         case POST_OVERRIDE_SHIFT_FAILURE:
         case POST_REJECT_SHIFT_REQUEST:
         case POST_REJECT_SHIFT_FAILURE:
+        case POST_APPROVE_SHIFT_REQUEST:
+        case POST_APPROVE_SHIFT_FAILURE:
             return false;
         case POST_OVERRIDE_SHIFT_SUCCESS:
         case POST_REJECT_SHIFT_SUCCESS:
+        case POST_APPROVE_SHIFT_SUCCESS:
             return true;
         default:
             return state;
