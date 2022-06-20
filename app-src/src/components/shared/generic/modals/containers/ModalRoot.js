@@ -119,7 +119,6 @@ import {
     EDIT_PIN_TASK_SERIES,
     CREATE_JOB_REFERENCE,
     EDIT_JOB_REFERENCE,
-    DELETE_JOB_REFERENCE,
     DRAWING_EXPIRY_MODAL,
     EDIT_JOB_REF_DROPDOWN,
     EDIT_USER_EMAIL,
@@ -280,7 +279,6 @@ import EditPinTaskSeriesModal from 'components/companyAdmin/userManagement/pinTa
 import ViewPinTaskModal from 'components/companyAdmin/userManagement/pinTasks/viewTaskNoteModal/ViewTaskNoteModal';
 import CreateJobReferenceModal from 'components/companyAdmin/userManagement/operatives/timesheets/jobReferences/modals/CreateJobReferenceModal';
 import EditJobReferenceModal from 'components/companyAdmin/userManagement/operatives/timesheets/jobReferences/modals/EditJobReferenceModal';
-import DeleteJobReferenceModal from 'components/companyAdmin/userManagement/operatives/timesheets/jobReferences/modals/DeleteJobReferenceModal';
 import DrawingExpiryModal from '../presentational/DrawingExpiryModal';
 import EditJobRefDropdownModal from './EditJobRefDropdownModalContainer';
 import EditUserEmailModal from '../../../../superAdmin/users/editUsers/EditUserEmailModal';
@@ -449,7 +447,6 @@ const MODAL_COMPONENTS = {
     [FETCH_PIN_TASK]: ViewPinTaskModal,
     [CREATE_JOB_REFERENCE]: CreateJobReferenceModal,
     [EDIT_JOB_REFERENCE]: EditJobReferenceModal,
-    [DELETE_JOB_REFERENCE]: DeleteJobReferenceModal,
     [DRAWING_EXPIRY_MODAL]: DrawingExpiryModal,
     [EDIT_JOB_REF_DROPDOWN]: EditJobRefDropdownModal,
     [EDIT_USER_EMAIL]: EditUserEmailModal,
