@@ -90,7 +90,7 @@ const Select = ({
                             <p
                                 key={`${opt.value} - ${i}`}
                                 className={`option ${value === opt.value ? 'active' : ''}`}
-                                onClick={e => handleSelect(e, opt.value)}
+                                onClick={e => handleSelect(e, opt)}
                             >
                                 {opt.label}
                             </p>
@@ -130,11 +130,16 @@ const Select = ({
         setSearch(e.target.value);
     }
 
-    function handleSelect(e, clicked) {
+    function handleSelect(e, option) {
         e.preventDefault();
 
-        if (value === clicked) return;
-        onChange(name, clicked);
+        if (option.onClick) {
+            option.onClick();
+        } else {
+            if (value === option.value) return;
+
+            onChange(name, option.value);
+        }
     }
 };
 
