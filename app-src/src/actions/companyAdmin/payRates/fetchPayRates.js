@@ -22,11 +22,11 @@ export const fetchPayRatesFailure = error => ({
     error,
 });
 
-export default (HierarchyType, HierarchyID, postBody) => dispatch => {
+export default () => dispatch => {
     dispatch(fetchPayRatesRequest());
 
     return axios
-        .post(`${API_URL}/payRates`, postBody, getHeaders())
+        .get(`${API_URL}/payRates`, getHeaders())
         .then(({ data }) => dispatch(fetchPayRatesSuccess(data)))
         .catch(err => dispatch(handleErrors(fetchPayRatesFailure)(err)));
 };
