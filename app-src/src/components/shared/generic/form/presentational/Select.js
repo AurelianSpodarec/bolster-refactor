@@ -133,7 +133,9 @@ const Select = ({
     function handleSelect(e, option) {
         e.preventDefault();
 
-        if (option.onClick) {
+        if (option === null) {
+            onChange(name, option);
+        } else if (option.onClick) {
             option.onClick();
         } else {
             if (value === option.value) return;
