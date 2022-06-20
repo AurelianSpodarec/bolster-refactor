@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { TIMESHEETS_TABS } from 'constants/shared/tabNames';
 import GeneralOverview from './generalOverview/GeneralOverview';
 import Wages from './wages/Wages';
-import JobReferences from 'components/companyAdmin/jobReferences/JobReferences';
+import JobReferences from 'components/companyAdmin/userManagement/operatives/timesheets/jobReferences/JobReferences';
 
 const TimesheetsRouteContainer = ({ selectedTab, ...props }) => {
     const contentOptions = {
