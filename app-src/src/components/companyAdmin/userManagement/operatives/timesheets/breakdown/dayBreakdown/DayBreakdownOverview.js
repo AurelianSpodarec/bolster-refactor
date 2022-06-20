@@ -21,6 +21,7 @@ import { timesheetSelectedCompanyIDs } from 'selectors/companyAdmin/timesheets';
 
 const DayBreakdownOverview = ({
     selectedDate,
+    startDate,
     timesheets,
     handlePDFReportGeneration,
     disableReportGenPin,
@@ -63,6 +64,7 @@ const DayBreakdownOverview = ({
                     <BreakdownOverviewList
                         timesheets={timesheets}
                         selectedDate={selectedDate}
+                        startDate={startDate}
                         filterType={filterType}
                         filterDirection={filterDirection}
                     />

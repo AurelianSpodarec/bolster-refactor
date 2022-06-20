@@ -39,6 +39,8 @@ const getShiftPodData = shift => {
         notes,
         status,
         groupUID,
+        overrideShiftTime,
+        overrideWage,
     };
 };
 

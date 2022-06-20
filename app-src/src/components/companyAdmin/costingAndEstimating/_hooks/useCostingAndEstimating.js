@@ -27,6 +27,7 @@ import {
 } from '../_helpers/helpers';
 import { costingAndEstimatingType } from '../../../../constants/companyAdmin/enums';
 import { selectPrelimPostSuccess } from '../../../../selectors/companyAdmin/prelims';
+import { selectSubscriptionsPostSuccess } from '../../../../selectors/companyAdmin/subscriptions';
 import { isEmpty } from 'helpers/generic';
 import fetchPinOptionTypes from 'actions/companyAdmin/pinOptions/async/fetchPinOptionTypes';
 import fetchPinOptions from 'actions/companyAdmin/pinOptions/async/fetchPinOptions';
@@ -48,6 +49,7 @@ const useCostingAndEstimating = () => {
     const isFetchingFilters = useSelector(selectCostingAndEstimatingFiltersIsFetching);
     const fetchError = useSelector(selectCostingAndEstimatingFetchError);
     const prelimPostSuccess = useSelector(selectPrelimPostSuccess);
+    const subscriptionsPostSuccess = useSelector(selectSubscriptionsPostSuccess);
 
     const { isBolsterPlusActivated } = useBolsterPlus();
 
@@ -58,6 +60,7 @@ const useCostingAndEstimating = () => {
         isFetchingFilters,
         fetchError,
         prelimPostSuccess,
+        subscriptionsPostSuccess,
     });
 
     // const results = useMemo(() => {
@@ -286,6 +289,14 @@ const useCostingAndEstimating = () => {
             dispatch(fetchCostingAndEstimatingResults(cAndEPostBody));
         }
     }, [prelimPostSuccess, prevData.prelimPostSuccess]); // Re-fetch results data on prelim post success
+
+    // should depend on payment type!
+
+    useEffect(() => {
+        if (subscriptionsPostSuccess && !prevData.subscriptionsPostSuccess) {
+            dispatch(fetchCostingAndEstimatingResults(cAndEPostBody));
+        }
+    }, [subscriptionsPostSuccess, prevData.subscriptionsPostSuccess]); // Re-fetch results data on buying subscriptions post success
 
     useEffect(() => {
         if (!isFetchingFilters && prevData.isFetchingFilters && willAutoTick) {

@@ -19,7 +19,7 @@ import ExpensesList from './ExpensesList';
 import { formatCurrency } from 'helpers/generic';
 import useOverrideShift from './hooks/useOverrideShift';
 
-const ShiftPod = ({ shift, shiftToEdit, setShiftToEdit, selectedDate }) => {
+const ShiftPod = ({ shift, shiftToEdit, setShiftToEdit, startDate }) => {
     const users = useSelector(selectCompanyUsers);
     const timeZone = useSelector(selectCompanyTimeZone);
     const currency = useSelector(selectCompanyCurrency);
@@ -40,7 +40,8 @@ const ShiftPod = ({ shift, shiftToEdit, setShiftToEdit, selectedDate }) => {
         shiftTotal,
         notes,
         status,
-        groupUID,
+        overrideWage,
+        overrideShiftTime,
     } = getShiftPodData(shift);
 
     const handleToggleEdit = () => setShiftToEdit(isEditing ? null : shift.id);
@@ -48,7 +49,7 @@ const ShiftPod = ({ shift, shiftToEdit, setShiftToEdit, selectedDate }) => {
     const { formData, handleChange, handleSubmit, isPosting } = useOverrideShift(
         shift,
         handleToggleEdit,
-        selectedDate,
+        startDate,
         isEditing,
     );
 
@@ -59,7 +60,7 @@ const ShiftPod = ({ shift, shiftToEdit, setShiftToEdit, selectedDate }) => {
     };
 
     return (
-        <BlockContainer key={shift.id} contentClass={`shift-pod ${statusClassLookup[status]}`}>
+        <BlockContainer contentClass={`shift-pod ${statusClassLookup[status]}`}>
             <BlockHeading title={`${user.userFirstName} ${user.userLastName} (${user.userEmail})`}>
                 <ButtonWrapper alignment="right">
                     {status === SHIFT_STATUS.PENDING ? (
@@ -126,6 +127,8 @@ const ShiftPod = ({ shift, shiftToEdit, setShiftToEdit, selectedDate }) => {
                             formData={formData}
                             handleChange={handleChange}
                             isEditing={isEditing}
+                            overrideWage={overrideWage}
+                            overrideShiftTime={overrideShiftTime}
                         />
                     </Table>
                     {!!isEditing && (
@@ -187,8 +190,8 @@ const ShiftPod = ({ shift, shiftToEdit, setShiftToEdit, selectedDate }) => {
             <BlockContainer contentClass="inner-pod">
                 <BlockHeading title="Notes" />
                 <div className="divider" />
-                {notes.map(note => (
-                    <p key={note.uid}>{note.comments}</p>
+                {notes.map((note, i) => (
+                    <p key={`${i}-${note.uid}`}>{note.comments}</p>
                 ))}
             </BlockContainer>
         </BlockContainer>

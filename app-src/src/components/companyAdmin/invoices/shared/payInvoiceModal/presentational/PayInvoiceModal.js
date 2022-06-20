@@ -7,6 +7,7 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
+import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 
 const PayInvoiceModal = ({
     handleSubmit,
@@ -37,42 +38,37 @@ const PayInvoiceModal = ({
                             handleChange={handleChange}
                         />
                     </Field>
-
-                    <Field name="Agree to terms" required>
-                        <p className="generic-text size-lg-12">
-                            Please check that you agree with the{' '}
-                            <Link to="/auth/terms" target="_blank" className="switched">
-                                sales terms
-                            </Link>{' '}
-                            to proceed with payment.
-                        </p>
-                        <CheckboxContainer
-                            checked={termsAgreed}
-                            handleChange={handleChange}
-                            name={'termsAgreed'}
-                            required
-                        />
-                    </Field>
                 </div>
+                <ButtonWrapper alignment="right" extraClasses="flex-modal-footer">
+                    <ActionButton
+                        text="Cancel"
+                        onClick={e => {
+                            e.preventDefault();
+                            hideModal();
+                        }}
+                        source="secondary"
+                    />
+                    <ActionButton
+                        text="Confirm"
+                        type="submit"
+                        disabled={isPosting}
+                        icon={isPosting ? 'spinner' : 'check'}
+                        iconSpin={isPosting}
+                    />
+                </ButtonWrapper>
+                <FlexWrapper justify="end">
+                    <p>
+                        By clicking Buy you are agreeing with Bolster System {''}
+                        <a
+                            href="/auth/terms"
+                            target="_blank"
+                            className="switched underline text-colour "
+                        >
+                            sales terms
+                        </a>
+                    </p>
+                </FlexWrapper>
             </div>
-
-            <ButtonWrapper alignment="right" extraClasses="flex-modal-footer">
-                <ActionButton
-                    text="Cancel"
-                    onClick={e => {
-                        e.preventDefault();
-                        hideModal();
-                    }}
-                    source="secondary"
-                />
-                <ActionButton
-                    text="Confirm"
-                    type="submit"
-                    disabled={isPosting}
-                    icon={isPosting ? 'spinner' : 'check'}
-                    iconSpin={isPosting}
-                />
-            </ButtonWrapper>
         </Form>
     </FlexModalOuter>
 );

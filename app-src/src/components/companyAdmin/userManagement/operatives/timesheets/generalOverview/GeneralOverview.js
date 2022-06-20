@@ -45,6 +45,7 @@ const GeneralOverview = ({ setTitleData }) => {
             />
             <Breakdown
                 selectedDate={selectedDate}
+                startDate={startDate}
                 timePeriod={timePeriod}
                 isFetching={isFetching}
                 fetchError={fetchError}

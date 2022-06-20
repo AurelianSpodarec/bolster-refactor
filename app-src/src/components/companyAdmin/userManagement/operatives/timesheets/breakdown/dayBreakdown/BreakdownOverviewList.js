@@ -9,24 +9,33 @@ import moment from 'moment';
 import { isEmpty } from 'helpers/generic';
 import ShiftPod from './ShiftPod';
 
-const BreakdownOverviewList = ({ timesheets, selectedDate, filterType, filterDirection }) => {
+const BreakdownOverviewList = ({
+    timesheets,
+    selectedDate,
+    startDate,
+    filterType,
+    filterDirection,
+}) => {
     const selectedUserIDs = useSelector(timesheetSelectedCompanyIDs);
     const filterByHasClockedIn = useSelector(selectFilterByHasClockedIn);
 
-    const shiftsForToday = useMemo(
-        () =>
-            timesheets.reduce((acc, curr) => {
+    const shiftsForToday = useMemo(() => {
+        try {
+            return timesheets.reduce((acc, curr) => {
                 const thisDay = curr.days.find(day => moment(day.date).isSame(selectedDate, 'day'));
-                const todaysShifts = thisDay.shifts.map(shift => {
+                const todaysShifts = thisDay.shifts?.map(shift => {
                     const notes = thisDay.clockerNotes.filter(note =>
                         moment(note.createdOn).isSame(selectedDate, 'day'),
                     );
                     return { ...shift, notes };
                 });
                 return [...acc, ...todaysShifts];
-            }, []),
-        [selectedDate, timesheets],
-    );
+            }, []);
+        } catch (e) {
+            return [];
+        }
+    }, [selectedDate, timesheets]);
+
     const [shiftToEdit, setShiftToEdit] = useState(null);
 
     // let formattedTimesheets = [];
@@ -52,13 +61,13 @@ const BreakdownOverviewList = ({ timesheets, selectedDate, filterType, filterDir
     if (isEmpty(shiftsForToday) || !shiftsForToday?.length)
         return <p>No clock in data to display.</p>;
 
-    return shiftsForToday.map(shift => (
+    return shiftsForToday.map((shift, i) => (
         <ShiftPod
-            key={shift.id}
+            key={`${i}-${shift.id}`}
             shift={shift}
             shiftToEdit={shiftToEdit}
             setShiftToEdit={setShiftToEdit}
-            selectedDate={selectedDate}
+            startDate={startDate}
         />
     ));
 };

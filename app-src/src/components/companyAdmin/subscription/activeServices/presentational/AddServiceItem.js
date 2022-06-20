@@ -37,7 +37,7 @@ const AddServiceItem = ({ service, showModal, canEdit }) => {
             </div>
             <TooltipContainer
                 side="top"
-                text="You can add new services when your new subsciption begins."
+                text="You can add new services when your new subscription begins."
             >
                 <button
                     type="button"

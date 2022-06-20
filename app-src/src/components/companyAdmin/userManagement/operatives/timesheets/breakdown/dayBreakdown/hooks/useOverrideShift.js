@@ -12,7 +12,7 @@ import { useEffect } from 'react';
 import { ERROR_MODAL, SUCCESS_MODAL } from 'constants/shared/modalTypes';
 import fetchTimesheetsWeek from 'actions/companyAdmin/timesheets/async/fetchTimesheetsWeek';
 
-const useOverrideShift = (shift, handleToggleEdit, selectedDate, isEditing = false) => {
+const useOverrideShift = (shift, handleToggleEdit, startDate, isEditing = false) => {
     const { overrideShiftTime, overrideWage } = shift;
     const dispatch = useDispatch();
 
@@ -22,8 +22,8 @@ const useOverrideShift = (shift, handleToggleEdit, selectedDate, isEditing = fal
     const companyUserIDs = useSelector(timesheetSelectedCompanyIDs);
     const prevProps = usePrevious({ isPosting, postError, postSuccess, isEditing });
 
-    const [formData, handleChange, setFormData] = useForm({
-        overrideShiftTime: overrideShiftTime || '0:00',
+    const [formData, handleChange] = useForm({
+        overrideShiftTime: overrideShiftTime || '00:00',
         overrideWage: overrideWage || '0.00',
     });
 
@@ -33,7 +33,7 @@ const useOverrideShift = (shift, handleToggleEdit, selectedDate, isEditing = fal
                 showModal(SUCCESS_MODAL, { message: 'Shift override completed successfully' }),
             );
             handleToggleEdit(null);
-            dispatch(fetchTimesheetsWeek(companyUserIDs, selectedDate));
+            dispatch(fetchTimesheetsWeek(companyUserIDs, startDate));
         }
         if (postError && !prevProps.postError) {
             dispatch(
@@ -45,18 +45,13 @@ const useOverrideShift = (shift, handleToggleEdit, selectedDate, isEditing = fal
         }
     }, [postSuccess, postError, prevProps.postSuccess, prevProps.postError]);
 
-    useEffect(() => {
-        if (isEditing && !prevProps.isEditing) {
-            console.log({ overrideShiftTime, overrideWage });
-            setFormData({
-                overrideShiftTime: overrideShiftTime || '00:00:00',
-                overrideWage: Number.isNaN(overrideWage) ? 0 : overrideWage,
-            });
-        }
-    }, [isEditing, prevProps.isEditing]);
-
     const handleSubmit = () => {
-        dispatch(patchOverrideShift(shift.id, formData));
+        dispatch(
+            patchOverrideShift(shift.id, {
+                ...formData,
+                overrideShiftTime: formData.overrideShiftTime.split(':').slice(0, 2).join(':'),
+            }),
+        );
     };
 
     return {

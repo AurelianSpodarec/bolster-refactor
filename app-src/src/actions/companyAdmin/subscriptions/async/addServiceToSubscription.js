@@ -34,7 +34,13 @@ export default postBody => dispatch => {
             }
 
             if (err.response.status === 400) {
-                return dispatch(setAPIFieldErrors(err.response.data.errors || err.response.data));
+                if (err.response.data.addons) {
+                    return dispatch(addServiceToSubscriptionFailure(err.response.data.addons));
+                } else {
+                    return dispatch(
+                        setAPIFieldErrors(err.response.data.errors || err.response.data),
+                    );
+                }
             }
             // pulls out nested API error if existing
             return dispatch(addServiceToSubscriptionFailure(err.message));

@@ -76,19 +76,17 @@ const useCreateOptionValue = (pinOptionTypeID, pinOptionSetID) => {
         }
 
         if (pinOptionType.hasCosting && measurementType) {
-            const anyIncompletePriceBreaks = measurementPriceBreaks.some(
-                ({ value, cost, labourCost }) => {
-                    if (!value && !cost && !labourCost) return false;
-                    if (!value || !cost || !labourCost) return true;
-                    return false;
-                },
-            );
+            const anyIncompletePriceBreaks = measurementPriceBreaks.some(({ value, cost }) => {
+                if (!value && !cost) return false;
+                if (!value || !cost) return true;
+                return false;
+            });
 
             const anyZeroOrNegativePriceBreaks = measurementPriceBreaks.some(priceBreak => {
-                const { value, cost, labourCost } = priceBreak;
+                const { value, cost } = priceBreak;
 
-                if (!value || !cost || !labourCost) return false;
-                return value <= 0 || cost <= 0 || labourCost <= 0;
+                if (!value || !cost) return false;
+                return value <= 0 || cost <= 0;
             });
 
             if (anyIncompletePriceBreaks) {
@@ -102,11 +100,19 @@ const useCreateOptionValue = (pinOptionTypeID, pinOptionSetID) => {
             }
 
             const priceBreaksWithoutEmpties = measurementPriceBreaks.filter(
-                ({ value, cost, labourCost }) => value && cost && labourCost,
+                ({ value, cost }) => value && cost,
+            );
+
+            const priceBreaksWithUpdatedCosts = priceBreaksWithoutEmpties.map(
+                ({ value, cost, labourCost }) => ({
+                    value,
+                    cost,
+                    labourCost: !labourCost || labourCost <= 0 ? 0 : labourCost,
+                }),
             );
 
             postBody.measurementType = measurementType;
-            postBody.measurementPriceBreaks = priceBreaksWithoutEmpties;
+            postBody.measurementPriceBreaks = priceBreaksWithUpdatedCosts;
         }
 
         dispatch(createPinOptionValue(postBody));
