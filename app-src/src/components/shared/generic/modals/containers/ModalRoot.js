@@ -161,6 +161,7 @@ import {
     REJECT_SHIFT,
     APPROVE_SHIFT,
     DELETE_SHIFT,
+    PAY_RATES_MODAL,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -321,6 +322,7 @@ import BolsterPlusPaymentErrorModal from 'components/companyAdmin/subscription/a
 import ConfirmRejectShiftModalContainer from '../containers/ConfirmRejectShiftModalContainer';
 import ConfirmApproveShiftModalContainer from './ConfirmApproveShiftModalContainer';
 import ConfirmDeleteShiftModalContainer from './ConfirmDeleteShiftModalContainer';
+import PayRatesModal from '../../../../companyAdmin/userManagement/operatives/timesheets/wages/modals/PayRatesModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModal,
@@ -482,6 +484,7 @@ const MODAL_COMPONENTS = {
     [ADD_BOLSTER_PLUS]: AddBolsterPlusModal,
     [BOLSTER_PLUS_UPGRADE_MODAL]: BolsterPlusUpgradeModal,
     [BUY_BOLSTER_PLUS_CONFIRMATION]: BuyBolsterPlusConfirmationModal,
+    [PAY_RATES_MODAL]: PayRatesModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {
