@@ -1,6 +1,6 @@
 import React from 'react';
 
-import useEditJobReference from './hooks/useEditJobReference';
+import useEditJobReference from '../hooks/useEditJobReference';
 
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
@@ -8,8 +8,8 @@ import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
-import ButtonWrapper from '../../../../../shared/generic/button/presentational/ButtonWrapper';
-import ActionButton from '../../../../../shared/generic/button/presentational/ActionButton';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 
 const EditJobReferenceModal = ({ hideModal, jobReference }) => {
     const { isPosting, form, handleChange, handleSubmit } = useEditJobReference(jobReference);

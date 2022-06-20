@@ -1,6 +1,6 @@
 import React from 'react';
 
-import useCreateJobReference from './hooks/useCreateJobReference';
+import useCreateJobReference from '../hooks/useCreateJobReference';
 
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
