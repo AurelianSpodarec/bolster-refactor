@@ -10,6 +10,7 @@ import { isEmpty } from 'helpers/generic';
 import ShiftPod from './ShiftPod';
 import useRejectShift from '../hooks/useRejectShift';
 import useApproveShift from '../hooks/useApproveShift';
+import useDeleteShift from '../hooks/useDeleteShift';
 
 const BreakdownOverviewList = ({
     timesheets,
@@ -42,6 +43,7 @@ const BreakdownOverviewList = ({
 
     const { handleShowRejectShiftModal } = useRejectShift(shiftsForToday);
     const { handleShowApproveShiftModal } = useApproveShift(shiftsForToday);
+    const { handleShowDeleteShiftModal } = useDeleteShift(shiftsForToday);
 
     // let formattedTimesheets = [];
 
@@ -75,6 +77,7 @@ const BreakdownOverviewList = ({
             startDate={startDate}
             handleShowRejectShiftModal={handleShowRejectShiftModal}
             handleShowApproveShiftModal={handleShowApproveShiftModal}
+            handleShowDeleteShiftModal={handleShowDeleteShiftModal}
         />
     ));
 };

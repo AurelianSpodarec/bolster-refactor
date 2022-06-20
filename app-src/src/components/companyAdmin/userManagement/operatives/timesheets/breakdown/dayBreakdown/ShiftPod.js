@@ -28,6 +28,7 @@ const ShiftPod = ({
     startDate,
     handleShowRejectShiftModal,
     handleShowApproveShiftModal,
+    handleShowDeleteShiftModal,
 }) => {
     const users = useSelector(selectCompanyUsers);
     const timeZone = useSelector(selectCompanyTimeZone);
@@ -109,7 +110,10 @@ const ShiftPod = ({
                                 onClick={() => handleShowRejectShiftModal(shift.id)}
                             />
                         )}
-                        <ActionMenuActionButton text="Delete" onClick={() => {}} />
+                        <ActionMenuActionButton
+                            text="Delete"
+                            onClick={() => handleShowDeleteShiftModal(shift.id)}
+                        />
                     </ActionMenu>
                 </ButtonWrapper>
             </BlockHeading>
