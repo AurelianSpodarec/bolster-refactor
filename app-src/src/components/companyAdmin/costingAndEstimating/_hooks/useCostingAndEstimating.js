@@ -39,6 +39,7 @@ import showModal from 'actions/shared/generic/modals/sync/showModal';
 import selectTab from 'actions/shared/generic/tabs/sync/selectTab';
 import { HIERARCHY_TABS } from 'constants/shared/tabNames';
 import useBolsterPlus from 'components/companyAdmin/subscription/addOns/hooks/useBolsterPlus';
+import fetchAllSubscriptions from 'actions/companyAdmin/subscriptions/async/fetchAllSubscriptions';
 
 const useCostingAndEstimating = () => {
     const [willAutoTick, setWillAutoTick] = useState(false);
@@ -290,11 +291,10 @@ const useCostingAndEstimating = () => {
         }
     }, [prelimPostSuccess, prevData.prelimPostSuccess]); // Re-fetch results data on prelim post success
 
-    // should depend on payment type!
-
     useEffect(() => {
         if (subscriptionsPostSuccess && !prevData.subscriptionsPostSuccess) {
             dispatch(fetchCostingAndEstimatingResults(cAndEPostBody));
+            dispatch(fetchAllSubscriptions());
         }
     }, [subscriptionsPostSuccess, prevData.subscriptionsPostSuccess]); // Re-fetch results data on buying subscriptions post success
 
