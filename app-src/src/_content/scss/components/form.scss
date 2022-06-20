@@ -1318,6 +1318,11 @@
         &.active {
           background-color: var(--input-secondary);
         }
+
+        &.clickable {
+          border-top: 1px solid var(--background-stroke);
+          color: var(--primary-default);
+        }
       }
 
       &.large-list {
