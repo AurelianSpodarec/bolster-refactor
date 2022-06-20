@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
@@ -40,11 +40,11 @@ const AddBolsterPlusModal = ({ hideModal, handleClose }) => {
         handleChange,
         handleSubmit,
         form,
-        addCardVisible,
         cards,
         handleAddCardSuccess,
         showAddCard,
         hideAddCard,
+        addCardVisible,
     } = usePaymentMethod();
 
     const postBody = {
@@ -53,9 +53,6 @@ const AddBolsterPlusModal = ({ hideModal, handleClose }) => {
         creditsToBuy: null,
         serviceIDs: [],
     };
-
-    if (addCardVisible)
-        return <AddCardFormContainer close={hideAddCard} onSuccess={handleAddCardSuccess} />;
 
     const { newAnnualCost, proRataCost, currentAnnualCost } = useAddOnProrata();
 
@@ -83,6 +80,9 @@ const AddBolsterPlusModal = ({ hideModal, handleClose }) => {
             );
         }
     }, [postFailure, prevFailure]);
+
+    if (addCardVisible)
+        return <AddCardFormContainer close={hideAddCard} onSuccess={handleAddCardSuccess} />;
 
     return (
         <FlexModalOuter
@@ -118,6 +118,7 @@ const AddBolsterPlusModal = ({ hideModal, handleClose }) => {
                     noCards={!cards.length}
                     showAddCard={showAddCard}
                     hideAddCard={hideAddCard}
+                    addCardVisible={addCardVisible}
                 />
 
                 <ButtonWrapper alignment="right" extraClasses="flex-modal-footer">
@@ -153,13 +154,13 @@ const AddBolsterPlusModal = ({ hideModal, handleClose }) => {
 
                 <FlexWrapper justify="end">
                     <p>
-                        By clicking Buy you are agreeing with Bolster System {''}
+                        Upon clicking 'Buy' you are agreeing to Bolster Systems {''}
                         <a
                             href="/auth/terms"
                             target="_blank"
                             className="switched underline text-colour "
                         >
-                            sales terms
+                            sales terms.
                         </a>
                     </p>
                 </FlexWrapper>
