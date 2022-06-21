@@ -3464,5 +3464,9 @@ input {
   margin-right: 5px;
 }
 
+.field-padding {
+  padding: 0 7.5px;
+}
+
 // mobile
 @import './dashboard-mobile.scss';

@@ -4,11 +4,15 @@ import { useForm } from '../../../../../../../helpers/hooks';
 
 import TextInputContainer from '../../../../../../shared/generic/form/containers/TextInputContainer';
 import PayRateItemForm from './PayRateItemForm';
+import usePayRateForm from '../hooks/usePayRateForm';
 
-const PayRateItem = ({ payRate: { id, name, items }, expandedID, setExpandedID }) => {
+const PayRateItem = ({ payRate, expandedID, setExpandedID }) => {
+    const { id } = payRate;
+
     const isExpanded = id === expandedID;
 
-    const [form, handleChange] = useForm({ name: name });
+    const { nameForm, handleNameChange, itemsForm, handleItemsChange, handleAddNewItem } =
+        usePayRateForm(payRate);
 
     return (
         <>
@@ -19,15 +23,24 @@ const PayRateItem = ({ payRate: { id, name, items }, expandedID, setExpandedID }
                 onClick={() => setExpandedID(id)}
             >
                 {isExpanded ? (
-                    <TextInputContainer name="name" handleChange={handleChange} value={form.name} />
+                    <TextInputContainer
+                        name="name"
+                        handleChange={handleNameChange}
+                        value={nameForm.name}
+                    />
                 ) : (
-                    <p className="pay-rate-item__name">{name}</p>
+                    <p className="pay-rate-item__name">{nameForm.name}</p>
                 )}
 
                 <i className="fa fa-chevron-right" />
             </div>
 
-            <PayRateItemForm isExpanded={isExpanded} items={items} />
+            <PayRateItemForm
+                isExpanded={isExpanded}
+                items={Object.values(itemsForm)}
+                handleChange={handleItemsChange}
+                handleAddNewItem={handleAddNewItem}
+            />
         </>
     );
 };
