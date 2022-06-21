@@ -72,6 +72,7 @@ import bugReportsReducer from './bugReports';
 import documentLibraryReducer from './documentLibrary';
 import addOnReducer from './addOns';
 import payRatesReducer from './payRates';
+import workingHoursReducer from './workingHours';
 
 export default combineReducers({
     activityLogReducer,
@@ -146,4 +147,5 @@ export default combineReducers({
     timesheetPinStatsReducer,
     userPinFeedsReducer,
     addOnReducer,
+    workingHoursReducer,
 });

@@ -20,6 +20,8 @@ import { formatCurrency } from 'helpers/generic';
 import useOverrideShift from './hooks/useOverrideShift';
 import ActionMenu from 'components/shared/actionMenu/ActionMenu';
 import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
+import WarningIcon from '../../../../../../../_content/images/icons/Triangle_Warning.svg';
+import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 
 const ShiftPod = ({
     shift,
@@ -52,6 +54,8 @@ const ShiftPod = ({
         status,
         overrideWage,
         overrideShiftTime,
+        lateClockIn,
+        lateClockOut,
     } = getShiftPodData(shift);
 
     const handleToggleEdit = () => setShiftToEdit(isEditing ? null : shift.id);
@@ -118,11 +122,17 @@ const ShiftPod = ({
             <div className="divider" />
             <div className="pod-row">
                 <BlockContainer contentClass="inner-pod">
-                    <BlockHeading title="Time In" />
+                    <FlexWrapper>
+                        <BlockHeading title="Time In" />
+                        {lateClockIn && <img alt="Warning Icon" src={WarningIcon} />}
+                    </FlexWrapper>
                     <p>{moment.utc(timeIn).tz(timeZone).format('HH:mm:ss')}</p>
                 </BlockContainer>
                 <BlockContainer contentClass="inner-pod">
-                    <BlockHeading title="Time Out" />
+                    <FlexWrapper>
+                        <BlockHeading title="Time Out" />
+                        {lateClockOut && <img alt="Warning Icon" src={WarningIcon} />}
+                    </FlexWrapper>
                     <p>{moment.utc(timeOut).tz(timeZone).format('HH:mm:ss')}</p>
                 </BlockContainer>
                 <BlockContainer contentClass="inner-pod">

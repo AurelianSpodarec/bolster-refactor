@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import useGetCompanyPayRates from '../hooks/useGetCompanyPayRates';
+import usePayRateForm from '../hooks/usePayRateForm';
 
 import ModalOuter from '../../../../../../shared/generic/modals/presentational/ModalOuter';
 import ModalHeading from '../../../../../../shared/generic/modals/presentational/ModalHeading';
@@ -11,6 +12,7 @@ const PayRatesModal = () => {
     const { companyPayRates, isFetching, error } = useGetCompanyPayRates();
 
     const [expandedID, setExpandedID] = useState(null);
+    const { form, handleChangePayRateName, handleItemsChange, handleAddNewItem } = usePayRateForm();
 
     return (
         <ModalOuter extraClasses="wide">
@@ -21,12 +23,15 @@ const PayRatesModal = () => {
                 isEmpty={!companyPayRates.length}
                 contentClass="no-padding"
             >
-                {companyPayRates.map(payRate => (
+                {Object.values(form).map(payRate => (
                     <PayRateItem
                         key={payRate.id}
                         payRate={payRate}
                         expandedID={expandedID}
                         setExpandedID={setExpandedID}
+                        handleChangePayRateName={handleChangePayRateName}
+                        handleItemsChange={handleItemsChange}
+                        handleAddNewItem={handleAddNewItem}
                     />
                 ))}
             </BlockContainer>
