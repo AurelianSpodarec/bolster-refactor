@@ -1,24 +1,18 @@
 import React from 'react';
 
-import { useForm } from '../../../../../../../helpers/hooks';
-
-import { convertArrToObj, getValuesFromBitMaskArray } from '../../../../../../../helpers/generic';
-
 import { dayOptions } from '../../../../../../../constants/companyAdmin/options';
 
 import Field from '../../../../../../shared/generic/form/presentational/Field';
 import TextInputContainer from '../../../../../../shared/generic/form/containers/TextInputContainer';
 import TimePickerContainer from '../../../../../../shared/generic/form/containers/TimePickerContainer';
 import PickListContainer from '../../../../../../shared/generic/form/containers/PickListContainer';
+import ActionButton from '../../../../../../shared/generic/button/presentational/ActionButton';
 
-const PayRateItemForm = ({ isExpanded, items }) => {
-    const [itemsForm, handleChange] = useForm(convertArrToObj(items));
-
+const PayRateItemForm = ({ isExpanded, items, handleChange, handleAddNewItem }) => {
     return (
         <div className={`pay-rate-form ${isExpanded ? 'expanded' : ''}`}>
-            {Object.values(itemsForm).map(item => {
+            {items.map(item => {
                 const { id, name, rate, startTime, endTime, days } = item;
-                const formattedDays = getValuesFromBitMaskArray(days);
 
                 return (
                     <div key={id} className="flex-row">
@@ -29,6 +23,7 @@ const PayRateItemForm = ({ isExpanded, items }) => {
                                     handleChange(id, { ...item, name: value })
                                 }
                                 value={name}
+                                placeholder="-"
                             />
                         </Field>
                         <Field name="Hourly Rate">
@@ -38,9 +33,10 @@ const PayRateItemForm = ({ isExpanded, items }) => {
                                     handleChange(id, { ...item, rate: value })
                                 }
                                 value={rate}
+                                placeholder="-"
                             />
                         </Field>
-                        <Field name="Start" sizeClasses="size-lg-8">
+                        <Field name="Start" sizeClasses="size-lg-10">
                             <TimePickerContainer
                                 name="startTime"
                                 handleChange={(_, value) =>
@@ -51,7 +47,7 @@ const PayRateItemForm = ({ isExpanded, items }) => {
                                 extraClasses="padded"
                             />
                         </Field>
-                        <Field name="End" sizeClasses="size-lg-8">
+                        <Field name="End" sizeClasses="size-lg-10">
                             <TimePickerContainer
                                 name="endTime"
                                 handleChange={(_, value) =>
@@ -65,10 +61,10 @@ const PayRateItemForm = ({ isExpanded, items }) => {
 
                         <Field name="Range">
                             <PickListContainer
-                                name="range"
-                                value={formattedDays}
+                                name="days"
+                                value={days}
                                 handleChange={(_, value) =>
-                                    handleChange(id, { ...item, range: value })
+                                    handleChange(id, { ...item, days: value })
                                 }
                                 options={dayOptions}
                                 required
@@ -77,6 +73,9 @@ const PayRateItemForm = ({ isExpanded, items }) => {
                     </div>
                 );
             })}
+            <div className="field-padding">
+                <ActionButton text="Add" icon="plus" onClick={handleAddNewItem} />
+            </div>
         </div>
     );
 };
