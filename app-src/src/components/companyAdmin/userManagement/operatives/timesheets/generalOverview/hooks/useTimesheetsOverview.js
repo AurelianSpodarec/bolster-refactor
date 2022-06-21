@@ -38,6 +38,7 @@ import fetchTimesheetsWeekDropdownOptions from 'actions/companyAdmin/timesheets/
 import fetchJobReferences from 'actions/companyAdmin/jobReferences/async/fetchJobReferences';
 import setTabs from 'actions/shared/generic/tabs/sync/setTabs';
 import { TIMESHEETS_TABS } from 'constants/shared/tabNames';
+import fetchAllWorkingHours from 'actions/companyAdmin/workingHours/async/fetchAllWorkingHours';
 
 const useTimesheetsOverview = (setTitleData = () => {}) => {
     const dispatch = useDispatch();
@@ -221,6 +222,7 @@ const useTimesheetsOverview = (setTitleData = () => {}) => {
             batch(() => {
                 dispatch(setCompanyUserIDs(postBody));
                 dispatch(fetchTimesheetsWeek(postBody, startDate));
+                dispatch(fetchAllWorkingHours());
             });
         } else {
             batch(() => {
@@ -228,6 +230,7 @@ const useTimesheetsOverview = (setTitleData = () => {}) => {
                 dispatch(fetchTimesheetsWeek([], startDate));
                 dispatch(fetchCompanyUsers());
                 dispatch(fetchJobReferences());
+                dispatch(fetchAllWorkingHours());
             });
         }
     }, [dispatch]);
@@ -249,6 +252,7 @@ const useTimesheetsOverview = (setTitleData = () => {}) => {
         ) {
             dispatch(fetchTimesheetsWeek(companyUserIDs, startDate));
             dispatch(fetchTimesheetsWeekDropdownOptions(startDate));
+            dispatch(fetchAllWorkingHours());
         }
     }, [dispatch, postSuccess, deleteSuccess, prevProps.postSuccess, prevProps.deleteSuccess]);
 

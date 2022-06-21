@@ -3,4 +3,5 @@ export const selectWorkingHoursIsFetching = state =>
 export const selectWorkingHoursFetchError = state =>
     state.companyAdmin.workingHoursReducer.fetchError;
 
-export const selectWorkingHours = state => state.companyAdmin.workingHoursReducer.workingHours;
+export const selectWorkingHours = state =>
+    state.companyAdmin.workingHoursReducer.workingHours || [];
