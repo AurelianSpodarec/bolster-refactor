@@ -11,8 +11,9 @@ const PayRatesModal = () => {
     const { companyPayRates, isFetching, error } = useGetCompanyPayRates();
 
     const [expandedID, setExpandedID] = useState(null);
+
     return (
-        <ModalOuter>
+        <ModalOuter extraClasses="wide">
             <ModalHeading title="Pay Rates" hideCloseButton />
             <BlockContainer
                 isFetching={isFetching}

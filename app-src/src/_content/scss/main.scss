@@ -2263,12 +2263,14 @@ input {
 }
 
 .timepicker {
-  background-color: var(--navigation-primary);
+  background-color: var(--input-default);
   border-radius: 3px;
-  font-size: 160%;
+  font-size: 140%;
 
   .react-time-picker__wrapper {
+    flex: 1;
     border: 1px solid var(--background-stroke) !important;
+    border-radius: 2.5px;
     input {
       color: var(--typography-default);
     }
@@ -2293,6 +2295,12 @@ input {
     .react-time-picker__inputGroup__input.react-time-picker__inputGroup__amPm {
       color: var(--typography-default)e;
 
+    }
+  }
+
+  &.padded {
+    .react-time-picker__wrapper {
+      padding: 7px 2px;
     }
   }
 }
@@ -2993,7 +3001,7 @@ input {
   .date-picker, .multi-multi-dropdown {
     #date, #endDate, .selected-box {
       height: 33px;
-      border-color: #BCBCBC;
+      border-color: var(--typography-default);
     }
 
     .rdtPicker {
@@ -3153,7 +3161,7 @@ input {
   }
 }
 
-.create-pin-task-modal, .edit-pin-task-modal, .push-notification-modal {
+.create-pin-task-modal, .edit-pin-task-modal, .push-notification-modal, .pay-rate-form {
   @include reactDatePickerStyles();
 
   .pick-list {

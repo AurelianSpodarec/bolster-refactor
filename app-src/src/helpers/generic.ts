@@ -2,7 +2,11 @@ import { useEffect } from 'react';
 import moment from 'moment';
 import orderBy from 'lodash/orderBy';
 import find from 'lodash/find';
-import { DATE_TIME_DEFAULTS } from '../constants/companyAdmin/enums';
+import {
+    DATE_TIME_DEFAULTS,
+    DAYS_FLAGGED,
+    DAYS_FLAGGED_LOOKUP,
+} from '../constants/companyAdmin/enums';
 import { videoFormats } from 'constants/shared/media';
 import _ from 'lodash';
 import { RECURRENCE_DAYS_VALUES } from 'constants/shared/enums';
@@ -546,4 +550,9 @@ export const getDaysFromBitMask = (bitmask: number | null) => {
     const hasSun = bitmask & SUNDAY;
 
     return [hasMon, hasTue, hasWed, hasThu, hasFri, hasSat, hasSun].filter(val => val);
+};
+
+export const getValuesFromBitMaskArray = (bitmask: number | null) => {
+    const days = getDaysFromBitMask(bitmask);
+    return days.map(day => DAYS_FLAGGED_LOOKUP[day]);
 };
