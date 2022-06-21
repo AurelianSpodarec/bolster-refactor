@@ -39,12 +39,16 @@ export const filterByOptions = [
 
 export const sortByOptions = [
     {
-        value: 'hours',
-        label: 'Hours Worked',
-    },
-    {
         value: 'name',
         label: 'Name',
+    },
+    {
+        value: 'time',
+        label: 'Time',
+    },
+    {
+        value: 'hours',
+        label: 'Hours Worked',
     },
 ];
 
