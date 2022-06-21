@@ -17,6 +17,8 @@ const getShiftPodData = shift => {
         status,
         totalPins,
         notes,
+        lateClockIn,
+        lateClockOut,
     } = shift;
 
     const jobReferences = clockerEntries.map(({ jobReference, totalHours }) => ({
@@ -41,6 +43,8 @@ const getShiftPodData = shift => {
         groupUID,
         overrideShiftTime,
         overrideWage,
+        lateClockIn,
+        lateClockOut,
     };
 };
 
