@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { selectFilterByHasClockedIn } from 'selectors/companyAdmin/timesheets';
@@ -11,20 +11,41 @@ import ShiftPod from './ShiftPod';
 import useRejectShift from '../hooks/useRejectShift';
 import useApproveShift from '../hooks/useApproveShift';
 import useDeleteShift from '../hooks/useDeleteShift';
+import { selectCompanyUsers } from 'selectors/companyAdmin/companyUsers';
+import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 
 const BreakdownOverviewList = ({
     timesheets,
     selectedDate,
     startDate,
-    filterType,
-    filterDirection,
+    sortByType,
+    filterByType,
+    sortDirection,
 }) => {
     const selectedUserIDs = useSelector(timesheetSelectedCompanyIDs);
     const filterByHasClockedIn = useSelector(selectFilterByHasClockedIn);
-
+    const companyUsers = useSelector(selectCompanyUsers);
     const shiftsForToday = useMemo(() => {
         try {
-            return timesheets.reduce((acc, curr) => {
+            const filteredTimesheets = timesheets.filter(timesheet => {
+                const thisUser = companyUsers[timesheet.companyUserID];
+                switch (filterByType) {
+                    case 'allUsers':
+                        if (!thisUser) return false;
+                        break;
+                    case 'owner':
+                        if (!thisUser) return false;
+                        return thisUser.type === COMPANY_USER_ROLE_TYPES.OWNER;
+                    case 'admin':
+                        if (!thisUser) return false;
+                        return thisUser.type === COMPANY_USER_ROLE_TYPES.ADMIN;
+                    default:
+                        break;
+                }
+
+                return true;
+            });
+            return filteredTimesheets.reduce((acc, curr) => {
                 const thisDay = curr.days.find(day => moment(day.date).isSame(selectedDate, 'day'));
                 const todaysShifts = thisDay.shifts?.map(shift => {
                     const notes = thisDay.clockerNotes.filter(note =>
@@ -37,7 +58,7 @@ const BreakdownOverviewList = ({
         } catch (e) {
             return [];
         }
-    }, [selectedDate, timesheets]);
+    }, [selectedDate, timesheets, filterByType]);
 
     const [shiftToEdit, setShiftToEdit] = useState(null);
 
@@ -50,19 +71,19 @@ const BreakdownOverviewList = ({
     // if (filterByHasClockedIn && selectedUserIDs.length === 0) {
     //     formattedTimesheets = timesheets
     //         .filter(timesheetFilter(filterByHasClockedIn, selectedDate))
-    //         .sort(timesheetSort(filterType, filterDirection, selectedDate));
+    //         .sort(timesheetSort(sortByType, sortDirection, selectedDate));
     // }
 
     // if (!filterByHasClockedIn && selectedUserIDs.length === 0) {
     //     formattedTimesheets = timesheets.sort(
-    //         timesheetSort(filterType, filterDirection, selectedDate),
+    //         timesheetSort(sortByType, sortDirection, selectedDate),
     //     );
     // }
 
     // if (selectedUserIDs.length) {
     //     formattedTimesheets = timesheets
     //         .filter(({ companyUserID }) => selectedUserIDs.includes(companyUserID))
-    //         .sort(timesheetSort(filterType, filterDirection, selectedDate));
+    //         .sort(timesheetSort(sortByType, sortDirection, selectedDate));
     // }
 
     if (isEmpty(shiftsForToday) || !shiftsForToday?.length)
