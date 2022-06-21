@@ -1,8 +1,6 @@
 import React from 'react';
 
-import { useForm } from '../../../../../../../helpers/hooks';
-
-import { convertArrToObj, getValuesFromBitMaskArray } from '../../../../../../../helpers/generic';
+import usePayRateItemForm from './hooks/usePayRateItemForm';
 
 import { dayOptions } from '../../../../../../../constants/companyAdmin/options';
 
@@ -12,13 +10,12 @@ import TimePickerContainer from '../../../../../../shared/generic/form/container
 import PickListContainer from '../../../../../../shared/generic/form/containers/PickListContainer';
 
 const PayRateItemForm = ({ isExpanded, items }) => {
-    const [itemsForm, handleChange] = useForm(convertArrToObj(items));
+    const { itemsForm, handleChange } = usePayRateItemForm(items);
 
     return (
         <div className={`pay-rate-form ${isExpanded ? 'expanded' : ''}`}>
             {Object.values(itemsForm).map(item => {
                 const { id, name, rate, startTime, endTime, days } = item;
-                const formattedDays = getValuesFromBitMaskArray(days);
 
                 return (
                     <div key={id} className="flex-row">
@@ -65,10 +62,10 @@ const PayRateItemForm = ({ isExpanded, items }) => {
 
                         <Field name="Range">
                             <PickListContainer
-                                name="range"
-                                value={formattedDays}
+                                name="days"
+                                value={days}
                                 handleChange={(_, value) =>
-                                    handleChange(id, { ...item, range: value })
+                                    handleChange(id, { ...item, days: value })
                                 }
                                 options={dayOptions}
                                 required
