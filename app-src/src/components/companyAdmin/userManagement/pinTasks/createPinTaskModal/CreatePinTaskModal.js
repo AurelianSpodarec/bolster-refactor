@@ -11,7 +11,8 @@ import CreatePinTaskStep2 from './CreatePinTaskStep2';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import Select from 'components/shared/generic/form/presentational/Select';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import { dayOptions, recurringOptions } from 'constants/companyAdmin/pinTasks';
+import { recurringOptions } from 'constants/companyAdmin/pinTasks';
+import { dayOptions } from 'constants/companyAdmin/options';
 
 const CreatePinTaskModal = ({ initialDate, startDate }) => {
     const {
