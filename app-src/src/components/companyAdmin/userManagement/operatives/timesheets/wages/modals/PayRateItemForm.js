@@ -8,7 +8,13 @@ import TimePickerContainer from '../../../../../../shared/generic/form/container
 import PickListContainer from '../../../../../../shared/generic/form/containers/PickListContainer';
 import ActionButton from '../../../../../../shared/generic/button/presentational/ActionButton';
 
-const PayRateItemForm = ({ isExpanded, items, handleChange, handleAddNewItem }) => {
+const PayRateItemForm = ({
+    isExpanded,
+    items,
+    handleChange,
+    handleAddNewItem,
+    companyPayRateID,
+}) => {
     return (
         <div className={`pay-rate-form ${isExpanded ? 'expanded' : ''}`}>
             {items.map(item => {
@@ -20,7 +26,7 @@ const PayRateItemForm = ({ isExpanded, items, handleChange, handleAddNewItem }) 
                             <TextInputContainer
                                 name="name"
                                 handleChange={(_, value) =>
-                                    handleChange(id, { ...item, name: value })
+                                    handleChange(companyPayRateID, { ...item, name: value })
                                 }
                                 value={name}
                                 placeholder="-"
@@ -30,7 +36,7 @@ const PayRateItemForm = ({ isExpanded, items, handleChange, handleAddNewItem }) 
                             <TextInputContainer
                                 name="rate"
                                 handleChange={(_, value) =>
-                                    handleChange(id, { ...item, rate: value })
+                                    handleChange(companyPayRateID, { ...item, rate: value })
                                 }
                                 value={rate}
                                 placeholder="-"
@@ -40,7 +46,7 @@ const PayRateItemForm = ({ isExpanded, items, handleChange, handleAddNewItem }) 
                             <TimePickerContainer
                                 name="startTime"
                                 handleChange={(_, value) =>
-                                    handleChange(id, { ...item, startTime: value })
+                                    handleChange(companyPayRateID, { ...item, startTime: value })
                                 }
                                 value={startTime}
                                 clearIcon={null}
@@ -51,7 +57,7 @@ const PayRateItemForm = ({ isExpanded, items, handleChange, handleAddNewItem }) 
                             <TimePickerContainer
                                 name="endTime"
                                 handleChange={(_, value) =>
-                                    handleChange(id, { ...item, endTime: value })
+                                    handleChange(companyPayRateID, { ...item, endTime: value })
                                 }
                                 value={endTime}
                                 clearIcon={null}
@@ -64,7 +70,7 @@ const PayRateItemForm = ({ isExpanded, items, handleChange, handleAddNewItem }) 
                                 name="days"
                                 value={days}
                                 handleChange={(_, value) =>
-                                    handleChange(id, { ...item, days: value })
+                                    handleChange(companyPayRateID, { ...item, days: value })
                                 }
                                 options={dayOptions}
                                 required
@@ -73,8 +79,13 @@ const PayRateItemForm = ({ isExpanded, items, handleChange, handleAddNewItem }) 
                     </div>
                 );
             })}
+
             <div className="field-padding">
-                <ActionButton text="Add" icon="plus" onClick={handleAddNewItem} />
+                <ActionButton
+                    text="Add"
+                    icon="plus"
+                    onClick={() => handleAddNewItem(companyPayRateID)}
+                />
             </div>
         </div>
     );
