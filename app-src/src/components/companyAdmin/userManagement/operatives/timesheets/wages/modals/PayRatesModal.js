@@ -7,12 +7,19 @@ import ModalOuter from '../../../../../../shared/generic/modals/presentational/M
 import ModalHeading from '../../../../../../shared/generic/modals/presentational/ModalHeading';
 import BlockContainer from '../../../../../../shared/generic/block/containers/BlockContainer';
 import PayRateItem from './PayRateItem';
+import ActionButton from '../../../../../../shared/generic/button/presentational/ActionButton';
 
 const PayRatesModal = () => {
     const { companyPayRates, isFetching, error } = useGetCompanyPayRates();
 
     const [expandedID, setExpandedID] = useState(null);
-    const { form, handleChangePayRateName, handleItemsChange, handleAddNewItem } = usePayRateForm();
+    const {
+        form,
+        handleAddNewPayRate,
+        handleChangePayRateName,
+        handleItemsChange,
+        handleAddNewItem,
+    } = usePayRateForm();
 
     return (
         <ModalOuter extraClasses="wide">
@@ -34,6 +41,14 @@ const PayRatesModal = () => {
                         handleAddNewItem={handleAddNewItem}
                     />
                 ))}
+
+                <div className="margin-top">
+                    <ActionButton
+                        text="Create New"
+                        icon="plus"
+                        onClick={() => handleAddNewPayRate()}
+                    />
+                </div>
             </BlockContainer>
         </ModalOuter>
     );
