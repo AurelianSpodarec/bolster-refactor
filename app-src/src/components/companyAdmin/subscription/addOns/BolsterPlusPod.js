@@ -21,14 +21,14 @@ import useBolsterPlus from './hooks/useBolsterPlus';
 const BolsterPlusPod = () => {
     const dispatch = useDispatch();
     const { isBolsterPlusActivated, isSubscriptionsActivated } = useBolsterPlus();
-    const { handlesAutoRenewChange, form } = useAutoRenew();
+    const { handlesAutoRenewChange, isAutoRenewSubscription, form } = useAutoRenew();
 
     return isSubscriptionsActivated ? (
         <BlockContainer>
             <FlexWrapper extraClasses="margin-bottom-medium" justify="between">
                 <BolsterPlusHeading bolsterPlusActivated={isBolsterPlusActivated} />
 
-                {isBolsterPlusActivated && (
+                {isBolsterPlusActivated && isAutoRenewSubscription && (
                     <CheckboxContainer
                         name="renewalStatus"
                         text="Auto-Renewal"

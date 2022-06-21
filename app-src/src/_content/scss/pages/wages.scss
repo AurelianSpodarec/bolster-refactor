@@ -24,3 +24,15 @@
     }
   }
 }
+
+.pay-rate-form {
+  display: none;
+  border: 1px solid var(--background-stroke);
+  border-radius: 10px;
+  background-color: transparent;
+  padding: 10px;
+
+    &.expanded {
+        display: block;
+    }
+}

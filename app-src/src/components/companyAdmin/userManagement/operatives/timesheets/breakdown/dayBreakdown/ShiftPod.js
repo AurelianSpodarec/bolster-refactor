@@ -69,8 +69,6 @@ const ShiftPod = ({
         [SHIFT_STATUS.REJECTED]: 'rejected',
     };
 
-    console.log({ status, class: statusClassLookup[status] });
-
     return (
         <BlockContainer contentClass={`shift-pod ${statusClassLookup[status]}`}>
             <BlockHeading title={`${user.userFirstName} ${user.userLastName} (${user.userEmail})`}>

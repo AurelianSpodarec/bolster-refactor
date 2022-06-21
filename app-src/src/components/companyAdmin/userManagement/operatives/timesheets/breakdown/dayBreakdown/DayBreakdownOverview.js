@@ -29,25 +29,25 @@ const DayBreakdownOverview = ({
     const userIDs = useSelector(timesheetSelectedCompanyIDs);
 
     const {
-        formState: { filterType, filterDirection },
+        formState: { sortByType, filterByType, sortDirection },
         handleChange,
     } = useOverviewFilters();
 
-    const {
-        isFetching: statsIsFetching,
-        fetchError: statsFetchError,
-        stats,
-    } = usePinStats(
-        userIDs,
-        moment(selectedDate).format('YYYY-MM-DDTHH:mm:ss'),
-        moment(selectedDate).format('YYYY-MM-DDTHH:mm:ss'),
-    );
+    // const {
+    //     isFetching: statsIsFetching,
+    //     fetchError: statsFetchError,
+    //     stats,
+    // } = usePinStats(
+    //     userIDs,
+    //     moment(selectedDate).format('YYYY-MM-DDTHH:mm:ss'),
+    //     moment(selectedDate).format('YYYY-MM-DDTHH:mm:ss'),
+    // );
 
-    const {
-        isFetching: feedIsFetching,
-        fetchError: feedFetchError,
-        feed,
-    } = usePinFeed(userIDs, moment(selectedDate).format('YYYY-MM-DDTHH:mm:ss'), false);
+    // const {
+    //     isFetching: feedIsFetching,
+    //     fetchError: feedFetchError,
+    //     feed,
+    // } = usePinFeed(userIDs, moment(selectedDate).format('YYYY-MM-DDTHH:mm:ss'), false);
 
     return (
         <BreakdownColumns
@@ -56,8 +56,9 @@ const DayBreakdownOverview = ({
                 <>
                     {timesheets.length > 1 && (
                         <BreakdownOverviewFilters
-                            filterType={filterType}
-                            filterDirection={filterDirection}
+                            sortByType={sortByType}
+                            sortDirection={sortDirection}
+                            filterByType={filterByType}
                             handleChange={handleChange}
                         />
                     )}
@@ -65,14 +66,15 @@ const DayBreakdownOverview = ({
                         timesheets={timesheets}
                         selectedDate={selectedDate}
                         startDate={startDate}
-                        filterType={filterType}
-                        filterDirection={filterDirection}
+                        sortByType={sortByType}
+                        sortDirection={sortDirection}
+                        filterByType={filterByType}
                     />
                 </>
             }
             right={
                 <>
-                    <div className="breakdown-piechart">
+                    {/* <div className="breakdown-piechart">
                         <BlockContainer
                             isFetching={statsIsFetching}
                             error={statsFetchError}
@@ -110,7 +112,7 @@ const DayBreakdownOverview = ({
                             isFetching={feedIsFetching}
                             error={feedFetchError}
                         />
-                    </div>
+                    </div> */}
                 </>
             }
         />

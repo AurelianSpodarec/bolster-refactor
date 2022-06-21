@@ -556,12 +556,12 @@
     .option {
       padding: 4px 8px;
       color: var(--typography-default);
-      background-color: var(--input-default);
+      background-color: transparent;
       font-size: 140%;
-      border: 1px solid var(--background-stroke);
+      border: 1px solid var(--typography-default);
 
       &.selected {
-        background-color: $blue;
+        background-color: var(--primary-default);
       }
     }
   }

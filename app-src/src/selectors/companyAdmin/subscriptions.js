@@ -1,4 +1,9 @@
 export const selectSubscriptions = state => state.companyAdmin.subscriptionsReducer.subscriptions;
+export const selectCardsArr = state =>
+    Object.values(state.companyAdmin.subscriptionsReducer.cards || {});
+
+export const selectSubscriptionsIsFetching = state =>
+    state.companyAdmin.subscriptionsReducer.isFetching;
 
 export const selectSubscriptionsIsPosting = state =>
     state.companyAdmin.subscriptionsReducer.isPosting;
