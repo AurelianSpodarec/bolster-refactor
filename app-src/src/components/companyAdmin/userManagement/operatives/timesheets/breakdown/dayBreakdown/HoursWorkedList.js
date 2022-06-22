@@ -57,7 +57,7 @@ const HoursWorkedList = ({
                             value={formData.overrideWage}
                             onChange={handleChange}
                         />
-                    ) : !Number.isNaN(overrideWage) ? (
+                    ) : overrideWage !== null ? (
                         `${currencySymbol}${formatCurrency(overrideWage)}`
                     ) : (
                         `${currencySymbol}${
