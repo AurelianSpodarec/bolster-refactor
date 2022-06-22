@@ -114,11 +114,10 @@ const usePayRatesForm = () => {
 
             const removedGuids = Object.values(payRate.items).map(item => {
                 const { guid: itemGuid, ...rest } = item;
-
                 return { ...rest };
             });
 
-            return { ...rest, ...removedGuids };
+            return { ...rest, items: removedGuids };
         });
     };
 
