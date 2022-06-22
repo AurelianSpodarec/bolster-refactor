@@ -17,6 +17,7 @@ const PayRatesModal = () => {
         form,
         handleAddNewPayRate,
         handleChangePayRateName,
+        handleDeletePayRate,
         handleItemsChange,
         handleAddNewItem,
         handleDeleteItem,
@@ -38,9 +39,11 @@ const PayRatesModal = () => {
                         expandedID={expandedID}
                         setExpandedID={setExpandedID}
                         handleChangePayRateName={handleChangePayRateName}
+                        handleDeletePayRate={handleDeletePayRate}
                         handleItemsChange={handleItemsChange}
                         handleAddNewItem={handleAddNewItem}
                         handleDeleteItem={handleDeleteItem}
+                        isDeleteDisabled={Object.keys(form).length === 1}
                     />
                 ))}
 
