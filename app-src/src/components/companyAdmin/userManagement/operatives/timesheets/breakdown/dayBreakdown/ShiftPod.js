@@ -26,6 +26,7 @@ import TooltipContainer from 'components/shared/generic/tooltip/containers/Toolt
 import ApproveShiftButton from './ApproveShiftButton';
 import ApproveShiftMenuButton from './ApproveShiftMenuButton';
 import RejectShiftMenuButton from './RejectShiftMenuButton';
+import useBolsterPlus from 'components/companyAdmin/subscription/addOns/hooks/useBolsterPlus';
 
 const ShiftPod = ({
     shift,
@@ -60,6 +61,8 @@ const ShiftPod = ({
         lateClockOut,
     } = getShiftPodData(shift);
 
+    const { isBolsterPlusActivated } = useBolsterPlus();
+
     const isTimeInDateTheSameAsTimeOut =
         moment.utc(timeIn).tz(timeZone).format('L') ===
         moment.utc(timeOut).tz(timeZone).format('L');
@@ -83,23 +86,36 @@ const ShiftPod = ({
         <BlockContainer contentClass={`shift-pod ${statusClassLookup[status]}`}>
             <BlockHeading title={`${user.userFirstName} ${user.userLastName} (${user.userEmail})`}>
                 <ButtonWrapper alignment="right">
-                    {status === SHIFT_STATUS.PENDING ? (
+                    {isBolsterPlusActivated && status === SHIFT_STATUS.PENDING ? (
                         <ApproveShiftButton shiftID={shift.id} />
-                    ) : (
+                    ) : isBolsterPlusActivated && status !== SHIFT_STATUS.PENDING ? (
                         <ActionButton
                             size="small"
                             source="secondary"
                             text={SHIFT_STATUS_REVERSE[status]}
                             disabled
                         />
+                    ) : null}
+                    {!isBolsterPlusActivated ? (
+                        <ActionButton
+                            size="small"
+                            source="secondary"
+                            icon="pencil"
+                            iconOnly
+                            onClick={handleToggleEdit}
+                        />
+                    ) : (
+                        <TooltipContainer text="Edit is available for Bolster Plus users only.">
+                            <ActionButton
+                                size="small"
+                                source="secondary"
+                                icon="pencil"
+                                iconOnly
+                                onClick={handleToggleEdit}
+                                disabled={true}
+                            />
+                        </TooltipContainer>
                     )}
-                    <ActionButton
-                        size="small"
-                        source="secondary"
-                        icon="pencil"
-                        iconOnly
-                        onClick={handleToggleEdit}
-                    />
                     <ActionMenu size="small">
                         {status !== SHIFT_STATUS.APPROVED && (
                             <ApproveShiftMenuButton shiftID={shift.id} />
