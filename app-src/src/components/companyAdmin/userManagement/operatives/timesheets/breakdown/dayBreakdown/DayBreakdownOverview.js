@@ -18,6 +18,7 @@ import { isEmpty } from 'helpers/generic';
 import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import { timesheetSelectedCompanyIDs } from 'selectors/companyAdmin/timesheets';
+import ApprovedHoursBreakdown from './ApprovedHoursBreakdown';
 
 const DayBreakdownOverview = ({
     selectedDate,
@@ -113,6 +114,7 @@ const DayBreakdownOverview = ({
                             error={feedFetchError}
                         />
                     </div> */}
+                    <ApprovedHoursBreakdown />
                 </>
             }
         />
