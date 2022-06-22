@@ -3486,5 +3486,12 @@ input {
   }
 }
 
+.border-top {
+  border-top: 1px solid var(--background-stroke);
+}
+
+.padding-top {
+  padding-top: 16px;
+}
 // mobile
 @import './dashboard-mobile.scss';

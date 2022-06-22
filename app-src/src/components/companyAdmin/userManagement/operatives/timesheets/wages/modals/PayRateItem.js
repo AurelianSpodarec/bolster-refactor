@@ -20,34 +20,42 @@ const PayRateItem = ({
     const isExpanded = idToUse === expandedID;
 
     const handleExpandRate = () => {
-        // if (isExpanded) {
-        //     setExpandedID(null);
-        // } else {
-        setExpandedID(idToUse);
-        // }
+        if (isExpanded) {
+            setExpandedID(null);
+        } else {
+            setExpandedID(idToUse);
+        }
     };
 
     return (
         <>
             <div className="flex-row align-center">
-                <div
+                <button
                     className={`pay-rate-item flex-12 flex-row justify-between align-center ${
                         isExpanded ? 'expanded' : ''
                     }`}
-                    onClick={handleExpandRate}
+                    onClick={() => setExpandedID(idToUse)}
+                    disabled={isExpanded}
                 >
-                    {isExpanded ? (
-                        <TextInputContainer
-                            name={idToUse}
-                            handleChange={handleChangePayRateName}
-                            value={name}
-                        />
-                    ) : (
-                        <p className="pay-rate-item__name">{name}</p>
-                    )}
+                    <div className="flex-11 flex-12 flex-row justify-start align-center">
+                        {isExpanded ? (
+                            <TextInputContainer
+                                name={idToUse}
+                                handleChange={handleChangePayRateName}
+                                value={name}
+                            />
+                        ) : (
+                            <p className="pay-rate-item__name">{name}</p>
+                        )}
+                    </div>
 
-                    <i className="fa fa-chevron-right" />
-                </div>
+                    <div
+                        className="flex-1 flex-row align-center justify-end"
+                        onClick={handleExpandRate}
+                    >
+                        <i className="fa fa-chevron-right" />
+                    </div>
+                </button>
 
                 <button
                     className="flex-column justify-center align-center delete-icon rate"
