@@ -78,12 +78,13 @@ const PayRateItemForm = ({
                             />
                         </Field>
 
-                        <div
-                            className="flex flex-column justify-center"
+                        <button
+                            className="flex flex-column justify-center delete-icon"
                             onClick={() => handleDeleteItem(companyPayRateID, idToUse)}
+                            disabled={items.length === 1}
                         >
-                            <i className="far fa-trash-alt delete-icon" />
-                        </div>
+                            <i className="far fa-trash-alt" />
+                        </button>
                     </div>
                 );
             })}

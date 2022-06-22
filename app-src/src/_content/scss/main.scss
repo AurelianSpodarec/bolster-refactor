@@ -3469,8 +3469,17 @@ input {
 }
 
 .delete-icon {
+  background-color: transparent;
   color: var(--negative-default);
   font-size: 180%;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:disabled {
+    opacity: 0.7;
+  }
 }
 
 // mobile
