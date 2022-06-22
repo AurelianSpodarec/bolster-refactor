@@ -2,9 +2,9 @@
     - Be able to edit each pay rate name - Done
     - Be able to edit each pay rate item - done
     - Add a new pay rate item - Done
-    - Be able to delete each pay rate item
     - Not loose any information from each pay rate and their items when changing between payrates - Done
-    - Be able to add a new pay rate
+    - Be able to add a new pay rate - Done
+    - Be able to delete each pay rate item
     - Be able to delete each pay rate
     - Be able to save the changes to all pay rates in one request
 
@@ -43,7 +43,6 @@ const usePayRatesForm = () => {
 
     const [form, handleChange] = useForm(initialForm);
 
-    console.log(form);
     const handleAddNewPayRate = () => {
         const guid = uuidv1();
         const itemGuid = uuidv1();
@@ -52,7 +51,7 @@ const usePayRatesForm = () => {
             guid,
             name: 'New rate',
             items: {
-                itemGuid: {
+                [itemGuid]: {
                     guid: itemGuid,
                     name: '',
                     rate: '',
@@ -66,6 +65,8 @@ const usePayRatesForm = () => {
         handleChange(guid, newPayRate);
     };
 
+    console.log(form);
+
     const handleChangePayRateName = (id, value) => {
         handleChange(id, { ...form[id], name: value });
     };
@@ -73,20 +74,20 @@ const usePayRatesForm = () => {
     const handleItemsChange = (id, value) => {
         const { id: itemID, guid } = value;
 
-        if (itemID) {
-            return handleChange(id, {
-                ...form[id],
-                items: {
-                    ...form[id].items,
-                    [itemID]: value,
-                },
-            });
-        } else if (guid) {
+        if (guid) {
             return handleChange(id, {
                 ...form[id],
                 items: {
                     ...form[id].items,
                     [guid]: value,
+                },
+            });
+        } else if (itemID) {
+            return handleChange(id, {
+                ...form[id],
+                items: {
+                    ...form[id].items,
+                    [itemID]: value,
                 },
             });
         }
