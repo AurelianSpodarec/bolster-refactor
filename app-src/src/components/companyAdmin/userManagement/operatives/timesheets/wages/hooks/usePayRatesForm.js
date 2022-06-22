@@ -1,18 +1,3 @@
-/* This hook needs to do the following
-    - Be able to edit each pay rate name - Done
-    - Be able to edit each pay rate item - done
-    - Add a new pay rate item - Done
-    - Not loose any information from each pay rate and their items when changing between payrates - Done
-    - Be able to add a new pay rate - Done
-    - Be able to delete each pay rate item
-    - Be able to delete each pay rate
-    - Be able to save the changes to all pay rates in one request
-
-    Notes for submitting the form:
-    - Remove the guid field of any newly created items
-    - Reformat items days array to bitmask
-    - Reformat items back to an array
-*/
 import { useSelector } from 'react-redux';
 import { useForm } from 'helpers/hooks';
 import { useMemo } from 'react';
@@ -70,11 +55,9 @@ const usePayRatesForm = () => {
     };
 
     const handleDeletePayRate = id => {
-        const newForm = { ...form };
+        const { [id]: deletedRate, ...rest } = form;
 
-        delete newForm[id];
-
-        setFormData(newForm);
+        setFormData(rest);
     };
 
     const handleItemsChange = (id, value) => {
@@ -113,16 +96,33 @@ const usePayRatesForm = () => {
     };
 
     const handleDeleteItem = (id, itemID) => {
-        const itemsObj = { ...form[id].items };
-
-        delete itemsObj[itemID];
+        const { [itemID]: deletedItem, ...rest } = form[id].items;
 
         handleChange(id, {
             ...form[id],
             items: {
-                ...itemsObj,
+                ...rest,
             },
         });
+    };
+
+    const processPostBody = () => {
+        const formArray = Object.values(form);
+
+        return formArray.map(payRate => {
+            const { guid: rateGuid, ...rest } = payRate;
+
+            const removedGuids = Object.values(payRate.items).map(item => {
+                const { guid: itemGuid, ...rest } = item;
+                return { ...rest };
+            });
+
+            return { ...rest, items: removedGuids };
+        });
+    };
+
+    const handleSave = () => {
+        console.log(processPostBody());
     };
 
     return {
@@ -133,6 +133,7 @@ const usePayRatesForm = () => {
         handleItemsChange,
         handleAddNewItem,
         handleDeleteItem,
+        handleSave,
     };
 };
 

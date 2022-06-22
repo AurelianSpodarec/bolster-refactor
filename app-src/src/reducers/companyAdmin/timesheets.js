@@ -21,6 +21,9 @@ import {
     DELETE_SHIFT_REQUEST,
     DELETE_SHIFT_FAILURE,
     DELETE_SHIFT_SUCCESS,
+    PATCH_CLOCKER_ENTRY_REQUEST,
+    PATCH_CLOCKER_ENTRY_SUCCESS,
+    PATCH_CLOCKER_ENTRY_FAILURE,
 } from 'constants/actionTypes/timesheets';
 
 export default combineReducers({
@@ -69,6 +72,7 @@ function isPostingReducer(state = false, action) {
         case POST_OVERRIDE_SHIFT_REQUEST:
         case POST_REJECT_SHIFT_REQUEST:
         case POST_APPROVE_SHIFT_REQUEST:
+        case PATCH_CLOCKER_ENTRY_REQUEST:
             return true;
         case POST_OVERRIDE_SHIFT_SUCCESS:
         case POST_OVERRIDE_SHIFT_FAILURE:
@@ -76,6 +80,8 @@ function isPostingReducer(state = false, action) {
         case POST_REJECT_SHIFT_FAILURE:
         case POST_APPROVE_SHIFT_SUCCESS:
         case POST_APPROVE_SHIFT_FAILURE:
+        case PATCH_CLOCKER_ENTRY_SUCCESS:
+        case PATCH_CLOCKER_ENTRY_FAILURE:
             return false;
         default:
             return state;
@@ -90,10 +96,12 @@ function postErrorReducer(state = null, action) {
         case POST_REJECT_SHIFT_SUCCESS:
         case POST_APPROVE_SHIFT_REQUEST:
         case POST_APPROVE_SHIFT_SUCCESS:
+        case PATCH_CLOCKER_ENTRY_REQUEST:
             return null;
         case POST_OVERRIDE_SHIFT_FAILURE:
         case POST_REJECT_SHIFT_FAILURE:
         case POST_APPROVE_SHIFT_FAILURE:
+        case PATCH_CLOCKER_ENTRY_FAILURE:
             return action.error;
         default:
             return state;
@@ -108,10 +116,12 @@ function postSuccessReducer(state = false, action) {
         case POST_REJECT_SHIFT_FAILURE:
         case POST_APPROVE_SHIFT_REQUEST:
         case POST_APPROVE_SHIFT_FAILURE:
+        case PATCH_CLOCKER_ENTRY_REQUEST:
             return false;
         case POST_OVERRIDE_SHIFT_SUCCESS:
         case POST_REJECT_SHIFT_SUCCESS:
         case POST_APPROVE_SHIFT_SUCCESS:
+        case PATCH_CLOCKER_ENTRY_SUCCESS:
             return true;
         default:
             return state;
