@@ -15,9 +15,25 @@ const PayRateItemForm = ({
     companyPayRateID,
     handleAddNewItem,
     handleDeleteItem,
+    baseRate,
 }) => {
     return (
         <div className={`pay-rate-form ${isExpanded ? 'expanded' : ''}`}>
+            <div className="flex-row">
+                <Field name="Name">
+                    <TextInputContainer name="baseRate" value="Base Rate" disabled />
+                </Field>
+                <Field name="Hourly Rate">
+                    <TextInputContainer
+                        name="rate"
+                        handleChange={(_, value) =>
+                            handleChange(companyPayRateID, { baseRate: value })
+                        }
+                        value={baseRate}
+                        placeholder="-"
+                    />
+                </Field>
+            </div>
             {items.map(item => {
                 const { id, guid, name, rate, startTime, endTime, days } = item;
                 const idToUse = guid || id;
@@ -43,7 +59,7 @@ const PayRateItemForm = ({
                                 placeholder="-"
                             />
                         </Field>
-                        <Field name="Start" sizeClasses="size-lg-10">
+                        <Field name="Start">
                             <TimePickerContainer
                                 name="startTime"
                                 handleChange={(_, value) =>
@@ -54,7 +70,7 @@ const PayRateItemForm = ({
                                 extraClasses="padded"
                             />
                         </Field>
-                        <Field name="End" sizeClasses="size-lg-10">
+                        <Field name="End">
                             <TimePickerContainer
                                 name="endTime"
                                 handleChange={(_, value) =>
