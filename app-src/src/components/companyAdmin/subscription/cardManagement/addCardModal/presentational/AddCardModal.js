@@ -6,12 +6,12 @@ import { STRIPE_PUBLIC_KEY } from 'config';
 import AddCardForm from 'components/stripe/AddCardForm';
 import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
 
-const AddCardModal = ({ hideModal }) => {
+const AddCardModal = ({ hideModal, close }) => {
     return (
         <FlexModalOuter title="Add card">
             <StripeProvider apiKey={STRIPE_PUBLIC_KEY}>
                 <Elements>
-                    <AddCardForm close={hideModal} />
+                    <AddCardForm close={close ? close : hideModal} />
                 </Elements>
             </StripeProvider>
         </FlexModalOuter>
