@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
@@ -38,7 +38,6 @@ const AddBolsterPlusModal = ({ hideModal, handleClose }) => {
 
     const {
         handleChange,
-        handleSubmit,
         form,
         cards,
         handleAddCardSuccess,
@@ -111,14 +110,11 @@ const AddBolsterPlusModal = ({ hideModal, handleClose }) => {
 
                 <PaymentMethod
                     handleChange={handleChange}
-                    handleSubmit={handleSubmit}
                     cards={cards}
                     paymentType={form.paymentType}
                     selectedCard={form.stripeCardID}
                     noCards={!cards.length}
                     showAddCard={showAddCard}
-                    hideAddCard={hideAddCard}
-                    addCardVisible={addCardVisible}
                 />
 
                 <ButtonWrapper alignment="right" extraClasses="flex-modal-footer">

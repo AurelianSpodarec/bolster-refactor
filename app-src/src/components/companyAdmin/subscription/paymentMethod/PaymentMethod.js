@@ -9,7 +9,6 @@ import Select from 'components/shared/generic/form/presentational/Select';
 
 const PaymentMethod = ({
     handleChange,
-    handleSubmit,
     paymentType,
     cards,
     selectedCard,
@@ -17,7 +16,7 @@ const PaymentMethod = ({
     showAddCard,
 }) => {
     return (
-        <Form className="generic-form flex-content-wrapper no-min-heights" onSubmit={handleSubmit}>
+        <Form className="generic-form flex-content-wrapper no-min-heights">
             <div className="flex-content">
                 <Field name="Payment Method" sizeClasses="size-lg-12" required>
                     <Field sizeClasses="size-lg-6">

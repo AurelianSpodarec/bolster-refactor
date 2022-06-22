@@ -33,21 +33,6 @@ const usePaymentMethod = () => {
         value: card.id,
     }));
 
-    const handleSubmit = e => {
-        e.preventDefault();
-
-        const { paymentType, stripeCardID, idempotencyKey } = form;
-
-        // if (isPosting) return;
-        const postBody = {
-            paymentType,
-            stripeCardID: +paymentType === PAYMENT_IDS.CARD ? stripeCardID : null,
-            idempotencyKey,
-        };
-
-        // action(postBody);
-    };
-
     const handleAddCardSuccess = card => {
         handleChange('stripleCardID', card.id);
         setCardVisible(false);
@@ -87,7 +72,6 @@ const usePaymentMethod = () => {
             showModal(PAYMENT_ERROR, {
                 message:
                     'There was an error while purchasing Bolster Plus upgrade. Please try again.',
-                resubmit: this.handleSubmit,
             });
         }
     }, [isFetching, postSuccess, postError, prevProps]);
@@ -95,7 +79,6 @@ const usePaymentMethod = () => {
     return {
         form,
         handleChange,
-        handleSubmit,
         cards: cardOptions,
         showAddCard,
         hideAddCard,

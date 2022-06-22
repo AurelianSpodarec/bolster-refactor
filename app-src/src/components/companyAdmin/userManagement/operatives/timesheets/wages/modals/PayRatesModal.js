@@ -1,18 +1,26 @@
 import React, { useState } from 'react';
 
 import useGetCompanyPayRates from '../hooks/useGetCompanyPayRates';
-import usePayRateForm from '../hooks/usePayRateForm';
+import usePayRatesForm from '../hooks/usePayRatesForm';
 
 import ModalOuter from '../../../../../../shared/generic/modals/presentational/ModalOuter';
 import ModalHeading from '../../../../../../shared/generic/modals/presentational/ModalHeading';
 import BlockContainer from '../../../../../../shared/generic/block/containers/BlockContainer';
 import PayRateItem from './PayRateItem';
+import ActionButton from '../../../../../../shared/generic/button/presentational/ActionButton';
 
 const PayRatesModal = () => {
     const { companyPayRates, isFetching, error } = useGetCompanyPayRates();
 
     const [expandedID, setExpandedID] = useState(null);
-    const { form, handleChangePayRateName, handleItemsChange, handleAddNewItem } = usePayRateForm();
+    const {
+        form,
+        handleAddNewPayRate,
+        handleChangePayRateName,
+        handleItemsChange,
+        handleAddNewItem,
+        handleDeleteItem,
+    } = usePayRatesForm();
 
     return (
         <ModalOuter extraClasses="wide">
@@ -32,8 +40,17 @@ const PayRatesModal = () => {
                         handleChangePayRateName={handleChangePayRateName}
                         handleItemsChange={handleItemsChange}
                         handleAddNewItem={handleAddNewItem}
+                        handleDeleteItem={handleDeleteItem}
                     />
                 ))}
+
+                <div className="margin-top">
+                    <ActionButton
+                        text="Create New"
+                        icon="plus"
+                        onClick={() => handleAddNewPayRate()}
+                    />
+                </div>
             </BlockContainer>
         </ModalOuter>
     );

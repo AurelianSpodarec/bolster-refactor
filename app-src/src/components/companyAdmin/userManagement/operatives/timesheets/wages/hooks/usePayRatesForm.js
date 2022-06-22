@@ -1,17 +1,17 @@
 /* This hook needs to do the following
-    1. Be able to edit each pay rate name - Done
-    3. Be able to edit each pay rate item
-    5. Be able to delete each pay rate item
-    4. Add a new pay rate item
-    6. Not loose any information from each pay rate and their items when changing between payrates
-    2. Be able to add a new pay rate
-    7. Be able to delete each pay rate
-    8. Be able to save the changes to all pay rates in one request
+    - Be able to edit each pay rate name - Done
+    - Be able to edit each pay rate item - done
+    - Add a new pay rate item - Done
+    - Not loose any information from each pay rate and their items when changing between payrates - Done
+    - Be able to add a new pay rate - Done
+    - Be able to delete each pay rate item
+    - Be able to delete each pay rate
+    - Be able to save the changes to all pay rates in one request
 
     Notes for submitting the form:
-    1. Remove the guid field of any newly created items
-    2. Reformat items days array to bitmask
-    3. Reformat items back to an array
+    - Remove the guid field of any newly created items
+    - Reformat items days array to bitmask
+    - Reformat items back to an array
 */
 import { useSelector } from 'react-redux';
 import { useForm } from 'helpers/hooks';
@@ -21,7 +21,7 @@ import { selectPayRates } from 'selectors/companyAdmin/payRates';
 import { convertArrToObj, getValuesFromBitMaskArray } from 'helpers/generic';
 import { v1 as uuidv1 } from 'uuid';
 
-const usePayRateForm = () => {
+const usePayRatesForm = () => {
     const payRates = useSelector(selectPayRates);
 
     const initialForm = useMemo(() => {
@@ -42,7 +42,29 @@ const usePayRateForm = () => {
     }, [payRates]);
 
     const [form, handleChange] = useForm(initialForm);
-    console.log(form);
+
+    const handleAddNewPayRate = () => {
+        const guid = uuidv1();
+        const itemGuid = uuidv1();
+
+        const newPayRate = {
+            guid,
+            name: 'New rate',
+            items: {
+                [itemGuid]: {
+                    guid: itemGuid,
+                    name: '',
+                    rate: '',
+                    startTime: '08:00',
+                    endTime: '17:00',
+                    days: [],
+                },
+            },
+        };
+
+        handleChange(guid, newPayRate);
+    };
+
     const handleChangePayRateName = (id, value) => {
         handleChange(id, { ...form[id], name: value });
     };
@@ -50,20 +72,20 @@ const usePayRateForm = () => {
     const handleItemsChange = (id, value) => {
         const { id: itemID, guid } = value;
 
-        if (itemID) {
-            return handleChange(id, {
-                ...form[id],
-                items: {
-                    ...form[id].items,
-                    [itemID]: value,
-                },
-            });
-        } else if (guid) {
+        if (guid) {
             return handleChange(id, {
                 ...form[id],
                 items: {
                     ...form[id].items,
                     [guid]: value,
+                },
+            });
+        } else if (itemID) {
+            return handleChange(id, {
+                ...form[id],
+                items: {
+                    ...form[id].items,
+                    [itemID]: value,
                 },
             });
         }
@@ -82,7 +104,26 @@ const usePayRateForm = () => {
         });
     };
 
-    return { form, handleChangePayRateName, handleItemsChange, handleAddNewItem };
+    const handleDeleteItem = (id, itemID) => {
+        const itemsObj = { ...form[id].items };
+        delete itemsObj[itemID];
+
+        handleChange(id, {
+            ...form[id],
+            items: {
+                ...itemsObj,
+            },
+        });
+    };
+
+    return {
+        form,
+        handleAddNewPayRate,
+        handleChangePayRateName,
+        handleItemsChange,
+        handleAddNewItem,
+        handleDeleteItem,
+    };
 };
 
-export default usePayRateForm;
+export default usePayRatesForm;
