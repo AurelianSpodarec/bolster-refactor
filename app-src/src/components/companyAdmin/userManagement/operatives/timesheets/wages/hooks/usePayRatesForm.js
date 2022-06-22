@@ -55,11 +55,9 @@ const usePayRatesForm = () => {
     };
 
     const handleDeletePayRate = id => {
-        const newForm = { ...form };
+        const { [id]: deletedRate, ...rest } = form;
 
-        delete newForm[id];
-
-        setFormData(newForm);
+        setFormData(rest);
     };
 
     const handleItemsChange = (id, value) => {
@@ -98,42 +96,29 @@ const usePayRatesForm = () => {
     };
 
     const handleDeleteItem = (id, itemID) => {
-        const itemsObj = { ...form[id].items };
-
-        delete itemsObj[itemID];
+        const { [itemID]: deletedItem, ...rest } = form[id].items;
 
         handleChange(id, {
             ...form[id],
             items: {
-                ...itemsObj,
+                ...rest,
             },
         });
     };
 
-    /* This hook needs to do the following
-        Notes for submitting the form:
-        - Remove the guid field of any newly created items
-        - Reformat items days array to bitmask
-        - Reformat items back to an array
-    */
-
     const processPostBody = () => {
         const formArray = Object.values(form);
 
-        for (let i = 0; i < formArray.length; i++) {
-            formArray[i].items = Object.values(formArray[i].items);
-            formArray[i].items.forEach(item => {
-                if (item.guid) {
-                    delete item.guid;
-                }
+        return formArray.map(payRate => {
+            const { guid: rateGuid, ...rest } = payRate;
+
+            const removedGuids = Object.values(payRate.items).map(item => {
+                const { guid: itemGuid, ...rest } = item;
+                return { ...rest };
             });
 
-            if (formArray[i].guid) {
-                delete formArray[i].guid;
-            }
-        }
-
-        return formArray;
+            return { ...rest, items: removedGuids };
+        });
     };
 
     const handleSave = () => {
