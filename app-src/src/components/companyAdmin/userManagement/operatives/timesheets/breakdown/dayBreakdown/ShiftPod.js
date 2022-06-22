@@ -96,7 +96,7 @@ const ShiftPod = ({
                             disabled
                         />
                     ) : null}
-                    {!isBolsterPlusActivated ? (
+                    {isBolsterPlusActivated ? (
                         <ActionButton
                             size="small"
                             source="secondary"
