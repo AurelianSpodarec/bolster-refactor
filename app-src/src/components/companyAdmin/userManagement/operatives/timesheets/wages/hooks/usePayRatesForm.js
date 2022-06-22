@@ -21,7 +21,7 @@ import { selectPayRates } from 'selectors/companyAdmin/payRates';
 import { convertArrToObj, getValuesFromBitMaskArray } from 'helpers/generic';
 import { v1 as uuidv1 } from 'uuid';
 
-const usePayRateForm = () => {
+const usePayRatesForm = () => {
     const payRates = useSelector(selectPayRates);
 
     const initialForm = useMemo(() => {
@@ -113,4 +113,4 @@ const usePayRateForm = () => {
     };
 };
 
-export default usePayRateForm;
+export default usePayRatesForm;

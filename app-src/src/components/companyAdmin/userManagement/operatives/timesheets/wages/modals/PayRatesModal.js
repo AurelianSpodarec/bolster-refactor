@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import useGetCompanyPayRates from '../hooks/useGetCompanyPayRates';
-import usePayRateForm from '../hooks/usePayRateForm';
+import usePayRatesForm from '../hooks/usePayRatesForm';
 
 import ModalOuter from '../../../../../../shared/generic/modals/presentational/ModalOuter';
 import ModalHeading from '../../../../../../shared/generic/modals/presentational/ModalHeading';
@@ -19,7 +19,7 @@ const PayRatesModal = () => {
         handleChangePayRateName,
         handleItemsChange,
         handleAddNewItem,
-    } = usePayRateForm();
+    } = usePayRatesForm();
 
     return (
         <ModalOuter extraClasses="wide">
