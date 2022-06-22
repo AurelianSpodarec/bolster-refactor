@@ -4273,7 +4273,7 @@ $back-to-top-height: 35px;
         }
       }
     }
-    
+
     .divider {
       background-color: var(--background-stroke);
       min-height: 1px;
@@ -4285,6 +4285,10 @@ $back-to-top-height: 35px;
       display: flex;
       flex-direction: column;
       align-items: stretch;
+
+      &.sticky {
+        position: sticky;
+      }
 
        p {
         display: block;
