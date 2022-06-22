@@ -21,6 +21,7 @@ const PayRatesModal = () => {
         handleItemsChange,
         handleAddNewItem,
         handleDeleteItem,
+        handleSave,
     } = usePayRatesForm();
 
     return (
@@ -52,10 +53,16 @@ const PayRatesModal = () => {
                 })}
 
                 <div className="margin-top">
+                    <ActionButton text="Create New" icon="plus" onClick={handleAddNewPayRate} />
+                </div>
+
+                <div className="margin-top padding-top border-top flex flex-row justify-end">
                     <ActionButton
-                        text="Create New"
-                        icon="plus"
-                        onClick={() => handleAddNewPayRate()}
+                        text="Save"
+                        icon="save"
+                        ambient="positive"
+                        onClick={handleSave}
+                        size="large"
                     />
                 </div>
             </BlockContainer>

@@ -163,6 +163,9 @@ export function convertEnumToDropdownOptions(obj) {
 }
 
 // for the NewSelect component
+export const optionsFormat = obj =>
+    Object.values(obj).map(({ id, name }) => ({ value: id, label: name }));
+
 export const enumFormat = (obj, labelKey = 'label') =>
     Object.entries(obj).map(([value, label]) => ({
         value: +value ?? value,

@@ -22,6 +22,7 @@ import ActionMenu from 'components/shared/actionMenu/ActionMenu';
 import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
 import WarningIcon from '../../../../../../../_content/images/icons/Triangle_Warning.svg';
 import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
+import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 
 const ShiftPod = ({
     shift,
@@ -128,14 +129,18 @@ const ShiftPod = ({
                 <BlockContainer contentClass="inner-pod">
                     <FlexWrapper>
                         <BlockHeading title="Time In" />
-                        {lateClockIn && <img alt="Warning Icon" src={WarningIcon} />}
+                        <TooltipContainer side="right" text="Operative started shift late.">
+                            {lateClockIn && <img alt="Warning Icon" src={WarningIcon} />}
+                        </TooltipContainer>
                     </FlexWrapper>
                     <p>{moment.utc(timeIn).tz(timeZone).format('HH:mm:ss')}</p>
                 </BlockContainer>
                 <BlockContainer contentClass="inner-pod">
                     <FlexWrapper>
                         <BlockHeading title="Time Out" />
-                        {lateClockOut && <img alt="Warning Icon" src={WarningIcon} />}
+                        <TooltipContainer side="right" text="Operative finished shift late.">
+                            {lateClockOut && <img alt="Warning Icon" src={WarningIcon} />}
+                        </TooltipContainer>
                     </FlexWrapper>
                     <p>
                         {isTimeInDateTheSameAsTimeOut
