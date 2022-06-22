@@ -21,8 +21,10 @@ const getShiftPodData = shift => {
         lateClockOut,
     } = shift;
 
-    const jobReferences = clockerEntries.map(({ jobReference, totalHours }) => ({
+    const jobReferences = clockerEntries.map(({ uid, jobReference, type, totalHours }) => ({
+        uid,
         jobRef: jobReference,
+        type,
         hoursWorked: totalHours,
         wageSplit: 0,
     }));

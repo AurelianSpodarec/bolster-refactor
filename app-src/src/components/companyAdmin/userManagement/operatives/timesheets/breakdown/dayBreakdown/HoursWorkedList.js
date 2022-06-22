@@ -4,6 +4,9 @@ import { formatCurrency } from 'helpers/generic';
 import moment from 'moment';
 import TimePickerContainer from 'components/shared/generic/form/containers/TimePickerContainer';
 import CurrencyInput from 'components/shared/generic/form/presentational/CurrencyInput';
+import { CLOCKER_ENTRY_TYPE } from 'constants/companyAdmin/enums';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 
 const HoursWorkedList = ({
     jobReferences = [],
@@ -17,10 +20,20 @@ const HoursWorkedList = ({
     isEditing,
 }) => (
     <>
-        {jobReferences.map(({ jobRef, hoursWorked, wageSplit }, i) => {
+        {jobReferences.map(({ uid, jobRef, type, hoursWorked, wageSplit }, i) => {
+            const isWorking = type === CLOCKER_ENTRY_TYPE.WORKING;
+
             return (
                 <tr key={i}>
-                    <td>{jobRef || '-'}</td>
+                    <td>
+                        <FlexWrapper align="center">
+                            <span style={{ marginRight: isWorking ? 5 : 0 }}>{jobRef || '-'} </span>
+
+                            {isWorking && (
+                                <ActionButton icon="pencil" iconOnly source="secondary" />
+                            )}
+                        </FlexWrapper>
+                    </td>
                     <td>{moment(hoursWorked).format('H:mm')}</td>
                     <td>
                         {currencySymbol}
