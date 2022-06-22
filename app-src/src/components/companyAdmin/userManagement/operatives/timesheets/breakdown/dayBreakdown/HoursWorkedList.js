@@ -1,17 +1,9 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import moment from 'moment';
-
-import { AMMEND_JOB_REFERENCE_MODAL } from 'constants/shared/modalTypes';
-import { CLOCKER_ENTRY_TYPE } from 'constants/companyAdmin/enums';
 import { formatCurrency } from 'helpers/generic';
-
-import showModal from 'actions/shared/generic/modals/sync/showModal';
 
 import TimePickerContainer from 'components/shared/generic/form/containers/TimePickerContainer';
 import CurrencyInput from 'components/shared/generic/form/presentational/CurrencyInput';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 
 const HoursWorkedList = ({
     jobReferences = [],
@@ -24,48 +16,20 @@ const HoursWorkedList = ({
     handleChange,
     isEditing,
 }) => {
-    const dispatch = useDispatch();
-
     return (
         <>
-            {jobReferences.map(
-                ({ clockerUID, jobRef, jobRefID, type, hoursWorked, wageSplit }, i) => {
-                    const isWorking = type === CLOCKER_ENTRY_TYPE.WORKING;
-
-                    return (
-                        <tr key={i}>
-                            <td>
-                                <FlexWrapper align="center">
-                                    <span style={{ marginRight: isWorking ? 5 : 0 }}>
-                                        {jobRef || '-'}{' '}
-                                    </span>
-
-                                    {isWorking && (
-                                        <ActionButton
-                                            icon="pencil"
-                                            iconOnly
-                                            source="secondary"
-                                            onClick={() =>
-                                                dispatch(
-                                                    showModal(AMMEND_JOB_REFERENCE_MODAL, {
-                                                        clockerUID,
-                                                        jobRefID,
-                                                    }),
-                                                )
-                                            }
-                                        />
-                                    )}
-                                </FlexWrapper>
-                            </td>
-                            <td>{moment(hoursWorked).format('H:mm')}</td>
-                            <td>
-                                {currencySymbol}
-                                {wageSplit ? formatCurrency(wageSplit) : '0.00'}
-                            </td>
-                        </tr>
-                    );
-                },
-            )}
+            {jobReferences.map(({ jobRef, jobRefID, hoursWorked, wageSplit }, i) => {
+                return (
+                    <tr key={`${i}-${jobRefID}`}>
+                        <td>{jobRef || '-'} </td>
+                        <td>{moment(hoursWorked).format('H:mm')}</td>
+                        <td>
+                            {currencySymbol}
+                            {wageSplit ? formatCurrency(wageSplit) : '0.00'}
+                        </td>
+                    </tr>
+                );
+            })}
             <tr className="total-row">
                 <td>Total</td>
                 <td>

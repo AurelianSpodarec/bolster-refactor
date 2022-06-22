@@ -6,6 +6,7 @@ const getShiftPodData = shift => {
         formattedBreakHours,
         formattedClockedInHours,
         formattedHours,
+        hoursBreakdown, // jobReferenceBreakdowns, totalHours, totalOperatives, totalWageSplit
         groupUID,
         id,
         lastClockedOutTime,
@@ -21,14 +22,12 @@ const getShiftPodData = shift => {
         lateClockOut,
     } = shift;
 
-    const jobReferences = clockerEntries.map(
-        ({ uid, jobReference, jobReferenceID, type, totalHours }) => ({
-            clockerUID: uid,
+    const jobReferences = hoursBreakdown.jobReferenceBreakdowns.map(
+        ({ jobReferenceName, jobReferenceID, totalHours, totalWageSplit }) => ({
             jobRefID: jobReferenceID,
-            jobRef: jobReference,
-            type,
+            jobRef: jobReferenceName,
             hoursWorked: totalHours,
-            wageSplit: 0,
+            wageSplit: totalWageSplit,
         }),
     );
 
@@ -38,8 +37,8 @@ const getShiftPodData = shift => {
         breakTime: formattedBreakHours,
         noOfHistories: 0,
         jobReferences, // { jobRef, hoursWorked, wageSplit }
-        jobReferencesTotalHours: formattedClockedInHours,
-        jobReferencesTotalCost: 0,
+        jobReferencesTotalHours: hoursBreakdown.totalHours,
+        jobReferencesTotalCost: hoursBreakdown.totalWageSplit,
         expenses: [], // { name, cost }
         expensesTotal: 0,
         shiftTotal: 0,

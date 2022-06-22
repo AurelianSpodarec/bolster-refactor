@@ -17,37 +17,39 @@ const ApprovedHoursBreakdown = ({
     const currencySymbol = CURRENCY_SYMBOLS[currency];
 
     const jobReferences = useMemo(() => {
-        const approvedShifts = shiftsForToday.filter(
-            shift => shift.status === SHIFT_STATUS.APPROVED,
-        );
-        const approvedClockerEntries = approvedShifts.reduce((acc, curr) => {
-            if (curr.status !== SHIFT_STATUS.APPROVED) return acc;
-            return acc.concat(curr.clockerEntries);
-        }, []);
-        const jobRefTally = approvedClockerEntries.reduce((tally, entry) => {
-            const { jobReferenceID, jobReference, totalHours, companyUserID } = entry;
+        // const approvedShifts = shiftsForToday.filter(
+        //     shift => shift.status === SHIFT_STATUS.APPROVED,
+        // );
+        // const approvedClockerEntries = approvedShifts.reduce((acc, curr) => {
+        //     if (curr.status !== SHIFT_STATUS.APPROVED) return acc;
+        //     return acc.concat(curr.clockerEntries);
+        // }, []);
+        // const jobRefTally = approvedClockerEntries.reduce((tally, entry) => {
+        //     const { jobReferenceID, jobReference, totalHours, companyUserID } = entry;
 
-            let idToUse = jobReferenceID;
-            let nameToUse = jobReference;
-            if (!jobReferenceID) idToUse = 'noRef';
-            if (!jobReference) nameToUse = 'N/A';
+        //     let idToUse = jobReferenceID;
+        //     let nameToUse = jobReference;
+        //     if (!jobReferenceID) idToUse = 'noRef';
+        //     if (!jobReference) nameToUse = 'N/A';
 
-            if (tally[idToUse]) {
-                tally[idToUse].totalHours += totalHours;
+        //     if (tally[idToUse]) {
+        //         tally[idToUse].totalHours += totalHours;
 
-                if (!tally[idToUse].companyUserIDs.some(id => id === companyUserID))
-                    tally[idToUse].companyUserIDs.push(companyUserID);
-            } else {
-                tally[idToUse] = {
-                    jobReferenceID,
-                    jobReference: nameToUse,
-                    totalHours,
-                    companyUserIDs: [companyUserID],
-                };
-            }
-            return tally;
-        }, {});
-        return Object.values(jobRefTally);
+        //         if (!tally[idToUse].companyUserIDs.some(id => id === companyUserID))
+        //             tally[idToUse].companyUserIDs.push(companyUserID);
+        //     } else {
+        //         tally[idToUse] = {
+        //             jobReferenceID,
+        //             jobReference: nameToUse,
+        //             totalHours,
+        //             companyUserIDs: [companyUserID],
+        //         };
+        //     }
+        //     return tally;
+        // }, {});
+        // return Object.values(jobRefTally);
+
+        return [];
     }, [shiftsForToday]);
 
     const totalRow = jobReferences.reduce(
