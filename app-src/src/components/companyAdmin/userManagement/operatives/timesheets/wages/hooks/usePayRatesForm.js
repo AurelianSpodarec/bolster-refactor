@@ -12,6 +12,7 @@ import { convertArrToObj, getValuesFromBitMaskArray } from 'helpers/generic';
 import { v1 as uuidv1 } from 'uuid';
 
 import postCompanyPayRates from '../../../../../../../actions/companyAdmin/payRates/postCompanyPayRates';
+import { DAYS_FLAGGED } from '../../../../../../../constants/companyAdmin/enums';
 
 const usePayRatesForm = () => {
     const dispatch = useDispatch();
@@ -120,16 +121,19 @@ const usePayRatesForm = () => {
     const processPostBody = () => {
         const formArray = Object.values(form);
 
-        return formArray.map(payRate => {
+        const formattedArray = formArray.map(payRate => {
             const { guid: rateGuid, ...rest } = payRate;
 
             const formattedItems = Object.values(payRate.items).map(item => {
-                const { guid: itemGuid, ...rest } = item;
-                return { ...rest };
+                const { guid: itemGuid, days, ...rest } = item;
+                const daysEnum = days.reduce((res, item) => res + DAYS_FLAGGED[item], 0);
+                return { days: daysEnum, ...rest };
             });
 
             return { ...rest, items: formattedItems };
         });
+
+        return { payRates: formattedArray };
     };
 
     const handleSave = () => {
