@@ -6,6 +6,7 @@ import {
     selectTimesheetsPostError,
     selectTimesheetsPostSuccess,
     timesheetSelectedCompanyIDs,
+    timesheetSelectedJobReferenceIDs,
 } from 'selectors/companyAdmin/timesheets';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { useEffect } from 'react';
@@ -20,6 +21,7 @@ const useOverrideShift = (shift, handleToggleEdit, startDate, isEditing = false)
     const postError = useSelector(selectTimesheetsPostError);
     const postSuccess = useSelector(selectTimesheetsPostSuccess);
     const companyUserIDs = useSelector(timesheetSelectedCompanyIDs);
+    const jobReferenceIDs = useSelector(timesheetSelectedJobReferenceIDs);
     const prevProps = usePrevious({ isPosting, postError, postSuccess, isEditing });
 
     const [formData, handleChange] = useForm({
@@ -33,7 +35,7 @@ const useOverrideShift = (shift, handleToggleEdit, startDate, isEditing = false)
                 showModal(SUCCESS_MODAL, { message: 'Shift override completed successfully' }),
             );
             handleToggleEdit(null);
-            dispatch(fetchTimesheetsWeek(companyUserIDs, [], startDate));
+            dispatch(fetchTimesheetsWeek(companyUserIDs, jobReferenceIDs, startDate));
         }
         if (postError && !prevProps.postError) {
             dispatch(

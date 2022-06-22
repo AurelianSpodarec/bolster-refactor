@@ -247,19 +247,20 @@ const useTimesheetsOverview = (setTitleData = () => {}) => {
     useEffect(() => {
         if (
             !areArraysEqual(companyUserIDs, prevProps.companyUserIDs) ||
+            !areArraysEqual(jobReferenceIDs, prevProps.jobReferenceIDs) ||
             startDate !== prevProps.startDate
         ) {
-            dispatch(fetchTimesheetsWeek(companyUserIDs, [], startDate));
+            dispatch(fetchTimesheetsWeek(companyUserIDs, jobReferenceIDs, startDate));
             dispatch(fetchTimesheetsWeekDropdownOptions(startDate));
         }
-    }, [dispatch, companyUserIDs, startDate]);
+    }, [dispatch, companyUserIDs, jobReferenceIDs, startDate]);
 
     useEffect(() => {
         if (
             (postSuccess && !prevProps.postSuccess) ||
             (deleteSuccess && !prevProps.deleteSuccess)
         ) {
-            dispatch(fetchTimesheetsWeek(companyUserIDs, [], startDate));
+            dispatch(fetchTimesheetsWeek(companyUserIDs, jobReferenceIDs, startDate));
             dispatch(fetchTimesheetsWeekDropdownOptions(startDate));
             dispatch(fetchAllWorkingHours());
         }
