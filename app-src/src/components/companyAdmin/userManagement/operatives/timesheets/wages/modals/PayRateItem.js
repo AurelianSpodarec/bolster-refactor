@@ -48,7 +48,7 @@ const PayRateItem = ({
 
             <PayRateItemForm
                 isExpanded={isExpanded}
-                items={items ? Object.values(items) : []}
+                items={Object.values(items)}
                 handleChange={handleItemsChange}
                 handleAddNewItem={handleAddNewItem}
                 handleDeleteItem={handleDeleteItem}
