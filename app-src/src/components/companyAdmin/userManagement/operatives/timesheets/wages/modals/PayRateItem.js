@@ -20,11 +20,11 @@ const PayRateItem = ({
     const isExpanded = idToUse === expandedID;
 
     const handleExpandRate = () => {
-        // if (isExpanded) {
-        //     setExpandedID(null);
-        // } else {
-        setExpandedID(idToUse);
-        // }
+        if (isExpanded) {
+            setExpandedID(null);
+        } else {
+            setExpandedID(idToUse);
+        }
     };
 
     return (
@@ -36,17 +36,24 @@ const PayRateItem = ({
                     }`}
                     onClick={handleExpandRate}
                 >
-                    {isExpanded ? (
-                        <TextInputContainer
-                            name={idToUse}
-                            handleChange={handleChangePayRateName}
-                            value={name}
-                        />
-                    ) : (
-                        <p className="pay-rate-item__name">{name}</p>
-                    )}
+                    <div className="flex-11">
+                        {isExpanded ? (
+                            <TextInputContainer
+                                name={idToUse}
+                                handleChange={handleChangePayRateName}
+                                value={name}
+                            />
+                        ) : (
+                            <p className="pay-rate-item__name">{name}</p>
+                        )}
+                    </div>
 
-                    <i className="fa fa-chevron-right" />
+                    <div
+                        className="flex-1 flex-row align-center justify-end"
+                        onClick={handleExpandRate}
+                    >
+                        <i className="fa fa-chevron-right" />
+                    </div>
                 </div>
 
                 <button
