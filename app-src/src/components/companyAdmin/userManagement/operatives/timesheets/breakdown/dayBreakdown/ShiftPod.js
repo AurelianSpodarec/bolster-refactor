@@ -58,6 +58,10 @@ const ShiftPod = ({
         lateClockOut,
     } = getShiftPodData(shift);
 
+    const isTimeInDateTheSameAsTimeOut =
+        moment.utc(timeIn).tz(timeZone).format('L') ===
+        moment.utc(timeOut).tz(timeZone).format('L');
+
     const handleToggleEdit = () => setShiftToEdit(isEditing ? null : shift.id);
 
     const { formData, handleChange, handleSubmit, isPosting } = useOverrideShift(
@@ -133,7 +137,11 @@ const ShiftPod = ({
                         <BlockHeading title="Time Out" />
                         {lateClockOut && <img alt="Warning Icon" src={WarningIcon} />}
                     </FlexWrapper>
-                    <p>{moment.utc(timeOut).tz(timeZone).format('HH:mm:ss')}</p>
+                    <p>
+                        {isTimeInDateTheSameAsTimeOut
+                            ? moment.utc(timeOut).tz(timeZone).format('HH:mm:ss')
+                            : moment.utc(timeOut).tz(timeZone).format('DD-MM-YYYY hh:mm:ss')}
+                    </p>
                 </BlockContainer>
                 <BlockContainer contentClass="inner-pod">
                     <BlockHeading title="Break Time" />

@@ -41,7 +41,7 @@ const usePayRatesForm = () => {
         return convertArrToObj(formattedPayRates);
     }, [payRates]);
 
-    const [form, handleChange] = useForm(initialForm);
+    const [form, handleChange, setFormData] = useForm(initialForm);
 
     const handleAddNewPayRate = () => {
         const guid = uuidv1();
@@ -67,6 +67,14 @@ const usePayRatesForm = () => {
 
     const handleChangePayRateName = (id, value) => {
         handleChange(id, { ...form[id], name: value });
+    };
+
+    const handleDeletePayRate = id => {
+        const newForm = { ...form };
+
+        delete newForm[id];
+
+        setFormData(newForm);
     };
 
     const handleItemsChange = (id, value) => {
@@ -106,6 +114,7 @@ const usePayRatesForm = () => {
 
     const handleDeleteItem = (id, itemID) => {
         const itemsObj = { ...form[id].items };
+
         delete itemsObj[itemID];
 
         handleChange(id, {
@@ -120,6 +129,7 @@ const usePayRatesForm = () => {
         form,
         handleAddNewPayRate,
         handleChangePayRateName,
+        handleDeletePayRate,
         handleItemsChange,
         handleAddNewItem,
         handleDeleteItem,

@@ -3479,6 +3479,10 @@ input {
 
   &:disabled {
     opacity: 0.7;
+
+    &:hover {
+      cursor: not-allowed;
+    }
   }
 }
 
