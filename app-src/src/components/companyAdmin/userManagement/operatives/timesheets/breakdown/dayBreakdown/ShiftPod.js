@@ -135,18 +135,22 @@ const ShiftPod = ({
                 <BlockContainer contentClass="inner-pod">
                     <FlexWrapper>
                         <BlockHeading title="Time In" />
-                        <TooltipContainer side="right" text="Operative started shift late.">
-                            {lateClockIn && <img alt="Warning Icon" src={WarningIcon} />}
-                        </TooltipContainer>
+                        {lateClockIn && (
+                            <TooltipContainer side="right" text="Operative started shift late.">
+                                <img alt="Warning Icon" src={WarningIcon} />
+                            </TooltipContainer>
+                        )}
                     </FlexWrapper>
                     <p>{moment.utc(timeIn).tz(timeZone).format('HH:mm:ss')}</p>
                 </BlockContainer>
                 <BlockContainer contentClass="inner-pod">
                     <FlexWrapper>
                         <BlockHeading title="Time Out" />
-                        <TooltipContainer side="right" text="Operative finished shift late.">
-                            {lateClockOut && <img alt="Warning Icon" src={WarningIcon} />}
-                        </TooltipContainer>
+                        {lateClockOut && (
+                            <TooltipContainer side="right" text="Operative finished shift late.">
+                                <img alt="Warning Icon" src={WarningIcon} />
+                            </TooltipContainer>
+                        )}
                     </FlexWrapper>
                     <p>
                         {isTimeInDateTheSameAsTimeOut
