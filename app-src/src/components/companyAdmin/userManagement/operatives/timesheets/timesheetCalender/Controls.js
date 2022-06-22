@@ -9,7 +9,17 @@ import MultiSelect from 'components/shared/generic/form/presentational/MultiSele
 import { useDispatch } from 'react-redux';
 import { setCompanyUserIDs } from 'actions/companyAdmin/timesheets/sync/setSelectedCompanyUserID';
 
-const Controls = ({ startDate, onPrev, onNext, onToday, companyUserIDs, companyUserOptions }) => {
+const Controls = ({
+    startDate,
+    onPrev,
+    onNext,
+    onToday,
+    companyUserIDs,
+    companyUserOptions,
+    jobReferenceIDs,
+    setJobReferenceIDs,
+    jobReferenceOptions,
+}) => {
     const dispatch = useDispatch();
 
     return (
@@ -54,6 +64,20 @@ const Controls = ({ startDate, onPrev, onNext, onToday, companyUserIDs, companyU
                             search
                             maxSelectedVisible={4}
                             maxLines={1}
+                            placeholder="-- select users --"
+                        />
+                    </div>
+                    <div className="end">
+                        <MultiSelect
+                            options={jobReferenceOptions.sort((a, b) =>
+                                a.label.localeCompare(b.label),
+                            )}
+                            value={jobReferenceIDs}
+                            onChange={(_, value) => dispatch(setJobReferenceIDs(value))}
+                            search
+                            maxSelectedVisible={4}
+                            maxLines={1}
+                            placeholder="-- select job references --"
                         />
                     </div>
                 </>

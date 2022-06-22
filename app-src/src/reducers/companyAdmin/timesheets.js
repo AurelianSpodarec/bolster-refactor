@@ -9,6 +9,7 @@ import {
     FETCH_TIMESHEET_WEEK_SUCCESS,
     TOGGLE_FILTER_BY_HAS_CLOCKED_IN,
     SET_SELECTED_COMPANY_ID,
+    SET_SELECTED_JOB_REFERENCE_ID,
     POST_OVERRIDE_SHIFT_REQUEST,
     POST_OVERRIDE_SHIFT_FAILURE,
     POST_OVERRIDE_SHIFT_SUCCESS,
@@ -36,6 +37,7 @@ export default combineReducers({
     timesheetOptions: timesheetOptionsReducer,
     filterByHasClockedIn: filterByHasClockedInReducer,
     selectedCompanyUserIDs: selectedCompanyUserIDsReducer,
+    selectedJobReferenceIDs: selectedJobReferenceIDsReducer,
     isDeleting: isDeletingReducer,
     deleteError: deleteErrorReducer,
     deleteSuccess: deleteSuccessReducer,
@@ -202,6 +204,15 @@ function filterByHasClockedInReducer(state = true, action) {
 function selectedCompanyUserIDsReducer(state = [], action) {
     switch (action.type) {
         case SET_SELECTED_COMPANY_ID:
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
+function selectedJobReferenceIDsReducer(state = [], action) {
+    switch (action.type) {
+        case SET_SELECTED_JOB_REFERENCE_ID:
             return action.payload;
         default:
             return state;

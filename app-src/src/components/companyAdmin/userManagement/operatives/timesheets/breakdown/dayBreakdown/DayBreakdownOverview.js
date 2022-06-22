@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import moment from 'moment';
 
@@ -19,6 +19,9 @@ import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import { timesheetSelectedCompanyIDs } from 'selectors/companyAdmin/timesheets';
 import ApprovedHoursBreakdown from './ApprovedHoursBreakdown';
+import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
+import { selectCompanyUsers } from 'selectors/companyAdmin/companyUsers';
+import { selectWorkingHours } from 'selectors/companyAdmin/workingHours';
 
 const DayBreakdownOverview = ({
     selectedDate,
@@ -28,11 +31,83 @@ const DayBreakdownOverview = ({
     disableReportGenPin,
 }) => {
     const userIDs = useSelector(timesheetSelectedCompanyIDs);
+    const companyUsers = useSelector(selectCompanyUsers);
+    const workingHours = useSelector(selectWorkingHours);
 
     const {
         formState: { sortByType, filterByType, sortDirection },
         handleChange,
     } = useOverviewFilters();
+
+    const shiftsForToday = useMemo(() => {
+        try {
+            const filteredTimesheets = timesheets.filter(timesheet => {
+                const thisUser = companyUsers[timesheet.companyUserID];
+                switch (filterByType) {
+                    case 'allUsers':
+                        break;
+                    case 'owner':
+                        if (!thisUser) return false;
+                        return thisUser.type === COMPANY_USER_ROLE_TYPES.OWNER;
+                    case 'admin':
+                        if (!thisUser) return false;
+                        return thisUser.type === COMPANY_USER_ROLE_TYPES.ADMIN;
+                    case 'withSetHours':
+                        if (!thisUser) return false;
+                        return workingHours.some(hour => hour.companyUserID === thisUser?.ID);
+                    case 'withoutSetHours':
+                        if (!thisUser) return false;
+                        return !workingHours.some(hour => hour.companyUserID === thisUser?.ID);
+                    case 'withSetWages':
+                        return !!thisUser?.companyPayRateID;
+                    case 'withoutSetWages':
+                        if (!thisUser) return false;
+                        return !thisUser.companyPayRateID;
+                    default:
+                        break;
+                }
+
+                return true;
+            });
+            const sortedTimesheets = filteredTimesheets
+                .reduce((acc, curr) => {
+                    const thisDay = curr.days.find(day =>
+                        moment(day.date).isSame(selectedDate, 'day'),
+                    );
+                    const todaysShifts = thisDay.shifts?.map(shift => {
+                        const notes = thisDay.clockerNotes.filter(note =>
+                            moment(note.createdOn).isSame(selectedDate, 'day'),
+                        );
+                        return { ...shift, notes };
+                    });
+                    return [...acc, ...todaysShifts];
+                }, [])
+                .sort((a, b) => {
+                    const userA = companyUsers[a.companyUserID];
+                    const userB = companyUsers[b.companyUserID];
+                    switch (sortByType) {
+                        case 'name':
+                            return `${userA?.firstName} ${userA?.lastName}`.localeCompare(
+                                `${userB?.firstName} ${userB?.lastName}`,
+                            );
+                        case 'time':
+                            return moment(a.lastClockedOutTime).diff(
+                                moment(b.lastClockedOutTime),
+                                'milliseconds',
+                            );
+                        case 'hours':
+                            return a.formattedClockedInHours - b.formattedClockedInHours;
+                        default:
+                            return 0;
+                    }
+                });
+            if (!sortDirection) return sortedTimesheets.reverse();
+            return sortedTimesheets;
+        } catch (e) {
+            console.error(e);
+            return [];
+        }
+    }, [selectedDate, timesheets, filterByType, sortByType, sortDirection]);
 
     // const {
     //     isFetching: statsIsFetching,
@@ -63,14 +138,7 @@ const DayBreakdownOverview = ({
                             handleChange={handleChange}
                         />
                     )}
-                    <BreakdownOverviewList
-                        timesheets={timesheets}
-                        selectedDate={selectedDate}
-                        startDate={startDate}
-                        sortByType={sortByType}
-                        sortDirection={sortDirection}
-                        filterByType={filterByType}
-                    />
+                    <BreakdownOverviewList shiftsForToday={shiftsForToday} startDate={startDate} />
                 </>
             }
             right={
@@ -114,7 +182,12 @@ const DayBreakdownOverview = ({
                             error={feedFetchError}
                         />
                     </div> */}
-                    <ApprovedHoursBreakdown />
+                    <ApprovedHoursBreakdown
+                        shiftsForToday={shiftsForToday}
+                        grandTotal={0}
+                        expensesTotal={0}
+                        jobRefTotal={0}
+                    />
                 </>
             }
         />

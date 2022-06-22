@@ -1,13 +1,73 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import Table from 'components/shared/generic/tables/presentational/Table';
-import moment from 'moment';
 import { formatCurrency } from 'helpers/generic';
+import { useSelector } from 'react-redux';
+import { selectCompanyCurrency } from 'selectors/companyAdmin/companySettings';
+import { CURRENCY_SYMBOLS, SHIFT_STATUS } from 'constants/companyAdmin/enums';
 
-const ApprovedHoursBreakdown = ({ currencySymbol = '£' }) => {
+const ApprovedHoursBreakdown = ({
+    shiftsForToday = [],
+    grandTotal = 0,
+    expensesTotal = 0,
+    jobRefTotal = 0,
+}) => {
+    const currency = useSelector(selectCompanyCurrency);
+    const currencySymbol = CURRENCY_SYMBOLS[currency];
+
+    const jobReferences = useMemo(() => {
+        const approvedShifts = shiftsForToday.filter(
+            shift => shift.status === SHIFT_STATUS.APPROVED,
+        );
+        const approvedClockerEntries = approvedShifts.reduce((acc, curr) => {
+            if (curr.status !== SHIFT_STATUS.APPROVED) return acc;
+            return acc.concat(curr.clockerEntries);
+        }, []);
+        const jobRefTally = approvedClockerEntries.reduce((tally, entry) => {
+            const { jobReferenceID, jobReference, totalHours, companyUserID } = entry;
+
+            let idToUse = jobReferenceID;
+            let nameToUse = jobReference;
+            if (!jobReferenceID) idToUse = 'noRef';
+            if (!jobReference) nameToUse = 'N/A';
+
+            {
+                jobReferenceID, totalHours, companyUserID, idToUse;
+            }
+
+            if (tally[idToUse]) {
+                tally[idToUse].totalHours += totalHours;
+
+                if (!tally[idToUse].companyUserIDs.some(id => id === companyUserID))
+                    tally[idToUse].companyUserIDs.push(companyUserID);
+            } else {
+                tally[idToUse] = {
+                    jobReferenceID,
+                    jobReference: nameToUse,
+                    totalHours,
+                    companyUserIDs: [companyUserID],
+                };
+            }
+            return tally;
+        }, {});
+        return Object.values(jobRefTally);
+    }, [shiftsForToday]);
+
+    const totalRow = jobReferences.reduce(
+        (acc, curr) => ({
+            totalHours: acc.totalHours + curr.totalHours,
+            companyUserIDs: acc.companyUserIDs
+                .filter(id => !curr.companyUserIDs.includes(id))
+                .concat(curr.companyUserIDs),
+        }),
+        { totalHours: 0, companyUserIDs: [] },
+    );
+
+    console.log({ totalRow });
+
     return (
-        <BlockContainer contentClass="inner-pod">
+        <BlockContainer contentClass="inner-pod sticky">
             <BlockHeading title="Approved Hours Breakdown" />
             <div className="divider" />
             <div className="table-container">
@@ -18,21 +78,33 @@ const ApprovedHoursBreakdown = ({ currencySymbol = '£' }) => {
                     noData={false}
                     noDataMessage="No hours to display."
                 >
-                    {[].map((item, i) => {
+                    {jobReferences.map(({ jobReference, totalHours, companyUserIDs }, i) => {
                         return (
                             <tr key={i}>
-                                <td>###</td>
-                                <td>###</td>
-                                <td>###</td>
+                                <td>{jobReference}</td>
+                                <td>{totalHours.toFixed(2)}</td>
+                                <td>{companyUserIDs.length}</td>
                                 <td>0.00</td>
                             </tr>
                         );
                     })}
                     <tr className="total-row">
                         <td>Total</td>
-                        <td>###</td>
-                        <td>###</td>
-                        <td>###</td>
+                        <td>{totalRow.totalHours.toFixed(2)}</td>
+                        <td>{totalRow.companyUserIDs.length}</td>
+                        <td>
+                            {currencySymbol}
+                            {formatCurrency(jobRefTotal) || '0.00'}
+                        </td>
+                    </tr>
+                    <tr className="total-row">
+                        <td>Expenses</td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            {currencySymbol}
+                            {formatCurrency(expensesTotal) || '0.00'}
+                        </td>
                     </tr>
                 </Table>
             </div>
@@ -41,7 +113,7 @@ const ApprovedHoursBreakdown = ({ currencySymbol = '£' }) => {
                 <span>Total exc VAT:</span>
                 <span className="total">
                     {currencySymbol}
-                    {'0.00'}
+                    {formatCurrency(grandTotal) || '0.00'}
                 </span>
             </div>
         </BlockContainer>
