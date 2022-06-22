@@ -10,7 +10,6 @@ const JobReferenceTableItem = ({
     jobReference,
     jobReference: { id, name, description, isDisabled },
     handleEditJobReference,
-    handleDeleteJobReference,
     handleEnableJobReference,
     handleDisableJobReference,
 }) => (
@@ -38,11 +37,6 @@ const JobReferenceTableItem = ({
                     <ActionMenuActionButton
                         text="Edit"
                         onClick={() => handleEditJobReference(jobReference)}
-                    />
-                    <ActionMenuActionButton
-                        text="Delete"
-                        onClick={() => handleDeleteJobReference(jobReference)}
-                        isNegative
                     />
                 </ActionMenu>
             </ButtonWrapper>

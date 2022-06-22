@@ -23,14 +23,16 @@ import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActio
 import WarningIcon from '../../../../../../../_content/images/icons/Triangle_Warning.svg';
 import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
+import ApproveShiftButton from './ApproveShiftButton';
+import ApproveShiftMenuButton from './ApproveShiftMenuButton';
+import RejectShiftMenuButton from './RejectShiftMenuButton';
+import useBolsterPlus from 'components/companyAdmin/subscription/addOns/hooks/useBolsterPlus';
 
 const ShiftPod = ({
     shift,
     shiftToEdit,
     setShiftToEdit,
     startDate,
-    handleShowRejectShiftModal,
-    handleShowApproveShiftModal,
     handleShowDeleteShiftModal,
 }) => {
     const users = useSelector(selectCompanyUsers);
@@ -59,6 +61,8 @@ const ShiftPod = ({
         lateClockOut,
     } = getShiftPodData(shift);
 
+    const { isBolsterPlusActivated } = useBolsterPlus();
+
     const isTimeInDateTheSameAsTimeOut =
         moment.utc(timeIn).tz(timeZone).format('L') ===
         moment.utc(timeOut).tz(timeZone).format('L');
@@ -82,46 +86,65 @@ const ShiftPod = ({
         <BlockContainer contentClass={`shift-pod ${statusClassLookup[status]}`}>
             <BlockHeading title={`${user.userFirstName} ${user.userLastName} (${user.userEmail})`}>
                 <ButtonWrapper alignment="right">
-                    {status === SHIFT_STATUS.PENDING ? (
-                        <ActionButton
-                            size="small"
-                            ambient="positive"
-                            text={'Approve'}
-                            onClick={() => handleShowApproveShiftModal(shift.id)}
-                        />
-                    ) : (
+                    {isBolsterPlusActivated && status === SHIFT_STATUS.PENDING ? (
+                        <ApproveShiftButton shiftID={shift.id} />
+                    ) : isBolsterPlusActivated && status !== SHIFT_STATUS.PENDING ? (
                         <ActionButton
                             size="small"
                             source="secondary"
                             text={SHIFT_STATUS_REVERSE[status]}
                             disabled
                         />
-                    )}
-                    <ActionButton
-                        size="small"
-                        source="secondary"
-                        icon="pencil"
-                        iconOnly
-                        onClick={handleToggleEdit}
-                    />
-                    <ActionMenu size="small">
-                        {status !== SHIFT_STATUS.APPROVED && (
-                            <ActionMenuActionButton
-                                text="Approve"
-                                onClick={() => handleShowApproveShiftModal(shift.id)}
-                            />
-                        )}
-                        {status !== SHIFT_STATUS.REJECTED && (
-                            <ActionMenuActionButton
-                                text="Reject"
-                                onClick={() => handleShowRejectShiftModal(shift.id)}
-                            />
-                        )}
-                        <ActionMenuActionButton
-                            text="Delete"
-                            onClick={() => handleShowDeleteShiftModal(shift.id)}
+                    ) : null}
+                    {isBolsterPlusActivated ? (
+                        <ActionButton
+                            size="small"
+                            source="secondary"
+                            icon="pencil"
+                            iconOnly
+                            onClick={handleToggleEdit}
                         />
-                    </ActionMenu>
+                    ) : (
+                        <TooltipContainer text="Edit is available for Bolster Plus users only.">
+                            <ActionButton
+                                size="small"
+                                source="secondary"
+                                icon="pencil"
+                                iconOnly
+                                onClick={handleToggleEdit}
+                                disabled={true}
+                            />
+                        </TooltipContainer>
+                    )}
+                    {isBolsterPlusActivated ? (
+                        <ActionMenu size="small">
+                            {status !== SHIFT_STATUS.APPROVED && (
+                                <ApproveShiftMenuButton shiftID={shift.id} />
+                            )}
+                            {status !== SHIFT_STATUS.REJECTED && (
+                                <RejectShiftMenuButton shiftID={shift.id} />
+                            )}
+                            <ActionMenuActionButton
+                                text="Delete"
+                                onClick={() => handleShowDeleteShiftModal(shift.id)}
+                            />
+                        </ActionMenu>
+                    ) : (
+                        <TooltipContainer text="Delete and Approve/Reject are available for Bolster Plus users only.">
+                            <ActionMenu size="small" disabled={true}>
+                                {status !== SHIFT_STATUS.APPROVED && (
+                                    <ApproveShiftMenuButton shiftID={shift.id} />
+                                )}
+                                {status !== SHIFT_STATUS.REJECTED && (
+                                    <RejectShiftMenuButton shiftID={shift.id} />
+                                )}
+                                <ActionMenuActionButton
+                                    text="Delete"
+                                    onClick={() => handleShowDeleteShiftModal(shift.id)}
+                                />
+                            </ActionMenu>
+                        </TooltipContainer>
+                    )}
                 </ButtonWrapper>
             </BlockHeading>
             <div className="divider" />
@@ -129,18 +152,22 @@ const ShiftPod = ({
                 <BlockContainer contentClass="inner-pod">
                     <FlexWrapper>
                         <BlockHeading title="Time In" />
-                        <TooltipContainer side="right" text="Operative started shift late.">
-                            {lateClockIn && <img alt="Warning Icon" src={WarningIcon} />}
-                        </TooltipContainer>
+                        {lateClockIn && (
+                            <TooltipContainer side="right" text="Operative started shift late.">
+                                <img alt="Warning Icon" src={WarningIcon} />
+                            </TooltipContainer>
+                        )}
                     </FlexWrapper>
                     <p>{moment.utc(timeIn).tz(timeZone).format('HH:mm:ss')}</p>
                 </BlockContainer>
                 <BlockContainer contentClass="inner-pod">
                     <FlexWrapper>
                         <BlockHeading title="Time Out" />
-                        <TooltipContainer side="right" text="Operative finished shift late.">
-                            {lateClockOut && <img alt="Warning Icon" src={WarningIcon} />}
-                        </TooltipContainer>
+                        {lateClockOut && (
+                            <TooltipContainer side="right" text="Operative finished shift late.">
+                                <img alt="Warning Icon" src={WarningIcon} />
+                            </TooltipContainer>
+                        )}
                     </FlexWrapper>
                     <p>
                         {isTimeInDateTheSameAsTimeOut
