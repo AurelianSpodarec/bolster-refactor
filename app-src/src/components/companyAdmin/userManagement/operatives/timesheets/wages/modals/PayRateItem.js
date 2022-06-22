@@ -11,9 +11,10 @@ const PayRateItem = ({
     handleItemsChange,
     handleAddNewItem,
 }) => {
-    const { id, name, items } = payRate;
+    const { id, guid, name, items } = payRate;
 
-    const isExpanded = id === expandedID;
+    const idToUse = guid ? guid : id;
+    const isExpanded = idToUse === expandedID;
 
     return (
         <>
@@ -21,7 +22,7 @@ const PayRateItem = ({
                 className={`pay-rate-item flex-row justify-between align-center ${
                     isExpanded ? 'expanded' : ''
                 }`}
-                onClick={() => setExpandedID(id)}
+                onClick={() => setExpandedID(idToUse)}
             >
                 {isExpanded ? (
                     <TextInputContainer

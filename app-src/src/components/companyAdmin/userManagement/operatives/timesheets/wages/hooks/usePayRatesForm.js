@@ -43,6 +43,7 @@ const usePayRatesForm = () => {
 
     const [form, handleChange] = useForm(initialForm);
 
+    console.log(form);
     const handleAddNewPayRate = () => {
         const guid = uuidv1();
         const itemGuid = uuidv1();

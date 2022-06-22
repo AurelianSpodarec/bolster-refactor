@@ -21,6 +21,7 @@ const PayRatesModal = () => {
         handleAddNewItem,
     } = usePayRatesForm();
 
+    console.log(expandedID);
     return (
         <ModalOuter extraClasses="wide">
             <ModalHeading title="Pay Rates" hideCloseButton />
