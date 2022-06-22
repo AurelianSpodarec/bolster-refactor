@@ -3,6 +3,7 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import Table from 'components/shared/generic/tables/presentational/Table';
 import moment from 'moment';
+import { formatCurrency } from 'helpers/generic';
 
 const ApprovedHoursBreakdown = ({ currencySymbol = '£' }) => {
     return (
@@ -11,7 +12,7 @@ const ApprovedHoursBreakdown = ({ currencySymbol = '£' }) => {
             <div className="divider" />
             <div className="table-container">
                 <Table
-                    headers={['Job References', 'Hours Worked', 'Wage Split']}
+                    headers={['Job References', 'Hours Worked', 'Operatives', 'Wage Split']}
                     isFetching={false}
                     error={null}
                     noData={false}
@@ -22,6 +23,7 @@ const ApprovedHoursBreakdown = ({ currencySymbol = '£' }) => {
                             <tr key={i}>
                                 <td>###</td>
                                 <td>###</td>
+                                <td>###</td>
                                 <td>0.00</td>
                             </tr>
                         );
@@ -30,8 +32,17 @@ const ApprovedHoursBreakdown = ({ currencySymbol = '£' }) => {
                         <td>Total</td>
                         <td>###</td>
                         <td>###</td>
+                        <td>###</td>
                     </tr>
                 </Table>
+            </div>
+            <div className="divider" />
+            <div className="shift-total">
+                <span>Total exc VAT:</span>
+                <span className="total">
+                    {currencySymbol}
+                    {'0.00'}
+                </span>
             </div>
         </BlockContainer>
     );
