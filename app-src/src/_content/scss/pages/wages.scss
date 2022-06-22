@@ -35,4 +35,10 @@
     &.expanded {
         display: block;
     }
+
 }
+  .delete-icon {
+    &.rate {
+      margin-left: 16px;
+    }
+  }

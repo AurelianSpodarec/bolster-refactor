@@ -1,10 +1,5 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
-
-import { selectFilterByHasClockedIn } from 'selectors/companyAdmin/timesheets';
-
-import { timesheetFilter, timesheetSort } from './hooks/useOverviewFilters';
-import { timesheetSelectedCompanyIDs } from 'selectors/companyAdmin/timesheets';
 import moment from 'moment';
 import { isEmpty } from 'helpers/generic';
 import ShiftPod from './ShiftPod';
@@ -23,8 +18,6 @@ const BreakdownOverviewList = ({
     filterByType,
     sortDirection,
 }) => {
-    const selectedUserIDs = useSelector(timesheetSelectedCompanyIDs);
-    const filterByHasClockedIn = useSelector(selectFilterByHasClockedIn);
     const companyUsers = useSelector(selectCompanyUsers);
     const workingHours = useSelector(selectWorkingHours);
 
@@ -72,7 +65,6 @@ const BreakdownOverviewList = ({
                     return [...acc, ...todaysShifts];
                 }, [])
                 .sort((a, b) => {
-                    console.log(a);
                     const userA = companyUsers[a.companyUserID];
                     const userB = companyUsers[b.companyUserID];
                     switch (sortByType) {
@@ -103,26 +95,6 @@ const BreakdownOverviewList = ({
     const { handleShowRejectShiftModal } = useRejectShift(shiftsForToday);
     const { handleShowApproveShiftModal } = useApproveShift(shiftsForToday);
     const { handleShowDeleteShiftModal } = useDeleteShift(shiftsForToday);
-
-    // let formattedTimesheets = [];
-
-    // if (filterByHasClockedIn && selectedUserIDs.length === 0) {
-    //     formattedTimesheets = timesheets
-    //         .filter(timesheetFilter(filterByHasClockedIn, selectedDate))
-    //         .sort(timesheetSort(sortByType, sortDirection, selectedDate));
-    // }
-
-    // if (!filterByHasClockedIn && selectedUserIDs.length === 0) {
-    //     formattedTimesheets = timesheets.sort(
-    //         timesheetSort(sortByType, sortDirection, selectedDate),
-    //     );
-    // }
-
-    // if (selectedUserIDs.length) {
-    //     formattedTimesheets = timesheets
-    //         .filter(({ companyUserID }) => selectedUserIDs.includes(companyUserID))
-    //         .sort(timesheetSort(sortByType, sortDirection, selectedDate));
-    // }
 
     if (isEmpty(shiftsForToday) || !shiftsForToday?.length)
         return <p>No clock in data to display.</p>;

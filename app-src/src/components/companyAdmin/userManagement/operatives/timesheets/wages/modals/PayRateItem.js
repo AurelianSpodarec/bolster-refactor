@@ -8,12 +8,15 @@ const PayRateItem = ({
     expandedID,
     setExpandedID,
     handleChangePayRateName,
+    handleDeletePayRate,
     handleItemsChange,
     handleAddNewItem,
+    handleDeleteItem,
+    isDeleteDisabled,
 }) => {
     const { id, guid, name, items } = payRate;
 
-    const idToUse = guid ? guid : id;
+    const idToUse = guid || id;
     const isExpanded = idToUse === expandedID;
 
     const handleExpandRate = () => {
@@ -26,23 +29,33 @@ const PayRateItem = ({
 
     return (
         <>
-            <div
-                className={`pay-rate-item flex-row justify-between align-center ${
-                    isExpanded ? 'expanded' : ''
-                }`}
-                onClick={handleExpandRate}
-            >
-                {isExpanded ? (
-                    <TextInputContainer
-                        name={id}
-                        handleChange={handleChangePayRateName}
-                        value={name}
-                    />
-                ) : (
-                    <p className="pay-rate-item__name">{name}</p>
-                )}
+            <div className="flex-row align-center">
+                <div
+                    className={`pay-rate-item flex-12 flex-row justify-between align-center ${
+                        isExpanded ? 'expanded' : ''
+                    }`}
+                    onClick={handleExpandRate}
+                >
+                    {isExpanded ? (
+                        <TextInputContainer
+                            name={idToUse}
+                            handleChange={handleChangePayRateName}
+                            value={name}
+                        />
+                    ) : (
+                        <p className="pay-rate-item__name">{name}</p>
+                    )}
 
-                <i className="fa fa-chevron-right" />
+                    <i className="fa fa-chevron-right" />
+                </div>
+
+                <button
+                    className="flex-column justify-center align-center delete-icon rate"
+                    onClick={() => handleDeletePayRate(idToUse)}
+                    disabled={isDeleteDisabled}
+                >
+                    <i className="far fa-trash-alt" />
+                </button>
             </div>
 
             <PayRateItemForm
@@ -50,6 +63,7 @@ const PayRateItem = ({
                 items={Object.values(items)}
                 handleChange={handleItemsChange}
                 handleAddNewItem={handleAddNewItem}
+                handleDeleteItem={handleDeleteItem}
                 companyPayRateID={idToUse}
             />
         </>
