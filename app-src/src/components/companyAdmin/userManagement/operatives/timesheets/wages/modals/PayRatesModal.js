@@ -17,6 +17,7 @@ const PayRatesModal = () => {
         form,
         handleAddNewPayRate,
         handleChangePayRateName,
+        handleDeletePayRate,
         handleItemsChange,
         handleAddNewItem,
         handleDeleteItem,
@@ -31,18 +32,24 @@ const PayRatesModal = () => {
                 isEmpty={!companyPayRates.length}
                 contentClass="no-padding"
             >
-                {Object.values(form).map(payRate => (
-                    <PayRateItem
-                        key={payRate.id}
-                        payRate={payRate}
-                        expandedID={expandedID}
-                        setExpandedID={setExpandedID}
-                        handleChangePayRateName={handleChangePayRateName}
-                        handleItemsChange={handleItemsChange}
-                        handleAddNewItem={handleAddNewItem}
-                        handleDeleteItem={handleDeleteItem}
-                    />
-                ))}
+                {Object.values(form).map(payRate => {
+                    const idToUse = payRate.guid || payRate.id;
+
+                    return (
+                        <PayRateItem
+                            key={idToUse}
+                            payRate={payRate}
+                            expandedID={expandedID}
+                            setExpandedID={setExpandedID}
+                            handleChangePayRateName={handleChangePayRateName}
+                            handleDeletePayRate={handleDeletePayRate}
+                            handleItemsChange={handleItemsChange}
+                            handleAddNewItem={handleAddNewItem}
+                            handleDeleteItem={handleDeleteItem}
+                            isDeleteDisabled={Object.keys(form).length === 1}
+                        />
+                    );
+                })}
 
                 <div className="margin-top">
                     <ActionButton
