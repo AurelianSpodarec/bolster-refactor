@@ -18,8 +18,6 @@ const DocumentLibraryStats = ({ items, isRoot }) => {
     if (!isRoot) usage.unshift(folderUsed);
     const usageText = usage.join(' | ');
 
-    const link = <a>this link.</a>;
-
     return (
         <>
             <span className="library-stats">{usageText}</span>
