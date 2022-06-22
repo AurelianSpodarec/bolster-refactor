@@ -38,7 +38,7 @@ const PayRateItem = ({
                 >
                     {isExpanded ? (
                         <TextInputContainer
-                            name={id}
+                            name={idToUse}
                             handleChange={handleChangePayRateName}
                             value={name}
                         />

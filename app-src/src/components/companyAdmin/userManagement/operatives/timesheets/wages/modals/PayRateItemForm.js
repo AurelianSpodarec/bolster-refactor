@@ -22,7 +22,7 @@ const PayRateItemForm = ({
                 const { id, guid, name, rate, startTime, endTime, days } = item;
                 const idToUse = guid || id;
                 return (
-                    <div key={id} className="flex-row">
+                    <div key={idToUse} className="flex-row">
                         <Field name="Name">
                             <TextInputContainer
                                 name="name"
