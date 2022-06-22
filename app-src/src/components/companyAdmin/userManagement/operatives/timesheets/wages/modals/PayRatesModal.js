@@ -21,7 +21,9 @@ const PayRatesModal = () => {
         handleItemsChange,
         handleAddNewItem,
         handleDeleteItem,
+        handleChange,
         handleSave,
+        isPosting,
     } = usePayRatesForm();
 
     return (
@@ -44,10 +46,11 @@ const PayRatesModal = () => {
                             setExpandedID={setExpandedID}
                             handleChangePayRateName={handleChangePayRateName}
                             handleDeletePayRate={handleDeletePayRate}
-                            handleItemsChange={handleItemsChange}
+                            handleChange={handleChange}
                             handleAddNewItem={handleAddNewItem}
                             handleDeleteItem={handleDeleteItem}
                             isDeleteDisabled={Object.keys(form).length === 1}
+                            handleItemsChange={handleItemsChange}
                         />
                     );
                 })}
@@ -63,6 +66,7 @@ const PayRatesModal = () => {
                         ambient="positive"
                         onClick={handleSave}
                         size="large"
+                        disabled={isPosting}
                     />
                 </div>
             </BlockContainer>

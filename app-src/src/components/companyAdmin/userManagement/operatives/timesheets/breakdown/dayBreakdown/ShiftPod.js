@@ -23,14 +23,15 @@ import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActio
 import WarningIcon from '../../../../../../../_content/images/icons/Triangle_Warning.svg';
 import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
+import ApproveShiftButton from './ApproveShiftButton';
+import ApproveShiftMenuButton from './ApproveShiftMenuButton';
+import RejectShiftMenuButton from './RejectShiftMenuButton';
 
 const ShiftPod = ({
     shift,
     shiftToEdit,
     setShiftToEdit,
     startDate,
-    handleShowRejectShiftModal,
-    handleShowApproveShiftModal,
     handleShowDeleteShiftModal,
 }) => {
     const users = useSelector(selectCompanyUsers);
@@ -83,12 +84,7 @@ const ShiftPod = ({
             <BlockHeading title={`${user.userFirstName} ${user.userLastName} (${user.userEmail})`}>
                 <ButtonWrapper alignment="right">
                     {status === SHIFT_STATUS.PENDING ? (
-                        <ActionButton
-                            size="small"
-                            ambient="positive"
-                            text={'Approve'}
-                            onClick={() => handleShowApproveShiftModal(shift.id)}
-                        />
+                        <ApproveShiftButton shiftID={shift.id} />
                     ) : (
                         <ActionButton
                             size="small"
@@ -106,16 +102,10 @@ const ShiftPod = ({
                     />
                     <ActionMenu size="small">
                         {status !== SHIFT_STATUS.APPROVED && (
-                            <ActionMenuActionButton
-                                text="Approve"
-                                onClick={() => handleShowApproveShiftModal(shift.id)}
-                            />
+                            <ApproveShiftMenuButton shiftID={shift.id} />
                         )}
                         {status !== SHIFT_STATUS.REJECTED && (
-                            <ActionMenuActionButton
-                                text="Reject"
-                                onClick={() => handleShowRejectShiftModal(shift.id)}
-                            />
+                            <RejectShiftMenuButton shiftID={shift.id} />
                         )}
                         <ActionMenuActionButton
                             text="Delete"
@@ -129,18 +119,22 @@ const ShiftPod = ({
                 <BlockContainer contentClass="inner-pod">
                     <FlexWrapper>
                         <BlockHeading title="Time In" />
-                        <TooltipContainer side="right" text="Operative started shift late.">
-                            {lateClockIn && <img alt="Warning Icon" src={WarningIcon} />}
-                        </TooltipContainer>
+                        {lateClockIn && (
+                            <TooltipContainer side="right" text="Operative started shift late.">
+                                <img alt="Warning Icon" src={WarningIcon} />
+                            </TooltipContainer>
+                        )}
                     </FlexWrapper>
                     <p>{moment.utc(timeIn).tz(timeZone).format('HH:mm:ss')}</p>
                 </BlockContainer>
                 <BlockContainer contentClass="inner-pod">
                     <FlexWrapper>
                         <BlockHeading title="Time Out" />
-                        <TooltipContainer side="right" text="Operative finished shift late.">
-                            {lateClockOut && <img alt="Warning Icon" src={WarningIcon} />}
-                        </TooltipContainer>
+                        {lateClockOut && (
+                            <TooltipContainer side="right" text="Operative finished shift late.">
+                                <img alt="Warning Icon" src={WarningIcon} />
+                            </TooltipContainer>
+                        )}
                     </FlexWrapper>
                     <p>
                         {isTimeInDateTheSameAsTimeOut

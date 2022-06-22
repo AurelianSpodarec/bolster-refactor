@@ -13,8 +13,9 @@ const PayRateItem = ({
     handleAddNewItem,
     handleDeleteItem,
     isDeleteDisabled,
+    handleChange,
 }) => {
-    const { id, guid, name, items } = payRate;
+    const { id, guid, name, items, baseRate } = payRate;
 
     const idToUse = guid || id;
     const isExpanded = idToUse === expandedID;
@@ -30,13 +31,14 @@ const PayRateItem = ({
     return (
         <>
             <div className="flex-row align-center">
-                <div
+                <button
                     className={`pay-rate-item flex-12 flex-row justify-between align-center ${
                         isExpanded ? 'expanded' : ''
                     }`}
-                    onClick={handleExpandRate}
+                    onClick={() => setExpandedID(idToUse)}
+                    disabled={isExpanded}
                 >
-                    <div className="flex-11">
+                    <div className="flex-11 flex-12 flex-row justify-start align-center">
                         {isExpanded ? (
                             <TextInputContainer
                                 name={idToUse}
@@ -54,7 +56,7 @@ const PayRateItem = ({
                     >
                         <i className="fa fa-chevron-right" />
                     </div>
-                </div>
+                </button>
 
                 <button
                     className="flex-column justify-center align-center delete-icon rate"
@@ -68,10 +70,12 @@ const PayRateItem = ({
             <PayRateItemForm
                 isExpanded={isExpanded}
                 items={Object.values(items)}
-                handleChange={handleItemsChange}
+                handleItemsChange={handleItemsChange}
                 handleAddNewItem={handleAddNewItem}
                 handleDeleteItem={handleDeleteItem}
                 companyPayRateID={idToUse}
+                payRate={payRate}
+                handleChange={handleChange}
             />
         </>
     );
