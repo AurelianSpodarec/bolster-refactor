@@ -7,15 +7,17 @@ import TextInputContainer from '../../../../../../shared/generic/form/containers
 import TimePickerContainer from '../../../../../../shared/generic/form/containers/TimePickerContainer';
 import PickListContainer from '../../../../../../shared/generic/form/containers/PickListContainer';
 import ActionButton from '../../../../../../shared/generic/button/presentational/ActionButton';
+import NumberInputContainer from '../../../../../../shared/generic/form/containers/NumberInputContainer';
 
 const PayRateItemForm = ({
     isExpanded,
     items,
-    handleChange,
+    handleItemsChange,
     companyPayRateID,
     handleAddNewItem,
     handleDeleteItem,
-    baseRate,
+    payRate,
+    handleChange,
 }) => {
     return (
         <div className={`pay-rate-form ${isExpanded ? 'expanded' : ''}`}>
@@ -24,12 +26,12 @@ const PayRateItemForm = ({
                     <TextInputContainer name="baseRate" value="Base Rate" disabled />
                 </Field>
                 <Field name="Hourly Rate">
-                    <TextInputContainer
-                        name="rate"
+                    <NumberInputContainer
+                        name="baseRate"
                         handleChange={(_, value) =>
-                            handleChange(companyPayRateID, { baseRate: value })
+                            handleChange(companyPayRateID, { ...payRate, baseRate: value })
                         }
-                        value={baseRate}
+                        value={payRate.baseRate}
                         placeholder="-"
                     />
                 </Field>
@@ -43,17 +45,17 @@ const PayRateItemForm = ({
                             <TextInputContainer
                                 name="name"
                                 handleChange={(_, value) =>
-                                    handleChange(companyPayRateID, { ...item, name: value })
+                                    handleItemsChange(companyPayRateID, { ...item, name: value })
                                 }
                                 value={name}
                                 placeholder="-"
                             />
                         </Field>
                         <Field name="Hourly Rate">
-                            <TextInputContainer
+                            <NumberInputContainer
                                 name="rate"
                                 handleChange={(_, value) =>
-                                    handleChange(companyPayRateID, { ...item, rate: value })
+                                    handleItemsChange(companyPayRateID, { ...item, rate: value })
                                 }
                                 value={rate}
                                 placeholder="-"
@@ -63,7 +65,10 @@ const PayRateItemForm = ({
                             <TimePickerContainer
                                 name="startTime"
                                 handleChange={(_, value) =>
-                                    handleChange(companyPayRateID, { ...item, startTime: value })
+                                    handleItemsChange(companyPayRateID, {
+                                        ...item,
+                                        startTime: value,
+                                    })
                                 }
                                 value={startTime}
                                 clearIcon={null}
@@ -74,7 +79,7 @@ const PayRateItemForm = ({
                             <TimePickerContainer
                                 name="endTime"
                                 handleChange={(_, value) =>
-                                    handleChange(companyPayRateID, { ...item, endTime: value })
+                                    handleItemsChange(companyPayRateID, { ...item, endTime: value })
                                 }
                                 value={endTime}
                                 clearIcon={null}
@@ -87,7 +92,7 @@ const PayRateItemForm = ({
                                 name="days"
                                 value={days}
                                 handleChange={(_, value) =>
-                                    handleChange(companyPayRateID, { ...item, days: value })
+                                    handleItemsChange(companyPayRateID, { ...item, days: value })
                                 }
                                 options={dayOptions}
                                 required
