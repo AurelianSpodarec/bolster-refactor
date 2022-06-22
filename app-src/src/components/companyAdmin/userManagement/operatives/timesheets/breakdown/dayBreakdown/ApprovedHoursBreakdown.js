@@ -2,13 +2,10 @@ import React, { useMemo } from 'react';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import Table from 'components/shared/generic/tables/presentational/Table';
-import moment from 'moment';
 import { formatCurrency } from 'helpers/generic';
 import { useSelector } from 'react-redux';
 import { selectCompanyCurrency } from 'selectors/companyAdmin/companySettings';
 import { CURRENCY_SYMBOLS, SHIFT_STATUS } from 'constants/companyAdmin/enums';
-import { selectTimesheets } from 'selectors/companyAdmin/timesheets';
-import ContactSubmissionsTableContainer from 'components/superAdmin/contactSubmissions/shared/containers/ContactSubmissionsTableContainer';
 
 const ApprovedHoursBreakdown = ({
     shiftsForToday = [],
@@ -18,7 +15,6 @@ const ApprovedHoursBreakdown = ({
 }) => {
     const currency = useSelector(selectCompanyCurrency);
     const currencySymbol = CURRENCY_SYMBOLS[currency];
-    // const timesheets = useSelector(selectTimesheets);
 
     const jobReferences = useMemo(() => {
         const approvedShifts = shiftsForToday.filter(
@@ -30,6 +26,7 @@ const ApprovedHoursBreakdown = ({
         }, []);
         const jobRefTally = approvedClockerEntries.reduce((tally, entry) => {
             const { jobReferenceID, jobReference, totalHours, companyUserID } = entry;
+
             let idToUse = jobReferenceID;
             let nameToUse = jobReference;
             if (!jobReferenceID) idToUse = 'noRef';
@@ -60,12 +57,14 @@ const ApprovedHoursBreakdown = ({
     const totalRow = jobReferences.reduce(
         (acc, curr) => ({
             totalHours: acc.totalHours + curr.totalHours,
-            companyUserIDs: acc.companyUserIDs.concat(
-                acc.companyUserIDs.some(id => id === curr.companyUserID) ? [] : curr.companyUserIDs,
-            ),
+            companyUserIDs: acc.companyUserIDs
+                .filter(id => !curr.companyUserIDs.includes(id))
+                .concat(curr.companyUserIDs),
         }),
         { totalHours: 0, companyUserIDs: [] },
     );
+
+    console.log({ totalRow });
 
     return (
         <BlockContainer contentClass="inner-pod sticky">
@@ -83,7 +82,7 @@ const ApprovedHoursBreakdown = ({
                         return (
                             <tr key={i}>
                                 <td>{jobReference}</td>
-                                <td>{totalHours}</td>
+                                <td>{totalHours.toFixed(2)}</td>
                                 <td>{companyUserIDs.length}</td>
                                 <td>0.00</td>
                             </tr>
@@ -91,7 +90,7 @@ const ApprovedHoursBreakdown = ({
                     })}
                     <tr className="total-row">
                         <td>Total</td>
-                        <td>{totalRow.totalHours}</td>
+                        <td>{totalRow.totalHours.toFixed(2)}</td>
                         <td>{totalRow.companyUserIDs.length}</td>
                         <td>
                             {currencySymbol}
