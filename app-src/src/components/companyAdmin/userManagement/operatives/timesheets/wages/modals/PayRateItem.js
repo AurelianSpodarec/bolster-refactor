@@ -10,10 +10,11 @@ const PayRateItem = ({
     handleChangePayRateName,
     handleItemsChange,
     handleAddNewItem,
+    handleDeleteItem,
 }) => {
     const { id, guid, name, items } = payRate;
 
-    const idToUse = guid ? guid : id;
+    const idToUse = guid || id;
     const isExpanded = idToUse === expandedID;
 
     const handleExpandRate = () => {
@@ -47,9 +48,10 @@ const PayRateItem = ({
 
             <PayRateItemForm
                 isExpanded={isExpanded}
-                items={Object.values(items)}
+                items={items ? Object.values(items) : []}
                 handleChange={handleItemsChange}
                 handleAddNewItem={handleAddNewItem}
+                handleDeleteItem={handleDeleteItem}
                 companyPayRateID={idToUse}
             />
         </>

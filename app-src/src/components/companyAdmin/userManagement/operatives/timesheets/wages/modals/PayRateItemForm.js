@@ -12,14 +12,15 @@ const PayRateItemForm = ({
     isExpanded,
     items,
     handleChange,
-    handleAddNewItem,
     companyPayRateID,
+    handleAddNewItem,
+    handleDeleteItem,
 }) => {
     return (
         <div className={`pay-rate-form ${isExpanded ? 'expanded' : ''}`}>
             {items.map(item => {
-                const { id, name, rate, startTime, endTime, days } = item;
-
+                const { id, guid, name, rate, startTime, endTime, days } = item;
+                const idToUse = guid || id;
                 return (
                     <div key={id} className="flex-row">
                         <Field name="Name">
@@ -76,6 +77,13 @@ const PayRateItemForm = ({
                                 required
                             />
                         </Field>
+
+                        <div
+                            className="flex flex-column justify-center"
+                            onClick={() => handleDeleteItem(companyPayRateID, idToUse)}
+                        >
+                            <i className="far fa-trash-alt delete-icon" />
+                        </div>
                     </div>
                 );
             })}

@@ -19,6 +19,7 @@ const PayRatesModal = () => {
         handleChangePayRateName,
         handleItemsChange,
         handleAddNewItem,
+        handleDeleteItem,
     } = usePayRatesForm();
 
     return (
@@ -39,6 +40,7 @@ const PayRatesModal = () => {
                         handleChangePayRateName={handleChangePayRateName}
                         handleItemsChange={handleItemsChange}
                         handleAddNewItem={handleAddNewItem}
+                        handleDeleteItem={handleDeleteItem}
                     />
                 ))}
 

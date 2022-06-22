@@ -3468,5 +3468,10 @@ input {
   padding: 0 7.5px;
 }
 
+.delete-icon {
+  color: var(--negative-default);
+  font-size: 180%;
+}
+
 // mobile
 @import './dashboard-mobile.scss';

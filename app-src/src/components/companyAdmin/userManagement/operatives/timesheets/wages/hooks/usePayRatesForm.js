@@ -65,8 +65,6 @@ const usePayRatesForm = () => {
         handleChange(guid, newPayRate);
     };
 
-    console.log(form);
-
     const handleChangePayRateName = (id, value) => {
         handleChange(id, { ...form[id], name: value });
     };
@@ -106,12 +104,25 @@ const usePayRatesForm = () => {
         });
     };
 
+    const handleDeleteItem = (id, itemID) => {
+        const itemsObj = { ...form[id].items };
+        delete itemsObj[itemID];
+
+        handleChange(id, {
+            ...form[id],
+            items: {
+                ...itemsObj,
+            },
+        });
+    };
+
     return {
         form,
         handleAddNewPayRate,
         handleChangePayRateName,
         handleItemsChange,
         handleAddNewItem,
+        handleDeleteItem,
     };
 };
 
