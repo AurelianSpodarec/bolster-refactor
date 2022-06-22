@@ -29,7 +29,6 @@ const JobReferences = () => {
     const {
         handleCreateJobReference,
         handleEditJobReference,
-        handleDeleteJobReference,
         handleEnableJobReference,
         handleDisableJobReference,
     } = useJobReferenceActions();
@@ -73,7 +72,6 @@ const JobReferences = () => {
                         key={jobReference.id}
                         jobReference={jobReference}
                         handleEditJobReference={handleEditJobReference}
-                        handleDeleteJobReference={handleDeleteJobReference}
                         handleEnableJobReference={handleEnableJobReference}
                         handleDisableJobReference={handleDisableJobReference}
                     />

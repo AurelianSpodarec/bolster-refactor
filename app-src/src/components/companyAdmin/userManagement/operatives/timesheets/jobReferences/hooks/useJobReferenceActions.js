@@ -1,17 +1,11 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import {
-    CONFIRM_DELETE,
-    CREATE_JOB_REFERENCE,
-    EDIT_JOB_REFERENCE,
-    ERROR_MODAL,
-} from 'constants/shared/modalTypes';
+import { CREATE_JOB_REFERENCE, EDIT_JOB_REFERENCE, ERROR_MODAL } from 'constants/shared/modalTypes';
 import { usePrevious } from 'helpers/hooks';
 
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
-import deleteJobReference from 'actions/companyAdmin/jobReferences/async/deleteJobReference';
 import enableJobReference from 'actions/companyAdmin/jobReferences/async/enableJobReference';
 import disableJobReference from 'actions/companyAdmin/jobReferences/async/disableJobReference';
 import {
@@ -37,16 +31,6 @@ const useJobReferenceActions = () => {
         dispatch(showModal(EDIT_JOB_REFERENCE, { jobReference }));
     };
 
-    const handleDeleteJobReference = jobReference => {
-        dispatch(
-            showModal(CONFIRM_DELETE, {
-                handleDelete: () => dispatch(deleteJobReference(jobReference.id)),
-                title: `Delete ${jobReference.name}?`,
-                message: 'Are you sure you would like to delete this job reference?',
-            }),
-        );
-    };
-
     const handleEnableJobReference = jobReference => {
         if (!isPosting) dispatch(enableJobReference(jobReference));
     };
@@ -66,7 +50,6 @@ const useJobReferenceActions = () => {
     return {
         handleCreateJobReference,
         handleEditJobReference,
-        handleDeleteJobReference,
         handleEnableJobReference,
         handleDisableJobReference,
     };
