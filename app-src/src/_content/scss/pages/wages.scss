@@ -36,7 +36,9 @@
         display: block;
     }
 
-  .delete-icon {
-    margin: 8px 0 0 8px;
-  }
 }
+  .delete-icon {
+    &.rate {
+      margin-left: 16px;
+    }
+  }
