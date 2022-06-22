@@ -38,7 +38,7 @@ const DocumentsTable = ({
     const libraryFilter = useSelector(selectDocumentLibraryFilter);
     return (
         <BlockContainer contentClass="no-overflow">
-            <BlockHeading classes="w-table">
+            <BlockHeading classes="w-table auto-width">
                 <DocumentLibraryBreadcrumb prefix={prefixQuery} />
                 {!!selectedItems.length && (
                     <span className="selected-message">
