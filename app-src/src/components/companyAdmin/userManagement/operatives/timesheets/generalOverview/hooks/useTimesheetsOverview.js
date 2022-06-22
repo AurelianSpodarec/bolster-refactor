@@ -15,13 +15,17 @@ import {
     timesheetSelectedCompanyIDs,
     selectTimesheetsPostSuccess,
     selectTimesheetsDeleteSuccess,
+    timesheetSelectedJobReferenceIDs,
 } from 'selectors/companyAdmin/timesheets';
 import {
     selectUserPinFeeds,
     selectUserPinFeedsFetchError,
     selectUserPinFeedsIsFetching,
 } from 'selectors/companyAdmin/userPinFeeds';
-import { selectJobReferencesIsFetching } from 'selectors/companyAdmin/jobReferences';
+import {
+    selectJobReferences,
+    selectJobReferencesIsFetching,
+} from 'selectors/companyAdmin/jobReferences';
 import { isEmpty } from 'lodash';
 import { selectServiceIDs } from 'selectors/companyAdmin/services';
 import { ERROR_MODAL, GENERATE_TIMESHEET_REPORT } from 'constants/shared/modalTypes';
@@ -32,8 +36,9 @@ import {
 } from 'selectors/companyAdmin/companyUsers';
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 import { usePrevious, useQuery } from 'helpers/hooks';
-import { areArraysEqual } from 'helpers/generic';
+import { areArraysEqual, optionsFormat } from 'helpers/generic';
 import { setCompanyUserIDs } from 'actions/companyAdmin/timesheets/sync/setSelectedCompanyUserID';
+import { setJobReferenceIDs } from 'actions/companyAdmin/timesheets/sync/setSelectedJobReferenceID';
 import fetchTimesheetsWeekDropdownOptions from 'actions/companyAdmin/timesheets/async/fetchTimesheetsWeekDropdownOptions';
 import fetchJobReferences from 'actions/companyAdmin/jobReferences/async/fetchJobReferences';
 import setTabs from 'actions/shared/generic/tabs/sync/setTabs';
@@ -70,6 +75,8 @@ const useTimesheetsOverview = (setTitleData = () => {}) => {
     const filterByHasClockedIn = useSelector(selectFilterByHasClockedIn);
 
     const companyUserIDs = useSelector(timesheetSelectedCompanyIDs);
+    const jobReferenceIDs = useSelector(timesheetSelectedJobReferenceIDs);
+    const jobReferences = useSelector(selectJobReferences);
 
     const initialDate = query.get('date') || new Date();
     const thisWeek = moment(initialDate)
@@ -85,6 +92,8 @@ const useTimesheetsOverview = (setTitleData = () => {}) => {
     const [startDate, setStartDate] = useState(thisWeek);
     const [selectedDate, setSelectedDate] = useState(thisDay);
     const [timePeriod, setTimePeriod] = useState(TIME_PERIOD.DAY);
+
+    const jobReferenceOptions = optionsFormat(jobReferences);
 
     const onPrev = () => {
         const newStartDate = moment(startDate).subtract(7, 'days').format();
@@ -221,13 +230,13 @@ const useTimesheetsOverview = (setTitleData = () => {}) => {
             const postBody = [parseInt(id)];
             batch(() => {
                 dispatch(setCompanyUserIDs(postBody));
-                dispatch(fetchTimesheetsWeek(postBody, startDate));
+                dispatch(fetchTimesheetsWeek(postBody, [], startDate));
                 dispatch(fetchAllWorkingHours());
             });
         } else {
             batch(() => {
                 dispatch(fetchTimesheetsWeekDropdownOptions(startDate));
-                dispatch(fetchTimesheetsWeek([], startDate));
+                dispatch(fetchTimesheetsWeek([], [], startDate));
                 dispatch(fetchCompanyUsers());
                 dispatch(fetchJobReferences());
                 dispatch(fetchAllWorkingHours());
@@ -240,7 +249,7 @@ const useTimesheetsOverview = (setTitleData = () => {}) => {
             !areArraysEqual(companyUserIDs, prevProps.companyUserIDs) ||
             startDate !== prevProps.startDate
         ) {
-            dispatch(fetchTimesheetsWeek(companyUserIDs, startDate));
+            dispatch(fetchTimesheetsWeek(companyUserIDs, [], startDate));
             dispatch(fetchTimesheetsWeekDropdownOptions(startDate));
         }
     }, [dispatch, companyUserIDs, startDate]);
@@ -250,7 +259,7 @@ const useTimesheetsOverview = (setTitleData = () => {}) => {
             (postSuccess && !prevProps.postSuccess) ||
             (deleteSuccess && !prevProps.deleteSuccess)
         ) {
-            dispatch(fetchTimesheetsWeek(companyUserIDs, startDate));
+            dispatch(fetchTimesheetsWeek(companyUserIDs, [], startDate));
             dispatch(fetchTimesheetsWeekDropdownOptions(startDate));
             dispatch(fetchAllWorkingHours());
         }
@@ -287,6 +296,9 @@ const useTimesheetsOverview = (setTitleData = () => {}) => {
         companyUserIDs,
         setCompanyUserIDs,
         companyUserOptions,
+        jobReferenceIDs,
+        setJobReferenceIDs,
+        jobReferenceOptions,
         isFetching: timesheetsIsFetching || companyUsersIsFetching || jobReferencesIsFetching,
         fetchError: timesheetsFetchError || companyUsersFetchError,
         timesheets: formattedTimesheets,

@@ -33,7 +33,7 @@ const useOverrideShift = (shift, handleToggleEdit, startDate, isEditing = false)
                 showModal(SUCCESS_MODAL, { message: 'Shift override completed successfully' }),
             );
             handleToggleEdit(null);
-            dispatch(fetchTimesheetsWeek(companyUserIDs, startDate));
+            dispatch(fetchTimesheetsWeek(companyUserIDs, [], startDate));
         }
         if (postError && !prevProps.postError) {
             dispatch(

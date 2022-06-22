@@ -15,5 +15,7 @@ export const selectTimesheetOptions = state =>
 export const reportPostSuccess = state => state.companyAdmin.reportsReducer.postSuccess;
 export const timesheetSelectedCompanyIDs = state =>
     state.companyAdmin.timesheetsReducer.selectedCompanyUserIDs;
+export const timesheetSelectedJobReferenceIDs = state =>
+    state.companyAdmin.timesheetsReducer.selectedJobReferenceIDs;
 export const selectFilterByHasClockedIn = state =>
     state.companyAdmin.timesheetsReducer.filterByHasClockedIn;

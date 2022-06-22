@@ -11,6 +11,9 @@ const GeneralOverview = ({ setTitleData }) => {
         companyUserIDs,
         setCompanyUserIDs,
         companyUserOptions,
+        jobReferenceIDs,
+        setJobReferenceIDs,
+        jobReferenceOptions,
         disableReportGenPin,
         isFetching,
         fetchError,
@@ -33,6 +36,9 @@ const GeneralOverview = ({ setTitleData }) => {
                 companyUserIDs={companyUserIDs}
                 setCompanyUserIDs={setCompanyUserIDs}
                 companyUserOptions={companyUserOptions}
+                jobReferenceIDs={jobReferenceIDs}
+                setJobReferenceIDs={setJobReferenceIDs}
+                jobReferenceOptions={jobReferenceOptions}
                 isFetching={isFetching}
                 fetchError={fetchError}
                 timesheets={timesheets}
