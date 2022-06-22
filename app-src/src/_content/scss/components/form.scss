@@ -1273,6 +1273,11 @@
       bottom: 100%;
     }
 
+    &.static {
+      position: relative;
+      float: left;
+    }
+
     .search-box {
       float: left;
       width: 100%;

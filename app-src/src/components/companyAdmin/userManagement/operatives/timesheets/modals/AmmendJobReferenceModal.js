@@ -6,23 +6,28 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import Select from 'components/shared/generic/form/presentational/Select';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import useAmmendJobReference from '../hooks/useAmmendJobReference';
 
 const AmmendJobReferenceModal = ({ hideModal, clockerUID, jobRefID }) => {
-    const isPosting = false;
+    const { form, handleChange, handleSubmit, jobRefOptions, isPosting } = useAmmendJobReference({
+        clockerUID,
+        jobRefID,
+    });
 
     return (
         <FlexModalOuter title="Edit Job Reference">
-            <Form onSubmit={() => {}} className="generic-form flex-content-wrapper size-lg-12">
+            <Form onSubmit={handleSubmit} className="generic-form flex-content-wrapper size-lg-12">
                 <div className="flex-content">
-                    <div className="form-fields-container">
+                    <div className="form-fields-container size-lg-12">
                         <Field name="Job Reference" required>
-                            {/* <Select
-                                name="name"
-                                value={form.name}
-                                handleChange={handleChange}
-                                placeholder="Type name"
+                            <Select
+                                value={form.jobRefID}
+                                onChange={handleChange}
+                                name="jobRefID"
+                                options={Object.values(jobRefOptions)}
+                                staticListPosition
                                 required
-                            /> */}
+                            />
                         </Field>
                     </div>
                 </div>
