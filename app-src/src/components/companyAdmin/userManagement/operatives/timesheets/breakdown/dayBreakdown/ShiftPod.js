@@ -116,18 +116,35 @@ const ShiftPod = ({
                             />
                         </TooltipContainer>
                     )}
-                    <ActionMenu size="small">
-                        {status !== SHIFT_STATUS.APPROVED && (
-                            <ApproveShiftMenuButton shiftID={shift.id} />
-                        )}
-                        {status !== SHIFT_STATUS.REJECTED && (
-                            <RejectShiftMenuButton shiftID={shift.id} />
-                        )}
-                        <ActionMenuActionButton
-                            text="Delete"
-                            onClick={() => handleShowDeleteShiftModal(shift.id)}
-                        />
-                    </ActionMenu>
+                    {isBolsterPlusActivated ? (
+                        <ActionMenu size="small">
+                            {status !== SHIFT_STATUS.APPROVED && (
+                                <ApproveShiftMenuButton shiftID={shift.id} />
+                            )}
+                            {status !== SHIFT_STATUS.REJECTED && (
+                                <RejectShiftMenuButton shiftID={shift.id} />
+                            )}
+                            <ActionMenuActionButton
+                                text="Delete"
+                                onClick={() => handleShowDeleteShiftModal(shift.id)}
+                            />
+                        </ActionMenu>
+                    ) : (
+                        <TooltipContainer text="Delete and Approve/Reject are available for Bolster Plus users only.">
+                            <ActionMenu size="small" disabled={true}>
+                                {status !== SHIFT_STATUS.APPROVED && (
+                                    <ApproveShiftMenuButton shiftID={shift.id} />
+                                )}
+                                {status !== SHIFT_STATUS.REJECTED && (
+                                    <RejectShiftMenuButton shiftID={shift.id} />
+                                )}
+                                <ActionMenuActionButton
+                                    text="Delete"
+                                    onClick={() => handleShowDeleteShiftModal(shift.id)}
+                                />
+                            </ActionMenu>
+                        </TooltipContainer>
+                    )}
                 </ButtonWrapper>
             </BlockHeading>
             <div className="divider" />
