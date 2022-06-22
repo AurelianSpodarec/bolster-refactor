@@ -99,6 +99,10 @@
     width: 100%;
     margin-bottom: 20px;
 
+    &.auto-width {
+        width: auto;
+    }
+
     &.sub-heading {
         margin-top: 10px;
         margin-bottom: 10px;
