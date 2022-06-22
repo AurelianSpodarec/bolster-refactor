@@ -30,13 +30,14 @@ const PayRateItem = ({
     return (
         <>
             <div className="flex-row align-center">
-                <div
+                <button
                     className={`pay-rate-item flex-12 flex-row justify-between align-center ${
                         isExpanded ? 'expanded' : ''
                     }`}
-                    onClick={handleExpandRate}
+                    onClick={() => setExpandedID(idToUse)}
+                    disabled={isExpanded}
                 >
-                    <div className="flex-11">
+                    <div className="flex-11 flex-12 flex-row justify-start align-center">
                         {isExpanded ? (
                             <TextInputContainer
                                 name={idToUse}
@@ -54,7 +55,7 @@ const PayRateItem = ({
                     >
                         <i className="fa fa-chevron-right" />
                     </div>
-                </div>
+                </button>
 
                 <button
                     className="flex-column justify-center align-center delete-icon rate"

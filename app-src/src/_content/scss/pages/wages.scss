@@ -5,12 +5,13 @@
   border-radius: 10px;
 
   p {
-    font-size: 160%;
+    font-size: 140%;
     font-weight: 500;
   }
 
   i {
-    font-size: 160%;
+    font-size: 140%;
+    color: var(--typography-default);
   }
 
   &:hover {
