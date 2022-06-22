@@ -55,11 +55,9 @@ const usePayRatesForm = () => {
     };
 
     const handleDeletePayRate = id => {
-        const newForm = { ...form };
+        const { [id]: deletedRate, ...rest } = form;
 
-        delete newForm[id];
-
-        setFormData(newForm);
+        setFormData(rest);
     };
 
     const handleItemsChange = (id, value) => {
@@ -98,14 +96,12 @@ const usePayRatesForm = () => {
     };
 
     const handleDeleteItem = (id, itemID) => {
-        const itemsObj = { ...form[id].items };
-
-        delete itemsObj[itemID];
+        const { [itemID]: deletedItem, ...rest } = form[id].items;
 
         handleChange(id, {
             ...form[id],
             items: {
-                ...itemsObj,
+                ...rest,
             },
         });
     };
