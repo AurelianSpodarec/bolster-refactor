@@ -14,7 +14,7 @@ const PayRateItem = ({
     handleDeleteItem,
     isDeleteDisabled,
 }) => {
-    const { id, guid, name, items } = payRate;
+    const { id, guid, name, items, baseRate } = payRate;
 
     const idToUse = guid || id;
     const isExpanded = idToUse === expandedID;
@@ -73,6 +73,7 @@ const PayRateItem = ({
                 handleAddNewItem={handleAddNewItem}
                 handleDeleteItem={handleDeleteItem}
                 companyPayRateID={idToUse}
+                baseRate={baseRate}
             />
         </>
     );

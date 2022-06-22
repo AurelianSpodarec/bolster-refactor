@@ -21,6 +21,7 @@
   &.expanded {
     background-color: var(--input-default);
     padding: 0 10px 0 0;
+
     i {
       transform: rotate(90deg);
       transition: transform 500ms;
@@ -30,7 +31,7 @@
       padding: 10px 0 10px 10px;
       border-color: transparent;
       border-radius: 10px;
-      font-size: 160%;
+      font-size: 140%;
       font-weight: 500;
     }
   }
