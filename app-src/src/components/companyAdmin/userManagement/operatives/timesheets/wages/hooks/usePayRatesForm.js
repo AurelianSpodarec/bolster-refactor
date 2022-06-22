@@ -1,18 +1,3 @@
-/* This hook needs to do the following
-    - Be able to edit each pay rate name - Done
-    - Be able to edit each pay rate item - done
-    - Add a new pay rate item - Done
-    - Not loose any information from each pay rate and their items when changing between payrates - Done
-    - Be able to add a new pay rate - Done
-    - Be able to delete each pay rate item
-    - Be able to delete each pay rate
-    - Be able to save the changes to all pay rates in one request
-
-    Notes for submitting the form:
-    - Remove the guid field of any newly created items
-    - Reformat items days array to bitmask
-    - Reformat items back to an array
-*/
 import { useSelector } from 'react-redux';
 import { useForm } from 'helpers/hooks';
 import { useMemo } from 'react';
@@ -125,6 +110,36 @@ const usePayRatesForm = () => {
         });
     };
 
+    /* This hook needs to do the following
+        Notes for submitting the form:
+        - Remove the guid field of any newly created items
+        - Reformat items days array to bitmask
+        - Reformat items back to an array
+    */
+
+    const processPostBody = () => {
+        const formArray = Object.values(form);
+
+        for (let i = 0; i < formArray.length; i++) {
+            formArray[i].items = Object.values(formArray[i].items);
+            formArray[i].items.forEach(item => {
+                if (item.guid) {
+                    delete item.guid;
+                }
+            });
+
+            if (formArray[i].guid) {
+                delete formArray[i].guid;
+            }
+        }
+
+        return formArray;
+    };
+
+    const handleSave = () => {
+        console.log(processPostBody());
+    };
+
     return {
         form,
         handleAddNewPayRate,
@@ -133,6 +148,7 @@ const usePayRatesForm = () => {
         handleItemsChange,
         handleAddNewItem,
         handleDeleteItem,
+        handleSave,
     };
 };
 
