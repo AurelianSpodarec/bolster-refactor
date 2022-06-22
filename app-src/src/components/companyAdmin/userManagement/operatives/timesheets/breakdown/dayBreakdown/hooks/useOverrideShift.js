@@ -5,13 +5,10 @@ import {
     selectTimesheetsIsPosting,
     selectTimesheetsPostError,
     selectTimesheetsPostSuccess,
-    timesheetSelectedCompanyIDs,
-    timesheetSelectedJobReferenceIDs,
 } from 'selectors/companyAdmin/timesheets';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { useEffect } from 'react';
-import { ERROR_MODAL, SUCCESS_MODAL } from 'constants/shared/modalTypes';
-import fetchTimesheetsWeek from 'actions/companyAdmin/timesheets/async/fetchTimesheetsWeek';
+import { ERROR_MODAL } from 'constants/shared/modalTypes';
 
 const useOverrideShift = (shift, handleToggleEdit, startDate, isEditing = false) => {
     const { overrideShiftTime, overrideWage } = shift;
@@ -20,8 +17,6 @@ const useOverrideShift = (shift, handleToggleEdit, startDate, isEditing = false)
     const isPosting = useSelector(selectTimesheetsIsPosting);
     const postError = useSelector(selectTimesheetsPostError);
     const postSuccess = useSelector(selectTimesheetsPostSuccess);
-    const companyUserIDs = useSelector(timesheetSelectedCompanyIDs);
-    const jobReferenceIDs = useSelector(timesheetSelectedJobReferenceIDs);
     const prevProps = usePrevious({ isPosting, postError, postSuccess, isEditing });
 
     const [formData, handleChange] = useForm({
@@ -30,13 +25,6 @@ const useOverrideShift = (shift, handleToggleEdit, startDate, isEditing = false)
     });
 
     useEffect(() => {
-        if (postSuccess && !prevProps.postSuccess) {
-            dispatch(
-                showModal(SUCCESS_MODAL, { message: 'Shift override completed successfully' }),
-            );
-            handleToggleEdit(null);
-            dispatch(fetchTimesheetsWeek(companyUserIDs, jobReferenceIDs, startDate));
-        }
         if (postError && !prevProps.postError) {
             dispatch(
                 showModal(ERROR_MODAL, {

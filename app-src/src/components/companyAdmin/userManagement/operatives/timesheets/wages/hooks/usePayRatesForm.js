@@ -1,13 +1,24 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'helpers/hooks';
 import { useMemo } from 'react';
 
-import { selectPayRates } from 'selectors/companyAdmin/payRates';
+import {
+    selectPayRates,
+    selectPayRatesIsPosting,
+    selectPayRatesPostSuccess,
+} from 'selectors/companyAdmin/payRates';
+
 import { convertArrToObj, getValuesFromBitMaskArray } from 'helpers/generic';
 import { v1 as uuidv1 } from 'uuid';
 
+import postCompanyPayRates from '../../../../../../../actions/companyAdmin/payRates/postCompanyPayRates';
+
 const usePayRatesForm = () => {
+    const dispatch = useDispatch();
+
     const payRates = useSelector(selectPayRates);
+    const isPosting = useSelector(selectPayRatesIsPosting);
+    const postSuccess = useSelector(selectPayRatesPostSuccess);
 
     const initialForm = useMemo(() => {
         const formattedPayRates = payRates.map(payRate => {
@@ -112,17 +123,19 @@ const usePayRatesForm = () => {
         return formArray.map(payRate => {
             const { guid: rateGuid, ...rest } = payRate;
 
-            const removedGuids = Object.values(payRate.items).map(item => {
+            const formattedItems = Object.values(payRate.items).map(item => {
                 const { guid: itemGuid, ...rest } = item;
                 return { ...rest };
             });
 
-            return { ...rest, items: removedGuids };
+            return { ...rest, items: formattedItems };
         });
     };
 
     const handleSave = () => {
-        console.log(processPostBody());
+        const postBody = processPostBody();
+
+        dispatch(postCompanyPayRates(postBody));
     };
 
     return {
@@ -133,7 +146,9 @@ const usePayRatesForm = () => {
         handleItemsChange,
         handleAddNewItem,
         handleDeleteItem,
+        handleChange,
         handleSave,
+        isPosting,
     };
 };
 

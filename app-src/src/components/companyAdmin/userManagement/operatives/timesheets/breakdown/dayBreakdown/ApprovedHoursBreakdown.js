@@ -32,10 +32,6 @@ const ApprovedHoursBreakdown = ({
             if (!jobReferenceID) idToUse = 'noRef';
             if (!jobReference) nameToUse = 'N/A';
 
-            {
-                jobReferenceID, totalHours, companyUserID, idToUse;
-            }
-
             if (tally[idToUse]) {
                 tally[idToUse].totalHours += totalHours;
 
@@ -63,8 +59,6 @@ const ApprovedHoursBreakdown = ({
         }),
         { totalHours: 0, companyUserIDs: [] },
     );
-
-    console.log({ totalRow });
 
     return (
         <BlockContainer contentClass="inner-pod sticky">

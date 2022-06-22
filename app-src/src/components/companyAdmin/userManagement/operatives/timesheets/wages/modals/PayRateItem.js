@@ -13,6 +13,7 @@ const PayRateItem = ({
     handleAddNewItem,
     handleDeleteItem,
     isDeleteDisabled,
+    handleChange,
 }) => {
     const { id, guid, name, items, baseRate } = payRate;
 
@@ -69,11 +70,12 @@ const PayRateItem = ({
             <PayRateItemForm
                 isExpanded={isExpanded}
                 items={Object.values(items)}
-                handleChange={handleItemsChange}
+                handleItemsChange={handleItemsChange}
                 handleAddNewItem={handleAddNewItem}
                 handleDeleteItem={handleDeleteItem}
                 companyPayRateID={idToUse}
-                baseRate={baseRate}
+                payRate={payRate}
+                handleChange={handleChange}
             />
         </>
     );
