@@ -1,41 +1,23 @@
-import React, { useMemo } from 'react';
-import { useDispatch } from 'react-redux';
-
-import useGetCompanyPayRates from './hooks/useGetCompanyPayRates';
-
-import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import React from 'react';
 
 import BlockContainer from '../../../../../shared/generic/block/containers/BlockContainer';
 import BlockHeading from '../../../../../shared/generic/blockHeading/presentational/BlockHeading';
 import Select from '../../../../../shared/generic/form/presentational/Select';
 import Field from '../../../../../shared/generic/form/presentational/Field';
-import { isEmpty } from 'helpers/generic';
-
-import { PAY_RATES_MODAL } from 'constants/shared/modalTypes';
+import ActionButton from '../../../../../shared/generic/button/presentational/ActionButton';
+import Form from '../../../../../shared/generic/form/containers/Form';
 
 const WagesPayDetails = ({
     selectedUserIDs,
     getUserNameByID,
     selectedPayRate,
     setSelectedPayRate,
+    isFetching,
+    error,
+    companyPayRateOptions,
+    handleSave,
+    isPosting,
 }) => {
-    const dispatch = useDispatch();
-    const { companyPayRates, isFetching, error } = useGetCompanyPayRates();
-
-    const companyPayRateOptions = useMemo(() => {
-        if (isEmpty(companyPayRates)) return [];
-
-        const options = companyPayRates?.map(payRate => ({
-            value: payRate.id,
-            label: payRate.name,
-        }));
-
-        return [
-            ...options,
-            { value: 0, label: 'Create New', onClick: () => dispatch(showModal(PAY_RATES_MODAL)) },
-        ];
-    }, [companyPayRates]);
-
     return (
         <BlockContainer
             className="content-container size-lg-7"
@@ -52,14 +34,27 @@ const WagesPayDetails = ({
                 }
             />
 
-            <Field name="Pay Details" classes="no-padding">
-                <Select
-                    options={companyPayRateOptions}
-                    value={selectedPayRate}
-                    onChange={(_, value) => setSelectedPayRate(value)}
-                    optionListClasses="large"
-                />
-            </Field>
+            <Form>
+                <Field name="Pay Details" classes="no-padding">
+                    <Select
+                        options={companyPayRateOptions}
+                        value={selectedPayRate}
+                        onChange={(_, value) => setSelectedPayRate(value)}
+                        optionListClasses="large"
+                    />
+                </Field>
+
+                <Field classes="border-top padding-top flex flex-row justify-end">
+                    <ActionButton
+                        text="Save"
+                        icon="save"
+                        ambient="positive"
+                        onClick={handleSave}
+                        size="large"
+                        disabled={isPosting || !selectedUserIDs.length || !selectedPayRate}
+                    />
+                </Field>
+            </Form>
         </BlockContainer>
     );
 };
