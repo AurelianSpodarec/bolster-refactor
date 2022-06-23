@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useForm } from 'helpers/hooks';
-import { useMemo } from 'react';
+import { useForm, usePrevious } from 'helpers/hooks';
+import { useEffect, useMemo } from 'react';
 
 import {
     selectPayRates,
@@ -12,6 +12,8 @@ import { convertArrToObj, getValuesFromBitMaskArray } from 'helpers/generic';
 import { v1 as uuidv1 } from 'uuid';
 
 import postCompanyPayRates from '../../../../../../../actions/companyAdmin/payRates/postCompanyPayRates';
+import { DAYS_FLAGGED } from '../../../../../../../constants/companyAdmin/enums';
+import { hideModal } from '../../../../../../../actions/shared/generic/modals/sync/hideModal';
 
 const usePayRatesForm = () => {
     const dispatch = useDispatch();
@@ -19,6 +21,7 @@ const usePayRatesForm = () => {
     const payRates = useSelector(selectPayRates);
     const isPosting = useSelector(selectPayRatesIsPosting);
     const postSuccess = useSelector(selectPayRatesPostSuccess);
+    const prevPostSuccess = usePrevious(postSuccess);
 
     const initialForm = useMemo(() => {
         const formattedPayRates = payRates.map(payRate => {
@@ -38,6 +41,12 @@ const usePayRatesForm = () => {
     }, [payRates]);
 
     const [form, handleChange, setFormData] = useForm(initialForm);
+
+    useEffect(() => {
+        if (postSuccess && !prevPostSuccess) {
+            dispatch(hideModal());
+        }
+    }, [postSuccess, prevPostSuccess]);
 
     const handleAddNewPayRate = () => {
         const guid = uuidv1();
@@ -120,16 +129,19 @@ const usePayRatesForm = () => {
     const processPostBody = () => {
         const formArray = Object.values(form);
 
-        return formArray.map(payRate => {
+        const formattedArray = formArray.map(payRate => {
             const { guid: rateGuid, ...rest } = payRate;
 
             const formattedItems = Object.values(payRate.items).map(item => {
-                const { guid: itemGuid, ...rest } = item;
-                return { ...rest };
+                const { guid: itemGuid, days, ...rest } = item;
+                const daysEnum = days.reduce((res, item) => res + DAYS_FLAGGED[item], 0);
+                return { days: daysEnum, ...rest };
             });
 
             return { ...rest, items: formattedItems };
         });
+
+        return { payRates: formattedArray };
     };
 
     const handleSave = () => {
