@@ -28,6 +28,9 @@ import {
     POST_GENERATE_TIMESHEETS_CSV_REQUEST,
     POST_GENERATE_TIMESHEETS_CSV_FAILURE,
     POST_GENERATE_TIMESHEETS_CSV_SUCCESS,
+    POST_ADD_EXPENSE_TO_SHIFT_REQUEST,
+    POST_ADD_EXPENSE_TO_SHIFT_FAILURE,
+    POST_ADD_EXPENSE_TO_SHIFT_SUCCESS,
 } from 'constants/actionTypes/timesheets';
 
 export default combineReducers({
@@ -79,6 +82,7 @@ function isPostingReducer(state = false, action) {
         case POST_APPROVE_SHIFT_REQUEST:
         case PATCH_CLOCKER_ENTRY_REQUEST:
         case POST_GENERATE_TIMESHEETS_CSV_REQUEST:
+        case POST_ADD_EXPENSE_TO_SHIFT_REQUEST:
             return true;
         case POST_OVERRIDE_SHIFT_SUCCESS:
         case POST_OVERRIDE_SHIFT_FAILURE:
@@ -90,6 +94,8 @@ function isPostingReducer(state = false, action) {
         case PATCH_CLOCKER_ENTRY_FAILURE:
         case POST_GENERATE_TIMESHEETS_CSV_SUCCESS:
         case POST_GENERATE_TIMESHEETS_CSV_FAILURE:
+        case POST_ADD_EXPENSE_TO_SHIFT_SUCCESS:
+        case POST_ADD_EXPENSE_TO_SHIFT_FAILURE:
             return false;
         default:
             return state;
@@ -107,12 +113,15 @@ function postErrorReducer(state = null, action) {
         case PATCH_CLOCKER_ENTRY_REQUEST:
         case POST_GENERATE_TIMESHEETS_CSV_REQUEST:
         case POST_GENERATE_TIMESHEETS_CSV_SUCCESS:
+        case POST_ADD_EXPENSE_TO_SHIFT_REQUEST:
+        case POST_ADD_EXPENSE_TO_SHIFT_SUCCESS:
             return null;
         case POST_OVERRIDE_SHIFT_FAILURE:
         case POST_REJECT_SHIFT_FAILURE:
         case POST_APPROVE_SHIFT_FAILURE:
         case PATCH_CLOCKER_ENTRY_FAILURE:
         case POST_GENERATE_TIMESHEETS_CSV_FAILURE:
+        case POST_ADD_EXPENSE_TO_SHIFT_FAILURE:
             return action.error;
         default:
             return state;

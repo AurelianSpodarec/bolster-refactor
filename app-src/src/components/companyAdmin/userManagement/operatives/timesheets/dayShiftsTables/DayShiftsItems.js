@@ -1,7 +1,7 @@
+import React from 'react';
 import { CURRENCY_SYMBOLS } from 'constants/companyAdmin/enums';
 import { formatAsHrsMins, formatCurrency } from 'helpers/generic';
 import moment from 'moment';
-import React from 'react';
 import { useSelector } from 'react-redux';
 import { selectCompanyCurrency } from 'selectors/companyAdmin/companySettings';
 
@@ -15,17 +15,17 @@ const DayShiftsItems = ({ shiftsForDay }) => {
                 const {
                     companyUserID,
                     username,
-                    formattedHours,
+                    // formattedHours,
                     formattedClockedInHours,
                     formattedBreakHours,
-                    overrideWage,
-                    overrideShiftTime,
+                    // overrideWage,
+                    // overrideShiftTime,
                     wage,
                     totalPins,
                     hoursBreakdown,
                     startOn,
                     endOn,
-                    id,
+                    // id,
                 } = shift;
 
                 const jobReferences = hoursBreakdown.jobReferenceBreakdowns
@@ -45,6 +45,7 @@ const DayShiftsItems = ({ shiftsForDay }) => {
                         <td>{formatAsHrsMins(formattedBreakHours)}</td>
                         <td>{totalPins}</td>
                         <td>{jobReferences.length ? jobReferences.join(', ') : 'N/A'}</td>
+                        <td></td>
                     </tr>
                 );
             })}

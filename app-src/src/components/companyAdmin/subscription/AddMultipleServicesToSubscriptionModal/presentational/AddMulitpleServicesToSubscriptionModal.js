@@ -14,6 +14,13 @@ import ButtonWrapper from 'components/shared/generic/button/presentational/Butto
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
 import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
+import BolsterPlusFeatures from '../../addOns/BolsterPlusFeatures';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BolsterPlusHeading from '../../addOns/BolsterPlusHeading';
+import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
+import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
+import { bolsterPlusLearnMoreLink } from 'constants/companyAdmin/bolsterPlus';
+import useBolsterPlus from '../../addOns/hooks/useBolsterPlus';
 
 const AddMulitpleServicesToSubscriptionModal = ({
     handleSubmit,
@@ -37,10 +44,14 @@ const AddMulitpleServicesToSubscriptionModal = ({
     handleAddCardSuccess,
     isPosting,
     shouldReceiveFreeCredit,
-}) =>
-    addCardVisible ? (
-        <AddCardFormContainer close={hideAddCard} onSuccess={handleAddCardSuccess} />
-    ) : (
+    isBolsterPlusIncluded,
+    handlesIsBolsterPlusIncluded,
+}) => {
+    const { isSubscriptionsActivated } = useBolsterPlus();
+
+    if (addCardVisible)
+        return <AddCardFormContainer close={hideAddCard} onSuccess={handleAddCardSuccess} />;
+    return (
         <FlexModalOuter title="Add services to your subscription">
             <Form className="generic-form flex-content-wrapper" onSubmit={handleSubmit}>
                 <div className="flex-content">
@@ -75,6 +86,41 @@ const AddMulitpleServicesToSubscriptionModal = ({
                                 selectedOptions={checkedServices}
                             />
                         </Field>
+
+                        {!isSubscriptionsActivated && (
+                            <Field>
+                                <BlockContainer>
+                                    <FlexWrapper>
+                                        <BolsterPlusHeading />
+                                        <CheckboxContainer
+                                            name="isBolsterPlusIncluded"
+                                            handleChange={handlesIsBolsterPlusIncluded}
+                                            checked={isBolsterPlusIncluded}
+                                            classes="auto-width"
+                                            forceOnOneLine
+                                            labelToTheLeft
+                                        />
+                                    </FlexWrapper>
+
+                                    <BolsterPlusFeatures />
+
+                                    <ButtonWrapper
+                                        extraClasses="size-lg-6 margin-top"
+                                        alignment="left"
+                                    >
+                                        <LinkButton
+                                            text="Learn More"
+                                            source="secondary"
+                                            ambient="positive"
+                                            href={bolsterPlusLearnMoreLink}
+                                            isExternalLink
+                                            openInNewTab
+                                        />
+                                    </ButtonWrapper>
+                                </BlockContainer>
+                            </Field>
+                        )}
+
                         <Field name="Credits to buy" sizeClasses="size-lg-12">
                             {shouldReceiveFreeCredit && (
                                 <p className="generic-text field-info">
@@ -108,6 +154,7 @@ const AddMulitpleServicesToSubscriptionModal = ({
                             {formatNumber(costWithoutVAT + proRataCost.proRataCost)} (£
                             {formatNumber(costWithVAT + proRataCost.proRataCostWithVAT)} inc. VAT)
                         </p>
+
                         <Field name="Payment Type">
                             <div className="size-lg-6">
                                 <RadioButton
@@ -209,5 +256,6 @@ const AddMulitpleServicesToSubscriptionModal = ({
             </Form>
         </FlexModalOuter>
     );
+};
 
 export default AddMulitpleServicesToSubscriptionModal;

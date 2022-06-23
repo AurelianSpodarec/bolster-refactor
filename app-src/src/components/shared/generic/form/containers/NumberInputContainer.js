@@ -25,6 +25,7 @@ class NumberInputContainer extends Component {
             handleFocus,
             disableMouseWheelControl,
             disableUpDownArrowControl,
+            disabled,
         } = this.props;
 
         const errorMessage = showFieldError || errorsVisible ? error : null;
@@ -44,6 +45,7 @@ class NumberInputContainer extends Component {
                 maxNum={maxNum}
                 disableMouseWheelControl={disableMouseWheelControl}
                 disableUpDownArrowControl={disableUpDownArrowControl}
+                disabled={disabled}
             />
         );
     }
