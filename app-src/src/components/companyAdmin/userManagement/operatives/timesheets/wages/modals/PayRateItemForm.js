@@ -51,7 +51,7 @@ const PayRateItemForm = ({
                                 placeholder="-"
                             />
                         </Field>
-                        <Field name="Hourly Rate">
+                        <Field name="Hourly Rate" classes="flex-7">
                             <NumberInputContainer
                                 name="rate"
                                 handleChange={(_, value) =>
@@ -61,7 +61,7 @@ const PayRateItemForm = ({
                                 placeholder="-"
                             />
                         </Field>
-                        <Field name="Start">
+                        <Field name="Start" classes="flex-10">
                             <TimePickerContainer
                                 name="startTime"
                                 handleChange={(_, value) =>
@@ -75,7 +75,7 @@ const PayRateItemForm = ({
                                 extraClasses="padded"
                             />
                         </Field>
-                        <Field name="End">
+                        <Field name="End" classes="flex-10">
                             <TimePickerContainer
                                 name="endTime"
                                 handleChange={(_, value) =>
