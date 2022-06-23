@@ -3,6 +3,9 @@ import {
     FETCH_PAY_RATES_FAILURE,
     FETCH_PAY_RATES_REQUEST,
     FETCH_PAY_RATES_SUCCESS,
+    POST_ASSIGN_PAY_RATES_FAILURE,
+    POST_ASSIGN_PAY_RATES_REQUEST,
+    POST_ASSIGN_PAY_RATES_SUCCESS,
     POST_COMPANY_PAY_RATES_FAILURE,
     POST_COMPANY_PAY_RATES_REQUEST,
     POST_COMPANY_PAY_RATES_SUCCESS,
@@ -31,9 +34,12 @@ function isFetchingReducer(state = false, action) {
 function isPostingReducer(state = false, action) {
     switch (action.type) {
         case POST_COMPANY_PAY_RATES_REQUEST:
+        case POST_ASSIGN_PAY_RATES_REQUEST:
             return true;
         case POST_COMPANY_PAY_RATES_SUCCESS:
         case POST_COMPANY_PAY_RATES_FAILURE:
+        case POST_ASSIGN_PAY_RATES_SUCCESS:
+        case POST_ASSIGN_PAY_RATES_FAILURE:
             return false;
         default:
             return state;
@@ -43,8 +49,10 @@ function isPostingReducer(state = false, action) {
 function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case POST_COMPANY_PAY_RATES_SUCCESS:
+        case POST_ASSIGN_PAY_RATES_SUCCESS:
             return true;
         case POST_COMPANY_PAY_RATES_REQUEST:
+        case POST_COMPANY_PAY_RATES_FAILURE:
             return false;
         default:
             return state;

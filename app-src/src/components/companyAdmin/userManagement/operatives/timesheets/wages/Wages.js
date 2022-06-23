@@ -16,6 +16,9 @@ const Wages = () => {
         fetchError,
         selectedPayRate,
         setSelectedPayRate,
+        handleSave,
+        isPosting,
+        companyPayRateOptions,
     } = useWages();
 
     return (
@@ -31,10 +34,15 @@ const Wages = () => {
             />
 
             <WagesPayDetails
+                isPosting={isPosting}
+                isFetching={isFetching}
+                error={fetchError}
                 selectedUserIDs={selectedUserIDs}
-                getUserNameByID={getUserNameByID}
                 selectedPayRate={selectedPayRate}
                 setSelectedPayRate={setSelectedPayRate}
+                companyPayRateOptions={companyPayRateOptions}
+                getUserNameByID={getUserNameByID}
+                handleSave={handleSave}
             />
         </div>
     );
