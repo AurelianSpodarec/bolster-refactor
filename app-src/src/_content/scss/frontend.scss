@@ -4374,7 +4374,6 @@ $back-to-top-height: 35px;
   grid-template-columns: 40% 60%;
 
   .wages-users-list {
-
     .users-list {
       margin-top: 20px;
       max-height: 80vh;
@@ -4401,8 +4400,8 @@ $back-to-top-height: 35px;
           color: var(--typography-greyed-out);
           font-size: 160%;
 
-          &:first-child {
-            margin-right: 16px;
+          &:last-child {
+            margin-left: 16px;
           }
         }
       }

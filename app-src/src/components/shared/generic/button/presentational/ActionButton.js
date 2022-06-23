@@ -26,7 +26,7 @@ const ActionButton = ({
         regular: 'far',
         light: 'fal',
     };
-    const dynamicButtonClass = `custom-button flex-row align-center justify-center ${
+    const dynamicButtonClass = `custom-button flex-row align-center justify ${
         iconOnly ? 'icon-only' : ''
     }`;
 

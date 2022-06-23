@@ -44,6 +44,7 @@ const Timesheets = ({ selectedTab }) => {
                         size="medium"
                         text="Pay Rates"
                         minWidth={'150px'}
+                        extraClasses="center"
                         onClick={() => dispatch(showModal(PAY_RATES_MODAL))}
                     />
                 )}
