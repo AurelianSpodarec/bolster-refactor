@@ -15,7 +15,7 @@ import {
     selectTimesheetsPostSuccess,
 } from 'selectors/companyAdmin/timesheets';
 
-const useAmmendJobReference = ({ clockerUID, jobRefID }) => {
+const useAmendJobReference = ({ shiftID, oldJobRefID }) => {
     const dispatch = useDispatch();
     const jobReferences = useSelector(selectJobReferences);
     const isPosting = useSelector(selectTimesheetsIsPosting);
@@ -25,13 +25,14 @@ const useAmmendJobReference = ({ clockerUID, jobRefID }) => {
     const prevProps = usePrevious({ postError, postSuccess });
 
     const [form, handleChange] = useForm({
-        jobRefID,
+        newJobRefID: oldJobRefID,
     });
 
     const handleSubmit = () => {
         const postBody = {
-            ...form,
-            clockerUID,
+            shiftID,
+            oldJobRefID,
+            newJobRefID: form.newJobRefID ? form.newJobRefID : null,
         };
 
         dispatch(patchClockerEntry(postBody));
@@ -50,4 +51,4 @@ const useAmmendJobReference = ({ clockerUID, jobRefID }) => {
     return { form, handleChange, handleSubmit, jobRefOptions, isPosting };
 };
 
-export default useAmmendJobReference;
+export default useAmendJobReference;

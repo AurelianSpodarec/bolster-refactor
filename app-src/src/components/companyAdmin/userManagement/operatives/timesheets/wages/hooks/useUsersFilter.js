@@ -1,11 +1,17 @@
 import { useMemo, useState } from 'react';
+import { useSelector } from 'react-redux';
+
+import { selectCompanyUsers } from '../../../../../../../selectors/companyAdmin/companyUsers';
 
 import { TABLE_SORT_DIRECTIONS } from '../../../../../../../constants/shared/tables';
 
 const { ASC } = TABLE_SORT_DIRECTIONS;
 
-const useUsersFilter = users => {
+const useUsersFilter = () => {
+    const [userFilter, setUserFilter] = useState('');
     const [sortDirection, setSortDirection] = useState(ASC);
+
+    const companyUsers = useSelector(selectCompanyUsers) || [];
 
     const handleSort = () => {
         if (sortDirection === ASC) {
@@ -15,10 +21,10 @@ const useUsersFilter = users => {
         }
     };
 
-    const sortedUsers = useMemo(() => {
-        const usersCopy = [...users];
+    const filteredUsers = useMemo(() => {
+        const users = Object.values(companyUsers);
 
-        usersCopy.sort((a, b) => {
+        users.sort((a, b) => {
             const aName = `${a.userFirstName} ${a.userLastName}`;
             const bName = `${b.userFirstName} ${b.userLastName}`;
 
@@ -29,10 +35,20 @@ const useUsersFilter = users => {
             }
         });
 
-        return usersCopy;
-    }, [users, sortDirection]);
+        return users.filter(({ userFirstName, userLastName }) =>
+            `${userFirstName} ${userLastName}`
+                .toLowerCase()
+                .includes(userFilter.trim().toLowerCase()),
+        );
+    }, [companyUsers, userFilter, sortDirection]);
 
-    return { sortDirection, handleSort, sortedUsers };
+    return {
+        sortDirection,
+        handleSort,
+        filteredUsers,
+        userFilter,
+        setUserFilter,
+    };
 };
 
 export default useUsersFilter;

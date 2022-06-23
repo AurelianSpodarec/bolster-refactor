@@ -12,17 +12,10 @@ import useUsersFilter from './hooks/useUsersFilter';
 
 const { ASC } = TABLE_SORT_DIRECTIONS;
 
-const WagesUserList = ({
-    selectedUserIDs,
-    handleToggleUserID,
-    userFilter,
-    setUserFilter,
-    users,
-    isFetching,
-    fetchError,
-}) => {
+const WagesUserList = ({ selectedUserIDs, handleToggleUserID, isFetching, fetchError }) => {
     const colourTheme = useColourTheme();
-    const { sortDirection, handleSort, sortedUsers } = useUsersFilter(users);
+    const { sortDirection, handleSort, filteredUsers, userFilter, setUserFilter } =
+        useUsersFilter();
 
     return (
         <BlockContainer contentClass="wages-users-list" isFetching={isFetching} error={fetchError}>
@@ -51,7 +44,7 @@ const WagesUserList = ({
             </div>
 
             <div className="users-list">
-                {sortedUsers.map((user, i) => {
+                {filteredUsers.map((user, i) => {
                     const {
                         id,
                         userFirstName,
