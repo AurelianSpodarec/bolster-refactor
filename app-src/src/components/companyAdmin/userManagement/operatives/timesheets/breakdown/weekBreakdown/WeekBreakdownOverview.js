@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import DashboardPinFeed from 'components/companyAdmin/dashboard/presentational/DashboardPinFeed';
 import BreakdownColumns from '../BreakdownColumns';
 import usePinFeed from '../../hooks/usePinFeed';
-import UserTables from '../../userTables/UserTables';
 import BreakdownSummary from '../BreakdownSummary';
 import useWeekOverview from '../../hooks/useWeekOverview';
 import { DATE_TIME_IDS, TIME_PERIOD } from 'constants/companyAdmin/enums';
@@ -16,7 +15,14 @@ import moment from 'moment';
 import BreakdownNotes from '../BreakdownNotes';
 import BreakdownOverviewFilters from '../../breakdown/dayBreakdown/BreakdownOverviewFilters';
 import useOverviewFilters from '../../breakdown/dayBreakdown/hooks/useOverviewFilters';
-import { timesheetSelectedCompanyIDs } from 'selectors/companyAdmin/timesheets';
+import {
+    selectFilterByHasClockedIn,
+    timesheetSelectedCompanyIDs,
+} from 'selectors/companyAdmin/timesheets';
+import { days } from 'constants/companyAdmin/timesheets';
+import { selectCompanyUsers } from 'selectors/companyAdmin/companyUsers';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import DayShiftsTable from '../../dayShiftsTables/DayShiftsTable';
 
 const WeekBreakdownOverview = ({
     selectedDate,
@@ -25,129 +31,165 @@ const WeekBreakdownOverview = ({
     fetchError,
     disableReportGenPin,
     handlePDFReportGeneration,
+    weeklyHoursBreakdown,
+    dailyHoursBreakdown,
 }) => {
     const userIDs = useSelector(timesheetSelectedCompanyIDs);
+    const companyUsers = useSelector(selectCompanyUsers);
+    const filterByHasClockedIn = useSelector(selectFilterByHasClockedIn);
     const isSingleUser = userIDs.length === 1;
 
-    const {
-        isFetching: statsIsFetching,
-        fetchError: statsFetchError,
-        stats,
-    } = usePinStats(
-        userIDs,
-        moment(selectedDate).format('YYYY-MM-DDTHH:mm:ss'),
-        moment(selectedDate).endOf('week').format('YYYY-MM-DDTHH:mm:ss'),
+    const shiftsByDay = useMemo(
+        () =>
+            timesheets.reduce((acc, { companyUserID, days }) => {
+                const thisUser = companyUsers[companyUserID];
+                days.forEach((day, i) => {
+                    const { shifts } = day;
+                    const formattedShifts = shifts.map(shift => ({
+                        ...shift,
+                        username: `${thisUser.userFirstName} ${thisUser.userLastName}`,
+                    }));
+                    if (acc[i]) {
+                        acc[i] = [...acc[i], ...formattedShifts];
+                    } else {
+                        acc[i] = [...formattedShifts];
+                    }
+                });
+                return acc;
+            }, new Array(7)),
+        [timesheets],
     );
+
+    console.log({ shiftsByDay });
+
+    // const {
+    //     isFetching: statsIsFetching,
+    //     fetchError: statsFetchError,
+    //     stats,
+    // } = usePinStats(
+    //     userIDs,
+    //     moment(selectedDate).format('YYYY-MM-DDTHH:mm:ss'),
+    //     moment(selectedDate).endOf('week').format('YYYY-MM-DDTHH:mm:ss'),
+    // );
 
     const {
         formState: { filterType, filterDirection },
         handleChange,
     } = useOverviewFilters();
 
-    const {
-        isFetching: feedIsFetching,
-        fetchError: feedFetchError,
-        feed,
-    } = usePinFeed(userIDs, moment(selectedDate).format('YYYY-MM-DDTHH:mm:ss'), true);
+    // const {
+    //     isFetching: feedIsFetching,
+    //     fetchError: feedFetchError,
+    //     feed,
+    // } = usePinFeed(userIDs, moment(selectedDate).format('YYYY-MM-DDTHH:mm:ss'), true);
 
-    if (!isSingleUser) {
-        return (
-            <>
-                {' '}
-                <div style={{ display: 'flex', justifyContent: 'flex-end', margin: '1rem 0' }}>
-                    <button
-                        className={`button ${disableReportGenPin ? 'disabled' : ''}`}
-                        onClick={handlePDFReportGeneration}
-                        disabled={disableReportGenPin}
-                    >
-                        <i className="fas fa-file-pdf" />
-                        Generate Report
-                    </button>
-                </div>
-                <BreakdownOverviewFilters
-                    filterType={filterType}
-                    filterDirection={filterDirection}
-                    handleChange={handleChange}
-                />
-                <UserTables
-                    selectedDate={selectedDate}
-                    isFetching={isFetching}
-                    fetchError={fetchError}
-                    timesheets={timesheets}
-                    filterType={filterType}
-                    filterDirection={filterDirection}
-                />
-            </>
-        );
-    }
+    // const singleUserTimesheet = timesheets.find(
+    //     timesheet => timesheet.companyUserID === userIDs[0],
+    // );
 
-    const singleUserTimesheet = timesheets.find(
-        timesheet => timesheet.companyUserID === userIDs[0],
-    );
-
-    const {
-        companyUserID,
-        firstName,
-        lastName,
-        email,
-        formattedHours,
-        formattedBreakHours,
-        jobReferenceIDs,
-        totalPins,
-        clockerNotes,
-    } = useWeekOverview(singleUserTimesheet);
+    // const {
+    //     companyUserID,
+    //     firstName,
+    //     lastName,
+    //     email,
+    //     formattedHours,
+    //     formattedBreakHours,
+    //     jobReferenceIDs,
+    //     totalPins,
+    //     clockerNotes,
+    // } = useWeekOverview(singleUserTimesheet);
 
     return (
-        <BreakdownColumns
-            className="week-breakdown-overview"
-            left={
-                <div className="day" key={companyUserID}>
-                    <BreakdownSummary
-                        name={`${firstName} ${lastName} (${email})`}
-                        formattedHours={formattedHours}
-                        formattedBreakHours={formattedBreakHours}
-                        totalPins={totalPins}
-                        jobReferenceIDs={jobReferenceIDs}
-                        timePeriod={TIME_PERIOD.WEEK}
+        <>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', margin: '1rem 0' }}>
+                <button
+                    className={`button ${disableReportGenPin ? 'disabled' : ''}`}
+                    onClick={handlePDFReportGeneration}
+                    disabled={disableReportGenPin}
+                >
+                    <i className="fas fa-file-pdf" />
+                    Generate Report
+                </button>
+            </div>
+            <BreakdownOverviewFilters
+                filterType={filterType}
+                filterDirection={filterDirection}
+                handleChange={handleChange}
+            />
+            <div style={{ minHeight: '20px' }} />
+            {shiftsByDay.map((shiftsForDay, i) => (
+                <BlockContainer
+                    key={i}
+                    contentClass="inner-pod"
+                    isFetching={isFetching}
+                    error={fetchError}
+                    isEmpty={isEmpty(timesheets)}
+                >
+                    <BlockHeading title={days[i]} />
+                    <DayShiftsTable
+                        date={selectedDate}
+                        timesheets={timesheets}
+                        shiftsForDay={shiftsForDay}
+                        filterType={filterType}
+                        filterDirection={filterDirection}
+                        filterByHasClockedIn={filterByHasClockedIn}
                     />
-                    <BreakdownNotes notes={clockerNotes} />
-                </div>
-            }
-            right={
-                <>
-                    <div className="breakdown-piechart">
-                        <BlockContainer
-                            isFetching={statsIsFetching}
-                            error={statsFetchError}
-                            isEmpty={isEmpty(stats) || statsIsFetching}
-                        >
-                            <PieChart
-                                stats={stats}
-                                noDataMessageOverride={
-                                    <>
-                                        No pins were placed on{' '}
-                                        {
-                                            <DateTimeContainer
-                                                date={new Date(selectedDate)}
-                                                datetime={DATE_TIME_IDS.DATE}
-                                            />
-                                        }
-                                    </>
-                                }
-                            />
-                        </BlockContainer>
-                    </div>
-                    <div className="breakdown-feed">
-                        <DashboardPinFeed
-                            pins={feed.reduce((acc, userFeed) => [...acc, ...userFeed.items], [])}
-                            isFetching={feedIsFetching}
-                            error={feedFetchError}
-                        />
-                    </div>
-                </>
-            }
-        />
+                </BlockContainer>
+            ))}
+        </>
     );
+
+    // return (
+    //     <BreakdownColumns
+    //         className="week-breakdown-overview"
+    //         left={
+    //             <div className="day" key={companyUserID}>
+    //                 <BreakdownSummary
+    //                     name={`${firstName} ${lastName} (${email})`}
+    //                     formattedHours={formattedHours}
+    //                     formattedBreakHours={formattedBreakHours}
+    //                     totalPins={totalPins}
+    //                     jobReferenceIDs={jobReferenceIDs}
+    //                     timePeriod={TIME_PERIOD.WEEK}
+    //                 />
+    //                 <BreakdownNotes notes={clockerNotes} />
+    //             </div>
+    //         }
+    //         right={
+    //             <>
+    //                 <div className="breakdown-piechart">
+    //                     <BlockContainer
+    //                         isFetching={statsIsFetching}
+    //                         error={statsFetchError}
+    //                         isEmpty={isEmpty(stats) || statsIsFetching}
+    //                     >
+    //                         <PieChart
+    //                             stats={stats}
+    //                             noDataMessageOverride={
+    //                                 <>
+    //                                     No pins were placed on{' '}
+    //                                     {
+    //                                         <DateTimeContainer
+    //                                             date={new Date(selectedDate)}
+    //                                             datetime={DATE_TIME_IDS.DATE}
+    //                                         />
+    //                                     }
+    //                                 </>
+    //                             }
+    //                         />
+    //                     </BlockContainer>
+    //                 </div>
+    //                 <div className="breakdown-feed">
+    //                     <DashboardPinFeed
+    //                         pins={feed.reduce((acc, userFeed) => [...acc, ...userFeed.items], [])}
+    //                         isFetching={feedIsFetching}
+    //                         error={feedFetchError}
+    //                     />
+    //                 </div>
+    //             </>
+    //         }
+    //     />
+    // );
 };
 
 export default WeekBreakdownOverview;

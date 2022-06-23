@@ -25,6 +25,10 @@
         margin-bottom: 0;
     }
 
+    &.inner-pod {
+        background-color: var(--navigation-primary);
+    }
+
     .heading {
         color: var(--typography-default);
     }
