@@ -28,19 +28,23 @@ const DayShiftsItems = ({ shiftsForDay }) => {
                     id,
                 } = shift;
 
+                const jobReferences = hoursBreakdown.jobReferenceBreakdowns
+                    .map(({ jobReferenceName }) => jobReferenceName)
+                    .filter(name => name !== 'N/A');
+
                 return (
                     <tr key={`${i}-${companyUserID}`}>
                         <td>{username}</td>
                         <td>{formatAsHrsMins(formattedClockedInHours)}</td>
                         <td>
                             {currencySymbol}
-                            {formatCurrency(wage)}
+                            {wage ? formatCurrency(wage) : '0.00'}
                         </td>
                         <td>{moment(startOn).format('HH:mm')}</td>
                         <td>{moment(endOn).format('HH:mm')}</td>
                         <td>{formatAsHrsMins(formattedBreakHours)}</td>
                         <td>{totalPins}</td>
-                        <td></td>
+                        <td>{jobReferences.length ? jobReferences.join(', ') : 'N/A'}</td>
                     </tr>
                 );
             })}

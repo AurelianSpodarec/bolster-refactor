@@ -39,22 +39,26 @@ const WeekBreakdownOverview = ({
     const filterByHasClockedIn = useSelector(selectFilterByHasClockedIn);
     const isSingleUser = userIDs.length === 1;
 
-    const shiftsByDay = timesheets.reduce((acc, { companyUserID, days }) => {
-        const thisUser = companyUsers[companyUserID];
-        days.forEach((day, i) => {
-            const { shifts } = day;
-            const formattedShifts = shifts.map(shift => ({
-                ...shift,
-                username: `${thisUser.userFirstName} ${thisUser.userLastName}`,
-            }));
-            if (acc[i]) {
-                acc[i] = [...acc[i], ...formattedShifts];
-            } else {
-                acc[i] = [...formattedShifts];
-            }
-        });
-        return acc;
-    }, new Array(7));
+    const shiftsByDay = useMemo(
+        () =>
+            timesheets.reduce((acc, { companyUserID, days }) => {
+                const thisUser = companyUsers[companyUserID];
+                days.forEach((day, i) => {
+                    const { shifts } = day;
+                    const formattedShifts = shifts.map(shift => ({
+                        ...shift,
+                        username: `${thisUser.userFirstName} ${thisUser.userLastName}`,
+                    }));
+                    if (acc[i]) {
+                        acc[i] = [...acc[i], ...formattedShifts];
+                    } else {
+                        acc[i] = [...formattedShifts];
+                    }
+                });
+                return acc;
+            }, new Array(7)),
+        [timesheets],
+    );
 
     console.log({ shiftsByDay });
 
