@@ -83,7 +83,9 @@ const ShiftPod = ({
     };
 
     return (
-        <BlockContainer contentClass={`shift-pod ${statusClassLookup[status]}`}>
+        <BlockContainer
+            contentClass={`shift-pod ${isBolsterPlusActivated && statusClassLookup[status]}`}
+        >
             <BlockHeading title={`${user.userFirstName} ${user.userLastName} (${user.userEmail})`}>
                 <ButtonWrapper alignment="right">
                     {isBolsterPlusActivated && status === SHIFT_STATUS.PENDING ? (
