@@ -4385,7 +4385,6 @@ $back-to-top-height: 35px;
         font-size: 100%;
         border-bottom: 1px solid var(--background-stroke);
         display: flex;
-        justify-content: flex-start;
 
         &:last-child {
           border-bottom: none;
@@ -4395,6 +4394,23 @@ $back-to-top-height: 35px;
           margin-top: 2px;
         }
 
+      }
+
+      .icon-wrapper {
+        i {
+          color: var(--typography-greyed-out);
+          font-size: 160%;
+
+          &:first-child {
+            margin-right: 16px;
+          }
+        }
+      }
+
+      .plus {
+        margin-left: 8px;
+        height: 14px;
+        width: 14px;
       }
     }
   }

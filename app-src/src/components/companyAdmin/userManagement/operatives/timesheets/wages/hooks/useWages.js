@@ -13,9 +13,17 @@ import {
 import { usePrevious } from '../../../../../../../helpers/hooks';
 import { isEmpty } from '../../../../../../../helpers/generic';
 import { showModal } from '../../../../../../../actions/shared/generic/modals/sync/showModal';
-import { PAY_RATES_MODAL, SUCCESS_MODAL } from '../../../../../../../constants/shared/modalTypes';
+import {
+    BOLSTER_PLUS_UPGRADE_MODAL,
+    PAY_RATES_MODAL,
+    SUCCESS_MODAL,
+} from '../../../../../../../constants/shared/modalTypes';
 import useGetCompanyPayRates from './useGetCompanyPayRates';
 import postAssignPayRates from '../../../../../../../actions/companyAdmin/payRates/postAssignPayRates';
+import useBolsterPlus from 'components/companyAdmin/subscription/addOns/hooks/useBolsterPlus';
+import { selectHierarchySelectedTab } from 'selectors/shared/tabs';
+import selectTab from 'actions/shared/generic/tabs/sync/selectTab';
+import { TIMESHEETS_TABS } from 'constants/shared/tabNames';
 
 const useWages = () => {
     const dispatch = useDispatch();
@@ -26,6 +34,8 @@ const useWages = () => {
     const [selectedUserIDs, setSelectedUserIDs] = useState([]);
     const [selectedPayRate, setSelectedPayRate] = useState(null);
 
+    const selectedTab = useSelector(selectHierarchySelectedTab);
+
     const companyUsers = useSelector(selectCompanyUsers) || [];
     const isFetching = useSelector(selectCompanyUsersIsFetching);
     const fetchError = useSelector(selectCompanyUsersFetchError);
@@ -33,6 +43,8 @@ const useWages = () => {
     const isPosting = useSelector(selectPayRatesIsPosting);
     const postSuccess = useSelector(selectPayRatesPostSuccess);
     const prevPostSuccess = usePrevious(postSuccess);
+
+    const { isBolsterPlusActivated } = useBolsterPlus();
 
     useEffect(() => {
         if (postSuccess && !prevPostSuccess) {
@@ -46,6 +58,16 @@ const useWages = () => {
             setSelectedPayRate(null);
         }
     }, [postSuccess, prevPostSuccess]);
+
+    useEffect(() => {
+        if (selectedTab === TIMESHEETS_TABS.WAGES && !isBolsterPlusActivated) {
+            dispatch(
+                showModal(BOLSTER_PLUS_UPGRADE_MODAL, {
+                    handleClose: () => dispatch(selectTab(TIMESHEETS_TABS.GENERAL_OVERVIEW)),
+                }),
+            );
+        }
+    }, [dispatch, isBolsterPlusActivated, selectedTab]);
 
     const filteredUsers = useMemo(() => {
         const users = Object.values(companyUsers);
@@ -106,6 +128,7 @@ const useWages = () => {
         handleSave,
         isPosting,
         companyPayRateOptions,
+        isBolsterPlusActivated,
     };
 };
 
