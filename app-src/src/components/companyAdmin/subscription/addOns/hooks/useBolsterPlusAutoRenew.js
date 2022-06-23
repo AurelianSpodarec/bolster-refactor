@@ -5,6 +5,7 @@ import { useForm, usePrevious } from 'helpers/hooks';
 import { selectSubscriptions } from 'selectors/companyAdmin/companySubscription';
 import { addOnsType } from 'constants/companyAdmin/enums';
 import { useEffect } from 'react';
+import fetchAllSubscriptions from 'actions/companyAdmin/subscriptions/async/fetchAllSubscriptions';
 
 const useBolsterPlusAutoRenew = () => {
     const dispatch = useDispatch();
@@ -30,6 +31,7 @@ const useBolsterPlusAutoRenew = () => {
         };
 
         dispatch(editBolsterPlusRenewalStatus(postBody));
+        dispatch(fetchAllSubscriptions());
     };
 
     useEffect(() => {

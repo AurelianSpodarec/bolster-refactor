@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { batch, useDispatch, useSelector } from 'react-redux';
 import { usePrevious } from '../../../../../../../helpers/hooks';
 import useGetCompanyPayRates from './useGetCompanyPayRates';
 import useBolsterPlus from 'components/companyAdmin/subscription/addOns/hooks/useBolsterPlus';
@@ -34,7 +34,6 @@ const useWages = () => {
 
     const { companyPayRates, isFetching: isFetchingPayRates, error } = useGetCompanyPayRates();
 
-    const [userFilter, setUserFilter] = useState('');
     const [selectedUserIDs, setSelectedUserIDs] = useState([]);
     const [selectedPayRate, setSelectedPayRate] = useState(null);
 
@@ -56,13 +55,16 @@ const useWages = () => {
 
     useEffect(() => {
         if (postSuccess && !prevPostSuccess) {
-            dispatch(
-                showModal(SUCCESS_MODAL, {
-                    title: 'Success',
-                    message: 'Pay rates successfully assigned.',
-                }),
-            );
-            dispatch(fetchCompanyUsers);
+            batch(() => {
+                dispatch(fetchCompanyUsers());
+                dispatch(
+                    showModal(SUCCESS_MODAL, {
+                        title: 'Success',
+                        message: 'Pay rates successfully assigned.',
+                    }),
+                );
+            });
+
             setSelectedUserIDs([]);
             setSelectedPayRate(null);
         }
@@ -77,15 +79,6 @@ const useWages = () => {
             );
         }
     }, [dispatch, isBolsterPlusActivated, selectedTab]);
-
-    const filteredUsers = useMemo(() => {
-        const users = Object.values(companyUsers);
-        return users.filter(({ userFirstName, userLastName }) =>
-            `${userFirstName} ${userLastName}`
-                .toLowerCase()
-                .includes(userFilter.trim().toLowerCase()),
-        );
-    }, [companyUsers, userFilter]);
 
     const companyPayRateOptions = useMemo(() => {
         if (isEmpty(companyPayRates)) return [];
@@ -123,9 +116,6 @@ const useWages = () => {
         getUserNameByID,
         selectedUserIDs,
         handleToggleUserID,
-        userFilter,
-        setUserFilter,
-        users: filteredUsers,
         isFetching: isFetching || isFetchingPayRates,
         fetchError: fetchError || error,
         selectedPayRate,

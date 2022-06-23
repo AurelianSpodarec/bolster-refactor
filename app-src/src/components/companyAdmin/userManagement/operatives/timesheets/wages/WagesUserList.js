@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import BlockContainer from '../../../../../shared/generic/block/containers/BlockContainer';
 import BlockHeading from '../../../../../shared/generic/blockHeading/presentational/BlockHeading';
@@ -7,36 +7,44 @@ import Tickbox from '../../../../../shared/generic/form/presentational/Tickbox';
 import plusIcon from '_content/images/icons/plus-solid.svg';
 import useColourTheme from '../../../../../../hooks/useColourTheme';
 import { COMPANY_USER_ROLE_TYPES } from '../../../../../../constants/companyAdmin/enums';
+import { TABLE_SORT_DIRECTIONS } from '../../../../../../constants/shared/tables';
+import useUsersFilter from './hooks/useUsersFilter';
 
-const WagesUserList = ({
-    selectedUserIDs,
-    handleToggleUserID,
-    userFilter,
-    setUserFilter,
-    users,
-    isFetching,
-    fetchError,
-}) => {
+const { ASC } = TABLE_SORT_DIRECTIONS;
+
+const WagesUserList = ({ selectedUserIDs, handleToggleUserID, isFetching, fetchError }) => {
     const colourTheme = useColourTheme();
+    const { sortDirection, handleSort, filteredUsers, userFilter, setUserFilter } =
+        useUsersFilter();
 
     return (
         <BlockContainer contentClass="wages-users-list" isFetching={isFetching} error={fetchError}>
-            <BlockHeading title="All Users" />
+            <div className="flex-column">
+                <BlockHeading title="All Users" />
 
-            <div className="wages-filters-wrapper">
-                <Search
-                    name="usersFilter"
-                    value={userFilter}
-                    handleChange={(_, value) => setUserFilter(value)}
-                />
+                <div className="wages-filters-wrapper flex-row">
+                    <Search
+                        name="usersFilter"
+                        value={userFilter}
+                        handleChange={(_, value) => setUserFilter(value)}
+                    />
 
-                {/*<button className="reset-button">*/}
-                {/*    <i className="fas fa-filter"></i>*/}
-                {/*</button>*/}
+                    <button className="reset-button">
+                        <i className="fas fa-filter"></i>
+                    </button>
+
+                    <button className="reset-button" onClick={handleSort}>
+                        <i
+                            className={`sort-icon fa fa-${
+                                sortDirection === ASC ? 'sort-amount-up' : 'sort-amount-down'
+                            }`}
+                        ></i>
+                    </button>
+                </div>
             </div>
 
             <div className="users-list">
-                {users.map((user, i) => {
+                {filteredUsers.map((user, i) => {
                     const {
                         id,
                         userFirstName,

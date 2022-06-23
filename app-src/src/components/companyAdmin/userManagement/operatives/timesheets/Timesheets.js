@@ -11,6 +11,7 @@ import { connect, useDispatch } from 'react-redux';
 import { TIMESHEETS_TABS } from 'constants/shared/tabNames';
 import { showModal } from '../../../../../actions/shared/generic/modals/sync/showModal';
 import { PAY_RATES_MODAL } from '../../../../../constants/shared/modalTypes';
+import GenerateTimesheetsCSVButton from './GenerateTimesheetsCSVButton';
 
 const Timesheets = ({ selectedTab }) => {
     const dispatch = useDispatch();
@@ -47,7 +48,7 @@ const Timesheets = ({ selectedTab }) => {
                         onClick={() => dispatch(showModal(PAY_RATES_MODAL))}
                     />
                 )}
-                <ActionButton size="medium" onClick={() => {}} text="Export CSV" icon="file-csv" />
+                <GenerateTimesheetsCSVButton />
                 <TabsContainer classes="hierarchy-tabs" />
             </PageHeading>
             <TimesheetsRouteContainer setTitleData={setTitleData} />
