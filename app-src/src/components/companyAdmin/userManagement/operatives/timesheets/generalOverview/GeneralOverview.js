@@ -25,6 +25,8 @@ const GeneralOverview = ({ setTitleData }) => {
         onDaySelect,
         onWeekSelect,
         handlePDFReportGeneration,
+        dailyHoursBreakdown,
+        weeklyHoursBreakdown,
     } = useTimesheetsOverview(setTitleData);
 
     return (
@@ -58,6 +60,8 @@ const GeneralOverview = ({ setTitleData }) => {
                 timesheets={timesheets}
                 handlePDFReportGeneration={handlePDFReportGeneration}
                 disableReportGenPin={disableReportGenPin}
+                dailyHoursBreakdown={dailyHoursBreakdown}
+                weeklyHoursBreakdown={weeklyHoursBreakdown}
             />
         </>
     );

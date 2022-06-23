@@ -29,6 +29,7 @@ const DayBreakdownOverview = ({
     timesheets,
     handlePDFReportGeneration,
     disableReportGenPin,
+    dailyHoursBreakdown,
 }) => {
     const userIDs = useSelector(timesheetSelectedCompanyIDs);
     const companyUsers = useSelector(selectCompanyUsers);
@@ -183,10 +184,10 @@ const DayBreakdownOverview = ({
                         />
                     </div> */}
                     <ApprovedHoursBreakdown
-                        shiftsForToday={shiftsForToday}
+                        dailyHoursBreakdown={dailyHoursBreakdown}
+                        selectedDate={selectedDate}
                         grandTotal={0}
                         expensesTotal={0}
-                        jobRefTotal={0}
                     />
                 </>
             }

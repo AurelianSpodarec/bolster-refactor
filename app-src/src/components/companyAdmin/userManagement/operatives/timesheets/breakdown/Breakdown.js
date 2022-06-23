@@ -18,6 +18,8 @@ const Breakdown = ({
     timesheets,
     handlePDFReportGeneration,
     disableReportGenPin,
+    dailyHoursBreakdown,
+    weeklyHoursBreakdown,
 }) => {
     switch (timePeriod) {
         case TIME_PERIOD.WEEK:
@@ -50,6 +52,7 @@ const Breakdown = ({
                                     fetchError={fetchError}
                                     handlePDFReportGeneration={handlePDFReportGeneration}
                                     disableReportGenPin={disableReportGenPin}
+                                    weeklyHoursBreakdown={weeklyHoursBreakdown}
                                 />
                             ),
                         },
@@ -85,6 +88,7 @@ const Breakdown = ({
                                     timesheets={timesheets}
                                     handlePDFReportGeneration={handlePDFReportGeneration}
                                     disableReportGenPin={disableReportGenPin}
+                                    dailyHoursBreakdown={dailyHoursBreakdown}
                                 />
                             ),
                         },

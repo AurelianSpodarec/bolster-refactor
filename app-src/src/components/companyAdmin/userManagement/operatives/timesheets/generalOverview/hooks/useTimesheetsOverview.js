@@ -66,7 +66,7 @@ const useTimesheetsOverview = (setTitleData = () => {}) => {
     const postSuccess = useSelector(selectTimesheetsPostSuccess);
     const deleteSuccess = useSelector(selectTimesheetsDeleteSuccess);
 
-    const { companyUserWeeks } = timesheets;
+    const { companyUserWeeks, dailyHoursBreakdown, weeklyHoursBreakdown } = timesheets;
 
     const jobReferencesIsFetching = useSelector(selectJobReferencesIsFetching);
 
@@ -314,6 +314,8 @@ const useTimesheetsOverview = (setTitleData = () => {}) => {
         onDaySelect,
         onWeekSelect,
         handlePDFReportGeneration,
+        dailyHoursBreakdown,
+        weeklyHoursBreakdown,
     };
 };
 
