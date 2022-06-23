@@ -179,7 +179,10 @@ function timesheetOptionsReducer(state = [], action) {
     }
 }
 
-function timesheetReducer(state = [], action) {
+function timesheetReducer(
+    state = { companyUserWeeks: [], dailyHoursBreakdown: [], weeklyHoursBreakdown: {} },
+    action,
+) {
     switch (action.type) {
         case FETCH_TIMESHEET_WEEK_REQUEST:
             return state;
