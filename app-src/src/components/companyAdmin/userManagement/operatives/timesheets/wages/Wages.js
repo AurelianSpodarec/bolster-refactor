@@ -9,9 +9,6 @@ const Wages = () => {
         getUserNameByID,
         selectedUserIDs,
         handleToggleUserID,
-        userFilter,
-        setUserFilter,
-        users,
         isFetching,
         fetchError,
         selectedPayRate,
@@ -27,9 +24,6 @@ const Wages = () => {
             <WagesUserList
                 selectedUserIDs={selectedUserIDs}
                 handleToggleUserID={handleToggleUserID}
-                userFilter={userFilter}
-                setUserFilter={setUserFilter}
-                users={users}
                 isFetching={isFetching}
                 fetchError={fetchError}
             />

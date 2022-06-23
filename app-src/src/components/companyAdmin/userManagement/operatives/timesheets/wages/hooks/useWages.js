@@ -34,7 +34,6 @@ const useWages = () => {
 
     const { companyPayRates, isFetching: isFetchingPayRates, error } = useGetCompanyPayRates();
 
-    const [userFilter, setUserFilter] = useState('');
     const [selectedUserIDs, setSelectedUserIDs] = useState([]);
     const [selectedPayRate, setSelectedPayRate] = useState(null);
 
@@ -81,15 +80,6 @@ const useWages = () => {
         }
     }, [dispatch, isBolsterPlusActivated, selectedTab]);
 
-    const filteredUsers = useMemo(() => {
-        const users = Object.values(companyUsers);
-        return users.filter(({ userFirstName, userLastName }) =>
-            `${userFirstName} ${userLastName}`
-                .toLowerCase()
-                .includes(userFilter.trim().toLowerCase()),
-        );
-    }, [companyUsers, userFilter]);
-
     const companyPayRateOptions = useMemo(() => {
         if (isEmpty(companyPayRates)) return [];
 
@@ -126,9 +116,6 @@ const useWages = () => {
         getUserNameByID,
         selectedUserIDs,
         handleToggleUserID,
-        userFilter,
-        setUserFilter,
-        users: filteredUsers,
         isFetching: isFetching || isFetchingPayRates,
         fetchError: fetchError || error,
         selectedPayRate,
