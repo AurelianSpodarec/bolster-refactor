@@ -19,6 +19,8 @@ import DropdownContainer from 'components/shared/generic/form/containers/Dropdow
 import NumberInputContainer from 'components/shared/generic/form/containers/NumberInputContainer';
 import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
 import ClosingConfirmationModal from 'components/shared/generic/modals/presentational/ClosingConfirmationModal';
+import useBolsterPlus from 'components/companyAdmin/subscription/addOns/hooks/useBolsterPlus';
+import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 
 const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
     const [showClosingConfirmationModal, setShowClosingConfirmationModal] = useState(false);
@@ -39,6 +41,8 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
         servicesError,
         handleServicesChange,
     } = useCreateOptionValue(pinOptionTypeID, pinOptionSetID);
+
+    const { isBolsterPlusActivated } = useBolsterPlus();
 
     const availableServiceOptions = useGetAvailableServices(pinOptionSetID);
 
@@ -185,27 +189,69 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                                                                 />
                                                             </Field>
 
-                                                            <Field>
-                                                                <NumberInputContainer
-                                                                    name={`measurementPriceBreaks[${index}].labourCost`}
-                                                                    value={priceBreak.labourCost}
-                                                                    placeholder="Type price"
-                                                                    handleFocus={() => {
-                                                                        if (isLast)
-                                                                            handleAddPriceBreak();
-                                                                    }}
-                                                                    handleChange={(_, value) => {
-                                                                        handlePriceBreakChange(
-                                                                            index,
-                                                                            'labourCost',
+                                                            {!isBolsterPlusActivated ? (
+                                                                <TooltipContainer
+                                                                    side="left"
+                                                                    text="Labour measurement is available for Bolster Plus users only."
+                                                                >
+                                                                    <Field>
+                                                                        <NumberInputContainer
+                                                                            name={`measurementPriceBreaks[${index}].labourCost`}
+                                                                            value={
+                                                                                priceBreak.labourCost
+                                                                            }
+                                                                            placeholder="Type price"
+                                                                            handleFocus={() => {
+                                                                                if (isLast)
+                                                                                    handleAddPriceBreak();
+                                                                            }}
+                                                                            handleChange={(
+                                                                                _,
+                                                                                value,
+                                                                            ) => {
+                                                                                handlePriceBreakChange(
+                                                                                    index,
+                                                                                    'labourCost',
+                                                                                    value,
+                                                                                );
+                                                                                setError(null);
+                                                                            }}
+                                                                            disableMouseWheelControl
+                                                                            disableUpDownArrowControl
+                                                                            disabled={
+                                                                                !isBolsterPlusActivated
+                                                                            }
+                                                                        />
+                                                                    </Field>
+                                                                </TooltipContainer>
+                                                            ) : (
+                                                                <Field>
+                                                                    <NumberInputContainer
+                                                                        name={`measurementPriceBreaks[${index}].labourCost`}
+                                                                        value={
+                                                                            priceBreak.labourCost
+                                                                        }
+                                                                        placeholder="Type price"
+                                                                        handleFocus={() => {
+                                                                            if (isLast)
+                                                                                handleAddPriceBreak();
+                                                                        }}
+                                                                        handleChange={(
+                                                                            _,
                                                                             value,
-                                                                        );
-                                                                        setError(null);
-                                                                    }}
-                                                                    disableMouseWheelControl
-                                                                    disableUpDownArrowControl
-                                                                />
-                                                            </Field>
+                                                                        ) => {
+                                                                            handlePriceBreakChange(
+                                                                                index,
+                                                                                'labourCost',
+                                                                                value,
+                                                                            );
+                                                                            setError(null);
+                                                                        }}
+                                                                        disableMouseWheelControl
+                                                                        disableUpDownArrowControl
+                                                                    />
+                                                                </Field>
+                                                            )}
 
                                                             <Field>
                                                                 <ActionButton
