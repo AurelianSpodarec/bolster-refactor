@@ -15,7 +15,7 @@ import {
     selectTimesheetsPostSuccess,
 } from 'selectors/companyAdmin/timesheets';
 
-const useAmmendJobReference = ({ clockerUID, jobRefID }) => {
+const useAmendJobReference = ({ clockerUID, jobRefID }) => {
     const dispatch = useDispatch();
     const jobReferences = useSelector(selectJobReferences);
     const isPosting = useSelector(selectTimesheetsIsPosting);
@@ -50,4 +50,4 @@ const useAmmendJobReference = ({ clockerUID, jobRefID }) => {
     return { form, handleChange, handleSubmit, jobRefOptions, isPosting };
 };
 
-export default useAmmendJobReference;
+export default useAmendJobReference;

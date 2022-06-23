@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import moment from 'moment';
 
 import { formatCurrency } from 'helpers/generic';
-import { AMMEND_JOB_REFERENCE_MODAL } from 'constants/shared/modalTypes';
+import { AMEND_JOB_REFERENCE_MODAL } from 'constants/shared/modalTypes';
 
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 
@@ -38,9 +38,7 @@ const HoursWorkedList = ({
                                     iconOnly
                                     source="secondary"
                                     onClick={() =>
-                                        dispatch(
-                                            showModal(AMMEND_JOB_REFERENCE_MODAL, { jobRefID }),
-                                        )
+                                        dispatch(showModal(AMEND_JOB_REFERENCE_MODAL, { jobRefID }))
                                     }
                                 />
                             </FlexWrapper>{' '}

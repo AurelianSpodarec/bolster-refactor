@@ -1,15 +1,16 @@
 import React from 'react';
 
+import useAmendJobReference from '../hooks/useAmendJobReference';
+
 import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
 import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import Select from 'components/shared/generic/form/presentational/Select';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import useAmmendJobReference from '../hooks/useAmmendJobReference';
 
-const AmmendJobReferenceModal = ({ hideModal, clockerUID, jobRefID }) => {
-    const { form, handleChange, handleSubmit, jobRefOptions, isPosting } = useAmmendJobReference({
+const AmendJobReferenceModal = ({ hideModal, clockerUID, jobRefID }) => {
+    const { form, handleChange, handleSubmit, jobRefOptions, isPosting } = useAmendJobReference({
         clockerUID,
         jobRefID,
     });
@@ -47,4 +48,4 @@ const AmmendJobReferenceModal = ({ hideModal, clockerUID, jobRefID }) => {
     );
 };
 
-export default AmmendJobReferenceModal;
+export default AmendJobReferenceModal;
