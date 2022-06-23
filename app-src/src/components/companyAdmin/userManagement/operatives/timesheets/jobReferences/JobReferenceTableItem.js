@@ -12,34 +12,41 @@ const JobReferenceTableItem = ({
     handleEditJobReference,
     handleEnableJobReference,
     handleDisableJobReference,
+    isJobRefDropdownEnabled,
 }) => (
     <tr>
         <td>
             <FlexWrapper justify="start" align="center">
-                <CheckboxContainer
-                    text={name}
-                    name={`job-reference-checkbox-${id}`}
-                    checked={!isDisabled}
-                    handleChange={(_, value) => {
-                        if (value) {
-                            handleEnableJobReference(jobReference);
-                        } else {
-                            handleDisableJobReference(jobReference);
-                        }
-                    }}
-                />
+                {isJobRefDropdownEnabled ? (
+                    <CheckboxContainer
+                        text={name}
+                        name={`job-reference-checkbox-${id}`}
+                        checked={!isDisabled}
+                        handleChange={(_, value) => {
+                            if (value) {
+                                handleEnableJobReference(jobReference);
+                            } else {
+                                handleDisableJobReference(jobReference);
+                            }
+                        }}
+                    />
+                ) : (
+                    name
+                )}
             </FlexWrapper>
         </td>
         <td>{description}</td>
         <td>
-            <ButtonWrapper alignment="right">
-                <ActionMenu>
-                    <ActionMenuActionButton
-                        text="Edit"
-                        onClick={() => handleEditJobReference(jobReference)}
-                    />
-                </ActionMenu>
-            </ButtonWrapper>
+            {isJobRefDropdownEnabled && (
+                <ButtonWrapper alignment="right">
+                    <ActionMenu>
+                        <ActionMenuActionButton
+                            text="Edit"
+                            onClick={() => handleEditJobReference(jobReference)}
+                        />
+                    </ActionMenu>
+                </ButtonWrapper>
+            )}
         </td>
     </tr>
 );
