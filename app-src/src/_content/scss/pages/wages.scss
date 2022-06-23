@@ -60,4 +60,20 @@
       color: var(--typography-default);
       margin-left: 16px;
     }
+
+    .filters-popup {
+      position: absolute;
+      top: 50px;
+      right: 0;
+      background-color: var(--background-default);
+      padding: 16px;
+      border-radius: 10px;
+      border: 1px solid var(--background-stroke);
+      z-index: 2;
+
+      .form-field {
+        min-height: 10px;
+        margin: 16px 0;
+      }
+    }
   }

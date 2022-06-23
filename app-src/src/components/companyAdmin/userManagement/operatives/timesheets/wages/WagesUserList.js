@@ -1,21 +1,37 @@
-import React, { useState } from 'react';
+import React from 'react';
+
+import useUsersFilter from './hooks/useUsersFilter';
+import useColourTheme from 'hooks/useColourTheme';
 
 import BlockContainer from '../../../../../shared/generic/block/containers/BlockContainer';
 import BlockHeading from '../../../../../shared/generic/blockHeading/presentational/BlockHeading';
 import Search from '../../../../../shared/generic/form/presentational/Search';
 import Tickbox from '../../../../../shared/generic/form/presentational/Tickbox';
+import Select from '../../../../../shared/generic/form/presentational/Select';
+
 import plusIcon from '_content/images/icons/plus-solid.svg';
-import useColourTheme from '../../../../../../hooks/useColourTheme';
-import { COMPANY_USER_ROLE_TYPES } from '../../../../../../constants/companyAdmin/enums';
-import { TABLE_SORT_DIRECTIONS } from '../../../../../../constants/shared/tables';
-import useUsersFilter from './hooks/useUsersFilter';
+
+import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
+import { TABLE_SORT_DIRECTIONS } from 'constants/shared/tables';
+import Field from '../../../../../shared/generic/form/presentational/Field';
+import He from 'styled-components/dist/styled-components.browser.esm';
 
 const { ASC } = TABLE_SORT_DIRECTIONS;
 
 const WagesUserList = ({ selectedUserIDs, handleToggleUserID, isFetching, fetchError }) => {
     const colourTheme = useColourTheme();
-    const { sortDirection, handleSort, filteredUsers, userFilter, setUserFilter } =
-        useUsersFilter();
+    const {
+        sortDirection,
+        handleSort,
+        showFiltersPopup,
+        setShowFiltersPopup,
+        filteredUsers,
+        userFilter,
+        setUserFilter,
+        userRoleOptions,
+        selectedRole,
+        setSelectedRole,
+    } = useUsersFilter();
 
     return (
         <BlockContainer contentClass="wages-users-list" isFetching={isFetching} error={fetchError}>
@@ -29,9 +45,44 @@ const WagesUserList = ({ selectedUserIDs, handleToggleUserID, isFetching, fetchE
                         handleChange={(_, value) => setUserFilter(value)}
                     />
 
-                    <button className="reset-button">
+                    <button
+                        className="reset-button"
+                        onClick={() => setShowFiltersPopup(!showFiltersPopup)}
+                    >
                         <i className="fas fa-filter"></i>
                     </button>
+
+                    {showFiltersPopup && (
+                        <div className="filters-popup">
+                            <Field name="User role">
+                                <Select
+                                    options={userRoleOptions}
+                                    classes="medium"
+                                    omitPlaceholder
+                                    value={selectedRole}
+                                    onChange={(_, value) => setSelectedRole(value)}
+                                />
+                            </Field>
+                            <Field>
+                                <Tickbox
+                                    name={''}
+                                    value={false}
+                                    checked={false}
+                                    // handleChange={() => handleToggleUserID(id)}
+                                    label="Has wage set"
+                                />
+                            </Field>
+                            <Field>
+                                <Tickbox
+                                    name={''}
+                                    value={false}
+                                    checked={false}
+                                    // handleChange={() => handleToggleUserID(id)}
+                                    label="Has set hours"
+                                />
+                            </Field>
+                        </div>
+                    )}
 
                     <button className="reset-button" onClick={handleSort}>
                         <i
