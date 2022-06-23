@@ -42,6 +42,8 @@ const useWages = () => {
                     message: 'Pay rates successfully assigned.',
                 }),
             );
+            setSelectedUserIDs([]);
+            setSelectedPayRate(null);
         }
     }, [postSuccess, prevPostSuccess]);
 
@@ -55,9 +57,9 @@ const useWages = () => {
     }, [companyUsers, userFilter]);
 
     function handleToggleUserID(id) {
-        if (selectedUserIDs.includes(id))
+        if (selectedUserIDs.includes(id)) {
             setSelectedUserIDs(sids => sids.filter(sid => sid !== id));
-        else setSelectedUserIDs(sids => [...sids, id]);
+        } else setSelectedUserIDs(sids => [...sids, id]);
     }
 
     function getUserNameByID(id) {
