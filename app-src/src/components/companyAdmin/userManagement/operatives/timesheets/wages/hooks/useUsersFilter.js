@@ -1,17 +1,30 @@
 import { useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import { selectCompanyUsers } from '../../../../../../../selectors/companyAdmin/companyUsers';
+import { selectCompanyUsers } from 'selectors/companyAdmin/companyUsers';
 
-import { TABLE_SORT_DIRECTIONS } from '../../../../../../../constants/shared/tables';
+import { TABLE_SORT_DIRECTIONS } from 'constants/shared/tables';
+import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 
 const { ASC } = TABLE_SORT_DIRECTIONS;
 
 const useUsersFilter = () => {
+    const [showFiltersPopup, setShowFiltersPopup] = useState(false);
+
     const [userFilter, setUserFilter] = useState('');
+    const [selectedRole, setSelectedRole] = useState('');
+    const [hasWageSet, setHasWageSet] = useState(false);
+    const [hasHoursSet, setHasHoursSet] = useState(false);
     const [sortDirection, setSortDirection] = useState(ASC);
 
     const companyUsers = useSelector(selectCompanyUsers) || [];
+
+    const userRoleOptions = [
+        { value: '', label: 'All roles' },
+        { value: COMPANY_USER_ROLE_TYPES.OWNER, label: 'Owner' },
+        { value: COMPANY_USER_ROLE_TYPES.ADMIN, label: 'Admin' },
+        { value: COMPANY_USER_ROLE_TYPES.OPERATIVE, label: 'Operative' },
+    ];
 
     const handleSort = () => {
         if (sortDirection === ASC) {
@@ -35,19 +48,43 @@ const useUsersFilter = () => {
             }
         });
 
-        return users.filter(({ userFirstName, userLastName }) =>
-            `${userFirstName} ${userLastName}`
-                .toLowerCase()
-                .includes(userFilter.trim().toLowerCase()),
+        return users.filter(
+            ({ userFirstName, userLastName, type, companyPayRateID, hasWorkingHoursSet }) => {
+                console.log(type);
+                if (!!selectedRole && selectedRole !== type) {
+                    return false;
+                }
+
+                if (hasWageSet && !companyPayRateID) {
+                    return false;
+                }
+
+                if (hasHoursSet && !hasWorkingHoursSet) {
+                    return false;
+                }
+
+                return `${userFirstName} ${userLastName}`
+                    .toLowerCase()
+                    .includes(userFilter.trim().toLowerCase());
+            },
         );
-    }, [companyUsers, userFilter, sortDirection]);
+    }, [companyUsers, userFilter, sortDirection, selectedRole, hasWageSet, hasHoursSet]);
 
     return {
         sortDirection,
         handleSort,
+        showFiltersPopup,
+        setShowFiltersPopup,
         filteredUsers,
         userFilter,
         setUserFilter,
+        userRoleOptions,
+        selectedRole,
+        setSelectedRole,
+        hasWageSet,
+        setHasWageSet,
+        hasHoursSet,
+        setHasHoursSet,
     };
 };
 

@@ -1,21 +1,41 @@
-import React, { useState } from 'react';
+import React from 'react';
+
+import useUsersFilter from './hooks/useUsersFilter';
+import useColourTheme from 'hooks/useColourTheme';
 
 import BlockContainer from '../../../../../shared/generic/block/containers/BlockContainer';
 import BlockHeading from '../../../../../shared/generic/blockHeading/presentational/BlockHeading';
 import Search from '../../../../../shared/generic/form/presentational/Search';
 import Tickbox from '../../../../../shared/generic/form/presentational/Tickbox';
+import Select from '../../../../../shared/generic/form/presentational/Select';
+import Field from '../../../../../shared/generic/form/presentational/Field';
+
 import plusIcon from '_content/images/icons/plus-solid.svg';
-import useColourTheme from '../../../../../../hooks/useColourTheme';
-import { COMPANY_USER_ROLE_TYPES } from '../../../../../../constants/companyAdmin/enums';
-import { TABLE_SORT_DIRECTIONS } from '../../../../../../constants/shared/tables';
-import useUsersFilter from './hooks/useUsersFilter';
+
+import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
+import { TABLE_SORT_DIRECTIONS } from 'constants/shared/tables';
+import ActionButton from '../../../../../shared/generic/button/presentational/ActionButton';
 
 const { ASC } = TABLE_SORT_DIRECTIONS;
 
 const WagesUserList = ({ selectedUserIDs, handleToggleUserID, isFetching, fetchError }) => {
     const colourTheme = useColourTheme();
-    const { sortDirection, handleSort, filteredUsers, userFilter, setUserFilter } =
-        useUsersFilter();
+    const {
+        sortDirection,
+        handleSort,
+        showFiltersPopup,
+        setShowFiltersPopup,
+        filteredUsers,
+        userFilter,
+        setUserFilter,
+        userRoleOptions,
+        selectedRole,
+        setSelectedRole,
+        hasWageSet,
+        setHasWageSet,
+        hasHoursSet,
+        setHasHoursSet,
+    } = useUsersFilter();
 
     return (
         <BlockContainer contentClass="wages-users-list" isFetching={isFetching} error={fetchError}>
@@ -29,9 +49,52 @@ const WagesUserList = ({ selectedUserIDs, handleToggleUserID, isFetching, fetchE
                         handleChange={(_, value) => setUserFilter(value)}
                     />
 
-                    <button className="reset-button">
+                    <button
+                        className="reset-button"
+                        onClick={() => setShowFiltersPopup(!showFiltersPopup)}
+                    >
                         <i className="fas fa-filter"></i>
                     </button>
+
+                    {showFiltersPopup && (
+                        <div className="filters-popup">
+                            <div className="flex-column">
+                                <Field name="User role">
+                                    <Select
+                                        options={userRoleOptions}
+                                        classes="medium"
+                                        omitPlaceholder
+                                        value={selectedRole}
+                                        onChange={(_, value) => setSelectedRole(value)}
+                                    />
+                                </Field>
+                                <Field>
+                                    <Tickbox
+                                        value={hasWageSet}
+                                        checked={hasWageSet}
+                                        handleChange={() => setHasWageSet(!hasWageSet)}
+                                        label="Has wage set"
+                                    />
+                                </Field>
+
+                                <Field>
+                                    <Tickbox
+                                        value={hasHoursSet}
+                                        checked={hasHoursSet}
+                                        handleChange={() => setHasHoursSet(!hasHoursSet)}
+                                        label="Has set hours"
+                                    />
+                                </Field>
+
+                                <div className="flex-row justify-end">
+                                    <ActionButton
+                                        text="Confirm"
+                                        onClick={() => setShowFiltersPopup(false)}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    )}
 
                     <button className="reset-button" onClick={handleSort}>
                         <i
