@@ -53,6 +53,8 @@ function postSuccessReducer(state = false, action) {
             return true;
         case POST_COMPANY_PAY_RATES_REQUEST:
         case POST_COMPANY_PAY_RATES_FAILURE:
+        case POST_ASSIGN_PAY_RATES_REQUEST:
+        case POST_ASSIGN_PAY_RATES_FAILURE:
             return false;
         default:
             return state;
