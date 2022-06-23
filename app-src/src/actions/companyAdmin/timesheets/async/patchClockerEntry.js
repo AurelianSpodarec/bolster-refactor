@@ -26,7 +26,7 @@ export default postBody => async dispatch => {
     dispatch(patchClockerEntryRequest());
 
     return axios
-        .patch(`${API_URL}/clockerEntries/ammend`, postBody, getHeaders())
+        .patch(`${API_URL}/clockerEntries/amend`, postBody, getHeaders())
         .then(res => dispatch(patchClockerEntrySuccess(res.data)))
         .catch(err => dispatch(patchClockerEntryFailure(err.message)));
 };

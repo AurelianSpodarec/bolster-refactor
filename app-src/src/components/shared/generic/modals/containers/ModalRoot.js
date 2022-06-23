@@ -160,7 +160,7 @@ import {
     BUY_BOLSTER_PLUS_CONFIRMATION,
     DELETE_SHIFT,
     PAY_RATES_MODAL,
-    AMMEND_JOB_REFERENCE_MODAL,
+    AMEND_JOB_REFERENCE_MODAL,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -320,7 +320,7 @@ import BuyBolsterPlusConfirmationModal from 'components/companyAdmin/subscriptio
 import BolsterPlusPaymentErrorModal from 'components/companyAdmin/subscription/addOns/modals/BolsterPlusPaymentErrorModal';
 import ConfirmDeleteShiftModalContainer from './ConfirmDeleteShiftModalContainer';
 import PayRatesModal from '../../../../companyAdmin/userManagement/operatives/timesheets/wages/modals/PayRatesModal';
-import AmmendJobReferenceModal from 'components/companyAdmin/userManagement/operatives/timesheets/modals/AmmendJobReferenceModal';
+import AmendJobReferenceModal from 'components/companyAdmin/userManagement/operatives/timesheets/modals/AmendJobReferenceModal';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModal,
@@ -481,7 +481,7 @@ const MODAL_COMPONENTS = {
     [BOLSTER_PLUS_UPGRADE_MODAL]: BolsterPlusUpgradeModal,
     [BUY_BOLSTER_PLUS_CONFIRMATION]: BuyBolsterPlusConfirmationModal,
     [PAY_RATES_MODAL]: PayRatesModal,
-    [AMMEND_JOB_REFERENCE_MODAL]: AmmendJobReferenceModal,
+    [AMEND_JOB_REFERENCE_MODAL]: AmendJobReferenceModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {
