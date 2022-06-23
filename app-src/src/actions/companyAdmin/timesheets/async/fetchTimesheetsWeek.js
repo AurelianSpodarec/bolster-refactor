@@ -42,6 +42,6 @@ export default (userIDs = [], jobReferenceIDs = [], startDate) =>
                     },
                 },
             )
-            .then(res => dispatch(fetchTimesheetsWeekSuccess(res.data.companyUserWeeks)))
+            .then(res => dispatch(fetchTimesheetsWeekSuccess(res.data)))
             .catch(err => dispatch(fetchTimesheetsWeekFailure(err.message)));
     };
