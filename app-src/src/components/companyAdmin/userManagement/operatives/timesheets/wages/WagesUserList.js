@@ -7,6 +7,9 @@ import Tickbox from '../../../../../shared/generic/form/presentational/Tickbox';
 import plusIcon from '_content/images/icons/plus-solid.svg';
 import useColourTheme from '../../../../../../hooks/useColourTheme';
 import { COMPANY_USER_ROLE_TYPES } from '../../../../../../constants/companyAdmin/enums';
+import { TABLE_SORT_DIRECTIONS } from '../../../../../../constants/shared/tables';
+
+const { ASC, DESC } = TABLE_SORT_DIRECTIONS;
 
 const WagesUserList = ({
     selectedUserIDs,
@@ -18,21 +21,32 @@ const WagesUserList = ({
     fetchError,
 }) => {
     const colourTheme = useColourTheme();
+    const sortDirection = 1;
 
     return (
         <BlockContainer contentClass="wages-users-list" isFetching={isFetching} error={fetchError}>
-            <BlockHeading title="All Users" />
+            <div className="flex-column">
+                <BlockHeading title="All Users" />
 
-            <div className="wages-filters-wrapper">
-                <Search
-                    name="usersFilter"
-                    value={userFilter}
-                    handleChange={(_, value) => setUserFilter(value)}
-                />
+                <div className="wages-filters-wrapper flex-row">
+                    <Search
+                        name="usersFilter"
+                        value={userFilter}
+                        handleChange={(_, value) => setUserFilter(value)}
+                    />
 
-                {/*<button className="reset-button">*/}
-                {/*    <i className="fas fa-filter"></i>*/}
-                {/*</button>*/}
+                    <button className="reset-button">
+                        <i className="fas fa-filter"></i>
+                    </button>
+
+                    <button className="reset-button">
+                        <i
+                            className={`sort-icon fa fa-${
+                                sortDirection === ASC ? 'sort-amount-up' : 'sort-amount-down'
+                            }`}
+                        ></i>
+                    </button>
+                </div>
             </div>
 
             <div className="users-list">

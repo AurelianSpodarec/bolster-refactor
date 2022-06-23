@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { batch, useDispatch, useSelector } from 'react-redux';
 import { usePrevious } from '../../../../../../../helpers/hooks';
 import useGetCompanyPayRates from './useGetCompanyPayRates';
 import useBolsterPlus from 'components/companyAdmin/subscription/addOns/hooks/useBolsterPlus';
@@ -56,13 +56,16 @@ const useWages = () => {
 
     useEffect(() => {
         if (postSuccess && !prevPostSuccess) {
-            dispatch(
-                showModal(SUCCESS_MODAL, {
-                    title: 'Success',
-                    message: 'Pay rates successfully assigned.',
-                }),
-            );
-            dispatch(fetchCompanyUsers);
+            batch(() => {
+                dispatch(fetchCompanyUsers());
+                dispatch(
+                    showModal(SUCCESS_MODAL, {
+                        title: 'Success',
+                        message: 'Pay rates successfully assigned.',
+                    }),
+                );
+            });
+
             setSelectedUserIDs([]);
             setSelectedPayRate(null);
         }
