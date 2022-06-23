@@ -198,6 +198,7 @@ const ShiftPod = ({
                         noDataMessage="No jobs to display."
                     >
                         <HoursWorkedList
+                            shiftID={shift.id}
                             jobReferences={jobReferences}
                             jobReferencesTotalCost={jobReferencesTotalCost}
                             jobReferencesTotalHours={jobReferencesTotalHours}

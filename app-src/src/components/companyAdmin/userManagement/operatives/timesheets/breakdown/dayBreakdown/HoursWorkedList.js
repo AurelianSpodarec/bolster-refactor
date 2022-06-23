@@ -1,11 +1,19 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import moment from 'moment';
+
 import { formatCurrency } from 'helpers/generic';
+import { AMEND_JOB_REFERENCE_MODAL } from 'constants/shared/modalTypes';
+
+import showModal from 'actions/shared/generic/modals/sync/showModal';
 
 import TimePickerContainer from 'components/shared/generic/form/containers/TimePickerContainer';
 import CurrencyInput from 'components/shared/generic/form/presentational/CurrencyInput';
+import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 
 const HoursWorkedList = ({
+    shiftID,
     jobReferences = [],
     jobReferencesTotalHours,
     jobReferencesTotalCost,
@@ -16,12 +24,31 @@ const HoursWorkedList = ({
     handleChange,
     isEditing,
 }) => {
+    const dispatch = useDispatch();
+
     return (
         <>
             {jobReferences.map(({ jobRef, jobRefID, hoursWorked, wageSplit }, i) => {
                 return (
                     <tr key={`${i}-${jobRefID}`}>
-                        <td>{jobRef || '-'} </td>
+                        <td>
+                            <FlexWrapper align="center">
+                                <span style={{ marginRight: 5 }}>{jobRef || '-'}</span>
+                                <ActionButton
+                                    icon="pencil"
+                                    iconOnly
+                                    source="secondary"
+                                    onClick={() =>
+                                        dispatch(
+                                            showModal(AMEND_JOB_REFERENCE_MODAL, {
+                                                shiftID,
+                                                oldJobRefID: jobRefID,
+                                            }),
+                                        )
+                                    }
+                                />
+                            </FlexWrapper>{' '}
+                        </td>
                         <td>{moment(hoursWorked).format('H:mm')}</td>
                         <td>
                             {currencySymbol}

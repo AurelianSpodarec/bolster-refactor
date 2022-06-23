@@ -86,6 +86,22 @@ const PinHistoryDetailsItem = ({
             )}
 
             <FieldOutput
+                title="Sell cost"
+                description={`${currencySymbol}${
+                    history.sellCost ? formatCurrency(history.sellCost, false) : '0.00'
+                }`}
+                sizeClass="size-lg-3 size-md-12"
+            />
+
+            <FieldOutput
+                title="Labour cost"
+                description={`${currencySymbol}${
+                    history.labourCost ? formatCurrency(history.labourCost, false) : '0.00'
+                }`}
+                sizeClass="size-lg-3 size-md-12"
+            />
+
+            <FieldOutput
                 title="Total cost"
                 description={`${currencySymbol}${
                     history.totalHistoryCost
