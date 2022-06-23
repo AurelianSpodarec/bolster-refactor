@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import BlockContainer from '../../../../../shared/generic/block/containers/BlockContainer';
 import BlockHeading from '../../../../../shared/generic/blockHeading/presentational/BlockHeading';
@@ -8,8 +8,9 @@ import plusIcon from '_content/images/icons/plus-solid.svg';
 import useColourTheme from '../../../../../../hooks/useColourTheme';
 import { COMPANY_USER_ROLE_TYPES } from '../../../../../../constants/companyAdmin/enums';
 import { TABLE_SORT_DIRECTIONS } from '../../../../../../constants/shared/tables';
+import useUsersFilter from './hooks/useUsersFilter';
 
-const { ASC, DESC } = TABLE_SORT_DIRECTIONS;
+const { ASC } = TABLE_SORT_DIRECTIONS;
 
 const WagesUserList = ({
     selectedUserIDs,
@@ -21,7 +22,7 @@ const WagesUserList = ({
     fetchError,
 }) => {
     const colourTheme = useColourTheme();
-    const sortDirection = 1;
+    const { sortDirection, handleSort, sortedUsers } = useUsersFilter(users);
 
     return (
         <BlockContainer contentClass="wages-users-list" isFetching={isFetching} error={fetchError}>
@@ -39,7 +40,7 @@ const WagesUserList = ({
                         <i className="fas fa-filter"></i>
                     </button>
 
-                    <button className="reset-button">
+                    <button className="reset-button" onClick={handleSort}>
                         <i
                             className={`sort-icon fa fa-${
                                 sortDirection === ASC ? 'sort-amount-up' : 'sort-amount-down'
@@ -50,7 +51,7 @@ const WagesUserList = ({
             </div>
 
             <div className="users-list">
-                {users.map((user, i) => {
+                {sortedUsers.map((user, i) => {
                     const {
                         id,
                         userFirstName,
