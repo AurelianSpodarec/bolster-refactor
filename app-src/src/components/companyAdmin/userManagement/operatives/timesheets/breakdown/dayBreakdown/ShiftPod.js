@@ -27,6 +27,7 @@ import ApproveShiftButton from './ApproveShiftButton';
 import ApproveShiftMenuButton from './ApproveShiftMenuButton';
 import RejectShiftMenuButton from './RejectShiftMenuButton';
 import useBolsterPlus from 'components/companyAdmin/subscription/addOns/hooks/useBolsterPlus';
+import AddExpenseButton from './AddExpenseButton';
 
 const ShiftPod = ({
     shift,
@@ -250,12 +251,7 @@ const ShiftPod = ({
                         />
                     </Table>
                     <ButtonWrapper alignment="right">
-                        <ActionButton
-                            size="small"
-                            icon="plus"
-                            text="Create new"
-                            onClick={() => {}}
-                        />
+                        <AddExpenseButton shiftID={shift.id} />
                     </ButtonWrapper>
                 </div>
                 <div className="shift-total">
