@@ -4280,60 +4280,60 @@ $back-to-top-height: 35px;
       margin: 10px 0;
     }
 
-    .inner-pod {
-      background-color: var(--navigation-primary);
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
+  }
+  
+  .inner-pod {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
 
-       p {
-        display: block;
-       }
-       
-       .table-container {
-         margin-bottom: 20px;
-       }
+     p {
+      display: block;
+     }
+     
+     .table-container {
+       margin-bottom: 20px;
+     }
 
-       .generic-table {
-        width: 100%;
-        margin-left: 0px;
-        float: unset;
-        
-        tr {
-         background-color: transparent;
+     .generic-table {
+      width: 100%;
+      margin-left: 0px;
+      float: unset;
+      
+      tr {
+       background-color: transparent;
 
-         &.total-row {
-          font-weight: 500;
-         }
-
-         td, th {
-           padding: 10px 5px;
-         }
-
-         .table-time-input {
-            font-size: 16px;
-            font-weight: 400;
-         }
-
-         .generic-input {
-          background-color: transparent;
-          padding: 2px
-         }
-        }
+       &.total-row {
+        font-weight: 500;
        }
 
-       .shift-total {
-        font-size: 160%;
-        color: var(--typography-greyed-out);
-        text-align: right;
-
-        .total {
-          color: var(--typography-default);
-          font-weight: 500;
-          margin-left: 0.6em;
-        }
+       td, th {
+         padding: 10px 5px;
        }
-    }
+
+       .table-time-input {
+          font-size: 16px;
+          font-weight: 400;
+       }
+
+       .generic-input {
+        background-color: transparent;
+        padding: 2px
+       }
+      }
+     }
+
+     .shift-total {
+      font-size: 160%;
+      color: var(--typography-greyed-out);
+      text-align: right;
+
+      .total {
+        color: var(--typography-default);
+        font-weight: 500;
+        margin-left: 0.6em;
+      }
+     }
   }
 
   .day-breakdown-location {
