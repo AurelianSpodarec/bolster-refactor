@@ -66,6 +66,8 @@ const useTimesheetsOverview = (setTitleData = () => {}) => {
     const postSuccess = useSelector(selectTimesheetsPostSuccess);
     const deleteSuccess = useSelector(selectTimesheetsDeleteSuccess);
 
+    const { companyUserWeeks } = timesheets;
+
     const jobReferencesIsFetching = useSelector(selectJobReferencesIsFetching);
 
     const reportGenPins = useSelector(selectUserPinFeeds);
@@ -179,7 +181,7 @@ const useTimesheetsOverview = (setTitleData = () => {}) => {
         totalPins: 0,
         jobReferenceIDs: [],
     };
-    const totals = timesheets.reduce(
+    const totals = companyUserWeeks.reduce(
         (acc, timesheet) => {
             timesheet.days.forEach((day, i) => {
                 acc[i].formattedHours += day.formattedHours;
@@ -204,7 +206,7 @@ const useTimesheetsOverview = (setTitleData = () => {}) => {
         })),
     );
 
-    const formattedTimesheets = timesheets.map(timesheet => {
+    const formattedTimesheets = companyUserWeeks.map(timesheet => {
         return {
             ...timesheet,
             days: timesheet.days.map(day => {
