@@ -1,22 +1,22 @@
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import DashboardPinFeed from 'components/companyAdmin/dashboard/presentational/DashboardPinFeed';
-import BreakdownColumns from '../BreakdownColumns';
-import usePinFeed from '../../hooks/usePinFeed';
-import BreakdownSummary from '../BreakdownSummary';
-import useWeekOverview from '../../hooks/useWeekOverview';
-import { DATE_TIME_IDS, TIME_PERIOD } from 'constants/companyAdmin/enums';
+// import DashboardPinFeed from 'components/companyAdmin/dashboard/presentational/DashboardPinFeed';
+// import BreakdownColumns from '../BreakdownColumns';
+// import usePinFeed from '../../hooks/usePinFeed';
+// import BreakdownSummary from '../BreakdownSummary';
+// import useWeekOverview from '../../hooks/useWeekOverview';
+// import { DATE_TIME_IDS, TIME_PERIOD } from 'constants/companyAdmin/enums';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import PieChart from 'components/shared/stats/presentational/PieChart';
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+// import PieChart from 'components/shared/stats/presentational/PieChart';
+// import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import { isEmpty } from 'helpers/generic';
-import usePinStats from '../../hooks/usePinStats';
-import moment from 'moment';
-import BreakdownNotes from '../BreakdownNotes';
+// import usePinStats from '../../hooks/usePinStats';
+// import moment from 'moment';
+// import BreakdownNotes from '../BreakdownNotes';
 import BreakdownOverviewFilters from '../../breakdown/dayBreakdown/BreakdownOverviewFilters';
 import useOverviewFilters from '../../breakdown/dayBreakdown/hooks/useOverviewFilters';
 import {
-    selectFilterByHasClockedIn,
+    // selectFilterByHasClockedIn,
     timesheetSelectedCompanyIDs,
 } from 'selectors/companyAdmin/timesheets';
 import { days } from 'constants/companyAdmin/timesheets';
@@ -25,19 +25,19 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import DayShiftsTable from '../../dayShiftsTables/DayShiftsTable';
 
 const WeekBreakdownOverview = ({
-    selectedDate,
+    // selectedDate,
     timesheets,
     isFetching,
     fetchError,
     disableReportGenPin,
     handlePDFReportGeneration,
-    weeklyHoursBreakdown,
-    dailyHoursBreakdown,
+    // weeklyHoursBreakdown,
+    // dailyHoursBreakdown,
 }) => {
     const userIDs = useSelector(timesheetSelectedCompanyIDs);
     const companyUsers = useSelector(selectCompanyUsers);
-    const filterByHasClockedIn = useSelector(selectFilterByHasClockedIn);
-    const isSingleUser = userIDs.length === 1;
+    // const filterByHasClockedIn = useSelector(selectFilterByHasClockedIn);
+    // const isSingleUser = userIDs.length === 1;
 
     const shiftsByDay = useMemo(
         () =>
@@ -126,70 +126,11 @@ const WeekBreakdownOverview = ({
                     isEmpty={isEmpty(timesheets)}
                 >
                     <BlockHeading title={days[i]} />
-                    <DayShiftsTable
-                        date={selectedDate}
-                        timesheets={timesheets}
-                        shiftsForDay={shiftsForDay}
-                        filterType={filterType}
-                        filterDirection={filterDirection}
-                        filterByHasClockedIn={filterByHasClockedIn}
-                    />
+                    <DayShiftsTable shiftsForDay={shiftsForDay} />
                 </BlockContainer>
             ))}
         </>
     );
-
-    // return (
-    //     <BreakdownColumns
-    //         className="week-breakdown-overview"
-    //         left={
-    //             <div className="day" key={companyUserID}>
-    //                 <BreakdownSummary
-    //                     name={`${firstName} ${lastName} (${email})`}
-    //                     formattedHours={formattedHours}
-    //                     formattedBreakHours={formattedBreakHours}
-    //                     totalPins={totalPins}
-    //                     jobReferenceIDs={jobReferenceIDs}
-    //                     timePeriod={TIME_PERIOD.WEEK}
-    //                 />
-    //                 <BreakdownNotes notes={clockerNotes} />
-    //             </div>
-    //         }
-    //         right={
-    //             <>
-    //                 <div className="breakdown-piechart">
-    //                     <BlockContainer
-    //                         isFetching={statsIsFetching}
-    //                         error={statsFetchError}
-    //                         isEmpty={isEmpty(stats) || statsIsFetching}
-    //                     >
-    //                         <PieChart
-    //                             stats={stats}
-    //                             noDataMessageOverride={
-    //                                 <>
-    //                                     No pins were placed on{' '}
-    //                                     {
-    //                                         <DateTimeContainer
-    //                                             date={new Date(selectedDate)}
-    //                                             datetime={DATE_TIME_IDS.DATE}
-    //                                         />
-    //                                     }
-    //                                 </>
-    //                             }
-    //                         />
-    //                     </BlockContainer>
-    //                 </div>
-    //                 <div className="breakdown-feed">
-    //                     <DashboardPinFeed
-    //                         pins={feed.reduce((acc, userFeed) => [...acc, ...userFeed.items], [])}
-    //                         isFetching={feedIsFetching}
-    //                         error={feedFetchError}
-    //                     />
-    //                 </div>
-    //             </>
-    //         }
-    //     />
-    // );
 };
 
 export default WeekBreakdownOverview;
