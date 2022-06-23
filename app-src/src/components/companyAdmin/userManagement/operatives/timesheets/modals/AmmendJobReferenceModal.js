@@ -19,14 +19,13 @@ const AmmendJobReferenceModal = ({ hideModal, clockerUID, jobRefID }) => {
             <Form onSubmit={handleSubmit} className="generic-form flex-content-wrapper size-lg-12">
                 <div className="flex-content">
                     <div className="form-fields-container size-lg-12">
-                        <Field name="Job Reference" required>
+                        <Field name="Job Reference">
                             <Select
                                 value={form.jobRefID}
                                 onChange={handleChange}
                                 name="jobRefID"
                                 options={Object.values(jobRefOptions)}
                                 staticListPosition
-                                required
                             />
                         </Field>
                     </div>

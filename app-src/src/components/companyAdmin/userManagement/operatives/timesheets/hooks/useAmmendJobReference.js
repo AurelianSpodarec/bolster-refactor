@@ -30,7 +30,7 @@ const useAmmendJobReference = ({ clockerUID, jobRefID }) => {
 
     const handleSubmit = () => {
         const postBody = {
-            ...form,
+            jobRefID: jobRefID ? jobRefID : null,
             clockerUID,
         };
 
