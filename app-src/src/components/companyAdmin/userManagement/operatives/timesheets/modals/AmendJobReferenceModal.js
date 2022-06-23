@@ -9,10 +9,10 @@ import Select from 'components/shared/generic/form/presentational/Select';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 
-const AmendJobReferenceModal = ({ hideModal, clockerUID, jobRefID }) => {
+const AmendJobReferenceModal = ({ hideModal, shiftID, oldJobRefID }) => {
     const { form, handleChange, handleSubmit, jobRefOptions, isPosting } = useAmendJobReference({
-        clockerUID,
-        jobRefID,
+        shiftID,
+        oldJobRefID,
     });
 
     return (
@@ -22,9 +22,9 @@ const AmendJobReferenceModal = ({ hideModal, clockerUID, jobRefID }) => {
                     <div className="form-fields-container size-lg-12">
                         <Field name="Job Reference">
                             <Select
-                                value={form.jobRefID}
+                                value={form.newJobRefID}
                                 onChange={handleChange}
-                                name="jobRefID"
+                                name="newJobRefID"
                                 options={Object.values(jobRefOptions)}
                                 staticListPosition
                             />

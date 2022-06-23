@@ -13,6 +13,7 @@ import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 
 const HoursWorkedList = ({
+    shiftID,
     jobReferences = [],
     jobReferencesTotalHours,
     jobReferencesTotalCost,
@@ -38,7 +39,12 @@ const HoursWorkedList = ({
                                     iconOnly
                                     source="secondary"
                                     onClick={() =>
-                                        dispatch(showModal(AMEND_JOB_REFERENCE_MODAL, { jobRefID }))
+                                        dispatch(
+                                            showModal(AMEND_JOB_REFERENCE_MODAL, {
+                                                shiftID,
+                                                oldJobRefID: jobRefID,
+                                            }),
+                                        )
                                     }
                                 />
                             </FlexWrapper>{' '}
