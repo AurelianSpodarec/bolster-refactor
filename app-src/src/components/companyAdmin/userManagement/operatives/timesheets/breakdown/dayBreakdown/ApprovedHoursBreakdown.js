@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import Table from 'components/shared/generic/tables/presentational/Table';
-import { formatCurrency } from 'helpers/generic';
+import { formatAsHrsMins, formatCurrency } from 'helpers/generic';
 import { useSelector } from 'react-redux';
 import { selectCompanyCurrency } from 'selectors/companyAdmin/companySettings';
 import { CURRENCY_SYMBOLS, SHIFT_STATUS } from 'constants/companyAdmin/enums';
@@ -72,7 +72,7 @@ const ApprovedHoursBreakdown = ({
                                 return (
                                     <tr key={i}>
                                         <td>{jobReferenceName}</td>
-                                        <td>{totalHours}</td>
+                                        <td>{formatAsHrsMins(totalHours)}</td>
                                         <td>{totalOperatives}</td>
                                         <td>
                                             {currencySymbol}
@@ -84,7 +84,7 @@ const ApprovedHoursBreakdown = ({
                         )}
                         <tr className="total-row">
                             <td>Total</td>
-                            <td>{totalHours.toFixed(2)}</td>
+                            <td>{formatAsHrsMins(totalHours)}</td>
                             <td>{totalOperatives}</td>
                             <td>
                                 {currencySymbol}
