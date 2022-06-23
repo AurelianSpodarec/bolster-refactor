@@ -1336,11 +1336,18 @@
     }
   }
 
+  &.medium {
+    .option-selection {
+      .option-container {
+        max-height: 100px;
+      }
+    }
+  }
+
   &.large {
     .option-selection {
       .option-container {
         max-height: 147px;
-
       }
     }
   }

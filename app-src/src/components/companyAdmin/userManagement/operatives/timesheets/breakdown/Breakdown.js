@@ -53,6 +53,7 @@ const Breakdown = ({
                                     handlePDFReportGeneration={handlePDFReportGeneration}
                                     disableReportGenPin={disableReportGenPin}
                                     weeklyHoursBreakdown={weeklyHoursBreakdown}
+                                    dailyHoursBreakdown={dailyHoursBreakdown}
                                 />
                             ),
                         },
