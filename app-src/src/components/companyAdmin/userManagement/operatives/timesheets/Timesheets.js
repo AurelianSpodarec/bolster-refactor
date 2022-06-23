@@ -43,9 +43,11 @@ const Timesheets = ({ selectedTab }) => {
                         size="medium"
                         text="Pay Rates"
                         minWidth={'150px'}
+                        extraClasses="center"
                         onClick={() => dispatch(showModal(PAY_RATES_MODAL))}
                     />
                 )}
+                <ActionButton size="medium" onClick={() => {}} text="Export CSV" icon="file-csv" />
                 <TabsContainer classes="hierarchy-tabs" />
             </PageHeading>
             <TimesheetsRouteContainer setTitleData={setTitleData} />

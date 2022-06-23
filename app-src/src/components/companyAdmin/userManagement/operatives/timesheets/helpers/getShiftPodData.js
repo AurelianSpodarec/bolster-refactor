@@ -1,26 +1,28 @@
 const getShiftPodData = shift => {
     const {
-        clockerEntries,
-        companyUserID,
+        // clockerEntries,
+        // companyUserID,
         endOn,
         formattedBreakHours,
-        formattedClockedInHours,
-        formattedHours,
+        // formattedClockedInHours,
+        // formattedHours,
         hoursBreakdown, // jobReferenceBreakdowns, totalHours, totalOperatives, totalWageSplit
         groupUID,
-        id,
-        lastClockedOutTime,
-        overriddenByCompanyUserID,
-        overriddenOn,
+        // id,
+        // lastClockedOutTime,
+        // overriddenByCompanyUserID,
+        // overriddenOn,
         overrideShiftTime,
         overrideWage,
         startOn,
         status,
-        totalPins,
+        // totalPins,
         notes,
         lateClockIn,
         lateClockOut,
     } = shift;
+
+    console.log(shift);
 
     const jobReferences = hoursBreakdown.jobReferenceBreakdowns.map(
         ({ jobReferenceName, jobReferenceID, totalHours, totalWageSplit }) => ({
