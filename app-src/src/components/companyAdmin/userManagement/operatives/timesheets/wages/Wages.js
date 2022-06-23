@@ -16,10 +16,14 @@ const Wages = () => {
         fetchError,
         selectedPayRate,
         setSelectedPayRate,
+        handleSave,
+        isPosting,
+        companyPayRateOptions,
+        isBolsterPlusActivated,
     } = useWages();
 
     return (
-        <div className="width-12 wages-body">
+        <div className={`width-12 wages-body ${!isBolsterPlusActivated ? 'blur' : ''}`}>
             <WagesUserList
                 selectedUserIDs={selectedUserIDs}
                 handleToggleUserID={handleToggleUserID}
@@ -31,10 +35,15 @@ const Wages = () => {
             />
 
             <WagesPayDetails
+                isPosting={isPosting}
+                isFetching={isFetching}
+                error={fetchError}
                 selectedUserIDs={selectedUserIDs}
-                getUserNameByID={getUserNameByID}
                 selectedPayRate={selectedPayRate}
                 setSelectedPayRate={setSelectedPayRate}
+                companyPayRateOptions={companyPayRateOptions}
+                getUserNameByID={getUserNameByID}
+                handleSave={handleSave}
             />
         </div>
     );

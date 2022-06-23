@@ -28,16 +28,19 @@ const WagesUserList = ({
                 handleChange={(_, value) => setUserFilter(value)}
             />
             <div className="users-list">
-                {users.map(({ id, userFirstName, userLastName }, i) => (
-                    <div className="list-item" key={`${i}-${id}`}>
-                        <Tickbox
-                            name={`select-${id}`}
-                            value={selectedUserIDs.includes(id)}
-                            handleChange={() => handleToggleUserID(id)}
-                        />
-                        <p>{`${userFirstName} ${userLastName}`}</p>
-                    </div>
-                ))}
+                {users.map(({ id, userFirstName, userLastName }, i) => {
+                    return (
+                        <div className="list-item" key={`${i}-${id}`}>
+                            <Tickbox
+                                name={`select-${id}`}
+                                value={selectedUserIDs.includes(id)}
+                                checked={selectedUserIDs.includes(id)}
+                                handleChange={() => handleToggleUserID(id)}
+                            />
+                            <p>{`${userFirstName} ${userLastName}`}</p>
+                        </div>
+                    );
+                })}
             </div>
         </BlockContainer>
     );

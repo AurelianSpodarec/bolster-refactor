@@ -402,6 +402,17 @@ export const formatAsHrsMinsSecs = (ms: number) => {
     return `${formatInt(hrs)}:${formatInt(mins)}:${formatInt(secsLeft)}`;
 };
 
+export const formatAsHrsMins = (ms: number) => {
+    const formatInt = (int: number) => int.toString().padStart(2, '0');
+
+    const secs = Math.floor(ms / 1000);
+    const hrs = Math.floor(secs / 3600);
+    const mins = Math.floor((secs - hrs * 3600) / 60);
+    const secsLeft = secs - hrs * 3600 - mins * 60;
+
+    return `${formatInt(hrs)}:${formatInt(mins)}`;
+};
+
 export const arrayToQueryString = (array: string[], key: string) => {
     return array.map(val => `${key}=${val}`).join('&');
 };
