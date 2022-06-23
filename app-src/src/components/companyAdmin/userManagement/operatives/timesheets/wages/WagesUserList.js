@@ -8,13 +8,12 @@ import BlockHeading from '../../../../../shared/generic/blockHeading/presentatio
 import Search from '../../../../../shared/generic/form/presentational/Search';
 import Tickbox from '../../../../../shared/generic/form/presentational/Tickbox';
 import Select from '../../../../../shared/generic/form/presentational/Select';
+import Field from '../../../../../shared/generic/form/presentational/Field';
 
 import plusIcon from '_content/images/icons/plus-solid.svg';
 
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 import { TABLE_SORT_DIRECTIONS } from 'constants/shared/tables';
-import Field from '../../../../../shared/generic/form/presentational/Field';
-import He from 'styled-components/dist/styled-components.browser.esm';
 
 const { ASC } = TABLE_SORT_DIRECTIONS;
 
@@ -31,6 +30,10 @@ const WagesUserList = ({ selectedUserIDs, handleToggleUserID, isFetching, fetchE
         userRoleOptions,
         selectedRole,
         setSelectedRole,
+        hasWageSet,
+        setHasWageSet,
+        hasHoursSet,
+        setHasHoursSet,
     } = useUsersFilter();
 
     return (
@@ -65,19 +68,18 @@ const WagesUserList = ({ selectedUserIDs, handleToggleUserID, isFetching, fetchE
                             </Field>
                             <Field>
                                 <Tickbox
-                                    name={''}
-                                    value={false}
-                                    checked={false}
-                                    // handleChange={() => handleToggleUserID(id)}
+                                    value={hasWageSet}
+                                    checked={hasWageSet}
+                                    handleChange={() => setHasWageSet(!hasWageSet)}
                                     label="Has wage set"
                                 />
                             </Field>
+
                             <Field>
                                 <Tickbox
-                                    name={''}
-                                    value={false}
-                                    checked={false}
-                                    // handleChange={() => handleToggleUserID(id)}
+                                    value={hasHoursSet}
+                                    checked={hasHoursSet}
+                                    handleChange={() => setHasHoursSet(!hasHoursSet)}
                                     label="Has set hours"
                                 />
                             </Field>
