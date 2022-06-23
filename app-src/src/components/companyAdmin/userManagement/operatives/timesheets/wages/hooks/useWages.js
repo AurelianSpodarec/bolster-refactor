@@ -16,6 +16,7 @@ import { showModal } from '../../../../../../../actions/shared/generic/modals/sy
 import { PAY_RATES_MODAL, SUCCESS_MODAL } from '../../../../../../../constants/shared/modalTypes';
 import useGetCompanyPayRates from './useGetCompanyPayRates';
 import postAssignPayRates from '../../../../../../../actions/companyAdmin/payRates/postAssignPayRates';
+import useBolsterPlus from 'components/companyAdmin/subscription/addOns/hooks/useBolsterPlus';
 
 const useWages = () => {
     const dispatch = useDispatch();
@@ -33,6 +34,8 @@ const useWages = () => {
     const isPosting = useSelector(selectPayRatesIsPosting);
     const postSuccess = useSelector(selectPayRatesPostSuccess);
     const prevPostSuccess = usePrevious(postSuccess);
+
+    const { isBolsterPlusActivated } = useBolsterPlus();
 
     useEffect(() => {
         if (postSuccess && !prevPostSuccess) {
@@ -104,6 +107,7 @@ const useWages = () => {
         handleSave,
         isPosting,
         companyPayRateOptions,
+        isBolsterPlusActivated,
     };
 };
 
