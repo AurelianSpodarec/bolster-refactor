@@ -7,66 +7,25 @@ import { useSelector } from 'react-redux';
 import { selectCompanyCurrency } from 'selectors/companyAdmin/companySettings';
 import { CURRENCY_SYMBOLS, SHIFT_STATUS } from 'constants/companyAdmin/enums';
 import { usePrevious } from 'helpers/hooks';
+import moment from 'moment';
 
 const ApprovedHoursBreakdown = ({
-    shiftsForToday = [],
+    dailyHoursBreakdown,
+    selectedDate,
     grandTotal = 0,
     expensesTotal = 0,
-    jobRefTotal = 0,
 }) => {
     const currency = useSelector(selectCompanyCurrency);
     const currencySymbol = CURRENCY_SYMBOLS[currency];
 
-    const [width, setWidth] = useState(null);
-    const [top, setTop] = useState(85);
+    // const [width, setWidth] = useState(null);
+    // const [top, setTop] = useState(85);
     const sizeRef = useRef(null);
-    const prevWindowWidth = usePrevious(window.innerWidth);
+    // const prevWindowWidth = usePrevious(window.innerWidth);
 
-    const jobReferences = useMemo(() => {
-        // const approvedShifts = shiftsForToday.filter(
-        //     shift => shift.status === SHIFT_STATUS.APPROVED,
-        // );
-        // const approvedClockerEntries = approvedShifts.reduce((acc, curr) => {
-        //     if (curr.status !== SHIFT_STATUS.APPROVED) return acc;
-        //     return acc.concat(curr.clockerEntries);
-        // }, []);
-        // const jobRefTally = approvedClockerEntries.reduce((tally, entry) => {
-        //     const { jobReferenceID, jobReference, totalHours, companyUserID } = entry;
+    const thisDay = dailyHoursBreakdown.find(day => moment(day.date).isSame(selectedDate, 'day'));
 
-        //     let idToUse = jobReferenceID;
-        //     let nameToUse = jobReference;
-        //     if (!jobReferenceID) idToUse = 'noRef';
-        //     if (!jobReference) nameToUse = 'N/A';
-
-        //     if (tally[idToUse]) {
-        //         tally[idToUse].totalHours += totalHours;
-
-        //         if (!tally[idToUse].companyUserIDs.some(id => id === companyUserID))
-        //             tally[idToUse].companyUserIDs.push(companyUserID);
-        //     } else {
-        //         tally[idToUse] = {
-        //             jobReferenceID,
-        //             jobReference: nameToUse,
-        //             totalHours,
-        //             companyUserIDs: [companyUserID],
-        //         };
-        //     }
-        //     return tally;
-        // }, {});
-        // return Object.values(jobRefTally);
-
-        return [];
-    }, [shiftsForToday]);
-
-    const totalRow = jobReferences.reduce(
-        (acc, curr) => ({
-            totalHours: acc.totalHours + curr.totalHours,
-            companyUserIDs: acc.companyUserIDs
-                .filter(id => !curr.companyUserIDs.includes(id))
-                .concat(curr.companyUserIDs),
-        }),
-        { totalHours: 0, companyUserIDs: [] },
-    );
+    const { totalHours, totalOperatives, totalWageSplit, jobReferenceBreakdowns } = thisDay;
 
     // useEffect(() => {
     //     if (sizeRef.current && (width === null || window.innerWidth !== prevWindowWidth)) {
@@ -82,7 +41,7 @@ const ApprovedHoursBreakdown = ({
     //     return () => {
     //         window.removeEventListener('scroll', () => {});
     //     };
-    // }, []);
+    // }, []); // Todo - make approved hours pod sticky
 
     return (
         <div
@@ -102,26 +61,34 @@ const ApprovedHoursBreakdown = ({
                         headers={['Job References', 'Hours Worked', 'Operatives', 'Wage Split']}
                         isFetching={false}
                         error={null}
-                        noData={false}
+                        noData={!jobReferenceBreakdowns?.length}
                         noDataMessage="No hours to display."
                     >
-                        {jobReferences.map(({ jobReference, totalHours, companyUserIDs }, i) => {
-                            return (
-                                <tr key={i}>
-                                    <td>{jobReference}</td>
-                                    <td>{totalHours.toFixed(2)}</td>
-                                    <td>{companyUserIDs.length}</td>
-                                    <td>0.00</td>
-                                </tr>
-                            );
-                        })}
+                        {jobReferenceBreakdowns.map(
+                            (
+                                { jobReferenceName, totalHours, totalOperatives, totalWageSplit },
+                                i,
+                            ) => {
+                                return (
+                                    <tr key={i}>
+                                        <td>{jobReferenceName}</td>
+                                        <td>{totalHours}</td>
+                                        <td>{totalOperatives}</td>
+                                        <td>
+                                            {currencySymbol}
+                                            {formatCurrency(totalWageSplit) || '0.00'}
+                                        </td>
+                                    </tr>
+                                );
+                            },
+                        )}
                         <tr className="total-row">
                             <td>Total</td>
-                            <td>{totalRow.totalHours.toFixed(2)}</td>
-                            <td>{totalRow.companyUserIDs.length}</td>
+                            <td>{totalHours.toFixed(2)}</td>
+                            <td>{totalOperatives}</td>
                             <td>
                                 {currencySymbol}
-                                {formatCurrency(jobRefTotal) || '0.00'}
+                                {formatCurrency(totalWageSplit) || '0.00'}
                             </td>
                         </tr>
                         <tr className="total-row">
