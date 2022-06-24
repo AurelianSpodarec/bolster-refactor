@@ -160,6 +160,7 @@ import {
     DELETE_SHIFT,
     PAY_RATES_MODAL,
     AMEND_JOB_REFERENCE_MODAL,
+    ADD_EXPENSE_TO_SHIFT,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
@@ -319,6 +320,7 @@ import BolsterPlusPaymentErrorModal from 'components/companyAdmin/subscription/a
 import ConfirmDeleteShiftModalContainer from './ConfirmDeleteShiftModalContainer';
 import PayRatesModal from '../../../../companyAdmin/userManagement/operatives/timesheets/wages/modals/PayRatesModal';
 import AmendJobReferenceModal from 'components/companyAdmin/userManagement/operatives/timesheets/modals/AmendJobReferenceModal';
+import AddExpenseToShiftModalContainer from './AddExpenseToShiftModalContainer';
 
 const MODAL_COMPONENTS = {
     [ADD_CARD]: AddCardModal,
@@ -421,6 +423,7 @@ const MODAL_COMPONENTS = {
     [USER_NEW_DOCUMENT]: NewUserDocumentModal,
     [CREATE_HIERARCHY_ALERT_MODAL]: CreateHierarchyAlertModal,
     [GENERATE_TIMESHEET_REPORT]: GenerateTimesheetReportModal,
+    [ADD_EXPENSE_TO_SHIFT]: AddExpenseToShiftModalContainer,
     [DELETE_SHIFT]: ConfirmDeleteShiftModalContainer,
     [EXPANDED_MEDIA]: ExpandedMediaModal,
     [MESSAGE_CENTRE_DRAWING_EXPIRY]: ExpiringDrawingsModal,

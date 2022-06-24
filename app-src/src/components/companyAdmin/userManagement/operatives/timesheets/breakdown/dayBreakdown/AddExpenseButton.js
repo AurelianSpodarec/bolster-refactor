@@ -2,6 +2,7 @@ import React from 'react';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import { useDispatch } from 'react-redux';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
+import { ADD_EXPENSE_TO_SHIFT } from 'constants/shared/modalTypes';
 
 const AddExpenseButton = ({ shiftID }) => {
     const dispatch = useDispatch();
@@ -11,7 +12,7 @@ const AddExpenseButton = ({ shiftID }) => {
             size="small"
             icon="plus"
             text="Create new"
-            onClick={() => dispatch(showModal())}
+            onClick={() => dispatch(showModal(ADD_EXPENSE_TO_SHIFT, { shiftID }))}
         />
     );
 };
