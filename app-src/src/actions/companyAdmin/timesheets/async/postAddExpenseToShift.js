@@ -22,10 +22,10 @@ export const postAddExpenseToShiftFailure = error => ({
     error,
 });
 
-export default shiftID => dispatch => {
+export default (shiftID, postBody) => dispatch => {
     dispatch(postAddExpenseToShiftRequest());
     axios
-        .post(`${API_URL}/clockerEntries/shifts/${shiftID}/expenses`, {}, getHeaders())
+        .post(`${API_URL}/clockerEntries/shifts/${shiftID}/expenses`, postBody, getHeaders())
         .then(res => dispatch(postAddExpenseToShiftSuccess(res.data)))
         .catch(err => dispatch(postAddExpenseToShiftFailure(err.message)));
 };

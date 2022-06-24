@@ -1,8 +1,13 @@
 import React from 'react';
 
 import useWages from './hooks/useWages';
+
 import WagesUserList from './WagesUserList';
 import WagesPayDetails from './WagesPayDetails';
+import WagesRegularHours from './WagesRegularHours';
+import Field from '../../../../../shared/generic/form/presentational/Field';
+import ActionButton from '../../../../../shared/generic/button/presentational/ActionButton';
+import BlockContainer from '../../../../../shared/generic/block/containers/BlockContainer';
 
 const Wages = () => {
     const {
@@ -28,17 +33,28 @@ const Wages = () => {
                 fetchError={fetchError}
             />
 
-            <WagesPayDetails
-                isPosting={isPosting}
-                isFetching={isFetching}
-                error={fetchError}
-                selectedUserIDs={selectedUserIDs}
-                selectedPayRate={selectedPayRate}
-                setSelectedPayRate={setSelectedPayRate}
-                companyPayRateOptions={companyPayRateOptions}
-                getUserNameByID={getUserNameByID}
-                handleSave={handleSave}
-            />
+            <BlockContainer isFetching={isFetching} error={fetchError} contentClass="flex-column">
+                <WagesPayDetails
+                    selectedUserIDs={selectedUserIDs}
+                    selectedPayRate={selectedPayRate}
+                    setSelectedPayRate={setSelectedPayRate}
+                    companyPayRateOptions={companyPayRateOptions}
+                    getUserNameByID={getUserNameByID}
+                />
+
+                <WagesRegularHours />
+
+                <Field classes="border-top padding-top flex flex-row justify-end">
+                    <ActionButton
+                        text="Save"
+                        icon="save"
+                        ambient="positive"
+                        onClick={handleSave}
+                        size="large"
+                        disabled={isPosting || !selectedUserIDs.length || !selectedPayRate}
+                    />
+                </Field>
+            </BlockContainer>
         </div>
     );
 };

@@ -7,14 +7,12 @@ import BlockContainer from '../../../../../shared/generic/block/containers/Block
 import BlockHeading from '../../../../../shared/generic/blockHeading/presentational/BlockHeading';
 import Search from '../../../../../shared/generic/form/presentational/Search';
 import Tickbox from '../../../../../shared/generic/form/presentational/Tickbox';
-import Select from '../../../../../shared/generic/form/presentational/Select';
-import Field from '../../../../../shared/generic/form/presentational/Field';
+import FiltersPopup from './FiltersPopup';
 
 import plusIcon from '_content/images/icons/plus-solid.svg';
 
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 import { TABLE_SORT_DIRECTIONS } from 'constants/shared/tables';
-import ActionButton from '../../../../../shared/generic/button/presentational/ActionButton';
 
 const { ASC } = TABLE_SORT_DIRECTIONS;
 
@@ -57,43 +55,16 @@ const WagesUserList = ({ selectedUserIDs, handleToggleUserID, isFetching, fetchE
                     </button>
 
                     {showFiltersPopup && (
-                        <div className="filters-popup">
-                            <div className="flex-column">
-                                <Field name="User role">
-                                    <Select
-                                        options={userRoleOptions}
-                                        classes="medium"
-                                        omitPlaceholder
-                                        value={selectedRole}
-                                        onChange={(_, value) => setSelectedRole(value)}
-                                    />
-                                </Field>
-                                <Field>
-                                    <Tickbox
-                                        value={hasWageSet}
-                                        checked={hasWageSet}
-                                        handleChange={() => setHasWageSet(!hasWageSet)}
-                                        label="Has wage set"
-                                    />
-                                </Field>
-
-                                <Field>
-                                    <Tickbox
-                                        value={hasHoursSet}
-                                        checked={hasHoursSet}
-                                        handleChange={() => setHasHoursSet(!hasHoursSet)}
-                                        label="Has set hours"
-                                    />
-                                </Field>
-
-                                <div className="flex-row justify-end">
-                                    <ActionButton
-                                        text="Confirm"
-                                        onClick={() => setShowFiltersPopup(false)}
-                                    />
-                                </div>
-                            </div>
-                        </div>
+                        <FiltersPopup
+                            userRoleOptions={userRoleOptions}
+                            selectedRole={selectedRole}
+                            setSelectedRole={setSelectedRole}
+                            hasWageSet={hasWageSet}
+                            setHasWageSet={setHasWageSet}
+                            hasHoursSet={hasHoursSet}
+                            setHasHoursSet={setHasHoursSet}
+                            setShowFiltersPopup={setShowFiltersPopup}
+                        />
                     )}
 
                     <button className="reset-button" onClick={handleSort}>
