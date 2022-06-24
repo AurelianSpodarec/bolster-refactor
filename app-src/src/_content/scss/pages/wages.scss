@@ -78,3 +78,23 @@
       }
     }
   }
+
+  .regular-hours-grid {
+    display: grid;
+    grid-template-columns: 25% 15% 15% 15% 15% 15%;
+    grid-gap: 16px;
+    margin-bottom: 16px;
+    padding: 16px;
+    z-index: 1;
+
+    p {
+        font-size: 140%;
+        font-weight: 500;
+    }
+
+    .tickbox {
+      p {
+        font-size: 120%;
+      }
+    }
+  }
