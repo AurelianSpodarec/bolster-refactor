@@ -955,6 +955,10 @@
 
   &.currency {
     width: 90%;
+
+    &.fullwidth {
+      width: 100%;
+    }
   }
 
   &.colour-picker-input {

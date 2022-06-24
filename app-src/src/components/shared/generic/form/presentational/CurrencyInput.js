@@ -6,13 +6,14 @@ const CurrencyInput = ({
     disabled = false,
     value = null,
     onChange,
-    placeholder = '-- select option --',
+    placeholder = '-- Enter amount --',
+    className = '',
 }) => {
     return (
         <div className="size-lg-12">
             <input
                 disabled={disabled}
-                className={'generic-input currency'}
+                className={`generic-input currency ${className}`}
                 type="number"
                 name={name}
                 placeholder={placeholder}
