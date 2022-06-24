@@ -10,7 +10,7 @@ const ExpensesList = ({ expenses = [], expensesTotal, currencySymbol = '£' }) =
                     <td>{expense.name}</td>
                     <td>
                         {currencySymbol}
-                        {formatCurrency(expense.cost)}
+                        {expense.price ? formatCurrency(expense.price) : '0.00'}
                     </td>
                 </tr>
             );
