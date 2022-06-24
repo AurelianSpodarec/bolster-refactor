@@ -4,10 +4,13 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
+import DateRangePickerInput from 'components/shared/generic/form/presentational/DateRangePicker';
+import { DateRangePicker } from 'react-date-range';
 import Field from 'components/shared/generic/form/presentational/Field';
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import React from 'react';
 import useGenerateTimesheetReport from '../hooks/useGenerateTimesheetReport';
+import moment from 'moment';
 
 const GenerateTimesheetReportModal = ({
     fromDateInclusive,
@@ -24,8 +27,28 @@ const GenerateTimesheetReportModal = ({
         pinIDs,
     );
 
-    const { isPDFGeneration, isCSVGeneration, isFloorplanGeneration, isOAndMManualGeneration } =
-        formData;
+    const {
+        isPDFGeneration,
+        isCSVGeneration,
+        isFloorplanGeneration,
+        isOAndMManualGeneration,
+        startDate,
+        endDate,
+    } = formData;
+
+    const valueObj = {
+        startDate,
+        endDate,
+        key: 'selection',
+    };
+
+    const staticRanges = [
+        {
+            startDate: moment().subtract(7, 'days').toISOString(),
+            endDate: moment().toISOString(),
+            key: 'last7Days',
+        },
+    ];
 
     return (
         <ModalOuterContainer>
@@ -37,37 +60,51 @@ const GenerateTimesheetReportModal = ({
                             Below you can choose formatting options for your report.
                         </p>
                         <div className="generic-form">
-                            <div className="size-lg-6 size-md-12">
-                                <Field name="Report formats">
-                                    <div className="checkbox-list size-lg-12">
-                                        <CheckboxContainer
-                                            checked={isPDFGeneration}
-                                            handleChange={handleChange}
-                                            name="isPDFGeneration"
-                                            text="PDF"
-                                        />
-                                        <CheckboxContainer
-                                            checked={isCSVGeneration}
-                                            handleChange={handleChange}
-                                            name="isCSVGeneration"
-                                            text="CSV"
-                                        />
-                                        <CheckboxContainer
-                                            checked={isFloorplanGeneration}
-                                            handleChange={handleChange}
-                                            name="isFloorplanGeneration"
-                                            text="Floor plan"
-                                        />
-                                        <CheckboxContainer
-                                            checked={isOAndMManualGeneration}
-                                            handleChange={handleChange}
-                                            name="isOAndMManualGeneration"
-                                            text="Include O&M Manuals?"
-                                        />
-                                    </div>
-                                </Field>
-                            </div>
-                            <div className="size-lg-6 size-md-12">
+                            {/* <div className="size-lg-6 size-md-12"> */}
+                            <Field name="Report formats">
+                                <div className="checkbox-list size-lg-12">
+                                    <CheckboxContainer
+                                        checked={isPDFGeneration}
+                                        handleChange={handleChange}
+                                        name="isPDFGeneration"
+                                        text="PDF"
+                                    />
+                                    <CheckboxContainer
+                                        checked={isCSVGeneration}
+                                        handleChange={handleChange}
+                                        name="isCSVGeneration"
+                                        text="CSV"
+                                    />
+                                    <CheckboxContainer
+                                        checked={isFloorplanGeneration}
+                                        handleChange={handleChange}
+                                        name="isFloorplanGeneration"
+                                        text="Floor plan"
+                                    />
+                                    <CheckboxContainer
+                                        checked={isOAndMManualGeneration}
+                                        handleChange={handleChange}
+                                        name="isOAndMManualGeneration"
+                                        text="Include O&M Manuals?"
+                                    />
+                                </div>
+                            </Field>
+                            <Field name="Date Range">
+                                <DateRangePicker
+                                    // locale={locale}
+                                    ranges={[valueObj]}
+                                    onChange={ranges => {
+                                        const { key, ...selection } = ranges.selection;
+                                        console.log(selection);
+                                        handleChange('startDate', selection.startDate);
+                                        handleChange('endDate', selection.endDate);
+                                    }}
+                                    staticRanges={staticRanges}
+                                    inputRanges={[]}
+                                />
+                            </Field>
+                            {/* </div> */}
+                            {/* <div className="size-lg-6 size-md-12">
                                 <ImageVisualContainer
                                     customFilters={{
                                         isCSVGeneration,
@@ -76,7 +113,7 @@ const GenerateTimesheetReportModal = ({
                                         isFloorplanGeneration,
                                     }}
                                 />
-                            </div>
+                            </div> */}
                             <FlexWrapper align="end" justify="end">
                                 <ActionButton
                                     onClick={handleSubmit}

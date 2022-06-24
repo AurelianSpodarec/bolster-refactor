@@ -21,6 +21,8 @@ const useGenerateTimesheetReport = (
         isCSVGeneration: false,
         isFloorplanGeneration: false,
         isOAndMManualGeneration: false,
+        startDate: fromDateInclusive,
+        endDate: toDateInclusive,
     });
     const reportSuccess = useSelector(reportPostSuccess);
     const prevReportPostSuccess = usePrevious(reportSuccess);
