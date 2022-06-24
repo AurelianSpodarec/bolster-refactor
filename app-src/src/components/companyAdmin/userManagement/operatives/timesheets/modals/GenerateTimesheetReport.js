@@ -47,6 +47,10 @@ const GenerateTimesheetReportModal = ({
             startDate: moment().subtract(7, 'days').toISOString(),
             endDate: moment().toISOString(),
             key: 'last7Days',
+            color: '#FF0000',
+            autoFocus: false,
+            disabled: false,
+            showDateDisplay: true,
         },
     ];
 
@@ -99,7 +103,7 @@ const GenerateTimesheetReportModal = ({
                                         handleChange('startDate', selection.startDate);
                                         handleChange('endDate', selection.endDate);
                                     }}
-                                    staticRanges={staticRanges}
+                                    // staticRanges={staticRanges}
                                     inputRanges={[]}
                                 />
                             </Field>
