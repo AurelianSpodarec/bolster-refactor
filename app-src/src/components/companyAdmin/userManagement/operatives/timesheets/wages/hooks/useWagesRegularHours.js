@@ -15,6 +15,7 @@ const useWagesRegularHours = selectedUserIDs => {
         if (!!workingHours && !isObjEmpty(workingHours)) {
             return workingHours;
         }
+
         return days.reduce((acc, day) => {
             return {
                 ...acc,
@@ -29,9 +30,7 @@ const useWagesRegularHours = selectedUserIDs => {
     const postSuccess = useSelector(selectPayRatesPostSuccess);
 
     useEffect(() => {
-        if (!!workingHours && !isObjEmpty(workingHours)) {
-            setFormData(workingHours);
-        }
+        setFormData(initialForm);
     }, [workingHours]);
 
     useEffect(() => {
