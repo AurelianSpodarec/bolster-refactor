@@ -41,15 +41,15 @@ const WeekTableInner = ({
     };
 
     const filteredJobReferenceIDs = jobReferenceIDs.filter(reference => reference);
-    const filteredJobReferenceNames = getJobReferenceNames(filteredJobReferenceIDs);
+    const filteredJobReferenceNames = getJobReferenceNames([...new Set(filteredJobReferenceIDs)]);
 
     return (
         <>
             {totals.map(({ date, totalPins, formattedHours, jobReferenceIDs }, i) => {
                 const totalsFilteredJobReferenceIDs = jobReferenceIDs.filter(Boolean);
-                const totalsFilteredJobReferenceNames = getJobReferenceNames(
-                    totalsFilteredJobReferenceIDs,
-                );
+                const totalsFilteredJobReferenceNames = getJobReferenceNames([
+                    ...new Set(totalsFilteredJobReferenceIDs),
+                ]);
 
                 return (
                     <td key={i} onClick={() => onDaySelect(date)}>
