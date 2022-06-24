@@ -137,11 +137,14 @@ function postSuccessReducer(state = false, action) {
         case POST_APPROVE_SHIFT_REQUEST:
         case POST_APPROVE_SHIFT_FAILURE:
         case PATCH_CLOCKER_ENTRY_REQUEST:
+        case POST_ADD_EXPENSE_TO_SHIFT_REQUEST:
+        case POST_ADD_EXPENSE_TO_SHIFT_FAILURE:
             return false;
         case POST_OVERRIDE_SHIFT_SUCCESS:
         case POST_REJECT_SHIFT_SUCCESS:
         case POST_APPROVE_SHIFT_SUCCESS:
         case PATCH_CLOCKER_ENTRY_SUCCESS:
+        case POST_ADD_EXPENSE_TO_SHIFT_SUCCESS:
             return true;
         default:
             return state;

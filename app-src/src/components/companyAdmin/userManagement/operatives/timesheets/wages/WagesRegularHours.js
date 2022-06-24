@@ -1,12 +1,11 @@
 import React from 'react';
 
 import BlockHeading from '../../../../../shared/generic/blockHeading/presentational/BlockHeading';
-import Field from '../../../../../shared/generic/form/presentational/Field';
 import Tickbox from '../../../../../shared/generic/form/presentational/Tickbox';
 import TimePickerContainer from '../../../../../shared/generic/form/containers/TimePickerContainer';
+import NumberInputContainer from '../../../../../shared/generic/form/containers/NumberInputContainer';
 
-const WagesRegularHours = () => {
-    const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+const WagesRegularHours = ({ form, handleDayChange, handleChange, days, timeDifference }) => {
     return (
         <>
             <BlockHeading
@@ -26,12 +25,38 @@ const WagesRegularHours = () => {
 
                 {days.map(day => (
                     <>
-                        <Tickbox label={day} />
+                        <Tickbox
+                            label={day.charAt(0).toUpperCase() + day.slice(1)}
+                            name={day}
+                            handleChange={(name, value) => handleDayChange(name, value)}
+                            checked={form[day] !== null}
+                            value={form[day] !== null}
+                        />
                         <p>Between</p>
-                        <TimePickerContainer />
-                        <TimePickerContainer />
-                        <TimePickerContainer />
-                        <p>8HR</p>
+                        <TimePickerContainer
+                            name="startTime"
+                            value={form[day] && form[day].startTime}
+                            handleChange={value => handleChange(day, 'startTime', value)}
+                            disabled={!form[day]}
+                        />
+                        <NumberInputContainer
+                            name="breakMinutes"
+                            value={form[day] && form[day].breakMinutes}
+                            handleChange={(name, value) => handleChange(day, name, value)}
+                            placeholder="-"
+                            disabled={!form[day]}
+                        />
+                        <TimePickerContainer
+                            name="endTime"
+                            value={form[day] && form[day].endTime}
+                            handleChange={value => handleChange(day, 'endTime', value)}
+                            disabled={!form[day]}
+                        />
+                        <p>
+                            {(form[day] &&
+                                timeDifference(form[day].startTime, form[day].endTime)) ||
+                                '0'}
+                        </p>
                     </>
                 ))}
             </div>
