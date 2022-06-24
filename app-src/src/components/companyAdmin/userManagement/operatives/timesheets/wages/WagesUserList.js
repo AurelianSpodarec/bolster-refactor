@@ -7,15 +7,12 @@ import BlockContainer from '../../../../../shared/generic/block/containers/Block
 import BlockHeading from '../../../../../shared/generic/blockHeading/presentational/BlockHeading';
 import Search from '../../../../../shared/generic/form/presentational/Search';
 import Tickbox from '../../../../../shared/generic/form/presentational/Tickbox';
-import Select from '../../../../../shared/generic/form/presentational/Select';
-import Field from '../../../../../shared/generic/form/presentational/Field';
+import FiltersPopup from './FiltersPopup';
 
 import plusIcon from '_content/images/icons/plus-solid.svg';
 
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 import { TABLE_SORT_DIRECTIONS } from 'constants/shared/tables';
-import ActionButton from '../../../../../shared/generic/button/presentational/ActionButton';
-import FiltersPopup from './FiltersPopup';
 
 const { ASC } = TABLE_SORT_DIRECTIONS;
 
