@@ -14,7 +14,7 @@ const Feature = ({ children }) => (
 );
 
 const BolsterPlusFeatures = ({ bolsterPlusActivated }) => {
-    const { proRataCost } = useAddOnProrata();
+    const { bolsterPlusProRataCost } = useAddOnProrata();
     return (
         <>
             <p className="size-lg-12">
@@ -26,8 +26,8 @@ const BolsterPlusFeatures = ({ bolsterPlusActivated }) => {
                         £{formatNumber(3000)} per annum (calculated pro-rata)
                     </p>
                     <p className="size-lg-12">
-                        £{formatNumber(proRataCost)} due today inline with your current service
-                        subscription
+                        £{formatNumber(bolsterPlusProRataCost)} due today inline with your current
+                        service subscription
                     </p>
 
                     <p className="heading size-lg-12">Highlights</p>

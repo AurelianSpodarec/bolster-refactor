@@ -50,7 +50,6 @@ const useUsersFilter = () => {
 
         return users.filter(
             ({ userFirstName, userLastName, type, companyPayRateID, hasWorkingHoursSet }) => {
-                console.log(type);
                 if (!!selectedRole && selectedRole !== type) {
                     return false;
                 }

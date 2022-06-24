@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { batch, useDispatch, useSelector } from 'react-redux';
-import { usePrevious } from '../../../../../../../helpers/hooks';
+import { usePrevious } from 'helpers/hooks';
 import useGetCompanyPayRates from './useGetCompanyPayRates';
 import useBolsterPlus from 'components/companyAdmin/subscription/addOns/hooks/useBolsterPlus';
 
@@ -12,7 +12,7 @@ import {
 import {
     selectPayRatesIsPosting,
     selectPayRatesPostSuccess,
-} from '../../../../../../../selectors/companyAdmin/payRates';
+} from 'selectors/companyAdmin/payRates';
 import { selectHierarchySelectedTab } from 'selectors/shared/tabs';
 
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
@@ -28,14 +28,17 @@ import {
     SUCCESS_MODAL,
 } from 'constants/shared/modalTypes';
 import { TIMESHEETS_TABS } from 'constants/shared/tabNames';
+import useWagesRegularHours from './useWagesRegularHours';
 
-const useWages = () => {
+const useWages = hoursForm => {
     const dispatch = useDispatch();
-
-    const { companyPayRates, isFetching: isFetchingPayRates, error } = useGetCompanyPayRates();
 
     const [selectedUserIDs, setSelectedUserIDs] = useState([]);
     const [selectedPayRate, setSelectedPayRate] = useState(null);
+
+    const { companyPayRates, isFetching: isFetchingPayRates, error } = useGetCompanyPayRates();
+    const { form, handleDayChange, handleChange, days, timeDifference } =
+        useWagesRegularHours(selectedUserIDs);
 
     const selectedTab = useSelector(selectHierarchySelectedTab);
 
@@ -107,7 +110,11 @@ const useWages = () => {
     }
 
     const handleSave = () => {
-        const postBody = { payRateID: selectedPayRate, companyUserIDs: selectedUserIDs };
+        const postBody = {
+            ...hoursForm,
+            payRateID: selectedPayRate,
+            companyUserIDs: selectedUserIDs,
+        };
 
         dispatch(postAssignPayRates(postBody));
     };
@@ -124,6 +131,11 @@ const useWages = () => {
         isPosting,
         companyPayRateOptions,
         isBolsterPlusActivated,
+        form,
+        handleDayChange,
+        handleChange,
+        days,
+        timeDifference,
     };
 };
 

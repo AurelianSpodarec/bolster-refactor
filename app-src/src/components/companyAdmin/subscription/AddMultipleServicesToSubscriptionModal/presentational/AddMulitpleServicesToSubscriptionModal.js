@@ -21,6 +21,7 @@ import CheckboxContainer from 'components/shared/generic/form/containers/Checkbo
 import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
 import { bolsterPlusLearnMoreLink } from 'constants/companyAdmin/bolsterPlus';
 import useBolsterPlus from '../../addOns/hooks/useBolsterPlus';
+import useAddOnProrata from '../../addOns/hooks/useAddOnProrata';
 
 const AddMulitpleServicesToSubscriptionModal = ({
     handleSubmit,
@@ -48,6 +49,7 @@ const AddMulitpleServicesToSubscriptionModal = ({
     handlesIsBolsterPlusIncluded,
 }) => {
     const { isSubscriptionsActivated } = useBolsterPlus();
+    const { bolsterPlusProRataCost, bolsterPlusProRataCostWithVAT } = useAddOnProrata();
 
     if (addCardVisible)
         return <AddCardFormContainer close={hideAddCard} onSuccess={handleAddCardSuccess} />;
@@ -151,8 +153,22 @@ const AddMulitpleServicesToSubscriptionModal = ({
                         )}
                         <p className="generic-text total-text align-right size-lg-12">
                             Total to pay now: £
-                            {formatNumber(costWithoutVAT + proRataCost.proRataCost)} (£
-                            {formatNumber(costWithVAT + proRataCost.proRataCostWithVAT)} inc. VAT)
+                            {formatNumber(
+                                isBolsterPlusIncluded
+                                    ? costWithoutVAT +
+                                          proRataCost.proRataCost +
+                                          bolsterPlusProRataCost
+                                    : costWithoutVAT + proRataCost.proRataCost,
+                            )}
+                            (£
+                            {formatNumber(
+                                isBolsterPlusIncluded
+                                    ? costWithVAT +
+                                          proRataCost.proRataCostWithVAT +
+                                          bolsterPlusProRataCostWithVAT
+                                    : costWithVAT + proRataCost.proRataCostWithVAT,
+                            )}{' '}
+                            inc. VAT)
                         </p>
 
                         <Field name="Payment Type">

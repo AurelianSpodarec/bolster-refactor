@@ -22,6 +22,11 @@ const Wages = () => {
         isPosting,
         companyPayRateOptions,
         isBolsterPlusActivated,
+        form,
+        handleDayChange,
+        handleChange,
+        days,
+        timeDifference,
     } = useWages();
 
     return (
@@ -42,7 +47,13 @@ const Wages = () => {
                     getUserNameByID={getUserNameByID}
                 />
 
-                <WagesRegularHours />
+                <WagesRegularHours
+                    form={form}
+                    handleDayChange={handleDayChange}
+                    handleChange={handleChange}
+                    days={days}
+                    timeDifference={timeDifference}
+                />
 
                 <Field classes="border-top padding-top flex flex-row justify-end">
                     <ActionButton
@@ -51,7 +62,7 @@ const Wages = () => {
                         ambient="positive"
                         onClick={handleSave}
                         size="large"
-                        disabled={isPosting || !selectedUserIDs.length || !selectedPayRate}
+                        disabled={isPosting}
                     />
                 </Field>
             </BlockContainer>

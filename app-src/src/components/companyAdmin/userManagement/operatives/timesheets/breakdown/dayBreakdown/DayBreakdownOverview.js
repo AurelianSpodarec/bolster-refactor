@@ -33,7 +33,7 @@ const DayBreakdownOverview = ({
 }) => {
     const userIDs = useSelector(timesheetSelectedCompanyIDs);
     const companyUsers = useSelector(selectCompanyUsers);
-    const workingHours = useSelector(selectWorkingHours);
+    const workingHours = Object.values(useSelector(selectWorkingHours));
 
     const {
         formState: { sortByType, filterByType, sortDirection },

@@ -53,7 +53,7 @@ const AddBolsterPlusModal = ({ hideModal, handleClose }) => {
         serviceIDs: [],
     };
 
-    const { newAnnualCost, proRataCost, currentAnnualCost } = useAddOnProrata();
+    const { newAnnualCost, bolsterPlusProRataCost, currentAnnualCost } = useAddOnProrata();
 
     useEffect(() => {
         if (postSuccess && !prevSuccess) {
@@ -105,7 +105,8 @@ const AddBolsterPlusModal = ({ hideModal, handleClose }) => {
                     This service will be added to your subscription and will increase your yearly
                     renewal from £{formatNumber(currentAnnualCost)} to £
                     {formatNumber(newAnnualCost)} you will be billed pro-rata for your remaining
-                    subscription, leaving a £{formatNumber(proRataCost)} (exc. VAT) fee to pay now.
+                    subscription, leaving a £{formatNumber(bolsterPlusProRataCost)} (exc. VAT) fee
+                    to pay now.
                 </p>
 
                 <PaymentMethod
