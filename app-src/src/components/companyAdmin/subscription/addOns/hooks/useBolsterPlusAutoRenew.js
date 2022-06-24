@@ -41,7 +41,7 @@ const useBolsterPlusAutoRenew = () => {
     useEffect(() => {
         if (previousAutoRenewSubscription !== isAutoRenewSubscription) {
             if (isAutoRenewSubscription === false && addOn?.isAutoRenew === true) {
-                form.renewalStatus = false;
+                handleChange('renewalStatus', false);
                 dispatch(
                     editBolsterPlusRenewalStatus({
                         companySubscriptionAddonID: addOn?.id,
@@ -51,7 +51,7 @@ const useBolsterPlusAutoRenew = () => {
             }
 
             if (isAutoRenewSubscription === true) {
-                form.renewalStatus = previousToPreviousBolsterPlusRenewSubscription;
+                handleChange('renewalStatus', previousToPreviousBolsterPlusRenewSubscription);
                 dispatch(
                     editBolsterPlusRenewalStatus({
                         companySubscriptionAddonID: addOn?.id,
