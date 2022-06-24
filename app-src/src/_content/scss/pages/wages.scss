@@ -78,3 +78,12 @@
       }
     }
   }
+
+  .regular-hours-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 16px;
+    margin-bottom: 16px;
+    padding: 16px;
+    z-index: 1;
+  }
