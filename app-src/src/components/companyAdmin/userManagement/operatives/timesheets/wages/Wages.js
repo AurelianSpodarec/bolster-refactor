@@ -8,10 +8,8 @@ import WagesRegularHours from './WagesRegularHours';
 import Field from '../../../../../shared/generic/form/presentational/Field';
 import ActionButton from '../../../../../shared/generic/button/presentational/ActionButton';
 import BlockContainer from '../../../../../shared/generic/block/containers/BlockContainer';
-import useWagesRegularHours from './hooks/useWagesRegularHours';
 
 const Wages = () => {
-    const { form, handleDayChange, handleChange, days, timeDifference } = useWagesRegularHours();
     const {
         getUserNameByID,
         selectedUserIDs,
@@ -24,7 +22,12 @@ const Wages = () => {
         isPosting,
         companyPayRateOptions,
         isBolsterPlusActivated,
-    } = useWages(form);
+        form,
+        handleDayChange,
+        handleChange,
+        days,
+        timeDifference,
+    } = useWages();
 
     return (
         <div className={`width-12 wages-body ${!isBolsterPlusActivated ? 'blur' : ''}`}>

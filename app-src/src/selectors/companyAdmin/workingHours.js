@@ -5,3 +5,6 @@ export const selectWorkingHoursFetchError = state =>
 
 export const selectWorkingHours = state =>
     state.companyAdmin.workingHoursReducer.workingHours || [];
+
+export const selectUserWorkingHours = (state, userID) =>
+    state.companyAdmin.workingHoursReducer.workingHours[userID];
