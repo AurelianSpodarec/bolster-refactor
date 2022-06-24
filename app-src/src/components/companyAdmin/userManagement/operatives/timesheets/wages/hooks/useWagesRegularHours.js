@@ -9,14 +9,10 @@ import { isObjEmpty } from 'helpers/generic';
 const useWagesRegularHours = selectedUserIDs => {
     const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
 
-    const { workingHours, isFetching: isFetchingWorkingHours } = useGetCompanyUsersWorkingHours(
-        selectedUserIDs[0],
-    );
-
-    const prevIsFetchingWorkingHours = usePrevious(isFetchingWorkingHours);
+    const { workingHours } = useGetCompanyUsersWorkingHours(selectedUserIDs[0]);
 
     const initialForm = useMemo(() => {
-        if (!isObjEmpty(workingHours)) {
+        if (!!workingHours && !isObjEmpty(workingHours)) {
             return workingHours;
         }
         return days.reduce((acc, day) => {
@@ -25,7 +21,7 @@ const useWagesRegularHours = selectedUserIDs => {
                 [day]: null,
             };
         }, {});
-    }, [workingHours, selectedUserIDs]);
+    }, [workingHours]);
 
     const [form, handleChange, setFormData] = useForm(initialForm);
 
@@ -33,10 +29,10 @@ const useWagesRegularHours = selectedUserIDs => {
     const postSuccess = useSelector(selectPayRatesPostSuccess);
 
     useEffect(() => {
-        if (!isFetchingWorkingHours && prevIsFetchingWorkingHours && !isObjEmpty(workingHours)) {
+        if (!!workingHours && !isObjEmpty(workingHours)) {
             setFormData(workingHours);
         }
-    }, [isFetchingWorkingHours, prevIsFetchingWorkingHours]);
+    }, [workingHours]);
 
     useEffect(() => {
         if (postSuccess && !prevPostSuccess) {

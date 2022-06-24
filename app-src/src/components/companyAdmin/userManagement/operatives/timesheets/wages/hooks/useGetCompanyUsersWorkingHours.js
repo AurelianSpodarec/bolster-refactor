@@ -11,9 +11,8 @@ import {
 const useGetCompanyUsersWorkingHours = selectedUserID => {
     const dispatch = useDispatch();
 
-    console.log(selectedUserID);
-
     const workingHours = useSelector(state => selectUserWorkingHours(state, selectedUserID));
+
     const isFetching = useSelector(selectWorkingHoursIsFetching);
 
     useEffect(() => {
