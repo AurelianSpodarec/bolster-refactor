@@ -6,6 +6,7 @@ import {
     FETCH_ALL_WORKING_HOURS_SUCCESS,
 } from 'constants/actionTypes/workingHours';
 import { convertArrToObj } from '../../helpers/generic';
+import { POST_ASSIGN_PAY_RATES_SUCCESS } from '../../constants/actionTypes/payRates';
 
 export default combineReducers({
     isFetching: isFetchingReducer,
@@ -43,6 +44,7 @@ function workingHoursReducer(state = [], action) {
         case FETCH_ALL_WORKING_HOURS_FAILURE:
             return state;
         case FETCH_ALL_WORKING_HOURS_SUCCESS:
+        case POST_ASSIGN_PAY_RATES_SUCCESS:
             return convertArrToObj(action.payload, 'companyUserID');
         default:
             return state;
