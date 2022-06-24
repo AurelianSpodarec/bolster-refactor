@@ -6,6 +6,7 @@ import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import DateRangePickerInput from 'components/shared/generic/form/presentational/DateRangePicker';
 import { DateRangePicker } from 'react-date-range';
+import { createStaticRanges, defaultStaticRanges } from 'react-date-range/src/defaultRanges';
 import Field from 'components/shared/generic/form/presentational/Field';
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import React from 'react';
@@ -43,16 +44,17 @@ const GenerateTimesheetReportModal = ({
     };
 
     const staticRanges = [
-        {
-            startDate: moment().subtract(7, 'days').toISOString(),
-            endDate: moment().toISOString(),
-            key: 'last7Days',
-            color: '#FF0000',
-            autoFocus: false,
-            disabled: false,
-            showDateDisplay: true,
-        },
-    ];
+        ...defaultStaticRanges.slice(0, 3),
+        ...createStaticRanges([
+            {
+                label: 'Test range',
+                range: () => ({
+                    startDate,
+                    endDate,
+                }),
+            },
+        ]),
+    ]; // TODO - add ranges from designs
 
     return (
         <ModalOuterContainer>
@@ -103,7 +105,7 @@ const GenerateTimesheetReportModal = ({
                                         handleChange('startDate', selection.startDate);
                                         handleChange('endDate', selection.endDate);
                                     }}
-                                    // staticRanges={staticRanges}
+                                    staticRanges={staticRanges}
                                     inputRanges={[]}
                                 />
                             </Field>
