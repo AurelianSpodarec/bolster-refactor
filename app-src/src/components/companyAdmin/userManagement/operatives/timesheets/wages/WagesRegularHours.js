@@ -18,6 +18,7 @@ const WagesRegularHours = () => {
             />
             <div className="regular-hours-grid">
                 <p>Day</p>
+                <p></p>
                 <p>Start</p>
                 <p>Break</p>
                 <p>End</p>
@@ -26,6 +27,7 @@ const WagesRegularHours = () => {
                 {days.map(day => (
                     <>
                         <Tickbox label={day} />
+                        <p>Between</p>
                         <TimePickerContainer />
                         <TimePickerContainer />
                         <TimePickerContainer />
