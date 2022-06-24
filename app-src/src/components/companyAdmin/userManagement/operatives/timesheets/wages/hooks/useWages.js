@@ -100,7 +100,11 @@ const useWages = () => {
     function handleToggleUserID(id) {
         if (selectedUserIDs.includes(id)) {
             setSelectedUserIDs(sids => sids.filter(sid => sid !== id));
-        } else setSelectedUserIDs(sids => [...sids, id]);
+            setSelectedPayRate(null);
+        } else {
+            setSelectedUserIDs(sids => [...sids, id]);
+            setSelectedPayRate(companyUsers[id].companyPayRateID);
+        }
     }
 
     function getUserNameByID(id) {
