@@ -26,7 +26,7 @@ export default postBody => dispatch => {
     dispatch(postAssignPayRatesRequest());
 
     return axios
-        .post(`${API_URL}/payRates/assign`, postBody, getHeaders())
+        .post(`${API_URL}/workingHours`, postBody, getHeaders())
         .then(({ data }) => dispatch(postAssignPayRatesSuccess(data)))
         .catch(err => dispatch(handleErrors(postAssignPayRatesFailure)(err)));
 };

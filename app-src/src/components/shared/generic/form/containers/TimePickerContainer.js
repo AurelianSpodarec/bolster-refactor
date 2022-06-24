@@ -12,6 +12,7 @@ const TimePickerContainer = ({
     required = true,
     format = 'hh:mm a',
     clearIcon,
+    disabled,
 }) => (
     <TimePicker
         onChange={handleChange}
@@ -25,6 +26,7 @@ const TimePickerContainer = ({
         minutePlaceholder="MM"
         format={format}
         clearIcon={clearIcon}
+        disabled={disabled}
     />
 );
 
