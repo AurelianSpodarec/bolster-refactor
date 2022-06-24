@@ -1,4 +1,7 @@
-import { useForm } from 'helpers/hooks';
+import { useForm, usePrevious } from 'helpers/hooks';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { selectPayRatesPostSuccess } from '../../../../../../../selectors/companyAdmin/payRates';
 
 const useWagesRegularHours = () => {
     const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
@@ -14,7 +17,16 @@ const useWagesRegularHours = () => {
 
     const initialForm = getInitialForm();
 
-    const [form, handleChange] = useForm(initialForm);
+    const [form, handleChange, setFormData] = useForm(initialForm);
+
+    const prevPostSuccess = usePrevious(postSuccess);
+    const postSuccess = useSelector(selectPayRatesPostSuccess);
+
+    useEffect(() => {
+        if (postSuccess && !prevPostSuccess) {
+            setFormData(getInitialForm());
+        }
+    }, [postSuccess, prevPostSuccess]);
 
     const handleDayChange = (name, value) => {
         if (value) {
