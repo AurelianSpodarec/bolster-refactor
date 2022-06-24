@@ -10,13 +10,20 @@ const useAddOnProrata = () => {
 
     const currentAnnualCost = addonProrataCost.currentAnnualCost;
     const newAnnualCost = addonProrataCost.newAnnualCost;
-    const proRataCost = addonProrataCost.proRataCost;
+    const bolsterPlusProRataCost = addonProrataCost.proRataCost;
+    const bolsterPlusProRataCostWithVAT = addonProrataCost.proRataCostWithVAT;
 
     useEffect(() => {
         dispatch(fetchAddonProrataCost(addOnsType.BOLSTER_PLUS));
     }, []);
 
-    return { addonProrataCost, proRataCost, currentAnnualCost, newAnnualCost };
+    return {
+        addonProrataCost,
+        bolsterPlusProRataCost,
+        bolsterPlusProRataCostWithVAT,
+        currentAnnualCost,
+        newAnnualCost,
+    };
 };
 
 export default useAddOnProrata;

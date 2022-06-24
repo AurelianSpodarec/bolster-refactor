@@ -1,21 +1,31 @@
 import { useForm, usePrevious } from 'helpers/hooks';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { selectPayRatesPostSuccess } from '../../../../../../../selectors/companyAdmin/payRates';
 
-const useWagesRegularHours = () => {
+import { selectPayRatesPostSuccess } from 'selectors/companyAdmin/payRates';
+import useGetCompanyUsersWorkingHours from './useGetCompanyUsersWorkingHours';
+import { isObjEmpty } from 'helpers/generic';
+
+const useWagesRegularHours = selectedUserIDs => {
     const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
 
-    const getInitialForm = () => {
+    const { workingHours, isFetching: isFetchingWorkingHours } = useGetCompanyUsersWorkingHours(
+        selectedUserIDs[0],
+    );
+
+    const prevIsFetchingWorkingHours = usePrevious(isFetchingWorkingHours);
+
+    const initialForm = useMemo(() => {
+        if (!isObjEmpty(workingHours)) {
+            return workingHours;
+        }
         return days.reduce((acc, day) => {
             return {
                 ...acc,
-                [day.toLowerCase()]: null,
+                [day]: null,
             };
         }, {});
-    };
-
-    const initialForm = getInitialForm();
+    }, [workingHours, selectedUserIDs]);
 
     const [form, handleChange, setFormData] = useForm(initialForm);
 
@@ -23,8 +33,14 @@ const useWagesRegularHours = () => {
     const postSuccess = useSelector(selectPayRatesPostSuccess);
 
     useEffect(() => {
+        if (!isFetchingWorkingHours && prevIsFetchingWorkingHours && !isObjEmpty(workingHours)) {
+            setFormData(workingHours);
+        }
+    }, [isFetchingWorkingHours, prevIsFetchingWorkingHours]);
+
+    useEffect(() => {
         if (postSuccess && !prevPostSuccess) {
-            setFormData(getInitialForm());
+            setFormData(initialForm);
         }
     }, [postSuccess, prevPostSuccess]);
 
