@@ -8,8 +8,10 @@ import WagesRegularHours from './WagesRegularHours';
 import Field from '../../../../../shared/generic/form/presentational/Field';
 import ActionButton from '../../../../../shared/generic/button/presentational/ActionButton';
 import BlockContainer from '../../../../../shared/generic/block/containers/BlockContainer';
+import useWagesRegularHours from './hooks/useWagesRegularHours';
 
 const Wages = () => {
+    const { form, handleDayChange, handleChange, days, timeDifference } = useWagesRegularHours();
     const {
         getUserNameByID,
         selectedUserIDs,
@@ -22,7 +24,7 @@ const Wages = () => {
         isPosting,
         companyPayRateOptions,
         isBolsterPlusActivated,
-    } = useWages();
+    } = useWages(form);
 
     return (
         <div className={`width-12 wages-body ${!isBolsterPlusActivated ? 'blur' : ''}`}>
@@ -42,7 +44,13 @@ const Wages = () => {
                     getUserNameByID={getUserNameByID}
                 />
 
-                <WagesRegularHours />
+                <WagesRegularHours
+                    form={form}
+                    handleDayChange={handleDayChange}
+                    handleChange={handleChange}
+                    days={days}
+                    timeDifference={timeDifference}
+                />
 
                 <Field classes="border-top padding-top flex flex-row justify-end">
                     <ActionButton
@@ -51,7 +59,7 @@ const Wages = () => {
                         ambient="positive"
                         onClick={handleSave}
                         size="large"
-                        disabled={isPosting || !selectedUserIDs.length || !selectedPayRate}
+                        disabled={isPosting}
                     />
                 </Field>
             </BlockContainer>

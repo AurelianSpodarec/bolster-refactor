@@ -1,15 +1,11 @@
 import React from 'react';
 
-import useWagesRegularHours from './hooks/useWagesRegularHours';
-
 import BlockHeading from '../../../../../shared/generic/blockHeading/presentational/BlockHeading';
 import Tickbox from '../../../../../shared/generic/form/presentational/Tickbox';
 import TimePickerContainer from '../../../../../shared/generic/form/containers/TimePickerContainer';
 import NumberInputContainer from '../../../../../shared/generic/form/containers/NumberInputContainer';
 
-const WagesRegularHours = () => {
-    const { form, handleDayChange, handleChange, days, timeDifference } = useWagesRegularHours();
-
+const WagesRegularHours = ({ form, handleDayChange, handleChange, days, timeDifference }) => {
     return (
         <>
             <BlockHeading
