@@ -25,8 +25,6 @@ const ApprovedHoursBreakdown = ({
 
     const thisDay = dailyHoursBreakdown.find(day => moment(day.date).isSame(selectedDate, 'day'));
 
-    const { totalHours, totalOperatives, totalWageSplit, jobReferenceBreakdowns } = thisDay;
-
     // useEffect(() => {
     //     if (sizeRef.current && (width === null || window.innerWidth !== prevWindowWidth)) {
     //         const { width } = sizeRef.current.getBoundingClientRect();
@@ -42,7 +40,7 @@ const ApprovedHoursBreakdown = ({
     //         window.removeEventListener('scroll', () => {});
     //     };
     // }, []); // Todo - make approved hours pod sticky
-
+    if (!thisDay) return null;
     return (
         <div
             ref={sizeRef}
@@ -53,7 +51,7 @@ const ApprovedHoursBreakdown = ({
             //     boxSizing: 'border-box',
             // }}
         >
-            <BlockContainer contentClass="inner-pod sticky">
+            <BlockContainer contentClass="inner-pod sticky" isEmpty={!thisDay}>
                 <BlockHeading title="Approved Hours Breakdown" />
                 <div className="divider" />
                 <div className="table-container">
@@ -61,10 +59,10 @@ const ApprovedHoursBreakdown = ({
                         headers={['Job References', 'Hours Worked', 'Operatives', 'Wage Split']}
                         isFetching={false}
                         error={null}
-                        noData={!jobReferenceBreakdowns?.length}
+                        noData={!thisDay?.jobReferenceBreakdowns?.length}
                         noDataMessage="No hours to display."
                     >
-                        {jobReferenceBreakdowns.map(
+                        {thisDay.jobReferenceBreakdowns.map(
                             (
                                 { jobReferenceName, totalHours, totalOperatives, totalWageSplit },
                                 i,
@@ -84,11 +82,11 @@ const ApprovedHoursBreakdown = ({
                         )}
                         <tr className="total-row">
                             <td>Total</td>
-                            <td>{formatAsHrsMins(totalHours)}</td>
-                            <td>{totalOperatives}</td>
+                            <td>{formatAsHrsMins(thisDay.totalHours)}</td>
+                            <td>{thisDay.totalOperatives}</td>
                             <td>
                                 {currencySymbol}
-                                {formatCurrency(totalWageSplit) || '0.00'}
+                                {formatCurrency(thisDay.totalWageSplit) || '0.00'}
                             </td>
                         </tr>
                         <tr className="total-row">
