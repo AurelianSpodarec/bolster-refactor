@@ -58,7 +58,7 @@ const useWagesRegularHours = selectedUserIDs => {
         });
     };
 
-    function timeDifference(start, end) {
+    const timeDifference = (start, end) => {
         if (!start || !end) return;
 
         start = start.split(':');
@@ -71,7 +71,7 @@ const useWagesRegularHours = selectedUserIDs => {
         const minutes = Math.floor(diff / 1000 / 60);
 
         return `${hours}h ${minutes}m`;
-    }
+    };
 
     return { form, handleDayChange, handleChange: handleValueChange, days, timeDifference };
 };

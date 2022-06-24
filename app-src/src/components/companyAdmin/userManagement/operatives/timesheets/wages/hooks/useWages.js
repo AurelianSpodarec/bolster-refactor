@@ -30,7 +30,7 @@ import {
 import { TIMESHEETS_TABS } from 'constants/shared/tabNames';
 import useWagesRegularHours from './useWagesRegularHours';
 
-const useWages = hoursForm => {
+const useWages = () => {
     const dispatch = useDispatch();
 
     const [selectedUserIDs, setSelectedUserIDs] = useState([]);
@@ -100,7 +100,11 @@ const useWages = hoursForm => {
     function handleToggleUserID(id) {
         if (selectedUserIDs.includes(id)) {
             setSelectedUserIDs(sids => sids.filter(sid => sid !== id));
-        } else setSelectedUserIDs(sids => [...sids, id]);
+            setSelectedPayRate(null);
+        } else {
+            setSelectedUserIDs(sids => [...sids, id]);
+            setSelectedPayRate(companyUsers[id].companyPayRateID);
+        }
     }
 
     function getUserNameByID(id) {
@@ -111,7 +115,7 @@ const useWages = hoursForm => {
 
     const handleSave = () => {
         const postBody = {
-            ...hoursForm,
+            ...form,
             payRateID: selectedPayRate,
             companyUserIDs: selectedUserIDs,
         };

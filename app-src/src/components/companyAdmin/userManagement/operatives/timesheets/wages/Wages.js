@@ -62,7 +62,7 @@ const Wages = () => {
                         ambient="positive"
                         onClick={handleSave}
                         size="large"
-                        disabled={isPosting}
+                        disabled={isPosting || !selectedUserIDs.length}
                     />
                 </Field>
             </BlockContainer>
