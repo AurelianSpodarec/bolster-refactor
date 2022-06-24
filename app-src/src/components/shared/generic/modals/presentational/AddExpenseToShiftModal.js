@@ -1,6 +1,5 @@
 import React from 'react';
 import BlockHeading from '../../blockHeading/presentational/BlockHeading';
-import CheckboxContainer from '../../form/containers/CheckboxContainer';
 import Form from '../../form/containers/Form';
 import Field from '../../form/presentational/Field';
 

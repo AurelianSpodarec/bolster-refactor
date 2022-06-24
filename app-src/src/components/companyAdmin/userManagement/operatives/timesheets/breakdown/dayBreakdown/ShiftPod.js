@@ -238,7 +238,7 @@ const ShiftPod = ({
                 <div className="divider" />
                 <div className="table-container">
                     <Table
-                        headers={['', '']}
+                        headers={['', '', '']}
                         isFetching={false}
                         error={null}
                         noData={!expenses.length}
