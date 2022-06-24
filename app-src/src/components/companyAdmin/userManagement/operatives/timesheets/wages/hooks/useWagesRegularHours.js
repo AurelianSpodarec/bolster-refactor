@@ -9,23 +9,20 @@ import { isObjEmpty } from 'helpers/generic';
 const useWagesRegularHours = selectedUserIDs => {
     const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
 
-    const { workingHours, isFetching: isFetchingWorkingHours } = useGetCompanyUsersWorkingHours(
-        selectedUserIDs[0],
-    );
-
-    const prevIsFetchingWorkingHours = usePrevious(isFetchingWorkingHours);
+    const { workingHours } = useGetCompanyUsersWorkingHours(selectedUserIDs[0]);
 
     const initialForm = useMemo(() => {
-        if (!isObjEmpty(workingHours)) {
+        if (!!workingHours && !isObjEmpty(workingHours)) {
             return workingHours;
         }
+
         return days.reduce((acc, day) => {
             return {
                 ...acc,
                 [day]: null,
             };
         }, {});
-    }, [workingHours, selectedUserIDs]);
+    }, [workingHours]);
 
     const [form, handleChange, setFormData] = useForm(initialForm);
 
@@ -33,10 +30,8 @@ const useWagesRegularHours = selectedUserIDs => {
     const postSuccess = useSelector(selectPayRatesPostSuccess);
 
     useEffect(() => {
-        if (!isFetchingWorkingHours && prevIsFetchingWorkingHours && !isObjEmpty(workingHours)) {
-            setFormData(workingHours);
-        }
-    }, [isFetchingWorkingHours, prevIsFetchingWorkingHours]);
+        setFormData(initialForm);
+    }, [workingHours]);
 
     useEffect(() => {
         if (postSuccess && !prevPostSuccess) {
@@ -63,7 +58,7 @@ const useWagesRegularHours = selectedUserIDs => {
         });
     };
 
-    function timeDifference(start, end) {
+    const timeDifference = (start, end) => {
         if (!start || !end) return;
 
         start = start.split(':');
@@ -76,7 +71,7 @@ const useWagesRegularHours = selectedUserIDs => {
         const minutes = Math.floor(diff / 1000 / 60);
 
         return `${hours}h ${minutes}m`;
-    }
+    };
 
     return { form, handleDayChange, handleChange: handleValueChange, days, timeDifference };
 };

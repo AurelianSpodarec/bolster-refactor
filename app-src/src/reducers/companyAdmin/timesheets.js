@@ -31,6 +31,9 @@ import {
     POST_ADD_EXPENSE_TO_SHIFT_REQUEST,
     POST_ADD_EXPENSE_TO_SHIFT_FAILURE,
     POST_ADD_EXPENSE_TO_SHIFT_SUCCESS,
+    DELETE_EXPENSE_FROM_SHIFT_REQUEST,
+    DELETE_EXPENSE_FROM_SHIFT_FAILURE,
+    DELETE_EXPENSE_FROM_SHIFT_SUCCESS,
 } from 'constants/actionTypes/timesheets';
 
 export default combineReducers({
@@ -154,9 +157,12 @@ function postSuccessReducer(state = false, action) {
 function isDeletingReducer(state = false, action) {
     switch (action.type) {
         case DELETE_SHIFT_REQUEST:
+        case DELETE_EXPENSE_FROM_SHIFT_REQUEST:
             return true;
         case DELETE_SHIFT_SUCCESS:
         case DELETE_SHIFT_FAILURE:
+        case DELETE_EXPENSE_FROM_SHIFT_SUCCESS:
+        case DELETE_EXPENSE_FROM_SHIFT_FAILURE:
             return false;
         default:
             return state;
@@ -167,8 +173,11 @@ function deleteErrorReducer(state = null, action) {
     switch (action.type) {
         case DELETE_SHIFT_REQUEST:
         case DELETE_SHIFT_SUCCESS:
+        case DELETE_EXPENSE_FROM_SHIFT_REQUEST:
+        case DELETE_EXPENSE_FROM_SHIFT_SUCCESS:
             return null;
         case DELETE_SHIFT_FAILURE:
+        case DELETE_EXPENSE_FROM_SHIFT_FAILURE:
             return action.error;
         default:
             return state;
@@ -179,8 +188,11 @@ function deleteSuccessReducer(state = false, action) {
     switch (action.type) {
         case DELETE_SHIFT_REQUEST:
         case DELETE_SHIFT_FAILURE:
+        case DELETE_EXPENSE_FROM_SHIFT_REQUEST:
+        case DELETE_EXPENSE_FROM_SHIFT_FAILURE:
             return false;
         case DELETE_SHIFT_SUCCESS:
+        case DELETE_EXPENSE_FROM_SHIFT_SUCCESS:
             return true;
         default:
             return state;

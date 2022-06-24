@@ -30,7 +30,7 @@ import {
 import { TIMESHEETS_TABS } from 'constants/shared/tabNames';
 import useWagesRegularHours from './useWagesRegularHours';
 
-const useWages = hoursForm => {
+const useWages = () => {
     const dispatch = useDispatch();
 
     const [selectedUserIDs, setSelectedUserIDs] = useState([]);
@@ -111,7 +111,7 @@ const useWages = hoursForm => {
 
     const handleSave = () => {
         const postBody = {
-            ...hoursForm,
+            ...form,
             payRateID: selectedPayRate,
             companyUserIDs: selectedUserIDs,
         };
