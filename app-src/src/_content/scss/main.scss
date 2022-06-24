@@ -2263,7 +2263,7 @@ input {
 }
 
 .timepicker {
-  background-color: var(--input-default);
+  background-color: var(--input-default)!important;
   border-radius: 3px;
   font-size: 140%;
 
@@ -2278,10 +2278,6 @@ input {
       color: var(--typography-default);
     }
 
-    // .react-time-picker__button {
-      
-    // }
-
     .react-time-picker__clear-button  {
       svg {
         stroke: var(--typography-default);
@@ -2293,8 +2289,7 @@ input {
     }
 
     .react-time-picker__inputGroup__input.react-time-picker__inputGroup__amPm {
-      color: var(--typography-default)e;
-
+      color: var(--typography-default) !important;
     }
   }
 

@@ -1,11 +1,12 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 
 import { formatCurrency } from 'helpers/generic';
 import { AMEND_JOB_REFERENCE_MODAL } from 'constants/shared/modalTypes';
 
 import showModal from 'actions/shared/generic/modals/sync/showModal';
+import { selectCompanySettings } from 'selectors/companyAdmin/companySettings';
 
 import TimePickerContainer from 'components/shared/generic/form/containers/TimePickerContainer';
 import CurrencyInput from 'components/shared/generic/form/presentational/CurrencyInput';
@@ -25,6 +26,9 @@ const HoursWorkedList = ({
     isEditing,
 }) => {
     const dispatch = useDispatch();
+    const companySettings = useSelector(selectCompanySettings);
+
+    const isJobRefDropdownEnabled = companySettings.isJobReferenceDropdownEnabled;
 
     return (
         <>
@@ -33,20 +37,24 @@ const HoursWorkedList = ({
                     <tr key={`${i}-${jobRefID}`}>
                         <td>
                             <FlexWrapper align="center">
-                                <span style={{ marginRight: 5 }}>{jobRef || '-'}</span>
-                                <ActionButton
-                                    icon="pencil"
-                                    iconOnly
-                                    source="secondary"
-                                    onClick={() =>
-                                        dispatch(
-                                            showModal(AMEND_JOB_REFERENCE_MODAL, {
-                                                shiftID,
-                                                oldJobRefID: jobRefID,
-                                            }),
-                                        )
-                                    }
-                                />
+                                <span style={{ marginRight: isJobRefDropdownEnabled ? 5 : 0 }}>
+                                    {jobRef || '-'}
+                                </span>
+                                {isJobRefDropdownEnabled && (
+                                    <ActionButton
+                                        icon="pencil"
+                                        iconOnly
+                                        source="secondary"
+                                        onClick={() =>
+                                            dispatch(
+                                                showModal(AMEND_JOB_REFERENCE_MODAL, {
+                                                    shiftID,
+                                                    oldJobRefID: jobRefID,
+                                                }),
+                                            )
+                                        }
+                                    />
+                                )}
                             </FlexWrapper>{' '}
                         </td>
                         <td>{moment(hoursWorked).format('H:mm')}</td>

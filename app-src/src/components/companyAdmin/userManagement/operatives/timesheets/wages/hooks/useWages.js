@@ -29,7 +29,7 @@ import {
 } from 'constants/shared/modalTypes';
 import { TIMESHEETS_TABS } from 'constants/shared/tabNames';
 
-const useWages = () => {
+const useWages = hoursForm => {
     const dispatch = useDispatch();
 
     const { companyPayRates, isFetching: isFetchingPayRates, error } = useGetCompanyPayRates();
@@ -107,7 +107,11 @@ const useWages = () => {
     }
 
     const handleSave = () => {
-        const postBody = { payRateID: selectedPayRate, companyUserIDs: selectedUserIDs };
+        const postBody = {
+            ...hoursForm,
+            payRateID: selectedPayRate,
+            companyUserIDs: selectedUserIDs,
+        };
 
         dispatch(postAssignPayRates(postBody));
     };
