@@ -22,6 +22,10 @@ const useBolsterPlusAutoRenew = () => {
 
     const [form, handleChange] = useForm(initialFormData);
 
+    const previousToPreviousBolsterPlusRenewSubscription = usePrevious(
+        usePrevious(form.renewalStatus),
+    );
+
     const handlesAutoRenewChange = (name, value) => {
         handleChange(name, value);
 
@@ -46,17 +50,22 @@ const useBolsterPlusAutoRenew = () => {
                 );
             }
 
-            if (isAutoRenewSubscription === true && addOn?.isAutoRenew === false) {
-                form.renewalStatus = true;
+            if (isAutoRenewSubscription === true) {
+                form.renewalStatus = previousToPreviousBolsterPlusRenewSubscription;
                 dispatch(
                     editBolsterPlusRenewalStatus({
                         companySubscriptionAddonID: addOn?.id,
-                        renewalStatus: true,
+                        renewalStatus: previousToPreviousBolsterPlusRenewSubscription,
                     }),
                 );
             }
         }
-    }, [dispatch, previousAutoRenewSubscription, isAutoRenewSubscription]);
+    }, [
+        dispatch,
+        previousAutoRenewSubscription,
+        isAutoRenewSubscription,
+        previousToPreviousBolsterPlusRenewSubscription,
+    ]);
 
     return { form, handlesAutoRenewChange, isAutoRenewSubscription };
 };
