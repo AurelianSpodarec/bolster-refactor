@@ -12,12 +12,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import Table from 'components/shared/generic/tables/presentational/Table';
 import StickyComponent from 'components/shared/sticky/StickyComponent';
 
-const ApprovedHoursBreakdown = ({
-    dailyHoursBreakdown,
-    selectedDate,
-    grandTotal = 0,
-    expensesTotal = 0,
-}) => {
+const ApprovedHoursBreakdown = ({ dailyHoursBreakdown, selectedDate }) => {
     const currency = useSelector(selectCompanyCurrency);
     const currencySymbol = CURRENCY_SYMBOLS[currency];
 
@@ -70,7 +65,7 @@ const ApprovedHoursBreakdown = ({
                             <td></td>
                             <td>
                                 {currencySymbol}
-                                {formatCurrency(expensesTotal) || '0.00'}
+                                {formatCurrency(thisDay.totalExpenses) || '0.00'}
                             </td>
                         </tr>
                     </Table>
@@ -80,7 +75,7 @@ const ApprovedHoursBreakdown = ({
                     <span>Total exc VAT:</span>
                     <span className="total">
                         {currencySymbol}
-                        {formatCurrency(grandTotal) || '0.00'}
+                        {formatCurrency(thisDay.overallTotal) || '0.00'}
                     </span>
                 </div>
             </BlockContainer>
