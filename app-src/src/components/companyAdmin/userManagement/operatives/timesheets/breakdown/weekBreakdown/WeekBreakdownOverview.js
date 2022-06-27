@@ -33,6 +33,7 @@ const WeekBreakdownOverview = ({
     handlePDFReportGeneration,
     // weeklyHoursBreakdown,
     // dailyHoursBreakdown,
+    onDaySelect,
 }) => {
     const userIDs = useSelector(timesheetSelectedCompanyIDs);
     const companyUsers = useSelector(selectCompanyUsers);
@@ -59,8 +60,6 @@ const WeekBreakdownOverview = ({
             }, new Array(7)),
         [timesheets],
     );
-
-    console.log({ shiftsByDay });
 
     // const {
     //     isFetching: statsIsFetching,
@@ -126,7 +125,7 @@ const WeekBreakdownOverview = ({
                     isEmpty={isEmpty(timesheets)}
                 >
                     <BlockHeading title={days[i]} />
-                    <DayShiftsTable shiftsForDay={shiftsForDay} />
+                    <DayShiftsTable shiftsForDay={shiftsForDay} onDaySelect={onDaySelect} />
                 </BlockContainer>
             ))}
         </>

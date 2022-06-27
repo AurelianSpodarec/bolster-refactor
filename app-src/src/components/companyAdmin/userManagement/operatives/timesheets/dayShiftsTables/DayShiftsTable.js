@@ -14,7 +14,7 @@ const headers = [
     '',
 ];
 
-const DayShiftsTable = ({ shiftsForDay }) => {
+const DayShiftsTable = ({ shiftsForDay, onDaySelect }) => {
     return (
         <Table
             headers={headers}
@@ -22,7 +22,7 @@ const DayShiftsTable = ({ shiftsForDay }) => {
             noData={!shiftsForDay.length}
             noDataMessage="No shifts to show"
         >
-            <DayShiftsItems shiftsForDay={shiftsForDay} />
+            <DayShiftsItems shiftsForDay={shiftsForDay} onDaySelect={onDaySelect} />
         </Table>
     );
 };
