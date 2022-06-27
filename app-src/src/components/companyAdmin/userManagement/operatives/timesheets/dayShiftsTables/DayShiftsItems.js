@@ -8,6 +8,7 @@ import ButtonWrapper from 'components/shared/generic/button/presentational/Butto
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import ActionMenu from 'components/shared/actionMenu/ActionMenu';
 import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
+import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 
 const DayShiftsItems = ({ shiftsForDay }) => {
     const currency = useSelector(selectCompanyCurrency);
@@ -50,13 +51,17 @@ const DayShiftsItems = ({ shiftsForDay }) => {
                         <td>
                             {moment(startOn).format('HH:mm')}
                             {lateClockIn && (
-                                <i className="fa fa-exclamation-triangle timesheet-warning" />
+                                <TooltipContainer side="right" text="Operative started shift late.">
+                                    <i className="fa fa-exclamation-triangle timesheet-warning" />
+                                </TooltipContainer>
                             )}
                         </td>
                         <td>
                             {endOn ? moment(endOn).format('HH:mm') : 'N/A'}
                             {lateClockOut && (
-                                <i className="fa fa-exclamation-triangle timesheet-warning" />
+                                <TooltipContainer side="right" text="Operative ended shift late.">
+                                    <i className="fa fa-exclamation-triangle timesheet-warning" />
+                                </TooltipContainer>
                             )}
                         </td>
                         <td>{formatAsHrsMins(formattedBreakHours)}</td>
