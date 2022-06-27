@@ -39,6 +39,7 @@ const PayRateItemForm = ({
             {items.map(item => {
                 const { id, guid, name, rate, startTime, endTime, days } = item;
                 const idToUse = guid || id;
+
                 return (
                     <div key={idToUse} className="flex-row">
                         <Field name="Name">
@@ -64,7 +65,7 @@ const PayRateItemForm = ({
                         <Field name="Start" classes="flex-10">
                             <TimePickerContainer
                                 name="startTime"
-                                handleChange={(_, value) =>
+                                handleChange={value =>
                                     handleItemsChange(companyPayRateID, {
                                         ...item,
                                         startTime: value,
@@ -78,7 +79,7 @@ const PayRateItemForm = ({
                         <Field name="End" classes="flex-10">
                             <TimePickerContainer
                                 name="endTime"
-                                handleChange={(_, value) =>
+                                handleChange={value =>
                                     handleItemsChange(companyPayRateID, { ...item, endTime: value })
                                 }
                                 value={endTime}

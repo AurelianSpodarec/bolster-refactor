@@ -8,22 +8,22 @@ import {
 import { API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
 
-export const createCostingAndEstimatingWithCSVReportRequest = () => ({
+export const createCostingAndEstimatingCSVReportRequest = () => ({
     type: CREATE_COSTING_AND_ESTIMATING_WITH_CSV_REPORT_REQUEST,
 });
 
-export const createCostingAndEstimatingWithCSVReportSuccess = payload => ({
+export const createCostingAndEstimatingCSVReportSuccess = payload => ({
     type: CREATE_COSTING_AND_ESTIMATING_WITH_CSV_REPORT_SUCCESS,
     payload,
 });
 
-export const createCostingAndEstimatingWithCSVReportFailure = error => ({
+export const createCostingAndEstimatingCSVReportFailure = error => ({
     type: CREATE_COSTING_AND_ESTIMATING_WITH_CSV_REPORT_FAILURE,
     error,
 });
 
 export default postBody => dispatch => {
-    dispatch(createCostingAndEstimatingWithCSVReportRequest());
+    dispatch(createCostingAndEstimatingCSVReportRequest());
 
     return axios
         .post(`${API_URL}/costingandestimating/csv`, postBody, getHeaders())
@@ -31,9 +31,9 @@ export default postBody => dispatch => {
             if (res.status === 202) {
                 throw new Error(res.data?.message ?? 'Something went wrong');
             }
-            dispatch(createCostingAndEstimatingWithCSVReportSuccess(res.data));
+            dispatch(createCostingAndEstimatingCSVReportSuccess(res.data));
         })
         .catch(err => {
-            dispatch(createCostingAndEstimatingWithCSVReportFailure(err.message));
+            dispatch(createCostingAndEstimatingCSVReportFailure(err.message));
         });
 };
