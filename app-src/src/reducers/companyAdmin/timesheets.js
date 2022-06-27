@@ -34,7 +34,9 @@ import {
     DELETE_EXPENSE_FROM_SHIFT_REQUEST,
     DELETE_EXPENSE_FROM_SHIFT_FAILURE,
     DELETE_EXPENSE_FROM_SHIFT_SUCCESS,
+    SET_REPORT_DATES,
 } from 'constants/actionTypes/timesheets';
+import moment from 'moment';
 
 export default combineReducers({
     isFetching: isFetchingReducer,
@@ -50,6 +52,7 @@ export default combineReducers({
     isDeleting: isDeletingReducer,
     deleteError: deleteErrorReducer,
     deleteSuccess: deleteSuccessReducer,
+    reportDates: reportDatesReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -249,6 +252,18 @@ function selectedCompanyUserIDsReducer(state = [], action) {
 function selectedJobReferenceIDsReducer(state = [], action) {
     switch (action.type) {
         case SET_SELECTED_JOB_REFERENCE_ID:
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
+function reportDatesReducer(
+    state = { startDate: moment().subtract(7, 'days').toDate(), endDate: moment().toDate() },
+    action,
+) {
+    switch (action.type) {
+        case SET_REPORT_DATES:
             return action.payload;
         default:
             return state;
