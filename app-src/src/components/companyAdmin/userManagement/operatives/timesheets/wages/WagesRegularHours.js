@@ -32,7 +32,9 @@ const WagesRegularHours = ({ form, handleDayChange, handleChange, days, timeDiff
                             checked={form[day] !== null}
                             value={form[day] !== null}
                         />
+
                         <p className={!form[day] ? 'disabled-opacity' : ''}>Between</p>
+
                         <TimePickerContainer
                             name="startTime"
                             value={form[day] && form[day].startTime}
@@ -55,11 +57,13 @@ const WagesRegularHours = ({ form, handleDayChange, handleChange, days, timeDiff
                             disabled={!form[day]}
                             extraClasses={!form[day] ? 'disabled-opacity' : ''}
                         />
-                        <p className={!form[day] ? 'disabled-opacity' : ''}>
-                            {(form[day] &&
-                                timeDifference(form[day].startTime, form[day].endTime)) ||
-                                '0'}
-                        </p>
+                        <div className="flex-column justify-center">
+                            <p className={!form[day] ? 'disabled-opacity' : ''}>
+                                {(form[day] &&
+                                    timeDifference(form[day].startTime, form[day].endTime)) ||
+                                    '0'}
+                            </p>
+                        </div>
                     </>
                 ))}
             </div>
