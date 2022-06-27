@@ -7,7 +7,7 @@ import postGenerateTimesheetsCSV, {
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import axios from 'axios';
-import { SUCCESS_MODAL } from 'constants/shared/modalTypes';
+import { ERROR_MODAL, SUCCESS_MODAL } from 'constants/shared/modalTypes';
 import { getHeaders } from 'helpers/api';
 import { useForm, usePrevious } from 'helpers/hooks';
 import moment from 'moment';
@@ -35,6 +35,7 @@ const useGenerateTimesheetReport = (fromDateInclusive, toDateInclusive) => {
     const postError = useSelector(selectTimesheetsPostError);
     const postSuccess = useSelector(selectTimesheetsPostSuccess);
     const prevPostSuccess = usePrevious(postSuccess);
+    const prevPostError = usePrevious(postError);
 
     const handleSubmit = () => {
         const postBody = {
@@ -83,7 +84,10 @@ const useGenerateTimesheetReport = (fromDateInclusive, toDateInclusive) => {
             dispatch(hideModal());
             dispatch(showModal(SUCCESS_MODAL, { message }));
         }
-    }, [postSuccess, prevPostSuccess]);
+        if (postError && !prevPostError) {
+            dispatch(showModal(ERROR_MODAL, { message: postError }));
+        }
+    }, [postError, postSuccess, prevPostError, prevPostSuccess]);
 
     return { formData, handleChange, handleSubmit, isPosting, postError };
 };

@@ -1,15 +1,12 @@
-import ImageVisualContainer from 'components/companyAdmin/reports/createReport/components/containers/ImageVisualContainer';
+import React from 'react';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
-import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
-import DateRangePickerInput from 'components/shared/generic/form/presentational/DateRangePicker';
 import { DateRangePicker } from 'react-date-range';
 import { createStaticRanges, defaultStaticRanges } from 'react-date-range/src/defaultRanges';
 import Field from 'components/shared/generic/form/presentational/Field';
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
-import React from 'react';
 import useGenerateTimesheetReport from '../hooks/useGenerateTimesheetReport';
 import moment from 'moment';
 import Tickbox from 'components/shared/generic/form/presentational/Tickbox';
