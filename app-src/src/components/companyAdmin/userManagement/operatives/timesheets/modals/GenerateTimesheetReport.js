@@ -104,9 +104,11 @@ const GenerateTimesheetReportModal = ({ fromDateInclusive, toDateInclusive }) =>
                                 <ActionButton
                                     onClick={handleSubmit}
                                     text="Generate Report"
-                                    size="small"
+                                    size="medium"
                                     icon={isPosting ? 'spinner' : 'file-csv'}
                                     iconSpin={isPosting}
+                                    minWidth="100%"
+                                    extraClasses="justify-center"
                                 />
                             </FlexWrapper>
                         </Form>
