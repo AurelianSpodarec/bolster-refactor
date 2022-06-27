@@ -10,7 +10,7 @@ import PayRateItem from './PayRateItem';
 import ActionButton from '../../../../../../shared/generic/button/presentational/ActionButton';
 
 const PayRatesModal = () => {
-    const { companyPayRates, isFetching, error } = useGetCompanyPayRates();
+    const { isFetching, error } = useGetCompanyPayRates();
 
     const [expandedID, setExpandedID] = useState(null);
     const {
@@ -29,13 +29,8 @@ const PayRatesModal = () => {
     return (
         <ModalOuter extraClasses="wide">
             <ModalHeading title="Pay Rates" hideCloseButton />
-            <BlockContainer
-                isFetching={isFetching}
-                error={error}
-                isEmpty={!companyPayRates.length}
-                contentClass="no-padding"
-            >
-                {Object.values(form).map(payRate => {
+            <BlockContainer isFetching={isFetching} error={error} contentClass="no-padding">
+                {Object.values(form).map((payRate, _, ratesArr) => {
                     const idToUse = payRate.guid || payRate.id;
 
                     return (
@@ -49,7 +44,7 @@ const PayRatesModal = () => {
                             handleChange={handleChange}
                             handleAddNewItem={handleAddNewItem}
                             handleDeleteItem={handleDeleteItem}
-                            isDeleteDisabled={Object.keys(form).length === 1}
+                            isDeleteDisabled={ratesArr.length === 1}
                             handleItemsChange={handleItemsChange}
                         />
                     );
