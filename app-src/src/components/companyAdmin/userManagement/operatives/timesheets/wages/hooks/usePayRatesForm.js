@@ -132,11 +132,13 @@ const usePayRatesForm = () => {
         const formattedArray = formArray.map(payRate => {
             const { guid: rateGuid, ...rest } = payRate;
 
-            const formattedItems = Object.values(payRate.items).map(item => {
-                const { guid: itemGuid, days, ...rest } = item;
-                const daysEnum = days.reduce((res, item) => res + DAYS_FLAGGED[item], 0);
-                return { days: daysEnum, ...rest };
-            });
+            const formattedItems = Object.values(payRate.items)
+                .filter(item => !!item.rate)
+                .map(item => {
+                    const { guid: itemGuid, days, ...rest } = item;
+                    const daysEnum = days.reduce((res, item) => res + DAYS_FLAGGED[item], 0);
+                    return { days: daysEnum, ...rest };
+                });
 
             return { ...rest, items: formattedItems };
         });

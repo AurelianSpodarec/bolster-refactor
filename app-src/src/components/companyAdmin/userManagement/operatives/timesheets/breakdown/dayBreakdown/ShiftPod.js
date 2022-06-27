@@ -173,9 +173,11 @@ const ShiftPod = ({
                         )}
                     </FlexWrapper>
                     <p>
-                        {isTimeInDateTheSameAsTimeOut
-                            ? moment.utc(timeOut).tz(timeZone).format('HH:mm:ss')
-                            : moment.utc(timeOut).tz(timeZone).format('DD-MM-YYYY hh:mm:ss')}
+                        {timeOut
+                            ? isTimeInDateTheSameAsTimeOut
+                                ? moment.utc(timeOut).tz(timeZone).format('HH:mm:ss')
+                                : moment.utc(timeOut).tz(timeZone).format('DD-MM-YYYY hh:mm:ss')
+                            : 'N/A'}
                     </p>
                 </BlockContainer>
                 <BlockContainer contentClass="inner-pod">
