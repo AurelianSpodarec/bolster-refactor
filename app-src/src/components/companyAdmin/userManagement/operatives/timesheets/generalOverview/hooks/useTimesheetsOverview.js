@@ -44,6 +44,7 @@ import fetchJobReferences from 'actions/companyAdmin/jobReferences/async/fetchJo
 import setTabs from 'actions/shared/generic/tabs/sync/setTabs';
 import { TIMESHEETS_TABS } from 'constants/shared/tabNames';
 import fetchAllWorkingHours from 'actions/companyAdmin/workingHours/async/fetchAllWorkingHours';
+import { setReportDates } from 'actions/companyAdmin/timesheets/sync/setReportDates';
 
 const useTimesheetsOverview = (setTitleData = () => {}) => {
     const dispatch = useDispatch();
@@ -102,18 +103,36 @@ const useTimesheetsOverview = (setTitleData = () => {}) => {
         setTitleData(d => ({ ...d, date: newStartDate }));
         setStartDate(newStartDate);
         setSelectedDate(newStartDate);
+        dispatch(
+            setReportDates({
+                startDate: moment(newStartDate).toDate(),
+                endDate: moment(newStartDate).add(7, 'days').toDate(),
+            }),
+        );
     };
     const onNext = () => {
         const newStartDate = moment(startDate).add(7, 'days').format();
         setTitleData(d => ({ ...d, date: newStartDate }));
         setStartDate(newStartDate);
         setSelectedDate(newStartDate);
+        dispatch(
+            setReportDates({
+                startDate: moment(newStartDate).toDate(),
+                endDate: moment(newStartDate).add(7, 'days').toDate(),
+            }),
+        );
     };
     const onToday = () => {
         setTitleData({ timePeriod: TIME_PERIOD.DAY, date: thisDay });
         setStartDate(thisWeek);
         setTimePeriod(TIME_PERIOD.DAY);
         setSelectedDate(thisDay);
+        dispatch(
+            setReportDates({
+                startDate: moment(thisWeek).toDate(),
+                endDate: moment(thisWeek).toDate(),
+            }),
+        );
     };
 
     const onDaySelect = timestamp => {
@@ -125,6 +144,12 @@ const useTimesheetsOverview = (setTitleData = () => {}) => {
         setTitleData({ date: timezoneDate, timePeriod: TIME_PERIOD.DAY });
         setTimePeriod(TIME_PERIOD.DAY);
         setSelectedDate(timezoneDate);
+        dispatch(
+            setReportDates({
+                startDate: moment(timezoneDate).toDate(),
+                endDate: moment(timezoneDate).toDate(),
+            }),
+        );
     };
     const onWeekSelect = timestamp => {
         const timezoneDate = moment(timestamp)
@@ -134,6 +159,12 @@ const useTimesheetsOverview = (setTitleData = () => {}) => {
         setTitleData({ date: timezoneDate, timePeriod: TIME_PERIOD.WEEK });
         setTimePeriod(TIME_PERIOD.WEEK);
         setSelectedDate(timezoneDate);
+        dispatch(
+            setReportDates({
+                startDate: moment(timezoneDate).toDate(),
+                endDate: moment(timezoneDate).toDate(),
+            }),
+        );
     };
 
     const handlePDFReportGeneration = () => {

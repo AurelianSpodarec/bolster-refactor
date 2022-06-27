@@ -1,58 +1,84 @@
-import postReport from 'actions/companyAdmin/reports/async/postReport';
+import {
+    postGenerateTimesheetsCSVFailure,
+    postGenerateTimesheetsCSVRequest,
+    postGenerateTimesheetsCSVSuccess,
+} from 'actions/companyAdmin/timesheets/async/postGenerateTimesheetsCSV';
+import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
-import { SUCCESS_MODAL } from 'constants/shared/modalTypes';
+import axios from 'axios';
+import { ERROR_MODAL, SUCCESS_MODAL } from 'constants/shared/modalTypes';
+import { getHeaders } from 'helpers/api';
 import { useForm, usePrevious } from 'helpers/hooks';
+import moment from 'moment';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { reportPostSuccess } from 'selectors/companyAdmin/timesheets';
+import {
+    selectTimesheetsIsPosting,
+    selectTimesheetsPostError,
+} from 'selectors/companyAdmin/timesheets';
+import { API_URL } from 'config';
 
-const useGenerateTimesheetReport = (
-    fromDateInclusive,
-    toDateInclusive,
-    serviceID,
-    hierarchyID,
-    pinIDs,
-) => {
+const useGenerateTimesheetReport = (fromDateInclusive, toDateInclusive) => {
     const dispatch = useDispatch();
-    const history = useHistory();
     const [formData, handleChange] = useForm({
-        isPDFGeneration: true,
-        isCSVGeneration: false,
-        isFloorplanGeneration: false,
-        isOAndMManualGeneration: false,
+        includeJobReferences: true,
+        includeBreaks: true,
+        includeWages: true,
         startDate: fromDateInclusive,
         endDate: toDateInclusive,
     });
-    const reportSuccess = useSelector(reportPostSuccess);
-    const prevReportPostSuccess = usePrevious(reportSuccess);
+
+    const isPosting = useSelector(selectTimesheetsIsPosting);
+    const postError = useSelector(selectTimesheetsPostError);
+    const prevPostError = usePrevious(postError);
 
     const handleSubmit = () => {
         const postBody = {
             ...formData,
-            hierarchyType: 'drawing',
-            hierarchyID,
-            pinIDs,
-            fromDateInclusive,
-            toDateInclusive,
-            sortBy: 3,
-            reportHistories: 1,
-            serviceID,
-            isTimesheet: true,
+            // shiftStatus: 0,
+            startDate: moment(formData.startDate).toISOString(),
+            endDate: moment(formData.endDate).toISOString(),
         };
 
-        dispatch(postReport(postBody));
+        dispatch(postGenerateTimesheetsCSVRequest());
+        const headers = getHeaders();
+        axios({
+            method: 'post',
+            url: `${API_URL}/clockerEntries/report`,
+            data: postBody,
+            responseType: 'blob',
+            ...headers,
+        })
+            .then(res => {
+                const filename = `Timesheets report ${moment(postBody.startDate).format(
+                    'YYYY-MM-DD',
+                )} - ${moment(postBody.endDate).format('YYYY-MM-DD')}.csv`;
+
+                const fileURL = URL.createObjectURL(res.data);
+                const anchor = document.createElement('a');
+                anchor.href = fileURL;
+                anchor.download = filename;
+                document.body.appendChild(anchor);
+                anchor.click();
+                document.body.removeChild(anchor);
+                dispatch(postGenerateTimesheetsCSVSuccess(res.data));
+                const message = 'Report generated & downloaded successfully';
+                dispatch(hideModal());
+                dispatch(showModal(SUCCESS_MODAL, { message }));
+            })
+            .catch(err => {
+                console.log({ err });
+                dispatch(postGenerateTimesheetsCSVFailure(err.message));
+            });
     };
 
     useEffect(() => {
-        if (reportSuccess && !prevReportPostSuccess) {
-            const message = 'Your report is now being generated';
-            dispatch(showModal(SUCCESS_MODAL, { message }));
-            history.push('/company/reports');
+        if (postError && !prevPostError) {
+            dispatch(showModal(ERROR_MODAL, { message: postError }));
         }
-    }, [reportSuccess, prevReportPostSuccess]);
+    }, [postError, prevPostError]);
 
-    return { formData, handleChange, handleSubmit };
+    return { formData, handleChange, handleSubmit, isPosting, postError };
 };
 
 export default useGenerateTimesheetReport;
