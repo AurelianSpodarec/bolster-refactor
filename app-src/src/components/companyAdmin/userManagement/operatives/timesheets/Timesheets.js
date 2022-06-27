@@ -17,7 +17,6 @@ const Timesheets = ({ selectedTab }) => {
     const dispatch = useDispatch();
     const { isFetching, companyUserIDs, titleData, setTitleData } = useTimesheetsTitle();
     return (
-        // <div className="blur">
         <>
             <PageHeading
                 title={
@@ -53,7 +52,6 @@ const Timesheets = ({ selectedTab }) => {
             </PageHeading>
             <TimesheetsRouteContainer setTitleData={setTitleData} />
         </>
-        // </div>
     );
 };
 

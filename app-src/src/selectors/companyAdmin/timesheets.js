@@ -19,3 +19,5 @@ export const timesheetSelectedJobReferenceIDs = state =>
     state.companyAdmin.timesheetsReducer.selectedJobReferenceIDs;
 export const selectFilterByHasClockedIn = state =>
     state.companyAdmin.timesheetsReducer.filterByHasClockedIn;
+export const selectTimesheetsReportDates = state =>
+    state.companyAdmin.timesheetsReducer.reportDates;
