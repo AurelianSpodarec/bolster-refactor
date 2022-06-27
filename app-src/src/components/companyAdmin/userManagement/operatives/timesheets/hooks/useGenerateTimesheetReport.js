@@ -1,5 +1,4 @@
-import postReport from 'actions/companyAdmin/reports/async/postReport';
-import postGenerateTimesheetsCSV, {
+import {
     postGenerateTimesheetsCSVFailure,
     postGenerateTimesheetsCSVRequest,
     postGenerateTimesheetsCSVSuccess,
@@ -13,11 +12,9 @@ import { useForm, usePrevious } from 'helpers/hooks';
 import moment from 'moment';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import {
     selectTimesheetsIsPosting,
     selectTimesheetsPostError,
-    selectTimesheetsPostSuccess,
 } from 'selectors/companyAdmin/timesheets';
 import { API_URL } from 'config';
 
@@ -33,8 +30,6 @@ const useGenerateTimesheetReport = (fromDateInclusive, toDateInclusive) => {
 
     const isPosting = useSelector(selectTimesheetsIsPosting);
     const postError = useSelector(selectTimesheetsPostError);
-    const postSuccess = useSelector(selectTimesheetsPostSuccess);
-    const prevPostSuccess = usePrevious(postSuccess);
     const prevPostError = usePrevious(postError);
 
     const handleSubmit = () => {
@@ -45,7 +40,6 @@ const useGenerateTimesheetReport = (fromDateInclusive, toDateInclusive) => {
             endDate: moment(formData.endDate).toISOString(),
         };
 
-        // dispatch(postGenerateTimesheetsCSV(postBody));
         dispatch(postGenerateTimesheetsCSVRequest());
         const headers = getHeaders();
         axios({
@@ -59,16 +53,18 @@ const useGenerateTimesheetReport = (fromDateInclusive, toDateInclusive) => {
                 const filename = `Timesheets report ${moment(postBody.startDate).format(
                     'YYYY-MM-DD',
                 )} - ${moment(postBody.endDate).format('YYYY-MM-DD')}.csv`;
-                const fileURL = URL.createObjectURL(res.data);
 
+                const fileURL = URL.createObjectURL(res.data);
                 const anchor = document.createElement('a');
                 anchor.href = fileURL;
                 anchor.download = filename;
-
                 document.body.appendChild(anchor);
                 anchor.click();
                 document.body.removeChild(anchor);
                 dispatch(postGenerateTimesheetsCSVSuccess(res.data));
+                const message = 'Report generated & downloaded successfully';
+                dispatch(hideModal());
+                dispatch(showModal(SUCCESS_MODAL, { message }));
             })
             .catch(err => {
                 console.log({ err });
@@ -77,15 +73,10 @@ const useGenerateTimesheetReport = (fromDateInclusive, toDateInclusive) => {
     };
 
     useEffect(() => {
-        if (postSuccess && !prevPostSuccess) {
-            const message = 'Report generated successfully';
-            // dispatch(hideModal());
-            dispatch(showModal(SUCCESS_MODAL, { message }));
-        }
         if (postError && !prevPostError) {
             dispatch(showModal(ERROR_MODAL, { message: postError }));
         }
-    }, [postError, postSuccess, prevPostError, prevPostSuccess]);
+    }, [postError, prevPostError]);
 
     return { formData, handleChange, handleSubmit, isPosting, postError };
 };
