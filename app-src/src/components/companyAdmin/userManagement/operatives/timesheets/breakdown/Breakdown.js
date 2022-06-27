@@ -20,6 +20,7 @@ const Breakdown = ({
     disableReportGenPin,
     dailyHoursBreakdown,
     weeklyHoursBreakdown,
+    onDaySelect,
 }) => {
     switch (timePeriod) {
         case TIME_PERIOD.WEEK:
@@ -54,6 +55,7 @@ const Breakdown = ({
                                     disableReportGenPin={disableReportGenPin}
                                     weeklyHoursBreakdown={weeklyHoursBreakdown}
                                     dailyHoursBreakdown={dailyHoursBreakdown}
+                                    onDaySelect={onDaySelect}
                                 />
                             ),
                         },

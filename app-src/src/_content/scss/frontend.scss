@@ -4361,6 +4361,19 @@ $back-to-top-height: 35px;
         white-space: nowrap;
         font-size: 100%;
       }
+
+    }
+    td {
+
+      .tooltip-container {
+        margin-top: 0;
+        display: inline-block;
+        float: none;
+        margin-left: 6px;
+      }
+      i.timesheet-warning {
+        color: var(--warning-default);
+      }
     }
 
     .view-more-row {
