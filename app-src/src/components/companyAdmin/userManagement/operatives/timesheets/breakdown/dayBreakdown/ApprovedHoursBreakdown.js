@@ -1,13 +1,16 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import moment from 'moment';
+
+import { CURRENCY_SYMBOLS } from 'constants/companyAdmin/enums';
+import { formatAsHrsMins, formatCurrency } from 'helpers/generic';
+
+import { selectCompanyCurrency } from 'selectors/companyAdmin/companySettings';
+
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import Table from 'components/shared/generic/tables/presentational/Table';
-import { formatAsHrsMins, formatCurrency } from 'helpers/generic';
-import { useSelector } from 'react-redux';
-import { selectCompanyCurrency } from 'selectors/companyAdmin/companySettings';
-import { CURRENCY_SYMBOLS, SHIFT_STATUS } from 'constants/companyAdmin/enums';
-import { usePrevious } from 'helpers/hooks';
-import moment from 'moment';
+import StickyComponent from 'components/shared/sticky/StickyComponent';
 
 const ApprovedHoursBreakdown = ({
     dailyHoursBreakdown,
@@ -18,39 +21,11 @@ const ApprovedHoursBreakdown = ({
     const currency = useSelector(selectCompanyCurrency);
     const currencySymbol = CURRENCY_SYMBOLS[currency];
 
-    // const [width, setWidth] = useState(null);
-    // const [top, setTop] = useState(85);
-    const sizeRef = useRef(null);
-    // const prevWindowWidth = usePrevious(window.innerWidth);
-
     const thisDay = dailyHoursBreakdown.find(day => moment(day.date).isSame(selectedDate, 'day'));
 
-    // useEffect(() => {
-    //     if (sizeRef.current && (width === null || window.innerWidth !== prevWindowWidth)) {
-    //         const { width } = sizeRef.current.getBoundingClientRect();
-    //         setWidth(width);
-    //     }
-    // }, [sizeRef, prevWindowWidth, window.innerWidth, width]);
-
-    // useEffect(() => {
-    //     window.addEventListener('scroll', e => {
-    //         console.log(e);
-    //     });
-    //     return () => {
-    //         window.removeEventListener('scroll', () => {});
-    //     };
-    // }, []); // Todo - make approved hours pod sticky
     if (!thisDay) return null;
     return (
-        <div
-            ref={sizeRef}
-            // style={{
-            //     maxWidth: width,
-            //     position: 'fixed',
-            //     top: '85px',
-            //     boxSizing: 'border-box',
-            // }}
-        >
+        <StickyComponent>
             <BlockContainer contentClass="inner-pod sticky" isEmpty={!thisDay}>
                 <BlockHeading title="Approved Hours Breakdown" />
                 <div className="divider" />
@@ -109,7 +84,7 @@ const ApprovedHoursBreakdown = ({
                     </span>
                 </div>
             </BlockContainer>
-        </div>
+        </StickyComponent>
     );
 };
 
