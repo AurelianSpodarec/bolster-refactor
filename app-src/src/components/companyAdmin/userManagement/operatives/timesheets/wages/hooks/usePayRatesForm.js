@@ -24,7 +24,9 @@ const usePayRatesForm = () => {
     const prevPostSuccess = usePrevious(postSuccess);
 
     const initialForm = useMemo(() => {
-        const formattedPayRates = payRates.map(payRate => {
+        if (!payRates) return {};
+
+        const formattedPayRates = payRates?.map(payRate => {
             //converts bitmask array to array of days
             const convertedBitmaskDays = payRate.items.map(item => {
                 return { ...item, days: getValuesFromBitMaskArray(item.days) };
