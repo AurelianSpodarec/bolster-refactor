@@ -44,17 +44,38 @@ const GenerateTimesheetReportModal = ({
     };
 
     const staticRanges = [
-        ...defaultStaticRanges.slice(0, 3),
+        ...defaultStaticRanges.slice(0, 2),
         ...createStaticRanges([
             {
-                label: 'Test range',
+                label: 'Last 7 Days',
                 range: () => ({
-                    startDate,
-                    endDate,
+                    startDate: moment().subtract(7, 'days').toDate(),
+                    endDate: moment().toDate(),
+                }),
+            },
+            {
+                label: 'Last 14 Days',
+                range: () => ({
+                    startDate: moment().subtract(14, 'days').toDate(),
+                    endDate: moment().toDate(),
+                }),
+            },
+            {
+                label: 'Last 30 Days',
+                range: () => ({
+                    startDate: moment().subtract(30, 'days').toDate(),
+                    endDate: moment().toDate(),
+                }),
+            },
+            {
+                label: 'Last 90 Days',
+                range: () => ({
+                    startDate: moment().subtract(90, 'days').toDate(),
+                    endDate: moment().toDate(),
                 }),
             },
         ]),
-    ]; // TODO - add ranges from designs
+    ];
 
     return (
         <ModalOuterContainer>
