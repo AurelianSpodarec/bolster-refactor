@@ -58,7 +58,7 @@ class AddSiteFormContainer extends Component {
                 }
                 if (
                     this.state.selectedPinOptionSets[set.pinOptionTypeID]?.includes(set.ID) ||
-                    !set.isDisabled
+                    (!set.isDisabled && !set.isHidden)
                 ) {
                     acc[set.pinOptionTypeID] = (acc[set.pinOptionTypeID] || []).concat(set);
                 }

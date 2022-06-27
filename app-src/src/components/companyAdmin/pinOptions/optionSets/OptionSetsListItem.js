@@ -24,6 +24,7 @@ const OptionSetsListItem = ({
     enableOptionSet,
     disableOptionSet,
     setAsDefault,
+    removeAsDefault,
     isSorting,
     isDragging,
     connectDropTarget,
@@ -88,7 +89,12 @@ const OptionSetsListItem = ({
                             )}
 
                             <ActionMenu disabled={isSorting}>
-                                {!isDefault && (
+                                {isDefault ? (
+                                    <ActionMenuActionButton
+                                        text="Remove as default"
+                                        onClick={() => removeAsDefault(set)}
+                                    />
+                                ) : (
                                     <ActionMenuActionButton
                                         text="Set as default"
                                         onClick={() => setAsDefault(set)}

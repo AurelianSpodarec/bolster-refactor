@@ -1,24 +1,28 @@
-import showModal from 'actions/shared/generic/modals/sync/showModal';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ERROR_MODAL, LOADING_DATA, SUCCESS_MODAL } from 'constants/shared/modalTypes';
-import hideModal from 'actions/shared/generic/modals/sync/hideModal';
+import { useForm, usePrevious } from 'helpers/hooks';
+import { useHistory } from 'react-router-dom';
+
 import {
     selectCostingAndEstimatingPostError,
     selectCostingAndEstimatingPostSuccess,
 } from 'selectors/companyAdmin/costingAndEstimating';
-import createCostingAndEstimatingReport from 'actions/companyAdmin/costingAndEstimating/createCostingAndEstimatingReport';
 import { selectHierarchySelectedTab } from 'selectors/shared/tabs';
-import { costingAndEstimatingType } from 'constants/companyAdmin/enums';
-import { useForm, usePrevious } from 'helpers/hooks';
-import { useHistory } from 'react-router-dom';
-import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
-import Field from 'components/shared/generic/form/presentational/Field';
-import Tickbox from '../../../shared/generic/form/presentational/Tickbox';
 
-const CartReportForm = ({ cAndEPostBody }) => {
+import showModal from 'actions/shared/generic/modals/sync/showModal';
+import hideModal from 'actions/shared/generic/modals/sync/hideModal';
+import createCostingAndEstimatingReport from 'actions/companyAdmin/costingAndEstimating/createCostingAndEstimatingReport';
+import createCostingAndEstimatingCSVReport from '../../../../actions/companyAdmin/costingAndEstimating/createCostingAndEstimatingCSVReport';
+
+import { costingAndEstimatingType } from 'constants/companyAdmin/enums';
+import { ERROR_MODAL, LOADING_DATA, SUCCESS_MODAL } from 'constants/shared/modalTypes';
+
+import Field from 'components/shared/generic/form/presentational/Field';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
+import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
+
+const CartReportForm = ({ cAndEPostBody, formData }) => {
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -33,7 +37,6 @@ const CartReportForm = ({ cAndEPostBody }) => {
         projectName: '',
         projectDescription: '',
         clientName: '',
-        generateCSV: false,
     });
 
     useEffect(() => {
@@ -59,6 +62,28 @@ const CartReportForm = ({ cAndEPostBody }) => {
     const handleSubmit = () => {
         dispatch(createCostingAndEstimatingReport(postBody));
         dispatch(showModal(LOADING_DATA, { message: 'Generating Report. Please wait...' }));
+    };
+
+    const generateCSV = () => {
+        const { histories: historyIDs } = formData.selectedItems;
+        const {
+            hierarchyID,
+            hierarchyType,
+            fromDate: fromDateInclusive,
+            toDate: toDateInclusive,
+            costEstType,
+        } = cAndEPostBody;
+
+        const postBody = {
+            hierarchyID: [hierarchyID],
+            hierarchyType,
+            fromDateInclusive,
+            toDateInclusive,
+            costEstType,
+            historyIDs,
+        };
+
+        dispatch(createCostingAndEstimatingCSVReport(postBody));
     };
 
     return (
@@ -92,12 +117,11 @@ const CartReportForm = ({ cAndEPostBody }) => {
                 />
             </Field>
             <Field>
-                <Tickbox
-                    label="Generate CSV"
-                    name="generateCSV"
-                    checked={reportFormData.generateCSV}
-                    handleChange={handleChange}
-                    classes="form"
+                <ActionButton
+                    text="Generate CSV"
+                    extraClasses="center justify-stretch"
+                    onClick={generateCSV}
+                    size="medium"
                 />
             </Field>
             <Field classes="no-margin">

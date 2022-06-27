@@ -10,9 +10,9 @@ import {
     CREATE_COSTING_AND_ESTIMATING_REPORT_REQUEST,
     CREATE_COSTING_AND_ESTIMATING_REPORT_SUCCESS,
     CREATE_COSTING_AND_ESTIMATING_REPORT_FAILURE,
-    CREATE_COSTING_AND_ESTIMATING_WITH_CSV_REPORT_REQUEST,
-    CREATE_COSTING_AND_ESTIMATING_WITH_CSV_REPORT_FAILURE,
-    CREATE_COSTING_AND_ESTIMATING_WITH_CSV_REPORT_SUCCESS,
+    CREATE_COSTING_AND_ESTIMATING_CSV_REPORT_REQUEST,
+    CREATE_COSTING_AND_ESTIMATING_CSV_REPORT_FAILURE,
+    CREATE_COSTING_AND_ESTIMATING_CSV_REPORT_SUCCESS,
 } from 'constants/actionTypes/costingAndEstimating';
 import { HIDE_MODAL } from '../../constants/actionTypes/generic';
 
@@ -53,12 +53,12 @@ function isFetchingFiltersReducer(state = false, action) {
 function isPostingReducer(state = false, action) {
     switch (action.type) {
         case CREATE_COSTING_AND_ESTIMATING_REPORT_REQUEST:
-        case CREATE_COSTING_AND_ESTIMATING_WITH_CSV_REPORT_REQUEST:
+        case CREATE_COSTING_AND_ESTIMATING_CSV_REPORT_REQUEST:
             return true;
         case CREATE_COSTING_AND_ESTIMATING_REPORT_SUCCESS:
         case CREATE_COSTING_AND_ESTIMATING_REPORT_FAILURE:
-        case CREATE_COSTING_AND_ESTIMATING_WITH_CSV_REPORT_SUCCESS:
-        case CREATE_COSTING_AND_ESTIMATING_WITH_CSV_REPORT_FAILURE:
+        case CREATE_COSTING_AND_ESTIMATING_CSV_REPORT_SUCCESS:
+        case CREATE_COSTING_AND_ESTIMATING_CSV_REPORT_FAILURE:
             return false;
         default:
             return state;
@@ -68,10 +68,10 @@ function isPostingReducer(state = false, action) {
 function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case CREATE_COSTING_AND_ESTIMATING_REPORT_SUCCESS:
-        case CREATE_COSTING_AND_ESTIMATING_WITH_CSV_REPORT_SUCCESS:
+        case CREATE_COSTING_AND_ESTIMATING_CSV_REPORT_SUCCESS:
             return true;
         case CREATE_COSTING_AND_ESTIMATING_REPORT_REQUEST:
-        case CREATE_COSTING_AND_ESTIMATING_WITH_CSV_REPORT_REQUEST:
+        case CREATE_COSTING_AND_ESTIMATING_CSV_REPORT_REQUEST:
             return false;
         default:
             return state;
@@ -114,10 +114,10 @@ function costingAndEstimatingFiltersReducer(state = {}, action) {
 function postErrorReducer(state = null, action) {
     switch (action.type) {
         case CREATE_COSTING_AND_ESTIMATING_REPORT_FAILURE:
-        case CREATE_COSTING_AND_ESTIMATING_WITH_CSV_REPORT_FAILURE:
+        case CREATE_COSTING_AND_ESTIMATING_CSV_REPORT_FAILURE:
             return action.error;
         case CREATE_COSTING_AND_ESTIMATING_REPORT_REQUEST:
-        case CREATE_COSTING_AND_ESTIMATING_WITH_CSV_REPORT_REQUEST:
+        case CREATE_COSTING_AND_ESTIMATING_CSV_REPORT_REQUEST:
         case HIDE_MODAL:
             return null;
         default:

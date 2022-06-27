@@ -8,12 +8,12 @@ import {
     selectPayRatesPostSuccess,
 } from 'selectors/companyAdmin/payRates';
 
-import { convertArrToObj, getValuesFromBitMaskArray } from 'helpers/generic';
+import { convertArrToObj, getValuesFromBitMaskArray, isObjEmpty } from 'helpers/generic';
 import { v1 as uuidv1 } from 'uuid';
 
-import postCompanyPayRates from '../../../../../../../actions/companyAdmin/payRates/postCompanyPayRates';
-import { DAYS_FLAGGED } from '../../../../../../../constants/companyAdmin/enums';
-import { hideModal } from '../../../../../../../actions/shared/generic/modals/sync/hideModal';
+import postCompanyPayRates from 'actions/companyAdmin/payRates/postCompanyPayRates';
+import { DAYS_FLAGGED } from 'constants/companyAdmin/enums';
+import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 const usePayRatesForm = () => {
     const dispatch = useDispatch();
@@ -24,6 +24,8 @@ const usePayRatesForm = () => {
     const prevPostSuccess = usePrevious(postSuccess);
 
     const initialForm = useMemo(() => {
+        if (isObjEmpty(payRates)) return;
+
         const formattedPayRates = payRates.map(payRate => {
             //converts bitmask array to array of days
             const convertedBitmaskDays = payRate.items.map(item => {
