@@ -12,30 +12,14 @@ import ModalOuterContainer from 'components/shared/generic/modals/containers/Mod
 import React from 'react';
 import useGenerateTimesheetReport from '../hooks/useGenerateTimesheetReport';
 import moment from 'moment';
+import Tickbox from 'components/shared/generic/form/presentational/Tickbox';
+import Form from 'components/shared/generic/form/containers/Form';
 
-const GenerateTimesheetReportModal = ({
-    fromDateInclusive,
-    toDateInclusive,
-    serviceID,
-    hierarchyID,
-    pinIDs,
-}) => {
-    const { formData, handleChange, handleSubmit } = useGenerateTimesheetReport(
-        fromDateInclusive,
-        toDateInclusive,
-        serviceID,
-        hierarchyID,
-        pinIDs,
-    );
+const GenerateTimesheetReportModal = ({ fromDateInclusive, toDateInclusive }) => {
+    const { formData, handleChange, handleSubmit, isPosting, postError } =
+        useGenerateTimesheetReport(fromDateInclusive, toDateInclusive);
 
-    const {
-        isPDFGeneration,
-        isCSVGeneration,
-        isFloorplanGeneration,
-        isOAndMManualGeneration,
-        startDate,
-        endDate,
-    } = formData;
+    const { startDate, endDate, includeBreaks, includeJobReferences, includeWages } = formData;
 
     const valueObj = {
         startDate,
@@ -78,51 +62,18 @@ const GenerateTimesheetReportModal = ({
     ];
 
     return (
-        <ModalOuterContainer>
+        <ModalOuterContainer size="small">
             <div className="size-lg-12">
                 <BlockContainer>
                     <div className="size-lg-12">
-                        <BlockHeading title="Output Settings" />
-                        <p className="generic-text small">
-                            Below you can choose formatting options for your report.
-                        </p>
-                        <div className="generic-form">
-                            {/* <div className="size-lg-6 size-md-12"> */}
-                            <Field name="Report formats">
-                                <div className="checkbox-list size-lg-12">
-                                    <CheckboxContainer
-                                        checked={isPDFGeneration}
-                                        handleChange={handleChange}
-                                        name="isPDFGeneration"
-                                        text="PDF"
-                                    />
-                                    <CheckboxContainer
-                                        checked={isCSVGeneration}
-                                        handleChange={handleChange}
-                                        name="isCSVGeneration"
-                                        text="CSV"
-                                    />
-                                    <CheckboxContainer
-                                        checked={isFloorplanGeneration}
-                                        handleChange={handleChange}
-                                        name="isFloorplanGeneration"
-                                        text="Floor plan"
-                                    />
-                                    <CheckboxContainer
-                                        checked={isOAndMManualGeneration}
-                                        handleChange={handleChange}
-                                        name="isOAndMManualGeneration"
-                                        text="Include O&M Manuals?"
-                                    />
-                                </div>
-                            </Field>
+                        <BlockHeading title="Timesheet Output Settings" />
+                        <Form error={postError}>
                             <Field name="Date Range">
                                 <DateRangePicker
                                     // locale={locale}
                                     ranges={[valueObj]}
                                     onChange={ranges => {
                                         const { key, ...selection } = ranges.selection;
-                                        console.log(selection);
                                         handleChange('startDate', selection.startDate);
                                         handleChange('endDate', selection.endDate);
                                     }}
@@ -130,25 +81,38 @@ const GenerateTimesheetReportModal = ({
                                     inputRanges={[]}
                                 />
                             </Field>
-                            {/* </div> */}
-                            {/* <div className="size-lg-6 size-md-12">
-                                <ImageVisualContainer
-                                    customFilters={{
-                                        isCSVGeneration,
-                                        isPDFGeneration,
-                                        isOAndMManualGeneration,
-                                        isFloorplanGeneration,
-                                    }}
-                                />
-                            </div> */}
-                            <FlexWrapper align="end" justify="end">
+                            <Field name="Include">
+                                <FlexWrapper align="center" justify="between">
+                                    <Tickbox
+                                        label="Job References"
+                                        name="includeJobReferences"
+                                        checked={includeJobReferences}
+                                        handleChange={handleChange}
+                                    />
+                                    <Tickbox
+                                        label="Breaks"
+                                        name="includeBreaks"
+                                        checked={includeBreaks}
+                                        handleChange={handleChange}
+                                    />
+                                    <Tickbox
+                                        label="Wages"
+                                        name="includeWages"
+                                        checked={includeWages}
+                                        handleChange={handleChange}
+                                    />
+                                </FlexWrapper>
+                            </Field>
+                            <FlexWrapper align="stretch" justify="end">
                                 <ActionButton
                                     onClick={handleSubmit}
                                     text="Generate Report"
                                     size="small"
+                                    icon={isPosting ? 'spinner' : 'file-csv'}
+                                    iconSpin={isPosting}
                                 />
                             </FlexWrapper>
-                        </div>
+                        </Form>
                     </div>
                 </BlockContainer>
             </div>
