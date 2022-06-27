@@ -3507,5 +3507,10 @@ input {
 .padding-top {
   padding-top: 16px;
 }
+
+.disabled-opacity {
+  opacity: 0.5;
+}
+
 // mobile
 @import './dashboard-mobile.scss';

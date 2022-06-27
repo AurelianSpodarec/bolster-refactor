@@ -41,7 +41,7 @@ const DayShiftsItems = ({ shiftsForDay }) => {
                             {wage ? formatCurrency(wage) : '0.00'}
                         </td>
                         <td>{moment(startOn).format('HH:mm')}</td>
-                        <td>{moment(endOn).format('HH:mm')}</td>
+                        <td>{endOn ? moment(endOn).format('HH:mm') : 'N/A'}</td>
                         <td>{formatAsHrsMins(formattedBreakHours)}</td>
                         <td>{totalPins}</td>
                         <td>{jobReferences.length ? jobReferences.join(', ') : 'N/A'}</td>

@@ -2,11 +2,7 @@ import { useEffect } from 'react';
 import moment from 'moment';
 import orderBy from 'lodash/orderBy';
 import find from 'lodash/find';
-import {
-    DATE_TIME_DEFAULTS,
-    DAYS_FLAGGED,
-    DAYS_FLAGGED_LOOKUP,
-} from '../constants/companyAdmin/enums';
+import { DATE_TIME_DEFAULTS, DAYS_FLAGGED_LOOKUP } from '../constants/companyAdmin/enums';
 import { videoFormats } from 'constants/shared/media';
 import _ from 'lodash';
 import { RECURRENCE_DAYS_VALUES } from 'constants/shared/enums';
@@ -373,42 +369,26 @@ export const getOrderObjId = (arr, deleteOrder) => {
 
     return objId ? objId.id : null;
 };
-
-export const reverseEnum = obj =>
-    Object.keys(obj).reduce((acc, key) => {
-        const lower = key
-            .replace(/([A-Z])/g, ' $1')
-            .trim()
-            .toLowerCase();
-
-        acc[obj[key]] = `${lower[0].toUpperCase()}${lower.slice(1)}`;
-        return acc;
-    }, {});
-
 export const boolToYesNo = bool => (bool ? 'Yes' : 'No');
 
 export const isDifferent = (value1, value2) => {
     return !_.isEqual(value1, value2);
 };
 
-export const formatAsHrsMinsSecs = (ms: number) => {
-    const formatInt = (int: number) => int.toString().padStart(2, '0');
+const formatInt = (int: number) => int.toString().padStart(2, '0');
 
+export const formatAsHrsMinsSecs = (ms: number) => {
     const secs = Math.floor(ms / 1000);
     const hrs = Math.floor(secs / 3600);
     const mins = Math.floor((secs - hrs * 3600) / 60);
     const secsLeft = secs - hrs * 3600 - mins * 60;
-
     return `${formatInt(hrs)}:${formatInt(mins)}:${formatInt(secsLeft)}`;
 };
 
 export const formatAsHrsMins = (ms: number) => {
-    const formatInt = (int: number) => int.toString().padStart(2, '0');
-
     const secs = Math.floor(ms / 1000);
     const hrs = Math.floor(secs / 3600);
     const mins = Math.floor((secs - hrs * 3600) / 60);
-    const secsLeft = secs - hrs * 3600 - mins * 60;
 
     return `${formatInt(hrs)}:${formatInt(mins)}`;
 };

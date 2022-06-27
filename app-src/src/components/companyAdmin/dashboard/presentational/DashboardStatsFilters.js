@@ -53,6 +53,7 @@ const DashboardStatsFilters = ({
                         showDoubleView
                         calendarIcon={null}
                         clearIcon={null}
+                        hideStaticRanges={true}
                     />
                 </div>
             </div>

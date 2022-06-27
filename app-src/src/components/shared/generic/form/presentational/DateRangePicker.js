@@ -12,6 +12,7 @@ function DateRangePickerInput({
     minDate, // Date
     maxDate, // Date
     text,
+    hideStaticRanges = false,
 }) {
     const [isExpanded, setIsExpanded] = useState(false);
 
@@ -46,6 +47,7 @@ function DateRangePickerInput({
                     inputRanges={[]}
                     minDate={minDate}
                     maxDate={maxDate}
+                    className={hideStaticRanges ? 'hide-static-ranges' : ''}
                 />
             </div>
         </div>

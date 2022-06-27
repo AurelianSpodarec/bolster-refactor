@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 
-import { formatCurrency } from 'helpers/generic';
+import { formatAsHrsMins, formatCurrency } from 'helpers/generic';
 import { AMEND_JOB_REFERENCE_MODAL } from 'constants/shared/modalTypes';
 
 import showModal from 'actions/shared/generic/modals/sync/showModal';
@@ -57,7 +57,7 @@ const HoursWorkedList = ({
                                 )}
                             </FlexWrapper>{' '}
                         </td>
-                        <td>{moment(hoursWorked).format('H:mm')}</td>
+                        <td>{formatAsHrsMins(hoursWorked)}</td>
                         <td>
                             {currencySymbol}
                             {wageSplit ? formatCurrency(wageSplit) : '0.00'}
@@ -82,7 +82,7 @@ const HoursWorkedList = ({
                     ) : overrideShiftTime ? (
                         overrideShiftTime.split(':').slice(0, 2).join(':')
                     ) : (
-                        moment(jobReferencesTotalHours).format('H:mm')
+                        formatAsHrsMins(jobReferencesTotalHours)
                     )}
                 </td>
                 <td>

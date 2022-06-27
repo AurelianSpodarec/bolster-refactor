@@ -60,6 +60,7 @@ const CostingAndEstimatingGraph = ({
                                         value={dateRange}
                                         onChange={onChange}
                                         text="Calendar"
+                                        hideStaticRanges={true}
                                     />
                                 </div>
                             </FlexWrapper>
