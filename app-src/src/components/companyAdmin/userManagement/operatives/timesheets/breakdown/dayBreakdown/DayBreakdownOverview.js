@@ -186,8 +186,6 @@ const DayBreakdownOverview = ({
                     <ApprovedHoursBreakdown
                         dailyHoursBreakdown={dailyHoursBreakdown}
                         selectedDate={selectedDate}
-                        grandTotal={0}
-                        expensesTotal={0}
                     />
                 </>
             }
