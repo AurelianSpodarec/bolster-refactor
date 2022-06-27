@@ -143,7 +143,10 @@ const EditSitePinOptionSetsContainer = ({ site }) => {
             if (set.serviceIDs && !set.serviceIDs.some(id => serviceIDs.includes(id))) {
                 return acc;
             }
-            if (selectedPinOptionSets[set.pinOptionTypeID]?.includes(set.ID) || !set.isDisabled) {
+            if (
+                selectedPinOptionSets[set.pinOptionTypeID]?.includes(set.ID) ||
+                (!set.isDisabled && !set.isHidden)
+            ) {
                 acc[set.pinOptionTypeID] = (acc[set.pinOptionTypeID] || []).concat(set);
             }
             return acc;
