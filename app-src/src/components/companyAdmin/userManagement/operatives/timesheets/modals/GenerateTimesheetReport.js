@@ -62,7 +62,7 @@ const GenerateTimesheetReportModal = ({ fromDateInclusive, toDateInclusive }) =>
     ];
 
     return (
-        <ModalOuterContainer size="small">
+        <ModalOuterContainer extraClasses="medium">
             <div className="size-lg-12">
                 <BlockContainer>
                     <div className="size-lg-12">
@@ -82,7 +82,7 @@ const GenerateTimesheetReportModal = ({ fromDateInclusive, toDateInclusive }) =>
                                 />
                             </Field>
                             <Field name="Include">
-                                <FlexWrapper align="center" justify="between">
+                                <FlexWrapper align="center" justify="start">
                                     <Tickbox
                                         label="Job References"
                                         name="includeJobReferences"
