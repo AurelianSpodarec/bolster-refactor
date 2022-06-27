@@ -6,9 +6,12 @@ import { selectSubscriptions } from 'selectors/companyAdmin/companySubscription'
 import { addOnsType } from 'constants/companyAdmin/enums';
 import { useEffect } from 'react';
 import fetchAllSubscriptions from 'actions/companyAdmin/subscriptions/async/fetchAllSubscriptions';
+import { selectAddonPostSuccess } from 'selectors/companyAdmin/addOns';
 
 const useBolsterPlusAutoRenew = () => {
     const dispatch = useDispatch();
+    const postSuccess = useSelector(selectAddonPostSuccess);
+    const prevProps = usePrevious({ postSuccess });
     const subscriptions = useSelector(selectSubscriptions);
 
     const isAutoRenewSubscription = subscriptions.isAutoRenew;
@@ -35,8 +38,13 @@ const useBolsterPlusAutoRenew = () => {
         };
 
         dispatch(editBolsterPlusRenewalStatus(postBody));
-        dispatch(fetchAllSubscriptions());
     };
+
+    useEffect(() => {
+        if (postSuccess && !prevProps.postSuccess) {
+            dispatch(fetchAllSubscriptions());
+        }
+    }, [dispatch, postSuccess, prevProps]);
 
     useEffect(() => {
         if (previousAutoRenewSubscription !== isAutoRenewSubscription) {
