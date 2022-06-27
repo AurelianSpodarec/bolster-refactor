@@ -32,12 +32,15 @@ const WagesRegularHours = ({ form, handleDayChange, handleChange, days, timeDiff
                             checked={form[day] !== null}
                             value={form[day] !== null}
                         />
-                        <p>Between</p>
+
+                        <p className={!form[day] ? 'disabled-opacity' : ''}>Between</p>
+
                         <TimePickerContainer
                             name="startTime"
                             value={form[day] && form[day].startTime}
                             handleChange={value => handleChange(day, 'startTime', value)}
                             disabled={!form[day]}
+                            extraClasses={!form[day] ? 'disabled-opacity' : ''}
                         />
                         <NumberInputContainer
                             name="breakMinutes"
@@ -45,18 +48,22 @@ const WagesRegularHours = ({ form, handleDayChange, handleChange, days, timeDiff
                             handleChange={(name, value) => handleChange(day, name, value)}
                             placeholder="-"
                             disabled={!form[day]}
+                            classes={!form[day] ? 'disabled-opacity' : ''}
                         />
                         <TimePickerContainer
                             name="endTime"
                             value={form[day] && form[day].endTime}
                             handleChange={value => handleChange(day, 'endTime', value)}
                             disabled={!form[day]}
+                            extraClasses={!form[day] ? 'disabled-opacity' : ''}
                         />
-                        <p>
-                            {(form[day] &&
-                                timeDifference(form[day].startTime, form[day].endTime)) ||
-                                '0'}
-                        </p>
+                        <div className="flex-column justify-center">
+                            <p className={!form[day] ? 'disabled-opacity' : ''}>
+                                {(form[day] &&
+                                    timeDifference(form[day].startTime, form[day].endTime)) ||
+                                    '0'}
+                            </p>
+                        </div>
                     </>
                 ))}
             </div>
