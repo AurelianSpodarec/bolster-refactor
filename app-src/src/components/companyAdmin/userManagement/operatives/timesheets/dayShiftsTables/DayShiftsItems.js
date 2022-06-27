@@ -1,5 +1,5 @@
 import React from 'react';
-import { CURRENCY_SYMBOLS } from 'constants/companyAdmin/enums';
+import { CURRENCY_SYMBOLS, SHIFT_STATUS, SHIFT_STATUS_REVERSE } from 'constants/companyAdmin/enums';
 import { formatAsHrsMins, formatCurrency } from 'helpers/generic';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
@@ -9,10 +9,22 @@ import ActionButton from 'components/shared/generic/button/presentational/Action
 import ActionMenu from 'components/shared/actionMenu/ActionMenu';
 import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
+import ApproveShiftButton from '../breakdown/dayBreakdown/ApproveShiftButton';
+import useBolsterPlus from 'components/companyAdmin/subscription/addOns/hooks/useBolsterPlus';
+import ApproveShiftMenuButton from '../breakdown/dayBreakdown/ApproveShiftMenuButton';
+import RejectShiftMenuButton from '../breakdown/dayBreakdown/RejectShiftMenuButton';
+import useDeleteShift from '../breakdown/hooks/useDeleteShift';
 
-const DayShiftsItems = ({ shiftsForDay }) => {
+const DayShiftsItems = ({ shiftsForDay, onDaySelect }) => {
     const currency = useSelector(selectCompanyCurrency);
     const currencySymbol = CURRENCY_SYMBOLS[currency];
+    const { isBolsterPlusActivated } = useBolsterPlus();
+
+    const { handleShowDeleteShiftModal } = useDeleteShift(shiftsForDay);
+
+    const handleViewTimesheet = timestamp => {
+        onDaySelect(timestamp);
+    };
 
     return (
         <>
@@ -33,7 +45,8 @@ const DayShiftsItems = ({ shiftsForDay }) => {
                     endOn,
                     lateClockIn,
                     lateClockOut,
-                    // id,
+                    id,
+                    status,
                 } = shift;
 
                 const jobReferences = hoursBreakdown.jobReferenceBreakdowns
@@ -69,24 +82,49 @@ const DayShiftsItems = ({ shiftsForDay }) => {
                         <td>{jobReferences.length ? jobReferences.join(', ') : 'N/A'}</td>
                         <td>
                             <ButtonWrapper alignment="right">
-                                <ActionButton
-                                    source="primary"
-                                    ambient="positive"
-                                    size="small"
-                                    text="Approve"
-                                />
-                                <ActionMenu>
-                                    <ActionMenuActionButton
-                                        text="View Timesheet"
-                                        onClick={() => {}}
+                                {isBolsterPlusActivated && status === SHIFT_STATUS.PENDING ? (
+                                    <ApproveShiftButton shiftID={id} />
+                                ) : isBolsterPlusActivated && status !== SHIFT_STATUS.PENDING ? (
+                                    <ActionButton
+                                        size="small"
+                                        source="secondary"
+                                        text={SHIFT_STATUS_REVERSE[status]}
+                                        disabled
                                     />
-                                    <ActionMenuActionButton text="Edit" onClick={() => {}} />
-                                    <ActionMenuActionButton
-                                        text="Delete"
-                                        onClick={() => {}}
-                                        isNegative
-                                    />
-                                </ActionMenu>
+                                ) : null}
+                                {isBolsterPlusActivated ? (
+                                    <ActionMenu size="small">
+                                        <ActionMenuActionButton
+                                            text="View Timesheet"
+                                            onClick={() => handleViewTimesheet(startOn)}
+                                        />
+                                        {status !== SHIFT_STATUS.APPROVED && (
+                                            <ApproveShiftMenuButton shiftID={id} />
+                                        )}
+                                        {status !== SHIFT_STATUS.REJECTED && (
+                                            <RejectShiftMenuButton shiftID={id} />
+                                        )}
+                                        <ActionMenuActionButton
+                                            text="Delete"
+                                            onClick={() => handleShowDeleteShiftModal(shift.id)}
+                                        />
+                                    </ActionMenu>
+                                ) : (
+                                    <TooltipContainer text="Delete and Approve/Reject are available for Bolster Plus users only.">
+                                        <ActionMenu size="small" disabled={true}>
+                                            {status !== SHIFT_STATUS.APPROVED && (
+                                                <ApproveShiftMenuButton shiftID={shift.id} />
+                                            )}
+                                            {status !== SHIFT_STATUS.REJECTED && (
+                                                <RejectShiftMenuButton shiftID={shift.id} />
+                                            )}
+                                            <ActionMenuActionButton
+                                                text="Delete"
+                                                onClick={() => handleShowDeleteShiftModal(shift.id)}
+                                            />
+                                        </ActionMenu>
+                                    </TooltipContainer>
+                                )}
                             </ButtonWrapper>
                         </td>
                     </tr>

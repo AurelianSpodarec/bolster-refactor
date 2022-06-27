@@ -62,6 +62,7 @@ const GeneralOverview = ({ setTitleData }) => {
                 disableReportGenPin={disableReportGenPin}
                 dailyHoursBreakdown={dailyHoursBreakdown}
                 weeklyHoursBreakdown={weeklyHoursBreakdown}
+                onDaySelect={onDaySelect}
             />
         </>
     );
