@@ -47,30 +47,28 @@ const useGenerateTimesheetReport = (fromDateInclusive, toDateInclusive) => {
 
         // dispatch(postGenerateTimesheetsCSV(postBody));
         dispatch(postGenerateTimesheetsCSVRequest());
+        const headers = getHeaders();
         axios({
             method: 'post',
             url: `${API_URL}/clockerEntries/report`,
             data: postBody,
             responseType: 'blob',
-            headers: getHeaders(),
+            ...headers,
         })
             .then(res => {
-                dispatch(postGenerateTimesheetsCSVSuccess(res.data));
                 const filename = `Timesheets report ${moment(postBody.startDate).format(
                     'YYYY-MM-DD',
                 )} - ${moment(postBody.endDate).format('YYYY-MM-DD')}.csv`;
-                console.log({ res });
-                res.data.blob().then(blob => {
-                    const fileURL = URL.createObjectURL(blob);
+                const fileURL = URL.createObjectURL(res.data);
 
-                    const anchor = document.createElement('a');
-                    anchor.href = fileURL;
-                    anchor.download = filename;
+                const anchor = document.createElement('a');
+                anchor.href = fileURL;
+                anchor.download = filename;
 
-                    document.body.appendChild(anchor);
-                    anchor.click();
-                    document.body.removeChild(anchor);
-                });
+                document.body.appendChild(anchor);
+                anchor.click();
+                document.body.removeChild(anchor);
+                dispatch(postGenerateTimesheetsCSVSuccess(res.data));
             })
             .catch(err => {
                 console.log({ err });
@@ -81,7 +79,7 @@ const useGenerateTimesheetReport = (fromDateInclusive, toDateInclusive) => {
     useEffect(() => {
         if (postSuccess && !prevPostSuccess) {
             const message = 'Report generated successfully';
-            dispatch(hideModal());
+            // dispatch(hideModal());
             dispatch(showModal(SUCCESS_MODAL, { message }));
         }
         if (postError && !prevPostError) {
