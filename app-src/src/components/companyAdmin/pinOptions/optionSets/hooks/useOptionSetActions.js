@@ -24,6 +24,7 @@ import {
     selectPinOptionSetsPostError,
 } from 'selectors/companyAdmin/pinOptionSets';
 import deletePinOptionSet from 'actions/companyAdmin/pinOptions/async/deletePinOptionSet';
+import unsetOptionSetAsDefault from '../../../../../actions/companyAdmin/pinOptions/async/unsetOptionSetAsDefault';
 
 const useOptionSetActions = selectedTypeID => {
     const dispatch = useDispatch();
@@ -75,7 +76,11 @@ const useOptionSetActions = selectedTypeID => {
     };
 
     const setAsDefault = set => {
-        if (!isPosting) dispatch(setOptionSetAsDefault(set, defaultSet));
+        if (!isPosting) dispatch(setOptionSetAsDefault(set));
+    };
+
+    const removeAsDefault = set => {
+        if (!isPosting) dispatch(unsetOptionSetAsDefault(set));
     };
 
     useEffect(() => {
@@ -99,6 +104,7 @@ const useOptionSetActions = selectedTypeID => {
         enableOptionSet,
         disableOptionSet,
         setAsDefault,
+        removeAsDefault,
     };
 };
 

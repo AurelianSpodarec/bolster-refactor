@@ -54,6 +54,7 @@ const OptionSets = ({ forwardRef, selectedTypeID }) => {
         enableOptionSet,
         disableOptionSet,
         setAsDefault,
+        removeAsDefault,
     } = useOptionSetActions(selectedTypeID);
 
     const setLink = selectedPinOptionType.slug;
@@ -146,6 +147,7 @@ const OptionSets = ({ forwardRef, selectedTypeID }) => {
                             onDrop={handleUpdateSort}
                             isCompanySet={set.companyID === companyID}
                             tableColumnWidths={columnWidths}
+                            removeAsDefault={removeAsDefault}
                         />
                     ))}
                 </tbody>
