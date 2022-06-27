@@ -4361,6 +4361,14 @@ $back-to-top-height: 35px;
         white-space: nowrap;
         font-size: 100%;
       }
+
+    }
+    td {
+
+      i.timesheet-warning {
+        margin-left: 4px;
+        color: var(--warning-default);
+      }
     }
 
     .view-more-row {

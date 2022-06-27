@@ -60,8 +60,6 @@ const WeekBreakdownOverview = ({
         [timesheets],
     );
 
-    console.log({ shiftsByDay });
-
     // const {
     //     isFetching: statsIsFetching,
     //     fetchError: statsFetchError,
