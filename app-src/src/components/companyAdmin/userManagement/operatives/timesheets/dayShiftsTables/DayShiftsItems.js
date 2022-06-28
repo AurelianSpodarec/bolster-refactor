@@ -107,6 +107,7 @@ const DayShiftsItems = ({ shiftsForDay, onDaySelect }) => {
                                         <ActionMenuActionButton
                                             text="Delete"
                                             onClick={() => handleShowDeleteShiftModal(shift.id)}
+                                            isNegative
                                         />
                                     </ActionMenu>
                                 ) : (
@@ -121,6 +122,7 @@ const DayShiftsItems = ({ shiftsForDay, onDaySelect }) => {
                                             <ActionMenuActionButton
                                                 text="Delete"
                                                 onClick={() => handleShowDeleteShiftModal(shift.id)}
+                                                isNegative
                                             />
                                         </ActionMenu>
                                     </TooltipContainer>

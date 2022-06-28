@@ -130,6 +130,7 @@ const ShiftPod = ({
                             <ActionMenuActionButton
                                 text="Delete"
                                 onClick={() => handleShowDeleteShiftModal(shift.id)}
+                                isNegative
                             />
                         </ActionMenu>
                     ) : (
@@ -144,6 +145,7 @@ const ShiftPod = ({
                                 <ActionMenuActionButton
                                     text="Delete"
                                     onClick={() => handleShowDeleteShiftModal(shift.id)}
+                                    isNegative
                                 />
                             </ActionMenu>
                         </TooltipContainer>
