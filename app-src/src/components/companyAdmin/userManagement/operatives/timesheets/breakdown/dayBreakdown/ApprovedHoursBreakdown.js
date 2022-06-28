@@ -33,12 +33,15 @@ const ApprovedHoursBreakdown = ({ dailyHoursBreakdown, selectedDate }) => {
                         noDataMessage="No hours to display."
                     >
                         {thisDay.jobReferenceBreakdowns.map(
-                            (
-                                { jobReferenceName, totalHours, totalOperatives, totalWageSplit },
-                                i,
-                            ) => {
+                            ({
+                                jobReferenceID,
+                                jobReferenceName,
+                                totalHours,
+                                totalOperatives,
+                                totalWageSplit,
+                            }) => {
                                 return (
-                                    <tr key={i}>
+                                    <tr key={jobReferenceID}>
                                         <td>{jobReferenceName}</td>
                                         <td>{formatAsHrsMins(totalHours)}</td>
                                         <td>{totalOperatives}</td>

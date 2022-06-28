@@ -11,6 +11,8 @@ import useGenerateTimesheetReport from '../hooks/useGenerateTimesheetReport';
 import moment from 'moment';
 import Tickbox from 'components/shared/generic/form/presentational/Tickbox';
 import Form from 'components/shared/generic/form/containers/Form';
+import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 
 const GenerateTimesheetReportModal = ({ fromDateInclusive, toDateInclusive }) => {
     const { formData, handleChange, handleSubmit, isPosting, postError } =
@@ -59,63 +61,60 @@ const GenerateTimesheetReportModal = ({ fromDateInclusive, toDateInclusive }) =>
     ];
 
     return (
-        <ModalOuterContainer extraClasses="medium">
-            <div className="size-lg-12">
-                <BlockContainer>
-                    <div className="size-lg-12">
-                        <BlockHeading title="Timesheet Output Settings" />
-                        <Form error={postError}>
-                            <Field name="Date Range">
-                                <DateRangePicker
-                                    // locale={locale}
-                                    ranges={[valueObj]}
-                                    onChange={ranges => {
-                                        const { key, ...selection } = ranges.selection;
-                                        handleChange('startDate', selection.startDate);
-                                        handleChange('endDate', selection.endDate);
-                                    }}
-                                    staticRanges={staticRanges}
-                                    inputRanges={[]}
+        <FlexModalOuter title="Timesheet Output Settings">
+            <Form error={postError} className="generic-form flex-content-wrapper size-lg-12">
+                <div className="flex-content">
+                    <div className="form-fields-container">
+                        <Field name="Date Range">
+                            <DateRangePicker
+                                // locale={locale}
+                                ranges={[valueObj]}
+                                onChange={ranges => {
+                                    const { key, ...selection } = ranges.selection;
+                                    handleChange('startDate', selection.startDate);
+                                    handleChange('endDate', selection.endDate);
+                                }}
+                                staticRanges={staticRanges}
+                                inputRanges={[]}
+                            />
+                        </Field>
+                        <Field name="Include">
+                            <FlexWrapper align="center" justify="start">
+                                <Tickbox
+                                    label="Job References"
+                                    name="includeJobReferences"
+                                    checked={includeJobReferences}
+                                    handleChange={handleChange}
                                 />
-                            </Field>
-                            <Field name="Include">
-                                <FlexWrapper align="center" justify="start">
-                                    <Tickbox
-                                        label="Job References"
-                                        name="includeJobReferences"
-                                        checked={includeJobReferences}
-                                        handleChange={handleChange}
-                                    />
-                                    <Tickbox
-                                        label="Breaks"
-                                        name="includeBreaks"
-                                        checked={includeBreaks}
-                                        handleChange={handleChange}
-                                    />
-                                    <Tickbox
-                                        label="Wages"
-                                        name="includeWages"
-                                        checked={includeWages}
-                                        handleChange={handleChange}
-                                    />
-                                </FlexWrapper>
-                            </Field>
-                            <FlexWrapper align="stretch" justify="end">
-                                <ActionButton
-                                    onClick={handleSubmit}
-                                    text="Generate Report"
-                                    size="medium"
-                                    icon={isPosting ? 'spinner' : 'file-csv'}
-                                    iconSpin={isPosting}
-                                    minWidth="100%"
-                                    extraClasses="justify-center"
+                                <Tickbox
+                                    label="Breaks"
+                                    name="includeBreaks"
+                                    checked={includeBreaks}
+                                    handleChange={handleChange}
+                                />
+                                <Tickbox
+                                    label="Wages"
+                                    name="includeWages"
+                                    checked={includeWages}
+                                    handleChange={handleChange}
                                 />
                             </FlexWrapper>
-                        </Form>
+                        </Field>
                     </div>
-                </BlockContainer>
-            </div>
-        </ModalOuterContainer>
+                </div>
+
+                <ButtonWrapper alignment="right" extraClasses="flex-modal-footer">
+                    <ActionButton
+                        onClick={handleSubmit}
+                        text="Generate Report"
+                        size="medium"
+                        icon={isPosting ? 'spinner' : 'file-csv'}
+                        iconSpin={isPosting}
+                        type="submit"
+                    />
+                </ButtonWrapper>
+            </Form>
+        </FlexModalOuter>
     );
 };
 
