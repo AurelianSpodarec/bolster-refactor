@@ -68,11 +68,9 @@ const ShiftPod = ({
         moment.utc(timeIn).tz(timeZone).format('L') ===
         moment.utc(timeOut).tz(timeZone).format('L');
 
-    const handleToggleEdit = () => setShiftToEdit(isEditing ? null : shift.id);
-
     const { formData, handleChange, handleSubmit, isPosting } = useOverrideShift(
         shift,
-        handleToggleEdit,
+        setShiftToEdit,
         startDate,
         isEditing,
     );
@@ -105,7 +103,7 @@ const ShiftPod = ({
                             source="secondary"
                             icon="pencil"
                             iconOnly
-                            onClick={handleToggleEdit}
+                            onClick={() => setShiftToEdit(shift.id)}
                         />
                     ) : (
                         <TooltipContainer text="Edit is available for Bolster Plus users only.">
@@ -114,7 +112,7 @@ const ShiftPod = ({
                                 source="secondary"
                                 icon="pencil"
                                 iconOnly
-                                onClick={handleToggleEdit}
+                                onClick={() => setShiftToEdit(shift.id)}
                                 disabled={true}
                             />
                         </TooltipContainer>

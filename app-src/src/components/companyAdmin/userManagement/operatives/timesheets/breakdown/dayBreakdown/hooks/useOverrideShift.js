@@ -11,7 +11,7 @@ import { useEffect } from 'react';
 import { ERROR_MODAL } from 'constants/shared/modalTypes';
 import { formatAsHrsMins, formatCurrency } from 'helpers/generic';
 
-const useOverrideShift = (shift, handleToggleEdit, startDate, isEditing = false) => {
+const useOverrideShift = (shift, setShiftToEdit, startDate, isEditing = false) => {
     const {
         overrideShiftTime,
         overrideWage,
@@ -36,7 +36,10 @@ const useOverrideShift = (shift, handleToggleEdit, startDate, isEditing = false)
                     message: 'Something went wrong. Please try again later.',
                 }),
             );
-            handleToggleEdit(null);
+            setShiftToEdit(null);
+        }
+        if (postSuccess && !prevProps.postSuccess) {
+            setShiftToEdit(null);
         }
     }, [postSuccess, postError, prevProps.postSuccess, prevProps.postError]);
 
