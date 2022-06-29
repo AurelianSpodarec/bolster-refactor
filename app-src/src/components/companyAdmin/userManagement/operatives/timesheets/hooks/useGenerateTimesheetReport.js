@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
     selectTimesheetsIsPosting,
     selectTimesheetsPostError,
+    timesheetSelectedJobReferenceIDs,
 } from 'selectors/companyAdmin/timesheets';
 import { API_URL } from 'config';
 
@@ -31,11 +32,13 @@ const useGenerateTimesheetReport = (fromDateInclusive, toDateInclusive) => {
     const isPosting = useSelector(selectTimesheetsIsPosting);
     const postError = useSelector(selectTimesheetsPostError);
     const prevPostError = usePrevious(postError);
+    const jobReferenceIDs = useSelector(timesheetSelectedJobReferenceIDs) || [];
 
     const handleSubmit = () => {
         const postBody = {
             ...formData,
             // shiftStatus: 0,
+            jobReferenceIDs,
             startDate: moment(formData.startDate).toISOString(),
             endDate: moment(formData.endDate).toISOString(),
         };
