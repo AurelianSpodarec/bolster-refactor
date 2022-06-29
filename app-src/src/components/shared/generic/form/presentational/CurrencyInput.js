@@ -20,7 +20,7 @@ const CurrencyInput = ({
                 value={value}
                 min="0.00"
                 step="0.01"
-                onChange={e => onChange(name, e.target.value)}
+                onChange={e => onChange(name, e.target.value.replace(/[^0-9.]/, ''))}
             />
         </div>
     );
