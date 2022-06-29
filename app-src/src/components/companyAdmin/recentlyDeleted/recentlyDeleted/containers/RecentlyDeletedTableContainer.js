@@ -34,6 +34,7 @@ const RecentlyDeletedTableContainer = ({
         { label: 'Operative Permission', value: 'Operative Permission' },
         { label: 'Pin Option Sets', value: 'Pin Option Sets' },
         { label: 'Pin Options', value: 'Pin Options' },
+        { label: 'Timesheet', value: 'Timesheet' },
     ];
 
     return (
