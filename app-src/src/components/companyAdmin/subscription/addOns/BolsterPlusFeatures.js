@@ -16,11 +16,11 @@ const Feature = ({ children }) => (
 const BolsterPlusFeatures = ({ bolsterPlusActivated }) => {
     const { bolsterPlusProRataCost } = useAddOnProrata();
     return (
-        <>
-            <p className="size-lg-12">
-                Utilise the best features of Bolster Systems to improve your business workflows
-            </p>
-            {!bolsterPlusActivated && (
+        !bolsterPlusActivated && (
+            <>
+                <p className="size-lg-12">
+                    Utilise the best features of Bolster Systems to improve your business workflows
+                </p>
                 <>
                     <p className="bolster-plus-amount size-lg-12">
                         £{formatNumber(3000)} per annum (calculated pro-rata)
@@ -45,8 +45,8 @@ const BolsterPlusFeatures = ({ bolsterPlusActivated }) => {
                         <Feature>Dedicated training call</Feature>
                     </div>
                 </>
-            )}
-        </>
+            </>
+        )
     );
 };
 
