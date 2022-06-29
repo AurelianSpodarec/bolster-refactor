@@ -11,12 +11,10 @@ export const dayOptions = [
 ];
 
 export const breakOptions = [
-    { label: '0.5 hr', value: 30 },
-    { label: '1 hr', value: 60 },
-    { label: '1.5 hr', value: 90 },
-    { label: '2 hr', value: 120 },
-    { label: '2.5 hr', value: 150 },
-    { label: '3 hr', value: 180 },
+    { label: '15 mins', value: 15 },
+    { label: '30 mins', value: 30 },
+    { label: '45 mins', value: 45 },
+    { label: '1 hour', value: 60 },
 ];
 
 export const timeOptions = [
