@@ -12,10 +12,13 @@ import Tickbox from 'components/shared/generic/form/presentational/Tickbox';
 import Form from 'components/shared/generic/form/containers/Form';
 import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import useBolsterPlus from 'components/companyAdmin/subscription/addOns/hooks/useBolsterPlus';
+import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 
 const GenerateTimesheetReportModal = ({ fromDateInclusive, toDateInclusive }) => {
     const { formData, handleChange, handleSubmit, isPosting, postError } =
         useGenerateTimesheetReport(fromDateInclusive, toDateInclusive);
+    const { isBolsterPlusActivated } = useBolsterPlus();
 
     const { startDate, endDate, includeBreaks, includeJobReferences, includeWages } = formData;
 
@@ -105,16 +108,33 @@ const GenerateTimesheetReportModal = ({ fromDateInclusive, toDateInclusive }) =>
                         </Field>
                     </div>
                 </div>
-
-                <ButtonWrapper alignment="right" extraClasses="flex-modal-footer">
-                    <ActionButton
-                        text="Generate Report"
-                        size="medium"
-                        icon={isPosting ? 'spinner' : 'file-csv'}
-                        iconSpin={isPosting}
-                        type="submit"
-                    />
-                </ButtonWrapper>
+                {isBolsterPlusActivated ? (
+                    <ButtonWrapper alignment="right" extraClasses="flex-modal-footer">
+                        <ActionButton
+                            text="Generate Report"
+                            size="medium"
+                            icon={isPosting ? 'spinner' : 'file-csv'}
+                            iconSpin={isPosting}
+                            type="submit"
+                        />
+                    </ButtonWrapper>
+                ) : (
+                    <ButtonWrapper alignment="right" extraClasses="flex-modal-footer">
+                        <TooltipContainer
+                            text="Generate Timesheets Report is available for Bolster Plus users only."
+                            side="top"
+                        >
+                            <ActionButton
+                                text="Generate Report"
+                                size="medium"
+                                icon={isPosting ? 'spinner' : 'file-csv'}
+                                iconSpin={isPosting}
+                                type="submit"
+                                disabled={true}
+                            />
+                        </TooltipContainer>
+                    </ButtonWrapper>
+                )}
             </Form>
         </FlexModalOuter>
     );
