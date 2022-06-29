@@ -47,7 +47,9 @@ const Timesheets = ({ selectedTab }) => {
                         onClick={() => dispatch(showModal(PAY_RATES_MODAL))}
                     />
                 )}
-                <GenerateTimesheetsCSVButton />
+                {selectedTab === TIMESHEETS_TABS.GENERAL_OVERVIEW && (
+                    <GenerateTimesheetsCSVButton />
+                )}
                 <TabsContainer classes="hierarchy-tabs" />
             </PageHeading>
             <TimesheetsRouteContainer setTitleData={setTitleData} />

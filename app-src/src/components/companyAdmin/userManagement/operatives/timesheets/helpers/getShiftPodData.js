@@ -6,7 +6,7 @@ const getShiftPodData = shift => {
         formattedBreakHours,
         // formattedClockedInHours,
         // formattedHours,
-        hoursBreakdown, // jobReferenceBreakdowns, totalHours, totalOperatives, totalWageSplit
+        hoursBreakdown, // jobReferenceBreakdowns, totalHours, totalOperatives, totalWageSplit, totalExpenses, overallTotal
         groupUID,
         expenses,
         // id,
@@ -22,8 +22,6 @@ const getShiftPodData = shift => {
         lateClockIn,
         lateClockOut,
     } = shift;
-
-    console.log({ shift });
 
     const jobReferences = hoursBreakdown.jobReferenceBreakdowns.map(
         ({ jobReferenceName, jobReferenceID, totalHours, totalWageSplit }) => ({
