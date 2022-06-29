@@ -17,6 +17,7 @@ import {
     selectTimesheetsPostError,
 } from 'selectors/companyAdmin/timesheets';
 import { API_URL } from 'config';
+import { DATE_TIME_POST_START, DATE_TIME_POST_END } from 'constants/shared/dateFormats';
 
 const useGenerateTimesheetReport = (fromDateInclusive, toDateInclusive) => {
     const dispatch = useDispatch();
@@ -33,11 +34,14 @@ const useGenerateTimesheetReport = (fromDateInclusive, toDateInclusive) => {
     const prevPostError = usePrevious(postError);
 
     const handleSubmit = () => {
+        const startDate = moment(formData.startDate).format(DATE_TIME_POST_START);
+        const endDate = moment(formData.endDate).format(DATE_TIME_POST_END);
+
         const postBody = {
             ...formData,
             // shiftStatus: 0,
-            startDate: moment(formData.startDate).toISOString(),
-            endDate: moment(formData.endDate).toISOString(),
+            startDate: startDate,
+            endDate: endDate,
         };
 
         dispatch(postGenerateTimesheetsCSVRequest());
