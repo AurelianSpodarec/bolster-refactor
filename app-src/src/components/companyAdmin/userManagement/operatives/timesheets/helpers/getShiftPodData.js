@@ -6,7 +6,7 @@ const getShiftPodData = shift => {
         formattedBreakHours,
         // formattedClockedInHours,
         // formattedHours,
-        hoursBreakdown, // jobReferenceBreakdowns, totalHours, totalOperatives, totalWageSplit
+        hoursBreakdown, // jobReferenceBreakdowns, totalHours, totalOperatives, totalWageSplit, totalExpenses, overallTotal
         groupUID,
         expenses,
         // id,
@@ -41,8 +41,8 @@ const getShiftPodData = shift => {
         jobReferencesTotalHours: hoursBreakdown.totalHours,
         jobReferencesTotalCost: hoursBreakdown.totalWageSplit,
         expenses, // { name, price }
-        expensesTotal: 0,
-        shiftTotal: 0,
+        expensesTotal: hoursBreakdown.totalExpenses,
+        shiftTotal: hoursBreakdown.overallTotal,
         notes,
         status,
         groupUID,

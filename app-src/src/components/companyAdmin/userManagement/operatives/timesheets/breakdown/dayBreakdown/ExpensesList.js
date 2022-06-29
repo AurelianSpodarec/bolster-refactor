@@ -27,7 +27,7 @@ const ExpensesList = ({ expenses = [], expensesTotal, currencySymbol = '£', shi
                 <td>Total</td>
                 <td>
                     {currencySymbol}
-                    {formatCurrency(expensesTotal)}
+                    {expensesTotal ? formatCurrency(expensesTotal) : '0.00'}
                 </td>
             </tr>
         </>
