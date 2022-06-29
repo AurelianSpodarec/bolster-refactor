@@ -75,7 +75,7 @@ const DayBreakdownOverview = ({
                     const thisDay = curr.days.find(day =>
                         moment(day.date).isSame(selectedDate, 'day'),
                     );
-                    const todaysShifts = thisDay.shifts?.map(shift => {
+                    const todaysShifts = thisDay?.shifts?.map(shift => {
                         const notes = thisDay.clockerNotes.filter(note =>
                             moment(note.createdOn).isSame(selectedDate, 'day'),
                         );
