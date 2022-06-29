@@ -38,8 +38,14 @@ const AllCompanyAdminsListItem = ({
         ? `This admin has not upsynced in ${tooltipDate} days`
         : 'This admin has never upsynced.';
 
-    const userStatus =
-        user.type === COMPANY_USER_ROLE_TYPES.OWNER ? '(OWNER)' : isDisabled ? '(DISABLED)' : '';
+    const userTypeStatus =
+        user.type === COMPANY_USER_ROLE_TYPES.OWNER
+            ? '(OWNER)'
+            : user.type === COMPANY_USER_ROLE_TYPES.ADMIN_PLUS
+            ? '(ADMIN PLUS)'
+            : '';
+    const userDisabledStatus = isDisabled ? '(DISABLED)' : '';
+    const userStatus = `${userTypeStatus} ${userDisabledStatus}`;
 
     const nameString = `${user.userFirstName} ${user.userLastName} ${userStatus} - ${user.formattedOperativeCode}`;
 

@@ -17,6 +17,8 @@ const CreateCompanyAdminForm = ({
     phoneNumber,
     shouldRestrictPayments,
     shouldRestrictPaymentsAccess,
+    shouldHaveAdminPlus,
+    canSetAdminPlus,
     isPosting,
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
@@ -73,6 +75,18 @@ const CreateCompanyAdminForm = ({
                         <CheckboxContainer
                             name="shouldRestrictPayments"
                             checked={shouldRestrictPayments}
+                            handleChange={handleInputChange}
+                        />
+                    </Field>
+                </div>
+            )}
+
+            {canSetAdminPlus && (
+                <div className="size-lg-6">
+                    <Field name="Admin Plus?">
+                        <CheckboxContainer
+                            name="shouldHaveAdminPlus"
+                            checked={shouldHaveAdminPlus}
                             handleChange={handleInputChange}
                         />
                     </Field>
