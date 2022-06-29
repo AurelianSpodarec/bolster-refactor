@@ -19,6 +19,7 @@ import {
     timesheetSelectedJobReferenceIDs,
 } from 'selectors/companyAdmin/timesheets';
 import { API_URL } from 'config';
+import { DATE_TIME_POST_START, DATE_TIME_POST_END } from 'constants/shared/dateFormats';
 
 const useGenerateTimesheetReport = (fromDateInclusive, toDateInclusive) => {
     const dispatch = useDispatch();
@@ -37,13 +38,16 @@ const useGenerateTimesheetReport = (fromDateInclusive, toDateInclusive) => {
     const companyUserIDs = useSelector(timesheetSelectedCompanyIDs) || [];
 
     const handleSubmit = () => {
+        const startDate = moment(formData.startDate).format(DATE_TIME_POST_START);
+        const endDate = moment(formData.endDate).format(DATE_TIME_POST_END);
+
         const postBody = {
             ...formData,
             // shiftStatus: 0,
             jobReferenceIDs,
             companyUserIDs,
-            startDate: moment(formData.startDate).toISOString(),
-            endDate: moment(formData.endDate).toISOString(),
+            startDate: startDate,
+            endDate: endDate,
         };
 
         dispatch(postGenerateTimesheetsCSVRequest());
@@ -56,9 +60,9 @@ const useGenerateTimesheetReport = (fromDateInclusive, toDateInclusive) => {
             ...headers,
         })
             .then(res => {
-                const filename = `Timesheets report ${moment(postBody.startDate).format(
+                const filename = `Timesheets report ${moment(startDate).format(
                     'YYYY-MM-DD',
-                )} - ${moment(postBody.endDate).format('YYYY-MM-DD')}.csv`;
+                )} - ${moment(endDate).format('YYYY-MM-DD')}.csv`;
 
                 const fileURL = URL.createObjectURL(res.data);
                 const anchor = document.createElement('a');
