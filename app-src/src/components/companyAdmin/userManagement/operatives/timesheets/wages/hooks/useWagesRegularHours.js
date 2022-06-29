@@ -25,7 +25,7 @@ const useWagesRegularHours = selectedUserIDs => {
     }, [workingHours]);
 
     const [form, handleChange, setFormData] = useForm(initialForm);
-
+    console.log(form);
     const prevPostSuccess = usePrevious(postSuccess);
     const postSuccess = useSelector(selectPayRatesPostSuccess);
 
