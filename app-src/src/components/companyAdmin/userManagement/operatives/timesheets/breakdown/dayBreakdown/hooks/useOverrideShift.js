@@ -9,9 +9,14 @@ import {
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { useEffect } from 'react';
 import { ERROR_MODAL } from 'constants/shared/modalTypes';
+import { formatAsHrsMins, formatCurrency } from 'helpers/generic';
 
 const useOverrideShift = (shift, handleToggleEdit, startDate, isEditing = false) => {
-    const { overrideShiftTime, overrideWage } = shift;
+    const {
+        overrideShiftTime,
+        overrideWage,
+        hoursBreakdown: { totalHours, totalWageSplit },
+    } = shift;
     const dispatch = useDispatch();
 
     const isPosting = useSelector(selectTimesheetsIsPosting);
@@ -20,8 +25,8 @@ const useOverrideShift = (shift, handleToggleEdit, startDate, isEditing = false)
     const prevProps = usePrevious({ isPosting, postError, postSuccess, isEditing });
 
     const [formData, handleChange] = useForm({
-        overrideShiftTime: overrideShiftTime || '00:00',
-        overrideWage: overrideWage || '0.00',
+        overrideShiftTime: overrideShiftTime ? overrideShiftTime : formatAsHrsMins(totalHours),
+        overrideWage: overrideWage ? overrideWage : formatCurrency(totalWageSplit),
     });
 
     useEffect(() => {
