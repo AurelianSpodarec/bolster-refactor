@@ -2,8 +2,8 @@ import React from 'react';
 
 import BlockHeading from '../../../../../shared/generic/blockHeading/presentational/BlockHeading';
 import Tickbox from '../../../../../shared/generic/form/presentational/Tickbox';
-import TimePickerContainer from '../../../../../shared/generic/form/containers/TimePickerContainer';
-import NumberInputContainer from '../../../../../shared/generic/form/containers/NumberInputContainer';
+import Select from '../../../../../shared/generic/form/presentational/Select';
+import { breakOptions, timeOptions } from 'constants/companyAdmin/options';
 
 const WagesRegularHours = ({ form, handleDayChange, handleChange, days, timeDifference }) => {
     return (
@@ -35,27 +35,32 @@ const WagesRegularHours = ({ form, handleDayChange, handleChange, days, timeDiff
 
                         <p className={!form[day] ? 'disabled-opacity' : ''}>Between</p>
 
-                        <TimePickerContainer
+                        <Select
                             name="startTime"
                             value={form[day] && form[day].startTime}
-                            handleChange={value => handleChange(day, 'startTime', value)}
+                            onChange={(_, value) => handleChange(day, 'startTime', value)}
                             disabled={!form[day]}
                             extraClasses={!form[day] ? 'disabled-opacity' : ''}
+                            options={timeOptions}
+                            classes="large"
                         />
-                        <NumberInputContainer
+                        <Select
                             name="breakMinutes"
                             value={form[day] && form[day].breakMinutes}
-                            handleChange={(name, value) => handleChange(day, name, value)}
-                            placeholder="-"
-                            disabled={!form[day]}
-                            classes={!form[day] ? 'disabled-opacity' : ''}
-                        />
-                        <TimePickerContainer
-                            name="endTime"
-                            value={form[day] && form[day].endTime}
-                            handleChange={value => handleChange(day, 'endTime', value)}
+                            onChange={(_, value) => handleChange(day, 'breakMinutes', value)}
                             disabled={!form[day]}
                             extraClasses={!form[day] ? 'disabled-opacity' : ''}
+                            options={breakOptions}
+                            classes="large"
+                        />
+                        <Select
+                            name="endTime"
+                            value={form[day] && form[day].endTime}
+                            onChange={(_, value) => handleChange(day, 'endTime', value)}
+                            disabled={!form[day]}
+                            extraClasses={!form[day] ? 'disabled-opacity' : ''}
+                            options={timeOptions}
+                            classes="large"
                         />
                         <div className="flex-column justify-center">
                             <p className={!form[day] ? 'disabled-opacity' : ''}>
