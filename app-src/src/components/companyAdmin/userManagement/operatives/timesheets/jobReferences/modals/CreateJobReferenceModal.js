@@ -27,12 +27,11 @@ const CreateJobReferenceModal = ({ hideModal }) => {
                             />
                         </Field>
 
-                        <Field name="Description" required>
+                        <Field name="Description">
                             <TextAreaContainer
                                 name="description"
                                 value={form.description}
                                 handleChange={handleChange}
-                                required
                             />
                         </Field>
                     </div>
