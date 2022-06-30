@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Tickbox = ({ checked, handleChange, name, value, classes = '', label }) => {
+const Tickbox = ({ checked, handleChange, name, value, classes = '', label, disabled = false }) => {
     return (
         <label className={`tickbox ${classes}`}>
             <input
@@ -12,6 +12,7 @@ const Tickbox = ({ checked, handleChange, name, value, classes = '', label }) =>
                 }
                 onChange={() => {}} // Stops error
                 value={value}
+                disabled={disabled}
             />
             <span className="checkmark"></span>
             <p>{label}</p>

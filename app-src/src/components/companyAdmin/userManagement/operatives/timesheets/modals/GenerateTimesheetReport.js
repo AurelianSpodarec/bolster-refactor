@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { DateRangePicker } from 'react-date-range';
 import { createStaticRanges, defaultStaticRanges } from 'react-date-range/src/defaultRanges';
 import moment from 'moment';
@@ -13,9 +14,13 @@ import Form from 'components/shared/generic/form/containers/Form';
 import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import useBolsterPlus from 'components/companyAdmin/subscription/addOns/hooks/useBolsterPlus';
-import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
+import showModal from 'actions/shared/generic/modals/sync/showModal';
+import { BOLSTER_PLUS_UPGRADE_MODAL } from 'constants/shared/modalTypes';
+import selectTab from 'actions/shared/generic/tabs/sync/selectTab';
+import { TIMESHEETS_TABS } from 'constants/shared/tabNames';
 
 const GenerateTimesheetReportModal = ({ fromDateInclusive, toDateInclusive }) => {
+    const dispatch = useDispatch();
     const { formData, handleChange, handleSubmit, isPosting, postError } =
         useGenerateTimesheetReport(fromDateInclusive, toDateInclusive);
     const { isBolsterPlusActivated } = useBolsterPlus();
@@ -120,19 +125,19 @@ const GenerateTimesheetReportModal = ({ fromDateInclusive, toDateInclusive }) =>
                     </ButtonWrapper>
                 ) : (
                     <ButtonWrapper alignment="right" extraClasses="flex-modal-footer">
-                        <TooltipContainer
-                            text="Generate Timesheets Report is available for Bolster Plus users only."
-                            side="top"
-                        >
-                            <ActionButton
-                                text="Generate Report"
-                                size="medium"
-                                icon={isPosting ? 'spinner' : 'file-csv'}
-                                iconSpin={isPosting}
-                                type="submit"
-                                disabled={true}
-                            />
-                        </TooltipContainer>
+                        <ActionButton
+                            text="Generate Report"
+                            size="medium"
+                            icon="file-csv"
+                            onClick={() =>
+                                dispatch(
+                                    showModal(BOLSTER_PLUS_UPGRADE_MODAL, {
+                                        handleClose: () =>
+                                            dispatch(selectTab(TIMESHEETS_TABS.GENERAL_OVERVIEW)),
+                                    }),
+                                )
+                            }
+                        />
                     </ButtonWrapper>
                 )}
             </Form>
