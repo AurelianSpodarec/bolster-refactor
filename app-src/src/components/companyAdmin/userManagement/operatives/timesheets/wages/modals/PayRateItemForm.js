@@ -105,7 +105,6 @@ const PayRateItemForm = ({
                         <button
                             className="flex flex-column justify-center delete-icon"
                             onClick={() => handleDeleteItem(companyPayRateID, idToUse)}
-                            disabled={items.length === 1}
                         >
                             <i className="far fa-trash-alt" />
                         </button>
