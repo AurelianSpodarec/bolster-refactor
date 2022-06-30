@@ -122,7 +122,7 @@ const useCostingAndEstimating = () => {
 
     const initialFormData = () => ({
         dateRange: {
-            startDate: moment().subtract(7, 'days').toDate(),
+            startDate: moment().subtract(12, 'months').toDate(),
             endDate: moment().toDate(),
         },
         selectedItems: buildInitialSelectedItems([], true), // TODO - makes the first fetch happen twice
