@@ -15,6 +15,9 @@ const CreateCompanyAdminFormContainer = () => {
     const dispatch = useDispatch();
     const { isPosting, postSuccess, error, companyUserID, users } = useSelector(mapStateToProps);
     const prevProps = usePrevious({ postSuccess, error, users });
+
+    const curUser = users && users[companyUserID] ? users[companyUserID] : {};
+
     const [state, setState] = useState({
         firstName: '',
         lastName: '',
@@ -22,6 +25,7 @@ const CreateCompanyAdminFormContainer = () => {
         phoneNumber: '',
         shouldRestrictPayments: false,
         shouldRestrictPaymentsAccess: true,
+        shouldHaveAdminPlus: false,
     });
 
     componentDidMount(() => {
@@ -62,9 +66,12 @@ const CreateCompanyAdminFormContainer = () => {
         }
     }, [postSuccess, error, users]);
 
+    const canSetAdminPlus = curUser.type && curUser.type >= COMPANY_USER_ROLE_TYPES.ADMIN_PLUS;
+
     return (
         <CreateCompanyAdminForm
             {...state}
+            canSetAdminPlus={canSetAdminPlus}
             hideModal={() => dispatch(hideModal())}
             handleInputChange={handleInputChange}
             handleSubmit={handleSubmit}
@@ -79,11 +86,14 @@ const CreateCompanyAdminFormContainer = () => {
     function handleSubmit(e) {
         e.preventDefault();
         if (isPosting) return;
-        const { confirmPassword, shouldRestrictPaymentsAccess, ...rest } = state;
+        const { confirmPassword, shouldRestrictPaymentsAccess, shouldHaveAdminPlus, ...rest } =
+            state;
 
         const postBody = {
             ...rest,
-            type: COMPANY_USER_ROLE_TYPES.ADMIN,
+            type: shouldHaveAdminPlus
+                ? COMPANY_USER_ROLE_TYPES.ADMIN_PLUS
+                : COMPANY_USER_ROLE_TYPES.ADMIN,
         };
         dispatch(createCompanyUser(postBody));
     }

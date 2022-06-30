@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { dayOptions } from '../../../../../../../constants/companyAdmin/options';
+import { dayOptions, timeOptions } from 'constants/companyAdmin/options';
 
 import Field from '../../../../../../shared/generic/form/presentational/Field';
 import TextInputContainer from '../../../../../../shared/generic/form/containers/TextInputContainer';
-import TimePickerContainer from '../../../../../../shared/generic/form/containers/TimePickerContainer';
 import PickListContainer from '../../../../../../shared/generic/form/containers/PickListContainer';
 import ActionButton from '../../../../../../shared/generic/button/presentational/ActionButton';
 import NumberInputContainer from '../../../../../../shared/generic/form/containers/NumberInputContainer';
+import Select from '../../../../../../shared/generic/form/presentational/Select';
 
 const PayRateItemForm = ({
     isExpanded,
@@ -63,28 +63,30 @@ const PayRateItemForm = ({
                             />
                         </Field>
                         <Field name="Start" classes="flex-10">
-                            <TimePickerContainer
+                            <Select
                                 name="startTime"
-                                handleChange={value =>
+                                value={startTime}
+                                onChange={(_, value) =>
                                     handleItemsChange(companyPayRateID, {
                                         ...item,
                                         startTime: value,
                                     })
                                 }
-                                value={startTime}
-                                clearIcon={null}
-                                extraClasses="padded"
+                                options={timeOptions}
+                                classes="large"
+                                placeholder="select"
                             />
                         </Field>
                         <Field name="End" classes="flex-10">
-                            <TimePickerContainer
+                            <Select
                                 name="endTime"
-                                handleChange={value =>
+                                value={endTime}
+                                onChange={(_, value) =>
                                     handleItemsChange(companyPayRateID, { ...item, endTime: value })
                                 }
-                                value={endTime}
-                                clearIcon={null}
-                                extraClasses="padded"
+                                options={timeOptions}
+                                classes="large"
+                                placeholder="select"
                             />
                         </Field>
 
@@ -103,7 +105,6 @@ const PayRateItemForm = ({
                         <button
                             className="flex flex-column justify-center delete-icon"
                             onClick={() => handleDeleteItem(companyPayRateID, idToUse)}
-                            disabled={items.length === 1}
                         >
                             <i className="far fa-trash-alt" />
                         </button>
