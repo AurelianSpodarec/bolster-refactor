@@ -1,7 +1,8 @@
 import React from 'react';
+import { preventNonNumericalInput } from 'helpers/generic';
 
 const NumberInput = ({
-    type,
+    type = 'number',
     name,
     placeholder,
     classes,
@@ -13,6 +14,7 @@ const NumberInput = ({
 }) => (
     <>
         <input
+            onKeyPress={preventNonNumericalInput}
             className={`generic-input ${classes}`}
             type={type}
             name={name}
