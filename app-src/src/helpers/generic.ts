@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { KeyboardEvent, useEffect } from 'react';
 import moment from 'moment';
 import orderBy from 'lodash/orderBy';
 import find from 'lodash/find';
@@ -550,3 +550,11 @@ export const getValuesFromBitMaskArray = (bitmask: number | null) => {
     const days = getDaysFromBitMask(bitmask);
     return days.map(day => DAYS_FLAGGED_LOOKUP[day]);
 };
+
+export const preventNonNumericalInput = (e: KeyboardEvent) => {
+    // @ts-ignore
+    // e = e || window.event;
+    const charCode = typeof e.which == 'undefined' ? e.keyCode : e.which;
+    const charStr = String.fromCharCode(charCode);
+    if (!charStr.match(/^[0-9.]+$/)) e.preventDefault();
+}; // Use with onKeyPress on number/currency inputs
