@@ -52,21 +52,10 @@ const usePayRatesForm = () => {
 
     const handleAddNewPayRate = () => {
         const guid = uuidv1();
-        const itemGuid = uuidv1();
-
         const newPayRate = {
             guid,
             name: 'New rate',
-            items: {
-                [itemGuid]: {
-                    guid: itemGuid,
-                    name: '',
-                    rate: '',
-                    startTime: '08:00',
-                    endTime: '17:00',
-                    days: [],
-                },
-            },
+            items: {},
         };
 
         handleChange(guid, newPayRate);

@@ -15,7 +15,7 @@ const PayRateItem = ({
     isDeleteDisabled,
     handleChange,
 }) => {
-    const { id, guid, name, items, baseRate } = payRate;
+    const { id, guid, name, items } = payRate;
 
     const idToUse = guid || id;
     const isExpanded = idToUse === expandedID;
