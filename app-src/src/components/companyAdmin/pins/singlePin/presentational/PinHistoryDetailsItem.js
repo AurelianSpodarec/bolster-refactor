@@ -10,6 +10,7 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import PinSectionsContainer from '../containers/PinSectionsContainer';
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
+import useIsAdminPlus from '../../../../../hooks/useIsAdminPlus';
 
 const PinHistoryDetailsItem = ({
     history,
@@ -25,6 +26,8 @@ const PinHistoryDetailsItem = ({
     company,
 }) => {
     const currencySymbol = CURRENCY_SYMBOLS[company.reportingCurrency];
+
+    const isAdminPlus = useIsAdminPlus();
 
     return (
         <div className="item">
@@ -85,31 +88,35 @@ const PinHistoryDetailsItem = ({
                 </>
             )}
 
-            <FieldOutput
-                title="Sell cost"
-                description={`${currencySymbol}${
-                    history.sellCost ? formatCurrency(history.sellCost, false) : '0.00'
-                }`}
-                sizeClass="size-lg-3 size-md-12"
-            />
+            {isAdminPlus && (
+                <>
+                    <FieldOutput
+                        title="Sell cost"
+                        description={`${currencySymbol}${
+                            history.sellCost ? formatCurrency(history.sellCost, false) : '0.00'
+                        }`}
+                        sizeClass="size-lg-3 size-md-12"
+                    />
 
-            <FieldOutput
-                title="Labour cost"
-                description={`${currencySymbol}${
-                    history.labourCost ? formatCurrency(history.labourCost, false) : '0.00'
-                }`}
-                sizeClass="size-lg-3 size-md-12"
-            />
+                    <FieldOutput
+                        title="Labour cost"
+                        description={`${currencySymbol}${
+                            history.labourCost ? formatCurrency(history.labourCost, false) : '0.00'
+                        }`}
+                        sizeClass="size-lg-3 size-md-12"
+                    />
 
-            <FieldOutput
-                title="Total cost"
-                description={`${currencySymbol}${
-                    history.totalHistoryCost
-                        ? formatCurrency(history.totalHistoryCost, false)
-                        : '0.00'
-                }`}
-                sizeClass="size-lg-3 size-md-12"
-            />
+                    <FieldOutput
+                        title="Total cost"
+                        description={`${currencySymbol}${
+                            history.totalHistoryCost
+                                ? formatCurrency(history.totalHistoryCost, false)
+                                : '0.00'
+                        }`}
+                        sizeClass="size-lg-3 size-md-12"
+                    />
+                </>
+            )}
 
             {!!historyPinTask && (
                 <FieldOutput

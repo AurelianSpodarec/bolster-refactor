@@ -19,13 +19,25 @@ import { BOLSTER_PLUS_UPGRADE_MODAL } from 'constants/shared/modalTypes';
 import selectTab from 'actions/shared/generic/tabs/sync/selectTab';
 import { TIMESHEETS_TABS } from 'constants/shared/tabNames';
 
+import useIsAdminPlus from '../../../../../../hooks/useIsAdminPlus';
+import Select from 'components/shared/generic/form/presentational/Select';
+
 const GenerateTimesheetReportModal = ({ fromDateInclusive, toDateInclusive }) => {
     const dispatch = useDispatch();
-    const { formData, handleChange, handleSubmit, isPosting, postError } =
+    const { formData, handleChange, handleSubmit, isPosting, postError, shiftStatusOptions } =
         useGenerateTimesheetReport(fromDateInclusive, toDateInclusive);
     const { isBolsterPlusActivated } = useBolsterPlus();
 
-    const { startDate, endDate, includeBreaks, includeJobReferences, includeWages } = formData;
+    const isAdminPlus = useIsAdminPlus();
+    const {
+        startDate,
+        endDate,
+        includeBreaks,
+        includeJobReferences,
+        includeWages,
+        includeExpenses,
+        shiftStatus,
+    } = formData;
 
     const valueObj = {
         startDate,
@@ -89,6 +101,15 @@ const GenerateTimesheetReportModal = ({ fromDateInclusive, toDateInclusive }) =>
                                 inputRanges={[]}
                             />
                         </Field>
+                        <Field name="Status">
+                            <Select
+                                name="shiftStatus"
+                                value={shiftStatus}
+                                handleChange={handleChange}
+                                options={shiftStatusOptions}
+                                omitPlaceholder={true}
+                            />
+                        </Field>
                         <Field name="Include">
                             <FlexWrapper align="center" justify="start">
                                 <Tickbox
@@ -103,12 +124,24 @@ const GenerateTimesheetReportModal = ({ fromDateInclusive, toDateInclusive }) =>
                                     checked={includeBreaks}
                                     handleChange={handleChange}
                                 />
-                                <Tickbox
-                                    label="Wages"
-                                    name="includeWages"
-                                    checked={includeWages}
-                                    handleChange={handleChange}
-                                />
+                                {isAdminPlus && (
+                                    <>
+                                        <Tickbox
+                                            label="Wages"
+                                            name="includeWages"
+                                            checked={includeWages}
+                                            handleChange={handleChange}
+                                            disabled={!isAdminPlus}
+                                        />
+                                        <Tickbox
+                                            label="Expenses"
+                                            name="includeExpenses"
+                                            checked={includeExpenses}
+                                            handleChange={handleChange}
+                                            disabled={!isAdminPlus}
+                                        />
+                                    </>
+                                )}
                             </FlexWrapper>
                         </Field>
                     </div>
