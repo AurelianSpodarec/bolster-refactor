@@ -1,7 +1,15 @@
 import React from 'react';
 import moment from 'moment';
 
-import { CURRENCY_SYMBOLS, PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
+import { useSelector } from 'react-redux';
+
+import { selectJwtData } from '../../../../../selectors/shared/jwt';
+
+import {
+    COMPANY_USER_ROLE_TYPES,
+    CURRENCY_SYMBOLS,
+    PIN_STATUS_TYPES,
+} from 'constants/companyAdmin/enums';
 import { formatCurrency } from 'helpers/generic';
 
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
@@ -25,6 +33,9 @@ const PinHistoryDetailsItem = ({
     company,
 }) => {
     const currencySymbol = CURRENCY_SYMBOLS[company.reportingCurrency];
+
+    const { companyUserType } = useSelector(selectJwtData);
+    const isAdminPlus = companyUserType > COMPANY_USER_ROLE_TYPES.ADMIN;
 
     return (
         <div className="item">
@@ -85,31 +96,35 @@ const PinHistoryDetailsItem = ({
                 </>
             )}
 
-            <FieldOutput
-                title="Sell cost"
-                description={`${currencySymbol}${
-                    history.sellCost ? formatCurrency(history.sellCost, false) : '0.00'
-                }`}
-                sizeClass="size-lg-3 size-md-12"
-            />
+            {isAdminPlus && (
+                <>
+                    <FieldOutput
+                        title="Sell cost"
+                        description={`${currencySymbol}${
+                            history.sellCost ? formatCurrency(history.sellCost, false) : '0.00'
+                        }`}
+                        sizeClass="size-lg-3 size-md-12"
+                    />
 
-            <FieldOutput
-                title="Labour cost"
-                description={`${currencySymbol}${
-                    history.labourCost ? formatCurrency(history.labourCost, false) : '0.00'
-                }`}
-                sizeClass="size-lg-3 size-md-12"
-            />
+                    <FieldOutput
+                        title="Labour cost"
+                        description={`${currencySymbol}${
+                            history.labourCost ? formatCurrency(history.labourCost, false) : '0.00'
+                        }`}
+                        sizeClass="size-lg-3 size-md-12"
+                    />
 
-            <FieldOutput
-                title="Total cost"
-                description={`${currencySymbol}${
-                    history.totalHistoryCost
-                        ? formatCurrency(history.totalHistoryCost, false)
-                        : '0.00'
-                }`}
-                sizeClass="size-lg-3 size-md-12"
-            />
+                    <FieldOutput
+                        title="Total cost"
+                        description={`${currencySymbol}${
+                            history.totalHistoryCost
+                                ? formatCurrency(history.totalHistoryCost, false)
+                                : '0.00'
+                        }`}
+                        sizeClass="size-lg-3 size-md-12"
+                    />
+                </>
+            )}
 
             {!!historyPinTask && (
                 <FieldOutput
