@@ -12,7 +12,7 @@ const useWagesRegularHours = selectedUserIDs => {
     const { workingHours } = useGetCompanyUsersWorkingHours(selectedUserIDs[0]);
 
     const initialForm = useMemo(() => {
-        if (!!workingHours && !isObjEmpty(workingHours)) {
+        if (selectedUserIDs.length === 1 && !!workingHours && !isObjEmpty(workingHours)) {
             return workingHours;
         }
 
@@ -22,7 +22,7 @@ const useWagesRegularHours = selectedUserIDs => {
                 [day]: null,
             };
         }, {});
-    }, [workingHours]);
+    }, [workingHours, selectedUserIDs]);
 
     const [form, handleChange, setFormData] = useForm(initialForm);
 
@@ -31,7 +31,7 @@ const useWagesRegularHours = selectedUserIDs => {
 
     useEffect(() => {
         setFormData(initialForm);
-    }, [workingHours]);
+    }, [workingHours, selectedUserIDs]);
 
     useEffect(() => {
         if (postSuccess && !prevPostSuccess) {
