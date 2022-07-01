@@ -61,7 +61,6 @@ const useGenerateTimesheetReport = (fromDateInclusive, toDateInclusive) => {
             startDate: startDate,
             endDate: endDate,
         };
-        if (postBody.shiftStatus === null) delete postBody.shiftStatus;
 
         dispatch(postGenerateTimesheetsCSVRequest());
         const headers = getHeaders();
