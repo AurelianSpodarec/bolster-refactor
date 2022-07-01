@@ -16,7 +16,7 @@ import {
 import Table from 'components/shared/generic/tables/presentational/Table';
 import HoursWorkedList from './HoursWorkedList';
 import ExpensesList from './ExpensesList';
-import { formatCurrency } from 'helpers/generic';
+import { formatAsHrsMinsSecs, formatCurrency } from 'helpers/generic';
 import useOverrideShift from './hooks/useOverrideShift';
 import ActionMenu from 'components/shared/actionMenu/ActionMenu';
 import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
@@ -182,7 +182,7 @@ const ShiftPod = ({
                 </BlockContainer>
                 <BlockContainer contentClass="inner-pod">
                     <BlockHeading title="Break Time" />
-                    <p>{moment.utc(breakTime).tz(timeZone).format('HH:mm:ss')}</p>
+                    <p>{formatAsHrsMinsSecs(breakTime)}</p>
                 </BlockContainer>
                 <BlockContainer contentClass="inner-pod">
                     <BlockHeading title="Histories" />
