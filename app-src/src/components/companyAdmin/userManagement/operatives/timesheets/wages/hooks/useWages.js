@@ -104,14 +104,16 @@ const useWages = () => {
             setSelectedPayRate(null);
         } else {
             setSelectedUserIDs(sids => [...sids, id]);
-
-            if (selectedUserIDs.length >= 1) {
-                setSelectedPayRate(null);
-            } else {
-                setSelectedPayRate(companyUsers[id].companyPayRateID);
-            }
         }
     }
+
+    useEffect(() => {
+        if (selectedUserIDs.length === 1) {
+            setSelectedPayRate(companyUsers[selectedUserIDs[0]].companyPayRateID);
+        } else {
+            setSelectedPayRate(null);
+        }
+    }, [selectedUserIDs, selectedPayRate]);
 
     function getUserNameByID(id) {
         const thisUser = companyUsers[id];
