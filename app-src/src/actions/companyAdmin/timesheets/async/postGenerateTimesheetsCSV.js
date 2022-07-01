@@ -7,7 +7,6 @@ import {
     POST_GENERATE_TIMESHEETS_CSV_FAILURE,
     POST_GENERATE_TIMESHEETS_CSV_SUCCESS,
 } from 'constants/actionTypes/timesheets';
-import fileDownload from 'js-file-download';
 import moment from 'moment';
 
 export const postGenerateTimesheetsCSVRequest = () => ({

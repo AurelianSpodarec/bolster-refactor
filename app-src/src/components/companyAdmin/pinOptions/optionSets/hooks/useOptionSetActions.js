@@ -17,7 +17,6 @@ import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 import enablePinOptionSet from 'actions/companyAdmin/pinOptions/async/enablePinOptionSet';
 import disablePinOptionSet from 'actions/companyAdmin/pinOptions/async/disablePinOptionSet';
 import {
-    selectPinOptionDefaultSet,
     selectPinOptionSetsDeleteSuccess,
     selectPinOptionSetsDuplicateSuccess,
     selectPinOptionSetsIsPosting,
@@ -34,8 +33,6 @@ const useOptionSetActions = selectedTypeID => {
     const duplicateSuccess = useSelector(selectPinOptionSetsDuplicateSuccess);
 
     const prevProps = usePrevious({ postError, deleteSuccess, duplicateSuccess });
-
-    const defaultSet = useSelector(state => selectPinOptionDefaultSet(state, selectedTypeID));
 
     const showAddModal = () => {
         dispatch(

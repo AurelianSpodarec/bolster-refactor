@@ -37,6 +37,7 @@ const useWages = () => {
     const [selectedPayRate, setSelectedPayRate] = useState(null);
 
     const { companyPayRates, isFetching: isFetchingPayRates, error } = useGetCompanyPayRates();
+
     const { form, handleDayChange, handleChange, days, timeDifference } =
         useWagesRegularHours(selectedUserIDs);
 
@@ -103,7 +104,12 @@ const useWages = () => {
             setSelectedPayRate(null);
         } else {
             setSelectedUserIDs(sids => [...sids, id]);
-            setSelectedPayRate(companyUsers[id].companyPayRateID);
+
+            if (selectedUserIDs.length >= 1) {
+                setSelectedPayRate(null);
+            } else {
+                setSelectedPayRate(companyUsers[id].companyPayRateID);
+            }
         }
     }
 

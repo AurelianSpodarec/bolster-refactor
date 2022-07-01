@@ -43,7 +43,6 @@ import {
     UNSET_OPTION_SET_AS_DEFAULT_FAILURE,
     UNSET_OPTION_SET_AS_DEFAULT_SUCCESS,
 } from 'constants/actionTypes/pinOptions';
-import { updateObjDefaultOnFailure, updateObjDefaultOnRequest } from 'helpers/pinOptions';
 import { SET_API_FIELD_ERRORS } from 'constants/actionTypes/generic';
 
 export default combineReducers({

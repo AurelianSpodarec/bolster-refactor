@@ -2,17 +2,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 
 import editSubscriptionRenewalStatus from 'actions/companyAdmin/subscriptions/async/editSubscriptionRenewalStatus';
-import {
-    selectCardsArr,
-    selectSubscriptionsIsFetching,
-} from 'selectors/companyAdmin/subscriptions';
+import { selectSubscriptionsIsFetching } from 'selectors/companyAdmin/subscriptions';
 import { selectSubscriptions } from 'selectors/companyAdmin/companySubscription';
+import { selectCards } from '../../../../../selectors/companyAdmin/cards';
 
 const useSubscriptionAutoRenewal = () => {
     const dispatch = useDispatch();
     const isFetching = useSelector(selectSubscriptionsIsFetching);
     const subscriptions = useSelector(selectSubscriptions);
-    const cards = useSelector(selectCardsArr);
+    const cards = useSelector(selectCards);
 
     const isAutoRenew = subscriptions.isAutoRenew;
     const renewalType = subscriptions.renewalType;

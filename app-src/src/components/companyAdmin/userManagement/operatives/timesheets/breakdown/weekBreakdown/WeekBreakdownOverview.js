@@ -15,10 +15,10 @@ import { isEmpty } from 'helpers/generic';
 // import BreakdownNotes from '../BreakdownNotes';
 import BreakdownOverviewFilters from '../../breakdown/dayBreakdown/BreakdownOverviewFilters';
 import useOverviewFilters from '../../breakdown/dayBreakdown/hooks/useOverviewFilters';
-import {
-    // selectFilterByHasClockedIn,
-    timesheetSelectedCompanyIDs,
-} from 'selectors/companyAdmin/timesheets';
+// import {
+//     selectFilterByHasClockedIn,
+//     timesheetSelectedCompanyIDs,
+// } from 'selectors/companyAdmin/timesheets';
 import { days } from 'constants/companyAdmin/timesheets';
 import { selectCompanyUsers } from 'selectors/companyAdmin/companyUsers';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
@@ -35,7 +35,7 @@ const WeekBreakdownOverview = ({
     // dailyHoursBreakdown,
     onDaySelect,
 }) => {
-    const userIDs = useSelector(timesheetSelectedCompanyIDs);
+    // const userIDs = useSelector(timesheetSelectedCompanyIDs);
     const companyUsers = useSelector(selectCompanyUsers);
     // const filterByHasClockedIn = useSelector(selectFilterByHasClockedIn);
     // const isSingleUser = userIDs.length === 1;

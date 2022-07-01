@@ -61,8 +61,8 @@ const useGenerateTimesheetReport = (fromDateInclusive, toDateInclusive) => {
         })
             .then(res => {
                 const filename = `Timesheets report ${moment(startDate).format(
-                    'YYYY-MM-DD',
-                )} - ${moment(endDate).format('YYYY-MM-DD')}.csv`;
+                    'DD-MM-YYYY',
+                )} - ${moment(endDate).format('DD-MM-YYYY')}.csv`;
 
                 const fileURL = URL.createObjectURL(res.data);
                 const anchor = document.createElement('a');

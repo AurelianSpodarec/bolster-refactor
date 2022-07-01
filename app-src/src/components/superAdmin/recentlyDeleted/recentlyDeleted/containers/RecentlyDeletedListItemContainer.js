@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connect, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import RecentlyDeletedListItem from '../presentational/RecentlyDeletedListItem';

@@ -1,20 +1,15 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Field from 'components/shared/generic/form/presentational/Field';
 import Select from 'components/shared/generic/form/presentational/Select';
 
 import { filterByOptions, sortByOptions } from './hooks/useOverviewFilters';
-import RadioButton from 'components/shared/generic/form/presentational/RadioButton';
-import {
-    selectFilterByHasClockedIn,
-    timesheetSelectedCompanyIDs,
-} from 'selectors/companyAdmin/timesheets';
-import { toggleFilterByHasClockedIn } from 'actions/companyAdmin/timesheets/sync/toggleFilterByHasClockedIn';
+import { timesheetSelectedCompanyIDs } from 'selectors/companyAdmin/timesheets';
 
 const BreakdownOverviewFilters = ({ sortByType, sortDirection, filterByType, handleChange }) => {
     // TODO filter by user (owner, admin, operative), user with or without set hours, users with or without wages set
-    const dispatch = useDispatch();
-    const filterByHasClockedIn = useSelector(selectFilterByHasClockedIn);
+    // const dispatch = useDispatch();
+    // const filterByHasClockedIn = useSelector(selectFilterByHasClockedIn);
     const selectedUserIDs = useSelector(timesheetSelectedCompanyIDs);
 
     return (

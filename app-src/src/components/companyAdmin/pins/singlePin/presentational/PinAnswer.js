@@ -167,7 +167,6 @@ const PinAnswer = ({ trimmedAnswer, type, answers, question }) => {
             measurementOutputs.push(measurementOutput);
         }
     }
-
     if (!isEmpty(curAnswer.pinHistoryAnswerValueQuantities) && isCosting) {
         const { pinHistoryAnswerValueQuantities } = curAnswer;
 
