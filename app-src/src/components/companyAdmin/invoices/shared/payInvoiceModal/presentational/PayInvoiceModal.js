@@ -1,8 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import Form from 'components/shared/generic/form/containers/Form';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
-import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import Field from 'components/shared/generic/form/presentational/Field';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
@@ -15,7 +13,6 @@ const PayInvoiceModal = ({
     hideModal,
     cards,
     selectedCard,
-    termsAgreed,
     isPosting,
 }) => (
     <FlexModalOuter title="Pay invoice">

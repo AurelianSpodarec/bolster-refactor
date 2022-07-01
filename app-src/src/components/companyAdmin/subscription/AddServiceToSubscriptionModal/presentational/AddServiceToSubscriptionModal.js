@@ -22,7 +22,6 @@ const AddServiceToSubscriptionModal = ({
     service,
     proRataCost,
     noCards,
-    termsAgreed,
 }) => (
     <ModalOuterContainer>
         <BlockHeading title="Add service to your subscription" />

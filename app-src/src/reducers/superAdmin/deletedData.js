@@ -8,7 +8,6 @@ import {
     ADMIN_RESTORE_RECENTLY_DELETED_SUCCESS,
     ADMIN_RESTORE_RECENTLY_DELETED_FAILURE,
 } from 'constants/actionTypes/deletedData';
-import { removeObjItem } from 'helpers/generic';
 
 export default combineReducers({
     deleted: deletedReducer,

@@ -1,4 +1,4 @@
-import { DAY, RECURRING_TYPE } from './enums';
+import { RECURRING_TYPE } from './enums';
 
 export const recurringOptions = [
     {

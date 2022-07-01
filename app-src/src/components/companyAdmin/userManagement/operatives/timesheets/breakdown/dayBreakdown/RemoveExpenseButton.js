@@ -6,7 +6,7 @@ import { CONFIRM_DELETE } from 'constants/shared/modalTypes';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 import deleteExpenseFromShift from 'actions/companyAdmin/timesheets/async/deleteExpenseFromShift';
 
-const RemoveExpenseButton = ({ shiftID, expenseID, expenseName }) => {
+const RemoveExpenseButton = ({ shiftID, expenseID }) => {
     const dispatch = useDispatch();
 
     return (
