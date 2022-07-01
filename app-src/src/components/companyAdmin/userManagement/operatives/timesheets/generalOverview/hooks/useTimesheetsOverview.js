@@ -55,8 +55,6 @@ const useTimesheetsOverview = (setTitleData = () => {}) => {
 
     const query = useQuery();
 
-    const isBolsterPlusActivated = false;
-
     const companyUsersIsFetching = useSelector(selectCompanyUsersIsFetching);
     const companyUsersFetchError = useSelector(selectCompanyUsersFetchError);
 
