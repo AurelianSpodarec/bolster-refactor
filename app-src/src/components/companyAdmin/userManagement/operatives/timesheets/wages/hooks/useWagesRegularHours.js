@@ -44,7 +44,7 @@ const useWagesRegularHours = selectedUserIDs => {
             handleChange(name, {
                 startTime: '09:00:00',
                 breakMinutes: '15',
-                endTime: '15:00:00',
+                endTime: '17:00:00',
             });
         } else {
             handleChange(name, null);

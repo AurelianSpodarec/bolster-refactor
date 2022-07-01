@@ -43,6 +43,7 @@ const WagesRegularHours = ({ form, handleDayChange, handleChange, days, timeDiff
                             extraClasses={!form[day] ? 'disabled-opacity' : ''}
                             options={timeOptions}
                             classes="large"
+                            placeholder="-select-"
                         />
                         <Select
                             name="breakMinutes"
@@ -52,6 +53,7 @@ const WagesRegularHours = ({ form, handleDayChange, handleChange, days, timeDiff
                             extraClasses={!form[day] ? 'disabled-opacity' : ''}
                             options={breakOptions}
                             classes="large"
+                            placeholder="-select-"
                         />
                         <Select
                             name="endTime"
@@ -61,6 +63,7 @@ const WagesRegularHours = ({ form, handleDayChange, handleChange, days, timeDiff
                             extraClasses={!form[day] ? 'disabled-opacity' : ''}
                             options={timeOptions}
                             classes="large"
+                            placeholder="-select-"
                         />
                         <div className="flex-column justify-center">
                             <p className={!form[day] ? 'disabled-opacity' : ''}>
