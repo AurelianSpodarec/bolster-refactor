@@ -28,8 +28,14 @@ const GenerateTimesheetReportModal = ({ fromDateInclusive, toDateInclusive }) =>
     const { isBolsterPlusActivated } = useBolsterPlus();
 
     const isAdminPlus = useIsAdminPlus();
-
-    const { startDate, endDate, includeBreaks, includeJobReferences, includeWages } = formData;
+    const {
+        startDate,
+        endDate,
+        includeBreaks,
+        includeJobReferences,
+        includeWages,
+        includeExpenses,
+    } = formData;
 
     const valueObj = {
         startDate,
@@ -108,12 +114,18 @@ const GenerateTimesheetReportModal = ({ fromDateInclusive, toDateInclusive }) =>
                                     handleChange={handleChange}
                                 />
                                 {isAdminPlus && (
-                                    <Tickbox
-                                        label="Wages"
-                                        name="includeWages"
-                                        checked={includeWages}
-                                        handleChange={handleChange}
-                                    />
+                                <Tickbox
+                                    label="Wages"
+                                    name="includeWages"
+                                    checked={includeWages}
+                                    handleChange={handleChange}
+                                />
+                                <Tickbox
+                                    label="Expenses"
+                                    name="includeExpenses"
+                                    checked={includeExpenses}
+                                    handleChange={handleChange}
+                                />
                                 )}
                             </FlexWrapper>
                         </Field>
