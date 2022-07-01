@@ -42,9 +42,9 @@ const useWagesRegularHours = selectedUserIDs => {
     const handleDayChange = (name, value) => {
         if (value) {
             handleChange(name, {
-                startTime: '09:00',
+                startTime: '09:00:00',
                 breakMinutes: '15',
-                endTime: '15:00',
+                endTime: '15:00:00',
             });
         } else {
             handleChange(name, null);
