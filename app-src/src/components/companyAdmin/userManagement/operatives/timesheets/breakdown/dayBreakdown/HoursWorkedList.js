@@ -1,6 +1,5 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import moment from 'moment';
 
 import { formatAsHrsMins, formatCurrency } from 'helpers/generic';
 import { AMEND_JOB_REFERENCE_MODAL } from 'constants/shared/modalTypes';

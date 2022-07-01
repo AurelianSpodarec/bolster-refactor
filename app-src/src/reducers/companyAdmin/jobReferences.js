@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { convertArrToObj, removeObjItem, updateObj } from 'helpers/generic';
+import { convertArrToObj, updateObj } from 'helpers/generic';
 import {
     FETCH_JOB_REFERENCES_REQUEST,
     FETCH_JOB_REFERENCES_SUCCESS,

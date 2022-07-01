@@ -10,7 +10,7 @@ import DashboardPinHistoryCharts from '../containers/DashboardPinHistoryCharts';
 import { isIE } from 'react-device-detect';
 import DashboardCostingCharts from '../containers/DashboardCostingCharts';
 
-const Dashboard = ({ isIE10, costEstGraph, costEstGraphTitle }) => {
+const Dashboard = ({ isIE10, costEstGraph }) => {
     useConfirmDarkTheme('/company/profile');
     const showLineGraph = !!costEstGraph;
     return (
