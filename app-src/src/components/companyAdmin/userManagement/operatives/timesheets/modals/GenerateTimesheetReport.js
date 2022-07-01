@@ -114,18 +114,20 @@ const GenerateTimesheetReportModal = ({ fromDateInclusive, toDateInclusive }) =>
                                     handleChange={handleChange}
                                 />
                                 {isAdminPlus && (
-                                <Tickbox
-                                    label="Wages"
-                                    name="includeWages"
-                                    checked={includeWages}
-                                    handleChange={handleChange}
-                                />
-                                <Tickbox
-                                    label="Expenses"
-                                    name="includeExpenses"
-                                    checked={includeExpenses}
-                                    handleChange={handleChange}
-                                />
+                                    <>
+                                        <Tickbox
+                                            label="Wages"
+                                            name="includeWages"
+                                            checked={includeWages}
+                                            handleChange={handleChange}
+                                        />
+                                        <Tickbox
+                                            label="Expenses"
+                                            name="includeExpenses"
+                                            checked={includeExpenses}
+                                            handleChange={handleChange}
+                                        />
+                                    </>
                                 )}
                             </FlexWrapper>
                         </Field>
