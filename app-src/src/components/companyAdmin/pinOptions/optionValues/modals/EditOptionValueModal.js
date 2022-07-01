@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { measurementDropdownOptions } from '../../../../../constants/shared/dropdowns';
-import { MEASUREMENT_TYPES_OUTPUTS_PLURAL } from 'constants/companyAdmin/enums';
+import {
+    COMPANY_USER_ROLE_TYPES,
+    MEASUREMENT_TYPES_OUTPUTS_PLURAL,
+} from 'constants/companyAdmin/enums';
 
 import { selectPinOptionType } from 'selectors/companyAdmin/pinOptionTypes';
 
@@ -20,6 +23,7 @@ import DropdownContainer from '../../../../shared/generic/form/containers/Dropdo
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
 import ClosingConfirmationModal from 'components/shared/generic/modals/presentational/ClosingConfirmationModal';
+import { selectJWTData } from '../../../../../selectors/shared/decodeJWT';
 
 const EditOptionValueModal = ({ option }) => {
     const pinOptionType = useSelector(state => selectPinOptionType(state, option.pinOptionTypeID));
@@ -51,6 +55,9 @@ const EditOptionValueModal = ({ option }) => {
     const isMultiplePriceBreaks = priceBreaksLength > 1;
 
     const measurementTypeOutput = MEASUREMENT_TYPES_OUTPUTS_PLURAL[form.costMeasurementType];
+
+    const { companyUserType } = useSelector(selectJWTData);
+    const isAdminPlus = companyUserType > COMPANY_USER_ROLE_TYPES.ADMIN;
 
     const MeasurementWrapper = ({ children }) => {
         if (canEditMeasurement) return <>{children}</>;
@@ -147,12 +154,19 @@ const EditOptionValueModal = ({ option }) => {
                                             </Field>
                                         )}
 
-                                        <div className="measurement-fields-grid">
-                                            <Field name="Measurement" required />
-                                            <Field name="Sell" required />
-                                            <Field name="Labour Cost" />
-                                            <Field name="" />
-
+                                        <div
+                                            className={`measurement-fields-grid ${
+                                                !isAdminPlus ? 'large-input' : ''
+                                            }`}
+                                        >
+                                            {isAdminPlus && (
+                                                <>
+                                                    <Field name="Measurement" required />
+                                                    <Field name="Sell" required />
+                                                    <Field name="Labour Cost" />
+                                                    <Field name="" />
+                                                </>
+                                            )}
                                             {form.measurementPriceBreaks.map(
                                                 (priceBreak, index) => {
                                                     const isLast = index === priceBreaksLength - 1;
@@ -181,53 +195,63 @@ const EditOptionValueModal = ({ option }) => {
                                                                     disableUpDownArrowControl
                                                                 />
                                                             </Field>
+                                                            {isAdminPlus && (
+                                                                <>
+                                                                    <Field>
+                                                                        <NumberInputContainer
+                                                                            name={`measurementPriceBreaks[${index}].cost`}
+                                                                            value={priceBreak.cost}
+                                                                            placeholder="Type price"
+                                                                            minNum={0}
+                                                                            handleFocus={() => {
+                                                                                if (isLast)
+                                                                                    handleAddPriceBreak();
+                                                                            }}
+                                                                            handleChange={(
+                                                                                _,
+                                                                                value,
+                                                                            ) => {
+                                                                                handlePriceBreakChange(
+                                                                                    index,
+                                                                                    'cost',
+                                                                                    value,
+                                                                                );
+                                                                                setError(null);
+                                                                            }}
+                                                                            disableMouseWheelControl
+                                                                            disableUpDownArrowControl
+                                                                        />
+                                                                    </Field>
 
-                                                            <Field>
-                                                                <NumberInputContainer
-                                                                    name={`measurementPriceBreaks[${index}].cost`}
-                                                                    value={priceBreak.cost}
-                                                                    placeholder="Type price"
-                                                                    minNum={0}
-                                                                    handleFocus={() => {
-                                                                        if (isLast)
-                                                                            handleAddPriceBreak();
-                                                                    }}
-                                                                    handleChange={(_, value) => {
-                                                                        handlePriceBreakChange(
-                                                                            index,
-                                                                            'cost',
-                                                                            value,
-                                                                        );
-                                                                        setError(null);
-                                                                    }}
-                                                                    disableMouseWheelControl
-                                                                    disableUpDownArrowControl
-                                                                />
-                                                            </Field>
-
-                                                            <Field>
-                                                                <NumberInputContainer
-                                                                    name={`measurementPriceBreaks[${index}].labourCost`}
-                                                                    value={priceBreak.labourCost}
-                                                                    placeholder="Type price"
-                                                                    minNum={0}
-                                                                    handleFocus={() => {
-                                                                        if (isLast)
-                                                                            handleAddPriceBreak();
-                                                                    }}
-                                                                    handleChange={(_, value) => {
-                                                                        handlePriceBreakChange(
-                                                                            index,
-                                                                            'labourCost',
-                                                                            value,
-                                                                        );
-                                                                        setError(null);
-                                                                    }}
-                                                                    disableMouseWheelControl
-                                                                    disableUpDownArrowControl
-                                                                />
-                                                            </Field>
-
+                                                                    <Field>
+                                                                        <NumberInputContainer
+                                                                            name={`measurementPriceBreaks[${index}].labourCost`}
+                                                                            value={
+                                                                                priceBreak.labourCost
+                                                                            }
+                                                                            placeholder="Type price"
+                                                                            minNum={0}
+                                                                            handleFocus={() => {
+                                                                                if (isLast)
+                                                                                    handleAddPriceBreak();
+                                                                            }}
+                                                                            handleChange={(
+                                                                                _,
+                                                                                value,
+                                                                            ) => {
+                                                                                handlePriceBreakChange(
+                                                                                    index,
+                                                                                    'labourCost',
+                                                                                    value,
+                                                                                );
+                                                                                setError(null);
+                                                                            }}
+                                                                            disableMouseWheelControl
+                                                                            disableUpDownArrowControl
+                                                                        />
+                                                                    </Field>
+                                                                </>
+                                                            )}
                                                             <Field>
                                                                 <ActionButton
                                                                     source="secondary"
