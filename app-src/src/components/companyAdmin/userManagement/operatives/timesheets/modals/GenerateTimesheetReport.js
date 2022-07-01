@@ -25,7 +25,14 @@ const GenerateTimesheetReportModal = ({ fromDateInclusive, toDateInclusive }) =>
         useGenerateTimesheetReport(fromDateInclusive, toDateInclusive);
     const { isBolsterPlusActivated } = useBolsterPlus();
 
-    const { startDate, endDate, includeBreaks, includeJobReferences, includeWages } = formData;
+    const {
+        startDate,
+        endDate,
+        includeBreaks,
+        includeJobReferences,
+        includeWages,
+        includeExpenses,
+    } = formData;
 
     const valueObj = {
         startDate,
@@ -107,6 +114,12 @@ const GenerateTimesheetReportModal = ({ fromDateInclusive, toDateInclusive }) =>
                                     label="Wages"
                                     name="includeWages"
                                     checked={includeWages}
+                                    handleChange={handleChange}
+                                />
+                                <Tickbox
+                                    label="Expenses"
+                                    name="includeExpenses"
+                                    checked={includeExpenses}
                                     handleChange={handleChange}
                                 />
                             </FlexWrapper>

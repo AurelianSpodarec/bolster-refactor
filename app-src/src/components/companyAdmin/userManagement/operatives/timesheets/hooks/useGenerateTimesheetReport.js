@@ -27,6 +27,7 @@ const useGenerateTimesheetReport = (fromDateInclusive, toDateInclusive) => {
         includeJobReferences: true,
         includeBreaks: true,
         includeWages: true,
+        includeExpenses: true,
         startDate: fromDateInclusive,
         endDate: toDateInclusive,
     });
