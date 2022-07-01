@@ -17,9 +17,9 @@ const DashboardCostingCharts = ({
     costEstGraph,
     costEstGraphTitle,
 }) => {
-    const isDataEmpty = showLineGraph
-        ? !costEstGraph?.dataSets?.length
-        : isEmpty(recentPinDatasets);
+    const isCEDataEmpty = !costEstGraph?.dataSets?.length;
+    const isBarChartEmpty = isEmpty(recentPinDatasets);
+
     return !isIE ? (
         <Block containerClass="flex-row-item size-lg-6 size-md-12">
             <BlockHeading title={showLineGraph ? costEstGraphTitle : 'Pins added by operatives'} />
@@ -27,7 +27,7 @@ const DashboardCostingCharts = ({
             <BlockContainer
                 isFetching={isFetching}
                 error={error}
-                isEmpty={isDataEmpty}
+                isEmpty={showLineGraph ? isCEDataEmpty : isBarChartEmpty}
                 containerClass="size-lg-12"
                 noWhiteBackground
             >
@@ -51,7 +51,7 @@ const mapStateToProps = ({
         dashboardReducer: {
             isFetchingDashPinsStats,
             error,
-            dashRecentPinsStats: { recentPinDatasets = {} },
+            dashRecentPinsStats: { datasets = {} },
             costEstGraph,
             costEstGraphTitle,
         },
@@ -59,7 +59,7 @@ const mapStateToProps = ({
 }) => ({
     isFetching: isFetchingDashPinsStats,
     error: error,
-    recentPinDatasets,
+    recentPinDatasets: datasets,
     costEstGraph,
     costEstGraphTitle,
 });
