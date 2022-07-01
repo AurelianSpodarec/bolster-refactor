@@ -120,12 +120,14 @@ const GenerateTimesheetReportModal = ({ fromDateInclusive, toDateInclusive }) =>
                                             name="includeWages"
                                             checked={includeWages}
                                             handleChange={handleChange}
+                                            disabled={!isAdminPlus}
                                         />
                                         <Tickbox
                                             label="Expenses"
                                             name="includeExpenses"
                                             checked={includeExpenses}
                                             handleChange={handleChange}
+                                            disabled={!isAdminPlus}
                                         />
                                     </>
                                 )}
