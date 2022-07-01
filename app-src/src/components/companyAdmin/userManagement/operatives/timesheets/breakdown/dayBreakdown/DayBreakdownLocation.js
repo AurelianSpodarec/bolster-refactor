@@ -5,7 +5,9 @@ import BreakdownBasicTimeline from '../BreakdownBasicTimeline';
 import getTimesheetDay from '../../helpers/getTimesheetDay';
 
 const DayBreakdownLocation = ({ selectedDate, timesheet }) => {
-    const { clockerEntries = [] } = getTimesheetDay(timesheet, selectedDate);
+    const day = getTimesheetDay(timesheet, selectedDate);
+    const { shifts = [] } = day;
+    const clockerEntries = shifts.flatMap(shift => shift.clockerEntries);
 
     return (
         <BreakdownColumns
