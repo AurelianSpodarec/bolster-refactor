@@ -11,7 +11,9 @@ const TabsContainer = ({ dispatch, tabs, selectedTab, classes }) => {
 
     const filteredTabs = tabs.filter(tab =>
         !isAdminPlus
-            ? !tab.toLowerCase().includes('costing') && !tab.toLowerCase().includes('estimating')
+            ? !tab.toLowerCase().includes('costing') &&
+              !tab.toLowerCase().includes('estimating') &&
+              !tab.toLowerCase().includes('wages')
             : true,
     );
 
