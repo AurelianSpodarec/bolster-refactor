@@ -4,10 +4,11 @@ import { connect } from 'react-redux';
 import selectTab from 'actions/shared/generic/tabs/sync/selectTab';
 
 import Tabs from '../presentational/Tabs';
-import { COMPANY_USER_ROLE_TYPES } from '../../../../../constants/companyAdmin/enums';
+import useIsAdminPlus from '../../../../../hooks/useIsAdminPlus';
 
-const TabsContainer = ({ dispatch, tabs, selectedTab, classes, companyUserType }) => {
-    const isAdminPlus = companyUserType > COMPANY_USER_ROLE_TYPES.ADMIN;
+const TabsContainer = ({ dispatch, tabs, selectedTab, classes }) => {
+    const isAdminPlus = useIsAdminPlus();
+
     const filteredTabs = tabs.filter(tab =>
         !isAdminPlus
             ? !tab.toLowerCase().includes('costing') && !tab.toLowerCase().includes('estimating')
@@ -30,10 +31,7 @@ const TabsContainer = ({ dispatch, tabs, selectedTab, classes, companyUserType }
 const mapStateToProps = ({
     shared: {
         tabsReducer: { selectedTab, tabs },
-        decodeJWTReducer: {
-            jwtData: { companyUserType },
-        },
     },
-}) => ({ tabs, selectedTab, companyUserType });
+}) => ({ tabs, selectedTab });
 
 export default connect(mapStateToProps)(TabsContainer);

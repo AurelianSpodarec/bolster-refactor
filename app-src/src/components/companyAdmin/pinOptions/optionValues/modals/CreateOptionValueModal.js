@@ -24,7 +24,7 @@ import FlexModalOuter from 'components/shared/generic/modals/presentational/Flex
 import ClosingConfirmationModal from 'components/shared/generic/modals/presentational/ClosingConfirmationModal';
 import useBolsterPlus from 'components/companyAdmin/subscription/addOns/hooks/useBolsterPlus';
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
-import { selectJWTData } from '../../../../../selectors/shared/decodeJWT';
+import useIsAdminPlus from '../../../../../hooks/useIsAdminPlus';
 
 const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
     const [showClosingConfirmationModal, setShowClosingConfirmationModal] = useState(false);
@@ -55,8 +55,7 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
 
     const measurementTypeOutput = MEASUREMENT_TYPES_OUTPUTS_PLURAL[form.measurementType];
 
-    const { companyUserType } = useSelector(selectJWTData);
-    const isAdminPlus = companyUserType > COMPANY_USER_ROLE_TYPES.ADMIN;
+    const isAdminPlus = useIsAdminPlus();
 
     return (
         <FlexModalOuter

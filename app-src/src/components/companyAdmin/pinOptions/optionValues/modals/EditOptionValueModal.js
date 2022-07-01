@@ -2,10 +2,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { measurementDropdownOptions } from '../../../../../constants/shared/dropdowns';
-import {
-    COMPANY_USER_ROLE_TYPES,
-    MEASUREMENT_TYPES_OUTPUTS_PLURAL,
-} from 'constants/companyAdmin/enums';
+import { MEASUREMENT_TYPES_OUTPUTS_PLURAL } from 'constants/companyAdmin/enums';
 
 import { selectPinOptionType } from 'selectors/companyAdmin/pinOptionTypes';
 
@@ -23,7 +20,7 @@ import DropdownContainer from '../../../../shared/generic/form/containers/Dropdo
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
 import ClosingConfirmationModal from 'components/shared/generic/modals/presentational/ClosingConfirmationModal';
-import { selectJWTData } from '../../../../../selectors/shared/decodeJWT';
+import useIsAdminPlus from '../../../../../hooks/useIsAdminPlus';
 
 const EditOptionValueModal = ({ option }) => {
     const pinOptionType = useSelector(state => selectPinOptionType(state, option.pinOptionTypeID));
@@ -56,8 +53,7 @@ const EditOptionValueModal = ({ option }) => {
 
     const measurementTypeOutput = MEASUREMENT_TYPES_OUTPUTS_PLURAL[form.costMeasurementType];
 
-    const { companyUserType } = useSelector(selectJWTData);
-    const isAdminPlus = companyUserType > COMPANY_USER_ROLE_TYPES.ADMIN;
+    const isAdminPlus = useIsAdminPlus();
 
     const MeasurementWrapper = ({ children }) => {
         if (canEditMeasurement) return <>{children}</>;

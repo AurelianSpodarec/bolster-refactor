@@ -19,11 +19,15 @@ import { BOLSTER_PLUS_UPGRADE_MODAL } from 'constants/shared/modalTypes';
 import selectTab from 'actions/shared/generic/tabs/sync/selectTab';
 import { TIMESHEETS_TABS } from 'constants/shared/tabNames';
 
+import useIsAdminPlus from '../../../../../../hooks/useIsAdminPlus';
+
 const GenerateTimesheetReportModal = ({ fromDateInclusive, toDateInclusive }) => {
     const dispatch = useDispatch();
     const { formData, handleChange, handleSubmit, isPosting, postError } =
         useGenerateTimesheetReport(fromDateInclusive, toDateInclusive);
     const { isBolsterPlusActivated } = useBolsterPlus();
+
+    const isAdminPlus = useIsAdminPlus();
 
     const { startDate, endDate, includeBreaks, includeJobReferences, includeWages } = formData;
 
@@ -103,12 +107,14 @@ const GenerateTimesheetReportModal = ({ fromDateInclusive, toDateInclusive }) =>
                                     checked={includeBreaks}
                                     handleChange={handleChange}
                                 />
-                                <Tickbox
-                                    label="Wages"
-                                    name="includeWages"
-                                    checked={includeWages}
-                                    handleChange={handleChange}
-                                />
+                                {isAdminPlus && (
+                                    <Tickbox
+                                        label="Wages"
+                                        name="includeWages"
+                                        checked={includeWages}
+                                        handleChange={handleChange}
+                                    />
+                                )}
                             </FlexWrapper>
                         </Field>
                     </div>

@@ -1,15 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 
-import { useSelector } from 'react-redux';
-
-import { selectJwtData } from '../../../../../selectors/shared/jwt';
-
-import {
-    COMPANY_USER_ROLE_TYPES,
-    CURRENCY_SYMBOLS,
-    PIN_STATUS_TYPES,
-} from 'constants/companyAdmin/enums';
+import { CURRENCY_SYMBOLS, PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
 import { formatCurrency } from 'helpers/generic';
 
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
@@ -18,6 +10,7 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import PinSectionsContainer from '../containers/PinSectionsContainer';
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
+import useIsAdminPlus from '../../../../../hooks/useIsAdminPlus';
 
 const PinHistoryDetailsItem = ({
     history,
@@ -34,8 +27,7 @@ const PinHistoryDetailsItem = ({
 }) => {
     const currencySymbol = CURRENCY_SYMBOLS[company.reportingCurrency];
 
-    const { companyUserType } = useSelector(selectJwtData);
-    const isAdminPlus = companyUserType > COMPANY_USER_ROLE_TYPES.ADMIN;
+    const isAdminPlus = useIsAdminPlus();
 
     return (
         <div className="item">
