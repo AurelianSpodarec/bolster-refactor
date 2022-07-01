@@ -1,5 +1,5 @@
-import { useWindowDimensions } from 'helpers/hooks';
 import React, { useState, useRef, useEffect } from 'react';
+import { useWindowDimensions } from 'helpers/hooks';
 import withFieldValidation from '../hocs/withFieldValidation';
 
 // MultiSelect is a multi select dropdown
@@ -27,6 +27,7 @@ const MultiSelect = ({
     const [isOpen, setIsOpen] = useState(false);
     const [hasOpened, setHasOpened] = useState(false);
     const [searchTerm, setSearch] = useState('');
+    const [charactersToBeRemoved, setCharactersToBeRemoved] = useState(0);
     const node = useRef();
     const filteredOptions = getFilteredOptions();
 
@@ -46,6 +47,8 @@ const MultiSelect = ({
     const windowDimensions = useWindowDimensions();
 
     const [visibleLimit, setVisibleLimit] = useState(options.length);
+    const [operativeDisplay, setShortOperativeDisplay] = useState(false);
+
     const selectedRef = useRef();
     useEffect(() => {
         const selectedElement = selectedRef.current;
@@ -57,8 +60,16 @@ const MultiSelect = ({
             let maxVisibleCount = 0;
             let linesLeft = maxLines;
 
+            setCharactersToBeRemoved(Math.ceil(Math.abs(maxWidth - usedWidth) / 8));
+
             for (const optionElement of optionElements) {
                 usedWidth += optionElement.clientWidth;
+
+                if (optionElements.length === 1) {
+                    if (usedWidth > maxWidth) {
+                        setShortOperativeDisplay(true);
+                    }
+                }
 
                 if (usedWidth < maxWidth) {
                     maxVisibleCount++;
@@ -96,7 +107,13 @@ const MultiSelect = ({
                         className={`option ${i + 1 > visibleLimit ? 'option-hidden' : ''}`}
                         onClick={() => isOpen && setIsOpen(false)}
                     >
-                        <p>{opt.label}</p>
+                        <p className="operative-name">
+                            {operativeDisplay
+                                ? opt.label
+                                      ?.substring(0, opt.label?.length - charactersToBeRemoved)
+                                      .concat('...')
+                                : opt.label}
+                        </p>
                         <i
                             className="close fal fa-times"
                             onClick={e => !disabled && handleDeselect(e, opt.value)}
