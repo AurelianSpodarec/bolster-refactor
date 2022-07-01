@@ -20,10 +20,11 @@ import selectTab from 'actions/shared/generic/tabs/sync/selectTab';
 import { TIMESHEETS_TABS } from 'constants/shared/tabNames';
 
 import useIsAdminPlus from '../../../../../../hooks/useIsAdminPlus';
+import Select from 'components/shared/generic/form/presentational/Select';
 
 const GenerateTimesheetReportModal = ({ fromDateInclusive, toDateInclusive }) => {
     const dispatch = useDispatch();
-    const { formData, handleChange, handleSubmit, isPosting, postError } =
+    const { formData, handleChange, handleSubmit, isPosting, postError, shiftStatusOptions } =
         useGenerateTimesheetReport(fromDateInclusive, toDateInclusive);
     const { isBolsterPlusActivated } = useBolsterPlus();
 
@@ -35,6 +36,7 @@ const GenerateTimesheetReportModal = ({ fromDateInclusive, toDateInclusive }) =>
         includeJobReferences,
         includeWages,
         includeExpenses,
+        shiftStatus,
     } = formData;
 
     const valueObj = {
@@ -97,6 +99,15 @@ const GenerateTimesheetReportModal = ({ fromDateInclusive, toDateInclusive }) =>
                                 }}
                                 staticRanges={staticRanges}
                                 inputRanges={[]}
+                            />
+                        </Field>
+                        <Field name="Status">
+                            <Select
+                                name="shiftStatus"
+                                value={shiftStatus}
+                                handleChange={handleChange}
+                                options={shiftStatusOptions}
+                                omitPlaceholder={true}
                             />
                         </Field>
                         <Field name="Include">

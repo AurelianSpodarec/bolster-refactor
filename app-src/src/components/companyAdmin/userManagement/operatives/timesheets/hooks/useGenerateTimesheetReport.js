@@ -21,6 +21,7 @@ import {
 import { API_URL } from 'config';
 import { DATE_TIME_POST_START, DATE_TIME_POST_END } from 'constants/shared/dateFormats';
 import useIsAdminPlus from '../../../../../../hooks/useIsAdminPlus';
+import { SHIFT_STATUS, SHIFT_STATUS_REVERSE } from 'constants/companyAdmin/enums';
 
 const useGenerateTimesheetReport = (fromDateInclusive, toDateInclusive) => {
     const isAdminPlus = useIsAdminPlus();
@@ -32,6 +33,7 @@ const useGenerateTimesheetReport = (fromDateInclusive, toDateInclusive) => {
         includeExpenses: isAdminPlus,
         startDate: fromDateInclusive,
         endDate: toDateInclusive,
+        shiftStatus: null,
     });
 
     const isPosting = useSelector(selectTimesheetsIsPosting);
@@ -40,18 +42,26 @@ const useGenerateTimesheetReport = (fromDateInclusive, toDateInclusive) => {
     const jobReferenceIDs = useSelector(timesheetSelectedJobReferenceIDs) || [];
     const companyUserIDs = useSelector(timesheetSelectedCompanyIDs) || [];
 
+    const shiftStatusOptions = [
+        { value: null, label: 'All' },
+        ...Object.entries(SHIFT_STATUS_REVERSE).map(([key, name]) => ({
+            value: +key,
+            label: name,
+        })),
+    ];
+
     const handleSubmit = () => {
         const startDate = moment(formData.startDate).format(DATE_TIME_POST_START);
         const endDate = moment(formData.endDate).format(DATE_TIME_POST_END);
 
         const postBody = {
             ...formData,
-            // shiftStatus: 0,
             jobReferenceIDs,
             companyUserIDs,
             startDate: startDate,
             endDate: endDate,
         };
+        if (postBody.shiftStatus === null) delete postBody.shiftStatus;
 
         dispatch(postGenerateTimesheetsCSVRequest());
         const headers = getHeaders();
@@ -91,7 +101,7 @@ const useGenerateTimesheetReport = (fromDateInclusive, toDateInclusive) => {
         }
     }, [postError, prevPostError]);
 
-    return { formData, handleChange, handleSubmit, isPosting, postError };
+    return { formData, handleChange, handleSubmit, isPosting, postError, shiftStatusOptions };
 };
 
 export default useGenerateTimesheetReport;
