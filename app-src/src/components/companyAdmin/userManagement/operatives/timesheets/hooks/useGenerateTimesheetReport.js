@@ -20,14 +20,16 @@ import {
 } from 'selectors/companyAdmin/timesheets';
 import { API_URL } from 'config';
 import { DATE_TIME_POST_START, DATE_TIME_POST_END } from 'constants/shared/dateFormats';
+import useIsAdminPlus from '../../../../../../hooks/useIsAdminPlus';
 
 const useGenerateTimesheetReport = (fromDateInclusive, toDateInclusive) => {
+    const isAdminPlus = useIsAdminPlus();
     const dispatch = useDispatch();
     const [formData, handleChange] = useForm({
         includeJobReferences: true,
         includeBreaks: true,
-        includeWages: true,
-        includeExpenses: true,
+        includeWages: isAdminPlus,
+        includeExpenses: isAdminPlus,
         startDate: fromDateInclusive,
         endDate: toDateInclusive,
     });
