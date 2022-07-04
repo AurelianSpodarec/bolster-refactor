@@ -11,12 +11,15 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import Table from 'components/shared/generic/tables/presentational/Table';
 import StickyComponent from 'components/shared/sticky/StickyComponent';
+import useIsAdminPlus from '../../../../../../../hooks/useIsAdminPlus';
 
 const ApprovedHoursBreakdown = ({ dailyHoursBreakdown, selectedDate }) => {
     const currency = useSelector(selectCompanyCurrency);
     const currencySymbol = CURRENCY_SYMBOLS[currency];
 
     const thisDay = dailyHoursBreakdown.find(day => moment(day.date).isSame(selectedDate, 'day'));
+
+    const isAdminPlus = useIsAdminPlus();
 
     if (!thisDay) return null;
     return (
@@ -26,7 +29,12 @@ const ApprovedHoursBreakdown = ({ dailyHoursBreakdown, selectedDate }) => {
                 <div className="divider" />
                 <div className="table-container">
                     <Table
-                        headers={['Job References', 'Hours Worked', 'Operatives', 'Wage Split']}
+                        headers={[
+                            'Job References',
+                            'Hours Worked',
+                            'Operatives',
+                            isAdminPlus ? 'Wage Split' : '',
+                        ]}
                         isFetching={false}
                         error={null}
                         noData={!thisDay?.jobReferenceBreakdowns?.length}
@@ -45,10 +53,12 @@ const ApprovedHoursBreakdown = ({ dailyHoursBreakdown, selectedDate }) => {
                                         <td>{jobReferenceName}</td>
                                         <td>{formatAsHrsMins(totalHours)}</td>
                                         <td>{totalOperatives}</td>
-                                        <td>
-                                            {currencySymbol}
-                                            {formatCurrency(totalWageSplit) || '0.00'}
-                                        </td>
+                                        {isAdminPlus && (
+                                            <td>
+                                                {currencySymbol}
+                                                {formatCurrency(totalWageSplit) || '0.00'}
+                                            </td>
+                                        )}
                                     </tr>
                                 );
                             },
@@ -57,30 +67,38 @@ const ApprovedHoursBreakdown = ({ dailyHoursBreakdown, selectedDate }) => {
                             <td>Total</td>
                             <td>{formatAsHrsMins(thisDay.totalHours)}</td>
                             <td>{thisDay.totalOperatives}</td>
-                            <td>
-                                {currencySymbol}
-                                {formatCurrency(thisDay.totalWageSplit) || '0.00'}
-                            </td>
+                            {isAdminPlus && (
+                                <td>
+                                    {currencySymbol}
+                                    {formatCurrency(thisDay.totalWageSplit) || '0.00'}
+                                </td>
+                            )}
                         </tr>
-                        <tr className="total-row">
-                            <td>Expenses</td>
-                            <td></td>
-                            <td></td>
-                            <td>
-                                {currencySymbol}
-                                {formatCurrency(thisDay.totalExpenses) || '0.00'}
-                            </td>
-                        </tr>
+                        {isAdminPlus && (
+                            <tr className="total-row">
+                                <td>Expenses</td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    {currencySymbol}
+                                    {formatCurrency(thisDay.totalExpenses) || '0.00'}
+                                </td>
+                            </tr>
+                        )}
                     </Table>
                 </div>
-                <div className="divider" />
-                <div className="shift-total">
-                    <span>Total exc VAT:</span>
-                    <span className="total">
-                        {currencySymbol}
-                        {formatCurrency(thisDay.overallTotal) || '0.00'}
-                    </span>
-                </div>
+                {isAdminPlus && (
+                    <>
+                        <div className="divider" />
+                        <div className="shift-total">
+                            <span>Total exc VAT:</span>
+                            <span className="total">
+                                {currencySymbol}
+                                {formatCurrency(thisDay.overallTotal) || '0.00'}
+                            </span>
+                        </div>
+                    </>
+                )}
             </BlockContainer>
         </StickyComponent>
     );
