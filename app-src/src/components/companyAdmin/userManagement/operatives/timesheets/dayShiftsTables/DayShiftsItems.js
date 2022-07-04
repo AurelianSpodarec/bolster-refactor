@@ -35,7 +35,6 @@ const DayShiftsItems = ({ shiftsForDay, onDaySelect }) => {
                     // formattedHours,
                     formattedClockedInHours,
                     formattedBreakHours,
-                    lastClockedOutTime,
                     // overrideWage,
                     // overrideShiftTime,
                     wage,
