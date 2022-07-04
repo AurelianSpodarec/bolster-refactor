@@ -1,10 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import {
-    selectCompanySettingsIsFetching,
-    selectCompanySettings,
-} from 'selectors/companyAdmin/companySettings';
+import { selectCompanySettingsIsFetching } from 'selectors/companyAdmin/companySettings';
 
 import { isEmpty } from 'helpers/generic';
 
@@ -23,7 +20,6 @@ const headers = ['Name', 'Description', ''];
 const JobReferences = () => {
     const { jobReferences, isFetching, fetchError } = useFetchJobReferences();
     const isFetchingCompanySettings = useSelector(selectCompanySettingsIsFetching);
-    const companySettings = useSelector(selectCompanySettings);
 
     const {
         handleCreateJobReference,
