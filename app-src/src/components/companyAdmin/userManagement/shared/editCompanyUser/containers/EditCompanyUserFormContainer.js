@@ -54,6 +54,7 @@ const EditCompanyUserFormContainer = () => {
     }, [postSuccess]);
 
     const canSetAdminPlus = curUser.type && curUser.type >= COMPANY_USER_ROLE_TYPES.ADMIN_PLUS;
+    const isAdmin = user && user.type >= COMPANY_USER_ROLE_TYPES.ADMIN;
 
     return (
         <EditCompanyUserForm
@@ -62,6 +63,7 @@ const EditCompanyUserFormContainer = () => {
             handleSubmit={handleSubmit}
             location={location}
             userID={id}
+            showAdminPlusEdit={isAdmin}
             canSetAdminPlus={canSetAdminPlus}
         />
     );
@@ -72,12 +74,14 @@ const EditCompanyUserFormContainer = () => {
 
     function handleSubmit(e) {
         e.preventDefault();
-        const postBody = {
-            ...state,
-            type: state.shouldHaveAdminPlus
-                ? COMPANY_USER_ROLE_TYPES.ADMIN_PLUS
-                : COMPANY_USER_ROLE_TYPES.ADMIN,
-        };
+        const postBody = isAdmin
+            ? {
+                  ...state,
+                  type: state.shouldHaveAdminPlus
+                      ? COMPANY_USER_ROLE_TYPES.ADMIN_PLUS
+                      : COMPANY_USER_ROLE_TYPES.ADMIN,
+              }
+            : state;
 
         dispatch(editCompanyUser(id, postBody));
     }

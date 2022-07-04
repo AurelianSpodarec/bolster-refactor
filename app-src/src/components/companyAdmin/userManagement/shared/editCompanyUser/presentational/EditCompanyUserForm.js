@@ -6,6 +6,7 @@ import ActionButton from '../../../../../shared/generic/button/presentational/Ac
 import LinkButton from '../../../../../shared/generic/button/presentational/LinkButton';
 import ButtonWrapper from '../../../../../shared/generic/button/presentational/ButtonWrapper';
 import CheckboxContainer from '../../../../../shared/generic/form/containers/CheckboxContainer';
+import { COMPANY_USER_ROLE_TYPES } from '../../../../../../constants/companyAdmin/enums';
 
 const EditCompanyUserForm = ({
     handleSubmit,
@@ -17,68 +18,70 @@ const EditCompanyUserForm = ({
     userID,
     canSetAdminPlus,
     shouldHaveAdminPlus,
-}) => (
-    <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
-        <div className="size-lg-12">
-            <div className="size-lg-6">
-                <Field name="First Name" required>
-                    <TextInputContainer
-                        name="firstName"
-                        value={firstName}
-                        handleChange={handleInputChange}
-                        required
-                    />
-                </Field>
-            </div>
-
-            <div className="size-lg-6">
-                <Field name="Last Name" required>
-                    <TextInputContainer
-                        value={lastName}
-                        name="lastName"
-                        handleChange={handleInputChange}
-                        required
-                    />
-                </Field>
-            </div>
-        </div>
-
-        <div className="size-lg-12">
-            <div className="size-lg-6">
-                <Field name="Phone Number">
-                    <TextInputContainer
-                        value={phoneNumber}
-                        name="phoneNumber"
-                        handleChange={handleInputChange}
-                    />
-                </Field>
-            </div>
-
-            {canSetAdminPlus && (
+    showAdminPlusEdit,
+}) => {
+    return (
+        <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
+            <div className="size-lg-12">
                 <div className="size-lg-6">
-                    <Field name="Admin Plus?">
-                        <CheckboxContainer
-                            name="shouldHaveAdminPlus"
-                            checked={shouldHaveAdminPlus}
+                    <Field name="First Name" required>
+                        <TextInputContainer
+                            name="firstName"
+                            value={firstName}
+                            handleChange={handleInputChange}
+                            required
+                        />
+                    </Field>
+                </div>
+
+                <div className="size-lg-6">
+                    <Field name="Last Name" required>
+                        <TextInputContainer
+                            value={lastName}
+                            name="lastName"
+                            handleChange={handleInputChange}
+                            required
+                        />
+                    </Field>
+                </div>
+            </div>
+
+            <div className="size-lg-12">
+                <div className="size-lg-6">
+                    <Field name="Phone Number">
+                        <TextInputContainer
+                            value={phoneNumber}
+                            name="phoneNumber"
                             handleChange={handleInputChange}
                         />
                     </Field>
                 </div>
-            )}
-        </div>
 
-        <div className="size-lg-12">
-            <ButtonWrapper alignment="right">
-                <LinkButton
-                    text="Cancel"
-                    href={location.pathname.replace(`/${userID}/edit`, '')}
-                    size="small"
-                    source="secondary"
-                />
-                <ActionButton type="submit" text="Confirm" icon="check" size="small" />
-            </ButtonWrapper>
-        </div>
-    </Form>
-);
+                {showAdminPlusEdit && canSetAdminPlus && (
+                    <div className="size-lg-6">
+                        <Field name="Admin Plus?">
+                            <CheckboxContainer
+                                name="shouldHaveAdminPlus"
+                                checked={shouldHaveAdminPlus}
+                                handleChange={handleInputChange}
+                            />
+                        </Field>
+                    </div>
+                )}
+            </div>
 
+            <div className="size-lg-12">
+                <ButtonWrapper alignment="right">
+                    <LinkButton
+                        text="Cancel"
+                        href={location.pathname.replace(`/${userID}/edit`, '')}
+                        size="small"
+                        source="secondary"
+                    />
+                    <ActionButton type="submit" text="Confirm" icon="check" size="small" />
+                </ButtonWrapper>
+            </div>
+        </Form>
+    );
+};
 export default EditCompanyUserForm;
