@@ -1,7 +1,7 @@
 import { CLOCKER_ENTRY_TYPE } from 'constants/companyAdmin/enums';
 
 // todo refactor this to not incorrectly be named like a hook
-const useTimeline = clockerEntries => {
+const buildTimeline = clockerEntries => {
     const timeline = [];
 
     let currBlock = { ...currBlockTemplate };
@@ -70,4 +70,4 @@ const currBlockTemplate = {
     clockOut: null,
 };
 
-export default useTimeline;
+export default buildTimeline;

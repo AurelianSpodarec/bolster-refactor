@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import UsersFilters from '../presentational/UsersFilters';
 import { COMPANY_USER_ROLE_IDS } from 'constants/companyAdmin/enums';
 import fetchUsersBySearch from 'actions/superAdmin/users/async/fetchUsersBySearch';
+import { useDebounce } from '../../../../../helpers/hooks';
 
 const UsersFiltersContainer = ({
     filters: { searchTerm, role },
@@ -15,6 +16,7 @@ const UsersFiltersContainer = ({
         value: roleEnum,
     }));
     const selectedRole = roleTypes.find(({ value }) => value === role);
+    useDebounce(handleChangeFiltersChanged, [searchTerm, role], 500);
 
     return (
         <UsersFilters
@@ -25,14 +27,12 @@ const UsersFiltersContainer = ({
         />
     );
 
+    function handleChangeFiltersChanged() {
+        fetchUsersBySearch(1, searchTerm, role);
+    }
     function handleChange(name, value) {
-        const didSearchTermChange = name === 'searchTerm';
-        const didRoleChange = name === 'role';
-        const newSearchTerm = didSearchTermChange ? value : searchTerm;
-        const newRole = didRoleChange ? value : role;
         updateUsersFilters(name, value);
         updateUsersFilters('page', 1);
-        fetchUsersBySearch(1, newSearchTerm, newRole);
     }
 };
 const mapStateToProps = ({
