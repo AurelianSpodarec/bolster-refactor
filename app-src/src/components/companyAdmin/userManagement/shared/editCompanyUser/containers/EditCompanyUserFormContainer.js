@@ -13,7 +13,7 @@ const EditCompanyUserFormContainer = () => {
         firstName: '',
         lastName: '',
         phoneNumber: '',
-        shouldHaveAdminPlus: false,
+        shouldHaveAdminPlus: null,
     });
     const dispatch = useDispatch();
 
@@ -31,7 +31,7 @@ const EditCompanyUserFormContainer = () => {
                 firstName: user.userFirstName,
                 lastName: user.userLastName,
                 phoneNumber: user.userPhoneNumber,
-                shouldHaveAdminPlus: user.shouldHaveAdminPlus,
+                shouldHaveAdminPlus: user.type === COMPANY_USER_ROLE_TYPES.ADMIN_PLUS,
             });
     });
 
@@ -41,7 +41,7 @@ const EditCompanyUserFormContainer = () => {
                 firstName: user.userFirstName,
                 lastName: user.userLastName,
                 phoneNumber: user.userPhoneNumber,
-                shouldHaveAdminPlus: user.shouldHaveAdminPlus,
+                shouldHaveAdminPlus: user.type === COMPANY_USER_ROLE_TYPES.ADMIN_PLUS,
             });
     }, [isFetching, user]);
 
@@ -54,6 +54,7 @@ const EditCompanyUserFormContainer = () => {
     }, [postSuccess]);
 
     const canSetAdminPlus = curUser.type && curUser.type >= COMPANY_USER_ROLE_TYPES.ADMIN_PLUS;
+    const isAdmin = user && user.type >= COMPANY_USER_ROLE_TYPES.ADMIN;
 
     return (
         <EditCompanyUserForm
@@ -62,6 +63,7 @@ const EditCompanyUserFormContainer = () => {
             handleSubmit={handleSubmit}
             location={location}
             userID={id}
+            showAdminPlusEdit={isAdmin}
             canSetAdminPlus={canSetAdminPlus}
         />
     );
@@ -72,12 +74,16 @@ const EditCompanyUserFormContainer = () => {
 
     function handleSubmit(e) {
         e.preventDefault();
-        const postBody = {
-            ...state,
-            type: state.shouldHaveAdminPlus
-                ? COMPANY_USER_ROLE_TYPES.ADMIN_PLUS
-                : COMPANY_USER_ROLE_TYPES.ADMIN,
-        };
+        const { shouldHaveAdminPlus, ...rest } = state;
+
+        const postBody = isAdmin
+            ? {
+                  ...rest,
+                  type: shouldHaveAdminPlus
+                      ? COMPANY_USER_ROLE_TYPES.ADMIN_PLUS
+                      : COMPANY_USER_ROLE_TYPES.ADMIN,
+              }
+            : state;
 
         dispatch(editCompanyUser(id, postBody));
     }
