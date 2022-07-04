@@ -67,6 +67,7 @@ const Controls = ({
                                 maxSelectedVisible={4}
                                 maxLines={1}
                                 placeholder="-- select users --"
+                                styles={selectStyles}
                             />
                             <MultiSelect
                                 options={jobReferenceOptions.sort((a, b) =>
@@ -78,6 +79,7 @@ const Controls = ({
                                 maxSelectedVisible={4}
                                 maxLines={1}
                                 placeholder="-- select job references --"
+                                styles={selectStyles}
                             />
                         </FlexWrapper>
                     </div>
@@ -86,5 +88,7 @@ const Controls = ({
         />
     );
 };
+
+const selectStyles = { width: '100%', maxWidth: '50%' };
 
 export default Controls;

@@ -23,6 +23,7 @@ const MultiSelect = ({
     placeholder = '-- select options --',
     maxLines = null,
     classes = '',
+    styles = {},
 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [hasOpened, setHasOpened] = useState(false);
@@ -86,6 +87,7 @@ const MultiSelect = ({
             className={`multi-multi-dropdown size-lg-12 ${classes && classes} ${
                 disabled ? 'disabled' : ''
             }`}
+            style={styles}
             ref={node}
         >
             <div
