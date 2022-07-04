@@ -107,9 +107,9 @@ const CreatePushNotificationModal = () => {
                         {form.target === PUSH_NOTIFICATION_TARGET_VALUES.USERS && (
                             <Field name="Users" required>
                                 <MultiSelect
-                                    value={form.userIDs}
+                                    value={form.companyUserIDs}
                                     onChange={handleChange}
-                                    name="userIDs"
+                                    name="companyUserIDs"
                                     options={Object.values(userOptions)}
                                     required
                                 />
