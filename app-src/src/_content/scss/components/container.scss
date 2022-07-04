@@ -17,6 +17,7 @@
     padding: 15px;
 
     &.autoWidth {
+        min-width: 100%;
         width: auto;
     }
 
