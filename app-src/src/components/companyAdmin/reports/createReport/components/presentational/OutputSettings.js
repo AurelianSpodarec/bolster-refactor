@@ -15,6 +15,7 @@ import Tickbox from '../../../../../shared/generic/form/presentational/Tickbox';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 import useBolsterPlus from 'components/companyAdmin/subscription/addOns/hooks/useBolsterPlus';
+import useIsAdminPlus from '../../../../../../hooks/useIsAdminPlus';
 
 const OutputSettings = ({
     handleSubmit,
@@ -36,6 +37,8 @@ const OutputSettings = ({
     includeLabourCostingData,
 }) => {
     const { isBolsterPlusActivated } = useBolsterPlus();
+    const isAdminPlus = useIsAdminPlus();
+    const disabledPricing = !isAdminPlus || !isBolsterPlusActivated;
     return (
         <div className="size-lg-12">
             <BlockContainer>
@@ -116,17 +119,32 @@ const OutputSettings = ({
                                             </Field>
                                         </>
                                     )}
-                                    {(isPDFGeneration || isCSVGeneration) && (
-                                        <Field sizeClasses="size-lg-3 size-md-12">
-                                            {isBolsterPlusActivated ? (
-                                                <Tickbox
-                                                    classes="large-text"
-                                                    checked={includeCostingData}
-                                                    name="includeCostingData"
-                                                    handleChange={handleFilterChange}
-                                                    label="Cost Per Pin"
-                                                />
-                                            ) : (
+                                    {(isPDFGeneration || isCSVGeneration) &&
+                                        (isBolsterPlusActivated ? (
+                                            isAdminPlus && (
+                                                <>
+                                                    <Field sizeClasses="size-lg-3 size-md-12">
+                                                        <Tickbox
+                                                            classes="large-text"
+                                                            checked={includeCostingData}
+                                                            name="includeCostingData"
+                                                            handleChange={handleFilterChange}
+                                                            label="Cost Per Pin"
+                                                        />
+                                                    </Field>
+                                                    <Field sizeClasses="size-lg-3 size-md-12">
+                                                        <Tickbox
+                                                            classes="large-text"
+                                                            checked={includeLabourCostingData}
+                                                            name="includeLabourCostingData"
+                                                            handleChange={handleFilterChange}
+                                                            label="Labour Cost Per Pin"
+                                                        />
+                                                    </Field>
+                                                </>
+                                            )
+                                        ) : (
+                                            <Field sizeClasses="size-lg-3 size-md-12">
                                                 <TooltipContainer
                                                     side="top"
                                                     text="Cost Per Pin option is available for Bolster Plus users only."
@@ -140,20 +158,6 @@ const OutputSettings = ({
                                                         disabled={true}
                                                     />
                                                 </TooltipContainer>
-                                            )}
-                                        </Field>
-                                    )}
-                                    {isCSVGeneration && (
-                                        <Field sizeClasses="size-lg-3 size-md-12">
-                                            {isBolsterPlusActivated ? (
-                                                <Tickbox
-                                                    classes="large-text"
-                                                    checked={includeLabourCostingData}
-                                                    name="includeLabourCostingData"
-                                                    handleChange={handleFilterChange}
-                                                    label="Labour Cost Per Pin"
-                                                />
-                                            ) : (
                                                 <TooltipContainer
                                                     side="top"
                                                     text="Labour Cost Per Pin option is available for Bolster Plus users only."
@@ -167,9 +171,9 @@ const OutputSettings = ({
                                                         disabled={true}
                                                     />
                                                 </TooltipContainer>
-                                            )}
-                                        </Field>
-                                    )}
+                                            </Field>
+                                        ))}
+
                                     <Field sizeClasses="size-lg-3 size-md-12">
                                         <Tickbox
                                             classes="large-text"
