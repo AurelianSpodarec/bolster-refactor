@@ -23,7 +23,7 @@ const useCreatePushNotification = () => {
         message: '',
         target: PUSH_NOTIFICATION_TARGET_VALUES.ALL,
         siteID: null,
-        userIDs: [],
+        companyUserIDs: [],
         date: '',
         frequency: PUSH_NOTIFICATION_FREQUENCY_VALUES.ONCE,
         recurrenceDays: [],

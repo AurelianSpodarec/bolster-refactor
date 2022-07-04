@@ -25,7 +25,7 @@ const useEditPushNotification = notification => {
         message: notification.message,
         target: notification.target,
         siteID: notification.siteID,
-        userIDs: notification.userIDs ?? [],
+        companyUserIDs: notification.companyUserIDs ?? [],
         date: new Date(dateFromUtcToTimeZone),
         frequency: notification.frequency,
         recurrenceDays: getDaysFromBitMask(notification.recurrenceDays),
