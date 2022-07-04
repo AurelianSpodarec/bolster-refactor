@@ -105,16 +105,6 @@ const PinHistoryDetailsItem = ({
                         }`}
                         sizeClass="size-lg-3 size-md-12"
                     />
-
-                    <FieldOutput
-                        title="Total cost"
-                        description={`${currencySymbol}${
-                            history.totalHistoryCost
-                                ? formatCurrency(history.totalHistoryCost, false)
-                                : '0.00'
-                        }`}
-                        sizeClass="size-lg-3 size-md-12"
-                    />
                 </>
             )}
 
