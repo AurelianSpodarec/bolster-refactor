@@ -1206,18 +1206,30 @@
       padding-right: 90px;
     }
 
+    &.line-limit {
+      .option {
+        display: inline-block;
+        max-width: 100%;
+        margin-bottom: 0;
+
+        p {
+          line-height: 16px;
+          overflow-x: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+    }
+
     .placeholder {
       padding: 6px 5px;
       font-size: 14px;
     }
 
     .option {
-      display: inline-block;
+      float: left;
       min-width: 60px;
-      max-width: 100%;
       padding: 2.5px 5px;
       margin: 5px;
-      margin-bottom: 0;
       background-color: var(--navigation-primary);
       font-size: 14px;
       cursor: default;
@@ -1232,11 +1244,9 @@
         font-size: 120%;
         width: 100%;
         text-align: center;
-        line-height: 16px;
+        line-height: 15px;
         padding: 0px 8px;
         padding-right: 20px;
-        overflow-x: hidden;
-        text-overflow: ellipsis;
       }
 
       .close {

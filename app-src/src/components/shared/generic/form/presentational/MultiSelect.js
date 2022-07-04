@@ -91,7 +91,9 @@ const MultiSelect = ({
             ref={node}
         >
             <div
-                className={`selected-box ${moreItemsToShow ? 'w-more' : ''}`}
+                className={`selected-box ${maxLines ? 'line-limit' : ''} ${
+                    moreItemsToShow ? 'w-more' : ''
+                }`}
                 onClick={() => !disabled && setIsOpen(!isOpen)}
                 ref={selectedRef}
             >
