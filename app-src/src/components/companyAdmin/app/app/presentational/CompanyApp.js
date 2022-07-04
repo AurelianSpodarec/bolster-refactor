@@ -22,7 +22,7 @@ const CompanyApp = () => (
         <CompanyHeader />
         <div id="page-container">
             <MenuContainer />
-            <div id="page-area">
+            <div id="page-area" style={{ overflowX: 'hidden' }}>
                 <AgreeToTermsCheck>
                     <div id="page-content" className="flex-column justify-between">
                         <div id="bulk-content">

@@ -15,7 +15,7 @@ const AccountDeactivated = () => {
         <>
             <PageHeading title="Company Invoices" />
 
-            <BlockContainer>
+            <BlockContainer contentClass="autoWidth">
                 <InvoicesTableContainer invoices={invoices} />
             </BlockContainer>
             <Block>

@@ -28,6 +28,7 @@ import ApproveShiftMenuButton from './ApproveShiftMenuButton';
 import RejectShiftMenuButton from './RejectShiftMenuButton';
 import useBolsterPlus from 'components/companyAdmin/subscription/addOns/hooks/useBolsterPlus';
 import AddExpenseButton from './AddExpenseButton';
+import useIsAdminPlus from '../../../../../../../hooks/useIsAdminPlus';
 
 const ShiftPod = ({
     shift,
@@ -81,6 +82,8 @@ const ShiftPod = ({
         [SHIFT_STATUS.REJECTED]: 'rejected',
     };
 
+    const isAdminPlus = useIsAdminPlus();
+
     return (
         <BlockContainer
             contentClass={`shift-pod ${isBolsterPlusActivated && statusClassLookup[status]}`}
@@ -97,7 +100,7 @@ const ShiftPod = ({
                             disabled
                         />
                     ) : null}
-                    {isBolsterPlusActivated ? (
+                    {isBolsterPlusActivated && isAdminPlus ? (
                         <ActionButton
                             size="small"
                             source="secondary"
@@ -106,7 +109,11 @@ const ShiftPod = ({
                             onClick={() => setShiftToEdit(shift.id)}
                         />
                     ) : (
-                        <TooltipContainer text="Edit is available for Bolster Plus users only.">
+                        <TooltipContainer
+                            text={`Edit is available for ${
+                                isAdminPlus ? 'Bolster' : 'Admin'
+                            } Plus users only.`}
+                        >
                             <ActionButton
                                 size="small"
                                 source="secondary"
@@ -117,7 +124,7 @@ const ShiftPod = ({
                             />
                         </TooltipContainer>
                     )}
-                    {isBolsterPlusActivated ? (
+                    {isBolsterPlusActivated && isAdminPlus ? (
                         <ActionMenu size="small">
                             {status !== SHIFT_STATUS.APPROVED && (
                                 <ApproveShiftMenuButton shiftID={shift.id} />
@@ -132,7 +139,11 @@ const ShiftPod = ({
                             />
                         </ActionMenu>
                     ) : (
-                        <TooltipContainer text="Delete and Approve/Reject are available for Bolster Plus users only.">
+                        <TooltipContainer
+                            text={`Delete and Approve/Reject are available for ${
+                                isAdminPlus ? 'Bolster' : 'Admin'
+                            } Plus users only.`}
+                        >
                             <ActionMenu size="small" disabled={true}>
                                 {status !== SHIFT_STATUS.APPROVED && (
                                     <ApproveShiftMenuButton shiftID={shift.id} />
@@ -194,7 +205,11 @@ const ShiftPod = ({
                 <div className="divider" />
                 <div className="table-container">
                     <Table
-                        headers={['Job References', 'Hours Worked', 'Wage Split']}
+                        headers={[
+                            'Job References',
+                            'Hours Worked',
+                            isAdminPlus ? 'Wage Split' : '',
+                        ]}
                         isFetching={false}
                         error={null}
                         noData={!jobReferences.length}
@@ -236,33 +251,37 @@ const ShiftPod = ({
                     )}
                 </div>
 
-                <BlockHeading title="Expenses" />
-                <div className="divider" />
-                <div className="table-container">
-                    <Table
-                        headers={['', '', '']}
-                        isFetching={false}
-                        error={null}
-                        noData={!expenses.length}
-                        noDataMessage="No expenses to display."
-                    >
-                        <ExpensesList
-                            expenses={expenses}
-                            expensesTotal={expensesTotal}
-                            currencySymbol={currencySymbol}
-                        />
-                    </Table>
-                    <ButtonWrapper alignment="right">
-                        <AddExpenseButton shiftID={shift.id} />
-                    </ButtonWrapper>
-                </div>
-                <div className="shift-total">
-                    <span>Total exc VAT:</span>
-                    <span className="total">
-                        {currencySymbol}
-                        {formatCurrency(shiftTotal) || '0.00'}
-                    </span>
-                </div>
+                {isAdminPlus && (
+                    <>
+                        <BlockHeading title="Expenses" />
+                        <div className="divider" />
+                        <div className="table-container">
+                            <Table
+                                headers={['', '', '']}
+                                isFetching={false}
+                                error={null}
+                                noData={!expenses.length}
+                                noDataMessage="No expenses to display."
+                            >
+                                <ExpensesList
+                                    expenses={expenses}
+                                    expensesTotal={expensesTotal}
+                                    currencySymbol={currencySymbol}
+                                />
+                            </Table>
+                            <ButtonWrapper alignment="right">
+                                <AddExpenseButton shiftID={shift.id} />
+                            </ButtonWrapper>
+                        </div>
+                        <div className="shift-total">
+                            <span>Total exc VAT:</span>
+                            <span className="total">
+                                {currencySymbol}
+                                {formatCurrency(shiftTotal) || '0.00'}
+                            </span>
+                        </div>
+                    </>
+                )}
             </BlockContainer>
             <BlockContainer contentClass="inner-pod">
                 <BlockHeading title="Notes" />
