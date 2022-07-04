@@ -92,6 +92,12 @@ a {
   }
 }
 
+i {
+  &.dark {
+    color:  var(--typography-default);
+  }
+}
+
 .container {
   width: 100%;
   padding: 0 30px;

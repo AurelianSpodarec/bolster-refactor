@@ -1202,6 +1202,12 @@
     white-space: nowrap;
     overflow: hidden;
 
+    i {
+      &.dark {
+        color:  var(--typography-default);
+      }
+    }
+
     &.w-more {
       padding-right: 90px;
     }

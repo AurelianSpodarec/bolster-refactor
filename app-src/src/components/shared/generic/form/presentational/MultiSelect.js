@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useWindowDimensions } from 'helpers/hooks';
 import withFieldValidation from '../hocs/withFieldValidation';
+import useColourTheme from 'hooks/useColourTheme';
 
 // MultiSelect is a multi select dropdown
 // pass 'required' prop if it's required
@@ -30,6 +31,7 @@ const MultiSelect = ({
     const [searchTerm, setSearch] = useState('');
     const node = useRef();
     const filteredOptions = getFilteredOptions();
+    const colourTheme = useColourTheme();
 
     useEffect(() => {
         document.addEventListener('mousedown', handleClick);
@@ -113,7 +115,11 @@ const MultiSelect = ({
                 ))}
                 {moreItemsToShow && <p className="more">+{selected.length - visibleLimit} More</p>}
 
-                <i className={`arrow ${iconClass.length ? iconClass : 'fal fa-angle-down'}`} />
+                <i
+                    className={`arrow ${colourTheme === 'dark' ? '' : 'dark'} ${
+                        iconClass.length ? iconClass : 'fal fa-angle-down'
+                    }`}
+                />
             </div>
 
             {isOpen && (
