@@ -5,6 +5,7 @@ import TextInputContainer from 'components/shared/generic/form/containers/TextIn
 import ActionButton from '../../../../../shared/generic/button/presentational/ActionButton';
 import LinkButton from '../../../../../shared/generic/button/presentational/LinkButton';
 import ButtonWrapper from '../../../../../shared/generic/button/presentational/ButtonWrapper';
+import CheckboxContainer from '../../../../../shared/generic/form/containers/CheckboxContainer';
 
 const EditCompanyUserForm = ({
     handleSubmit,
@@ -14,6 +15,8 @@ const EditCompanyUserForm = ({
     phoneNumber,
     location,
     userID,
+    canSetAdminPlus,
+    shouldHaveAdminPlus,
 }) => (
     <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
         <div className="size-lg-12">
@@ -50,6 +53,18 @@ const EditCompanyUserForm = ({
                     />
                 </Field>
             </div>
+
+            {canSetAdminPlus && (
+                <div className="size-lg-6">
+                    <Field name="Admin Plus?">
+                        <CheckboxContainer
+                            name="shouldHaveAdminPlus"
+                            checked={shouldHaveAdminPlus}
+                            handleChange={handleInputChange}
+                        />
+                    </Field>
+                </div>
+            )}
         </div>
 
         <div className="size-lg-12">
