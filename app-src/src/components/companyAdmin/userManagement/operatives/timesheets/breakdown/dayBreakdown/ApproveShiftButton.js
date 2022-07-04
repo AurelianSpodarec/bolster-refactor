@@ -3,10 +3,13 @@ import ActionButton from 'components/shared/generic/button/presentational/Action
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTimesheetsIsPosting } from 'selectors/companyAdmin/timesheets';
+import useIsAdminPlus from '../../../../../../../hooks/useIsAdminPlus';
 
 const ApproveShiftButton = ({ shiftID }) => {
     const dispatch = useDispatch();
     const isPosting = useSelector(selectTimesheetsIsPosting);
+
+    const isAdminPlus = useIsAdminPlus();
 
     const handleSubmit = () => {
         dispatch(postApproveShift(shiftID));
@@ -20,7 +23,7 @@ const ApproveShiftButton = ({ shiftID }) => {
             text={'Approve'}
             onClick={handleSubmit}
             iconSpin={isPosting}
-            disabled={isPosting}
+            disabled={isPosting || !isAdminPlus}
         />
     );
 };

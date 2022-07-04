@@ -100,7 +100,7 @@ const ShiftPod = ({
                             disabled
                         />
                     ) : null}
-                    {isBolsterPlusActivated ? (
+                    {isBolsterPlusActivated && isAdminPlus ? (
                         <ActionButton
                             size="small"
                             source="secondary"
@@ -109,7 +109,11 @@ const ShiftPod = ({
                             onClick={() => setShiftToEdit(shift.id)}
                         />
                     ) : (
-                        <TooltipContainer text="Edit is available for Bolster Plus users only.">
+                        <TooltipContainer
+                            text={`Edit is available for ${
+                                isAdminPlus ? 'Bolster' : 'Admin'
+                            } Plus users only.`}
+                        >
                             <ActionButton
                                 size="small"
                                 source="secondary"
@@ -120,7 +124,7 @@ const ShiftPod = ({
                             />
                         </TooltipContainer>
                     )}
-                    {isBolsterPlusActivated ? (
+                    {isBolsterPlusActivated && isAdminPlus ? (
                         <ActionMenu size="small">
                             {status !== SHIFT_STATUS.APPROVED && (
                                 <ApproveShiftMenuButton shiftID={shift.id} />
@@ -135,7 +139,11 @@ const ShiftPod = ({
                             />
                         </ActionMenu>
                     ) : (
-                        <TooltipContainer text="Delete and Approve/Reject are available for Bolster Plus users only.">
+                        <TooltipContainer
+                            text={`Delete and Approve/Reject are available for ${
+                                isAdminPlus ? 'Bolster' : 'Admin'
+                            } Plus users only.`}
+                        >
                             <ActionMenu size="small" disabled={true}>
                                 {status !== SHIFT_STATUS.APPROVED && (
                                     <ApproveShiftMenuButton shiftID={shift.id} />
