@@ -70,13 +70,16 @@ const MultiSelect = ({
                     usedWidth = optionElement.clientWidth;
                 }
             }
-            setVisibleLimit(maxVisibleCount);
+            setVisibleLimit(maxVisibleCount ? maxVisibleCount : 1);
         }
     }, [selectedRef.current, value, maxLines, windowDimensions]);
 
     useEffect(() => {
         if (maxLines == null) setVisibleLimit(options.length);
     }, [options]);
+
+    const selected = getSelected();
+    const moreItemsToShow = selected.length > visibleLimit;
 
     return (
         <div
@@ -86,12 +89,12 @@ const MultiSelect = ({
             ref={node}
         >
             <div
-                className="selected-box"
+                className={`selected-box ${moreItemsToShow ? 'w-more' : ''}`}
                 onClick={() => !disabled && setIsOpen(!isOpen)}
                 ref={selectedRef}
             >
-                {!getSelected().length && <p className="placeholder">{placeholder}</p>}
-                {getSelected().map((opt, i) => (
+                {!selected.length && <p className="placeholder">{placeholder}</p>}
+                {selected.map((opt, i) => (
                     <div
                         key={opt.value}
                         className={`option ${i + 1 > visibleLimit ? 'option-hidden' : ''}`}
@@ -104,9 +107,7 @@ const MultiSelect = ({
                         />
                     </div>
                 ))}
-                {getSelected().length > visibleLimit && (
-                    <p className="more">+{getSelected().length - visibleLimit} More</p>
-                )}
+                {moreItemsToShow && <p className="more">+{selected.length - visibleLimit} More</p>}
 
                 <i className={`arrow ${iconClass.length ? iconClass : 'fal fa-angle-down'}`} />
             </div>

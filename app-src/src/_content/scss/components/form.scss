@@ -1202,13 +1202,17 @@
     white-space: nowrap;
     overflow: hidden;
 
+    &.w-more {
+      padding-right: 90px;
+    }
+
     .placeholder {
       padding: 6px 5px;
       font-size: 14px;
     }
 
     .option {
-      float: left;
+      display: inline-block;
       min-width: 60px;
       padding: 2.5px 5px;
       margin: 5px;
