@@ -27,11 +27,9 @@ const buildTimeline = clockerEntries => {
                 }
                 break;
             case CLOCKER_ENTRY_TYPE.ON_BREAK:
-                if (currBlock.breakIn) {
-                    currBlock.breakIn = buildBlockEntry(entry, 'start');
-                } else {
-                    currBlock.breakOut = buildBlockEntry(entry, 'end');
-                }
+                currBlock.breakIn = buildBlockEntry(entry, 'start');
+                currBlock.breakOut = buildBlockEntry(entry, 'end');
+
                 break;
             default:
                 break;
