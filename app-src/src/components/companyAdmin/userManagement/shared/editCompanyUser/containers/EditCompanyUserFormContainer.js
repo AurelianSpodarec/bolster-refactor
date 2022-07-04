@@ -72,7 +72,14 @@ const EditCompanyUserFormContainer = () => {
 
     function handleSubmit(e) {
         e.preventDefault();
-        dispatch(editCompanyUser(id, state));
+        const postBody = {
+            ...state,
+            type: state.shouldHaveAdminPlus
+                ? COMPANY_USER_ROLE_TYPES.ADMIN_PLUS
+                : COMPANY_USER_ROLE_TYPES.ADMIN,
+        };
+
+        dispatch(editCompanyUser(id, postBody));
     }
 };
 
