@@ -1,6 +1,5 @@
 import { CLOCKER_ENTRY_TYPE } from 'constants/companyAdmin/enums';
 
-// todo refactor this to not incorrectly be named like a hook
 const buildTimeline = clockerEntries => {
     const timeline = [];
 
@@ -28,8 +27,11 @@ const buildTimeline = clockerEntries => {
                 }
                 break;
             case CLOCKER_ENTRY_TYPE.ON_BREAK:
-                currBlock.breakIn = buildBlockEntry(entry, 'start');
-                currBlock.breakOut = buildBlockEntry(entry, 'end');
+                if (currBlock.breakIn) {
+                    currBlock.breakIn = buildBlockEntry(entry, 'start');
+                } else {
+                    currBlock.breakOut = buildBlockEntry(entry, 'end');
+                }
                 break;
             default:
                 break;
