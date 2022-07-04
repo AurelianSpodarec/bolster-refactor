@@ -13,7 +13,7 @@ const EditCompanyUserFormContainer = () => {
         firstName: '',
         lastName: '',
         phoneNumber: '',
-        shouldHaveAdminPlus: false,
+        shouldHaveAdminPlus: null,
     });
     const dispatch = useDispatch();
 
@@ -31,7 +31,7 @@ const EditCompanyUserFormContainer = () => {
                 firstName: user.userFirstName,
                 lastName: user.userLastName,
                 phoneNumber: user.userPhoneNumber,
-                shouldHaveAdminPlus: user.shouldHaveAdminPlus,
+                shouldHaveAdminPlus: user.type === COMPANY_USER_ROLE_TYPES.ADMIN_PLUS,
             });
     });
 
@@ -41,7 +41,7 @@ const EditCompanyUserFormContainer = () => {
                 firstName: user.userFirstName,
                 lastName: user.userLastName,
                 phoneNumber: user.userPhoneNumber,
-                shouldHaveAdminPlus: user.shouldHaveAdminPlus,
+                shouldHaveAdminPlus: user.type === COMPANY_USER_ROLE_TYPES.ADMIN_PLUS,
             });
     }, [isFetching, user]);
 
@@ -74,10 +74,12 @@ const EditCompanyUserFormContainer = () => {
 
     function handleSubmit(e) {
         e.preventDefault();
+        const { shouldHaveAdminPlus, ...rest } = state;
+
         const postBody = isAdmin
             ? {
-                  ...state,
-                  type: state.shouldHaveAdminPlus
+                  ...rest,
+                  type: shouldHaveAdminPlus
                       ? COMPANY_USER_ROLE_TYPES.ADMIN_PLUS
                       : COMPANY_USER_ROLE_TYPES.ADMIN,
               }
