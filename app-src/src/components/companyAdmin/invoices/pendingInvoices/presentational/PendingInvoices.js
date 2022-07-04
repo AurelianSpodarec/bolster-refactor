@@ -3,7 +3,7 @@ import InvoicesTableContainer from 'components/companyAdmin/invoices/shared/invo
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 
 const PendingInvoices = ({ invoices }) => (
-    <BlockContainer heading="Pending Invoices" contentClass="withXOverflow">
+    <BlockContainer heading="Pending Invoices" contentClass="autoWidth">
         <InvoicesTableContainer invoices={invoices} />
     </BlockContainer>
 );

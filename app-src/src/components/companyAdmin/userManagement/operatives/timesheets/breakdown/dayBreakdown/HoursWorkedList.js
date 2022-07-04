@@ -11,6 +11,7 @@ import TimePickerContainer from 'components/shared/generic/form/containers/TimeP
 import CurrencyInput from 'components/shared/generic/form/presentational/CurrencyInput';
 import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import useIsAdminPlus from '../../../../../../../hooks/useIsAdminPlus';
 
 const HoursWorkedList = ({
     shiftID,
@@ -26,6 +27,8 @@ const HoursWorkedList = ({
 }) => {
     const dispatch = useDispatch();
     const companySettings = useSelector(selectCompanySettings);
+
+    const isAdminPlus = useIsAdminPlus();
 
     const isJobRefDropdownEnabled = companySettings.isJobReferenceDropdownEnabled;
 
@@ -57,10 +60,12 @@ const HoursWorkedList = ({
                             </FlexWrapper>{' '}
                         </td>
                         <td>{formatAsHrsMins(hoursWorked)}</td>
-                        <td>
-                            {currencySymbol}
-                            {wageSplit ? formatCurrency(wageSplit) : '0.00'}
-                        </td>
+                        {isAdminPlus && (
+                            <td>
+                                {currencySymbol}
+                                {wageSplit ? formatCurrency(wageSplit) : '0.00'}
+                            </td>
+                        )}
                     </tr>
                 );
             })}
@@ -84,21 +89,25 @@ const HoursWorkedList = ({
                         formatAsHrsMins(jobReferencesTotalHours)
                     )}
                 </td>
-                <td>
-                    {isEditing ? (
-                        <CurrencyInput
-                            name="overrideWage"
-                            value={formData.overrideWage}
-                            onChange={handleChange}
-                        />
-                    ) : overrideWage !== null ? (
-                        `${currencySymbol}${formatCurrency(overrideWage)}`
-                    ) : (
-                        `${currencySymbol}${
-                            jobReferencesTotalCost ? formatCurrency(jobReferencesTotalCost) : '0.00'
-                        }`
-                    )}
-                </td>
+                {isAdminPlus && (
+                    <td>
+                        {isEditing ? (
+                            <CurrencyInput
+                                name="overrideWage"
+                                value={formData.overrideWage}
+                                onChange={handleChange}
+                            />
+                        ) : overrideWage !== null ? (
+                            `${currencySymbol}${formatCurrency(overrideWage)}`
+                        ) : (
+                            `${currencySymbol}${
+                                jobReferencesTotalCost
+                                    ? formatCurrency(jobReferencesTotalCost)
+                                    : '0.00'
+                            }`
+                        )}
+                    </td>
+                )}
             </tr>
         </>
     );

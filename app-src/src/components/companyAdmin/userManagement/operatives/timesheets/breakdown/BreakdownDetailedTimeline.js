@@ -1,5 +1,5 @@
 import React from 'react';
-import useTimeline from '../hooks/useTimeline';
+import buildTimeline from '../hooks/buildTimeline';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import BreakdownDetailedTimelineBlock from './BreakdownDetailedTimelineBlock';
 import BreakdownDetailedTimelineMap from './BreakdownDetailedTimelineMap';
@@ -7,7 +7,7 @@ import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeCon
 import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 
 const BreakdownDetailedTimeline = ({ clockerEntries, selectedDate }) => {
-    const timeline = useTimeline(clockerEntries);
+    const timeline = buildTimeline(clockerEntries);
 
     const markers = [];
     timeline.map(block => {
