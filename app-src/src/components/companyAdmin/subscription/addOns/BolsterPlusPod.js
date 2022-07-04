@@ -20,7 +20,7 @@ import useBolsterPlus from './hooks/useBolsterPlus';
 
 const BolsterPlusPod = () => {
     const dispatch = useDispatch();
-    const { isBolsterPlusActivated } = useBolsterPlus();
+    const { isBolsterPlusActivated, isSubscriptionsActivated } = useBolsterPlus();
     const { handlesAutoRenewChange, isAutoRenewSubscription, form } = useAutoRenew();
 
     return (
@@ -54,7 +54,7 @@ const BolsterPlusPod = () => {
                         openInNewTab
                     />
                 </ButtonWrapper>
-                {!isBolsterPlusActivated && (
+                {!isBolsterPlusActivated && isSubscriptionsActivated && (
                     <ButtonWrapper extraClasses="size-lg-6 margin-top" alignment="right">
                         <ActionButton
                             text="Upgrade"

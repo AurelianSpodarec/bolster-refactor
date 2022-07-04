@@ -113,7 +113,7 @@ function createdInvoiceDetailsReducer(state = {}, action) {
         case CREATE_CREDITS_SUCCESS:
         case ADD_SERVICE_TO_SUBSCRIPTION_SUCCESS:
             return {
-                id: action.payload.invoiceId,
+                id: action.payload.invoiceID,
                 guid: action.payload.invoiceGuid,
             };
         default:
