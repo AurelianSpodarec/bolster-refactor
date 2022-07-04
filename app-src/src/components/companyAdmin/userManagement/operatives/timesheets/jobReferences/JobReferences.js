@@ -44,20 +44,16 @@ const JobReferences = () => {
         );
     }
 
-    const isJobRefDropdownEnabled = companySettings.isJobReferenceDropdownEnabled;
-
     return (
         <Block>
             <BlockHeading title="Job References">
-                {isJobRefDropdownEnabled && (
-                    <ActionButton
-                        text="Create"
-                        ambient="positive"
-                        size="medium"
-                        icon="plus"
-                        onClick={handleCreateJobReference}
-                    />
-                )}
+                <ActionButton
+                    text="Create"
+                    ambient="positive"
+                    size="medium"
+                    icon="plus"
+                    onClick={handleCreateJobReference}
+                />
             </BlockHeading>
 
             <Table
@@ -75,7 +71,6 @@ const JobReferences = () => {
                         handleEditJobReference={handleEditJobReference}
                         handleEnableJobReference={handleEnableJobReference}
                         handleDisableJobReference={handleDisableJobReference}
-                        isJobRefDropdownEnabled={isJobRefDropdownEnabled}
                     />
                 ))}
             </Table>

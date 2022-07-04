@@ -120,7 +120,6 @@ import {
     CREATE_JOB_REFERENCE,
     EDIT_JOB_REFERENCE,
     DRAWING_EXPIRY_MODAL,
-    EDIT_JOB_REF_DROPDOWN,
     EDIT_USER_EMAIL,
     CONFIRM_DARK_THEME,
     CREATE_PIN_OPTIONS_SET_MODAL,
@@ -279,7 +278,6 @@ import ViewPinTaskModal from 'components/companyAdmin/userManagement/pinTasks/vi
 import CreateJobReferenceModal from 'components/companyAdmin/userManagement/operatives/timesheets/jobReferences/modals/CreateJobReferenceModal';
 import EditJobReferenceModal from 'components/companyAdmin/userManagement/operatives/timesheets/jobReferences/modals/EditJobReferenceModal';
 import DrawingExpiryModal from '../presentational/DrawingExpiryModal';
-import EditJobRefDropdownModal from './EditJobRefDropdownModalContainer';
 import EditUserEmailModal from '../../../../superAdmin/users/editUsers/EditUserEmailModal';
 import ConfirmDarkThemeModal from '../presentational/ConfirmDarkThemeModal';
 import CreateOptionSetModal from 'components/companyAdmin/pinOptions/optionSets/modals/CreateOptionSetModal';
@@ -445,7 +443,6 @@ const MODAL_COMPONENTS = {
     [CREATE_JOB_REFERENCE]: CreateJobReferenceModal,
     [EDIT_JOB_REFERENCE]: EditJobReferenceModal,
     [DRAWING_EXPIRY_MODAL]: DrawingExpiryModal,
-    [EDIT_JOB_REF_DROPDOWN]: EditJobRefDropdownModal,
     [EDIT_USER_EMAIL]: EditUserEmailModal,
     [CONFIRM_DARK_THEME]: ConfirmDarkThemeModal,
     [CREATE_PIN_OPTIONS_SET_MODAL]: CreateOptionSetModal,
