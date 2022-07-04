@@ -1,11 +1,10 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { formatAsHrsMins, formatCurrency } from 'helpers/generic';
 import { AMEND_JOB_REFERENCE_MODAL } from 'constants/shared/modalTypes';
 
 import showModal from 'actions/shared/generic/modals/sync/showModal';
-import { selectCompanySettings } from 'selectors/companyAdmin/companySettings';
 
 import TimePickerContainer from 'components/shared/generic/form/containers/TimePickerContainer';
 import CurrencyInput from 'components/shared/generic/form/presentational/CurrencyInput';
