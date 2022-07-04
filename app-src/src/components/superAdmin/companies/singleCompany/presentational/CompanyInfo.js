@@ -10,7 +10,6 @@ const CompanyInfo = ({
     handleToggleClientList,
     handleShowEditAddressModal,
     handleShowEditFreeCreditModal,
-    handleShowEditJobRefDropdownModal,
     showEnableCompanyModal,
     showDisableCompanyModal,
 }) => (
@@ -91,9 +90,6 @@ const CompanyInfo = ({
             </button>
             <button className="button yellow" onClick={() => handleShowEditFreeCreditModal()}>
                 Edit Free Credit
-            </button>
-            <button className="button yellow" onClick={() => handleShowEditJobRefDropdownModal()}>
-                Edit Job Reference Dropdown
             </button>
         </div>
     </div>

@@ -26,11 +26,8 @@ const HoursWorkedList = ({
     isEditing,
 }) => {
     const dispatch = useDispatch();
-    const companySettings = useSelector(selectCompanySettings);
 
     const isAdminPlus = useIsAdminPlus();
-
-    const isJobRefDropdownEnabled = companySettings.isJobReferenceDropdownEnabled;
 
     return (
         <>
@@ -39,24 +36,20 @@ const HoursWorkedList = ({
                     <tr key={`${i}-${jobRefID}`}>
                         <td>
                             <FlexWrapper align="center">
-                                <span style={{ marginRight: isJobRefDropdownEnabled ? 5 : 0 }}>
-                                    {jobRef || '-'}
-                                </span>
-                                {isJobRefDropdownEnabled && (
-                                    <ActionButton
-                                        icon="pencil"
-                                        iconOnly
-                                        source="secondary"
-                                        onClick={() =>
-                                            dispatch(
-                                                showModal(AMEND_JOB_REFERENCE_MODAL, {
-                                                    shiftID,
-                                                    oldJobRefID: jobRefID,
-                                                }),
-                                            )
-                                        }
-                                    />
-                                )}
+                                <span style={{ marginRight: 5 }}>{jobRef || '-'}</span>
+                                <ActionButton
+                                    icon="pencil"
+                                    iconOnly
+                                    source="secondary"
+                                    onClick={() =>
+                                        dispatch(
+                                            showModal(AMEND_JOB_REFERENCE_MODAL, {
+                                                shiftID,
+                                                oldJobRefID: jobRefID,
+                                            }),
+                                        )
+                                    }
+                                />
                             </FlexWrapper>{' '}
                         </td>
                         <td>{formatAsHrsMins(hoursWorked)}</td>
