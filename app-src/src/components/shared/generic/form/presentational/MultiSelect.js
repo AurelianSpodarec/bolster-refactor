@@ -23,11 +23,11 @@ const MultiSelect = ({
     placeholder = '-- select options --',
     maxLines = null,
     classes = '',
+    styles = {},
 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [hasOpened, setHasOpened] = useState(false);
     const [searchTerm, setSearch] = useState('');
-    const [charactersToBeRemoved, setCharactersToBeRemoved] = useState(0);
     const node = useRef();
     const filteredOptions = getFilteredOptions();
 
@@ -47,7 +47,6 @@ const MultiSelect = ({
     const windowDimensions = useWindowDimensions();
 
     const [visibleLimit, setVisibleLimit] = useState(options.length);
-    const [operativeDisplay, setShortOperativeDisplay] = useState(false);
 
     const selectedRef = useRef();
     useEffect(() => {
@@ -60,16 +59,8 @@ const MultiSelect = ({
             let maxVisibleCount = 0;
             let linesLeft = maxLines;
 
-            setCharactersToBeRemoved(Math.ceil(Math.abs(maxWidth - usedWidth) / 8));
-
             for (const optionElement of optionElements) {
                 usedWidth += optionElement.clientWidth;
-
-                if (optionElements.length === 1) {
-                    if (usedWidth > maxWidth) {
-                        setShortOperativeDisplay(true);
-                    }
-                }
 
                 if (usedWidth < maxWidth) {
                     maxVisibleCount++;
@@ -80,7 +71,7 @@ const MultiSelect = ({
                     usedWidth = optionElement.clientWidth;
                 }
             }
-            setVisibleLimit(maxVisibleCount);
+            setVisibleLimit(maxVisibleCount ? maxVisibleCount : 1);
         }
     }, [selectedRef.current, value, maxLines, windowDimensions]);
 
@@ -88,41 +79,39 @@ const MultiSelect = ({
         if (maxLines == null) setVisibleLimit(options.length);
     }, [options]);
 
+    const selected = getSelected();
+    const moreItemsToShow = selected.length > visibleLimit;
+
     return (
         <div
             className={`multi-multi-dropdown size-lg-12 ${classes && classes} ${
                 disabled ? 'disabled' : ''
             }`}
+            style={styles}
             ref={node}
         >
             <div
-                className="selected-box"
+                className={`selected-box ${maxLines ? 'line-limit' : ''} ${
+                    moreItemsToShow ? 'w-more' : ''
+                }`}
                 onClick={() => !disabled && setIsOpen(!isOpen)}
                 ref={selectedRef}
             >
-                {!getSelected().length && <p className="placeholder">{placeholder}</p>}
-                {getSelected().map((opt, i) => (
+                {!selected.length && <p className="placeholder">{placeholder}</p>}
+                {selected.map((opt, i) => (
                     <div
                         key={opt.value}
                         className={`option ${i + 1 > visibleLimit ? 'option-hidden' : ''}`}
                         onClick={() => isOpen && setIsOpen(false)}
                     >
-                        <p className="operative-name">
-                            {operativeDisplay
-                                ? opt.label
-                                      ?.substring(0, opt.label?.length - charactersToBeRemoved)
-                                      .concat('...')
-                                : opt.label}
-                        </p>
+                        <p>{opt.label}</p>
                         <i
                             className="close fal fa-times"
                             onClick={e => !disabled && handleDeselect(e, opt.value)}
                         />
                     </div>
                 ))}
-                {getSelected().length > visibleLimit && (
-                    <p className="more">+{getSelected().length - visibleLimit} More</p>
-                )}
+                {moreItemsToShow && <p className="more">+{selected.length - visibleLimit} More</p>}
 
                 <i className={`arrow ${iconClass.length ? iconClass : 'fal fa-angle-down'}`} />
             </div>

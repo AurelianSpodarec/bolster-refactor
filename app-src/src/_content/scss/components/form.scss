@@ -1202,6 +1202,24 @@
     white-space: nowrap;
     overflow: hidden;
 
+    &.w-more {
+      padding-right: 90px;
+    }
+
+    &.line-limit {
+      .option {
+        display: inline-block;
+        max-width: 100%;
+        margin-bottom: 0;
+
+        p {
+          line-height: 16px;
+          overflow-x: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+    }
+
     .placeholder {
       padding: 6px 5px;
       font-size: 14px;
