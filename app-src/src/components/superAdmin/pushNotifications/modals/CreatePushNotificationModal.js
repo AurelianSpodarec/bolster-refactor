@@ -55,7 +55,6 @@ const CreatePushNotificationModal = () => {
                             name="Message"
                             valueLength={form.message.length}
                             charLimit={pushNotificationMessageCharLimit}
-                            required
                         >
                             <TextAreaContainer
                                 name="message"
@@ -63,7 +62,6 @@ const CreatePushNotificationModal = () => {
                                 handleChange={handleChange}
                                 placeholder="Enter message"
                                 charLimit={pushNotificationMessageCharLimit}
-                                required
                             />
                         </Field>
 

@@ -6,7 +6,6 @@ import ActionButton from '../../../../../shared/generic/button/presentational/Ac
 import LinkButton from '../../../../../shared/generic/button/presentational/LinkButton';
 import ButtonWrapper from '../../../../../shared/generic/button/presentational/ButtonWrapper';
 import CheckboxContainer from '../../../../../shared/generic/form/containers/CheckboxContainer';
-import { COMPANY_USER_ROLE_TYPES } from '../../../../../../constants/companyAdmin/enums';
 
 const EditCompanyUserForm = ({
     handleSubmit,
