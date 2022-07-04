@@ -105,7 +105,7 @@ const GenerateTimesheetReportModal = ({ fromDateInclusive, toDateInclusive }) =>
                             <Select
                                 name="shiftStatus"
                                 value={shiftStatus}
-                                handleChange={handleChange}
+                                onChange={handleChange}
                                 options={shiftStatusOptions}
                                 omitPlaceholder={true}
                             />
