@@ -6,6 +6,7 @@ import BreakdownPositionCard from './BreakdownPositionCard';
 
 const BreakdownDetailedTimelineBlock = ({ block }) => {
     const { clockIn, breakIn, breakOut, clockOut } = block;
+
     return (
         <div className="breakdown-detailed-timeline-block">
             <div className="block-entry clock-in">
@@ -73,7 +74,7 @@ const BreakdownDetailedTimelineBlock = ({ block }) => {
                     />
                 </div>
             )}
-            {breakOut?.timestamp && (
+            {clockOut?.timestamp && (
                 <div className="block-entry clock-out">
                     <div className="wrapper">
                         <p className="title">
