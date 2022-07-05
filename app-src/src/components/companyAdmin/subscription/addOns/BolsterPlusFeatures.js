@@ -31,6 +31,12 @@ const BolsterPlusFeatures = ({ bolsterPlusActivated }) => {
                     </p>
 
                     <p className="heading size-lg-12">Highlights</p>
+                    <p className="size-lg-12" style={{ marginBottom: '20px' }}>
+                        'Bolster plus' is a package of new features designed to help your business
+                        not only be as efficient as possible on site, but also in the office. The
+                        new range of automated and scalable solutions integrates the Bolster System
+                        across your whole team.
+                    </p>
                     <div className="size-lg-12">
                         <Feature>
                             Costing &amp; Estimating (price sites automatically from your schedule
@@ -40,9 +46,9 @@ const BolsterPlusFeatures = ({ bolsterPlusActivated }) => {
                             Timesheets + (export timesheet CSVs, set wages for operatives)
                         </Feature>
                         <Feature>25 GB Document Library</Feature>
-                        <Feature>Futher user managmennt control</Feature>
-                        <Feature>Customised company brochure</Feature>
-                        <Feature>Dedicated training call</Feature>
+                        <Feature>Further user management control</Feature>
+                        <Feature>Push notifications</Feature>
+                        <Feature>Additional training</Feature>
                     </div>
                 </>
             </>
