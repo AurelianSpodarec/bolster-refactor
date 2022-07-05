@@ -27,7 +27,9 @@ const useFetchPushNotifications = () => {
         if (isBolsterPlusActivated) {
             dispatch(
                 showModal(BOLSTER_PLUS_UPGRADE_MODAL, {
-                    handleClose: () => dispatch(showModal(BOLSTER_PLUS_UPGRADE_MODAL)),
+                    handleClose: () =>
+                        dispatch(showModal(BOLSTER_PLUS_UPGRADE_MODAL, { shouldGoBack: true })),
+                    shouldGoBack: true,
                 }),
             );
         }
