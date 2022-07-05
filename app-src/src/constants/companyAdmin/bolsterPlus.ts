@@ -1,1 +1,1 @@
-export const bolsterPlusLearnMoreLink = 'https://www.google.co.uk/';
+export const bolsterPlusLearnMoreLink = '/Bolster-Plus-Brochure.pdf';
