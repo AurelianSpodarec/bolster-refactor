@@ -7,6 +7,9 @@ import {
     selectAdminPushNotificationsIsFetching,
     selectAdminPushNotificationsFetchError,
 } from 'selectors/superAdmin/pushNotifications';
+import useBolsterPlus from 'components/companyAdmin/subscription/addOns/hooks/useBolsterPlus';
+import showModal from 'actions/shared/generic/modals/sync/showModal';
+import { BOLSTER_PLUS_UPGRADE_MODAL } from 'constants/shared/modalTypes';
 
 const useFetchPushNotifications = () => {
     const dispatch = useDispatch();
@@ -14,12 +17,23 @@ const useFetchPushNotifications = () => {
     const pushNotifications = useSelector(selectAdminPushNotifications);
     const isFetching = useSelector(selectAdminPushNotificationsIsFetching);
     const error = useSelector(selectAdminPushNotificationsFetchError);
+    const { isBolsterPlusActivated } = useBolsterPlus();
 
     useEffect(() => {
         dispatch(fetchPushNotifications());
     }, [dispatch]);
 
-    return { pushNotifications, isFetching, error };
+    useEffect(() => {
+        if (isBolsterPlusActivated) {
+            dispatch(
+                showModal(BOLSTER_PLUS_UPGRADE_MODAL, {
+                    handleClose: () => dispatch(showModal(BOLSTER_PLUS_UPGRADE_MODAL)),
+                }),
+            );
+        }
+    }, [dispatch, isBolsterPlusActivated]);
+
+    return { pushNotifications, isFetching, error, isBolsterPlusActivated };
 };
 
 export default useFetchPushNotifications;

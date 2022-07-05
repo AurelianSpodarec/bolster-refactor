@@ -93,7 +93,7 @@ const AddBolsterPlusModal = ({ hideModal, handleClose }) => {
                     if (location.pathname === '/company/subscription') {
                         hideModal();
                     } else {
-                        history.goBack();
+                        () => history.goBack();
                     }
                 }
 
@@ -128,11 +128,9 @@ const AddBolsterPlusModal = ({ hideModal, handleClose }) => {
                                 if (location.pathname === '/company/subscription') {
                                     hideModal();
                                 } else {
-                                    history.goBack();
+                                    () => history.goBack();
                                 }
                             }
-
-                            hideModal();
                         }}
                         source="secondary"
                         size="medium"

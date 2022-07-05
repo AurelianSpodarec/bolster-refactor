@@ -166,7 +166,11 @@ const GenerateTimesheetReportModal = ({ fromDateInclusive, toDateInclusive }) =>
                                 dispatch(
                                     showModal(BOLSTER_PLUS_UPGRADE_MODAL, {
                                         handleClose: () =>
-                                            dispatch(selectTab(TIMESHEETS_TABS.GENERAL_OVERVIEW)),
+                                            dispatch(
+                                                showModal(BOLSTER_PLUS_UPGRADE_MODAL, {
+                                                    handleClose: () => {},
+                                                }),
+                                            ),
                                     }),
                                 )
                             }

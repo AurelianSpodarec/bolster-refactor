@@ -4,8 +4,11 @@ import BlockHeading from '../../../../../shared/generic/blockHeading/presentatio
 import Tickbox from '../../../../../shared/generic/form/presentational/Tickbox';
 import Select from '../../../../../shared/generic/form/presentational/Select';
 import { breakOptions, timeOptions } from 'constants/companyAdmin/options';
+import useBolsterPlus from 'components/companyAdmin/subscription/addOns/hooks/useBolsterPlus';
+import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 
 const WagesRegularHours = ({ form, handleDayChange, handleChange, days, timeDifference }) => {
+    const { isBolsterPlusActivated } = useBolsterPlus();
     return (
         <>
             <BlockHeading
@@ -25,13 +28,29 @@ const WagesRegularHours = ({ form, handleDayChange, handleChange, days, timeDiff
 
                 {days.map(day => (
                     <>
-                        <Tickbox
-                            label={day.charAt(0).toUpperCase() + day.slice(1)}
-                            name={day}
-                            handleChange={(name, value) => handleDayChange(name, value)}
-                            checked={form[day] !== null}
-                            value={form[day] !== null}
-                        />
+                        {isBolsterPlusActivated ? (
+                            <Tickbox
+                                label={day.charAt(0).toUpperCase() + day.slice(1)}
+                                name={day}
+                                handleChange={(name, value) => handleDayChange(name, value)}
+                                checked={form[day] !== null}
+                                value={form[day] !== null}
+                            />
+                        ) : (
+                            <TooltipContainer
+                                side="top"
+                                text="Setting Regular Hours is available for Bolster Plus users only."
+                            >
+                                <Tickbox
+                                    label={day.charAt(0).toUpperCase() + day.slice(1)}
+                                    name={day}
+                                    handleChange={(name, value) => handleDayChange(name, value)}
+                                    checked={form[day] !== null}
+                                    value={form[day] !== null}
+                                    disabled={true}
+                                />
+                            </TooltipContainer>
+                        )}
 
                         <p className={!form[day] ? 'disabled-opacity' : ''}>Between</p>
 

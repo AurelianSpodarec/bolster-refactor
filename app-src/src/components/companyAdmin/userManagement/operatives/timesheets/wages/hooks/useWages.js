@@ -78,7 +78,16 @@ const useWages = () => {
         if (selectedTab === TIMESHEETS_TABS.WAGES && !isBolsterPlusActivated) {
             dispatch(
                 showModal(BOLSTER_PLUS_UPGRADE_MODAL, {
-                    handleClose: () => dispatch(selectTab(TIMESHEETS_TABS.GENERAL_OVERVIEW)),
+                    handleClose: () => {
+                        dispatch(
+                            showModal(BOLSTER_PLUS_UPGRADE_MODAL, {
+                                handleSwitchTab: () =>
+                                    dispatch(selectTab(TIMESHEETS_TABS.GENERAL_OVERVIEW)),
+                                handleClose: () => {},
+                            }),
+                        );
+                    },
+                    handleSwitchTab: () => dispatch(selectTab(TIMESHEETS_TABS.GENERAL_OVERVIEW)),
                 }),
             );
         }
