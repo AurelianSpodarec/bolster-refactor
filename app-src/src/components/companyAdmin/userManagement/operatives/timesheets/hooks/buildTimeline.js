@@ -4,6 +4,7 @@ const buildTimeline = clockerEntries => {
     const timeline = [];
 
     let currBlock = { ...currBlockTemplate };
+
     for (const i in clockerEntries) {
         const entry = clockerEntries[i];
         const nextEntry = clockerEntries[parseInt(i) + 1];
@@ -18,7 +19,11 @@ const buildTimeline = clockerEntries => {
                     currBlock = { ...currBlockTemplate };
                 } else {
                     currBlock.clockIn = buildBlockEntry(entry, 'start');
-                    currBlock.clockOut = buildBlockEntry(entry, 'end');
+
+                    if (+i !== clockerEntries.length - 2) {
+                        // this skips the "clock out" of the entry pre-break
+                        currBlock.clockOut = buildBlockEntry(entry, 'end');
+                    }
 
                     if (nextEntry?.type === CLOCKER_ENTRY_TYPE.WORKING) {
                         timeline.push({ ...currBlock });
