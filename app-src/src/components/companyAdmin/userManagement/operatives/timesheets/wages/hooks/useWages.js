@@ -29,6 +29,8 @@ import {
 } from 'constants/shared/modalTypes';
 import { TIMESHEETS_TABS } from 'constants/shared/tabNames';
 import useWagesRegularHours from './useWagesRegularHours';
+import { selectSubscriptionsPostSuccess } from 'selectors/companyAdmin/subscriptions';
+import fetchAllSubscriptions from 'actions/companyAdmin/subscriptions/async/fetchAllSubscriptions';
 
 const useWages = () => {
     const dispatch = useDispatch();
@@ -50,6 +52,10 @@ const useWages = () => {
     const isPosting = useSelector(selectPayRatesIsPosting);
     const postSuccess = useSelector(selectPayRatesPostSuccess);
     const prevPostSuccess = usePrevious(postSuccess);
+    const subscriptionsPostSuccess = useSelector(selectSubscriptionsPostSuccess);
+    const prevData = usePrevious({
+        subscriptionsPostSuccess,
+    });
 
     const { isBolsterPlusActivated } = useBolsterPlus();
 
@@ -92,6 +98,13 @@ const useWages = () => {
             );
         }
     }, [dispatch, isBolsterPlusActivated, selectedTab]);
+
+    useEffect(() => {
+        if (subscriptionsPostSuccess && !prevData.subscriptionsPostSuccess) {
+            dispatch(fetchCompanyUsers);
+            dispatch(fetchAllSubscriptions());
+        }
+    }, [subscriptionsPostSuccess, prevData.subscriptionsPostSuccess]); // Re-fetch results data on buying subscriptions post success
 
     const companyPayRateOptions = useMemo(() => {
         if (isEmpty(companyPayRates)) return [];
