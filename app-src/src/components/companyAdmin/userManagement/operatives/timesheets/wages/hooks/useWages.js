@@ -113,7 +113,7 @@ const useWages = () => {
         } else {
             setSelectedPayRate(null);
         }
-    }, [selectedUserIDs, selectedPayRate]);
+    }, [selectedUserIDs]);
 
     function getUserNameByID(id) {
         const thisUser = companyUsers[id];
