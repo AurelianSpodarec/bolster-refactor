@@ -320,7 +320,16 @@ const useCostingAndEstimating = () => {
         ) {
             dispatch(
                 showModal(BOLSTER_PLUS_UPGRADE_MODAL, {
-                    handleClose: () => dispatch(selectTab(HIERARCHY_TABS.GENERAL_OVERVIEW)),
+                    handleClose: () => {
+                        dispatch(
+                            showModal(BOLSTER_PLUS_UPGRADE_MODAL, {
+                                handleSwitchTab: () =>
+                                    dispatch(selectTab(HIERARCHY_TABS.GENERAL_OVERVIEW)),
+                                handleClose: () => {},
+                            }),
+                        );
+                    },
+                    handleSwitchTab: () => dispatch(selectTab(HIERARCHY_TABS.GENERAL_OVERVIEW)),
                 }),
             );
         }

@@ -16,7 +16,7 @@ import LinkButton from '../../button/presentational/LinkButton';
 import FlexWrapper from '../../flexWrapper/FlexWrapper';
 
 // handleClose will be used for any extra actions that might be needed when closing the modal (e.g. change tab)
-const BolsterPlusUpgradeModal = ({ handleClose, hideModal }) => {
+const BolsterPlusUpgradeModal = ({ handleClose, hideModal, handleSwitchTab }) => {
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -49,6 +49,8 @@ const BolsterPlusUpgradeModal = ({ handleClose, hideModal }) => {
                                 } else {
                                     history.goBack();
                                 }
+
+                                if (handleSwitchTab) handleSwitchTab();
 
                                 hideModal();
                             }}

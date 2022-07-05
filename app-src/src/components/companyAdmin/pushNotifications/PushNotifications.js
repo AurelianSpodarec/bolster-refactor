@@ -14,7 +14,8 @@ import ActionButton from 'components/shared/generic/button/presentational/Action
 import PushNotificationListItem from './PushNotificationListItem';
 
 const PushNotifications = () => {
-    const { pushNotifications, isFetching, error } = useFetchPushNotifications();
+    const { pushNotifications, isFetching, error, isBolsterPlusActivated } =
+        useFetchPushNotifications();
     const { handleAddNotification, handleEditNotification, handleDeleteNotification } =
         usePushNotificationActions();
 
@@ -22,7 +23,7 @@ const PushNotifications = () => {
     useFetchCompanyUsers();
 
     return (
-        <>
+        <div className={`${!isBolsterPlusActivated ? 'blur' : ''}`}>
             <FlexHeading title="Push Notifications">
                 <ActionButton
                     text="Add new"
@@ -51,7 +52,7 @@ const PushNotifications = () => {
                         ))}
                 </Table>
             </BlockContainer>
-        </>
+        </div>
     );
 };
 
