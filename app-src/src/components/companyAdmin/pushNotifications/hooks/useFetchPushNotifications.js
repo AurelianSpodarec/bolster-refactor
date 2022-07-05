@@ -10,6 +10,9 @@ import {
 import useBolsterPlus from 'components/companyAdmin/subscription/addOns/hooks/useBolsterPlus';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import { BOLSTER_PLUS_UPGRADE_MODAL } from 'constants/shared/modalTypes';
+import { selectSubscriptionsPostSuccess } from 'selectors/companyAdmin/subscriptions';
+import { usePrevious } from 'helpers/hooks';
+import fetchAllSubscriptions from 'actions/companyAdmin/subscriptions/async/fetchAllSubscriptions';
 
 const useFetchPushNotifications = () => {
     const dispatch = useDispatch();
@@ -18,10 +21,21 @@ const useFetchPushNotifications = () => {
     const isFetching = useSelector(selectPushNotificationsIsFetching);
     const error = useSelector(selectPushNotificationsFetchError);
     const { isBolsterPlusActivated } = useBolsterPlus();
+    const subscriptionsPostSuccess = useSelector(selectSubscriptionsPostSuccess);
+    const prevData = usePrevious({
+        subscriptionsPostSuccess,
+    });
 
     useEffect(() => {
         dispatch(fetchPushNotifications());
     }, [dispatch]);
+
+    useEffect(() => {
+        if (subscriptionsPostSuccess && !prevData.subscriptionsPostSuccess) {
+            dispatch(fetchPushNotifications());
+            dispatch(fetchAllSubscriptions());
+        }
+    }, [subscriptionsPostSuccess, prevData.subscriptionsPostSuccess]); // Re-fetch results data on buying subscriptions post success
 
     useEffect(() => {
         if (!isBolsterPlusActivated) {
