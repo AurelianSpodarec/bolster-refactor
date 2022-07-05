@@ -24,7 +24,7 @@ const useFetchPushNotifications = () => {
     }, [dispatch]);
 
     useEffect(() => {
-        if (isBolsterPlusActivated) {
+        if (!isBolsterPlusActivated) {
             dispatch(
                 showModal(BOLSTER_PLUS_UPGRADE_MODAL, {
                     handleClose: () =>
