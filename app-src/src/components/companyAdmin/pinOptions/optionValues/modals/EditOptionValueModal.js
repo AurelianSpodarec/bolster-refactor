@@ -21,6 +21,7 @@ import TooltipContainer from 'components/shared/generic/tooltip/containers/Toolt
 import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
 import ClosingConfirmationModal from 'components/shared/generic/modals/presentational/ClosingConfirmationModal';
 import useIsAdminPlus from '../../../../../hooks/useIsAdminPlus';
+import useBolsterPlus from 'components/companyAdmin/subscription/addOns/hooks/useBolsterPlus';
 
 const EditOptionValueModal = ({ option }) => {
     const pinOptionType = useSelector(state => selectPinOptionType(state, option.pinOptionTypeID));
@@ -54,6 +55,7 @@ const EditOptionValueModal = ({ option }) => {
     const measurementTypeOutput = MEASUREMENT_TYPES_OUTPUTS_PLURAL[form.costMeasurementType];
 
     const isAdminPlus = useIsAdminPlus();
+    const { isBolsterPlusActivated } = useBolsterPlus();
 
     const MeasurementWrapper = ({ children }) => {
         if (canEditMeasurement) return <>{children}</>;
@@ -131,7 +133,7 @@ const EditOptionValueModal = ({ option }) => {
 
                                 {!!form.costMeasurementType && (
                                     <>
-                                        {!canEditMeasurement && (
+                                        {!canEditMeasurement && isBolsterPlusActivated ? (
                                             <Field name="Quick Price Edit (%)">
                                                 <NumberInputContainer
                                                     name="quickPriceEdit"
@@ -140,7 +142,23 @@ const EditOptionValueModal = ({ option }) => {
                                                     placeholder="Type percentage"
                                                 />
                                             </Field>
-                                        )}
+                                        ) : !isBolsterPlusActivated ? (
+                                            <Field name="Quick Price Edit (%)">
+                                                <TooltipContainer
+                                                    side="top"
+                                                    text="Quick Price Edit is available through Bolster Plus"
+                                                    extraContainerClasses="full"
+                                                >
+                                                    <NumberInputContainer
+                                                        name="quickPriceEdit"
+                                                        value={form.quickPriceEdit}
+                                                        handleChange={handleQuickPriceEditChange}
+                                                        placeholder="Type percentage"
+                                                        disabled={true}
+                                                    />
+                                                </TooltipContainer>
+                                            </Field>
+                                        ) : null}
 
                                         {measurementTypeOutput && (
                                             <Field classes="no-min-height">

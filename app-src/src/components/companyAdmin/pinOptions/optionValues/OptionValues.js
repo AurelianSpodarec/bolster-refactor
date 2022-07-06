@@ -17,6 +17,9 @@ import ButtonWrapper from 'components/shared/generic/button/presentational/Butto
 import ActionMenu from 'components/shared/actionMenu/ActionMenu';
 import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import useBolsterPlus from 'components/companyAdmin/subscription/addOns/hooks/useBolsterPlus';
+import showModal from 'actions/shared/generic/modals/sync/showModal';
+import { BOLSTER_PLUS_UPGRADE_MODAL } from 'constants/shared/modalTypes';
 
 const OptionValues = () => {
     const dispatch = useDispatch();
@@ -24,6 +27,7 @@ const OptionValues = () => {
     const { setID } = useParams();
     const parentSet = useSelector(state => selectPinOptionSet(state, setID));
     const { showQuickEditModal, showEditSetModal } = useOptionSetActions(parentSet);
+    const { isBolsterPlusActivated } = useBolsterPlus();
 
     useEffect(() => {
         if (!isEmpty(parentSet)) {
@@ -37,13 +41,34 @@ const OptionValues = () => {
         <>
             <FlexHeading title={name} withBackButton>
                 <ButtonWrapper alignment="right">
-                    <ActionButton
-                        text="Quick Price Edit"
-                        size="medium"
-                        ambient="positive"
-                        source="secondary"
-                        onClick={showQuickEditModal}
-                    />
+                    {isBolsterPlusActivated ? (
+                        <ActionButton
+                            text="Quick Price Edit"
+                            size="medium"
+                            ambient="positive"
+                            source="secondary"
+                            onClick={showQuickEditModal}
+                        />
+                    ) : (
+                        <ActionButton
+                            text="Quick Price Edit"
+                            size="medium"
+                            ambient="positive"
+                            source="secondary"
+                            onClick={() =>
+                                dispatch(
+                                    showModal(BOLSTER_PLUS_UPGRADE_MODAL, {
+                                        handleClose: () =>
+                                            dispatch(
+                                                showModal(BOLSTER_PLUS_UPGRADE_MODAL, {
+                                                    handleClose: () => {},
+                                                }),
+                                            ),
+                                    }),
+                                )
+                            }
+                        />
+                    )}
                     <ActionMenu disabled={false}>
                         <ActionMenuActionButton
                             text="Edit"
