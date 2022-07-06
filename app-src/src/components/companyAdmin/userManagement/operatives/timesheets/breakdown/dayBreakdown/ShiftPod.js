@@ -109,11 +109,7 @@ const ShiftPod = ({
                             onClick={() => setShiftToEdit(shift.id)}
                         />
                     ) : (
-                        <TooltipContainer
-                            text={`Edit is available for ${
-                                isAdminPlus ? 'Bolster' : 'Admin'
-                            } Plus users only.`}
-                        >
+                        <TooltipContainer text="Edit is available through Bolster Plus.">
                             <ActionButton
                                 size="small"
                                 source="secondary"
@@ -139,11 +135,7 @@ const ShiftPod = ({
                             />
                         </ActionMenu>
                     ) : (
-                        <TooltipContainer
-                            text={`Delete and Approve/Reject are available for ${
-                                isAdminPlus ? 'Bolster' : 'Admin'
-                            } Plus users only.`}
-                        >
+                        <TooltipContainer text="Delete and approve/reject is available through Bolster Plus.">
                             <ActionMenu size="small" disabled={true}>
                                 {status !== SHIFT_STATUS.APPROVED && (
                                     <ApproveShiftMenuButton shiftID={shift.id} />
