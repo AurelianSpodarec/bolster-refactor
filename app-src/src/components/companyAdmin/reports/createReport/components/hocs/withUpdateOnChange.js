@@ -7,7 +7,6 @@ import postCustomFilters from 'actions/companyAdmin/reports/async/postCustomFilt
 import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError';
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 import { convertArrToObj, isEmpty } from 'helpers/generic';
-import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
 import { FURTHER_FILTRATION_OPTIONS, HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 import getOperativeOptions from 'actions/companyAdmin/reports/async/getOperativeOptions';
 import getTemplateReportOptions from 'actions/companyAdmin/reports/async/getTemplateReportOptions';
@@ -261,6 +260,7 @@ export default function (ProtectedComponent) {
                     isQuestionFilterExact,
                     includeCostingData,
                     includeLabourCostingData,
+                    includeCostPerType,
                 },
                 furtherFiltrationOption,
                 excludedPinIDs,
@@ -320,6 +320,8 @@ export default function (ProtectedComponent) {
             const serviceIDs = serviceID
                 ? [+serviceID]
                 : customFilters.services.map(({ id }) => id);
+            const shouldIncludeCostPerType =
+                (includeCostingData || includeLabourCostingData) && includeCostPerType;
 
             const body = {
                 hierarchyType,
@@ -354,6 +356,7 @@ export default function (ProtectedComponent) {
                 isQuestionFilterExact,
                 includeCostingData,
                 includeLabourCostingData,
+                includeCostPerType: shouldIncludeCostPerType,
             };
             return body;
         };
@@ -495,7 +498,6 @@ export default function (ProtectedComponent) {
         postCustomFilters: postBody => dispatch(postCustomFilters(postBody)),
         addFieldError: (name, val) => dispatch(addFieldError(name, val)),
         removeFieldError: name => dispatch(removeFieldError(name)),
-        showFieldErrors: () => dispatch(showFieldErrors()),
         getOperativeOptions: postBody => dispatch(getOperativeOptions(postBody)),
         getTemplateOptions: postBody => dispatch(getTemplateReportOptions(postBody)),
         getServiceOptions: postBody => dispatch(getServiceReportOptions(postBody)),
