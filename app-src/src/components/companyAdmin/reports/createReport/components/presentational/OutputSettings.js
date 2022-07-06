@@ -88,43 +88,54 @@ const OutputSettings = ({
                                 </FlexWrapper>
                             </Field>
                             <>
-                                <div className="size-lg-12 ">
+                                <FlexWrapper direction="column">
                                     <BlockHeading title="Include:" />
-                                    {isPDFGeneration && (
-                                        <>
-                                            <Field sizeClasses="size-lg-3 size-md-12">
-                                                <Tickbox
-                                                    classes="large-text"
-                                                    checked={
-                                                        isPDFGeneration
-                                                            ? includePinLocation
-                                                            : isPDFGeneration
-                                                    }
-                                                    name="includePinLocation"
-                                                    handleChange={handleFilterChange}
-                                                    label="Pin Locations"
-                                                />
-                                            </Field>
-                                            <Field sizeClasses="size-lg-3 size-md-12">
-                                                <Tickbox
-                                                    classes="large-text"
-                                                    checked={
-                                                        isPDFGeneration
-                                                            ? includeFloorplan
-                                                            : isPDFGeneration
-                                                    }
-                                                    name="includeFloorplan"
-                                                    handleChange={handleFilterChange}
-                                                    label="Floorplan"
-                                                />
-                                            </Field>
-                                        </>
-                                    )}
+                                    <FlexWrapper direction="row">
+                                        {isPDFGeneration && (
+                                            <>
+                                                <Field sizeClasses="size-lg-3 size-md-12">
+                                                    <Tickbox
+                                                        classes="large-text"
+                                                        checked={
+                                                            isPDFGeneration
+                                                                ? includePinLocation
+                                                                : isPDFGeneration
+                                                        }
+                                                        name="includePinLocation"
+                                                        handleChange={handleFilterChange}
+                                                        label="Pin Locations"
+                                                    />
+                                                </Field>
+                                                <Field sizeClasses="size-lg-3 size-md-12">
+                                                    <Tickbox
+                                                        classes="large-text"
+                                                        checked={
+                                                            isPDFGeneration
+                                                                ? includeFloorplan
+                                                                : isPDFGeneration
+                                                        }
+                                                        name="includeFloorplan"
+                                                        handleChange={handleFilterChange}
+                                                        label="Floorplan"
+                                                    />
+                                                </Field>
+                                            </>
+                                        )}
+                                        <Field sizeClasses="size-lg-3 size-md-12">
+                                            <Tickbox
+                                                classes="large-text"
+                                                checked={showHidden}
+                                                name="showHidden"
+                                                handleChange={handleOptionChange}
+                                                label="Hidden"
+                                            />
+                                        </Field>
+                                    </FlexWrapper>
                                     {(isPDFGeneration || isCSVGeneration) &&
                                         (isBolsterPlusActivated ? (
                                             isAdminPlus && (
-                                                <>
-                                                    <Field sizeClasses="size-lg-3 size-md-12">
+                                                <FlexWrapper direction="row">
+                                                    <Field>
                                                         <Tickbox
                                                             classes="large-text"
                                                             checked={includeCostingData}
@@ -133,7 +144,7 @@ const OutputSettings = ({
                                                             label="Cost Per Pin"
                                                         />
                                                     </Field>
-                                                    <Field sizeClasses="size-lg-3 size-md-12">
+                                                    <Field>
                                                         <Tickbox
                                                             classes="large-text"
                                                             checked={includeLabourCostingData}
@@ -145,7 +156,7 @@ const OutputSettings = ({
 
                                                     {(includeCostingData ||
                                                         includeLabourCostingData) && (
-                                                        <Field sizeClasses="size-lg-3 size-md-12">
+                                                        <Field>
                                                             <Tickbox
                                                                 classes="large-text"
                                                                 checked={includeCostPerType}
@@ -155,62 +166,58 @@ const OutputSettings = ({
                                                             />
                                                         </Field>
                                                     )}
-                                                </>
+                                                </FlexWrapper>
                                             )
                                         ) : (
-                                            <Field sizeClasses="size-lg-3 size-md-12">
+                                            <FlexWrapper direction="row">
                                                 <TooltipContainer
                                                     side="top"
-                                                    text="Cost Per Pin option is available for Bolster Plus users only."
+                                                    text="Cost per pin is available through Bolster Plus."
                                                 >
-                                                    <Tickbox
-                                                        classes="large-text"
-                                                        checked={includeCostingData}
-                                                        name="includeCostingData"
-                                                        handleChange={handleFilterChange}
-                                                        label="Cost Per Pin"
-                                                        disabled={true}
-                                                    />
+                                                    <Field>
+                                                        <Tickbox
+                                                            classes="large-text"
+                                                            checked={includeCostingData}
+                                                            name="includeCostingData"
+                                                            handleChange={handleFilterChange}
+                                                            label="Cost Per Pin"
+                                                            disabled={true}
+                                                        />
+                                                    </Field>
                                                 </TooltipContainer>
                                                 <TooltipContainer
                                                     side="top"
-                                                    text="Labour Cost Per Pin option is available for Bolster Plus users only."
+                                                    text="Labour Cost per pin is available through Bolster Plus."
                                                 >
-                                                    <Tickbox
-                                                        classes="large-text"
-                                                        checked={includeLabourCostingData}
-                                                        name="includeLabourCostingData"
-                                                        handleChange={handleFilterChange}
-                                                        label="Labour Cost Per Pin"
-                                                        disabled={true}
-                                                    />
+                                                    <Field>
+                                                        <Tickbox
+                                                            classes="large-text"
+                                                            checked={includeLabourCostingData}
+                                                            name="includeLabourCostingData"
+                                                            handleChange={handleFilterChange}
+                                                            label="Labour Cost Per Pin"
+                                                            disabled={true}
+                                                        />
+                                                    </Field>
                                                 </TooltipContainer>
                                                 <TooltipContainer
                                                     side="top"
-                                                    text="Cost Per Installation Type is available for Bolster Plus users only."
+                                                    text="Cost Per Installation Type is available through Bolster Plus."
                                                 >
-                                                    <Tickbox
-                                                        classes="large-text"
-                                                        checked={includeCostPerType}
-                                                        name="includeCostPerType"
-                                                        handleChange={handleFilterChange}
-                                                        label="Cost Per Installation Type"
-                                                        disabled={true}
-                                                    />
+                                                    <Field>
+                                                        <Tickbox
+                                                            classes="large-text"
+                                                            checked={includeCostPerType}
+                                                            name="includeCostPerType"
+                                                            handleChange={handleFilterChange}
+                                                            label="Cost Per Installation Type"
+                                                            disabled={true}
+                                                        />
+                                                    </Field>
                                                 </TooltipContainer>
-                                            </Field>
+                                            </FlexWrapper>
                                         ))}
-
-                                    <Field sizeClasses="size-lg-3 size-md-12">
-                                        <Tickbox
-                                            classes="large-text"
-                                            checked={showHidden}
-                                            name="showHidden"
-                                            handleChange={handleOptionChange}
-                                            label="Hidden"
-                                        />
-                                    </Field>
-                                </div>
+                                </FlexWrapper>
                             </>
                             {hasZones &&
                                 ((isPDFGeneration && includeFloorplan) ||
