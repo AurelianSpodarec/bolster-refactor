@@ -12,6 +12,8 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import Table from 'components/shared/generic/tables/presentational/Table';
 import StickyComponent from 'components/shared/sticky/StickyComponent';
 import useIsAdminPlus from '../../../../../../../hooks/useIsAdminPlus';
+import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
+import WarningIcon from '../../../../../../../_content/images/icons/Triangle_Warning.svg';
 
 const ApprovedHoursBreakdown = ({ dailyHoursBreakdown, selectedDate }) => {
     const currency = useSelector(selectCompanyCurrency);
@@ -72,6 +74,18 @@ const ApprovedHoursBreakdown = ({ dailyHoursBreakdown, selectedDate }) => {
                                     {currencySymbol}
                                     {formatCurrency(thisDay.totalWageSplit) || '0.00'}
                                 </td>
+                            )}
+                            {thisDay.edited && (
+                                <TooltipContainer
+                                    side="left"
+                                    text="Total hours/wage data has been edited."
+                                >
+                                    <img
+                                        alt="Warning Icon"
+                                        src={WarningIcon}
+                                        style={{ top: '5px' }}
+                                    />
+                                </TooltipContainer>
                             )}
                         </tr>
                         {isAdminPlus && (

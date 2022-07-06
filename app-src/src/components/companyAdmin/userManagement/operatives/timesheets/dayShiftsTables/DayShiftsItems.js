@@ -14,6 +14,7 @@ import useBolsterPlus from 'components/companyAdmin/subscription/addOns/hooks/us
 import ApproveShiftMenuButton from '../breakdown/dayBreakdown/ApproveShiftMenuButton';
 import RejectShiftMenuButton from '../breakdown/dayBreakdown/RejectShiftMenuButton';
 import useDeleteShift from '../breakdown/hooks/useDeleteShift';
+import WarningIcon from '../../../../../../_content/images/icons/Triangle_Warning.svg';
 
 const DayShiftsItems = ({ shiftsForDay, onDaySelect }) => {
     const currency = useSelector(selectCompanyCurrency);
@@ -46,6 +47,8 @@ const DayShiftsItems = ({ shiftsForDay, onDaySelect }) => {
                     lateClockOut,
                     id,
                     status,
+                    isShiftTimeOverridden,
+                    isWageOverridden,
                 } = shift;
 
                 const jobReferences = hoursBreakdown.jobReferenceBreakdowns
@@ -55,16 +58,46 @@ const DayShiftsItems = ({ shiftsForDay, onDaySelect }) => {
                 return (
                     <tr key={`${i}-${companyUserID}`}>
                         <td>{username}</td>
-                        <td>{formatAsHrsMins(formattedClockedInHours)}</td>
+                        <td>
+                            {formatAsHrsMins(formattedClockedInHours)}
+                            {isShiftTimeOverridden && (
+                                <TooltipContainer
+                                    side="right"
+                                    text="Total hours data has been edited."
+                                >
+                                    <img
+                                        alt="Warning Icon"
+                                        src={WarningIcon}
+                                        style={{ top: '5px' }}
+                                    />
+                                </TooltipContainer>
+                            )}
+                        </td>
                         <td>
                             {currencySymbol}
                             {wage ? formatCurrency(wage) : '0.00'}
+                            {isWageOverridden && (
+                                <TooltipContainer
+                                    side="right"
+                                    text="Total wage data has been edited."
+                                >
+                                    <img
+                                        alt="Warning Icon"
+                                        src={WarningIcon}
+                                        style={{ top: '5px' }}
+                                    />
+                                </TooltipContainer>
+                            )}
                         </td>
                         <td>
                             {moment(startOn).format('HH:mm')}
                             {lateClockIn && (
                                 <TooltipContainer side="right" text="Operative started shift late.">
-                                    <i className="fa fa-exclamation-triangle timesheet-warning" />
+                                    <img
+                                        alt="Warning Icon"
+                                        src={WarningIcon}
+                                        style={{ top: '5px' }}
+                                    />
                                 </TooltipContainer>
                             )}
                         </td>
@@ -72,7 +105,11 @@ const DayShiftsItems = ({ shiftsForDay, onDaySelect }) => {
                             {endOn ? moment(endOn).format('HH:mm') : 'N/A'}
                             {lateClockOut && (
                                 <TooltipContainer side="right" text="Operative ended shift late.">
-                                    <i className="fa fa-exclamation-triangle timesheet-warning" />
+                                    <img
+                                        alt="Warning Icon"
+                                        src={WarningIcon}
+                                        style={{ top: '5px' }}
+                                    />
                                 </TooltipContainer>
                             )}
                         </td>
@@ -110,7 +147,10 @@ const DayShiftsItems = ({ shiftsForDay, onDaySelect }) => {
                                         />
                                     </ActionMenu>
                                 ) : (
-                                    <TooltipContainer text="Delete and Approve/Reject are available for Bolster Plus users only.">
+                                    <TooltipContainer
+                                        side="left"
+                                        text="Delete and approve/reject is available through Bolster Plus."
+                                    >
                                         <ActionMenu size="small" disabled={true}>
                                             {status !== SHIFT_STATUS.APPROVED && (
                                                 <ApproveShiftMenuButton shiftID={shift.id} />
