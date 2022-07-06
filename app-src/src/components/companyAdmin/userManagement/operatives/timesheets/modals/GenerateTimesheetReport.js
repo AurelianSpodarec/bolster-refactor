@@ -1,11 +1,9 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { DateRangePicker } from 'react-date-range';
-import { createStaticRanges, defaultStaticRanges } from 'react-date-range/src/defaultRanges';
 import moment from 'moment';
+import { DateRangePicker } from 'react-date-range';
 
+import { createStaticRanges, defaultStaticRanges } from 'react-date-range/src/defaultRanges';
 import useGenerateTimesheetReport from '../hooks/useGenerateTimesheetReport';
-
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 import Field from 'components/shared/generic/form/presentational/Field';
@@ -13,20 +11,12 @@ import Tickbox from 'components/shared/generic/form/presentational/Tickbox';
 import Form from 'components/shared/generic/form/containers/Form';
 import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
-import useBolsterPlus from 'components/companyAdmin/subscription/addOns/hooks/useBolsterPlus';
-import showModal from 'actions/shared/generic/modals/sync/showModal';
-import { BOLSTER_PLUS_UPGRADE_MODAL } from 'constants/shared/modalTypes';
-import selectTab from 'actions/shared/generic/tabs/sync/selectTab';
-import { TIMESHEETS_TABS } from 'constants/shared/tabNames';
-
 import useIsAdminPlus from '../../../../../../hooks/useIsAdminPlus';
 import Select from 'components/shared/generic/form/presentational/Select';
 
 const GenerateTimesheetReportModal = ({ fromDateInclusive, toDateInclusive }) => {
-    const dispatch = useDispatch();
     const { formData, handleChange, handleSubmit, isPosting, postError, shiftStatusOptions } =
         useGenerateTimesheetReport(fromDateInclusive, toDateInclusive);
-    const { isBolsterPlusActivated } = useBolsterPlus();
 
     const isAdminPlus = useIsAdminPlus();
     const {
@@ -146,37 +136,16 @@ const GenerateTimesheetReportModal = ({ fromDateInclusive, toDateInclusive }) =>
                         </Field>
                     </div>
                 </div>
-                {isBolsterPlusActivated ? (
-                    <ButtonWrapper alignment="right" extraClasses="flex-modal-footer">
-                        <ActionButton
-                            text="Generate Report"
-                            size="medium"
-                            icon={isPosting ? 'spinner' : 'file-csv'}
-                            iconSpin={isPosting}
-                            type="submit"
-                        />
-                    </ButtonWrapper>
-                ) : (
-                    <ButtonWrapper alignment="right" extraClasses="flex-modal-footer">
-                        <ActionButton
-                            text="Generate Report"
-                            size="medium"
-                            icon="file-csv"
-                            onClick={() =>
-                                dispatch(
-                                    showModal(BOLSTER_PLUS_UPGRADE_MODAL, {
-                                        handleClose: () =>
-                                            dispatch(
-                                                showModal(BOLSTER_PLUS_UPGRADE_MODAL, {
-                                                    handleClose: () => {},
-                                                }),
-                                            ),
-                                    }),
-                                )
-                            }
-                        />
-                    </ButtonWrapper>
-                )}
+
+                <ButtonWrapper alignment="right" extraClasses="flex-modal-footer">
+                    <ActionButton
+                        text="Generate Report"
+                        size="medium"
+                        icon={isPosting ? 'spinner' : 'file-csv'}
+                        iconSpin={isPosting}
+                        type="submit"
+                    />
+                </ButtonWrapper>
             </Form>
         </FlexModalOuter>
     );
