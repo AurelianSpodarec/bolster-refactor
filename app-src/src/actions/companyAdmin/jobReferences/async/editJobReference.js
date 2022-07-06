@@ -7,7 +7,7 @@ import {
 } from 'constants/actionTypes/jobReferences';
 
 import { API_URL } from 'config';
-import { getHeaders } from 'helpers/api';
+import { getHeaders, handleErrors } from 'helpers/api';
 
 export const editJobReferenceRequest = () => ({
     type: EDIT_JOB_REFERENCE_REQUEST,
@@ -29,5 +29,5 @@ export default (id, postBody) => dispatch => {
     return axios
         .patch(`${API_URL}/jobreference/${id}`, postBody, getHeaders())
         .then(res => dispatch(editJobReferenceSuccess(res.data)))
-        .catch(err => dispatch(editJobReferenceFailure(err.message)));
+        .catch(err => dispatch(handleErrors(editJobReferenceFailure)(err)));
 };

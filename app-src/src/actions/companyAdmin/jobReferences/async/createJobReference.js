@@ -7,7 +7,7 @@ import {
 } from 'constants/actionTypes/jobReferences';
 
 import { API_URL } from 'config';
-import { getHeaders } from 'helpers/api';
+import { getHeaders, handleErrors } from 'helpers/api';
 
 export const createJobReferenceRequest = () => ({
     type: CREATE_JOB_REFERENCE_REQUEST,
@@ -29,5 +29,5 @@ export default postBody => dispatch => {
     return axios
         .post(`${API_URL}/jobreference`, postBody, getHeaders())
         .then(res => dispatch(createJobReferenceSuccess(res.data)))
-        .catch(err => dispatch(createJobReferenceFailure(err.message)));
+        .catch(err => dispatch(handleErrors(createJobReferenceFailure)(err)));
 };
