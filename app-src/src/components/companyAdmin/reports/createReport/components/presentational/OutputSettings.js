@@ -35,6 +35,7 @@ const OutputSettings = ({
     hasZones = false,
     includeCostingData,
     includeLabourCostingData,
+    includeCostPerType,
 }) => {
     const { isBolsterPlusActivated } = useBolsterPlus();
     const isAdminPlus = useIsAdminPlus();
@@ -141,6 +142,19 @@ const OutputSettings = ({
                                                             label="Labour Cost Per Pin"
                                                         />
                                                     </Field>
+
+                                                    {(includeCostingData ||
+                                                        includeLabourCostingData) && (
+                                                        <Field sizeClasses="size-lg-3 size-md-12">
+                                                            <Tickbox
+                                                                classes="large-text"
+                                                                checked={includeCostPerType}
+                                                                name="includeCostPerType"
+                                                                handleChange={handleFilterChange}
+                                                                label="Cost Per Installation Type"
+                                                            />
+                                                        </Field>
+                                                    )}
                                                 </>
                                             )
                                         ) : (
@@ -168,6 +182,19 @@ const OutputSettings = ({
                                                         name="includeLabourCostingData"
                                                         handleChange={handleFilterChange}
                                                         label="Labour Cost Per Pin"
+                                                        disabled={true}
+                                                    />
+                                                </TooltipContainer>
+                                                <TooltipContainer
+                                                    side="top"
+                                                    text="Cost Per Installation Type is available for Bolster Plus users only."
+                                                >
+                                                    <Tickbox
+                                                        classes="large-text"
+                                                        checked={includeCostPerType}
+                                                        name="includeCostPerType"
+                                                        handleChange={handleFilterChange}
+                                                        label="Cost Per Installation Type"
                                                         disabled={true}
                                                     />
                                                 </TooltipContainer>
