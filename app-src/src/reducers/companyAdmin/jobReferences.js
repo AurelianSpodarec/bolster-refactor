@@ -18,7 +18,7 @@ import {
     DISABLE_JOB_REFERENCE_SUCCESS,
     DISABLE_JOB_REFERENCE_FAILURE,
 } from 'constants/actionTypes/jobReferences';
-import { SHOW_FIELD_ERRORS } from '../../constants/actionTypes/generic';
+import { SET_API_FIELD_ERRORS, SHOW_FIELD_ERRORS } from '../../constants/actionTypes/generic';
 
 export default combineReducers({
     jobReferences: jobReferencesReducer,
@@ -67,7 +67,7 @@ function isPostingReducer(state = false, action) {
         case ENABLE_JOB_REFERENCE_FAILURE:
         case DISABLE_JOB_REFERENCE_SUCCESS:
         case DISABLE_JOB_REFERENCE_FAILURE:
-        case SHOW_FIELD_ERRORS:
+        case SET_API_FIELD_ERRORS:
             return false;
         default:
             return state;
