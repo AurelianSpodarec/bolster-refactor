@@ -11,6 +11,8 @@ import CurrencyInput from 'components/shared/generic/form/presentational/Currenc
 import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import useIsAdminPlus from '../../../../../../../hooks/useIsAdminPlus';
+import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
+import WarningIcon from '../../../../../../../_content/images/icons/Triangle_Warning.svg';
 
 const HoursWorkedList = ({
     shiftID,
@@ -49,7 +51,7 @@ const HoursWorkedList = ({
                                         )
                                     }
                                 />
-                            </FlexWrapper>{' '}
+                            </FlexWrapper>
                         </td>
                         <td>{formatAsHrsMins(hoursWorked)}</td>
                         {isAdminPlus && (
@@ -76,7 +78,12 @@ const HoursWorkedList = ({
                             clearIcon={null}
                         />
                     ) : overrideShiftTime ? (
-                        overrideShiftTime.split(':').slice(0, 2).join(':')
+                        <FlexWrapper align="center">
+                            {overrideShiftTime.split(':').slice(0, 2).join(':')}
+                            <TooltipContainer side="right" text="Total hours data has been edited.">
+                                <img alt="Warning Icon" src={WarningIcon} />
+                            </TooltipContainer>
+                        </FlexWrapper>
                     ) : (
                         formatAsHrsMins(jobReferencesTotalHours)
                     )}
@@ -90,7 +97,18 @@ const HoursWorkedList = ({
                                 onChange={handleChange}
                             />
                         ) : overrideWage !== null ? (
-                            `${currencySymbol}${formatCurrency(overrideWage)}`
+                            <FlexWrapper align="center">
+                                {currencySymbol}
+                                <>
+                                    {formatCurrency(overrideWage)}
+                                    <TooltipContainer
+                                        side="right"
+                                        text="Total wage data has been edited."
+                                    >
+                                        <img alt="Warning Icon" src={WarningIcon} />
+                                    </TooltipContainer>
+                                </>
+                            </FlexWrapper>
                         ) : (
                             `${currencySymbol}${
                                 jobReferencesTotalCost
