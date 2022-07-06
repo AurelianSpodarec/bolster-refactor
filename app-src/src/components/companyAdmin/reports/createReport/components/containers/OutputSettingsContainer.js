@@ -37,6 +37,7 @@ class OutputSettingsContainer extends Component {
                 includeFloorplanZones,
                 includeCostingData,
                 includeLabourCostingData,
+                includeCostPerType,
             },
             options: { showHidden, sortBy },
             furtherFiltrationOption,
@@ -66,6 +67,7 @@ class OutputSettingsContainer extends Component {
                     hasZones={hasZones}
                     includeCostingData={includeCostingData}
                     includeLabourCostingData={includeLabourCostingData}
+                    includeCostPerType={includeCostPerType}
                 />
                 <CreateReportReloadOptions />
             </>
