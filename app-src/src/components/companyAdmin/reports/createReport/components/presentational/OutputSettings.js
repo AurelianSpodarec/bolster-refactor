@@ -40,7 +40,7 @@ const OutputSettings = ({
     const { isBolsterPlusActivated } = useBolsterPlus();
     const isAdminPlus = useIsAdminPlus();
     const errSuffix = `is available ${
-        !isBolsterPlusActivated ? 'through Bolster Plus' : isAdminPlus ? 'to Admin Plus users' : ''
+        !isBolsterPlusActivated ? 'through Bolster Plus' : !isAdminPlus ? 'to Admin Plus users' : ''
     }`;
     return (
         <div className="size-lg-12">
