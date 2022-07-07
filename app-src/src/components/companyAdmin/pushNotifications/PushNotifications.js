@@ -12,12 +12,15 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import FlexHeading from 'components/shared/generic/pageHeading/presentational/FlexHeading';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import PushNotificationListItem from './PushNotificationListItem';
+import useIsAdminPlus from '../../../hooks/useIsAdminPlus';
+import TooltipContainer from '../../shared/generic/tooltip/containers/TooltipContainer';
 
 const PushNotifications = () => {
     const { pushNotifications, isFetching, error, isBolsterPlusActivated } =
         useFetchPushNotifications();
     const { handleAddNotification, handleEditNotification, handleDeleteNotification } =
         usePushNotificationActions();
+    const isAdminPlus = useIsAdminPlus();
 
     useFetchSites();
     useFetchCompanyUsers();
@@ -25,12 +28,19 @@ const PushNotifications = () => {
     return (
         <div className={`${!isBolsterPlusActivated ? 'blur' : ''}`}>
             <FlexHeading title="Push Notifications">
-                <ActionButton
-                    text="Add new"
-                    icon="plus"
-                    size="medium"
-                    onClick={handleAddNotification}
-                />
+                <TooltipContainer
+                    shouldOutput={!isAdminPlus}
+                    text="Push Notifications are only available to Admin Plus users"
+                    side="left"
+                >
+                    <ActionButton
+                        text="Add new"
+                        icon="plus"
+                        size="medium"
+                        onClick={handleAddNotification}
+                        disabled={!isAdminPlus}
+                    />
+                </TooltipContainer>
             </FlexHeading>
             <BlockContainer>
                 <Table
@@ -48,6 +58,7 @@ const PushNotifications = () => {
                                 notification={notification}
                                 handleEditNotification={handleEditNotification}
                                 handleDeleteNotification={handleDeleteNotification}
+                                isAdminPlus={isAdminPlus}
                             />
                         ))}
                 </Table>

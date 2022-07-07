@@ -11,12 +11,14 @@ import ActionMenu from 'components/shared/actionMenu/ActionMenu';
 import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import TooltipContainer from '../../shared/generic/tooltip/containers/TooltipContainer';
 
 const PushNotificationListItem = ({
     notification,
     notification: { title, message, frequency, recurrenceDays, date, lastSentOn },
     handleEditNotification,
     handleDeleteNotification,
+    isAdminPlus,
 }) => (
     <tr>
         <td>{title}</td>
@@ -36,15 +38,23 @@ const PushNotificationListItem = ({
         <td>
             <ButtonWrapper alignment="right">
                 <ActionMenu>
-                    <ActionMenuActionButton
-                        text="Edit"
-                        onClick={() => handleEditNotification(notification)}
-                    />
-                    <ActionMenuActionButton
-                        text="Delete"
-                        onClick={() => handleDeleteNotification(notification)}
-                        isNegative
-                    />
+                    <TooltipContainer
+                        shouldOutput={!isAdminPlus}
+                        text="Push Notifications are only available to Admin Plus users"
+                        side="left"
+                    >
+                        <ActionMenuActionButton
+                            text="Edit"
+                            onClick={() => handleEditNotification(notification)}
+                            disabled={!isAdminPlus}
+                        />
+                        <ActionMenuActionButton
+                            text="Delete"
+                            onClick={() => handleDeleteNotification(notification)}
+                            disabled={!isAdminPlus}
+                            isNegative
+                        />
+                    </TooltipContainer>
                 </ActionMenu>
             </ButtonWrapper>
         </td>
