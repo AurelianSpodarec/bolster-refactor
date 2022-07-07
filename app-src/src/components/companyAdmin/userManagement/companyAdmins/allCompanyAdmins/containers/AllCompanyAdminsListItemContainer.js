@@ -8,13 +8,16 @@ import {
     RESTRICT_ADMIN_PAYMENTS,
     DISABLE_USER,
     ENABLE_USER,
+    CONFIRM_SUBMIT,
 } from 'constants/shared/modalTypes';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 import AllCompanyAdminsListItem from '../presentational/AllCompanyAdminsListItem';
+import { COMPANY_USER_ROLE_TYPES } from '../../../../../../constants/companyAdmin/enums';
+import editCompanyUserType from '../../../../../../actions/companyAdmin/userManagement/async/editCompanyUserType';
 
-const AllCompanyAdminsListItemContainer = ({ user, headers }) => {
+const AllCompanyAdminsListItemContainer = ({ user, headers, isAdminPlus, isBolsterPlus }) => {
     const { loggedInUser, onMobile, disabledUsers, maxDrawingsPerOperative } =
         useSelector(mapStateToProps);
 
@@ -22,6 +25,8 @@ const AllCompanyAdminsListItemContainer = ({ user, headers }) => {
 
     const drawingLimitColour = getCompanyAdminDrawingLimitColour(user.drawingCount);
     const drawingLimitMaxed = user.drawingCount >= maxDrawingsPerOperative;
+    const canSetAdminPlusUsers =
+        isAdminPlus && isBolsterPlus && user.type !== COMPANY_USER_ROLE_TYPES.OWNER;
 
     return (
         <AllCompanyAdminsListItem
@@ -42,6 +47,9 @@ const AllCompanyAdminsListItemContainer = ({ user, headers }) => {
             drawingLimitColour={drawingLimitColour}
             drawingLimitMaxed={drawingLimitMaxed}
             maxDrawingsPerOperative={maxDrawingsPerOperative}
+            isAdminPlus={isAdminPlus}
+            canSetAdminPlusUsers={canSetAdminPlusUsers}
+            showSetAdminPlusModal={showSetAdminPlusModal}
         />
     );
 
@@ -90,6 +98,23 @@ const AllCompanyAdminsListItemContainer = ({ user, headers }) => {
 
     function showEnableUserModal() {
         dispatch(showModal(ENABLE_USER, { user }));
+    }
+
+    function showSetAdminPlusModal() {
+        const { type, id } = user;
+        const isUserAdminPlus = type === COMPANY_USER_ROLE_TYPES.ADMIN_PLUS;
+        const handleSubmit = () => {
+            dispatch(editCompanyUserType(id, { type: isUserAdminPlus ? 'Admin' : 'AdminPlus' }));
+        };
+        dispatch(
+            showModal(CONFIRM_SUBMIT, {
+                hideModal: () => dispatch(hideModal()),
+                handleSubmit,
+                message: `Are you sure you want to ${isUserAdminPlus ? 'remove' : 'add'} ${
+                    user.userFirstName
+                } ${user.userLastName} as an admin plus user?`,
+            }),
+        );
     }
 
     function getCompanyAdminDrawingLimitColour(numberOfAttachedDrawings) {

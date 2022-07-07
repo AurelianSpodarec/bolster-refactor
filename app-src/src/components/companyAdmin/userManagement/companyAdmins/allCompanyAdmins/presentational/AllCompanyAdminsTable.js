@@ -5,7 +5,15 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import ActionButton from '../../../../../shared/generic/button/presentational/ActionButton';
 import AllCompanyAdminsListItemContainer from '../containers/AllCompanyAdminsListItemContainer';
 
-const AllCompanyAdminsTable = ({ headers, users, isFetching, error, handleShowModal }) => {
+const AllCompanyAdminsTable = ({
+    headers,
+    users,
+    isFetching,
+    error,
+    handleShowModal,
+    isAdminPlus,
+    isBolsterPlus,
+}) => {
     return (
         <>
             <BlockHeading title="Active Admins">
@@ -31,6 +39,8 @@ const AllCompanyAdminsTable = ({ headers, users, isFetching, error, handleShowMo
                         key={user.id}
                         user={user}
                         headers={headers}
+                        isAdminPlus={isAdminPlus}
+                        isBolsterPlus={isBolsterPlus}
                     />
                 ))}
             </Table>

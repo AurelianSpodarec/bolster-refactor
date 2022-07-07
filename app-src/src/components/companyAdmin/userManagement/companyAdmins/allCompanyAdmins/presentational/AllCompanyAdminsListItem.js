@@ -29,6 +29,8 @@ const AllCompanyAdminsListItem = ({
     drawingLimitColour,
     drawingLimitMaxed,
     maxDrawingsPerOperative,
+    showSetAdminPlusModal,
+    canSetAdminPlusUsers,
 }) => {
     const history = useHistory();
 
@@ -147,11 +149,13 @@ const AllCompanyAdminsListItem = ({
                         isDisabled={isDisabled}
                         showUnlinkModal={showUnlinkModal}
                         loggedInUser={loggedInUser}
+                        canSetAdminPlusUsers={canSetAdminPlusUsers}
                         showRestrictUserPaymentsModal={showRestrictUserPaymentsModal}
                         showRevokeAdminAccessModal={showRevokeAdminAccessModal}
                         showEnableModal={showEnableModal}
                         showDisableModal={showDisableModal}
                         showDeleteModal={showDeleteModal}
+                        showSetAdminPlusModal={showSetAdminPlusModal}
                     />
                 </ButtonWrapper>
             </td>

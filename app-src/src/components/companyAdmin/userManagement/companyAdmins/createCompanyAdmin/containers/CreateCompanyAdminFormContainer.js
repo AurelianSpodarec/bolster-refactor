@@ -10,11 +10,15 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { ERROR_MODAL, SUCCESS_MODAL } from 'constants/shared/modalTypes';
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
+import useBolsterPlus from '../../../../subscription/addOns/hooks/useBolsterPlus';
+import useIsAdminPlus from '../../../../../../hooks/useIsAdminPlus';
 
 const CreateCompanyAdminFormContainer = () => {
     const dispatch = useDispatch();
     const { isPosting, postSuccess, error, companyUserID, users } = useSelector(mapStateToProps);
     const prevProps = usePrevious({ postSuccess, error, users });
+    const { isBolsterPlusActivated } = useBolsterPlus();
+    const isAdminPlus = useIsAdminPlus();
 
     const curUser = users && users[companyUserID] ? users[companyUserID] : {};
 
@@ -66,12 +70,10 @@ const CreateCompanyAdminFormContainer = () => {
         }
     }, [postSuccess, error, users]);
 
-    const canSetAdminPlus = curUser.type && curUser.type >= COMPANY_USER_ROLE_TYPES.ADMIN_PLUS;
-
     return (
         <CreateCompanyAdminForm
             {...state}
-            canSetAdminPlus={canSetAdminPlus}
+            canSetAdminPlus={isAdminPlus && isBolsterPlusActivated}
             hideModal={() => dispatch(hideModal())}
             handleInputChange={handleInputChange}
             handleSubmit={handleSubmit}
@@ -89,9 +91,10 @@ const CreateCompanyAdminFormContainer = () => {
         const { confirmPassword, shouldRestrictPaymentsAccess, shouldHaveAdminPlus, ...rest } =
             state;
 
+        const shouldHaveAdminPlusValue = isBolsterPlusActivated && shouldHaveAdminPlus;
         const postBody = {
             ...rest,
-            type: shouldHaveAdminPlus
+            type: shouldHaveAdminPlusValue
                 ? COMPANY_USER_ROLE_TYPES.ADMIN_PLUS
                 : COMPANY_USER_ROLE_TYPES.ADMIN,
         };
