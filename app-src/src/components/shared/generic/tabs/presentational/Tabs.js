@@ -5,7 +5,14 @@ import CompanyAdminIcon from '_content/images/icons/nav/CompanyAdmin.svg';
 import ClientAccessIcon from '_content/images/icons/nav/ClientAccess.svg';
 import TooltipContainer from '../../tooltip/containers/TooltipContainer';
 
-const Tabs = ({ tabs, selectedTab, selectTab, classes = '', isAdminPlus, isBolsterPlus }) => {
+const Tabs = ({
+    tabs,
+    selectedTab,
+    selectTab,
+    classes = '',
+    isAdminPlus = false,
+    isBolsterPlus = false,
+}) => {
     return (
         <div className={`tab-container ${classes}`}>
             {tabs.map(tab => {
