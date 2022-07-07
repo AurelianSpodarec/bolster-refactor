@@ -113,27 +113,34 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                             />
                         </Field>
 
-                        {pinOptionType.hasCosting && isAdminPlus && (
+                        {pinOptionType.hasCosting && (
                             <>
-                                <Field name="Unit of Measurement">
-                                    <DropdownContainer
-                                        name="measurementType"
-                                        options={Object.values(measurementDropdownOptions)}
-                                        selectedOption={
-                                            measurementDropdownOptions[form.measurementType]
-                                        }
-                                        handleChange={handleChange}
-                                    />
-                                </Field>
-                                {!!form.measurementType && (
-                                    <>
-                                        {measurementTypeOutput && (
-                                            <Field classes="no-min-height">
-                                                <p className="generic-text size-lg-12">
-                                                    {`Please enter your measurement breakpoints in ${measurementTypeOutput}.`}
-                                                </p>
-                                            </Field>
-                                        )}
+                                <TooltipContainer
+                                    shouldOutput={!isAdminPlus}
+                                    text="Measurements are available for Admin Plus users only"
+                                    side="top"
+                                    containerSide="left"
+                                >
+                                    <Field name="Unit of Measurement">
+                                        <DropdownContainer
+                                            name="measurementType"
+                                            options={Object.values(measurementDropdownOptions)}
+                                            selectedOption={
+                                                measurementDropdownOptions[form.measurementType]
+                                            }
+                                            handleChange={handleChange}
+                                            disabled={!isAdminPlus}
+                                        />
+                                    </Field>
+                                    {!!form.measurementType && (
+                                        <>
+                                            {measurementTypeOutput && (
+                                                <Field classes="no-min-height">
+                                                    <p className="generic-text size-lg-12">
+                                                        {`Please enter your measurement breakpoints in ${measurementTypeOutput}.`}
+                                                    </p>
+                                                </Field>
+                                            )}
 
                                         <div className="measurement-fields-grid">
                                             <>
@@ -143,9 +150,10 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                                                 <Field name="" />
                                             </>
 
-                                            {form.measurementPriceBreaks.map(
-                                                (priceBreak, index) => {
-                                                    const isLast = index === priceBreaksLength - 1;
+                                                {form.measurementPriceBreaks.map(
+                                                    (priceBreak, index) => {
+                                                        const isLast =
+                                                            index === priceBreaksLength - 1;
 
                                                     return (
                                                         <React.Fragment key={index}>
@@ -188,19 +196,16 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                                                                             handleChange={(
                                                                                 _,
                                                                                 value,
-                                                                            ) => {
-                                                                                handlePriceBreakChange(
-                                                                                    index,
-                                                                                    'cost',
-                                                                                    value,
-                                                                                );
-                                                                                setError(null);
-                                                                            }}
-                                                                            disableMouseWheelControl
-                                                                            disableUpDownArrowControl
-                                                                        />
-                                                                    </Field>
+                                                                            );
+                                                                            setError(null);
+                                                                        }}
+                                                                        disableMouseWheelControl
+                                                                        disableUpDownArrowControl
+                                                                        disabled={!isAdminPlus}
+                                                                    />
+                                                                </Field>
 
+                                                                            disabled={!isAdminPlus}
                                                                     <Field>
                                                                         <NumberInputContainer
                                                                             name={`measurementPriceBreaks[${index}].labourCost`}
@@ -342,7 +347,9 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                                                                                 }}
                                                                                 disableMouseWheelControl
                                                                                 disableUpDownArrowControl
-                                                                                disabled={true}
+                                                                                disabled={
+                                                                                    !isBolsterPlusActivated
+                                                                                }
                                                                             />
                                                                         </Field>
                                                                     </TooltipContainer>
@@ -368,17 +375,9 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                                                     );
                                                 },
                                             )}
-                                        </div>
-
-                                        {error && (
-                                            <Field classes="no-min-height">
-                                                <p className="error red-text text-accent-4">
-                                                    {error}
-                                                </p>
-                                            </Field>
-                                        )}
-                                    </>
-                                )}
+                                        </>
+                                    )}
+                                </TooltipContainer>
                             </>
                         )}
                     </div>
