@@ -9,7 +9,7 @@ const Tabs = ({ tabs, selectedTab, selectTab, classes = '', isAdminPlus, isBolst
     return (
         <div className={`tab-container ${classes}`}>
             {tabs.map(tab => {
-                const restrictedTabs = ['costing', 'estimating'];
+                const restrictedTabs = ['costing', 'estimating', 'wages'];
                 const shouldRestrict =
                     isBolsterPlus && !isAdminPlus && restrictedTabs.includes(tab.toLowerCase());
                 return (
@@ -23,7 +23,9 @@ const Tabs = ({ tabs, selectedTab, selectTab, classes = '', isAdminPlus, isBolst
                             key={tab}
                             shouldOutput={shouldRestrict}
                             side="right"
+                            cl
                             text={`${tab} is available to Admin Plus users only`}
+                            extraContainerClasses="no-margin"
                         >
                             {tab === 'Super Admin' && (
                                 <img src={SuperAdminIcon} alt="Super admin icon" />

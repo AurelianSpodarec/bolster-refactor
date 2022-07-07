@@ -8,7 +8,13 @@ class TooltipContainer extends Component {
     };
     render() {
         const { show } = this.state;
-        const { side, containerSide, children, shouldOutput = true } = this.props;
+        const {
+            side,
+            containerSide,
+            children,
+            shouldOutput = true,
+            extraContainerClasses,
+        } = this.props;
         if (!shouldOutput) {
             return children;
         }
@@ -20,6 +26,7 @@ class TooltipContainer extends Component {
                 handleMouseOver={this.handleMouseOver}
                 handleMouseOut={this.handleMouseOut}
                 containerSide={containerSide}
+                extraContainerClasses={extraContainerClasses}
             />
         );
     }

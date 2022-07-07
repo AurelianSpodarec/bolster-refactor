@@ -12,7 +12,7 @@ const TabsContainer = ({ dispatch, classes }) => {
     const selectedTab = useSelector(selectSelectedTab);
     const tabs = useSelector(selectTabs);
     const isAdminPlus = useIsAdminPlus();
-    const isBolsterPlus = useBolsterPlus();
+    const { isBolsterPlusActivated } = useBolsterPlus();
     return (
         <Tabs
             tabs={tabs}
@@ -23,7 +23,7 @@ const TabsContainer = ({ dispatch, classes }) => {
             }}
             classes={classes}
             isAdminPlus={isAdminPlus}
-            isBolsterPlus={isBolsterPlus}
+            isBolsterPlus={isBolsterPlusActivated}
         />
     );
 };

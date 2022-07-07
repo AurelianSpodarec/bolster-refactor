@@ -2,7 +2,9 @@
 .tooltip-container {
     float: right;
     margin-top: 4px;
-
+    &.no-margin {
+        margin-top: 0;
+    }
     &.left {
         float: left;
     }
