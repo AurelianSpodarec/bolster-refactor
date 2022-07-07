@@ -190,25 +190,22 @@ const EditOptionValueModal = ({ option }) => {
                                                         const isLast =
                                                             index === priceBreaksLength - 1;
 
-                                                        return (
-                                                            <React.Fragment key={index}>
-                                                                <Field>
-                                                                    <NumberInputContainer
-                                                                        name={`measurementPriceBreaks[${index}].value`}
-                                                                        value={priceBreak.value}
-                                                                        placeholder="Type value"
-                                                                        minNum={0}
-                                                                        handleFocus={() => {
-                                                                            if (isLast)
-                                                                                handleAddPriceBreak();
-                                                                        }}
-                                                                        handleChange={(
-                                                                            _,
-                                                                            value,
-                                                                        ) => {
-                                                                            handlePriceBreakChange(
-                                                                                index,
-                                                                                'value',
+                                                    return (
+                                                        <React.Fragment key={index}>
+                                                            {isBolsterPlusActivated ? (
+                                                                <>
+                                                                    <Field>
+                                                                        <NumberInputContainer
+                                                                            name={`measurementPriceBreaks[${index}].value`}
+                                                                            value={priceBreak.value}
+                                                                            placeholder="Type value"
+                                                                            minNum={0}
+                                                                            handleFocus={() => {
+                                                                                if (isLast)
+                                                                                    handleAddPriceBreak();
+                                                                            }}
+                                                                            handleChange={(
+                                                                                _,
                                                                                 value,
                                                                             );
                                                                             setError(null);
