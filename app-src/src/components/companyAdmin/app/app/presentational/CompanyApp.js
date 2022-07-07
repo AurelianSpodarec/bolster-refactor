@@ -22,17 +22,17 @@ const CompanyApp = () => (
         <div id="page-container">
             <MenuContainer />
             <div id="page-area">
-                <AgreeToTermsCheck>
-                    <div id="page-content" className="flex-column justify-between">
-                        <div id="bulk-content">
-                            <BannerNotificationContainer />
-                            <UnconfirmedEmailBanner />
-                            <Banner />
-                            <Routes />
-                        </div>
-                        <LoggedInFooter />
+                {/* <AgreeToTermsCheck> */}
+                <div id="page-content" className="flex-column justify-between">
+                    <div id="bulk-content">
+                        <BannerNotificationContainer />
+                        <UnconfirmedEmailBanner />
+                        <Banner />
+                        <Routes />
                     </div>
-                </AgreeToTermsCheck>
+                    <LoggedInFooter />
+                </div>
+                {/* </AgreeToTermsCheck> */}
             </div>
         </div>
     </>
