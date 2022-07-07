@@ -23,7 +23,7 @@ const CompanyApp = () => (
         <div id="page-container">
             <MenuContainer />
             <div id="page-area" style={{ overflowX: 'hidden' }}>
-                <AgreeToTermsCheck>
+                {/* <AgreeToTermsCheck> */}
                     <div id="page-content" className="flex-column justify-between">
                         <div id="bulk-content">
                             <BannerNotificationContainer />
@@ -34,7 +34,8 @@ const CompanyApp = () => (
                         </div>
                         <LoggedInFooter />
                     </div>
-                </AgreeToTermsCheck>
+                    <LoggedInFooter />
+                {/* </AgreeToTermsCheck> */}
             </div>
         </div>
     </>
