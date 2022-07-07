@@ -142,121 +142,23 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                                                 </Field>
                                             )}
 
-                                        <div className="measurement-fields-grid">
-                                            <>
-                                                <Field name="Measurement" required />
-                                                <Field name="Sell" required />
-                                                <Field name="Labour Cost" />
-                                                <Field name="" />
-                                            </>
+                                            <div className="measurement-fields-grid">
+                                                <>
+                                                    <Field name="Measurement" required />
+                                                    <Field name="Sell" required />
+                                                    <Field name="Labour Cost" />
+                                                    <Field name="" />
+                                                </>
 
                                                 {form.measurementPriceBreaks.map(
                                                     (priceBreak, index) => {
                                                         const isLast =
                                                             index === priceBreaksLength - 1;
 
-                                                    return (
-                                                        <React.Fragment key={index}>
-                                                            {isBolsterPlusActivated ? (
-                                                                <>
-                                                                    <Field>
-                                                                        <NumberInputContainer
-                                                                            name={`measurementPriceBreaks[${index}].value`}
-                                                                            value={priceBreak.value}
-                                                                            placeholder="Type value"
-                                                                            handleFocus={() => {
-                                                                                if (isLast)
-                                                                                    handleAddPriceBreak();
-                                                                            }}
-                                                                            handleChange={(
-                                                                                _,
-                                                                                value,
-                                                                            ) => {
-                                                                                handlePriceBreakChange(
-                                                                                    index,
-                                                                                    'value',
-                                                                                    value,
-                                                                                );
-                                                                                setError(null);
-                                                                            }}
-                                                                            disableMouseWheelControl
-                                                                            disableUpDownArrowControl
-                                                                        />
-                                                                    </Field>
-
-                                                                    <Field>
-                                                                        <NumberInputContainer
-                                                                            name={`measurementPriceBreaks[${index}].cost`}
-                                                                            value={priceBreak.cost}
-                                                                            placeholder="Type price"
-                                                                            handleFocus={() => {
-                                                                                if (isLast)
-                                                                                    handleAddPriceBreak();
-                                                                            }}
-                                                                            handleChange={(
-                                                                                _,
-                                                                                value,
-                                                                            );
-                                                                            setError(null);
-                                                                        }}
-                                                                        disableMouseWheelControl
-                                                                        disableUpDownArrowControl
-                                                                        disabled={!isAdminPlus}
-                                                                    />
-                                                                </Field>
-
-                                                                            disabled={!isAdminPlus}
-                                                                    <Field>
-                                                                        <NumberInputContainer
-                                                                            name={`measurementPriceBreaks[${index}].labourCost`}
-                                                                            value={
-                                                                                priceBreak.labourCost
-                                                                            }
-                                                                            placeholder="Type price"
-                                                                            handleFocus={() => {
-                                                                                if (isLast)
-                                                                                    handleAddPriceBreak();
-                                                                            }}
-                                                                            handleChange={(
-                                                                                _,
-                                                                                value,
-                                                                            ) => {
-                                                                                handlePriceBreakChange(
-                                                                                    index,
-                                                                                    'labourCost',
-                                                                                    value,
-                                                                                );
-                                                                                setError(null);
-                                                                            }}
-                                                                            disableMouseWheelControl
-                                                                            disableUpDownArrowControl
-                                                                        />
-                                                                    </Field>
-
-                                                                    <Field>
-                                                                        <ActionButton
-                                                                            source="secondary"
-                                                                            icon="trash-alt"
-                                                                            iconOnly
-                                                                            iconWeight="regular"
-                                                                            disabled={
-                                                                                !isMultiplePriceBreaks
-                                                                            }
-                                                                            onClick={() => {
-                                                                                handleRemovePriceBreak(
-                                                                                    index,
-                                                                                );
-                                                                                setError(null);
-                                                                            }}
-                                                                        />
-                                                                    </Field>
-                                                                </>
-                                                            ) : (
-                                                                <>
-                                                                    <TooltipContainer
-                                                                        side="top"
-                                                                        text="Measurement is available for Bolster Plus users only."
-                                                                    >
+                                                        return (
+                                                            <React.Fragment key={index}>
+                                                                {isBolsterPlusActivated ? (
+                                                                    <>
                                                                         <Field>
                                                                             <NumberInputContainer
                                                                                 name={`measurementPriceBreaks[${index}].value`}
@@ -281,15 +183,8 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                                                                                 }}
                                                                                 disableMouseWheelControl
                                                                                 disableUpDownArrowControl
-                                                                                disabled={true}
                                                                             />
                                                                         </Field>
-                                                                    </TooltipContainer>
-
-                                                                    <TooltipContainer
-                                                                        side="top"
-                                                                        text="Sell measurement is available for Bolster Plus users only."
-                                                                    >
                                                                         <Field>
                                                                             <NumberInputContainer
                                                                                 name={`measurementPriceBreaks[${index}].cost`}
@@ -304,25 +199,15 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                                                                                 handleChange={(
                                                                                     _,
                                                                                     value,
-                                                                                ) => {
-                                                                                    handlePriceBreakChange(
-                                                                                        index,
-                                                                                        'cost',
-                                                                                        value,
-                                                                                    );
-                                                                                    setError(null);
-                                                                                }}
+                                                                                ) => setError(null)}
                                                                                 disableMouseWheelControl
                                                                                 disableUpDownArrowControl
-                                                                                disabled={true}
+                                                                                disabled={
+                                                                                    !isAdminPlus
+                                                                                }
                                                                             />
                                                                         </Field>
-                                                                    </TooltipContainer>
-
-                                                                    <TooltipContainer
-                                                                        side="top"
-                                                                        text="Labour measurement is available for Bolster Plus users only."
-                                                                    >
+                                                                        disabled={!isAdminPlus}
                                                                         <Field>
                                                                             <NumberInputContainer
                                                                                 name={`measurementPriceBreaks[${index}].labourCost`}
@@ -347,34 +232,157 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                                                                                 }}
                                                                                 disableMouseWheelControl
                                                                                 disableUpDownArrowControl
-                                                                                disabled={
-                                                                                    !isBolsterPlusActivated
-                                                                                }
                                                                             />
                                                                         </Field>
-                                                                    </TooltipContainer>
+                                                                        <Field>
+                                                                            <ActionButton
+                                                                                source="secondary"
+                                                                                icon="trash-alt"
+                                                                                iconOnly
+                                                                                iconWeight="regular"
+                                                                                disabled={
+                                                                                    !isMultiplePriceBreaks
+                                                                                }
+                                                                                onClick={() => {
+                                                                                    handleRemovePriceBreak(
+                                                                                        index,
+                                                                                    );
+                                                                                    setError(null);
+                                                                                }}
+                                                                            />
+                                                                        </Field>
+                                                                    </>
+                                                                ) : (
+                                                                    <>
+                                                                        <TooltipContainer
+                                                                            side="top"
+                                                                            text="Measurement is available for Bolster Plus users only."
+                                                                        >
+                                                                            <Field>
+                                                                                <NumberInputContainer
+                                                                                    name={`measurementPriceBreaks[${index}].value`}
+                                                                                    value={
+                                                                                        priceBreak.value
+                                                                                    }
+                                                                                    placeholder="Type value"
+                                                                                    handleFocus={() => {
+                                                                                        if (isLast)
+                                                                                            handleAddPriceBreak();
+                                                                                    }}
+                                                                                    handleChange={(
+                                                                                        _,
+                                                                                        value,
+                                                                                    ) => {
+                                                                                        handlePriceBreakChange(
+                                                                                            index,
+                                                                                            'value',
+                                                                                            value,
+                                                                                        );
+                                                                                        setError(
+                                                                                            null,
+                                                                                        );
+                                                                                    }}
+                                                                                    disableMouseWheelControl
+                                                                                    disableUpDownArrowControl
+                                                                                    disabled={true}
+                                                                                />
+                                                                            </Field>
+                                                                        </TooltipContainer>
 
-                                                                    <Field>
-                                                                        <ActionButton
-                                                                            source="secondary"
-                                                                            icon="trash-alt"
-                                                                            iconOnly
-                                                                            iconWeight="regular"
-                                                                            onClick={() => {
-                                                                                handleRemovePriceBreak(
-                                                                                    index,
-                                                                                );
-                                                                                setError(null);
-                                                                            }}
-                                                                            disabled={true}
-                                                                        />
-                                                                    </Field>
-                                                                </>
-                                                            )}
-                                                        </React.Fragment>
-                                                    );
-                                                },
-                                            )}
+                                                                        <TooltipContainer
+                                                                            side="top"
+                                                                            text="Sell measurement is available for Bolster Plus users only."
+                                                                        >
+                                                                            <Field>
+                                                                                <NumberInputContainer
+                                                                                    name={`measurementPriceBreaks[${index}].cost`}
+                                                                                    value={
+                                                                                        priceBreak.cost
+                                                                                    }
+                                                                                    placeholder="Type price"
+                                                                                    handleFocus={() => {
+                                                                                        if (isLast)
+                                                                                            handleAddPriceBreak();
+                                                                                    }}
+                                                                                    handleChange={(
+                                                                                        _,
+                                                                                        value,
+                                                                                    ) => {
+                                                                                        handlePriceBreakChange(
+                                                                                            index,
+                                                                                            'cost',
+                                                                                            value,
+                                                                                        );
+                                                                                        setError(
+                                                                                            null,
+                                                                                        );
+                                                                                    }}
+                                                                                    disableMouseWheelControl
+                                                                                    disableUpDownArrowControl
+                                                                                    disabled={true}
+                                                                                />
+                                                                            </Field>
+                                                                        </TooltipContainer>
+
+                                                                        <TooltipContainer
+                                                                            side="top"
+                                                                            text="Labour measurement is available for Bolster Plus users only."
+                                                                        >
+                                                                            <Field>
+                                                                                <NumberInputContainer
+                                                                                    name={`measurementPriceBreaks[${index}].labourCost`}
+                                                                                    value={
+                                                                                        priceBreak.labourCost
+                                                                                    }
+                                                                                    placeholder="Type price"
+                                                                                    handleFocus={() => {
+                                                                                        if (isLast)
+                                                                                            handleAddPriceBreak();
+                                                                                    }}
+                                                                                    handleChange={(
+                                                                                        _,
+                                                                                        value,
+                                                                                    ) => {
+                                                                                        handlePriceBreakChange(
+                                                                                            index,
+                                                                                            'labourCost',
+                                                                                            value,
+                                                                                        );
+                                                                                        setError(
+                                                                                            null,
+                                                                                        );
+                                                                                    }}
+                                                                                    disableMouseWheelControl
+                                                                                    disableUpDownArrowControl
+                                                                                    disabled={
+                                                                                        !isBolsterPlusActivated
+                                                                                    }
+                                                                                />
+                                                                            </Field>
+                                                                        </TooltipContainer>
+
+                                                                        <Field>
+                                                                            <ActionButton
+                                                                                source="secondary"
+                                                                                icon="trash-alt"
+                                                                                iconOnly
+                                                                                iconWeight="regular"
+                                                                                onClick={() => {
+                                                                                    handleRemovePriceBreak(
+                                                                                        index,
+                                                                                    );
+                                                                                    setError(null);
+                                                                                }}
+                                                                                disabled={true}
+                                                                            />
+                                                                        </Field>
+                                                                    </>
+                                                                )}
+                                                            </React.Fragment>
+                                                        );
+                                                    },
+                                                )}
+                                            </div>
                                         </>
                                     )}
                                 </TooltipContainer>
