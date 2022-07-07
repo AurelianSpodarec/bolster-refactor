@@ -42,6 +42,7 @@ const OutputSettings = ({
     const errSuffix = `is available ${
         !isBolsterPlusActivated ? 'through Bolster Plus' : !isAdminPlus ? 'to Admin Plus users' : ''
     }`;
+    const isPricingDisabled = !isBolsterPlusActivated || !isAdminPlus;
     return (
         <div className="size-lg-12">
             <BlockContainer>
@@ -133,9 +134,13 @@ const OutputSettings = ({
                                             />
                                         </Field>
                                     </FlexWrapper>
-                                    {(isPDFGeneration || isCSVGeneration) &&
-                                        (isBolsterPlusActivated && isAdminPlus ? (
-                                            <FlexWrapper direction="row">
+                                    {(isPDFGeneration || isCSVGeneration) && (
+                                        <FlexWrapper direction="row">
+                                            <TooltipContainer
+                                                side="top"
+                                                text={`Cost per pin ${errSuffix}`}
+                                                shouldOutput={isPricingDisabled}
+                                            >
                                                 <Field>
                                                     <Tickbox
                                                         classes="large-text"
@@ -143,8 +148,15 @@ const OutputSettings = ({
                                                         name="includeCostingData"
                                                         handleChange={handleFilterChange}
                                                         label="Cost Per Pin"
+                                                        disabled={isPricingDisabled}
                                                     />
                                                 </Field>
+                                            </TooltipContainer>
+                                            <TooltipContainer
+                                                side="top"
+                                                text={`Labour Cost per pin ${errSuffix}`}
+                                                shouldOutput={isPricingDisabled}
+                                            >
                                                 <Field>
                                                     <Tickbox
                                                         classes="large-text"
@@ -152,57 +164,15 @@ const OutputSettings = ({
                                                         name="includeLabourCostingData"
                                                         handleChange={handleFilterChange}
                                                         label="Labour Cost Per Pin"
+                                                        disabled={isPricingDisabled}
                                                     />
                                                 </Field>
-
-                                                {(includeCostingData ||
-                                                    includeLabourCostingData) && (
-                                                    <Field>
-                                                        <Tickbox
-                                                            classes="large-text"
-                                                            checked={includeCostPerType}
-                                                            name="includeCostPerType"
-                                                            handleChange={handleFilterChange}
-                                                            label="Cost Per Installation Type"
-                                                        />
-                                                    </Field>
-                                                )}
-                                            </FlexWrapper>
-                                        ) : (
-                                            <FlexWrapper direction="row">
-                                                <TooltipContainer
-                                                    side="top"
-                                                    text={`Cost per pin ${errSuffix}`}
-                                                >
-                                                    <Field>
-                                                        <Tickbox
-                                                            classes="large-text"
-                                                            checked={includeCostingData}
-                                                            name="includeCostingData"
-                                                            handleChange={handleFilterChange}
-                                                            label="Cost Per Pin"
-                                                            disabled={true}
-                                                        />
-                                                    </Field>
-                                                </TooltipContainer>
-                                                <TooltipContainer
-                                                    side="top"
-                                                    text={`Labour Cost per pin ${errSuffix}`}
-                                                >
-                                                    <Field>
-                                                        <Tickbox
-                                                            classes="large-text"
-                                                            checked={includeLabourCostingData}
-                                                            name="includeLabourCostingData"
-                                                            handleChange={handleFilterChange}
-                                                            label="Labour Cost Per Pin"
-                                                            disabled={true}
-                                                        />
-                                                    </Field>
-                                                </TooltipContainer>
+                                            </TooltipContainer>
+                                            {(includeCostingData || includeLabourCostingData) && (
                                                 <TooltipContainer
                                                     side="top"
                                                     text={`Cost Per Installation Type ${errSuffix}`}
+                                                    shouldOutput={isPricingDisabled}
                                                 >
                                                     <Field>
                                                         <Tickbox
@@ -211,12 +181,13 @@ const OutputSettings = ({
                                                             name="includeCostPerType"
                                                             handleChange={handleFilterChange}
                                                             label="Cost Per Installation Type"
-                                                            disabled={true}
+                                                            disabled={isPricingDisabled}
                                                         />
                                                     </Field>
                                                 </TooltipContainer>
-                                            </FlexWrapper>
-                                        ))}
+                                            )}
+                                        </FlexWrapper>
+                                    )}
                                 </FlexWrapper>
                             </>
                             {hasZones &&

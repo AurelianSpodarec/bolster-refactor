@@ -8,27 +8,27 @@ import {
     CREATE_ADMIN_PIN_OPTION_FAILURE,
 } from 'constants/actionTypes/pinOptions';
 
-export const createPinOptionValueRequest = () => ({
+export const createPinOptionRequest = () => ({
     type: CREATE_ADMIN_PIN_OPTION_REQUEST,
 });
 
-export const createPinOptionValueSuccess = payload => ({
+export const createPinOptionSuccess = payload => ({
     type: CREATE_ADMIN_PIN_OPTION_SUCCESS,
     payload,
 });
 
-export const createPinOptionValueFailure = error => ({
+export const createPinOptionFailure = error => ({
     type: CREATE_ADMIN_PIN_OPTION_FAILURE,
     error,
 });
 
 export default postBody => async dispatch => {
-    dispatch(createPinOptionValueRequest());
+    dispatch(createPinOptionRequest());
 
     return axios
         .post(`${ADMIN_API_URL}/pinoptions/options`, postBody, getHeaders())
-        .then(res => dispatch(createPinOptionValueSuccess(res.data)))
+        .then(res => dispatch(createPinOptionSuccess(res.data)))
         .catch(err => {
-            dispatch(handleErrors(createPinOptionValueFailure)(err));
+            dispatch(handleErrors(createPinOptionFailure)(err));
         });
 };
