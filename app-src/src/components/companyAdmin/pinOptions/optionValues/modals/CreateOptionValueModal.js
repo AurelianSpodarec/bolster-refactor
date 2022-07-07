@@ -27,6 +27,7 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
     const [showClosingConfirmationModal, setShowClosingConfirmationModal] = useState(false);
     const pinOptionType = useSelector(state => selectPinOptionType(state, pinOptionTypeID));
     const singularTypeName = pinOptionType.name;
+    const { isBolsterPlusActivated } = useBolsterPlus();
 
     const {
         form,
