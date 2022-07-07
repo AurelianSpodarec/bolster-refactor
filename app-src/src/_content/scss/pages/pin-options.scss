@@ -12,6 +12,10 @@
         }
     }
 
+    &.grey-out {
+        opacity: 0.3;
+      }
+
     &.large-input {
         grid-template-columns: 4fr 50px;
     }
