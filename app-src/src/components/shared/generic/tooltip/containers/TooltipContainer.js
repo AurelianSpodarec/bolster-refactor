@@ -8,7 +8,10 @@ class TooltipContainer extends Component {
     };
     render() {
         const { show } = this.state;
-        const { side, containerSide } = this.props;
+        const { side, containerSide, children, shouldOutput = true } = this.props;
+        if (!shouldOutput) {
+            return children;
+        }
         return (
             <Tooltip
                 {...this.props}
