@@ -183,6 +183,9 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                                                                                 }}
                                                                                 disableMouseWheelControl
                                                                                 disableUpDownArrowControl
+                                                                                disabled={
+                                                                                    !isAdminPlus
+                                                                                }
                                                                             />
                                                                         </Field>
                                                                         <Field>
@@ -207,7 +210,7 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                                                                                 }
                                                                             />
                                                                         </Field>
-                                                                        disabled={!isAdminPlus}
+
                                                                         <Field>
                                                                             <NumberInputContainer
                                                                                 name={`measurementPriceBreaks[${index}].labourCost`}

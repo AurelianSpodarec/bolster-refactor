@@ -156,7 +156,7 @@ const EditOptionValueModal = ({ option }) => {
                                                 <Field name="Quick Price Edit (%)">
                                                     <TooltipContainer
                                                         side="top"
-                                                        text="Quick Price Edit is available through Bolster Plus"
+                                                        text="Quick Price Edit is available through Bolster Plus."
                                                         extraContainerClasses="full"
                                                     >
                                                         <NumberInputContainer
