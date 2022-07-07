@@ -13,6 +13,7 @@ import FlexModalOuter from 'components/shared/generic/modals/presentational/Flex
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import useIsAdminPlus from '../../../../../../hooks/useIsAdminPlus';
 import Select from 'components/shared/generic/form/presentational/Select';
+import TooltipContainer from '../../../../../shared/generic/tooltip/containers/TooltipContainer';
 
 const GenerateTimesheetReportModal = ({ fromDateInclusive, toDateInclusive }) => {
     const { formData, handleChange, handleSubmit, isPosting, postError, shiftStatusOptions } =
@@ -114,24 +115,32 @@ const GenerateTimesheetReportModal = ({ fromDateInclusive, toDateInclusive }) =>
                                     checked={includeBreaks}
                                     handleChange={handleChange}
                                 />
-                                {isAdminPlus && (
-                                    <>
-                                        <Tickbox
-                                            label="Wages"
-                                            name="includeWages"
-                                            checked={includeWages}
-                                            handleChange={handleChange}
-                                            disabled={!isAdminPlus}
-                                        />
-                                        <Tickbox
-                                            label="Expenses"
-                                            name="includeExpenses"
-                                            checked={includeExpenses}
-                                            handleChange={handleChange}
-                                            disabled={!isAdminPlus}
-                                        />
-                                    </>
-                                )}
+                                <TooltipContainer
+                                    shouldOutput={!isAdminPlus}
+                                    side="top"
+                                    text="Wages is available to Admin Plus users only"
+                                >
+                                    <Tickbox
+                                        label="Wages"
+                                        name="includeWages"
+                                        checked={includeWages}
+                                        handleChange={handleChange}
+                                        disabled={!isAdminPlus}
+                                    />
+                                </TooltipContainer>
+                                <TooltipContainer
+                                    shouldOutput={!isAdminPlus}
+                                    side="top"
+                                    text="Wages is available to Admin Plus users only"
+                                >
+                                    <Tickbox
+                                        label="Expenses"
+                                        name="includeExpenses"
+                                        checked={includeExpenses}
+                                        handleChange={handleChange}
+                                        disabled={!isAdminPlus}
+                                    />
+                                </TooltipContainer>
                             </FlexWrapper>
                         </Field>
                     </div>
