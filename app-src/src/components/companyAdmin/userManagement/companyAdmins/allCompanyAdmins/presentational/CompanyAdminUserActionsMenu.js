@@ -16,6 +16,8 @@ const CompanyAdminUserActionsMenu = ({
     showEnableModal,
     showDisableModal,
     showDeleteModal,
+    canSetAdminPlusUsers,
+    showSetAdminPlusModal,
 }) => (
     <ActionMenu>
         <ActionMenuActionButton text="Generate Report" onClick={generateReport} />
@@ -43,6 +45,15 @@ const CompanyAdminUserActionsMenu = ({
             text="Documents"
             href={`/company/users-management/company-admins/${user.id}/documents`}
         />
+
+        {canSetAdminPlusUsers && (
+            <ActionMenuActionButton
+                text={`${
+                    user.type !== COMPANY_USER_ROLE_TYPES.ADMIN_PLUS ? 'Enable' : 'Revoke'
+                } Admin Plus`}
+                onClick={showSetAdminPlusModal}
+            />
+        )}
 
         {loggedInUser.type === +COMPANY_USER_ROLE_TYPES.OWNER &&
             +user.type !== +COMPANY_USER_ROLE_TYPES.OWNER &&
