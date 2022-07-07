@@ -39,7 +39,9 @@ const OutputSettings = ({
 }) => {
     const { isBolsterPlusActivated } = useBolsterPlus();
     const isAdminPlus = useIsAdminPlus();
-    const disabledPricing = !isAdminPlus || !isBolsterPlusActivated;
+    const errSuffix = `is available ${
+        !isBolsterPlusActivated ? 'through Bolster Plus' : isAdminPlus ? 'to Admin Plus users' : ''
+    }`;
     return (
         <div className="size-lg-12">
             <BlockContainer>
@@ -132,47 +134,45 @@ const OutputSettings = ({
                                         </Field>
                                     </FlexWrapper>
                                     {(isPDFGeneration || isCSVGeneration) &&
-                                        (isBolsterPlusActivated ? (
-                                            isAdminPlus && (
-                                                <FlexWrapper direction="row">
-                                                    <Field>
-                                                        <Tickbox
-                                                            classes="large-text"
-                                                            checked={includeCostingData}
-                                                            name="includeCostingData"
-                                                            handleChange={handleFilterChange}
-                                                            label="Cost Per Pin"
-                                                        />
-                                                    </Field>
-                                                    <Field>
-                                                        <Tickbox
-                                                            classes="large-text"
-                                                            checked={includeLabourCostingData}
-                                                            name="includeLabourCostingData"
-                                                            handleChange={handleFilterChange}
-                                                            label="Labour Cost Per Pin"
-                                                        />
-                                                    </Field>
+                                        (isBolsterPlusActivated && isAdminPlus ? (
+                                            <FlexWrapper direction="row">
+                                                <Field>
+                                                    <Tickbox
+                                                        classes="large-text"
+                                                        checked={includeCostingData}
+                                                        name="includeCostingData"
+                                                        handleChange={handleFilterChange}
+                                                        label="Cost Per Pin"
+                                                    />
+                                                </Field>
+                                                <Field>
+                                                    <Tickbox
+                                                        classes="large-text"
+                                                        checked={includeLabourCostingData}
+                                                        name="includeLabourCostingData"
+                                                        handleChange={handleFilterChange}
+                                                        label="Labour Cost Per Pin"
+                                                    />
+                                                </Field>
 
-                                                    {(includeCostingData ||
-                                                        includeLabourCostingData) && (
-                                                        <Field>
-                                                            <Tickbox
-                                                                classes="large-text"
-                                                                checked={includeCostPerType}
-                                                                name="includeCostPerType"
-                                                                handleChange={handleFilterChange}
-                                                                label="Cost Per Installation Type"
-                                                            />
-                                                        </Field>
-                                                    )}
-                                                </FlexWrapper>
-                                            )
+                                                {(includeCostingData ||
+                                                    includeLabourCostingData) && (
+                                                    <Field>
+                                                        <Tickbox
+                                                            classes="large-text"
+                                                            checked={includeCostPerType}
+                                                            name="includeCostPerType"
+                                                            handleChange={handleFilterChange}
+                                                            label="Cost Per Installation Type"
+                                                        />
+                                                    </Field>
+                                                )}
+                                            </FlexWrapper>
                                         ) : (
                                             <FlexWrapper direction="row">
                                                 <TooltipContainer
                                                     side="top"
-                                                    text="Cost per pin is available through Bolster Plus."
+                                                    text={`Cost per pin ${errSuffix}`}
                                                 >
                                                     <Field>
                                                         <Tickbox
@@ -187,7 +187,7 @@ const OutputSettings = ({
                                                 </TooltipContainer>
                                                 <TooltipContainer
                                                     side="top"
-                                                    text="Labour Cost per pin is available through Bolster Plus."
+                                                    text={`Labour Cost per pin ${errSuffix}`}
                                                 >
                                                     <Field>
                                                         <Tickbox
@@ -202,7 +202,7 @@ const OutputSettings = ({
                                                 </TooltipContainer>
                                                 <TooltipContainer
                                                     side="top"
-                                                    text="Cost Per Installation Type is available through Bolster Plus."
+                                                    text={`Cost Per Installation Type ${errSuffix}`}
                                                 >
                                                     <Field>
                                                         <Tickbox
