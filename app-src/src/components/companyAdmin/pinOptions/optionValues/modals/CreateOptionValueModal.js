@@ -256,7 +256,7 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                                                                     <>
                                                                         <TooltipContainer
                                                                             side="top"
-                                                                            text="Measurement is available for Bolster Plus users only."
+                                                                            text="Measurement is available through Bolster Plus."
                                                                         >
                                                                             <Field>
                                                                                 <NumberInputContainer
@@ -291,7 +291,7 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
 
                                                                         <TooltipContainer
                                                                             side="top"
-                                                                            text="Sell measurement is available for Bolster Plus users only."
+                                                                            text="Sell measurement is available through Bolster Plus."
                                                                         >
                                                                             <Field>
                                                                                 <NumberInputContainer
@@ -326,7 +326,7 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
 
                                                                         <TooltipContainer
                                                                             side="top"
-                                                                            text="Labour measurement is available for Bolster Plus users only."
+                                                                            text="Labour measurement is available through Bolster Plus."
                                                                         >
                                                                             <Field>
                                                                                 <NumberInputContainer
