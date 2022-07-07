@@ -44,8 +44,6 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
         handleServicesChange,
     } = useCreateOptionValue(pinOptionTypeID, pinOptionSetID);
 
-    const { isBolsterPlusActivated } = useBolsterPlus();
-
     const availableServiceOptions = useGetAvailableServices(pinOptionSetID);
 
     const priceBreaksLength = form.measurementPriceBreaks.length;
