@@ -166,7 +166,10 @@ const useEditOptionValue = option => {
         }
 
         if (pinOptionType.hasCosting && costMeasurementType) {
+            const isFixed = +costMeasurementType === MEASUREMENT_TYPES.FIXED;
+
             const anyIncompletePriceBreaks = measurementPriceBreaks.some(({ value, cost }) => {
+                if (isFixed && !!cost) return false;
                 if (!value && !cost) return false;
                 if (!value || !cost) return true;
                 return false;
@@ -175,6 +178,7 @@ const useEditOptionValue = option => {
             const anyZeroOrNegativePriceBreaks = measurementPriceBreaks.some(priceBreak => {
                 const { value, cost } = priceBreak;
 
+                if (isFixed && !!cost) return cost <= 0;
                 if (!value || !cost) return false;
                 return value <= 0 || cost <= 0;
             });
@@ -189,13 +193,13 @@ const useEditOptionValue = option => {
                 return;
             }
 
-            const priceBreaksWithoutEmpties = measurementPriceBreaks.filter(
-                ({ value, cost }) => value && cost,
+            const priceBreaksWithoutEmpties = measurementPriceBreaks.filter(({ value, cost }) =>
+                isFixed ? cost : value && cost,
             );
 
             const priceBreaksWithUpdatedCosts = priceBreaksWithoutEmpties.map(
                 ({ value, cost, labourCost }) => ({
-                    value,
+                    value: isFixed ? 1 : value,
                     cost,
                     labourCost: !labourCost || labourCost <= 0 ? 0 : labourCost,
                 }),

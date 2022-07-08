@@ -141,7 +141,7 @@ const OutputSettings = ({
                                                 text={`Cost per pin ${errSuffix}`}
                                                 shouldOutput={isPricingDisabled}
                                             >
-                                                <Field sizeClasses="size-lg-4 size-md-12">
+                                                <Field sizeClasses="size-lg-3 size-md-12">
                                                     <Tickbox
                                                         classes="large-text"
                                                         checked={includeCostingData}
@@ -157,7 +157,7 @@ const OutputSettings = ({
                                                 text={`Labour Cost per pin ${errSuffix}`}
                                                 shouldOutput={isPricingDisabled}
                                             >
-                                                <Field sizeClasses="size-lg-4 size-md-12">
+                                                <Field sizeClasses="size-lg-3 size-md-12">
                                                     <Tickbox
                                                         classes="large-text"
                                                         checked={includeLabourCostingData}
@@ -174,7 +174,7 @@ const OutputSettings = ({
                                                     text={`Cost Per Installation Type ${errSuffix}`}
                                                     shouldOutput={isPricingDisabled}
                                                 >
-                                                    <Field sizeClasses="size-lg-4 size-md-12">
+                                                    <Field sizeClasses="size-lg-3 size-md-12">
                                                         <Tickbox
                                                             classes="large-text"
                                                             checked={includeCostPerType}

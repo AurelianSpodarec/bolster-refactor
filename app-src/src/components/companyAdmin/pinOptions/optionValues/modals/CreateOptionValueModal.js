@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { measurementDropdownOptions } from 'constants/shared/dropdowns';
-import { MEASUREMENT_TYPES_OUTPUTS_PLURAL } from 'constants/companyAdmin/enums';
+import { MEASUREMENT_TYPES, MEASUREMENT_TYPES_OUTPUTS_PLURAL } from 'constants/companyAdmin/enums';
 
 import { selectPinOptionType } from 'selectors/companyAdmin/pinOptionTypes';
 
@@ -50,6 +50,7 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
     const isMultiplePriceBreaks = priceBreaksLength > 1;
 
     const measurementTypeOutput = MEASUREMENT_TYPES_OUTPUTS_PLURAL[form.measurementType];
+    const isFixedPrice = +form.measurementType === MEASUREMENT_TYPES.FIXED;
 
     const isAdminPlus = useIsAdminPlus();
     const hasPricingAccess = isBolsterPlusActivated && isAdminPlus;
@@ -155,11 +156,13 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
 
                                                 <div
                                                     className={`measurement-fields-grid ${
-                                                        !hasPricingAccess && 'grey-out'
-                                                    }`}
+                                                        !hasPricingAccess ? 'grey-out' : ''
+                                                    } ${isFixedPrice ? 'fixed-price' : ''}`}
                                                 >
                                                     <>
-                                                        <Field name="Measurement" required />
+                                                        {!isFixedPrice && (
+                                                            <Field name="Measurement" required />
+                                                        )}
                                                         <Field name="Sell Cost" required />
                                                         <Field name="Labour Cost" />
                                                         <Field name="" />
@@ -172,33 +175,37 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
 
                                                             return (
                                                                 <React.Fragment key={index}>
-                                                                    <Field>
-                                                                        <NumberInputContainer
-                                                                            name={`measurementPriceBreaks[${index}].value`}
-                                                                            value={priceBreak.value}
-                                                                            placeholder="Type value"
-                                                                            handleFocus={() => {
-                                                                                if (isLast)
-                                                                                    handleAddPriceBreak();
-                                                                            }}
-                                                                            handleChange={(
-                                                                                _,
-                                                                                value,
-                                                                            ) => {
-                                                                                handlePriceBreakChange(
-                                                                                    index,
-                                                                                    'value',
+                                                                    {!isFixedPrice && (
+                                                                        <Field>
+                                                                            <NumberInputContainer
+                                                                                name={`measurementPriceBreaks[${index}].value`}
+                                                                                value={
+                                                                                    priceBreak.value
+                                                                                }
+                                                                                placeholder="Type value"
+                                                                                handleFocus={() => {
+                                                                                    if (isLast)
+                                                                                        handleAddPriceBreak();
+                                                                                }}
+                                                                                handleChange={(
+                                                                                    _,
                                                                                     value,
-                                                                                );
-                                                                                setError(null);
-                                                                            }}
-                                                                            disableMouseWheelControl
-                                                                            disableUpDownArrowControl
-                                                                            disabled={
-                                                                                !hasPricingAccess
-                                                                            }
-                                                                        />
-                                                                    </Field>
+                                                                                ) => {
+                                                                                    handlePriceBreakChange(
+                                                                                        index,
+                                                                                        'value',
+                                                                                        value,
+                                                                                    );
+                                                                                    setError(null);
+                                                                                }}
+                                                                                disableMouseWheelControl
+                                                                                disableUpDownArrowControl
+                                                                                disabled={
+                                                                                    !hasPricingAccess
+                                                                                }
+                                                                            />
+                                                                        </Field>
+                                                                    )}
                                                                     <Field>
                                                                         <NumberInputContainer
                                                                             name={`measurementPriceBreaks[${index}].cost`}
@@ -211,7 +218,14 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                                                                             handleChange={(
                                                                                 _,
                                                                                 value,
-                                                                            ) => setError(null)}
+                                                                            ) => {
+                                                                                handlePriceBreakChange(
+                                                                                    index,
+                                                                                    'cost',
+                                                                                    value,
+                                                                                );
+                                                                                setError(null);
+                                                                            }}
                                                                             disableMouseWheelControl
                                                                             disableUpDownArrowControl
                                                                             disabled={
@@ -279,7 +293,7 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                         )}
                     </div>
                 </div>
-
+                {error && <div className="error-message">{error}</div>}
                 <ButtonWrapper alignment="right" extraClasses="flex-modal-footer">
                     <ActionButton
                         text="Save"
