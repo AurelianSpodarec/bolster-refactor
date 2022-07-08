@@ -88,9 +88,13 @@ const useGenerateTimesheetReport = (fromDateInclusive, toDateInclusive) => {
                 dispatch(hideModal());
                 dispatch(showModal(SUCCESS_MODAL, { message }));
             })
-            .catch(err => {
-                console.log({ err });
-                dispatch(postGenerateTimesheetsCSVFailure(err.message));
+            .catch(async err => {
+                const errorMessage = await err?.response?.data?.text?.();
+                if (errorMessage) {
+                    dispatch(postGenerateTimesheetsCSVFailure(errorMessage));
+                } else {
+                    dispatch(postGenerateTimesheetsCSVFailure(err.message));
+                }
             });
     };
 
