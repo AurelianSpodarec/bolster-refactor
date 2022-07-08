@@ -70,6 +70,7 @@ const CreatePushNotificationModal = () => {
                                 value={form.date}
                                 name="date"
                                 onChange={val => handleChange('date', val)}
+                                timeStep={5}
                                 fixPickerToTop
                                 required
                             />
