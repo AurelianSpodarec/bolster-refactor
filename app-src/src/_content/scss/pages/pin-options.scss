@@ -19,4 +19,8 @@
     &.large-input {
         grid-template-columns: 4fr 50px;
     }
+
+    &.fixed-price {
+        grid-template-columns: 2fr 2fr 50px;
+    }
 }
