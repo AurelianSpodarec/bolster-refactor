@@ -53,6 +53,7 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
 
     const isAdminPlus = useIsAdminPlus();
     const hasPricingAccess = isBolsterPlusActivated && isAdminPlus;
+    const hasNoPricingAccess = !isBolsterPlusActivated || !isAdminPlus;
 
     return (
         <FlexModalOuter
@@ -137,11 +138,12 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                                                 measurementDropdownOptions[form.measurementType]
                                             }
                                             handleChange={handleChange}
-                                            disabled={!isAdminPlus || !isBolsterPlusActivated}
+                                            disabled={hasNoPricingAccess}
                                         />
                                     </Field>
-                                    {!!form.measurementType ||
-                                        (!hasPricingAccess && (
+
+                                    {isAdminPlus &&
+                                        (!isBolsterPlusActivated || !!form.measurementType) && (
                                             <>
                                                 {measurementTypeOutput && (
                                                     <Field classes="no-min-height">
@@ -192,7 +194,9 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                                                                             }}
                                                                             disableMouseWheelControl
                                                                             disableUpDownArrowControl
-                                                                            disabled={!isAdminPlus}
+                                                                            disabled={
+                                                                                !hasPricingAccess
+                                                                            }
                                                                         />
                                                                     </Field>
                                                                     <Field>
@@ -210,7 +214,9 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                                                                             ) => setError(null)}
                                                                             disableMouseWheelControl
                                                                             disableUpDownArrowControl
-                                                                            disabled={!isAdminPlus}
+                                                                            disabled={
+                                                                                !hasPricingAccess
+                                                                            }
                                                                         />
                                                                     </Field>
 
@@ -238,7 +244,9 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                                                                             }}
                                                                             disableMouseWheelControl
                                                                             disableUpDownArrowControl
-                                                                            disabled={!isAdminPlus}
+                                                                            disabled={
+                                                                                !hasPricingAccess
+                                                                            }
                                                                         />
                                                                     </Field>
                                                                     <Field>
@@ -249,7 +257,7 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                                                                             iconWeight="regular"
                                                                             disabled={
                                                                                 !isMultiplePriceBreaks ||
-                                                                                !isAdminPlus
+                                                                                !hasPricingAccess
                                                                             }
                                                                             onClick={() => {
                                                                                 handleRemovePriceBreak(
@@ -265,7 +273,7 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                                                     )}
                                                 </div>
                                             </>
-                                        ))}
+                                        )}
                                 </TooltipContainer>
                             </>
                         )}

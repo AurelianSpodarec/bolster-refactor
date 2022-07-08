@@ -64,6 +64,7 @@ const EditOptionValueModal = ({ option }) => {
             <TooltipContainer
                 side="bottom"
                 text="The measurement type has already been set, this cannot be changed."
+                extraContainerClasses="full"
             >
                 {children}
             </TooltipContainer>
@@ -129,9 +130,7 @@ const EditOptionValueModal = ({ option }) => {
                                 <div className="flex-content">
                                     <Field
                                         name="Unit of Measurement"
-                                        classes={`grey-out ${
-                                            !isBolsterPlusActivated && 'grey-out'
-                                        }`}
+                                        classes={`${!isBolsterPlusActivated && 'grey-out'}`}
                                     >
                                         <MeasurementWrapper>
                                             <DropdownContainer
@@ -153,9 +152,7 @@ const EditOptionValueModal = ({ option }) => {
                                             {!canEditMeasurement && (
                                                 <Field
                                                     name="Quick Price Edit (%)"
-                                                    classes={`grey-out ${
-                                                        !isBolsterPlusActivated && 'grey-out'
-                                                    }`}
+                                                    classes={`${!hasPricingAccess && 'grey-out'}`}
                                                 >
                                                     <NumberInputContainer
                                                         name="quickPriceEdit"
