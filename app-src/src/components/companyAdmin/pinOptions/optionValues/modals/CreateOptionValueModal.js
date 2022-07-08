@@ -293,7 +293,7 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                         )}
                     </div>
                 </div>
-
+                {error && <div className="error-message">{error}</div>}
                 <ButtonWrapper alignment="right" extraClasses="flex-modal-footer">
                     <ActionButton
                         text="Save"
