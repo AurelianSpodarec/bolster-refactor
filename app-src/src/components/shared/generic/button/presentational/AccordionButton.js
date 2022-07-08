@@ -7,7 +7,7 @@ const AccordionButton = ({ active, onClick = () => {} }) => {
     };
     return (
         <button onClick={_handleClick} className={`accordion-button ${active ? 'active' : ''}`}>
-            <i className="fa fa-chevron-down" />
+            <i className="fa fa-chevron-right" />
         </button>
     );
 };
