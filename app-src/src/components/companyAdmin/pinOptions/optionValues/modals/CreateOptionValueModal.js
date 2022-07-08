@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { measurementDropdownOptions } from 'constants/shared/dropdowns';
-import { MEASUREMENT_TYPES_OUTPUTS_PLURAL } from 'constants/companyAdmin/enums';
+import { MEASUREMENT_TYPES, MEASUREMENT_TYPES_OUTPUTS_PLURAL } from 'constants/companyAdmin/enums';
 
 import { selectPinOptionType } from 'selectors/companyAdmin/pinOptionTypes';
 
@@ -50,6 +50,7 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
     const isMultiplePriceBreaks = priceBreaksLength > 1;
 
     const measurementTypeOutput = MEASUREMENT_TYPES_OUTPUTS_PLURAL[form.measurementType];
+    const isFixedPrice = +form.measurementType === MEASUREMENT_TYPES.FIXED;
 
     const isAdminPlus = useIsAdminPlus();
     const hasPricingAccess = isBolsterPlusActivated && isAdminPlus;
@@ -156,10 +157,12 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                                                 <div
                                                     className={`measurement-fields-grid ${
                                                         !hasPricingAccess && 'grey-out'
-                                                    }`}
+                                                    } ${isFixedPrice && 'fixed-price'}`}
                                                 >
                                                     <>
+                                                        {/*{!isFixedPrice && (*/}
                                                         <Field name="Measurement" required />
+                                                        {/*)}*/}
                                                         <Field name="Sell Cost" required />
                                                         <Field name="Labour Cost" />
                                                         <Field name="" />
@@ -172,6 +175,7 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
 
                                                             return (
                                                                 <React.Fragment key={index}>
+                                                                    {/*{!isFixedPrice && (*/}
                                                                     <Field>
                                                                         <NumberInputContainer
                                                                             name={`measurementPriceBreaks[${index}].value`}
@@ -199,6 +203,7 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                                                                             }
                                                                         />
                                                                     </Field>
+                                                                    {/*)}*/}
                                                                     <Field>
                                                                         <NumberInputContainer
                                                                             name={`measurementPriceBreaks[${index}].cost`}
@@ -211,7 +216,14 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
                                                                             handleChange={(
                                                                                 _,
                                                                                 value,
-                                                                            ) => setError(null)}
+                                                                            ) => {
+                                                                                handlePriceBreakChange(
+                                                                                    index,
+                                                                                    'cost',
+                                                                                    value,
+                                                                                );
+                                                                                setError(null);
+                                                                            }}
                                                                             disableMouseWheelControl
                                                                             disableUpDownArrowControl
                                                                             disabled={
