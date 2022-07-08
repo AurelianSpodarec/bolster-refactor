@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { measurementDropdownOptions } from '../../../../../constants/shared/dropdowns';
-import { MEASUREMENT_TYPES_OUTPUTS_PLURAL } from 'constants/companyAdmin/enums';
+import { MEASUREMENT_TYPES, MEASUREMENT_TYPES_OUTPUTS_PLURAL } from 'constants/companyAdmin/enums';
 
 import { selectPinOptionType } from 'selectors/companyAdmin/pinOptionTypes';
 
@@ -53,6 +53,7 @@ const EditOptionValueModal = ({ option }) => {
     const isMultiplePriceBreaks = priceBreaksLength > 1;
 
     const measurementTypeOutput = MEASUREMENT_TYPES_OUTPUTS_PLURAL[form.costMeasurementType];
+    const isFixedPrice = +form.costMeasurementType === MEASUREMENT_TYPES.FIXED;
 
     const isAdminPlus = useIsAdminPlus();
     const { isBolsterPlusActivated } = useBolsterPlus();
@@ -179,9 +180,11 @@ const EditOptionValueModal = ({ option }) => {
                                             <div
                                                 className={`measurement-fields-grid ${
                                                     !hasPricingAccess && 'grey-out'
-                                                }`}
+                                                } ${isFixedPrice ? 'fixed-price' : ''}`}
                                             >
-                                                <Field name="Measurement" required />
+                                                {!isFixedPrice && (
+                                                    <Field name="Measurement" required />
+                                                )}
                                                 <Field name="Sell Cost" required />
                                                 <Field name="Labour Cost" />
                                                 <Field name="" />
@@ -192,32 +195,36 @@ const EditOptionValueModal = ({ option }) => {
 
                                                         return (
                                                             <React.Fragment key={index}>
-                                                                <Field>
-                                                                    <NumberInputContainer
-                                                                        name={`measurementPriceBreaks[${index}].value`}
-                                                                        value={priceBreak.value}
-                                                                        placeholder="Type value"
-                                                                        minNum={0}
-                                                                        handleFocus={() => {
-                                                                            if (isLast)
-                                                                                handleAddPriceBreak();
-                                                                        }}
-                                                                        handleChange={(
-                                                                            _,
-                                                                            value,
-                                                                        ) => {
-                                                                            handlePriceBreakChange(
-                                                                                index,
-                                                                                'value',
+                                                                {!isFixedPrice && (
+                                                                    <Field>
+                                                                        <NumberInputContainer
+                                                                            name={`measurementPriceBreaks[${index}].value`}
+                                                                            value={priceBreak.value}
+                                                                            placeholder="Type value"
+                                                                            minNum={0}
+                                                                            handleFocus={() => {
+                                                                                if (isLast)
+                                                                                    handleAddPriceBreak();
+                                                                            }}
+                                                                            handleChange={(
+                                                                                _,
                                                                                 value,
-                                                                            );
-                                                                            setError(null);
-                                                                        }}
-                                                                        disableMouseWheelControl
-                                                                        disableUpDownArrowControl
-                                                                        disabled={!hasPricingAccess}
-                                                                    />
-                                                                </Field>
+                                                                            ) => {
+                                                                                handlePriceBreakChange(
+                                                                                    index,
+                                                                                    'value',
+                                                                                    value,
+                                                                                );
+                                                                                setError(null);
+                                                                            }}
+                                                                            disableMouseWheelControl
+                                                                            disableUpDownArrowControl
+                                                                            disabled={
+                                                                                !hasPricingAccess
+                                                                            }
+                                                                        />
+                                                                    </Field>
+                                                                )}
                                                                 <>
                                                                     <Field>
                                                                         <NumberInputContainer

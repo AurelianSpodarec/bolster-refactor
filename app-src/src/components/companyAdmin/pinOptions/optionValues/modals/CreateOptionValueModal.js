@@ -156,13 +156,13 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
 
                                                 <div
                                                     className={`measurement-fields-grid ${
-                                                        !hasPricingAccess && 'grey-out'
-                                                    } ${isFixedPrice && 'fixed-price'}`}
+                                                        !hasPricingAccess ? 'grey-out' : ''
+                                                    } ${isFixedPrice ? 'fixed-price' : ''}`}
                                                 >
                                                     <>
-                                                        {/*{!isFixedPrice && (*/}
-                                                        <Field name="Measurement" required />
-                                                        {/*)}*/}
+                                                        {!isFixedPrice && (
+                                                            <Field name="Measurement" required />
+                                                        )}
                                                         <Field name="Sell Cost" required />
                                                         <Field name="Labour Cost" />
                                                         <Field name="" />
@@ -175,35 +175,37 @@ const CreateOptionValueModal = ({ pinOptionTypeID, pinOptionSetID }) => {
 
                                                             return (
                                                                 <React.Fragment key={index}>
-                                                                    {/*{!isFixedPrice && (*/}
-                                                                    <Field>
-                                                                        <NumberInputContainer
-                                                                            name={`measurementPriceBreaks[${index}].value`}
-                                                                            value={priceBreak.value}
-                                                                            placeholder="Type value"
-                                                                            handleFocus={() => {
-                                                                                if (isLast)
-                                                                                    handleAddPriceBreak();
-                                                                            }}
-                                                                            handleChange={(
-                                                                                _,
-                                                                                value,
-                                                                            ) => {
-                                                                                handlePriceBreakChange(
-                                                                                    index,
-                                                                                    'value',
+                                                                    {!isFixedPrice && (
+                                                                        <Field>
+                                                                            <NumberInputContainer
+                                                                                name={`measurementPriceBreaks[${index}].value`}
+                                                                                value={
+                                                                                    priceBreak.value
+                                                                                }
+                                                                                placeholder="Type value"
+                                                                                handleFocus={() => {
+                                                                                    if (isLast)
+                                                                                        handleAddPriceBreak();
+                                                                                }}
+                                                                                handleChange={(
+                                                                                    _,
                                                                                     value,
-                                                                                );
-                                                                                setError(null);
-                                                                            }}
-                                                                            disableMouseWheelControl
-                                                                            disableUpDownArrowControl
-                                                                            disabled={
-                                                                                !hasPricingAccess
-                                                                            }
-                                                                        />
-                                                                    </Field>
-                                                                    {/*)}*/}
+                                                                                ) => {
+                                                                                    handlePriceBreakChange(
+                                                                                        index,
+                                                                                        'value',
+                                                                                        value,
+                                                                                    );
+                                                                                    setError(null);
+                                                                                }}
+                                                                                disableMouseWheelControl
+                                                                                disableUpDownArrowControl
+                                                                                disabled={
+                                                                                    !hasPricingAccess
+                                                                                }
+                                                                            />
+                                                                        </Field>
+                                                                    )}
                                                                     <Field>
                                                                         <NumberInputContainer
                                                                             name={`measurementPriceBreaks[${index}].cost`}
