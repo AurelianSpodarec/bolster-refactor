@@ -11,6 +11,7 @@ const DateTimePicker = ({
     error,
     useUtc,
     fixPickerToTop,
+    timeStep,
 }) => (
     <div className={`date-picker ${sizeClasses}`}>
         <Datetime
@@ -24,6 +25,12 @@ const DateTimePicker = ({
                 placeholder,
                 onBlur,
             }}
+            timeConstraints={{
+                minutes: {
+                    step: timeStep ? timeStep : 1,
+                },
+            }}
+            input={!timeStep}
         />
         {!!(error && error.length) && <p className="error red-text text-accent-4">{error}</p>}
 

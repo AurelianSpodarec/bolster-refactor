@@ -17,6 +17,7 @@ const DateTimePickerContainer = ({
     sizeClasses = 'size-lg-12',
     useUtc = false,
     fixPickerToTop = false,
+    timeStep = false,
 }) => {
     const dispatch = useDispatch();
     const error = useSelector(state => selectFieldError(state, name));
@@ -40,6 +41,7 @@ const DateTimePickerContainer = ({
             error={errorMessage}
             useUtc={useUtc}
             fixPickerToTop={fixPickerToTop}
+            timeStep={timeStep}
         />
     );
 
