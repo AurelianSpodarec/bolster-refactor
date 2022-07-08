@@ -182,7 +182,7 @@ const EditOptionValueModal = ({ option }) => {
                                                 }`}
                                             >
                                                 <Field name="Measurement" required />
-                                                <Field name="Sell" required />
+                                                <Field name="Sell Cost" required />
                                                 <Field name="Labour Cost" />
                                                 <Field name="" />
                                                 {form.measurementPriceBreaks.map(
