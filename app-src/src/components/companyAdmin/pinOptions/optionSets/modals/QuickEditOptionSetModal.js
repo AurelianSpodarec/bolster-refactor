@@ -17,7 +17,7 @@ const QuickEditOptionSetModal = ({ set, hideModal }) => {
                 <div className="flex-content">
                     <div className="form-fields-container">
                         <Field
-                            name="Type the percentage to increase or decrese option prices in bulk"
+                            name="Type the percentage to increase or decrease option prices in bulk"
                             required
                         >
                             <TextInputContainer

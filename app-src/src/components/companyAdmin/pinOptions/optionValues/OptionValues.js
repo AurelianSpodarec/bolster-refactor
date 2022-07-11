@@ -20,6 +20,8 @@ import ActionButton from 'components/shared/generic/button/presentational/Action
 import useBolsterPlus from 'components/companyAdmin/subscription/addOns/hooks/useBolsterPlus';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import { BOLSTER_PLUS_UPGRADE_MODAL } from 'constants/shared/modalTypes';
+import useIsAdminPlus from '../../../../hooks/useIsAdminPlus';
+import TooltipContainer from '../../../shared/generic/tooltip/containers/TooltipContainer';
 
 const OptionValues = () => {
     const dispatch = useDispatch();
@@ -28,6 +30,7 @@ const OptionValues = () => {
     const parentSet = useSelector(state => selectPinOptionSet(state, setID));
     const { showQuickEditModal, showEditSetModal } = useOptionSetActions(parentSet);
     const { isBolsterPlusActivated } = useBolsterPlus();
+    const isAdminPlus = useIsAdminPlus();
 
     useEffect(() => {
         if (!isEmpty(parentSet)) {
@@ -42,13 +45,20 @@ const OptionValues = () => {
             <FlexHeading title={name} withBackButton>
                 <ButtonWrapper alignment="right">
                     {isBolsterPlusActivated ? (
-                        <ActionButton
-                            text="Quick Price Edit"
-                            size="medium"
-                            ambient="positive"
-                            source="secondary"
-                            onClick={showQuickEditModal}
-                        />
+                        <TooltipContainer
+                            text="Quick price edit is only available to Admin Plus users"
+                            shouldOutput={!isAdminPlus}
+                            side="left"
+                        >
+                            <ActionButton
+                                text="Quick Price Edit"
+                                size="medium"
+                                ambient="positive"
+                                source="secondary"
+                                onClick={showQuickEditModal}
+                                disabled={!isAdminPlus}
+                            />
+                        </TooltipContainer>
                     ) : (
                         <ActionButton
                             text="Quick Price Edit"
