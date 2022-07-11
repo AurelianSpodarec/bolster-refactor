@@ -15,6 +15,7 @@ import ApproveShiftMenuButton from '../breakdown/dayBreakdown/ApproveShiftMenuBu
 import RejectShiftMenuButton from '../breakdown/dayBreakdown/RejectShiftMenuButton';
 import useDeleteShift from '../breakdown/hooks/useDeleteShift';
 import WarningIcon from '../../../../../../_content/images/icons/Triangle_Warning.svg';
+import useIsAdminPlus from '../../../../../../hooks/useIsAdminPlus';
 
 const DayShiftsItems = ({ shiftsForDay, onDaySelect }) => {
     const currency = useSelector(selectCompanyCurrency);
@@ -22,157 +23,131 @@ const DayShiftsItems = ({ shiftsForDay, onDaySelect }) => {
     const { isBolsterPlusActivated } = useBolsterPlus();
 
     const { handleShowDeleteShiftModal } = useDeleteShift(shiftsForDay);
+    const isAdminPlus = useIsAdminPlus();
 
     const handleViewTimesheet = timestamp => {
         onDaySelect(timestamp);
     };
 
-    return (
-        <>
-            {shiftsForDay.map((shift, i) => {
-                const {
-                    companyUserID,
-                    username,
-                    // formattedHours,
-                    formattedClockedInHours,
-                    formattedBreakHours,
-                    // overrideWage,
-                    // overrideShiftTime,
-                    wage,
-                    totalPins,
-                    hoursBreakdown,
-                    startOn,
-                    endOn,
-                    lateClockIn,
-                    lateClockOut,
-                    id,
-                    status,
-                    isShiftTimeOverridden,
-                    isWageOverridden,
-                } = shift;
+    return shiftsForDay.map((shift, i) => {
+        const {
+            companyUserID,
+            username,
+            formattedClockedInHours,
+            formattedBreakHours,
+            wage,
+            totalPins,
+            hoursBreakdown,
+            startOn,
+            endOn,
+            lateClockIn,
+            lateClockOut,
+            id,
+            status,
+            isShiftTimeOverridden,
+            isWageOverridden,
+        } = shift;
 
-                const jobReferences = hoursBreakdown.jobReferenceBreakdowns
-                    .map(({ jobReferenceName }) => jobReferenceName)
-                    .filter(name => name !== 'N/A');
+        const jobReferences = hoursBreakdown.jobReferenceBreakdowns
+            .map(({ jobReferenceName }) => jobReferenceName)
+            .filter(name => name !== 'N/A');
 
-                return (
-                    <tr key={`${i}-${companyUserID}`}>
-                        <td>{username}</td>
-                        <td>
-                            {formatAsHrsMins(formattedClockedInHours)}
-                            {isShiftTimeOverridden && (
-                                <TooltipContainer
-                                    side="right"
-                                    text="Total hours data has been edited."
-                                >
-                                    <img
-                                        alt="Warning Icon"
-                                        src={WarningIcon}
-                                        style={{ top: '5px' }}
-                                    />
-                                </TooltipContainer>
-                            )}
-                        </td>
-                        <td>
-                            {currencySymbol}
-                            {wage ? formatCurrency(wage) : '0.00'}
-                            {isWageOverridden && (
-                                <TooltipContainer
-                                    side="right"
-                                    text="Total wage data has been edited."
-                                >
-                                    <img
-                                        alt="Warning Icon"
-                                        src={WarningIcon}
-                                        style={{ top: '5px' }}
-                                    />
-                                </TooltipContainer>
-                            )}
-                        </td>
-                        <td>
-                            {moment(startOn).format('HH:mm')}
-                            {lateClockIn && (
-                                <TooltipContainer side="right" text="Operative started shift late.">
-                                    <img
-                                        alt="Warning Icon"
-                                        src={WarningIcon}
-                                        style={{ top: '5px' }}
-                                    />
-                                </TooltipContainer>
-                            )}
-                        </td>
-                        <td>
-                            {endOn ? moment(endOn).format('HH:mm') : 'N/A'}
-                            {lateClockOut && (
-                                <TooltipContainer side="right" text="Operative ended shift late.">
-                                    <img
-                                        alt="Warning Icon"
-                                        src={WarningIcon}
-                                        style={{ top: '5px' }}
-                                    />
-                                </TooltipContainer>
-                            )}
-                        </td>
-                        <td>{formatAsHrsMins(formattedBreakHours)}</td>
-                        <td>{totalPins}</td>
-                        <td>{jobReferences.length ? jobReferences.join(', ') : 'N/A'}</td>
-                        <td>
-                            <ButtonWrapper alignment="right">
-                                {isBolsterPlusActivated && status === SHIFT_STATUS.PENDING ? (
-                                    <ApproveShiftButton shiftID={id} />
-                                ) : isBolsterPlusActivated && status !== SHIFT_STATUS.PENDING ? (
-                                    <ActionButton
-                                        size="small"
-                                        source="secondary"
-                                        text={SHIFT_STATUS_REVERSE[status]}
-                                        disabled
-                                    />
-                                ) : null}
-                                {isBolsterPlusActivated ? (
-                                    <ActionMenu size="small">
-                                        <ActionMenuActionButton
-                                            text="View Timesheet"
-                                            onClick={() => handleViewTimesheet(startOn)}
-                                        />
-                                        {status !== SHIFT_STATUS.APPROVED && (
-                                            <ApproveShiftMenuButton shiftID={id} />
-                                        )}
-                                        {status !== SHIFT_STATUS.REJECTED && (
-                                            <RejectShiftMenuButton shiftID={id} />
-                                        )}
-                                        <ActionMenuActionButton
-                                            text="Delete"
-                                            onClick={() => handleShowDeleteShiftModal(shift.id)}
-                                            isNegative
-                                        />
-                                    </ActionMenu>
-                                ) : (
-                                    <TooltipContainer
-                                        side="left"
-                                        text="Delete and approve/reject is available through Bolster Plus."
-                                    >
-                                        <ActionMenu size="small" disabled={true}>
-                                            {status !== SHIFT_STATUS.APPROVED && (
-                                                <ApproveShiftMenuButton shiftID={shift.id} />
-                                            )}
-                                            {status !== SHIFT_STATUS.REJECTED && (
-                                                <RejectShiftMenuButton shiftID={shift.id} />
-                                            )}
-                                            <ActionMenuActionButton
-                                                text="Delete"
-                                                onClick={() => handleShowDeleteShiftModal(shift.id)}
-                                                isNegative
-                                            />
-                                        </ActionMenu>
-                                    </TooltipContainer>
+        return (
+            <tr key={`${i}-${companyUserID}`}>
+                <td>{username}</td>
+                <td>
+                    {formatAsHrsMins(formattedClockedInHours)}
+                    {isShiftTimeOverridden && (
+                        <TooltipContainer side="right" text="Total hours data has been edited.">
+                            <img alt="Warning Icon" src={WarningIcon} style={{ top: '5px' }} />
+                        </TooltipContainer>
+                    )}
+                </td>
+                <td>
+                    {currencySymbol}
+                    {wage ? formatCurrency(wage) : '0.00'}
+                    {isWageOverridden && (
+                        <TooltipContainer side="right" text="Total wage data has been edited.">
+                            <img alt="Warning Icon" src={WarningIcon} style={{ top: '5px' }} />
+                        </TooltipContainer>
+                    )}
+                </td>
+                <td>
+                    {moment(startOn).format('HH:mm')}
+                    {lateClockIn && (
+                        <TooltipContainer side="right" text="Operative started shift late.">
+                            <img alt="Warning Icon" src={WarningIcon} style={{ top: '5px' }} />
+                        </TooltipContainer>
+                    )}
+                </td>
+                <td>
+                    {endOn ? moment(endOn).format('HH:mm') : 'N/A'}
+                    {lateClockOut && (
+                        <TooltipContainer side="right" text="Operative ended shift late.">
+                            <img alt="Warning Icon" src={WarningIcon} style={{ top: '5px' }} />
+                        </TooltipContainer>
+                    )}
+                </td>
+                <td>{formatAsHrsMins(formattedBreakHours)}</td>
+                <td>{totalPins}</td>
+                <td>{jobReferences.length ? jobReferences.join(', ') : 'N/A'}</td>
+                <td>
+                    <ButtonWrapper alignment="right">
+                        {isBolsterPlusActivated && status === SHIFT_STATUS.PENDING ? (
+                            <ApproveShiftButton shiftID={id} />
+                        ) : isBolsterPlusActivated && status !== SHIFT_STATUS.PENDING ? (
+                            <ActionButton
+                                size="small"
+                                source="secondary"
+                                text={SHIFT_STATUS_REVERSE[status]}
+                                disabled
+                            />
+                        ) : null}
+                        {isBolsterPlusActivated ? (
+                            <ActionMenu size="small">
+                                <ActionMenuActionButton
+                                    text="View Timesheet"
+                                    onClick={() => handleViewTimesheet(startOn)}
+                                />
+                                {status !== SHIFT_STATUS.APPROVED && (
+                                    <ApproveShiftMenuButton shiftID={id} />
                                 )}
-                            </ButtonWrapper>
-                        </td>
-                    </tr>
-                );
-            })}
-        </>
-    );
+                                {status !== SHIFT_STATUS.REJECTED && (
+                                    <RejectShiftMenuButton shiftID={id} />
+                                )}
+                                <ActionMenuActionButton
+                                    text="Delete"
+                                    onClick={() => handleShowDeleteShiftModal(shift.id)}
+                                    isNegative
+                                    disabled={!isAdminPlus}
+                                />
+                            </ActionMenu>
+                        ) : (
+                            <TooltipContainer
+                                side="left"
+                                text="Delete and approve/reject is available through Bolster Plus."
+                            >
+                                <ActionMenu size="small" disabled={true}>
+                                    {status !== SHIFT_STATUS.APPROVED && (
+                                        <ApproveShiftMenuButton shiftID={shift.id} />
+                                    )}
+                                    {status !== SHIFT_STATUS.REJECTED && (
+                                        <RejectShiftMenuButton shiftID={shift.id} />
+                                    )}
+                                    <ActionMenuActionButton
+                                        text="Delete"
+                                        onClick={() => handleShowDeleteShiftModal(shift.id)}
+                                        isNegative
+                                        disabled={!isAdminPlus}
+                                    />
+                                </ActionMenu>
+                            </TooltipContainer>
+                        )}
+                    </ButtonWrapper>
+                </td>
+            </tr>
+        );
+    });
 };
 
 export default DayShiftsItems;
