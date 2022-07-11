@@ -1,23 +1,18 @@
 import React from 'react';
-import { isIE } from 'react-device-detect';
-
-import { useConfirmDarkTheme } from 'helpers/hooks';
-import useIsAdminPlus from 'hooks/useIsAdminPlus';
 
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import DashboardPinFeedContainer from '../containers/DashboardPinFeedContainer';
 import DashboardStatsFiltersContainer from '../containers/DashboardStatsFiltersContainer';
 import DashboardDataByContainer from '../containers/DashboardDataByContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import { useConfirmDarkTheme } from 'helpers/hooks';
 import DashboardPinHistoryCharts from '../containers/DashboardPinHistoryCharts';
+import { isIE } from 'react-device-detect';
 import DashboardCostingCharts from '../containers/DashboardCostingCharts';
 
 const Dashboard = ({ isIE10, costEstGraph }) => {
     useConfirmDarkTheme('/company/profile');
-    const isAdminPlus = useIsAdminPlus();
-
-    const showLineGraph = !!costEstGraph && isAdminPlus;
-
+    const showLineGraph = !!costEstGraph;
     return (
         <>
             <PageHeading title="Dashboard" />
