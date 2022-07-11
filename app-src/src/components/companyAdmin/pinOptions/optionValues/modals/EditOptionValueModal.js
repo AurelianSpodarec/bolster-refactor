@@ -117,14 +117,10 @@ const EditOptionValueModal = ({ option }) => {
                             />
                         </Field>
 
-                        {pinOptionType.hasCosting && (
+                        {pinOptionType.hasCosting && isAdminPlus && (
                             <TooltipContainer
-                                shouldOutput={!isAdminPlus || !isBolsterPlusActivated}
-                                text={
-                                    !isBolsterPlusActivated
-                                        ? 'Measurements are available through Bolster Plus.'
-                                        : 'Measurements are available for Admin Plus users only.'
-                                }
+                                shouldOutput={!isBolsterPlusActivated}
+                                text={'Measurements are available through Bolster Plus.'}
                                 side="top"
                                 containerSide="left"
                             >
