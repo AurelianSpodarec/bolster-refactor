@@ -7,7 +7,6 @@ import { convertArrToObj, isEmpty } from 'helpers/generic';
 import createPin from 'actions/companyAdmin/pins/async/createPin';
 import resetPinAnswers from 'actions/companyAdmin/drawings/sync/resetPinAnswers';
 import updateAddPinStatus from 'actions/companyAdmin/drawings/sync/updateAddPinStatus';
-import updateAddPinAnswer from 'actions/companyAdmin/drawings/sync/updateAddPinAnswer';
 import { QUESTION_TYPE_VALUES } from 'constants/shared/templateBuilder';
 
 import AddPinForm from 'components/shared/pins/addPin/presentational/AddPinForm';
@@ -335,7 +334,6 @@ const mapDispatchToProps = {
     createPin,
     resetPinAnswers,
     updateAddPinStatus,
-    updateAddPinAnswer,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddPinHistoryFormContainer));

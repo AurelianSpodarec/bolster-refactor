@@ -87,7 +87,7 @@ const AddPinQuestionRoute = ({
         pinOptionVersions,
     ]);
 
-    const prevProps = usePrevious({ status, question, template, isFetchingPins });
+    const prevProps = usePrevious({ status, question, template, isFetchingPins, pinOptions });
     // handle reset answer when not showing from prerequisites
     useEffect(() => {
         if (!showPreReq && !isEmpty(answer) && !deepEquals(answer, getDefaultValue(question))) {
@@ -150,7 +150,7 @@ const AddPinQuestionRoute = ({
             );
             if (oldAnswer) {
                 const { templateQuestionID, answerValues, measurements } = oldAnswer;
-                const values = answerValues?.map(val => ({ ...val, uid: val.id }));
+                const values = answerValues?.map(val => checkAnswerAgainstLatest(val));
                 dispatch(updateAddPinAnswer(templateQuestionID, values));
                 if (
                     question.type + '' === PIN_OPTION_TYPES ||
@@ -170,7 +170,13 @@ const AddPinQuestionRoute = ({
         } else {
             const hasTemplateAppeared = !prevProps.template && !!template;
             const hasTemplateChanged = prevProps.template?.id !== template?.id;
-            const shouldReset = hasTemplateAppeared || hasTemplateChanged || isDoneFetchingPins;
+            const hasPinOptionsChanged =
+                JSON.stringify(prevProps.pinOptions) !== JSON.stringify(pinOptions);
+            const shouldReset =
+                hasTemplateAppeared ||
+                hasTemplateChanged ||
+                hasPinOptionsChanged ||
+                isDoneFetchingPins;
 
             if (shouldReset) {
                 handlePrefillOrReset();
@@ -185,6 +191,7 @@ const AddPinQuestionRoute = ({
         template,
         pins,
         showPreReq,
+        JSON.stringify(pinOptions),
     ]);
 
     const isImage = `${question.type}` === STATIC_IMAGE;
@@ -334,7 +341,9 @@ const AddPinQuestionRoute = ({
         } else if (oldAnswersKeys.includes(question.groupKey)) {
             const oldAnswer = pinAnswersByGroupKey[question.groupKey];
             // add uid so can be matched with prefilled measumrents
-            const oldAnswerValues = oldAnswer.answerValues?.map(ans => ({ ...ans, uid: ans.id }));
+            const oldAnswerValues = oldAnswer.answerValues?.map(ans =>
+                checkAnswerAgainstLatest(ans),
+            );
             dispatch(updateAddPinAnswer(question.id, oldAnswerValues));
             const oldMeasurements = oldAnswer.measurements;
             if (oldMeasurements) {
@@ -366,8 +375,11 @@ const AddPinQuestionRoute = ({
             );
 
             const matchedAnswer = oldAnswersMatchingNameAndType[thisQuestionIndex];
+            const matchedAnswerValues = matchedAnswer.answerValues.map(ans =>
+                checkAnswerAgainstLatest(ans),
+            );
             if (matchedAnswer) {
-                return dispatch(updateAddPinAnswer(question.id, matchedAnswer.answerValues));
+                return dispatch(updateAddPinAnswer(question.id, matchedAnswerValues));
             } else {
                 handleResetAnswer();
             }
@@ -421,6 +433,20 @@ const AddPinQuestionRoute = ({
             id: edit ? m.id : null,
         }));
         return convertArrToObj(measurementsWithUid, 'uid');
+    }
+
+    function checkAnswerAgainstLatest(ans) {
+        const updatedAns = { ...ans };
+        if (ans.pinOptionVersionID && pinOptionVersions[ans.pinOptionVersionID]) {
+            const version = pinOptionVersions[ans.pinOptionVersionID];
+            const option = pinOptions.find(opt => opt.id === version.pinOptionID);
+
+            if (option && ans.pinOptionVersionID !== option.latestVersion.id) {
+                updatedAns.pinOptionVersionID = option.latestVersion.id;
+            }
+        }
+
+        return { ...updatedAns, uid: updatedAns.id };
     }
 };
 
