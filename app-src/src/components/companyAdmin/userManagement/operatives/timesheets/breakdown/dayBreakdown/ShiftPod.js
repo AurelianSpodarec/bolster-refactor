@@ -30,6 +30,10 @@ import useBolsterPlus from 'components/companyAdmin/subscription/addOns/hooks/us
 import AddExpenseButton from './AddExpenseButton';
 import useIsAdminPlus from '../../../../../../../hooks/useIsAdminPlus';
 
+const DisabledEditButton = () => (
+    <ActionButton size="small" source="secondary" icon="pencil" iconOnly disabled />
+);
+
 const ShiftPod = ({
     shift,
     shiftToEdit,
@@ -84,6 +88,42 @@ const ShiftPod = ({
 
     const isAdminPlus = useIsAdminPlus();
 
+    const EditButton = () => {
+        if (!isBolsterPlusActivated) {
+            return (
+                <TooltipContainer text="Edit is available through Bolster Plus.">
+                    <DisabledEditButton />
+                </TooltipContainer>
+            );
+        }
+
+        if (!isAdminPlus) {
+            return (
+                <TooltipContainer text="Edit is available only to Admin Plus users.">
+                    <DisabledEditButton />
+                </TooltipContainer>
+            );
+        }
+
+        if (!timeOut) {
+            return (
+                <TooltipContainer text="You cannot edit. User has not finished their shift.">
+                    <DisabledEditButton />
+                </TooltipContainer>
+            );
+        }
+
+        return (
+            <ActionButton
+                size="small"
+                source="secondary"
+                icon="pencil"
+                iconOnly
+                onClick={() => setShiftToEdit(shift.id)}
+            />
+        );
+    };
+
     return (
         <BlockContainer
             contentClass={`shift-pod ${isBolsterPlusActivated && statusClassLookup[status]}`}
@@ -100,26 +140,9 @@ const ShiftPod = ({
                             disabled
                         />
                     ) : null}
-                    {isBolsterPlusActivated && isAdminPlus ? (
-                        <ActionButton
-                            size="small"
-                            source="secondary"
-                            icon="pencil"
-                            iconOnly
-                            onClick={() => setShiftToEdit(shift.id)}
-                        />
-                    ) : (
-                        <TooltipContainer text="Edit is available through Bolster Plus.">
-                            <ActionButton
-                                size="small"
-                                source="secondary"
-                                icon="pencil"
-                                iconOnly
-                                onClick={() => setShiftToEdit(shift.id)}
-                                disabled={true}
-                            />
-                        </TooltipContainer>
-                    )}
+
+                    <EditButton />
+
                     {isBolsterPlusActivated && isAdminPlus ? (
                         <ActionMenu size="small">
                             {status !== SHIFT_STATUS.APPROVED && (

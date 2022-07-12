@@ -20,7 +20,6 @@ const AddSiteForm = ({
     postcode,
     isUsingBolsterLabels,
     isFetchingHierarchies,
-    isCostingEnabled,
     types,
     typeSets,
     handlePinOptionTypeChange,
