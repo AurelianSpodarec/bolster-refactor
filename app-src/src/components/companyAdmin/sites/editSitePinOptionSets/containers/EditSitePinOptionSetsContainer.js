@@ -19,8 +19,6 @@ import editSitePinOptionSets from '../../../../../actions/companyAdmin/sites/asy
 import { selectSubscriptions } from '../../../../../selectors/companyAdmin/companySubscription';
 
 const EditSitePinOptionSetsContainer = ({ site }) => {
-    const [hasUpdatedSets, setHasUpdatedSets] = useState(false);
-    const [hasUpdatedDocumentsSets, setHasUpdatedDocumentsSets] = useState(false);
     const [selectedPinOptionTypes, setSelectedPinOptionTypes] = useState({});
     const [selectedPinOptionSets, setSelectedPinOptionSets] = useState({});
     const [selectedPinOptionDocumentsTypes, setSelectedPinOptionDocumentsTypes] = useState({});
@@ -68,14 +66,10 @@ const EditSitePinOptionSetsContainer = ({ site }) => {
     useEffect(() => {
         Object.keys(selectedPinOptionTypes).forEach(typeID => {
             if (selectedPinOptionTypes[typeID] && !prevProps.selectedPinOptionTypes[typeID]) {
-                if (hasUpdatedSets) {
-                    const defaultSetIDs = Object.values(sets)
-                        .filter(set => set.pinOptionTypeID === +typeID && set.isDefault)
-                        .map(set => set.id);
-                    setSelectedPinOptionSets({ ...selectedPinOptionSets, [typeID]: defaultSetIDs });
-                } else {
-                    setHasUpdatedSets(true);
-                }
+                const defaultSetIDs = Object.values(sets)
+                    .filter(set => set.pinOptionTypeID === +typeID && set.isDefault)
+                    .map(set => set.id);
+                setSelectedPinOptionSets({ ...selectedPinOptionSets, [typeID]: defaultSetIDs });
             }
         });
     }, [selectedPinOptionTypes, sets]);
@@ -86,17 +80,13 @@ const EditSitePinOptionSetsContainer = ({ site }) => {
                 selectedPinOptionDocumentsTypes[typeID] &&
                 !prevProps.selectedPinOptionDocumentsTypes[typeID]
             ) {
-                if (hasUpdatedDocumentsSets) {
-                    const defaultSetIDs = Object.values(sets)
-                        .filter(set => set.pinOptionTypeID === +typeID && set.isDefault)
-                        .map(set => set.id);
-                    setSelectedPinOptionDocumentsSets({
-                        ...selectedPinOptionDocumentsSets,
-                        [typeID]: defaultSetIDs,
-                    });
-                } else {
-                    setHasUpdatedDocumentsSets(true);
-                }
+                const defaultSetIDs = Object.values(sets)
+                    .filter(set => set.pinOptionTypeID === +typeID && set.isDefault)
+                    .map(set => set.id);
+                setSelectedPinOptionDocumentsSets({
+                    ...selectedPinOptionDocumentsSets,
+                    [typeID]: defaultSetIDs,
+                });
             }
         });
     }, [selectedPinOptionDocumentsTypes, sets]);
