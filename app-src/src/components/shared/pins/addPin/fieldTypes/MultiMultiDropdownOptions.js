@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import BoundlessSelect from 'components/shared/generic/form/presentational/BoundlessSelect';
 import { formatAnswers, getSortedPinOptions } from 'helpers/addPin';
-import { useFilterPinOptions } from './helpers';
+import { useEditedPinOptionsMessage, useFilterPinOptions } from './helpers';
 import { useSelector } from 'react-redux';
 import CostingMeasurement from './CostingMeasurement';
 import { selectPinOptionType } from '../../../../../selectors/companyAdmin/pinOptionTypes';
@@ -20,6 +20,7 @@ const MultiMultiDropdownOptions = ({
     handleMeasurementChange,
     measurements,
     drawing,
+    editedPinOptionVersionIDs,
 }) => {
     // todo share component with MultiDropdownOptions
     const questionValue = answers[id] || [];
@@ -48,6 +49,11 @@ const MultiMultiDropdownOptions = ({
     const options = getSortedPinOptions(formattedOpts, defaultDropdownSorting);
     const shouldShowCosting = isCostingEnabled && type.hasCosting && !!questionValue?.length;
 
+    const EditedPinOptionsMessage = useEditedPinOptionsMessage(
+        editedPinOptionVersionIDs,
+        questionValue,
+    );
+
     const optCounts = {};
     return (
         <>
@@ -59,6 +65,7 @@ const MultiMultiDropdownOptions = ({
                 onChange={handleChange}
                 search
             />
+            <EditedPinOptionsMessage />
             {shouldShowCosting &&
                 questionValue.map((value, index) => {
                     optCounts[value.pinOptionVersionID] = optCounts[value.pinOptionVersionID]

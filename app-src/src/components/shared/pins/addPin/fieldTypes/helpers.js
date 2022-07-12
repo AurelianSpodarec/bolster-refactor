@@ -1,3 +1,4 @@
+import React from 'react';
 import { formatDropdownOptions } from '../../../../../helpers/general';
 import { useMemo } from 'react';
 import { QUESTION_TYPE_NUMBERS as TYPES } from '../../../../../constants/shared/templateBuilder';
@@ -163,6 +164,40 @@ export const useFilterPinOptions = (
     //         }),
     //     [questionValue, options, companyID, type, drawing],
     // );
+};
+
+export const useEditedPinOptionsMessage = (
+    editedPinOptionVersionIDs,
+    answerValues,
+    isMultiOptions = true,
+) => {
+    const pinOptionVersions = useSelector(selectPinOptionVersions);
+    const uniqueEditedPinOptionVersionIDs = [...new Set(editedPinOptionVersionIDs)];
+
+    const EditedPinOptionsMessage = () => {
+        if (!uniqueEditedPinOptionVersionIDs.length) return null;
+        if (
+            !answerValues.some(val =>
+                uniqueEditedPinOptionVersionIDs.includes(val.pinOptionVersionID),
+            )
+        ) {
+            return null;
+        }
+
+        const message = `Selected pin option${
+            isMultiOptions ? '(s)' : ''
+        } '${uniqueEditedPinOptionVersionIDs
+            .map(id => pinOptionVersions[id].name)
+            .join(', ')}' has been edited.`;
+
+        return (
+            <p className="size-lg-12" style={{ marginTop: 10 }}>
+                {message}
+            </p>
+        );
+    };
+
+    return EditedPinOptionsMessage;
 };
 
 export const formatMeasurementsForPostBody = (measurements, questionID) => {

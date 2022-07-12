@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import Select from 'components/shared/generic/form/presentational/Select';
 import { getSortedPinOptions } from 'helpers/addPin';
-import { useFilterPinOptions } from './helpers';
+import { useEditedPinOptionsMessage, useFilterPinOptions } from './helpers';
 import CostingMeasurement from './CostingMeasurement';
 import { useSelector } from 'react-redux';
 import { selectPinOptionType } from '../../../../../selectors/companyAdmin/pinOptionTypes';
@@ -20,6 +20,7 @@ const DropdownOptions = ({
     handleMeasurementChange,
     measurements,
     drawing,
+    editedPinOptionVersionIDs,
 }) => {
     // ! If a user is editing a pin that has a dropdown option that's no longer available,
     // ! this needs to be kept as an option.
@@ -50,6 +51,15 @@ const DropdownOptions = ({
         : pinOptions.find(opt => opt.latestVersion.id === firstValue.pinOptionVersionID);
 
     const shouldShowCosting = isCostingEnabled && type.hasCosting && !!firstValue;
+
+    const isMultiOptions = false;
+
+    const EditedPinOptionsMessage = useEditedPinOptionsMessage(
+        editedPinOptionVersionIDs,
+        questionValue,
+        isMultiOptions,
+    );
+
     return (
         <>
             <Select
@@ -60,6 +70,7 @@ const DropdownOptions = ({
                 onChange={handleChange}
                 required={isRequired}
             />
+            <EditedPinOptionsMessage />
             {shouldShowCosting && (
                 <CostingMeasurement
                     measurement={measurements[firstValue.uid]}
