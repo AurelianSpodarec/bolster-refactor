@@ -88,86 +88,85 @@ const AddSiteForm = ({
                             </div>
                         )}
 
-                        {isCostingEnabled &&
-                            types.map(type => {
-                                const sets = typeSets[type.id] ?? [];
-                                const options = sets.map(set => ({
-                                    text: set.name,
-                                    value: set.id,
-                                }));
-                                const isTypeSetsSelected = selectedPinOptionTypes[type.id];
-                                const isTypeDocumentsSelected =
-                                    selectedPinOptionDocumentsTypes[type.id];
-                                const { hasDocuments } = type;
+                        {types.map(type => {
+                            const sets = typeSets[type.id] ?? [];
+                            const options = sets.map(set => ({
+                                text: set.name,
+                                value: set.id,
+                            }));
+                            const isTypeSetsSelected = selectedPinOptionTypes[type.id];
+                            const isTypeDocumentsSelected =
+                                selectedPinOptionDocumentsTypes[type.id];
+                            const { hasDocuments } = type;
 
-                                return (
-                                    <React.Fragment key={type.id}>
-                                        <Field
+                            return (
+                                <React.Fragment key={type.id}>
+                                    <Field
+                                        labelClasses="no-capitalise"
+                                        name={`Set ${type.namePlural} for site?`}
+                                    >
+                                        <CheckboxContainer
+                                            name={type.id}
+                                            checked={selectedPinOptionTypes[type.id]}
+                                            handleChange={handlePinOptionTypeChange}
+                                            label={`Set ${type.namePlural} for site?`}
                                             labelClasses="no-capitalise"
-                                            name={`Set ${type.namePlural} for site?`}
-                                        >
-                                            <CheckboxContainer
+                                        />
+                                    </Field>
+                                    {isTypeSetsSelected && (
+                                        <Field name={type.namePlural}>
+                                            <OptionsPodSetListContainer
                                                 name={type.id}
-                                                checked={selectedPinOptionTypes[type.id]}
-                                                handleChange={handlePinOptionTypeChange}
-                                                label={`Set ${type.namePlural} for site?`}
-                                                labelClasses="no-capitalise"
+                                                isNumberValues
+                                                options={options}
+                                                handleChange={handlePinOptionSetChange}
+                                                selectedOptions={
+                                                    selectedPinOptionSets[type.id] ?? []
+                                                }
                                             />
                                         </Field>
-                                        {isTypeSetsSelected && (
-                                            <Field name={type.namePlural}>
-                                                <OptionsPodSetListContainer
+                                    )}
+
+                                    {hasDocuments && (
+                                        <>
+                                            <Field
+                                                labelClasses="no-capitalise"
+                                                name={`Set ${type.name} documents for site?`}
+                                            >
+                                                <CheckboxContainer
                                                     name={type.id}
-                                                    isNumberValues
-                                                    options={options}
-                                                    handleChange={handlePinOptionSetChange}
-                                                    selectedOptions={
-                                                        selectedPinOptionSets[type.id] ?? []
+                                                    checked={
+                                                        selectedPinOptionDocumentsTypes[type.id]
                                                     }
+                                                    handleChange={
+                                                        handlePinOptionDocumentsTypesChange
+                                                    }
+                                                    label={`Set ${type.name} documents for site?`}
+                                                    labelClasses="no-capitalise"
                                                 />
                                             </Field>
-                                        )}
-
-                                        {hasDocuments && (
-                                            <>
-                                                <Field
-                                                    labelClasses="no-capitalise"
-                                                    name={`Set ${type.name} documents for site?`}
-                                                >
-                                                    <CheckboxContainer
+                                            {isTypeDocumentsSelected && (
+                                                <Field name={type.namePlural}>
+                                                    <OptionsPodSetListContainer
                                                         name={type.id}
-                                                        checked={
-                                                            selectedPinOptionDocumentsTypes[type.id]
-                                                        }
+                                                        isNumberValues
+                                                        options={options}
                                                         handleChange={
-                                                            handlePinOptionDocumentsTypesChange
+                                                            handlePinOptionDocumentsSetsChange
                                                         }
-                                                        label={`Set ${type.name} documents for site?`}
-                                                        labelClasses="no-capitalise"
+                                                        selectedOptions={
+                                                            selectedPinOptionDocumentsSets[
+                                                                type.id
+                                                            ] ?? []
+                                                        }
                                                     />
                                                 </Field>
-                                                {isTypeDocumentsSelected && (
-                                                    <Field name={type.namePlural}>
-                                                        <OptionsPodSetListContainer
-                                                            name={type.id}
-                                                            isNumberValues
-                                                            options={options}
-                                                            handleChange={
-                                                                handlePinOptionDocumentsSetsChange
-                                                            }
-                                                            selectedOptions={
-                                                                selectedPinOptionDocumentsSets[
-                                                                    type.id
-                                                                ] ?? []
-                                                            }
-                                                        />
-                                                    </Field>
-                                                )}
-                                            </>
-                                        )}
-                                    </React.Fragment>
-                                );
-                            })}
+                                            )}
+                                        </>
+                                    )}
+                                </React.Fragment>
+                            );
+                        })}
                     </div>
                 </div>
             </div>
