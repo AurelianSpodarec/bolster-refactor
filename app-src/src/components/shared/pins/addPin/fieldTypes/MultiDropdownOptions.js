@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 import { formatAnswers, getSortedPinOptions } from 'helpers/addPin';
-import { useFilterPinOptions } from './helpers';
+import { useEditedPinOptionsMessage, useFilterPinOptions } from './helpers';
 import { useSelector } from 'react-redux';
 import CostingMeasurement from './CostingMeasurement';
 import { selectPinOptionType } from '../../../../../selectors/companyAdmin/pinOptionTypes';
@@ -20,6 +20,7 @@ const MultiDropdownOptions = ({
     handleMeasurementChange,
     measurements,
     drawing,
+    editedPinOptionVersionIDs,
 }) => {
     // todo share component with MultiMultiDropdownOptions
     const questionValue = answers[id] || [];
@@ -47,6 +48,12 @@ const MultiDropdownOptions = ({
 
     const options = getSortedPinOptions(formattedOpts, defaultDropdownSorting);
     const shouldShowCosting = isCostingEnabled && type.hasCosting && !!questionValue?.length;
+
+    const EditedPinOptionsMessage = useEditedPinOptionsMessage(
+        editedPinOptionVersionIDs,
+        questionValue,
+    );
+
     return (
         <>
             <MultiSelect
@@ -56,6 +63,7 @@ const MultiDropdownOptions = ({
                 name={`answer-${id}`}
                 onChange={handleChange}
             />
+            <EditedPinOptionsMessage />
             {shouldShowCosting &&
                 questionValue.map((value, index) => (
                     <CostingMeasurement

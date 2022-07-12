@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import updateAddPinAnswer from 'actions/companyAdmin/drawings/sync/updateAddPinAnswer';
@@ -69,6 +69,8 @@ const AddPinQuestionRoute = ({
     const drawing = useSelector(state => selectDrawing(state, drawingID));
     const measurements = useSelector(state => selectAddPinQuestionMeasurements(state, question.id));
     const isCostingEnabled = useSelector(selectIsCostingEnabled);
+
+    const [editedPinOptionVersionIDs, setEditedPinOptionVersionIDs] = useState([]);
 
     const params = useParams();
     const { historyID } = params;
@@ -236,6 +238,7 @@ const AddPinQuestionRoute = ({
                     measurements={measurements}
                     drawing={drawing}
                     isCostingEnabled={isCostingEnabled}
+                    editedPinOptionVersionIDs={editedPinOptionVersionIDs}
                 />
             </Field>
         );
@@ -443,6 +446,10 @@ const AddPinQuestionRoute = ({
 
             if (option && ans.pinOptionVersionID !== option.latestVersion.id) {
                 updatedAns.pinOptionVersionID = option.latestVersion.id;
+                setEditedPinOptionVersionIDs([
+                    ...editedPinOptionVersionIDs,
+                    option.latestVersion.id,
+                ]);
             }
         }
 
