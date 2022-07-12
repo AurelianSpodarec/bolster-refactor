@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   position: relative;
-  padding-left: 35px;
+  padding-left: 25px;
   cursor: pointer;
   font-size: 120%;
   -webkit-user-select: none;
@@ -10,9 +10,11 @@
   -ms-user-select: none;
   user-select: none;
   height: 20px;
+  margin-right: 30px;
 
   p {
     font-size: 14px;
+
   }
 
   &.large-text {
