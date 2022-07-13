@@ -24,12 +24,12 @@ const CompanyApp = () => (
             <MenuContainer />
             <div id="page-area" style={{ overflowX: 'hidden' }}>
                 {/* <AgreeToTermsCheck> */}
-                    <div id="page-content" className="flex-column justify-between">
-                        <div id="bulk-content">
-                            <BannerNotificationContainer />
-                            <UnconfirmedEmailBanner />
-                            <Banner />
-                            <Routes />
+                <div id="page-content" className="flex-column justify-between">
+                    <div id="bulk-content">
+                        <BannerNotificationContainer />
+                        <UnconfirmedEmailBanner />
+                        <Banner />
+                        <Routes />
                         <ReactTooltip effect="solid" className="react-tooltip" />
                     </div>
                     <LoggedInFooter />

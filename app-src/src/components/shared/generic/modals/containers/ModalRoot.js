@@ -122,6 +122,7 @@ import {
     DRAWING_EXPIRY_MODAL,
     EDIT_USER_EMAIL,
     CONFIRM_DARK_THEME,
+    SERIES_PIN_TASK_MODAL,
     CREATE_PIN_OPTIONS_SET_MODAL,
     CREATE_PIN_OPTIONS_VALUE_MODAL,
     CREATE_PRELIM_MODAL,
@@ -280,6 +281,7 @@ import EditJobReferenceModal from 'components/companyAdmin/userManagement/operat
 import DrawingExpiryModal from '../presentational/DrawingExpiryModal';
 import EditUserEmailModal from '../../../../superAdmin/users/editUsers/EditUserEmailModal';
 import ConfirmDarkThemeModal from '../presentational/ConfirmDarkThemeModal';
+import SeriesPinTaskModal from 'components/companyAdmin/userManagement/pinTasks/dashboard/views/series/seriesPinTaskModal/SeriesPinTaskModal';
 import CreateOptionSetModal from 'components/companyAdmin/pinOptions/optionSets/modals/CreateOptionSetModal';
 import CreateOptionValueModal from 'components/companyAdmin/pinOptions/optionValues/modals/CreateOptionValueModal';
 import CreatePrelimModal from 'components/companyAdmin/pinOptions/prelims/modals/CreatePrelimModal';
@@ -445,6 +447,7 @@ const MODAL_COMPONENTS = {
     [DRAWING_EXPIRY_MODAL]: DrawingExpiryModal,
     [EDIT_USER_EMAIL]: EditUserEmailModal,
     [CONFIRM_DARK_THEME]: ConfirmDarkThemeModal,
+    [SERIES_PIN_TASK_MODAL]: SeriesPinTaskModal,
     [CREATE_PIN_OPTIONS_SET_MODAL]: CreateOptionSetModal,
     [CREATE_PIN_OPTIONS_VALUE_MODAL]: CreateOptionValueModal,
     [CREATE_PIN_OPTION_DOCUMENTS_MODAL]: CreatePinOptionDocumentsModal,

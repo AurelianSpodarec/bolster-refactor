@@ -18,6 +18,7 @@ import {
     EDIT_TEMPLATE_QUESTION_FAILURE,
     EDIT_TEMPLATE_QUESTION_REQUEST,
     EDIT_TEMPLATE_QUESTION_SUCCESS,
+    SET_TEMPLATE_FILTERS,
 } from 'constants/actionTypes/templates';
 
 export default combineReducers({
@@ -27,6 +28,7 @@ export default combineReducers({
     postSuccess: postSuccessReducer,
     postFailure: postFailureReducer,
     pinTemplates: pinTemplatesReducer,
+    templateFilters: templateFiltersReducer,
 });
 
 function isFetchingReducer(state = false, action) {
@@ -100,6 +102,15 @@ function pinTemplatesReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_PIN_TEMPLATES_SUCCESS:
             return convertArrToObj(action.payload.templates);
+        default:
+            return state;
+    }
+}
+
+function templateFiltersReducer(state = [], action) {
+    switch (action.type) {
+        case SET_TEMPLATE_FILTERS:
+            return action.templateFilterType;
         default:
             return state;
     }

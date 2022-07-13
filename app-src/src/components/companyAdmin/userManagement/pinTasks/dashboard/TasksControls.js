@@ -30,7 +30,8 @@ const TasksControls = ({ startDate, view, onViewChange, onPrev, onNext, onToday,
     const disabled = view === PIN_STATS_DASHBOARD_VIEW.SERIES;
     const buttonText = view === PIN_STATS_DASHBOARD_VIEW.LIST ? 'Week' : 'Month';
 
-    const { form, handleChange, serviceOptions, siteOptions, operativeOptions } = useTasksFilters();
+    const { form, handleChange, serviceOptions, siteOptions, operativeOptions, templateOptions } =
+        useTasksFilters();
 
     return (
         <BlockHeading
@@ -87,6 +88,16 @@ const TasksControls = ({ startDate, view, onViewChange, onPrev, onNext, onToday,
                             onChange={handleChange}
                             options={serviceOptions}
                             placeholder="service"
+                            classes="x-large"
+                            search
+                        />
+
+                        <MultiSelect
+                            name="templates"
+                            value={form.templates}
+                            onChange={handleChange}
+                            options={templateOptions}
+                            placeholder="template"
                             classes="x-large"
                             search
                         />
