@@ -99,12 +99,10 @@ class EditPinHistoryContainer extends Component {
             );
 
             const drawingOptionValues = formattedManufacturerOptionValues.reduce((acc, option) => {
-                const isCorrectForDrawingAndServiceID = serviceID
-                    ? drawingOptionValueIDs.includes(option.id) &&
-                      option.serviceIDs.includes(Number(serviceID))
-                    : drawingOptionValueIDs.includes(option.id);
+                const isCorrectForDrawing = drawingOptionValueIDs.includes(option.id);
+                const isCorrectForServices = this.checkIsCorrectForServices(serviceID, option);
 
-                if (isCorrectForDrawingAndServiceID) {
+                if (isCorrectForDrawing && isCorrectForServices) {
                     // mark the types that need to be removed from the dropdown options
                     if (!originalOptionTypesToRemove.includes(option.type)) {
                         originalOptionTypesToRemove.push(option.type);
@@ -133,6 +131,15 @@ class EditPinHistoryContainer extends Component {
             this.setState({ isReady: true });
         }
     };
+
+    checkIsCorrectForServices = (serviceID, option) => {
+        if (!serviceID) return true;
+        if (option.serviceIDs) return option.serviceIDs.includes(Number(serviceID));
+
+        const { installationTypes } = this.props;
+        const parentInstallationType = installationTypes[option.manufacturerID];
+        return parentInstallationType.serviceIDs.includes(Number(serviceID));
+    };
 }
 
 const mapStateToProps = (
@@ -140,6 +147,9 @@ const mapStateToProps = (
         companyAdmin: {
             addPinDropdownOptions: { dropdownOptions },
             manufacturersOptionValuesReducer: { manufacturersOptionValues, isFetching },
+            manufacturersReducer: {
+                manufacturers: { installationTypes },
+            },
             drawingsReducer: { drawings },
             subscriptionsReducer: {
                 subscriptions: { serviceIDs: subscriptionServiceIDs },
@@ -158,6 +168,7 @@ const mapStateToProps = (
     dropdownOptions,
     subscriptionServiceIDs,
     selectedHistory: histories[params.historyID] || {},
+    installationTypes,
 });
 
 const mapDispatchToProps = {
