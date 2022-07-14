@@ -1,8 +1,6 @@
 import React from 'react';
 
 import Field from 'components/shared/generic/form/presentational/Field';
-import { convertEnumToDropdownOptions } from 'helpers/generic';
-import { PIN_OPTION_TYPES_ENUM } from 'constants/companyAdmin/enums';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import Select from 'components/shared/generic/form/presentational/Select';
 import { useSelector } from 'react-redux';
@@ -11,8 +9,7 @@ import MultiSelect from '../../../../shared/generic/form/presentational/MultiSel
 import { selectPinOptions } from '../../../../../selectors/superAdmin/pinOptions';
 import { selectPinOptionVersionsArr } from '../../../../../selectors/superAdmin/pinOptionVersions';
 import { getLatestVersionForPinOption } from '../../../../../helpers/pinOptions';
-
-const options = convertEnumToDropdownOptions(PIN_OPTION_TYPES_ENUM);
+import { selectPinOptionTypesArr } from '../../../../../selectors/superAdmin/pinOptionTypes';
 
 const OptionTypeForm = ({
     handleInputChange,
@@ -21,6 +18,8 @@ const OptionTypeForm = ({
     pinOptionSetIDs,
     companyID,
 }) => {
+    const optionTypes = useSelector(selectPinOptionTypesArr);
+    const typeOptions = optionTypes.map(({ id, name }) => ({ value: id, text: name }));
     const pinOptionSets = useSelector(selectPinOptionSets);
     const setOptions = Object.values(pinOptionSets)
         .filter(set => !set.isDeleted && !set.isDisabled)
@@ -40,13 +39,15 @@ const OptionTypeForm = ({
             };
         });
 
+    const selectedOption = typeOptions.find(opt => opt.value === +optionType);
+
     return (
         <>
             <Field name="Option type" required>
                 <DropdownContainer
                     name="optionType"
-                    options={Object.values(options)}
-                    selectedOption={options[optionType]}
+                    options={typeOptions}
+                    selectedOption={selectedOption}
                     placeholder="--- select option type ---"
                     handleChange={handleInputChange}
                     required
@@ -63,7 +64,7 @@ const OptionTypeForm = ({
                     />
                 </Field>
             )}
-            {options[optionType] && (
+            {!!selectedOption && (
                 <Field name="Option Default Value">
                     <Select
                         name="defaultValue"

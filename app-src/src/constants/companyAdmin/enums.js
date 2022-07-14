@@ -295,24 +295,6 @@ export const PARENTAL_TYPES = {
     CHILD_COMPANY: 3,
 };
 
-/*  adding new dropdown options to these two enum objects
-    will dynamically add a new page for that option. */
-export const PIN_OPTION_TYPES = {
-    16: { name: 'FR Ratings', link: 'fr-ratings', singular: 'FR Rating', reduxKey: 'frRatings' },
-    17: { name: 'Item Types', link: 'item-types', singular: 'Item Type', reduxKey: 'itemTypes' },
-    18: {
-        name: 'Installation Types',
-        link: 'installation-types',
-        singular: 'Installation Type',
-        reduxKey: 'installationTypes',
-    },
-};
-
-export const PIN_OPTION_TYPES_ENUM = {
-    16: 'FR Ratings',
-    17: 'Item Types',
-    18: 'Installation Types',
-};
 export const FLOORPLAN_STATES = {
     FAILEDCANCELLED: -100,
     FAILEDRETRYING: -1,
