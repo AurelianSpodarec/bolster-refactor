@@ -120,11 +120,13 @@ export const useFilterPinOptions = (
                     );
                     if (!isOtherVersionPresent) {
                         formattedOpts.push({
-                            value: version.id,
-                            label: version.shortName || version.name,
-                            id: version.id,
-                            sort: version.sort,
-                            createdOn: version.createdOn,
+                            value: optionWithVersion.latestVersion.id,
+                            label:
+                                optionWithVersion.latestVersion.shortName ||
+                                optionWithVersion.latestVersion.name,
+                            id: optionWithVersion.latestVersion.id,
+                            sort: optionWithVersion.latestVersion.sort,
+                            createdOn: optionWithVersion.latestVersion.createdOn,
                         });
                     }
                 }
