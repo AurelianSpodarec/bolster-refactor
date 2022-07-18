@@ -137,7 +137,10 @@
     }
 
     tr {
+      background-color: var(--background-container);
+      &.box {
       background-color: var(--background-box);
+      }
     }
   }
 
