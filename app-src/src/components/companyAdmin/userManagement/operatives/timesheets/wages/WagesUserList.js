@@ -36,7 +36,11 @@ const WagesUserList = ({ selectedUserIDs, handleToggleUserID, isFetching, fetchE
     } = useUsersFilter();
 
     return (
-        <BlockContainer contentClass="wages-users-list" isFetching={isFetching} error={fetchError}>
+        <BlockContainer
+            contentClass="wages-users-list darkerBox"
+            isFetching={isFetching}
+            error={fetchError}
+        >
             <div className="flex-column">
                 <BlockHeading title="All Users" />
 

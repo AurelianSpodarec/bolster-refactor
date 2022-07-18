@@ -12,7 +12,7 @@ const BreakdownLayout = ({ tabs = [], isLoading = false, error = null, noData = 
 
     return (
         <BlockContainer
-            contentClass="timesheet-breakdown"
+            contentClass="timesheet-breakdown darkerBox"
             isFetching={isLoading}
             error={error}
             isEmpty={noData}

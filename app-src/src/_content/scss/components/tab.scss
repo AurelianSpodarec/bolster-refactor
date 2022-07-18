@@ -53,8 +53,8 @@
       padding: 10px 30px;
       background: transparent;
       color: var(--typography-greyed-out);
-      border-top: 1px solid var(--navigation-secondary);
-      border-bottom: 1px solid var(--navigation-secondary);
+      border-top: 1px solid var(--typography-greyed-out);
+      border-bottom: 1px solid var(--typography-greyed-out);
       border-left: none;
       border-right: none;
 
@@ -64,12 +64,12 @@
       }
 
       &:last-child {
-        border-left: 1px solid var(--navigation-secondary);
+        border-left: 1px solid var(--typography-greyed-out);
         border-radius: 10px 0 0 10px;
       }
 
       &:first-child {
-        border-right: 1px solid var(--navigation-secondary);
+        border-right: 1px solid var(--typography-greyed-out);
         border-radius: 0 10px 10px 0;
       }
     }
