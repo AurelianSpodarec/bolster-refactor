@@ -69,6 +69,19 @@ const EditSitePinOptionSetsContainer = ({ site }) => {
     useEffect(() => {
         Object.keys(selectedPinOptionTypes).forEach(typeID => {
             if (selectedPinOptionTypes[typeID] && !prevProps.selectedPinOptionTypes[typeID]) {
+                if (selectedPinOptionTypes[typeID]) {
+                    if (Object.keys(site.pinOptionSetIDsByType).length === 0) {
+                        const defaultSetIDs = Object.values(sets)
+                            .filter(set => set.pinOptionTypeID === +typeID && set.isDefault)
+                            .map(set => set.id);
+
+                        setSelectedPinOptionSets({
+                            ...selectedPinOptionSets,
+                            [typeID]: defaultSetIDs,
+                        });
+                    }
+                }
+
                 if (hasUpdatedSets) {
                     const defaultSetIDs = Object.values(sets)
                         .filter(set => set.pinOptionTypeID === +typeID && set.isDefault)
@@ -83,6 +96,17 @@ const EditSitePinOptionSetsContainer = ({ site }) => {
 
     useEffect(() => {
         Object.keys(selectedPinOptionDocumentsTypes).forEach(typeID => {
+            if (Object.keys(site.pinOptionDocumentSetIDsByType).length === 0) {
+                const defaultSetIDs = Object.values(sets)
+                    .filter(set => set.pinOptionTypeID === +typeID && set.isDefault)
+                    .map(set => set.id);
+
+                setSelectedPinOptionDocumentsSets({
+                    ...selectedPinOptionDocumentsSets,
+                    [typeID]: defaultSetIDs,
+                });
+            }
+
             if (
                 selectedPinOptionDocumentsTypes[typeID] &&
                 !prevProps.selectedPinOptionDocumentsTypes[typeID]
