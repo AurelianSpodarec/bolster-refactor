@@ -63,7 +63,7 @@ const CostingMeasurement = ({
 const measurementInfo = {
     [LINEAR]: { fieldNames: ['length'], defaultUnit: MILLIMETRE, unitType: 'DISTANCE' },
     [DIAMETER]: { fieldNames: ['diameter'], defaultUnit: MILLIMETRE, unitType: 'DISTANCE' },
-    [SQUARE]: { fieldNames: ['length', 'width'], defaultUnit: MILLIMETRE, unitType: 'DISTANCE' },
+    [SQUARE]: { fieldNames: ['width', 'height'], defaultUnit: MILLIMETRE, unitType: 'DISTANCE' },
     [CUBIC]: {
         fieldNames: ['length', 'width', 'height'],
         defaultUnit: MILLIMETRE,
