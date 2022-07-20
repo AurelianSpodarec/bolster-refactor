@@ -32,7 +32,7 @@ const DuplicateOptionSetModal = ({ set, hideModal }) => {
                 <ButtonWrapper alignment="right" extraClasses="flex-modal-footer">
                     <ActionButton text="Cancel" source="secondary" onClick={hideModal} />
                     <ActionButton
-                        text="Duplicate"
+                        text="Confirm"
                         icon={isPosting ? 'spinner' : 'copy'}
                         iconSpin={isPosting}
                         disabled={isPosting}
