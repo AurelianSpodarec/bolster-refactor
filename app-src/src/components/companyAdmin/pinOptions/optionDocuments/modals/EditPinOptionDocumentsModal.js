@@ -35,7 +35,7 @@ const EditPinOptionDocumentsModal = ({ hideModal, documentsVersion }) => {
                             />
                         </Field>
 
-                        <Field name="Product Name" required>
+                        <Field name="Document name" required>
                             <TextInputContainer
                                 name="name"
                                 value={form.name}
