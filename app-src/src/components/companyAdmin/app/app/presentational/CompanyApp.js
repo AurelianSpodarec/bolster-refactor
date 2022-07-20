@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
+import { useHistory } from 'react-router-dom';
 
 import { pageMeta } from 'constants/frontEnd/meta';
 
@@ -15,29 +16,37 @@ import LoggedInFooter from 'components/shared/loggedInFooter/LoggedInFooter';
 
 import '_content/scss/dashboard.scss';
 
-const CompanyApp = () => (
-    <>
-        <PageMeta meta={pageMeta.companyApp} />
+const CompanyApp = () => {
+    const history = useHistory();
+    const isTimesheet = history.location.pathname === '/company/users-management/timesheets';
+    return (
+        <>
+            <PageMeta meta={pageMeta.companyApp} />
 
-        <CompanyHeader />
-        <div id="page-container">
-            <MenuContainer />
-            <div id="page-area" style={{ overflowX: 'hidden' }}>
-                {/* <AgreeToTermsCheck> */}
-                <div id="page-content" className="flex-column justify-between">
-                    <div id="bulk-content">
-                        <BannerNotificationContainer />
-                        <UnconfirmedEmailBanner />
-                        <Banner />
-                        <Routes />
-                        <ReactTooltip effect="solid" className="react-tooltip" />
+            <CompanyHeader />
+            <div id="page-container">
+                <MenuContainer />
+                <div
+                    id="page-area"
+                    style={{ overflowX: 'hidden' }}
+                    className={isTimesheet ? 'darker-background' : ''}
+                >
+                    {/* <AgreeToTermsCheck> */}
+                    <div id="page-content" className="flex-column justify-between">
+                        <div id="bulk-content">
+                            <BannerNotificationContainer />
+                            <UnconfirmedEmailBanner />
+                            <Banner />
+                            <Routes />
+                            <ReactTooltip effect="solid" className="react-tooltip" />
+                        </div>
+                        <LoggedInFooter />
                     </div>
-                    <LoggedInFooter />
+                    {/* </AgreeToTermsCheck> */}
                 </div>
-                {/* </AgreeToTermsCheck> */}
             </div>
-        </div>
-    </>
-);
+        </>
+    );
+};
 
 export default CompanyApp;

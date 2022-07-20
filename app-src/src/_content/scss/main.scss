@@ -127,6 +127,10 @@ i {
   &.full {
     width: 100%;
   }
+
+  &.darker-background {
+    background-color: var(--background-box);
+    }
 }
 
 #page-content {

@@ -25,7 +25,7 @@ const TimesheetCalender = ({
     onWeekSelect,
 }) => {
     return (
-        <BlockContainer contentClass="timesheet-content-area darkerBox">
+        <BlockContainer contentClass="timesheet-content-area">
             <div className="timesheet-calender">
                 <Controls
                     startDate={startDate}

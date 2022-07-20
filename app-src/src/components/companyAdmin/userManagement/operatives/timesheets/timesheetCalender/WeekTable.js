@@ -24,7 +24,7 @@ const WeekTable = ({
             noData={isEmpty(timesheets)}
             showLoaderWhenFetching={true}
         >
-            <tr className="box">
+            <tr>
                 <WeekTableInner
                     startDate={startDate}
                     selectedDate={selectedDate}

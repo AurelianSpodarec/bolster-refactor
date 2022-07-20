@@ -3622,7 +3622,7 @@ $back-to-top-height: 35px;
     width: calc(100% + 16px);
 
     tr {
-      border-color: var(--input-stroke);
+      border-color: var(--background-stroke);
       border-width: 1px;
 
       border-style: solid none none none;
@@ -3633,7 +3633,7 @@ $back-to-top-height: 35px;
       }
 
       th, td {
-        border-color: var(--input-stroke);
+        border-color: var(--background-stroke);
         border-width: 1px;
         border-style: none solid none none;
         width: 12.5%;
@@ -3851,7 +3851,7 @@ $back-to-top-height: 35px;
     gap: 32px;
 
     border-width: 2px;
-    border-color: var(--input-stroke);
+    border-color: var(--background-stroke);
     border-style: none none solid none;
     margin: 0 -15px;
     padding: 0 15px;
@@ -3894,7 +3894,7 @@ $back-to-top-height: 35px;
         padding: 0 16px 0 0;
 
         border-width: 1px;
-        border-color: var(--input-stroke);
+        border-color: var(--background-stroke);
         border-style: none solid none none;
       }
 
