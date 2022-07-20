@@ -140,7 +140,7 @@ const OptionSetsListItem = ({
 
                                 {!isCompanySet && (
                                     <ActionMenuActionButton
-                                        text={isHidden ? 'Undo hide' : 'Hide'}
+                                        text={isHidden ? 'Unhide' : 'Hide'}
                                         onClick={
                                             isHidden
                                                 ? () => dispatch(setOptionSetAsNotHidden(set))

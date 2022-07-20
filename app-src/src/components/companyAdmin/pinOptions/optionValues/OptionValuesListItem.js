@@ -149,7 +149,7 @@ const OptionValuesListItem = ({
 
                                 {!isCompanyOption && (
                                     <ActionMenuActionButton
-                                        text={isHidden ? 'Undo hide' : 'Hide'}
+                                        text={isHidden ? 'Unhide' : 'Hide'}
                                         onClick={
                                             isHidden
                                                 ? () =>
