@@ -50,6 +50,7 @@ const useOptionSetActions = selectedTypeID => {
                 message: 'Are you sure you would like to delete this set?',
                 isPosting: isDeleting,
                 error: deleteError,
+                deleteButtonText: 'Confirm',
             }),
         );
     };

@@ -52,6 +52,7 @@ const useOptionSetActions = selectedTypeID => {
                 handleDelete: () => dispatch(deletePinOptionSet(set.id)),
                 title: `Delete ${set.name}?`,
                 message: 'Are you sure you would like to delete this set?',
+                deleteButtonText: 'Confirm',
             }),
         );
     };

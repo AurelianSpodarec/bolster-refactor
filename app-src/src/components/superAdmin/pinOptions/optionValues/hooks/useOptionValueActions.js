@@ -51,6 +51,7 @@ const useOptionValueActions = (typeID, setID) => {
                 message: 'Are you sure you would like to delete this option?',
                 isPosting: isDeleting,
                 error: deleteError,
+                deleteButtonText: 'Confirm',
             }),
         );
     };

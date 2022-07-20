@@ -37,6 +37,7 @@ const useDocumentsSetActions = optionID => {
                 handleDelete: () => dispatch(deletePinOptionDocument(document)),
                 title: `Delete ${documentsVersion.name}?`,
                 message: 'Are you sure you would like to delete this document?',
+                deleteButtonText: 'Confirm',
             }),
         );
     };

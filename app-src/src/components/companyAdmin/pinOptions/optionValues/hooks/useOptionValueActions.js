@@ -51,6 +51,7 @@ const useOptionValueActions = (typeID, setID) => {
                 handleDelete: () => dispatch(deletePinOptionValue({ ...rest })),
                 title: `Delete ${name}?`,
                 message: 'Are you sure you would like to delete this option?',
+                deleteButtonText: 'Confirm',
             }),
         );
     };
