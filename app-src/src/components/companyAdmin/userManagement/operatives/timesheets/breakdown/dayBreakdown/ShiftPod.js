@@ -29,6 +29,7 @@ import RejectShiftMenuButton from './RejectShiftMenuButton';
 import useBolsterPlus from 'components/companyAdmin/subscription/addOns/hooks/useBolsterPlus';
 import AddExpenseButton from './AddExpenseButton';
 import useIsAdminPlus from '../../../../../../../hooks/useIsAdminPlus';
+import BreakdownNotes from '../BreakdownNotes';
 
 const DisabledEditButton = () => (
     <ActionButton size="small" source="secondary" icon="pencil" iconOnly disabled />
@@ -298,12 +299,9 @@ const ShiftPod = ({
                     </>
                 )}
             </BlockContainer>
+
             <BlockContainer contentClass="inner-pod">
-                <BlockHeading title="Notes" />
-                <div className="divider" />
-                {notes.map((note, i) => (
-                    <p key={`${i}-${note.uid}`}>{note.comments}</p>
-                ))}
+                <BreakdownNotes notes={notes} />
             </BlockContainer>
         </BlockContainer>
     );
