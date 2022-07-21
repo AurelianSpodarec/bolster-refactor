@@ -153,6 +153,7 @@ const AddPinQuestionRoute = ({
             if (oldAnswer) {
                 const { templateQuestionID, answerValues, measurements } = oldAnswer;
                 const values = answerValues?.map(val => checkAnswerAgainstLatest(val));
+                setEditedPinOptionVersionIDs(getLatestVersionIDsForEdited(answerValues));
                 dispatch(updateAddPinAnswer(templateQuestionID, values));
                 if (
                     question.type + '' === PIN_OPTION_TYPES ||
@@ -347,6 +348,7 @@ const AddPinQuestionRoute = ({
             const oldAnswerValues = oldAnswer.answerValues?.map(ans =>
                 checkAnswerAgainstLatest(ans),
             );
+            setEditedPinOptionVersionIDs(getLatestVersionIDsForEdited(oldAnswer.answerValues));
             dispatch(updateAddPinAnswer(question.id, oldAnswerValues));
             const oldMeasurements = oldAnswer.measurements;
             if (oldMeasurements) {
@@ -381,6 +383,7 @@ const AddPinQuestionRoute = ({
             const matchedAnswerValues = matchedAnswer.answerValues.map(ans =>
                 checkAnswerAgainstLatest(ans),
             );
+            setEditedPinOptionVersionIDs(getLatestVersionIDsForEdited(matchedAnswer.answerValues));
             if (matchedAnswer) {
                 return dispatch(updateAddPinAnswer(question.id, matchedAnswerValues));
             } else {
@@ -438,22 +441,44 @@ const AddPinQuestionRoute = ({
         return convertArrToObj(measurementsWithUid, 'uid');
     }
 
-    function checkAnswerAgainstLatest(ans) {
-        const updatedAns = { ...ans };
+    function getVersionIDIfNotLatest(ans) {
         if (ans.pinOptionVersionID && pinOptionVersions[ans.pinOptionVersionID]) {
             const version = pinOptionVersions[ans.pinOptionVersionID];
             const option = pinOptions.find(opt => opt.id === version.pinOptionID);
 
             if (option && ans.pinOptionVersionID !== option.latestVersion.id) {
-                updatedAns.pinOptionVersionID = option.latestVersion.id;
-                setEditedPinOptionVersionIDs([
-                    ...editedPinOptionVersionIDs,
-                    option.latestVersion.id,
-                ]);
+                return option.latestVersion.id;
             }
         }
 
+        return false;
+    }
+
+    function checkAnswerAgainstLatest(ans) {
+        const updatedAns = { ...ans };
+        const latestVersionID = getVersionIDIfNotLatest(ans);
+
+        if (latestVersionID) {
+            updatedAns.pinOptionVersionID = latestVersionID;
+        }
+
         return { ...updatedAns, uid: updatedAns.id };
+    }
+
+    function getLatestVersionIDsForEdited(answerValues) {
+        if (isEmpty(answerValues)) return [];
+
+        const oldIDs = answerValues.reduce((acc, ans) => {
+            const latestVersionID = getVersionIDIfNotLatest(ans);
+
+            if (latestVersionID) {
+                return [...acc, latestVersionID];
+            }
+
+            return acc;
+        }, []);
+
+        return oldIDs;
     }
 };
 
