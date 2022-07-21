@@ -77,12 +77,10 @@ const DayBreakdownOverview = ({
                         moment(day.date).isSame(selectedDate, 'day'),
                     );
                     const todaysShifts = thisDay?.shifts?.map(shift => {
-                        const notes = thisDay.clockerNotes.map(note => note);
-                        //change to filter when fixed
+                        const notes = thisDay.clockerNotes.filter(note =>
+                            moment(note.createdOn).isSame(selectedDate, 'day'),
+                        );
 
-                        // moment(note.createdOn).isSame(selectedDate, 'day');
-                        // console.log(moment(note.createdOn));
-                        // console.log(moment(selectedDate, 'day'));
                         return { ...shift, notes };
                     });
                     return [...acc, ...todaysShifts];

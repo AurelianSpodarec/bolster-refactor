@@ -1,9 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import moment from 'moment';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import moment from 'moment';
 import getShiftPodData from '../../helpers/getShiftPodData';
 import { selectCompanyUsers } from 'selectors/companyAdmin/companyUsers';
 import { CURRENCY_SYMBOLS, SHIFT_STATUS, SHIFT_STATUS_REVERSE } from 'constants/companyAdmin/enums';
@@ -301,7 +301,11 @@ const ShiftPod = ({
             </BlockContainer>
 
             <BlockContainer contentClass="inner-pod">
-                <BreakdownNotes notes={notes} />
+                <BreakdownNotes
+                    notes={notes}
+                    timeIn={moment.utc(timeIn).tz(timeZone)}
+                    timeOut={moment.utc(timeOut).tz(timeZone)}
+                />
             </BlockContainer>
         </BlockContainer>
     );
