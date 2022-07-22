@@ -1,5 +1,6 @@
 import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { usePrevious } from '../../../../helpers/hooks';
 
 import { isEmpty } from 'helpers/generic';
 
@@ -13,10 +14,16 @@ import useBlockTabs from 'components/shared/tabs/hooks/useBlockTabs';
 
 import OptionSets from '../optionSets/OptionSets';
 import Prelims from '../prelims/Prelims';
+import { showModal } from '../../../../actions/shared/generic/modals/sync/showModal';
+import { BOLSTER_PLUS_UPGRADE_MODAL } from '../../../../constants/shared/modalTypes';
+import useBolsterPlus from '../../subscription/addOns/hooks/useBolsterPlus';
+import { hideModal } from '../../../../actions/shared/generic/modals/sync/hideModal';
 
 const usePinOptionsTabs = () => {
     const dispatch = useDispatch();
     const pinOptionTypesArr = useSelector(selectPinOptionTypesArr);
+
+    const { isBolsterPlusActivated } = useBolsterPlus();
 
     const tabs = useMemo(() => {
         const tabsList = [];
@@ -41,9 +48,22 @@ const usePinOptionsTabs = () => {
         optionTypesSelectedTabID,
     );
 
+    const prevSelectedTab = usePrevious(selectedTabID);
+
     useEffect(() => {
         dispatch(setPinOptionsTypesSelectedTabID(selectedTabID));
     }, [selectedTabID]);
+
+    useEffect(() => {
+        if (selectedTabID === 'prelims' && !isBolsterPlusActivated) {
+            dispatch(
+                showModal(BOLSTER_PLUS_UPGRADE_MODAL, {
+                    handleClose: () => dispatch(hideModal()),
+                    handleSwitchTab: () => setSelectedTabID(prevSelectedTab),
+                }),
+            );
+        }
+    }, [selectedTabID, isBolsterPlusActivated]);
 
     return { tabs, selectedTabID, setSelectedTabID, SpecificComponent };
 };

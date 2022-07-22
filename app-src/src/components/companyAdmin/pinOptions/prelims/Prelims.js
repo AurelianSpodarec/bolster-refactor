@@ -1,22 +1,27 @@
 import React from 'react';
 
-import { isEmpty } from 'helpers/generic';
 import useSearch from 'hooks/useSearch';
 import useFilterPrelims from './hooks/useFilterPrelims';
+import useFetchPrelims from './hooks/useFetchPrelims';
+import usePrelimsSetActions from './hooks/usePrelimsSetActions';
+import useIsAdminPlus from '../../../../hooks/useIsAdminPlus';
+
+import { isEmpty } from 'helpers/generic';
+
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import FilterRow from 'components/shared/filters/FilterRow';
 import Table from 'components/shared/generic/tables/presentational/Table';
-import useFetchPrelims from './hooks/useFetchPrelims';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import PrelimsListItem from './PrelimsListItem';
-import usePrelimsSetActions from './hooks/usePrelimsSetActions';
+import TooltipContainer from '../../../shared/generic/tooltip/containers/TooltipContainer';
 
 const Prelims = () => {
     const { searchTerm, handleUpdateSearch } = useSearch();
     const { allPrelims, isFetchingPrelims, prelimsError } = useFetchPrelims();
     const filteredPrelims = useFilterPrelims(allPrelims, searchTerm);
     const { showAddModal, showEditModal, showDeleteModal } = usePrelimsSetActions();
+    const isAdminPlus = useIsAdminPlus();
 
     return (
         <>
@@ -29,13 +34,20 @@ const Prelims = () => {
                 />
 
                 <ButtonWrapper alignment="right">
-                    <ActionButton
-                        text="Add"
-                        icon="plus"
-                        ambient="positive"
-                        size="medium"
-                        onClick={showAddModal}
-                    />
+                    <TooltipContainer
+                        text="Creating prelims is only available to admin plus members."
+                        shouldOutput={!isAdminPlus}
+                        side="left"
+                    >
+                        <ActionButton
+                            text="Add"
+                            icon="plus"
+                            ambient="positive"
+                            size="medium"
+                            onClick={showAddModal}
+                            disabled={!isAdminPlus}
+                        />
+                    </TooltipContainer>
                 </ButtonWrapper>
             </FilterRow>
 

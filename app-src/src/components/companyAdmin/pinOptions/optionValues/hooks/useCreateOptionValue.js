@@ -77,6 +77,7 @@ const useCreateOptionValue = (pinOptionTypeID, pinOptionSetID) => {
 
         if (pinOptionType.hasCosting && measurementType) {
             const isFixed = +measurementType === MEASUREMENT_TYPES.FIXED;
+
             const anyIncompletePriceBreaks = measurementPriceBreaks.some(({ value, cost }) => {
                 if (isFixed && !!cost) return false;
                 if (!value && !cost) return false;
@@ -103,7 +104,7 @@ const useCreateOptionValue = (pinOptionTypeID, pinOptionSetID) => {
             }
 
             const priceBreaksWithoutEmpties = measurementPriceBreaks.filter(({ value, cost }) =>
-                isFixed ? cost : value && cost,
+                isFixed ? !!cost : value && cost,
             );
 
             const priceBreaksWithUpdatedCosts = priceBreaksWithoutEmpties.map(
