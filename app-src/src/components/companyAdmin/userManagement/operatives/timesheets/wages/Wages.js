@@ -38,7 +38,11 @@ const Wages = () => {
                 fetchError={fetchError}
             />
 
-            <BlockContainer isFetching={isFetching} error={fetchError} contentClass="flex-column">
+            <BlockContainer
+                isFetching={isFetching}
+                error={fetchError}
+                contentClass="flex-column box"
+            >
                 <WagesPayDetails
                     selectedUserIDs={selectedUserIDs}
                     selectedPayRate={selectedPayRate}

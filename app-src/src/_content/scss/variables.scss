@@ -255,6 +255,7 @@ $box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
   --background-default: #FAFAFA;
   --background-container: #FFFFFF;
   --background-box: #F1F1F3;
+  --inner-box: #AAACB1;
   --background-container-switched: #2F3037;
   --background-stroke: #F2F2F2;
   --background-secondary: #E1E1E1;
@@ -268,6 +269,7 @@ $box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
   --typography-search-header: #AAACB1;
   --typography-search: #AAACB1;
   --background-button-hover: #AAACB1;
+  --background-box-button-hover: #bbbcc5;
   --background-button-stroke: #AAACB1;
   --input-default: #FFFFFF;
   --input-stroke: #AAACB1;
@@ -304,7 +306,8 @@ $box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
   // from palette (designs)
   --background-default: #212227;
   --background-container: #2F3037;
-  --background-box: #2F3037;
+  --background-box: #3A3C45;
+  --inner-box: #494C5B;
   --background-container-switched: #FFFFFF;
   --background-stroke: #494C5B;
   --input-stroke: #494C5B;
@@ -322,6 +325,7 @@ $box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
   --semi-transparent-overlay: rgba(0, 0, 0, 0.5);
 
     --background-button-hover: #59595F;
+    --background-box-button-hover: #59595F;
     --background-button-stroke: #59595F;
   //calendar
   --calendar-negative: #fc5c64;
