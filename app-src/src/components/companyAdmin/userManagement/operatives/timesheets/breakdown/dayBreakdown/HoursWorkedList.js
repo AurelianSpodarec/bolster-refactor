@@ -42,6 +42,7 @@ const HoursWorkedList = ({
                                     icon="pencil"
                                     iconOnly
                                     source="secondary"
+                                    extraClasses="typography-default-colour"
                                     onClick={() =>
                                         dispatch(
                                             showModal(AMEND_JOB_REFERENCE_MODAL, {
