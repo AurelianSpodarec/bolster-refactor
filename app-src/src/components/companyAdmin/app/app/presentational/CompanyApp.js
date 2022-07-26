@@ -7,7 +7,6 @@ import CompanyHeader from 'components/companyAdmin/layout/header/presentational/
 import MenuContainer from 'components/shared/layout/menu/containers/MenuContainer';
 import Routes from 'components/companyAdmin/app/routes/presentational';
 import PageMeta from 'components/frontEnd/shared/meta/presentational/PageMeta';
-import AgreeToTermsCheck from '../containers/AgreeToTermsCheck';
 import BannerNotificationContainer from 'components/shared/banners/containers/BannerNotificationContainer';
 import Banner from 'components/shared/generic/banner/Banner';
 import UnconfirmedEmailBanner from 'components/shared/generic/banner/UnconfirmedEmailBanner';

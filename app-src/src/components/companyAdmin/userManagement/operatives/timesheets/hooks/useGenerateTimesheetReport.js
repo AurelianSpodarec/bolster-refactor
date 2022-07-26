@@ -21,7 +21,7 @@ import {
 import { API_URL } from 'config';
 import { DATE_TIME_POST_START, DATE_TIME_POST_END } from 'constants/shared/dateFormats';
 import useIsAdminPlus from '../../../../../../hooks/useIsAdminPlus';
-import { SHIFT_STATUS, SHIFT_STATUS_REVERSE } from 'constants/companyAdmin/enums';
+import { SHIFT_STATUS_REVERSE } from 'constants/companyAdmin/enums';
 
 const useGenerateTimesheetReport = (fromDateInclusive, toDateInclusive) => {
     const isAdminPlus = useIsAdminPlus();

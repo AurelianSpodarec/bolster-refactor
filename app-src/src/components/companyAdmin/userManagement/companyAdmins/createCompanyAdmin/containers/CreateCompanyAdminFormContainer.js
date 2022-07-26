@@ -20,8 +20,6 @@ const CreateCompanyAdminFormContainer = () => {
     const { isBolsterPlusActivated } = useBolsterPlus();
     const isAdminPlus = useIsAdminPlus();
 
-    const curUser = users && users[companyUserID] ? users[companyUserID] : {};
-
     const [state, setState] = useState({
         firstName: '',
         lastName: '',
