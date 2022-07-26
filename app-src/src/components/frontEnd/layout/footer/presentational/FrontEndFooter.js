@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { isIOS, isAndroid } from 'react-device-detect';
 
+import { ANDROID_APP_URL, IOS_APP_URL } from 'config';
+
 import AppStoreBadge from '_content/images/frontend-new/app-store-badge.png';
 import GooglePlayBadge from '_content/images/frontend-new/google-play-badge.png';
 
@@ -28,17 +30,13 @@ const FrontEndFooter = ({ hideFooter, isMobile, cookieConsent }) => {
                         {isMobile && (
                             <div className="app-buttons">
                                 {isIOS && (
-                                    <a
-                                        href="https://apps.apple.com/gb/app/bolster-systems/id1459750473"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                    >
+                                    <a href={IOS_APP_URL} target="_blank" rel="noopener noreferrer">
                                         <img alt="Download on the App Store" src={AppStoreBadge} />
                                     </a>
                                 )}
                                 {isAndroid && (
                                     <a
-                                        href="https://play.google.com/store/apps/details?id=com.bolster.dynamicdroid&hl=en"
+                                        href={ANDROID_APP_URL}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                     >

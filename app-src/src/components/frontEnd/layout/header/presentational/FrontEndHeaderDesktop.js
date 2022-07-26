@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { ANDROID_APP_URL, IOS_APP_URL } from 'config';
+
 import Logo from '_content/images/frontend-new/logo.png';
 import GoogleAppStore from '_content/images/frontend-new/google-play-badge.png';
 import AppleAppStore from '_content/images/frontend-new/apple-store.svg';
@@ -88,18 +90,10 @@ const FrontEndHeaderDesktop = ({
                 ) : (
                     <div className="logged-out-button-container">
                         <div className="mobile-app-button-container">
-                            <a
-                                href="https://apps.apple.com/gb/app/bolster-systems/id1459750473"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
+                            <a href={IOS_APP_URL} target="_blank" rel="noopener noreferrer">
                                 <img src={AppleAppStore} alt="Download on the App Store" />
                             </a>
-                            <a
-                                href="https://play.google.com/store/apps/details?id=com.bolster.dynamicdroid&hl=en"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
+                            <a href={ANDROID_APP_URL} target="_blank" rel="noopener noreferrer">
                                 <img src={GoogleAppStore} alt="Get it on Google Play" />
                             </a>
                         </div>
