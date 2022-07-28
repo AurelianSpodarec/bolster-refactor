@@ -28,6 +28,7 @@ const PinHistoryDetailsItem = ({
     const currencySymbol = CURRENCY_SYMBOLS[company.reportingCurrency];
 
     const isAdminPlus = useIsAdminPlus();
+    const isCosting = company.isCostingEnabled;
 
     return (
         <div className="item">
@@ -88,7 +89,7 @@ const PinHistoryDetailsItem = ({
                 </>
             )}
 
-            {isAdminPlus && (
+            {isAdminPlus && isCosting && (
                 <>
                     <FieldOutput
                         title="Sell cost"
