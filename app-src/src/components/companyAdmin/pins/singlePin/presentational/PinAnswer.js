@@ -9,8 +9,6 @@ import FieldOutput from 'components/shared/generic/fieldOutput/presentational/Fi
 import { boolToYesNo, isEmpty } from 'helpers/generic';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import { selectPinOptionVersions } from '../../../../../selectors/companyAdmin/pinOptionVersions';
-import { selectCompanySettings } from 'selectors/companyAdmin/companySettings';
-import { selectPinOptionType } from 'selectors/companyAdmin/pinOptionTypes';
 
 const PinAnswer = ({ trimmedAnswer, type, answers, question }) => {
     const dispatch = useDispatch();
@@ -19,10 +17,6 @@ const PinAnswer = ({ trimmedAnswer, type, answers, question }) => {
 
     const notFoundResponse = null;
     let inner;
-
-    const company = useSelector(selectCompanySettings);
-    const pinOptionType = useSelector(state => selectPinOptionType(state, question.optionType));
-    const isCosting = company.isCostingEnabled && pinOptionType.hasCosting;
 
     if (!curAnswer?.answerValues || curAnswer.answerValues.length === 0) {
         return notFoundResponse;
@@ -167,7 +161,7 @@ const PinAnswer = ({ trimmedAnswer, type, answers, question }) => {
             measurementOutputs.push(measurementOutput);
         }
     }
-    if (!isEmpty(curAnswer.pinHistoryAnswerValueQuantities) && isCosting) {
+    if (!isEmpty(curAnswer.pinHistoryAnswerValueQuantities)) {
         const { pinHistoryAnswerValueQuantities } = curAnswer;
 
         for (let i = 0; i < pinHistoryAnswerValueQuantities.length; i++) {
