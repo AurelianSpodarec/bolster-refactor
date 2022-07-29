@@ -1,10 +1,13 @@
 import { combineReducers } from 'redux';
 
-import { convertArrToObj, updateObj } from 'helpers/generic';
+import { convertArrToObj, updateObj, updateObjMultiple } from 'helpers/generic';
 import {
     FETCH_PIN_OPTION_VERSIONS_REQUEST,
     FETCH_PIN_OPTION_VERSIONS_SUCCESS,
     FETCH_PIN_OPTION_VERSIONS_FAILURE,
+    FETCH_PIN_OPTION_VERSIONS_FOR_PIN_ID_REQUEST,
+    FETCH_PIN_OPTION_VERSIONS_FOR_PIN_ID_SUCCESS,
+    FETCH_PIN_OPTION_VERSIONS_FOR_PIN_ID_FAILURE,
     CREATE_PIN_OPTION_VALUE_REQUEST,
     CREATE_PIN_OPTION_VALUE_SUCCESS,
     CREATE_PIN_OPTION_VALUE_FAILURE,
@@ -29,9 +32,12 @@ export default combineReducers({
 function isFetchingReducer(state = false, action) {
     switch (action.type) {
         case FETCH_PIN_OPTION_VERSIONS_REQUEST:
+        case FETCH_PIN_OPTION_VERSIONS_FOR_PIN_ID_REQUEST:
             return true;
         case FETCH_PIN_OPTION_VERSIONS_SUCCESS:
         case FETCH_PIN_OPTION_VERSIONS_FAILURE:
+        case FETCH_PIN_OPTION_VERSIONS_FOR_PIN_ID_SUCCESS:
+        case FETCH_PIN_OPTION_VERSIONS_FOR_PIN_ID_FAILURE:
             return false;
         default:
             return state;
@@ -41,8 +47,10 @@ function isFetchingReducer(state = false, action) {
 function fetchErrorReducer(state = null, action) {
     switch (action.type) {
         case FETCH_PIN_OPTION_VERSIONS_REQUEST:
+        case FETCH_PIN_OPTION_VERSIONS_FOR_PIN_ID_REQUEST:
             return null;
         case FETCH_PIN_OPTION_VERSIONS_FAILURE:
+        case FETCH_PIN_OPTION_VERSIONS_FOR_PIN_ID_FAILURE:
             return action.error;
         default:
             return state;
@@ -102,6 +110,8 @@ function versionsReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_PIN_OPTION_VERSIONS_SUCCESS:
             return convertArrToObj(action.payload);
+        case FETCH_PIN_OPTION_VERSIONS_FOR_PIN_ID_SUCCESS:
+            return updateObjMultiple(state, action.payload);
         case CREATE_PIN_OPTION_VALUE_SUCCESS:
         case EDIT_PIN_OPTION_VALUE_SUCCESS:
         case DUPLICATE_PIN_OPTION_VALUE_SUCCESS:

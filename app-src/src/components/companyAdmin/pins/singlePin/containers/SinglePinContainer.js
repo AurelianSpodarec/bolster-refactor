@@ -13,6 +13,7 @@ import { componentDidMount } from '../../../../../helpers/generic';
 import { selectPin } from '../../../../../selectors/companyAdmin/pins';
 import fetchPinOptionVersions from '../../../../../actions/companyAdmin/pinOptions/async/fetchPinOptionVersions';
 import fetchPinOptionTypes from 'actions/companyAdmin/pinOptions/async/fetchPinOptionTypes';
+import fetchPinOptionVersionsForPinID from 'actions/companyAdmin/pinOptions/async/fetchPinOptionVersionsForPinID';
 
 const SinglePinContainer = ({ singlePinTasks }) => {
     const dispatch = useDispatch();
@@ -41,7 +42,9 @@ const SinglePinContainer = ({ singlePinTasks }) => {
     function fetchPin() {
         let drawingID = null;
 
-        dispatch(fetchPinOptionVersions());
+        dispatch(fetchPinOptionVersions()).then(() =>
+            dispatch(fetchPinOptionVersionsForPinID(pinID)),
+        );
         dispatch(fetchSinglePin(pinID))
             .then(({ payload }) => {
                 drawingID = payload.pin.drawingID;
