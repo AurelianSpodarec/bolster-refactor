@@ -29,6 +29,7 @@ const PinHistoryDetailsItem = ({
 
     const isAdminPlus = useIsAdminPlus();
     const isCosting = company.isCostingEnabled;
+    const isHistoryByOwnCompany = history.createdByCompanyID === company.id;
 
     return (
         <div className="item">
@@ -89,7 +90,7 @@ const PinHistoryDetailsItem = ({
                 </>
             )}
 
-            {isAdminPlus && isCosting && (
+            {isAdminPlus && isCosting && isHistoryByOwnCompany && (
                 <>
                     <FieldOutput
                         title="Sell cost"
