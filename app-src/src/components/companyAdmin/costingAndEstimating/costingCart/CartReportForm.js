@@ -21,6 +21,8 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
+import { selectCompanyTimeZone } from '../../../../selectors/companyAdmin/companySettings';
+import moment from 'moment';
 
 const CartReportForm = ({ cAndEPostBody, formData }) => {
     const dispatch = useDispatch();
@@ -29,6 +31,7 @@ const CartReportForm = ({ cAndEPostBody, formData }) => {
     const postSuccess = useSelector(selectCostingAndEstimatingPostSuccess);
     const error = useSelector(selectCostingAndEstimatingPostError);
     const prevProps = usePrevious({ postSuccess, error });
+    const tz = useSelector(selectCompanyTimeZone);
 
     const selectedTab = useSelector(selectHierarchySelectedTab);
     const selectedTabType = costingAndEstimatingType[selectedTab.toUpperCase()];
@@ -66,14 +69,10 @@ const CartReportForm = ({ cAndEPostBody, formData }) => {
 
     const generateCSV = () => {
         const { histories: historyIDs } = formData.selectedItems;
-        const {
-            hierarchyID,
-            hierarchyType,
-            fromDate: fromDateInclusive,
-            toDate: toDateInclusive,
-            costEstType,
-        } = cAndEPostBody;
+        const { hierarchyID, hierarchyType, fromDate, toDate, costEstType } = cAndEPostBody;
 
+        const fromDateInclusive = moment(fromDate)?.tz(tz).startOf('day').utc().toISOString();
+        const toDateInclusive = moment(toDate)?.tz(tz).endOf('day').utc().toISOString();
         const postBody = {
             hierarchyID: [hierarchyID],
             hierarchyType,
