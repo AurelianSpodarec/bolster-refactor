@@ -81,7 +81,7 @@ const CreatePinTaskModal = ({ initialDate, startDate }) => {
     const NextButton = buttons[step];
 
     return (
-        <ModalOuterContainer extraClasses="create-pin-task-modal no-scroll">
+        <ModalOuterContainer extraClasses="create-pin-task-modal">
             <Form onSubmit={onNextStep}>
                 <BlockHeading title="Create Task" />
                 <BlockContainer contentClass="header">

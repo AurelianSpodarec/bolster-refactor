@@ -128,6 +128,7 @@ const CreatePinTaskStep1 = ({
                         required
                         classes="x-large"
                         omitPlaceholder
+                        forceListAbove
                     />
                 </Field>
             </div>
