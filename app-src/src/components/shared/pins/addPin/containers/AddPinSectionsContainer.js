@@ -14,10 +14,11 @@ class AddPinSectionsContainer extends Component {
             isHistory,
             isSameTemplate,
             pinAnswersByGroupKey,
-            dropdownOptionsByType,
             oldAnswersByNameObj,
             template,
             latestPinHistory,
+            pinOptions,
+            drawingID,
         } = this.props;
 
         return (
@@ -28,10 +29,11 @@ class AddPinSectionsContainer extends Component {
                 selectedVersion={selectedVersion}
                 isSameTemplate={isSameTemplate}
                 pinAnswersByGroupKey={pinAnswersByGroupKey}
-                dropdownOptionsByType={dropdownOptionsByType}
                 oldAnswersByNameObj={oldAnswersByNameObj}
                 template={template}
                 latestPinHistory={latestPinHistory}
+                pinOptions={pinOptions}
+                drawingID={drawingID}
             />
         );
     }

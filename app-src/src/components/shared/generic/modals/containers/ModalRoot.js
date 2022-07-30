@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import {
     ADD_BUILDINGS,
     ADD_CARD,
-    ADD_DROPDOWN_OPTION,
     ADD_FLOORS,
     ADD_SERVICE_TO_SUBSCRIPTION,
     ADD_SITE,
@@ -22,7 +21,6 @@ import {
     CONFIRM_SUBMIT,
     CREATE_COMPANY_ADMIN,
     CREATE_OPERATIVE,
-    TOGGLE_DROPDOWN_OPTION,
     DELETE_CONTACT_SUBMISSION,
     DELETE_COMPANY_USER,
     DELETE_DOCUMENT,
@@ -31,7 +29,6 @@ import {
     DELETE_OPERATIVE,
     DOCUMENT_RESPONSE_AGREEANCE,
     EDIT_BUILDING,
-    EDIT_DROPDOWN_OPTION,
     EDIT_FLOOR,
     EDIT_DRAWING,
     EDIT_SITE,
@@ -44,13 +41,12 @@ import {
     LOADING_DATA,
     PAY_INVOICE,
     PAYMENT_ERROR,
+    BOLSTER_PLUS_PAYMENT_ERROR,
     PAYMENT_SUCCESS,
     PIN_IMAGE,
     RENAME_TEMPLATE_SECTION,
     SET_LABEL_FIELDS,
     SUCCESS_MODAL,
-    FILTER_FIELDS,
-    CLIENT_FILTER_FIELDS,
     UNLINK_DEVICE,
     REVOKE_ADMIN_ACCESS,
     RESTRICT_ADMIN_PAYMENTS,
@@ -72,30 +68,9 @@ import {
     ADMIN_CONFIRM_SET_IS_INVOICE_PAID,
     ADMIN_DELETE_INVOICE,
     ADMIN_RESTORE_INVOICE,
-    DELETE_INVOICE,
     ADD_MULTIPLE_SERVICES_TO_SUBSCRIPTION,
     GENERATE_QR_CODES,
-    ADMIN_ADD_MANUFACTURER,
-    ADMIN_EDIT_MANUFACTURER,
-    ADMIN_ADD_OPTION_VALUE,
-    ADMIN_EDIT_OPTION_VALUE,
-    ADMIN_ADD_DOCUMENT_TO_OPTION_VALUE,
-    ADMIN_EDIT_OPTION_VALUE_DOCUMENT,
-    ADMIN_ADD_OPTION_VALUE_DOCUMENT_VERSION,
     DOCUMENT_VIEW,
-    ADMIN_DELETE_OPTION_VALUE_DOCUMENT_VERSION,
-    COMPANY_ADD_MANUFACTURER,
-    COMPANY_EDIT_MANUFACTURER,
-    COMPANY_DELETE_MANUFACTURER,
-    COMPANY_TOGGLE_MANUFACTURER,
-    COMPANY_TOGGLE_MANUFACTURER_OPTION_VALUE,
-    COMPANY_ADD_OPTION_VALUE,
-    COMPANY_EDIT_OPTION_VALUE,
-    COMPANY_DELETE_OPTION_VALUE,
-    COMPANY_ADD_DOCUMENT_TO_OPTION_VALUE,
-    COMPANY_EDIT_OPTION_VALUE_DOCUMENT,
-    COMPANY_ADD_OPTION_VALUE_DOCUMENT_VERSION,
-    COMPANY_DELETE_OPTION_VALUE_DOCUMENT_VERSION,
     ADMIN_EDIT_COMPANY_ADDRESS,
     ADD_NEW_FEATURE,
     EDIT_NEW_FEATURE,
@@ -109,7 +84,6 @@ import {
     EDIT_BANNER_NOTIFICATION,
     ADD_NEW_BANNER_NOTIFICATION,
     UPDATE_REPORT_LAYOUT,
-    ADMIN_DELETE_MANUFACTURER,
     CONFIRM_TWO_FACTOR,
     RECOVER_USER,
     REACTIVATE_USER,
@@ -145,16 +119,53 @@ import {
     EDIT_PIN_TASK_SERIES,
     CREATE_JOB_REFERENCE,
     EDIT_JOB_REFERENCE,
-    DELETE_JOB_REFERENCE,
     DRAWING_EXPIRY_MODAL,
-    EDIT_JOB_REF_DROPDOWN,
     EDIT_USER_EMAIL,
     CONFIRM_DARK_THEME,
+    SERIES_PIN_TASK_MODAL,
+    CREATE_PIN_OPTIONS_SET_MODAL,
+    CREATE_PIN_OPTIONS_VALUE_MODAL,
+    CREATE_PRELIM_MODAL,
+    EDIT_PRELIM_MODAL,
+    EDIT_PIN_OPTIONS_SET_MODAL,
+    EDIT_PIN_OPTIONS_VALUE_MODAL,
+    CREATE_PIN_OPTION_DOCUMENTS_MODAL,
+    EDIT_PIN_OPTION_DOCUMENTS_MODAL,
+    CREATE_ADMIN_PIN_OPTIONS_SET_MODAL,
+    EDIT_ADMIN_PIN_OPTIONS_SET_MODAL,
+    EDIT_SITE_PIN_OPTION_SETS,
+    CREATE_COSTING_AND_ESTIMATING_PRELIM_MODAL,
+    LINK_PRELIM_MODAL,
+    EDIT_LINK_PRELIM_MODAL,
+    CREATE_ADMIN_PIN_OPTIONS_VALUE_MODAL,
+    EDIT_ADMIN_PIN_OPTIONS_VALUE_MODAL,
+    DUPLICATE_PIN_OPTIONS_SET_MODAL,
+    DUPLICATE_PIN_OPTIONS_VALUE_MODAL,
+    MOVE_PIN_OPTION_MODAL,
+    CREATE_ADMIN_PIN_OPTION_DOCUMENTS_MODAL,
+    DUPLICATE_ADMIN_PIN_OPTIONS_SET_MODAL,
+    DUPLICATE_ADMIN_PIN_OPTIONS_VALUE_MODAL,
+    MERGE_PIN_OPTION_SETS_MODAL,
+    QUICK_EDIT_OPTION_SET_MODAL,
+    EDIT_ADMIN_PIN_OPTION_DOCUMENTS_MODAL,
+    CREATE_PUSH_NOTIFICATION_MODAL,
+    EDIT_PUSH_NOTIFICATION_MODAL,
+    CREATE_ADMIN_PUSH_NOTIFICATION_MODAL,
+    EDIT_ADMIN_PUSH_NOTIFICATION_MODAL,
+    ADMIN_DISABLE_COMPANY,
+    ADMIN_ENABLE_COMPANY,
+    ADD_BOLSTER_PLUS,
+    BOLSTER_PLUS_UPGRADE_MODAL,
+    BUY_BOLSTER_PLUS_CONFIRMATION,
+    DELETE_SHIFT,
+    PAY_RATES_MODAL,
+    AMEND_JOB_REFERENCE_MODAL,
+    ADD_EXPENSE_TO_SHIFT,
 } from 'constants/shared/modalTypes';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 
-import AddCardModalContainer from 'components/companyAdmin/subscription/cardManagement/addCardModal/containers/AddCardModalContainer';
+import AddCardModal from 'components/companyAdmin/subscription/cardManagement/addCardModal/presentational/AddCardModal';
 import AddServiceToSubscriptionModalContainer from 'components/companyAdmin/subscription/AddServiceToSubscriptionModal/containers/AddServiceToSubscriptionModalContainer';
 import AddMulitpleServicesToSubscriptionModalContainer from 'components/companyAdmin/subscription/AddMultipleServicesToSubscriptionModal/containers/AddMulitpleServicesToSubscriptionModalContainer';
 import AddTemplateModalContainer from 'components/superAdmin/templateBuilder/setTemplate/containers/AddTemplateModalContainer';
@@ -175,13 +186,11 @@ import EditTemplateQuestionModalContainer from 'components/superAdmin/templateBu
 import EditUserPasswordModalContainer from './EditUserPasswordModalContainer';
 import EditUserModalContainer from './EditUserModalContainer';
 import ErrorModal from '../presentational/ErrorModal';
-import FilterFieldsModalContainer from 'components/companyAdmin/reports/createReport/components/containers/FilterFieldsModalContainer';
-import ClientFilterFieldsModalContainer from 'components/client/reports/createReport/components/containers/FilterFieldsModalContainer';
 import PayInvoiceModalContainer from 'components/companyAdmin/invoices/shared/payInvoiceModal/containers/PayInvoiceModalContainer';
 import PaymentErrorModalContainer from './PaymentErrorModalContainer';
 import PinPhotoModal from '../presentational/PinPhotoModal';
 import RenameTemplateSectionModalContainer from 'components/superAdmin/templateBuilder/setSection/containers/EditTemplateSectionModalContainer';
-import SuccessModalContainer from './SuccessModalContainer';
+import SuccessModal from '../presentational/SuccessModal';
 import ConfirmDeleteModal from '../presentational/ConfirmDeleteModal';
 import ConfirmArchiveModal from '../presentational/ConfirmArchiveModal';
 import ConfirmSubmitModal from '../presentational/ConfirmSubmitModal';
@@ -192,9 +201,6 @@ import AddSiteModal from 'components/companyAdmin/sites/addSiteModal/presentatio
 import EditSiteModal from 'components/companyAdmin/sites/editSiteModal/presentational/EditSiteModal';
 import EditBuildingModal from 'components/companyAdmin/buildings/editBuildingModal/presentational/EditBuildingModal';
 import EditFloorModal from 'components/companyAdmin/floors/editFloorModal/presentational/EditFloorModal';
-import AddDropdownOptionModal from 'components/companyAdmin/dropdownOptions/addDropdownOptionModal/presentational/AddDropdownOptionModal';
-import EditDropdownOptionModal from 'components/companyAdmin/dropdownOptions/editDropdownOptionModal/presentational/EditDropdownOptionModal';
-import ToggleDropdownOptionModalContainer from 'components/companyAdmin/dropdownOptions/toggleDropdownOptionModal/containers/ToggleDropdownOptionModalContainer';
 import CreateCompanyAdminModal from 'components/companyAdmin/userManagement/companyAdmins/createCompanyAdmin/presentational/CreateCompanyAdminModal';
 import LoadingDataModal from '../presentational/LoadingDataModal';
 import UnlinkDeviceModalContainer from './UnlinkDeviceModalContainer';
@@ -220,30 +226,10 @@ import SiteManagementConfirmMoveModalContainer from 'components/superAdmin/siteM
 import ConfirmSetIsInvoicePaidModalContainer from 'components/superAdmin/invoices/confirmSetIsInvoicePaidModal/containers/ConfirmSetIsInvoicePaidModalContainer';
 import SuperAdminConfirmDeleteInvoiceModalContainer from 'components/superAdmin/invoices/superAdminConfirmDeleteInvoiceModal/containers/SuperAdminConfirmDeleteInvoiceModalContainer';
 import SuperAdminConfirmRestoreInvoiceModalContainer from 'components/superAdmin/invoices/superAdminConfirmRestoreInvoiceModal/containers/SuperAdminConfirmRestoreInvoiceModalContainer';
-import ConfirmDeleteInvoiceModalContainer from 'components/companyAdmin/invoices/confirmDeleteInvoiceModal/containers/ConfirmDeleteInvoiceModalContainer';
 import AddCompanyAdminModalContainer from 'components/superAdmin/companies/singleCompany/containers/AddCompanyAdminModalContainer';
 import GenerateQRCodesModalContainer from './GenerateQRCodesModalContainer';
 import RestrictPaymentsModalContainer from './RestrictPaymentsModalContainer';
-import AdminAddManufacturerModal from 'components/superAdmin/pinOptions/addManufacturer/presentational/AddManufacturerModal';
-import AdminEditManufacturerModal from 'components/superAdmin/pinOptions/editManufacturer/presentational/EditManufacturerModal';
-import AdminDeleteManufacturerModal from 'components/superAdmin/pinOptions/deleteManufacturer/containers/DeleteManufacturerModalContainer';
-import AdminAddOptionValueModal from 'components/superAdmin/pinOptions/addOptionValue/presentational/AddOptionValueModal';
-import AdminEditOptionValueModal from 'components/superAdmin/pinOptions/editOptionValue/presentational/EditOptionValueModal';
-import AdminAddDocumentToOptionValueModal from 'components/superAdmin/pinOptions/addDocumentToOptionValue/presentational/AddDocumentToOptionValueModal';
-import AdminEditOptionValueDocumentModal from 'components/superAdmin/pinOptions/editOptionValueDocument/presentational/EditOptionValueDocumentModal';
-import AdminAddNewDocumentVersionModal from 'components/superAdmin/pinOptions/addNewDocumentVersion/presentational/AddNewDocumentVersionModal';
 import DocumentViewModal from '../presentational/DocumentViewModal';
-import AdminConfirmDeleteDocumentVersionModalContainer from 'components/superAdmin/pinOptions/confirmDeleteDocumentVersion/containers/ConfirmDeleteDocumentVersionModalContainer';
-import AddManufacturerModal from 'components/companyAdmin/dropdownOptions/addManufacturer/presentational/AddManufacturerModal';
-import EditManufacturerModal from 'components/companyAdmin/dropdownOptions/editManufacturer/presentational/EditManufacturerModal';
-import ToggleManufacturerModalContainer from 'components/companyAdmin/dropdownOptions/toggleManufacturerModal/containers/ToggleManufacturerModalContainer';
-import ToggleManufacturerOptionValueModalContainer from 'components/companyAdmin/dropdownOptions/toggleManufacturerOptionValueModal/containers/ToggleManufacturerOptionValueModalContainer';
-import AddOptionValueModal from 'components/companyAdmin/dropdownOptions/addOptionValue/presentational/AddOptionValueModal';
-import EditOptionValueModal from 'components/companyAdmin/dropdownOptions/editOptionValue/presentational/EditOptionValueModal';
-import AddDocumentToOptionValueModal from 'components/companyAdmin/dropdownOptions/addDocumentToOptionValue/presentational/AddDocumentToOptionValueModal';
-import EditOptionValueDocumentModal from 'components/companyAdmin/dropdownOptions/editOptionValueDocument/presentational/EditOptionValueDocumentModal';
-import AddNewDocumentVersionModal from 'components/companyAdmin/dropdownOptions/addNewDocumentVersion/presentational/AddNewDocumentVersionModal';
-import ConfirmDeleteDocumentVersionModalContainer from 'components/companyAdmin/dropdownOptions/confirmDeleteDocumentVersion/containers/ConfirmDeleteDocumentVersionModalContainer';
 import EditCompanyAddressModalContainer from './EditCompanyAddressModalContainer';
 import UploadUserGuideModalContainer from './UploadUserGuideModalContainer';
 import AddNewFeatureModal from 'components/superAdmin/newFeatures/addNewFeatureModal/presentational/AddNewFeatureModal';
@@ -260,8 +246,6 @@ import UserLatestSyncsModalContainer from 'components/superAdmin/companies/singl
 import EditBannerNotificationModal from 'components/superAdmin/bannerNotifications/editBannerNotificationModal/presentational/EditBannerNotificationModal';
 import AddBannerNotificationModal from 'components/superAdmin/bannerNotifications/addBannerNotifcationModel/presentational/AddBannerNotificationModal';
 import UpdateReportLayoutModal from '../presentational/UpdateReportLayoutModal';
-import DeleteManufacturerModalContainer from 'components/companyAdmin/dropdownOptions/deleteManufacturer/containers/DeleteManufacturerModalContainer';
-import DeleteOptionValueModalContainer from 'components/companyAdmin/dropdownOptions/deleteOptionValue/containers/DeleteOptionValueModalContainer';
 import ConfirmTwoFactorModal from '../presentational/ConfirmTwoFactorModal';
 import ConfirmEmailModal from '../presentational/ConfirmEmailModal';
 import RecoverUserModal from 'components/companyAdmin/userManagement/shared/modals/RecoverUserModal';
@@ -292,16 +276,54 @@ import CreatePinTaskModal from 'components/companyAdmin/userManagement/pinTasks/
 import EditPinTaskModal from 'components/companyAdmin/userManagement/pinTasks/editPinTaskModal/EditPinTaskModal';
 import EditPinTaskSeriesModal from 'components/companyAdmin/userManagement/pinTasks/editPinTaskSeriesModal/EditPinTaskSeriesModal';
 import ViewPinTaskModal from 'components/companyAdmin/userManagement/pinTasks/viewTaskNoteModal/ViewTaskNoteModal';
-import CreateJobReferenceModal from 'components/companyAdmin/jobReferences/CreateJobReferenceModal';
-import EditJobReferenceModal from 'components/companyAdmin/jobReferences/EditJobReferenceModal';
-import DeleteJobReferenceModal from 'components/companyAdmin/jobReferences/DeleteJobReferenceModal';
+import CreateJobReferenceModal from 'components/companyAdmin/userManagement/operatives/timesheets/jobReferences/modals/CreateJobReferenceModal';
+import EditJobReferenceModal from 'components/companyAdmin/userManagement/operatives/timesheets/jobReferences/modals/EditJobReferenceModal';
 import DrawingExpiryModal from '../presentational/DrawingExpiryModal';
-import EditJobRefDropdownModal from './EditJobRefDropdownModalContainer';
 import EditUserEmailModal from '../../../../superAdmin/users/editUsers/EditUserEmailModal';
 import ConfirmDarkThemeModal from '../presentational/ConfirmDarkThemeModal';
+import SeriesPinTaskModal from 'components/companyAdmin/userManagement/pinTasks/dashboard/views/series/seriesPinTaskModal/SeriesPinTaskModal';
+import CreateOptionSetModal from 'components/companyAdmin/pinOptions/optionSets/modals/CreateOptionSetModal';
+import CreateOptionValueModal from 'components/companyAdmin/pinOptions/optionValues/modals/CreateOptionValueModal';
+import CreatePrelimModal from 'components/companyAdmin/pinOptions/prelims/modals/CreatePrelimModal';
+import EditPrelimModal from 'components/companyAdmin/pinOptions/prelims/modals/EditPrelimModal';
+import EditOptionSetModal from 'components/companyAdmin/pinOptions/optionSets/modals/EditOptionSetModal';
+import EditOptionValueModal from 'components/companyAdmin/pinOptions/optionValues/modals/EditOptionValueModal';
+import CreatePinOptionDocumentsModal from 'components/companyAdmin/pinOptions/optionDocuments/modals/CreatePinOptionDocumentsModal';
+import EditPinOptionDocumentsModal from 'components/companyAdmin/pinOptions/optionDocuments/modals/EditPinOptionDocumentsModal';
+import AdminCreateOptionSetModal from 'components/superAdmin/pinOptions/optionSets/modals/CreateOptionSetModal';
+import AdminEditOptionSetModal from 'components/superAdmin/pinOptions/optionSets/modals/EditOptionSetModal';
+import EditSitePinOptionSetsModal from '../../../../companyAdmin/sites/editSitePinOptionSets/presentational/EditSitePinOptionSetsModal';
+import CreateCostingAndEstimatingPrelimModal from 'components/companyAdmin/costingAndEstimating/modals/CreateCostingAndEstimatingPrelimModal';
+import EditLinkPrelimModal from 'components/companyAdmin/costingAndEstimating/modals/EditLinkPrelimModal';
+import LinkPrelimModal from '../../../../companyAdmin/costingAndEstimating/modals/LinkPrelimModal';
+import AdminCreateOptionValueModal from '../../../../superAdmin/pinOptions/optionValues/modals/CreateOptionValueModal';
+import AdminEditOptionValueModal from '../../../../superAdmin/pinOptions/optionValues/modals/EditOptionValueModal';
+import DuplicateOptionSetModal from 'components/companyAdmin/pinOptions/optionSets/modals/DuplicateOptionSetModal';
+import DuplicateAdminOptionSetModal from 'components/superAdmin/pinOptions/optionSets/modals/DuplicateOptionSetModal';
+import DuplicateOptionValueModal from 'components/companyAdmin/pinOptions/optionValues/modals/DuplicateOptionValueModal';
+import MoveOptionValueModal from '../../../../companyAdmin/pinOptions/optionValues/modals/MoveOptionValueModal';
+import AdminCreatePinOptionDocumentsModal from '../../../../superAdmin/pinOptions/optionDocuments/modals/CreatePinOptionDocumentsModal';
+import AdminDuplicateOptionValueModal from '../../../../superAdmin/pinOptions/optionSets/modals/DuplicateOptionValueModal';
+import MergeOptionSetsModal from 'components/companyAdmin/pinOptions/optionSets/modals/MergeOptionSetsModal';
+import QuickEditOptionSetModal from 'components/companyAdmin/pinOptions/optionSets/modals/QuickEditOptionSetModal';
+import AdminEditPinOptionDocumentsModal from 'components/superAdmin/pinOptions/optionDocuments/modals/EditPinOptionDocumentsModal';
+import CreatePushNotificationModal from 'components/companyAdmin/pushNotifications/modals/CreatePushNotificationModal';
+import EditPushNotificationModal from 'components/companyAdmin/pushNotifications/modals/EditPushNotificationModal';
+import AdminCreatePushNotificationModal from 'components/superAdmin/pushNotifications/modals/CreatePushNotificationModal';
+import AdminEditPushNotificationModal from 'components/superAdmin/pushNotifications/modals/EditPushNotificationModal';
+import DisableCompanyModal from 'components/superAdmin/companies/shared/modals/DisableCompanyModal';
+import EnableCompanyModal from 'components/superAdmin/companies/shared/modals/EnableCompanyModal';
+import AddBolsterPlusModal from 'components/companyAdmin/subscription/addOns/modals/AddBolsterPlusModal';
+import BolsterPlusUpgradeModal from '../presentational/BolsterPlusUpgradeModal';
+import BuyBolsterPlusConfirmationModal from 'components/companyAdmin/subscription/addOns/modals/BuyBolsterPlusConfirmationModal';
+import BolsterPlusPaymentErrorModal from 'components/companyAdmin/subscription/addOns/modals/BolsterPlusPaymentErrorModal';
+import ConfirmDeleteShiftModalContainer from './ConfirmDeleteShiftModalContainer';
+import PayRatesModal from '../../../../companyAdmin/userManagement/operatives/timesheets/wages/modals/PayRatesModal';
+import AmendJobReferenceModal from 'components/companyAdmin/userManagement/operatives/timesheets/modals/AmendJobReferenceModal';
+import AddExpenseToShiftModalContainer from './AddExpenseToShiftModalContainer';
 
 const MODAL_COMPONENTS = {
-    [ADD_CARD]: AddCardModalContainer,
+    [ADD_CARD]: AddCardModal,
     [ADD_SERVICE_TO_SUBSCRIPTION]: AddServiceToSubscriptionModalContainer,
     [ADD_TEMPLATE]: AddTemplateModalContainer,
     [ADD_TEMPLATE_QUESTION]: AddTemplateQuestionModalContainer,
@@ -326,15 +348,14 @@ const MODAL_COMPONENTS = {
     [EDIT_TEMPLATE_QUESTION]: EditTemplateQuestionModalContainer,
     [EDIT_USER]: EditUserModalContainer,
     [EDIT_USER_PASSWORD]: EditUserPasswordModalContainer,
-    [FILTER_FIELDS]: FilterFieldsModalContainer,
-    [CLIENT_FILTER_FIELDS]: ClientFilterFieldsModalContainer,
     [PAY_INVOICE]: PayInvoiceModalContainer,
     [PAYMENT_ERROR]: PaymentErrorModalContainer,
+    [BOLSTER_PLUS_PAYMENT_ERROR]: BolsterPlusPaymentErrorModal,
     [PAYMENT_SUCCESS]: PaymentSuccessModalContainer,
     [PIN_IMAGE]: PinPhotoModal,
     [RENAME_TEMPLATE_SECTION]: RenameTemplateSectionModalContainer,
     [COPY_TEMPLATE]: CopyTemplateModalContainer,
-    [SUCCESS_MODAL]: SuccessModalContainer.WrappedComponent,
+    [SUCCESS_MODAL]: SuccessModal,
     [EDIT_DRAWING]: EditDrawingModalContainer,
     [CONFIRM_EDIT_PIN]: ConfirmEditPinModalContainer,
     [ADD_SITE]: AddSiteModal,
@@ -344,9 +365,6 @@ const MODAL_COMPONENTS = {
     [EDIT_SITE]: EditSiteModal,
     [EDIT_BUILDING]: EditBuildingModal,
     [EDIT_FLOOR]: EditFloorModal,
-    [ADD_DROPDOWN_OPTION]: AddDropdownOptionModal,
-    [EDIT_DROPDOWN_OPTION]: EditDropdownOptionModal,
-    [TOGGLE_DROPDOWN_OPTION]: ToggleDropdownOptionModalContainer,
     [CREATE_COMPANY_ADMIN]: CreateCompanyAdminModal,
     [CREATE_OPERATIVE]: CreateOperativeModal,
     [LOADING_DATA]: LoadingDataModal,
@@ -369,31 +387,10 @@ const MODAL_COMPONENTS = {
     [ADMIN_CONFIRM_SET_IS_INVOICE_PAID]: ConfirmSetIsInvoicePaidModalContainer,
     [ADMIN_DELETE_INVOICE]: SuperAdminConfirmDeleteInvoiceModalContainer,
     [ADMIN_RESTORE_INVOICE]: SuperAdminConfirmRestoreInvoiceModalContainer,
-    [DELETE_INVOICE]: ConfirmDeleteInvoiceModalContainer,
     [REQUEST_DELETE_INVOICE]: RequestDeleteInvoiceModal,
     [ADD_MULTIPLE_SERVICES_TO_SUBSCRIPTION]: AddMulitpleServicesToSubscriptionModalContainer,
     [GENERATE_QR_CODES]: GenerateQRCodesModalContainer,
-    [ADMIN_ADD_MANUFACTURER]: AdminAddManufacturerModal,
-    [ADMIN_EDIT_MANUFACTURER]: AdminEditManufacturerModal,
-    [ADMIN_DELETE_MANUFACTURER]: AdminDeleteManufacturerModal,
-    [ADMIN_ADD_OPTION_VALUE]: AdminAddOptionValueModal,
-    [ADMIN_EDIT_OPTION_VALUE]: AdminEditOptionValueModal,
-    [ADMIN_ADD_DOCUMENT_TO_OPTION_VALUE]: AdminAddDocumentToOptionValueModal,
-    [ADMIN_EDIT_OPTION_VALUE_DOCUMENT]: AdminEditOptionValueDocumentModal,
-    [ADMIN_ADD_OPTION_VALUE_DOCUMENT_VERSION]: AdminAddNewDocumentVersionModal,
     [DOCUMENT_VIEW]: DocumentViewModal,
-    [ADMIN_DELETE_OPTION_VALUE_DOCUMENT_VERSION]: AdminConfirmDeleteDocumentVersionModalContainer,
-    [COMPANY_ADD_MANUFACTURER]: AddManufacturerModal,
-    [COMPANY_EDIT_MANUFACTURER]: EditManufacturerModal,
-    [COMPANY_DELETE_MANUFACTURER]: DeleteManufacturerModalContainer,
-    [COMPANY_TOGGLE_MANUFACTURER]: ToggleManufacturerModalContainer,
-    [COMPANY_TOGGLE_MANUFACTURER_OPTION_VALUE]: ToggleManufacturerOptionValueModalContainer,
-    [COMPANY_ADD_OPTION_VALUE]: AddOptionValueModal,
-    [COMPANY_EDIT_OPTION_VALUE]: EditOptionValueModal,
-    [COMPANY_ADD_DOCUMENT_TO_OPTION_VALUE]: AddDocumentToOptionValueModal,
-    [COMPANY_EDIT_OPTION_VALUE_DOCUMENT]: EditOptionValueDocumentModal,
-    [COMPANY_ADD_OPTION_VALUE_DOCUMENT_VERSION]: AddNewDocumentVersionModal,
-    [COMPANY_DELETE_OPTION_VALUE_DOCUMENT_VERSION]: ConfirmDeleteDocumentVersionModalContainer,
     [ADMIN_EDIT_COMPANY_ADDRESS]: EditCompanyAddressModalContainer,
     [UPLOAD_USER_GUIDE]: UploadUserGuideModalContainer,
     [ADD_NEW_FEATURE]: AddNewFeatureModal,
@@ -409,7 +406,6 @@ const MODAL_COMPONENTS = {
     [ADD_NEW_BANNER_NOTIFICATION]: AddBannerNotificationModal,
     [EDIT_BANNER_NOTIFICATION]: EditBannerNotificationModal,
     [UPDATE_REPORT_LAYOUT]: UpdateReportLayoutModal,
-    [COMPANY_DELETE_OPTION_VALUE]: DeleteOptionValueModalContainer,
     [CONFIRM_TWO_FACTOR]: ConfirmTwoFactorModal,
     [RECOVER_USER]: RecoverUserModal,
     [REACTIVATE_USER]: ReactivateUserModal,
@@ -421,10 +417,14 @@ const MODAL_COMPONENTS = {
     [DELETE_DEMO_ACCESS_CODES]: DeleteDemoAccessCodesModal,
     [ENTER_DEMO_ACCESS_CODES]: EnterDemoFullSiteModal,
     [ADMIN_EDIT_COMPANY_OWNER]: EditCompanyOwnerModalContainer,
+    [ADMIN_DISABLE_COMPANY]: DisableCompanyModal,
+    [ADMIN_ENABLE_COMPANY]: EnableCompanyModal,
     [CONFIRM_EMAIL]: ConfirmEmailModal,
     [USER_NEW_DOCUMENT]: NewUserDocumentModal,
     [CREATE_HIERARCHY_ALERT_MODAL]: CreateHierarchyAlertModal,
     [GENERATE_TIMESHEET_REPORT]: GenerateTimesheetReportModal,
+    [ADD_EXPENSE_TO_SHIFT]: AddExpenseToShiftModalContainer,
+    [DELETE_SHIFT]: ConfirmDeleteShiftModalContainer,
     [EXPANDED_MEDIA]: ExpandedMediaModal,
     [MESSAGE_CENTRE_DRAWING_EXPIRY]: ExpiringDrawingsModal,
     [EDIT_ALERT_MODAL]: EditAlertModal,
@@ -444,11 +444,44 @@ const MODAL_COMPONENTS = {
     [FETCH_PIN_TASK]: ViewPinTaskModal,
     [CREATE_JOB_REFERENCE]: CreateJobReferenceModal,
     [EDIT_JOB_REFERENCE]: EditJobReferenceModal,
-    [DELETE_JOB_REFERENCE]: DeleteJobReferenceModal,
     [DRAWING_EXPIRY_MODAL]: DrawingExpiryModal,
-    [EDIT_JOB_REF_DROPDOWN]: EditJobRefDropdownModal,
     [EDIT_USER_EMAIL]: EditUserEmailModal,
     [CONFIRM_DARK_THEME]: ConfirmDarkThemeModal,
+    [SERIES_PIN_TASK_MODAL]: SeriesPinTaskModal,
+    [CREATE_PIN_OPTIONS_SET_MODAL]: CreateOptionSetModal,
+    [CREATE_PIN_OPTIONS_VALUE_MODAL]: CreateOptionValueModal,
+    [CREATE_PIN_OPTION_DOCUMENTS_MODAL]: CreatePinOptionDocumentsModal,
+    [CREATE_PRELIM_MODAL]: CreatePrelimModal,
+    [EDIT_PRELIM_MODAL]: EditPrelimModal,
+    [EDIT_PIN_OPTIONS_SET_MODAL]: EditOptionSetModal,
+    [EDIT_PIN_OPTIONS_VALUE_MODAL]: EditOptionValueModal,
+    [EDIT_PIN_OPTION_DOCUMENTS_MODAL]: EditPinOptionDocumentsModal,
+    [CREATE_ADMIN_PIN_OPTIONS_SET_MODAL]: AdminCreateOptionSetModal,
+    [EDIT_ADMIN_PIN_OPTIONS_SET_MODAL]: AdminEditOptionSetModal,
+    [CREATE_ADMIN_PIN_OPTIONS_VALUE_MODAL]: AdminCreateOptionValueModal,
+    [EDIT_ADMIN_PIN_OPTIONS_VALUE_MODAL]: AdminEditOptionValueModal,
+    [EDIT_SITE_PIN_OPTION_SETS]: EditSitePinOptionSetsModal,
+    [CREATE_COSTING_AND_ESTIMATING_PRELIM_MODAL]: CreateCostingAndEstimatingPrelimModal,
+    [LINK_PRELIM_MODAL]: LinkPrelimModal,
+    [EDIT_LINK_PRELIM_MODAL]: EditLinkPrelimModal,
+    [DUPLICATE_PIN_OPTIONS_SET_MODAL]: DuplicateOptionSetModal,
+    [DUPLICATE_PIN_OPTIONS_VALUE_MODAL]: DuplicateOptionValueModal,
+    [DUPLICATE_ADMIN_PIN_OPTIONS_VALUE_MODAL]: AdminDuplicateOptionValueModal,
+    [DUPLICATE_ADMIN_PIN_OPTIONS_SET_MODAL]: DuplicateAdminOptionSetModal,
+    [MOVE_PIN_OPTION_MODAL]: MoveOptionValueModal,
+    [CREATE_ADMIN_PIN_OPTION_DOCUMENTS_MODAL]: AdminCreatePinOptionDocumentsModal,
+    [MERGE_PIN_OPTION_SETS_MODAL]: MergeOptionSetsModal,
+    [QUICK_EDIT_OPTION_SET_MODAL]: QuickEditOptionSetModal,
+    [EDIT_ADMIN_PIN_OPTION_DOCUMENTS_MODAL]: AdminEditPinOptionDocumentsModal,
+    [CREATE_PUSH_NOTIFICATION_MODAL]: CreatePushNotificationModal,
+    [EDIT_PUSH_NOTIFICATION_MODAL]: EditPushNotificationModal,
+    [CREATE_ADMIN_PUSH_NOTIFICATION_MODAL]: AdminCreatePushNotificationModal,
+    [EDIT_ADMIN_PUSH_NOTIFICATION_MODAL]: AdminEditPushNotificationModal,
+    [ADD_BOLSTER_PLUS]: AddBolsterPlusModal,
+    [BOLSTER_PLUS_UPGRADE_MODAL]: BolsterPlusUpgradeModal,
+    [BUY_BOLSTER_PLUS_CONFIRMATION]: BuyBolsterPlusConfirmationModal,
+    [PAY_RATES_MODAL]: PayRatesModal,
+    [AMEND_JOB_REFERENCE_MODAL]: AmendJobReferenceModal,
 };
 
 const ModalRoot = ({ modalType, modalProps, ...otherProps }) => {

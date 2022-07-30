@@ -1,31 +1,32 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import fetchCompanySettings from 'actions/companyAdmin/companySettings/async/fetchCompanySettings';
 import Settings from '../presentational/Settings';
+import { componentDidMount } from '../../../../../helpers/generic';
+import { selectIsMobile } from '../../../../../selectors/shared/mobile';
+import {
+    selectCompanySettings,
+    selectCompanySettingsFetchError,
+    selectCompanySettingsIsFetching,
+} from '../../../../../selectors/companyAdmin/companySettings';
 
-class SettingsContainer extends Component {
-    render() {
-        return <Settings onMobile={this.props.onMobile} />;
-    }
+const SettingsContainer = () => {
+    const dispatch = useDispatch();
+    const onMobile = useSelector(selectIsMobile);
+    const companySettings = useSelector(selectCompanySettings);
+    const isFetching = useSelector(selectCompanySettingsIsFetching);
+    const error = useSelector(selectCompanySettingsFetchError);
+    componentDidMount(() => dispatch(fetchCompanySettings()));
 
-    componentDidMount = () => {
-        this.props.fetchCompanySettings();
-    };
-}
+    return (
+        <Settings
+            onMobile={onMobile}
+            companySettings={companySettings}
+            isFetching={isFetching}
+            error={error}
+        />
+    );
+};
 
-const mapStateToProps = ({
-    shared: {
-        mobileReducer: { onMobile },
-    },
-}) => ({
-    onMobile,
-});
-
-const mapDispatchToProps = dispatch => ({
-    fetchCompanySettings: () => {
-        dispatch(fetchCompanySettings());
-    },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(SettingsContainer);
+export default SettingsContainer;

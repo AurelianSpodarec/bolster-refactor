@@ -10,16 +10,8 @@ const OperativeAlertsRoutes = ({ base = '/admin/operative-alerts' }) => (
     <SwitchWith404>
         <Route exact path={`${base}`} component={AllOperativeAlertsContainer} />
 
-        <Route
-            exact
-            path={`${base}/create`}
-            component={CreateOperativeAlertContainer}
-        />
-        <Route
-            exact
-            path={`${base}/{id}/metrics`}
-            component={OperativeAlertMetricsContainer}
-        />
+        <Route exact path={`${base}/create`} component={CreateOperativeAlertContainer} />
+        <Route exact path={`${base}/{id}/metrics`} component={OperativeAlertMetricsContainer} />
     </SwitchWith404>
 );
 

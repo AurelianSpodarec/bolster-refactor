@@ -23,6 +23,7 @@ class PinHistoryDetailsItemContainer extends Component {
             drawing,
             loggedInCompanyID,
             historyPinTask,
+            company,
             templateVersions,
         } = this.props;
 
@@ -58,6 +59,7 @@ class PinHistoryDetailsItemContainer extends Component {
                 templateName={templateName}
                 canDeleteHistory={canDeleteHistory}
                 historyPinTask={historyPinTask}
+                company={company}
             />
         );
     }
@@ -98,6 +100,7 @@ const mapStateToProps = (
             templatesReducer: { pinTemplates, isFetching: isFetchingTemplate },
             templateVersionsReducer: { versions },
             pinTasksReducer: { singlePinTasks },
+            companySettingsReducer: { companySettings },
         },
     },
     ownProps,
@@ -114,6 +117,7 @@ const mapStateToProps = (
         Object.values(singlePinTasks).find(
             pinTask => pinTask.actionedByPinHistoryID === ownProps.history.id,
         ) || null,
+    company: companySettings,
     templateVersions: versions,
 });
 

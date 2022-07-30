@@ -7,14 +7,14 @@ import {
     CLIENT_FETCH_SINGLE_PIN_FAILURE,
     CLIENT_FETCH_PINS_REQUEST,
     CLIENT_FETCH_PINS_SUCCESS,
-    CLIENT_FETCH_PINS_FAILURE
+    CLIENT_FETCH_PINS_FAILURE,
 } from 'constants/client/actionTypes/clientPins';
 
 export default combineReducers({
     pins: pinsReducer,
     singlePin: singlePinReducer,
     isFetching: isFetchingReducer,
-    error: errorReducer
+    error: errorReducer,
 });
 
 function isFetchingReducer(state = false, action) {

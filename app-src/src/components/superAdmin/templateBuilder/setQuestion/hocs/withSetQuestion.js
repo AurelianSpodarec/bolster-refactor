@@ -6,7 +6,7 @@ import setQuestion from 'actions/superAdmin/templateBuilder/sync/setQuestion';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import resetQuestionFields from 'actions/superAdmin/templateBuilder/sync/resetQuestionFields';
 import updateQuestionFields from 'actions/superAdmin/templateBuilder/sync/updateQuestionFields';
-import { DROPDOWN_OPTION_VALS, PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
+import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
 import { updateObj, removeObjItem } from 'helpers/generic';
 import {
     PREFILL_TYPES,
@@ -18,6 +18,11 @@ const { STATUS, CHECKBOX } = QUESTION_TYPE_NUMBERS;
 export default function (WrappedComponent) {
     class WithSetQuestion extends React.Component {
         render() {
+            const { pinOptions, pinOptionVersions } = this.props;
+            const optionsWithLatestVersion = Object.values(pinOptions).map(opt => ({
+                ...opt,
+                latestVersion: pinOptionVersions[opt.latestVersionID],
+            }));
             return (
                 <WrappedComponent
                     {...this.props}
@@ -29,7 +34,7 @@ export default function (WrappedComponent) {
                     handlePrefillStatusChange={this.handlePrefillStatusChange}
                     handlePrefillStatusValueChange={this.handlePrefillStatusValueChange}
                     showPrefillOptions={this._checkshowPrefillOptions()}
-                    dropdownOptions={this.props.companyDropdownOptions.dropdownOptions}
+                    pinOptions={optionsWithLatestVersion}
                 />
             );
         }
@@ -74,23 +79,6 @@ export default function (WrappedComponent) {
 
             return shouldShow;
         };
-
-        _checkShouldShowUseManufacturingPrereqOptsSwitch = () => {
-            const { questions, fields } = this.props;
-
-            if (!fields.prereqUUIDs || !fields.prereqUUIDs.length) return [];
-
-            const prereqs = questions.filter(ques => fields.prereqUUIDs.includes(ques.uuid));
-            if (!prereqs.length) return false;
-            prereqs.forEach(prereq => {
-                const { optionType } = prereq;
-                const shouldShow = optionType === DROPDOWN_OPTION_VALS.installationTypes;
-                if (shouldShow) return true;
-            });
-
-            return false;
-        };
-
         _getPrereqOptions = () => {
             const { questions, templateUUID } = this.props;
 
@@ -110,7 +98,7 @@ export default function (WrappedComponent) {
             let prereqValueOptions = [];
 
             prereqs.forEach(prereq => {
-                const { questionType, optionType, options, name, uuid } = prereq;
+                const { questionType, optionType, options, name, uuid, pinOptionSetIDs } = prereq;
 
                 let curPrereqOptions = [];
 
@@ -122,7 +110,7 @@ export default function (WrappedComponent) {
                         { label: 'False', value: 'false' },
                     ];
                 } else if (optionType) {
-                    curPrereqOptions = this._getDropownOptionsByType(optionType);
+                    curPrereqOptions = this._getPinOptionsByType(optionType, pinOptionSetIDs);
                 } else if (options) {
                     curPrereqOptions = options.map(opt => ({
                         label: opt.text,
@@ -159,41 +147,29 @@ export default function (WrappedComponent) {
             }));
         };
 
-        _getDropownOptionsByType = optionType => {
-            const {
-                companyDropdownOptions: { dropdownOptions },
-                companyManufacturerOptions,
-            } = this.props;
+        _getPinOptionsByType = (optionType, pinOptionSetIDs) => {
+            const { pinOptions, pinOptionVersions } = this.props;
 
-            const dropdownOptNames = dropdownOptions
-                .filter(opt => opt.type === +optionType)
-                .map(opt => opt.name);
-
-            const manufacturerOptNames = companyManufacturerOptions
-                .filter(opt => opt.type === +optionType)
-                .map(opt => opt.name);
-
-            const optionNames = dropdownOptNames.concat(manufacturerOptNames);
-            const options = [...new Set(optionNames)]
-                .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))
-                .map(name => ({ label: name, value: name }));
-
-            return options;
-        };
-
-        _getManufacturerOptionsByOptionType = optionType => {
-            const { companyManufacturerOptions } = this.props;
-
-            const options = companyManufacturerOptions
-                .filter(opt => opt.type === optionType)
+            const optionsWithLatestVersion = Object.values(pinOptions)
+                .filter(opt => !opt.isDeleted && !opt.isDisabled)
+                .filter(opt => opt.pinOptionTypeID === optionType)
+                .filter(
+                    opt => !pinOptionSetIDs?.length || pinOptionSetIDs.includes(opt.pinOptionSetID),
+                )
                 .map(opt => ({
-                    label: opt.name,
-                    value: opt.name,
+                    ...opt,
+                    latestVersion: pinOptionVersions[opt.latestVersionID],
                 }));
 
+            const options = optionsWithLatestVersion
+                .sort((a, b) =>
+                    a.latestVersion.name
+                        .toLowerCase()
+                        .localeCompare(b.latestVersion.name.toLowerCase()),
+                )
+                .map(opt => ({ label: opt.latestVersion.name, value: opt.id }));
             return options;
         };
-
         getQuestionData = () => {
             return {
                 ...this._getSharedData(),
@@ -240,6 +216,7 @@ export default function (WrappedComponent) {
                 defaultValue,
                 optionType,
                 optionColour,
+                pinOptionSetIDs,
             } = this.props.fields;
 
             switch (questionType) {
@@ -260,10 +237,10 @@ export default function (WrappedComponent) {
                     };
                 case VALS.MULTI_PHOTO:
                     return { maxPhotos };
-                case VALS.DROPDOWN_OPTIONS:
-                case VALS.MULTI_DROPDOWN_OPTIONS:
-                case VALS.MULTI_MULTI_DROPDOWN_OPTIONS:
-                    return { optionType, defaultValue };
+                case VALS.PIN_OPTION_TYPES:
+                case VALS.MULTI_PIN_OPTION_TYPES:
+                case VALS.MULTI_MULTI_PIN_OPTION_TYPES:
+                    return { optionType, defaultValue, pinOptionSetIDs };
                 default:
                     return {};
             }
@@ -276,7 +253,8 @@ export default function (WrappedComponent) {
                 templateQuestionFormReducer: { fields },
                 templateQuestionsReducer: { questions },
                 templatesReducer: { templates },
-                companiesReducer: { companyDropdownOptions, companyManufacturerOptions },
+                pinOptionsReducer: { options: pinOptions },
+                pinOptionVersionsReducer: { versions: pinOptionVersions },
             },
         },
         { templateUUID },
@@ -286,8 +264,8 @@ export default function (WrappedComponent) {
             questionsObj: questions,
             questions: Object.values(questions),
             template: templates[templateUUID] || {},
-            companyDropdownOptions,
-            companyManufacturerOptions,
+            pinOptions,
+            pinOptionVersions,
         };
     };
 

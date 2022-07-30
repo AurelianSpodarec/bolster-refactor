@@ -4,12 +4,12 @@ import { FETCH_PIN_TEMPLATES_SUCCESS } from 'constants/actionTypes/pins';
 import { FETCH_DRAWING_TEMPLATES_SUCCESS } from 'constants/actionTypes/drawings';
 import {
     FETCH_ALL_TEMPLATES_SUCCESS,
-    EDIT_TEMPLATE_QUESTION_SUCCESS
+    EDIT_TEMPLATE_QUESTION_SUCCESS,
 } from 'constants/actionTypes/templates';
 import { convertArrToObj } from 'helpers/generic';
 
 export default combineReducers({
-    versions: versionsReducer
+    versions: versionsReducer,
 });
 
 function versionsReducer(state = {}, action) {

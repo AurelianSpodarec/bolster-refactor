@@ -1,11 +1,11 @@
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import React from 'react';
-import useTimeline from '../hooks/useTimeline';
+import buildTimeline from '../hooks/buildTimeline';
 import BreakdownBasicTimelineBlock from './BreakdownBasicTimelineBlock';
 
 const BreakdownBasicTimeline = ({ clockerEntries, selectedDate }) => {
-    const timeline = useTimeline(clockerEntries);
+    const timeline = buildTimeline(clockerEntries);
 
     if (timeline.length === 0)
         return (

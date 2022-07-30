@@ -23,13 +23,14 @@ export const fetchRecentlyExtendedDrawingsByPageFailure = error => ({
     error,
 });
 
-export default (page = 1, limit = 50) => dispatch => {
-    dispatch(fetchRecentlyExtendedDrawingsByPageRequest());
-    const route = '/drawings/extend';
-    let queries = `?page=${page}&limit=${limit}`;
+export default (page = 1, limit = 50) =>
+    dispatch => {
+        dispatch(fetchRecentlyExtendedDrawingsByPageRequest());
+        const route = '/drawings/extend';
+        let queries = `?page=${page}&limit=${limit}`;
 
-    return axios
-        .get(`${ADMIN_API_URL}${route}${queries}`, getHeaders())
-        .then(({ data }) => dispatch(fetchRecentlyExtendedDrawingsByPageSuccess(data, page)))
-        .catch(err => dispatch(fetchRecentlyExtendedDrawingsByPageFailure(err.message)));
-};
+        return axios
+            .get(`${ADMIN_API_URL}${route}${queries}`, getHeaders())
+            .then(({ data }) => dispatch(fetchRecentlyExtendedDrawingsByPageSuccess(data, page)))
+            .catch(err => dispatch(fetchRecentlyExtendedDrawingsByPageFailure(err.message)));
+    };

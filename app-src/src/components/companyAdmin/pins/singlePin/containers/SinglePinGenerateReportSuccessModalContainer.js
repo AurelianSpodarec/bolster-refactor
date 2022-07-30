@@ -30,12 +30,9 @@ class SinglePinGenerateReportSuccessModalContainer extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    hideModal: () => dispatch(hideModal())
+    hideModal: () => dispatch(hideModal()),
 });
 
 export default withRouter(
-    connect(
-        null,
-        mapDispatchToProps
-    )(SinglePinGenerateReportSuccessModalContainer)
+    connect(null, mapDispatchToProps)(SinglePinGenerateReportSuccessModalContainer),
 );

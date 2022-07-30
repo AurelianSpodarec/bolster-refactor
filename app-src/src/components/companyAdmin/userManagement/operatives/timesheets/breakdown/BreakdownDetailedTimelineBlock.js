@@ -28,7 +28,7 @@ const BreakdownDetailedTimelineBlock = ({ block }) => {
                     disable={clockIn.location.isEmpty}
                 />
             </div>
-            {breakIn && (
+            {breakIn?.timestamp && (
                 <div className="block-entry break-in">
                     <div className="wrapper">
                         <p className="title">
@@ -51,7 +51,7 @@ const BreakdownDetailedTimelineBlock = ({ block }) => {
                     />
                 </div>
             )}
-            {breakOut && (
+            {breakOut?.timestamp && (
                 <div className="block-entry break-out">
                     <div className="wrapper">
                         <p className="title">
@@ -74,25 +74,29 @@ const BreakdownDetailedTimelineBlock = ({ block }) => {
                     />
                 </div>
             )}
-            <div className="block-entry clock-out">
-                <div className="wrapper">
-                    <p className="title">
-                        <strong>
-                            Time Out -&nbsp;
-                            <DateTimeContainer
-                                date={clockOut.timestamp}
-                                datetime={DATE_TIME_IDS.TIME}
-                            />
-                        </strong>
-                    </p>
-                    <BreakdownPositionCard {...clockOut} />
+            {clockOut?.timestamp && (
+                <div className="block-entry clock-out">
+                    <div className="wrapper">
+                        <p className="title">
+                            <strong>
+                                Time Out -&nbsp;
+                                <DateTimeContainer
+                                    date={clockOut.timestamp}
+                                    datetime={DATE_TIME_IDS.TIME}
+                                />
+                            </strong>
+                        </p>
+                        <BreakdownPositionCard {...clockOut} />
+                    </div>
+                    <BreakdownDetailedTimelineMap
+                        markers={[
+                            { type: 'clockOut', name: 'Time Out', location: clockOut.location },
+                        ]}
+                        className="map"
+                        disable={clockOut.location.isEmpty}
+                    />
                 </div>
-                <BreakdownDetailedTimelineMap
-                    markers={[{ type: 'clockOut', name: 'Time Out', location: clockOut.location }]}
-                    className="map"
-                    disable={clockOut.location.isEmpty}
-                />
-            </div>
+            )}
         </div>
     );
 };

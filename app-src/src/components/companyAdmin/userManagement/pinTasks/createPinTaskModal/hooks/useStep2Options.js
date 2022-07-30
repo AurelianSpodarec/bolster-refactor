@@ -10,7 +10,7 @@ import {
     selectReportsError,
 } from 'selectors/companyAdmin/reports';
 import { selectOperative } from 'selectors/companyAdmin/operatives';
-import { selectSubscriptions } from 'selectors/superAdmin/companySubscription';
+import { selectSubscriptions } from 'selectors/companyAdmin/companySubscription';
 
 const useStep2Options = (handleChange, drawingID, service, companyUserID) => {
     const dispatch = useDispatch();

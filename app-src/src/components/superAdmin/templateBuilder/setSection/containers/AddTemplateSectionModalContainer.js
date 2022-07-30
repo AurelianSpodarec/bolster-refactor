@@ -10,7 +10,7 @@ import TemplateSectionFormModal from '../presentational/TemplateSectionFormModal
 class AddTemplateSectionModalContainer extends React.Component {
     state = {
         name: '',
-        isAfterLabel: false
+        isAfterLabel: false,
     };
 
     render() {
@@ -44,18 +44,15 @@ class AddTemplateSectionModalContainer extends React.Component {
             uuid: uuid(),
             sort,
             templateUUID,
-            isAfterLabel
+            isAfterLabel,
         });
     };
 }
 
-const mapStateToProps = (
-    { superAdmin: { templateSectionsReducer } },
-    { templateUUID }
-) => ({
+const mapStateToProps = ({ superAdmin: { templateSectionsReducer } }, { templateUUID }) => ({
     sections: Object.values(templateSectionsReducer.sections).filter(
-        sec => templateUUID === sec.templateUUID
-    )
+        sec => templateUUID === sec.templateUUID,
+    ),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -65,10 +62,7 @@ const mapDispatchToProps = dispatch => ({
     setSection: newSection => {
         dispatch(setSection(newSection));
         dispatch(hideModal());
-    }
+    },
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(AddTemplateSectionModalContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(AddTemplateSectionModalContainer);

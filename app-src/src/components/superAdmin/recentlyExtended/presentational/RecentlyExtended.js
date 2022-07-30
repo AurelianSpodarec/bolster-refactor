@@ -5,7 +5,7 @@ import RecentlyExtendedTableContainer from '../containers/RecentlyExtendedTableC
 
 const RecentlyExtended = () => (
     <>
-        <PageHeading title="Recently Extended" withBackButton />
+        <PageHeading title="Recently Extended" />
         <RecentlyExtendedTableContainer />
     </>
 );

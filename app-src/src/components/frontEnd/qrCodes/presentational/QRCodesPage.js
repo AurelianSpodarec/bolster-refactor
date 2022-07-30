@@ -2,6 +2,8 @@ import React from 'react';
 
 import { pageMeta } from 'constants/frontEnd/meta';
 
+import { ANDROID_APP_URL, IOS_APP_URL } from 'config';
+
 import TwoPhonesGoldImage from '_content/images/frontend/example-images/two-phones-gold.png';
 
 import AppleStoreImage from '_content/images/frontend/buttons/apple-store.svg';
@@ -26,7 +28,7 @@ const AboutPage = () => (
 
                 <div className="app-links-wrapper">
                     <a
-                        href="https://apps.apple.com/gb/app/bolster-systems/id1459750473"
+                        href={IOS_APP_URL}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="app-links"
@@ -34,7 +36,7 @@ const AboutPage = () => (
                         <img alt="Download on the App Store" src={AppleStoreImage} />
                     </a>
                     <a
-                        href="https://play.google.com/store/apps/details?id=com.bolster.dynamicdroid&amp;hl=en"
+                        href={ANDROID_APP_URL}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="app-links"

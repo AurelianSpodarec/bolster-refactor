@@ -5,7 +5,7 @@ import CreateReportForm from '../presentational/CreateReportForm';
 
 const CreateReport = () => (
     <>
-        <PageHeading title="Create Report" withBackButton />
+        <PageHeading title="Create Report" />
         <CreateReportForm />
     </>
 );

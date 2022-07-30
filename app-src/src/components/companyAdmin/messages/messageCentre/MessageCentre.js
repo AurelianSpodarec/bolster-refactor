@@ -37,7 +37,7 @@ const MessageCentre = () => {
 
     return (
         <>
-            <PageHeading title="Message Centre" withBackButton />
+            <PageHeading title="Message Centre" />
             <MessageCentreTable />
         </>
     );

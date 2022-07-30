@@ -14,11 +14,7 @@ const BuildingsTable = ({ buildings, headers, isFetching, error }) => {
                 noData={!buildings.length}
                 noDataMessage="There are no buildings to display."
             >
-                <BuildingsList
-                    colCount={headers.length}
-                    buildings={buildings}
-                    headers={headers}
-                />
+                <BuildingsList colCount={headers.length} buildings={buildings} headers={headers} />
             </Table>
         </>
     );

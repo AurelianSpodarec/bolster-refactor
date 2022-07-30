@@ -8,10 +8,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 
 const ClientEdit = ({ firstName, lastName }) => (
     <>
-        <PageHeading
-            leftChildren={true}
-            title={`Edit Client: ${firstName} ${lastName}`}
-        >
+        <PageHeading leftChildren={true} title={`Edit Client: ${firstName} ${lastName}`}>
             <BackButtonContainer />
         </PageHeading>
         <BlockContainer>

@@ -5,21 +5,21 @@ import { getHeaders } from 'helpers/api';
 import {
     FETCH_SINGLE_BUILDING_REQUEST,
     FETCH_SINGLE_BUILDING_SUCCESS,
-    FETCH_SINGLE_BUILDING_FAILURE
+    FETCH_SINGLE_BUILDING_FAILURE,
 } from 'constants/actionTypes/buildings';
 
 export const fetchBuildingRequest = () => ({
-    type: FETCH_SINGLE_BUILDING_REQUEST
+    type: FETCH_SINGLE_BUILDING_REQUEST,
 });
 
 export const fetchBuildingSuccess = payload => ({
     type: FETCH_SINGLE_BUILDING_SUCCESS,
-    payload
+    payload,
 });
 
 export const fetchBuildingFailure = error => ({
     type: FETCH_SINGLE_BUILDING_FAILURE,
-    error
+    error,
 });
 
 export default id => dispatch => {

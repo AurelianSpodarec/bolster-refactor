@@ -1,95 +1,83 @@
 import React, { useEffect } from 'react';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
-import { DROPDOWN_OPTION_MANUFACTURER_ENABLED } from 'constants/companyAdmin/enums';
-import { formatAnswers, getSortedDropdownOptions } from 'helpers/addPin';
+import { formatAnswers, getSortedPinOptions } from 'helpers/addPin';
+import { useEditedPinOptionsMessage, useFilterPinOptions } from './helpers';
+import { useSelector } from 'react-redux';
+import CostingMeasurement from './CostingMeasurement';
+import { selectPinOptionType } from '../../../../../selectors/companyAdmin/pinOptionTypes';
 
 const MultiDropdownOptions = ({
     isRequired,
-    question: { id, optionType, defaultValue },
-    dropdownOptions,
+    question: { id, defaultValue, optionType, pinOptionSetIDs },
     answers,
     edit,
     handleChange,
-    originalDropdownMultiAns,
-    isManufacturingEnabledForDrawing,
+    originalPinOptionAns,
     defaultDropdownSorting,
     companyID,
-    optionValues,
+    pinOptions,
+    isCostingEnabled,
+    handleMeasurementChange,
+    measurements,
+    drawing,
+    editedPinOptionVersionIDs,
 }) => {
-    let isManufacturingEnabledForType = false;
-    let formattedOpts = [];
-    const value = answers[id];
+    // todo share component with MultiMultiDropdownOptions
+    const questionValue = answers[id] || [];
 
     useEffect(() => {
-        if (!value && !edit && defaultValue) {
+        if (!questionValue || (!questionValue.length && !edit && defaultValue)) {
             handleChange(null, [defaultValue]);
         }
     }, []);
 
-    const filteredOptions = dropdownOptions.filter(option => {
-        if (!value?.includes(option.value) && option.isDeleted) return false;
-        if (option.companyID !== companyID && option.companyID !== null) {
-            return false;
-        }
-        if (option.type + '' === optionType + '') {
-            // while filtering check whether manufacturing enabled for specific type
-            if (
-                isManufacturingEnabledForDrawing &&
-                DROPDOWN_OPTION_MANUFACTURER_ENABLED[optionType]
-            ) {
-                if (option.isManufacturerDeleted) return false;
+    const type = useSelector(state => selectPinOptionType(state, optionType));
 
-                isManufacturingEnabledForType = true;
-            }
-            return true;
-        }
-        return false;
-    });
-
+    const formattedOpts = useFilterPinOptions(
+        questionValue,
+        pinOptions,
+        companyID,
+        type,
+        drawing,
+        originalPinOptionAns,
+        edit,
+        pinOptionSetIDs,
+    );
     // ! If a user is editing a pin that has a dropdown option that's no longer available,
     //    this needs to be kept as an option.
 
-    const curOptions = filteredOptions.map(opt =>
-        isManufacturingEnabledForType ? opt.id : opt.name,
+    const options = getSortedPinOptions(formattedOpts, defaultDropdownSorting);
+    const shouldShowCosting = isCostingEnabled && type.hasCosting && !!questionValue?.length;
+
+    const EditedPinOptionsMessage = useEditedPinOptionsMessage(
+        editedPinOptionVersionIDs,
+        questionValue,
     );
 
-    const extraOptions = originalDropdownMultiAns
-        .filter(opt => !curOptions.includes(opt))
-        .reduce((acc, opt) => {
-            if (acc.find(option => option.id === opt)) return acc;
-            if (typeof opt === 'number') {
-                const manOption = Object.values(optionValues).find(
-                    manufacturerOptions => manufacturerOptions[opt],
-                )?.[opt];
-                if (manOption) {
-                    acc.push({ id: manOption.id, name: manOption.name });
-                }
-                return acc;
-            }
-            if (!acc.find(opt => opt.id === opt)) {
-                acc.push({ id: opt, name: opt });
-            }
-            return acc;
-        }, []);
-
-    formattedOpts = [...filteredOptions, ...extraOptions].map(option => ({
-        value: isManufacturingEnabledForType ? option.id : option.name,
-        label: option.name,
-        id: option.id || null,
-        sort: option.sort,
-        createdOn: option.createdOn,
-        manufacturerSort: option.manufacturerSort,
-        manufacturerID: option.manufacturerID,
-    }));
-    const options = getSortedDropdownOptions(formattedOpts, defaultDropdownSorting);
     return (
-        <MultiSelect
-            required={isRequired}
-            options={options}
-            value={formatAnswers(value, options)}
-            name={`answer-${id}`}
-            onChange={handleChange}
-        />
+        <>
+            <MultiSelect
+                required={isRequired}
+                options={options}
+                value={formatAnswers(questionValue, options)}
+                name={`answer-${id}`}
+                onChange={handleChange}
+            />
+            <EditedPinOptionsMessage />
+            {shouldShowCosting &&
+                questionValue.map((value, index) => (
+                    <CostingMeasurement
+                        key={value.uid}
+                        measurement={measurements[value.uid]}
+                        option={pinOptions.find(
+                            opt => opt.latestVersion.id === value.pinOptionVersionID,
+                        )}
+                        uid={value.uid}
+                        handleChange={handleMeasurementChange}
+                        isFirst={index === 0}
+                    />
+                ))}
+        </>
     );
 };
 

@@ -3,13 +3,13 @@ import { combineReducers } from 'redux';
 import {
     SINGLE_PIN_GENERATE_REPORT_REQUEST,
     SINGLE_PIN_GENERATE_REPORT_SUCCESS,
-    SINGLE_PIN_GENERATE_REPORT_FAILURE
+    SINGLE_PIN_GENERATE_REPORT_FAILURE,
 } from 'constants/actionTypes/pins';
 
 export default combineReducers({
     isFetching: isFetchingReducer,
     error: errorReducer,
-    success: successReducer
+    success: successReducer,
 });
 
 function isFetchingReducer(state = false, action) {

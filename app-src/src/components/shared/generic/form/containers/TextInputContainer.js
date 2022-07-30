@@ -26,6 +26,7 @@ class TextInputContainer extends Component {
             minNum,
             maxNum,
             includePasswordStrength,
+            handleFocus,
         } = this.props;
 
         const errorMessage = showFieldError || errorsVisible ? error : null;
@@ -39,6 +40,7 @@ class TextInputContainer extends Component {
                 placeholder={placeholder}
                 handleChange={this.handleChange}
                 handleBlur={this.handleBlur}
+                handleFocus={handleFocus}
                 error={errorMessage}
                 charLimit={charLimit}
                 minNum={minNum}

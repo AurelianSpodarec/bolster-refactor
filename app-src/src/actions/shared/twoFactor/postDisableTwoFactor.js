@@ -21,11 +21,12 @@ export const postDisableTwoFactorFailure = error => ({
     error,
 });
 
-export default (postBody = {}) => dispatch => {
-    dispatch(postDisableTwoFactorRequest());
+export default (postBody = {}) =>
+    dispatch => {
+        dispatch(postDisableTwoFactorRequest());
 
-    return axios
-        .post(`${AUTH_API_URL}/auth/twofactor/disable`, postBody, getHeaders())
-        .then(res => dispatch(postDisableTwoFactorSuccess(res.data)))
-        .catch(err => dispatch(handleErrors(postDisableTwoFactorFailure)(err)));
-};
+        return axios
+            .post(`${AUTH_API_URL}/auth/twofactor/disable`, postBody, getHeaders())
+            .then(res => dispatch(postDisableTwoFactorSuccess(res.data)))
+            .catch(err => dispatch(handleErrors(postDisableTwoFactorFailure)(err)));
+    };

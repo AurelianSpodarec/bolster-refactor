@@ -5,15 +5,10 @@ import withUpdateOnChange from '../hocs/withUpdateOnChange';
 
 class Block1FiltersContainer extends Component {
     state = {
-        showError: false
+        showError: false,
     };
     render() {
-        const {
-            fieldError,
-            advanced,
-            isFetching,
-            getAllOperatives
-        } = this.props;
+        const { fieldError, advanced, isFetching, getAllOperatives } = this.props;
 
         return (
             <Block1Filters

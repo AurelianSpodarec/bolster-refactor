@@ -6,7 +6,7 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 
 const AllCreditLogs = ({ isFetching }) => (
     <>
-        <PageHeading title="Credit Logs" withBackButton />
+        <PageHeading title="Credit Logs" />
         <BlockContainer isFetching={isFetching}>
             <CreditLogsTableContainer />
         </BlockContainer>

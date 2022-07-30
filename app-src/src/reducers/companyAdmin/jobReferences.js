@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { convertArrToObj, removeObjItem } from 'helpers/generic';
+import { convertArrToObj, updateObj } from 'helpers/generic';
 import {
     FETCH_JOB_REFERENCES_REQUEST,
     FETCH_JOB_REFERENCES_SUCCESS,
@@ -11,10 +11,14 @@ import {
     EDIT_JOB_REFERENCE_REQUEST,
     EDIT_JOB_REFERENCE_SUCCESS,
     EDIT_JOB_REFERENCE_FAILURE,
-    DELETE_JOB_REFERENCE_REQUEST,
-    DELETE_JOB_REFERENCE_SUCCESS,
-    DELETE_JOB_REFERENCE_FAILURE,
+    ENABLE_JOB_REFERENCE_REQUEST,
+    ENABLE_JOB_REFERENCE_SUCCESS,
+    ENABLE_JOB_REFERENCE_FAILURE,
+    DISABLE_JOB_REFERENCE_REQUEST,
+    DISABLE_JOB_REFERENCE_SUCCESS,
+    DISABLE_JOB_REFERENCE_FAILURE,
 } from 'constants/actionTypes/jobReferences';
+import { SET_API_FIELD_ERRORS } from '../../constants/actionTypes/generic';
 
 export default combineReducers({
     jobReferences: jobReferencesReducer,
@@ -52,14 +56,18 @@ function isPostingReducer(state = false, action) {
     switch (action.type) {
         case CREATE_JOB_REFERENCE_REQUEST:
         case EDIT_JOB_REFERENCE_REQUEST:
-        case DELETE_JOB_REFERENCE_REQUEST:
+        case ENABLE_JOB_REFERENCE_REQUEST:
+        case DISABLE_JOB_REFERENCE_REQUEST:
             return true;
         case CREATE_JOB_REFERENCE_SUCCESS:
         case CREATE_JOB_REFERENCE_FAILURE:
         case EDIT_JOB_REFERENCE_SUCCESS:
         case EDIT_JOB_REFERENCE_FAILURE:
-        case DELETE_JOB_REFERENCE_SUCCESS:
-        case DELETE_JOB_REFERENCE_FAILURE:
+        case ENABLE_JOB_REFERENCE_SUCCESS:
+        case ENABLE_JOB_REFERENCE_FAILURE:
+        case DISABLE_JOB_REFERENCE_SUCCESS:
+        case DISABLE_JOB_REFERENCE_FAILURE:
+        case SET_API_FIELD_ERRORS:
             return false;
         default:
             return state;
@@ -70,11 +78,13 @@ function postSuccessReducer(state = false, action) {
     switch (action.type) {
         case CREATE_JOB_REFERENCE_REQUEST:
         case EDIT_JOB_REFERENCE_REQUEST:
-        case DELETE_JOB_REFERENCE_REQUEST:
+        case ENABLE_JOB_REFERENCE_REQUEST:
+        case DISABLE_JOB_REFERENCE_REQUEST:
             return false;
         case CREATE_JOB_REFERENCE_SUCCESS:
         case EDIT_JOB_REFERENCE_SUCCESS:
-        case DELETE_JOB_REFERENCE_SUCCESS:
+        case ENABLE_JOB_REFERENCE_SUCCESS:
+        case DISABLE_JOB_REFERENCE_SUCCESS:
             return true;
         default:
             return state;
@@ -85,11 +95,13 @@ function postErrorReducer(state = null, action) {
     switch (action.type) {
         case CREATE_JOB_REFERENCE_REQUEST:
         case EDIT_JOB_REFERENCE_REQUEST:
-        case DELETE_JOB_REFERENCE_REQUEST:
+        case ENABLE_JOB_REFERENCE_REQUEST:
+        case DISABLE_JOB_REFERENCE_REQUEST:
             return null;
         case CREATE_JOB_REFERENCE_FAILURE:
         case EDIT_JOB_REFERENCE_FAILURE:
-        case DELETE_JOB_REFERENCE_FAILURE:
+        case ENABLE_JOB_REFERENCE_FAILURE:
+        case DISABLE_JOB_REFERENCE_FAILURE:
             return action.error;
         default:
             return state;
@@ -102,9 +114,17 @@ function jobReferencesReducer(state = {}, action) {
             return convertArrToObj(action.payload);
         case CREATE_JOB_REFERENCE_SUCCESS:
         case EDIT_JOB_REFERENCE_SUCCESS:
-            return { ...state, [action.payload.id]: action.payload };
-        case DELETE_JOB_REFERENCE_SUCCESS:
-            return removeObjItem(state, action.id);
+        case ENABLE_JOB_REFERENCE_SUCCESS:
+        case DISABLE_JOB_REFERENCE_SUCCESS:
+        case ENABLE_JOB_REFERENCE_FAILURE:
+        case DISABLE_JOB_REFERENCE_FAILURE:
+            return updateObj(state, action.payload.id, action.payload);
+        case ENABLE_JOB_REFERENCE_REQUEST:
+        case DISABLE_JOB_REFERENCE_REQUEST:
+            return updateObj(state, action.payload.id, {
+                ...action.payload,
+                isDisabled: !action.payload.isDisabled,
+            });
         default:
             return state;
     }

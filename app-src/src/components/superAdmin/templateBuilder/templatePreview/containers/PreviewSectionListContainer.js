@@ -14,8 +14,8 @@ let PreviewSectionListContainer = ({
     template,
     labelFields,
     match: {
-        params: { companyID }
-    }
+        params: { companyID },
+    },
 }) => {
     useEffect(() => {
         if (isEmpty(labelFields)) fetchTemplateForCompany(companyID, templateUUID);
@@ -35,14 +35,14 @@ const mapStateToProps = (
             templateSectionsReducer: { sections },
             templateQuestionsReducer: { questions },
             templatesReducer: { templates },
-            templateLabelFieldsReducer: { labelFields }
-        }
+            templateLabelFieldsReducer: { labelFields },
+        },
     },
     {
         match: {
-            params: { uuid }
-        }
-    }
+            params: { uuid },
+        },
+    },
 ) => {
     const secs = Object.values(sections)
         .filter(section => section.templateUUID === uuid)
@@ -51,19 +51,22 @@ const mapStateToProps = (
     const secIDs = secs.map(s => s.uuid);
     const questionBySection = Object.values(questions)
         .filter(ques => secIDs.includes(ques.sectionUUID))
-        .reduce((acc, ques) => {
-            acc[ques.sectionUUID] = [...acc[ques.sectionUUID], ques];
+        .reduce(
+            (acc, ques) => {
+                acc[ques.sectionUUID] = [...acc[ques.sectionUUID], ques];
 
-            return acc;
-        }, secIDs.reduce((acc, id) => ({ ...acc, [id]: [] }), {}));
+                return acc;
+            },
+            secIDs.reduce((acc, id) => ({ ...acc, [id]: [] }), {}),
+        );
     return {
         templateUUID: uuid,
         sections: secs,
         questionBySection,
         template: templates[uuid] || {},
         labelFields: Object.values(labelFields).filter(
-            ({ templateUUID }) => String(templateUUID) === uuid
-        )
+            ({ templateUUID }) => String(templateUUID) === uuid,
+        ),
     };
 };
 
@@ -71,6 +74,6 @@ const mapDispatchToProps = { fetchTemplateForCompany };
 
 PreviewSectionListContainer = connect(
     mapStateToProps,
-    mapDispatchToProps
+    mapDispatchToProps,
 )(PreviewSectionListContainer);
 export default withRouter(PreviewSectionListContainer);

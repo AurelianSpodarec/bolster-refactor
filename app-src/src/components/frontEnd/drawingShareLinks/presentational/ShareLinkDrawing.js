@@ -8,16 +8,18 @@ const ShareLinkDrawing = ({ drawing, pins, headerText }) => {
         title: headerText,
         description: pageMeta.shareLinkDrawing.description,
         canonical: pageMeta.shareLinkDrawing.canonical,
-        excludeFromSearchEngines: pageMeta.shareLinkDrawing.excludeFromSearchEngines
+        excludeFromSearchEngines: pageMeta.shareLinkDrawing.excludeFromSearchEngines,
     };
 
-    return <>
-        <PageMeta meta={meta} />
-        <div className="drawing-page-wrapper">
-            <h2>{headerText}</h2>
-            <FilterMap drawing={drawing} pins={pins} />
-        </div>
-    </>;
+    return (
+        <>
+            <PageMeta meta={meta} />
+            <div className="drawing-page-wrapper">
+                <h2>{headerText}</h2>
+                <FilterMap drawing={drawing} pins={pins} />
+            </div>
+        </>
+    );
 };
 
 export default ShareLinkDrawing;

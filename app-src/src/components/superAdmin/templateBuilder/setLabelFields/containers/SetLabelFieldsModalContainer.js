@@ -28,7 +28,7 @@ class SetLabelFieldModalContainer extends Component {
 
         return questions.map(({ uuid, name }) => ({
             value: uuid,
-            label: name
+            label: name,
         }));
     };
 
@@ -44,8 +44,8 @@ class SetLabelFieldModalContainer extends Component {
             ...field,
             config: {
                 ...field.config,
-                [name]: value
-            }
+                [name]: value,
+            },
         };
 
         if (name === 'source') {
@@ -69,27 +69,24 @@ const mapStateToProps = (
     {
         superAdmin: {
             templateQuestionsReducer: { questions },
-            templateLabelFieldsReducer: { labelFields }
-        }
+            templateLabelFieldsReducer: { labelFields },
+        },
     },
-    { template }
+    { template },
 ) => ({
     labelFields: Object.values(labelFields).filter(
-        ({ templateUUID }) => templateUUID + '' === template.uuid + ''
+        ({ templateUUID }) => templateUUID + '' === template.uuid + '',
     ),
     questions: Object.values(questions).filter(
-        ({ templateUUID }) => templateUUID + '' === template.uuid + ''
-    )
+        ({ templateUUID }) => templateUUID + '' === template.uuid + '',
+    ),
 });
 
 const mapDispatchToProps = (dispatch, { template }) => ({
     setLabelFields: fields => {
         dispatch(setLabelFields(fields, template.uuid));
         dispatch(hideModal());
-    }
+    },
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(SetLabelFieldModalContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(SetLabelFieldModalContainer);

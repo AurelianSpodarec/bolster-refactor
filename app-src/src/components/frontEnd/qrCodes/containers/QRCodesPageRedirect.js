@@ -6,4 +6,3 @@ const QRCodesPageRedirect = () => {
 };
 
 export default QRCodesPageRedirect;
-

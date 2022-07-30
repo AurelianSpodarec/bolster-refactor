@@ -5,7 +5,7 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 
 const Invoices = () => (
     <>
-        <PageHeading title="My Invoices" withBackButton />
+        <PageHeading title="My Invoices" />
         <PendingInvoicesContainer />
         <PaidInvoicesContainer />
     </>

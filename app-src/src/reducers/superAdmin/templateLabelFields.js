@@ -5,11 +5,11 @@ import {
     FETCH_TEMPLATE_SUCCESS,
     SET_LABEL_FIELDS,
     POST_TEMPLATE_SUCCESS,
-    FETCH_TEMPLATE_FOR_COMPANY_SUCCESS
+    FETCH_TEMPLATE_FOR_COMPANY_SUCCESS,
 } from 'constants/actionTypes/templateBuilder';
 
 export default combineReducers({
-    labelFields: labelFieldsReducer
+    labelFields: labelFieldsReducer,
 });
 
 function labelFieldsReducer(state = {}, action) {
@@ -18,20 +18,20 @@ function labelFieldsReducer(state = {}, action) {
         case FETCH_TEMPLATE_FOR_COMPANY_SUCCESS:
         case SET_LABEL_FIELDS: {
             const newList = Object.values(state).filter(
-                field => field.templateUUID !== action.templateUUID
+                field => field.templateUUID !== action.templateUUID,
             );
             return {
                 ...convertArrToObj(newList, 'uuid'),
-                ...convertArrToObj(action.labelFields, 'uuid')
+                ...convertArrToObj(action.labelFields, 'uuid'),
             };
         }
         case POST_TEMPLATE_SUCCESS: {
             const newList = Object.values(state).filter(
-                field => field.templateUUID !== action.oldUUID
+                field => field.templateUUID !== action.oldUUID,
             );
             return {
                 ...convertArrToObj(newList, 'uuid'),
-                ...convertArrToObj(action.labelFields, 'uuid')
+                ...convertArrToObj(action.labelFields, 'uuid'),
             };
         }
         default:

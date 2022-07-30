@@ -1,8 +1,9 @@
 import React from 'react';
 import Form from 'components/shared/generic/form/containers/Form';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import BuildingFormFieldsNoLabel from './BuildingFormFieldsNoLabel';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 
 // * .*. in names is used for splitting up field validations without risking overlap with real names
 
@@ -13,46 +14,44 @@ const CreateBuildingsForm = ({
     addBuilding,
     removeBuilding,
     handleClose,
-    showManufacturingOptions,
-    setShowManufacturingOptions,
     siteName,
-    showDropdownOptions,
-    setShowDropdownOptions,
-    combinedOptions,
-    handleShowOandMModal,
     isFetchingHierarchies,
 }) => (
-    <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
-        <div className="size-lg-12">
-            <BuildingFormFieldsNoLabel
-                buildings={buildings}
-                updateBuilding={updateBuilding}
-                removeBuilding={removeBuilding}
-                showManufacturingOptions={showManufacturingOptions}
-                setShowManufacturingOptions={setShowManufacturingOptions}
-                siteName={siteName}
-                showDropdownOptions={showDropdownOptions}
-                setShowDropdownOptions={setShowDropdownOptions}
-                handleShowOandMModal={handleShowOandMModal}
-            />
+    <Form onSubmit={handleSubmit} className="generic-form flex-content-wrapper size-lg-12">
+        <div className="flex-content">
+            <div className="form-fields-container size-lg-12">
+                <div className="size-lg-12">
+                    <BuildingFormFieldsNoLabel
+                        buildings={buildings}
+                        updateBuilding={updateBuilding}
+                        removeBuilding={removeBuilding}
+                        siteName={siteName}
+                    />
+                </div>
+            </div>
         </div>
-        <BlockButtonWrapper>
-            <button
-                className="button blue left"
+
+        <FlexWrapper justify="between" extraClasses="flex-modal-footer">
+            <ActionButton
                 type="button"
-                onClick={() => addBuilding(combinedOptions)}
-            >
-                <i className="fa fa-plus" /> Add another building
-            </button>
-            {isFetchingHierarchies ? (
-                <button className="button green disabled" disabled>
-                    <i className="fa fa-spinner fa-spin"></i> Please wait...
-                </button>
-            ) : (
-                <button className="button green">Submit</button>
-            )}
-            <ButtonContainer handleClick={handleClose}>Cancel</ButtonContainer>
-        </BlockButtonWrapper>
+                text="Add another building"
+                icon="plus"
+                onClick={addBuilding}
+                ambient="positive"
+                extraClasses="margin-left"
+            />
+
+            <ButtonWrapper>
+                <ActionButton source="secondary" text="Cancel" onClick={handleClose} />
+                <ActionButton
+                    type="submit"
+                    text={isFetchingHierarchies ? 'Please wait...' : 'Confirm'}
+                    icon={isFetchingHierarchies ? 'spinner' : 'check'}
+                    iconSpin={isFetchingHierarchies}
+                    disabled={isFetchingHierarchies}
+                />
+            </ButtonWrapper>
+        </FlexWrapper>
     </Form>
 );
 

@@ -1,7 +1,8 @@
 import React from 'react';
-import ModalOuterContainer from '../containers/ModalOuterContainer';
-import BlockHeading from '../../blockHeading/presentational/BlockHeading';
-import BlockButtonWrapper from '../../blockButtonWrappers/presentational/BlockButtonWrapper';
+
+import FlexModalOuter from './FlexModalOuter';
+import ButtonWrapper from '../../button/presentational/ButtonWrapper';
+import ActionButton from '../../button/presentational/ActionButton';
 
 const PaymentErrorModal = ({
     title = 'Payment Failed',
@@ -9,46 +10,25 @@ const PaymentErrorModal = ({
     resubmit,
     hideModal,
     disbaledButton,
-    error
+    error,
 }) => (
-    <ModalOuterContainer extraClasses="response-modal">
-        {/* ##Needs css## */}
-        <div
-            className="size-lg-12"
-            style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignContent: 'center'
-            }}
-        >
-            <i
-                className="fa fa-times"
-                style={{
-                    borderRadius: '100%',
-                    backgroundColor: 'red',
-                    color: 'white',
-                    fontSize: '3em',
-                    padding: '0.5em'
-                }}
-            />
+    <FlexModalOuter title={title} extraClasses="response-modal">
+        <div className="flex-content-wrapper">
+            <div className="flex-content">
+                <p className="generic-text">{message}</p>
+                {error && <p className="generic-text error">{error}</p>}
+            </div>
+
+            <ButtonWrapper alignment="right" extraClasses="flex-modal-footer">
+                <ActionButton text="Cancel" source="secondary" onClick={hideModal} />
+                <ActionButton
+                    text="Try Again"
+                    disabled={disbaledButton}
+                    onClick={e => resubmit(e)}
+                />
+            </ButtonWrapper>
         </div>
-        <BlockHeading title={title} />
-        <p>{message}</p>
-        <br />
-        {error && <p>{error}</p>}
-        <BlockButtonWrapper>
-            <button className="button" onClick={hideModal}>
-                Cancel
-            </button>
-            <button
-                className={`button yellow ${disbaledButton ? 'disabled' : ' '}`}
-                disabled={disbaledButton}
-                onClick={e => resubmit(e)}
-            >
-                Try again
-            </button>
-        </BlockButtonWrapper>
-    </ModalOuterContainer>
+    </FlexModalOuter>
 );
 
 export default PaymentErrorModal;

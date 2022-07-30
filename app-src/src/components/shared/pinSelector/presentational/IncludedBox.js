@@ -9,7 +9,7 @@ const IncludedBox = ({
     handleMouseDown,
     handleMouseUp,
     handleMouseOut,
-    clicking
+    clicking,
 }) => (
     <div className="content included size-lg-12" onMouseLeave={handleMouseOut}>
         {includedPins.map(pin => (

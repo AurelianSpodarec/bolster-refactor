@@ -1,24 +1,24 @@
 import {
     FETCH_ALL_USERS_REQUEST,
     FETCH_ALL_USERS_SUCCESS,
-    FETCH_ALL_USERS_FAILURE
+    FETCH_ALL_USERS_FAILURE,
 } from 'constants/actionTypes/users';
 import axios from 'axios';
 import { ADMIN_API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
 
 export const fetchAllUsersRequest = () => ({
-    type: FETCH_ALL_USERS_REQUEST
+    type: FETCH_ALL_USERS_REQUEST,
 });
 
 export const fetchAllUsersSuccess = payload => ({
     type: FETCH_ALL_USERS_SUCCESS,
-    payload
+    payload,
 });
 
 export const fetchAllUsersFailure = error => ({
     type: FETCH_ALL_USERS_FAILURE,
-    error
+    error,
 });
 
 export default () => dispatch => {

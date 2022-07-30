@@ -4,22 +4,22 @@ import { getHeaders, handleErrors } from 'helpers/api';
 import {
     REISSUE_TOKEN_REQUEST,
     REISSUE_TOKEN_SUCCESS,
-    REISSUE_TOKEN_FAILURE
+    REISSUE_TOKEN_FAILURE,
 } from 'constants/actionTypes/auth';
 import { AUTH_API_URL } from 'config';
 
 export const reissueTokenRequest = () => ({
-    type: REISSUE_TOKEN_REQUEST
+    type: REISSUE_TOKEN_REQUEST,
 });
 
 export const reissueTokenSuccess = payload => ({
     type: REISSUE_TOKEN_SUCCESS,
-    payload
+    payload,
 });
 
 export const reissueTokenFailure = error => ({
     type: REISSUE_TOKEN_FAILURE,
-    error
+    error,
 });
 
 export default companyID => dispatch => {
@@ -27,10 +27,8 @@ export default companyID => dispatch => {
 
     return axios
         .get(
-            `${AUTH_API_URL}/headquarters/reissue${
-                companyID ? `?companyID=${companyID}` : ''
-            }`,
-            getHeaders()
+            `${AUTH_API_URL}/headquarters/reissue${companyID ? `?companyID=${companyID}` : ''}`,
+            getHeaders(),
         )
         .then(({ data }) => {
             localStorage.setItem('token', data.token);

@@ -4,5 +4,5 @@ export default (key, value) => dispatch =>
     dispatch({
         type: CLIENT_UPDATE_FILTER_OPTION,
         key,
-        value
+        value,
     });

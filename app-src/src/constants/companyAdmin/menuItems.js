@@ -150,6 +150,13 @@ export const companyNavMenuItems = [
                 paymentRestriction: false,
                 clientAccessRestriction: false,
             },
+            {
+                name: 'Pin Options',
+                link: '/company/pin-options',
+                showWhenNotSubscribed: false,
+                paymentRestriction: false,
+                clientAccessRestriction: false,
+            },
         ],
     },
     {
@@ -177,6 +184,13 @@ export const companyNavMenuItems = [
             {
                 name: 'Upcoming Alerts',
                 link: '/company/upcoming-alerts',
+                showWhenNotSubscribed: false,
+                paymentRestriction: false,
+                clientAccessRestriction: false,
+            },
+            {
+                name: 'Push Notifications',
+                link: '/company/push-notifications',
                 showWhenNotSubscribed: false,
                 paymentRestriction: false,
                 clientAccessRestriction: false,

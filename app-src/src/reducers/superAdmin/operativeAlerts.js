@@ -6,7 +6,7 @@ import {
     ADMIN_FETCH_ALL_OPERATIVE_ALERTS_FAILURE,
     ADMIN_CREATE_OPERATIVE_ALERT_REQUEST,
     ADMIN_CREATE_OPERATIVE_ALERT_SUCCESS,
-    ADMIN_CREATE_OPERATIVE_ALERT_FAILURE
+    ADMIN_CREATE_OPERATIVE_ALERT_FAILURE,
 } from 'constants/actionTypes/operativeAlerts';
 import { convertArrToObj, updateObj } from 'helpers/generic';
 
@@ -14,7 +14,7 @@ export default combineReducers({
     isFetching: isFetchingReducer,
     postSuccess: postSuccessReducer,
     operativeAlerts: operativeAlertsReducer,
-    error: errorReducer
+    error: errorReducer,
 });
 
 function isFetchingReducer(state = false, action) {

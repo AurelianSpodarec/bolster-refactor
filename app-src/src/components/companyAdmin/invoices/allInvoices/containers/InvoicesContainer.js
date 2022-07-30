@@ -16,13 +16,7 @@ class InvoicesContainer extends Component {
     };
 
     componentDidUpdate = prevProps => {
-        const {
-            users,
-            companyUserID,
-            postSuccess,
-            fetchSubscriptionData,
-            history
-        } = this.props;
+        const { users, companyUserID, postSuccess, fetchSubscriptionData, history } = this.props;
 
         if (postSuccess && !prevProps.postSuccess) {
             fetchSubscriptionData();
@@ -43,23 +37,21 @@ class InvoicesContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
-        companyUsersReducer: { users }
+        companyUsersReducer: { users },
     },
     shared: {
         decodeJWTReducer: {
-            jwtData: { companyUserID }
-        }
-    }
+            jwtData: { companyUserID },
+        },
+    },
 }) => ({
     companyUserID,
-    users
+    users,
 });
 const mapDispatchToProps = dispatch => ({
     fetchAllInvoices: () => {
         dispatch(fetchAllInvoices());
-    }
+    },
 });
 
-export default withRouter(
-    connect(mapStateToProps, mapDispatchToProps)(InvoicesContainer)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(InvoicesContainer));

@@ -58,12 +58,8 @@ class FilterMapContainer extends Component {
         furtherFiltrationOption: prevOption,
         mapDrawingID: prevMapDrawingID,
     }) => {
-        const {
-            furtherFiltrationOption,
-            removeAllRectangles,
-            mapDrawingID,
-            fetchPinsForReport,
-        } = this.props;
+        const { furtherFiltrationOption, removeAllRectangles, mapDrawingID, fetchPinsForReport } =
+            this.props;
         if (furtherFiltrationOption !== prevOption) {
             removeAllRectangles();
         }

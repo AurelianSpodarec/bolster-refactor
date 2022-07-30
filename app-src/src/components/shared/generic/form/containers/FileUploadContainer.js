@@ -80,7 +80,8 @@ class FileUploadContainer extends Component {
         if (Array.isArray(value) && !areArraysEqual(value, prevValue)) {
             this.setState({ fileS3Keys: value });
         } else if (value !== prevValue) {
-            this.setState({ fileS3Keys: value ? [value] : [] });
+            const valueToUpdate = Array.isArray(value) ? value : value ? [value] : [];
+            this.setState({ fileS3Keys: valueToUpdate });
         }
     };
 
@@ -113,7 +114,6 @@ class FileUploadContainer extends Component {
 
     handleFileDrop = async files => {
         this.props.fileUploadStart();
-
         for (const file of files) {
             await this._uploadFile(file);
         }
@@ -283,11 +283,11 @@ class FileUploadContainer extends Component {
     }
 }
 
-const mapDispatchToProps = dispatch => ({
-    fileUploadStart: () => dispatch(fileUploadStart()),
-    fileUploadFinish: close => dispatch(fileUploadFinish(close)),
-    showModal: (type, props) => dispatch(showModal(type, props)),
-});
+const mapDispatchToProps = {
+    fileUploadStart,
+    fileUploadFinish,
+    showModal,
+};
 
 const WithConnect = connect(null, mapDispatchToProps)(FileUploadContainer);
 

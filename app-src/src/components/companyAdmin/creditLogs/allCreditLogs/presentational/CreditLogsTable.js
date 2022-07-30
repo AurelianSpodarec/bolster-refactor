@@ -5,13 +5,7 @@ import Table from 'components/shared/generic/tables/presentational/Table';
 import CreditLogsList from './CreditLogsList';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
-const CreditLogsTable = ({
-    creditLogs,
-    isFetching,
-    headers,
-    error,
-    shouldRestrictPayments
-}) => (
+const CreditLogsTable = ({ creditLogs, isFetching, headers, error, shouldRestrictPayments }) => (
     <div className="size-lg-12">
         <BlockHeading title="Credit Logs">
             {!shouldRestrictPayments && (

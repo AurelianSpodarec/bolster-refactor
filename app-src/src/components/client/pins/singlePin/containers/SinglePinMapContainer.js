@@ -46,7 +46,7 @@ class SinglePinMapContainer extends Component {
     _setMapCentre = (lat, lng) => {
         this.setState({
             ...this.state,
-            mapCentre: [lat, lng]
+            mapCentre: [lat, lng],
         });
     };
 }
@@ -57,13 +57,13 @@ const mapStateToProps = (
             pinsReducer: { singlePin, error: pinsError, isFetching: fetchingPins },
             pinHistoriesReducer: { histories },
             pinOperativesReducer: { users, isFetching: fetchingOperatives, error: operativesError },
-            drawingsReducer: { drawings }
+            drawingsReducer: { drawings },
         },
         shared: {
-            selectedHistoryReducer: { selectedHistoryId }
-        }
+            selectedHistoryReducer: { selectedHistoryId },
+        },
     },
-    { match: { params } }
+    { match: { params } },
 ) => {
     const pin = singlePin[params.id] || {};
 
@@ -74,19 +74,14 @@ const mapStateToProps = (
         selectedHistory: histories[selectedHistoryId] || {},
         error: pinsError || operativesError,
         isFetching: fetchingPins || fetchingOperatives,
-        drawing: drawings[pin.drawingID] || {}
+        drawing: drawings[pin.drawingID] || {},
     };
 };
 
 const mapDispatchToProps = dispatch => ({
     fetchDrawing: (companyID, drawingID) => {
         dispatch(fetchClientSingleDrawing(companyID, drawingID));
-    }
+    },
 });
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(SinglePinMapContainer)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SinglePinMapContainer));

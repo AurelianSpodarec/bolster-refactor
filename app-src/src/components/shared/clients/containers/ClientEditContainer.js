@@ -9,7 +9,7 @@ import ClientEdit from '../presentational/ClientEdit';
 class ClientEditContainer extends Component {
     state = {
         firstName: '',
-        lastName: ''
+        lastName: '',
     };
 
     render() {
@@ -20,7 +20,7 @@ class ClientEditContainer extends Component {
 
         this.setState({
             firstName: client.userFirstName,
-            lastName: client.userLastName
+            lastName: client.userLastName,
         });
     };
     componentDidUpdate = prevProps => {
@@ -45,7 +45,7 @@ class ClientEditContainer extends Component {
 const mapStateToProps = ({ companyAdmin: { clientsReducer } }, { match }) => ({
     drawingID: match.params.id,
     client: clientsReducer.clients[match.params.clientID] || {},
-    clientID: match.params.clientID
+    clientID: match.params.clientID,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -54,12 +54,7 @@ const mapDispatchToProps = dispatch => ({
     },
     fetchClientsForDrawing: drawingID => {
         dispatch(fetchClientsForDrawing(drawingID));
-    }
+    },
 });
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(ClientEditContainer)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ClientEditContainer));

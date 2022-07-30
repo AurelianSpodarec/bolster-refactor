@@ -11,9 +11,7 @@ const MultiPhotoForm = ({ handleInputChange, maxPhotos }) => (
             handleChange={handleInputChange}
             type="number"
             required
-            validate={val =>
-                val <= 0 || val % 1 ? 'Please enter a positive integer' : null
-            }
+            validate={val => (val <= 0 || val % 1 ? 'Please enter a positive integer' : null)}
         />
     </Field>
 );

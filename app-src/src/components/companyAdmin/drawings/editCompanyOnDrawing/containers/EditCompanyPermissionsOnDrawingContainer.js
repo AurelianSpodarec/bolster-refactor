@@ -14,12 +14,8 @@ class EditCompanyPermissionsOnDrawingContainer extends Component {
     }
 
     componentDidMount = () => {
-        const {
-            drawingID,
-            fetchSingleDrawing,
-            fetchPermissionsForCompanyPermission,
-            companyID,
-        } = this.props;
+        const { drawingID, fetchSingleDrawing, fetchPermissionsForCompanyPermission, companyID } =
+            this.props;
         if (drawingID) {
             fetchSingleDrawing(drawingID);
             fetchPermissionsForCompanyPermission('drawing', drawingID, companyID);

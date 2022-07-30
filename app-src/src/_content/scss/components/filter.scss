@@ -60,9 +60,14 @@
         padding: 3px 5px 3px 25px;
         font-size: 140%;
         @include ubuntu;
-        background-color: $background-grey;
+        background-color: var(--input-secondary);
+        border-radius: 21px;
         border: none;
-        @include rounded-all(3px);
+        color: var(--typography-default);
+    }
+    
+    input::placeholder {
+        color: var(--typography-search);
     }
 }
 
@@ -126,3 +131,156 @@
         }
     }
 }
+
+// filter row
+.filter-row {
+    margin-bottom: 20px;
+}
+
+// button multi dropdown list
+.button-dropdown-list {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 230px;
+    z-index: 999;
+
+    .list-content {
+        width: 100%;
+        max-height: 400px;
+        padding: 10px;
+        border-radius: 8px;
+        background-color: var(--background-container);
+        border: 1px solid var(--background-stroke);
+        overflow-y: auto;
+    }
+
+    .triangle {
+        position: absolute;
+        width: 24px;
+        height: 24px;
+        background-color: var(--background-container);
+        border: 1px solid var(--background-stroke);
+        border-radius: 4px;
+        z-index: 1;
+        transform: rotate(45deg);
+
+        &.left {
+            left: 25px;
+        }
+
+        &.right {
+            right: 25px;
+        }
+
+        &.top {
+            top: -11px;
+            border-bottom-color: transparent;
+            border-right-color: transparent;
+        }
+
+        &.bottom {
+            bottom: -11px;
+            border-top-color: transparent;
+            border-left-color: transparent;
+        }
+    }
+
+    .dropdown-list-button {
+        z-index: 1;
+    }
+}
+
+//tooltip filters
+.tooltip-filters {
+    position: absolute;
+    top: 30px;
+    border-radius: 5px;
+    font-size: 130%;
+    width: 75%;
+    background-color: var(--background-container);
+    z-index: 25;
+    border: 1px solid var(--background-stroke);
+    
+    &.static-width {
+        width: 300px;
+    }
+  
+    &.right {
+        top: 45px;
+        right: 0;
+    }
+  
+    .filter-item {
+        padding: 7.5px 15px;
+        border-bottom: 1px solid var(--background-stroke);
+  
+        p{
+            font-size: 120%;
+        }
+    }
+  
+    button {
+        background-color: transparent;
+    
+        &:hover > .far {
+            color: var(--typography-greyed-out);
+    
+        }
+    
+        .far {
+            font-size: 110%;
+            color: var(--typography-default);
+            transition: all 0.3s ease-out;
+            &.active {
+            transform: rotate(-180deg);
+            }
+        }
+    }
+  
+    .tooltip-filter-options {
+        visibility: hidden;
+        opacity: 0;
+        position: absolute;
+        background-color: var(--background-container);
+        border: 1px solid var(--background-stroke);
+        z-index: 2;
+        width: 100%;
+        max-height: 300px;
+        padding: 10px;
+        border-radius: 5px;
+        overflow-y: scroll;
+        transition: visibility 0s, opacity 0.1s linear;
+    
+        .search-container {
+            margin-bottom: 15px;
+        }
+    
+        .options-wrapper {
+            .option {
+                margin-bottom: 15px;
+        
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    
+        &.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        &.full-option-height {
+            max-height: none;
+        }
+    
+        input {
+            font-size: 120%;
+        }
+    }
+  
+    .slider-container {
+        padding: 10px;
+    }
+  }

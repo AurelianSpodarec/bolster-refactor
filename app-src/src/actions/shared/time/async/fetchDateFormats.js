@@ -3,23 +3,23 @@ import axios from 'axios';
 import {
     FETCH_DATE_FORMATS_REQUEST,
     FETCH_DATE_FORMATS_SUCCESS,
-    FETCH_DATE_FORMATS_FAILURE
+    FETCH_DATE_FORMATS_FAILURE,
 } from 'constants/actionTypes/time';
 import { getHeaders } from 'helpers/api';
 import { AUTH_API_URL } from 'config';
 
 export const fetchDateFormatsRequest = () => ({
-    type: FETCH_DATE_FORMATS_REQUEST
+    type: FETCH_DATE_FORMATS_REQUEST,
 });
 
 export const fetchDateFormatsSuccess = payload => ({
     type: FETCH_DATE_FORMATS_SUCCESS,
-    payload
+    payload,
 });
 
 export const fetchDateFormatsFailure = error => ({
     type: FETCH_DATE_FORMATS_FAILURE,
-    error
+    error,
 });
 
 export default () => dispatch => {

@@ -17,9 +17,6 @@ const Signature = ({
     handleUploadChange,
 }) => (
     <>
-        {/* {!showUploadComponent && (
-        
-        )} */}
         <div className={`${showUploadComponent ? 'hide' : ''} size-lg-12`}>
             <SignatureCanvas
                 onEnd={onEnd}
@@ -37,16 +34,6 @@ const Signature = ({
                 handleChange={handleUploadChange}
             />
         </div>
-
-        {/* {showUploadComponent && (
-            <FileUploadContainer
-                value={file}
-                required
-                name="file"
-                acceptedTypes={['image/*']}
-                handleChange={handleUploadChange}
-            />
-        )} */}
         {!!(error && error.length) && <p className="error red-text text-accent-4">{error}</p>}
         <div className="button-container under-component">
             {!showUploadComponent && (

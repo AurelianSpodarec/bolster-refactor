@@ -4,5 +4,5 @@ export default (fieldName, searchTerm) => dispatch =>
     dispatch({
         type: UPDATE_DASH_STATS_FILTERS,
         fieldName,
-        searchTerm
+        searchTerm,
     });

@@ -1,10 +1,11 @@
-import { useEffect } from 'react';
+import { KeyboardEvent, useEffect } from 'react';
 import moment from 'moment';
 import orderBy from 'lodash/orderBy';
 import find from 'lodash/find';
-import { DATE_TIME_DEFAULTS } from '../constants/companyAdmin/enums';
+import { DATE_TIME_DEFAULTS, DAYS_FLAGGED_LOOKUP } from '../constants/companyAdmin/enums';
 import { videoFormats } from 'constants/shared/media';
 import _ from 'lodash';
+import { RECURRENCE_DAYS_VALUES } from 'constants/shared/enums';
 
 export function convertArrToObj(arr, field = 'id') {
     return arr.reduce((acc, item) => {
@@ -16,7 +17,9 @@ export function convertArrToObj(arr, field = 'id') {
 }
 
 export function getSelectedCompanyForClient() {
-    return parseInt(localStorage.getItem('selectedCompany'));
+    const selectedCompany = localStorage.getItem('selectedCompany');
+    if (!selectedCompany) return null;
+    return parseInt(selectedCompany);
 }
 
 export function isObjEmpty(obj) {
@@ -57,6 +60,15 @@ export function updateObj(origObj, key, newItem) {
     };
 }
 
+export function updateObjMultiple(origObj, newItems, field = 'id') {
+    const newItemsObj = convertArrToObj(newItems, field);
+
+    return {
+        ...origObj,
+        ...newItemsObj,
+    };
+}
+
 export function removeObjItem(obj, key) {
     const {
         [key]: removedItem, // eslint-disable-line
@@ -81,7 +93,6 @@ export function areArraysEqual(arr1, arr2) {
     );
 }
 export function areObjectsEqual(obj1, obj2) {
-    console.log({ obj1, obj2 });
     if (!obj1 || !obj2) return obj1 === obj2;
     const keys = Object.keys(obj1);
     return keys.every(key => {
@@ -148,10 +159,13 @@ export function convertEnumToDropdownOptions(obj) {
 }
 
 // for the NewSelect component
-export const enumFormat = obj =>
+export const optionsFormat = obj =>
+    Object.values(obj).map(({ id, name }) => ({ value: id, label: name }));
+
+export const enumFormat = (obj, labelKey = 'label') =>
     Object.entries(obj).map(([value, label]) => ({
-        value: +value || value,
-        label,
+        value: +value ?? value,
+        [labelKey]: label,
     }));
 
 /**
@@ -179,8 +193,11 @@ export const capitaliseWords = (words: string) => words.split(' ').map(capitalis
 export const formatNumber = (num: number | string) => Number(num).toLocaleString('en-us');
 
 // for decimal .00
-export const formatCurrency = (num: number): string =>
-    num.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+export const formatCurrency = (num: number, allowNegative: boolean = true): string => {
+    if (Number.isNaN(num) || !num) return '';
+    if (num < 0 && !allowNegative) num *= -1;
+    return num.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+};
 
 const getOffsetValue = ({ offset }) => Number(offset.slice(4, 10).replace(':', '')) || 0;
 const sortByOffset = (a, b) => getOffsetValue(a) - getOffsetValue(b);
@@ -213,6 +230,9 @@ export const caseInsensitiveIncludes = (str1: string, str2: string): boolean =>
 
 // call this as the argument to a .sort() on an array
 export const hierarchySort = (a, b) => a.sort - b.sort;
+
+// sort by sort value
+export const sortBySortValue = (a, b) => a.sort - b.sort;
 
 // lifecycle hook tests
 
@@ -349,33 +369,28 @@ export const getOrderObjId = (arr, deleteOrder) => {
 
     return objId ? objId.id : null;
 };
-
-export const reverseEnum = obj =>
-    Object.keys(obj).reduce((acc, key) => {
-        const lower = key
-            .replace(/([A-Z])/g, ' $1')
-            .trim()
-            .toLowerCase();
-
-        acc[obj[key]] = `${lower[0].toUpperCase()}${lower.slice(1)}`;
-        return acc;
-    }, {});
-
 export const boolToYesNo = bool => (bool ? 'Yes' : 'No');
 
 export const isDifferent = (value1, value2) => {
     return !_.isEqual(value1, value2);
 };
 
-export const formatAsHrsMinsSecs = (ms: number) => {
-    const formatInt = (int: number) => int.toString().padStart(2, '0');
+const formatInt = (int: number) => int.toString().padStart(2, '0');
 
+export const formatAsHrsMinsSecs = (ms: number) => {
     const secs = Math.floor(ms / 1000);
     const hrs = Math.floor(secs / 3600);
     const mins = Math.floor((secs - hrs * 3600) / 60);
     const secsLeft = secs - hrs * 3600 - mins * 60;
-
     return `${formatInt(hrs)}:${formatInt(mins)}:${formatInt(secsLeft)}`;
+};
+
+export const formatAsHrsMins = (ms: number) => {
+    const secs = Math.floor(ms / 1000);
+    const hrs = Math.floor(secs / 3600);
+    const mins = Math.floor((secs - hrs * 3600) / 60);
+
+    return `${formatInt(hrs)}:${formatInt(mins)}`;
 };
 
 export const arrayToQueryString = (array: string[], key: string) => {
@@ -417,6 +432,7 @@ export const isMinMemory = (bytes: number) => {
     const gb = mb / 1024;
     return gb >= 2.5 && gb < 3.5;
 };
+
 export const totalArray = (array: number[]) => array.reduce((acc, val) => acc + val, 0);
 
 export const titleCaseString = (string: string): string => {
@@ -444,3 +460,101 @@ export const reverseObj = (obj: any) => {
         return ret;
     }, {});
 };
+
+export const formatCheckboxListOptions = (
+    options,
+    valueKey = 'id',
+    nameKey = 'name',
+    isDisabledKey = 'isDisabled',
+) => {
+    const formattedOptions = options.map(opt => {
+        return {
+            text: opt[nameKey] || '',
+            value: opt[valueKey] || '',
+            isDisabled: opt[isDisabledKey] || false,
+        };
+    });
+
+    return formattedOptions;
+};
+
+export function getFormArrayObjChange(index, field, value, arrayOfObjects) {
+    const arrayToUpdate = arrayOfObjects;
+    const relObjToUpdate = arrayOfObjects[index];
+
+    const updatedObj = {
+        ...relObjToUpdate,
+        [field]: value,
+    };
+
+    arrayToUpdate[index] = updatedObj;
+
+    return arrayToUpdate;
+}
+
+export function getFormArrayAfterObjAdd(arrayOfObjects, objToAdd) {
+    const arrayToUpdate = arrayOfObjects;
+
+    arrayToUpdate.push(objToAdd);
+
+    return arrayToUpdate;
+}
+
+export function getFormArrayAfterObjRemove(arrayOfObjects, indexToRemove) {
+    const arrayToUpdate = arrayOfObjects;
+
+    arrayToUpdate.splice(indexToRemove, 1);
+
+    return arrayToUpdate;
+}
+
+export function debounce(func, wait, immediate) {
+    let timeout;
+    return function () {
+        const context = this,
+            args = arguments;
+        const later = function () {
+            timeout = null;
+            if (!immediate) func.apply(context, args);
+        };
+        var callNow = immediate && !timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+        if (callNow) func.apply(context, args);
+    };
+}
+
+//API takes a bitmask of days of the week https://docs.microsoft.com/en-us/dotnet/api/System.FlagsAttribute?view=net-6.0
+export const handleDaysConversion = (days: number[]) => {
+    return days.reduce((res, item) => res + item, 0);
+};
+
+export const getDaysFromBitMask = (bitmask: number | null) => {
+    if (!bitmask) return [];
+
+    const { MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY } =
+        RECURRENCE_DAYS_VALUES;
+
+    const hasMon = bitmask & MONDAY;
+    const hasTue = bitmask & TUESDAY;
+    const hasWed = bitmask & WEDNESDAY;
+    const hasThu = bitmask & THURSDAY;
+    const hasFri = bitmask & FRIDAY;
+    const hasSat = bitmask & SATURDAY;
+    const hasSun = bitmask & SUNDAY;
+
+    return [hasMon, hasTue, hasWed, hasThu, hasFri, hasSat, hasSun].filter(val => val);
+};
+
+export const getValuesFromBitMaskArray = (bitmask: number | null) => {
+    const days = getDaysFromBitMask(bitmask);
+    return days.map(day => DAYS_FLAGGED_LOOKUP[day]);
+};
+
+export const preventNonNumericalInput = (e: KeyboardEvent) => {
+    // @ts-ignore
+    // e = e || window.event;
+    const charCode = typeof e.which == 'undefined' ? e.keyCode : e.which;
+    const charStr = String.fromCharCode(charCode);
+    if (!charStr.match(/^[0-9.]+$/)) e.preventDefault();
+}; // Use with onKeyPress on number/currency inputs

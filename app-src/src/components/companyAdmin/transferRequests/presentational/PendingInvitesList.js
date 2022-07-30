@@ -3,11 +3,7 @@ import PendingInvitesListItemContainer from '../containers/PendingInvitesListIte
 
 const PendingInvitesList = ({ invites, headers }) =>
     invites.map(invite => (
-        <PendingInvitesListItemContainer
-            key={invite.id}
-            invite={invite}
-            headers={headers}
-        />
+        <PendingInvitesListItemContainer key={invite.id} invite={invite} headers={headers} />
     ));
 
 export default PendingInvitesList;

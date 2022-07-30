@@ -9,16 +9,8 @@ import EditPinHistory from 'components/companyAdmin/pins/editPinHistory/presenta
 const PinRoutes = ({ base = '/company/pins' }) => (
     <SwitchWith404>
         <Route exact path={`${base}/:id`} component={SinglePinContainer} />
-        <Route
-            exact
-            path={`${base}/:id/add-history`}
-            component={AddPinHistory}
-        />
-        <Route
-            exact
-            path={`${base}/:id/edit-history/:historyID`}
-            component={EditPinHistory}
-        />
+        <Route exact path={`${base}/:id/add-history`} component={AddPinHistory} />
+        <Route exact path={`${base}/:id/edit-history/:historyID`} component={EditPinHistory} />
     </SwitchWith404>
 );
 

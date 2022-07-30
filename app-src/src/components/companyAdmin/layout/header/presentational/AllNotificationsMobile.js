@@ -9,7 +9,7 @@ const AllNotificationsMobile = ({
     unreadMessageCount,
     totalCredits,
     totalRequests,
-    showModal
+    showModal,
 }) => (
     <div className="account-area">
         {/*** notifications ***/}
@@ -22,15 +22,11 @@ const AllNotificationsMobile = ({
             </button>
             <HeaderNotificationsContainer />
             <Link to="/company/message-centre" className="item main">
-                {!!unreadMessageCount && (
-                    <span className="number">{unreadMessageCount}</span>
-                )}
+                {!!unreadMessageCount && <span className="number">{unreadMessageCount}</span>}
                 <i className="far fa-envelope fa-fw" />
             </Link>
             <Link to="/company/tools/transfer-requests" className="item main">
-                {!!totalRequests && (
-                    <span className="number">{totalRequests}</span>
-                )}
+                {!!totalRequests && <span className="number">{totalRequests}</span>}
                 <i className="far fa-exchange-alt fa-fw" />
             </Link>
         </div>

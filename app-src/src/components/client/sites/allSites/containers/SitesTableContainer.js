@@ -23,9 +23,7 @@ class SitesTableContainer extends Component {
         const { status } = filters;
         const name = filters.name.toLowerCase();
 
-        const sitesSearched = sites.filter(site =>
-            site.name.toLowerCase().includes(name)
-        );
+        const sitesSearched = sites.filter(site => site.name.toLowerCase().includes(name));
 
         const sitesSorted = this._getSortedSites(sitesSearched);
 
@@ -44,15 +42,11 @@ class SitesTableContainer extends Component {
         const { filters } = this.props;
 
         if (filters.sortBy === 'descending') {
-            return sites.sort(
-                (a, b) => new Date(b.createdOn) - new Date(a.createdOn)
-            );
+            return sites.sort((a, b) => new Date(b.createdOn) - new Date(a.createdOn));
         }
 
         if (filters.sortBy === 'ascending') {
-            return sites.sort(
-                (a, b) => new Date(a.createdOn) - new Date(b.createdOn)
-            );
+            return sites.sort((a, b) => new Date(a.createdOn) - new Date(b.createdOn));
         }
         // default sort order as per api
         return sites.sort((a, b) => a.sort - b.sort);
@@ -61,16 +55,16 @@ class SitesTableContainer extends Component {
 
 const mapStateToProps = ({
     client: {
-        sitesReducer: { sites, isFetching, error }
+        sitesReducer: { sites, isFetching, error },
     },
     shared: {
-        sitesFilterReducer: { filters }
-    }
+        sitesFilterReducer: { filters },
+    },
 }) => ({
     sites: Object.values(sites).sort(hierarchySort),
     isFetching,
     error,
-    filters
+    filters,
 });
 
 export default withRouter(connect(mapStateToProps)(SitesTableContainer));

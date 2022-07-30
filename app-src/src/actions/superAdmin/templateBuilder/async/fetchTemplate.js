@@ -3,13 +3,13 @@ import axios from 'axios';
 import {
     FETCH_TEMPLATE_REQUEST,
     FETCH_TEMPLATE_SUCCESS,
-    FETCH_TEMPLATE_FAILURE
+    FETCH_TEMPLATE_FAILURE,
 } from 'constants/actionTypes/templateBuilder';
 import { ADMIN_API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
 
 export const fetchTemplateRequest = () => ({
-    type: FETCH_TEMPLATE_REQUEST
+    type: FETCH_TEMPLATE_REQUEST,
 });
 
 export const fetchTemplateSuccess = ({
@@ -17,19 +17,19 @@ export const fetchTemplateSuccess = ({
     sections,
     questions,
     labelFields,
-    statusOptions
+    statusOptions,
 }) => ({
     type: FETCH_TEMPLATE_SUCCESS,
     template,
     sections,
     questions,
     labelFields,
-    statusOptions
+    statusOptions,
 });
 
 export const fetchTemplateFailure = error => ({
     type: FETCH_TEMPLATE_FAILURE,
-    error
+    error,
 });
 
 export default uuid => dispatch => {

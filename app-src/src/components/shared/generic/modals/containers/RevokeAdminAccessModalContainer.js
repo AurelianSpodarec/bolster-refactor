@@ -9,21 +9,13 @@ import changeUserType from 'actions/companyAdmin/userManagement/async/changeUser
 
 class RevokeAdminAccessModalContainer extends Component {
     render() {
-        const {
-            hideModal,
-            message,
-            user,
-            changeUserType,
-            loggedInUser
-        } = this.props;
+        const { hideModal, message, user, changeUserType, loggedInUser } = this.props;
 
         return (
             <RevokeAdminAccessModal
                 hideModal={hideModal}
                 message={message}
-                handleRevoke={() =>
-                    changeUserType(user.id, { type: 'Operative' })
-                }
+                handleRevoke={() => changeUserType(user.id, { type: 'Operative' })}
                 loggedInUser={loggedInUser}
             />
         );
@@ -40,24 +32,21 @@ class RevokeAdminAccessModalContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
-        companyUsersReducer: { postSuccess, error, users }
+        companyUsersReducer: { postSuccess, error, users },
     },
     shared: {
-        decodeJWTReducer: { jwtData }
-    }
+        decodeJWTReducer: { jwtData },
+    },
 }) => ({
     postSuccess,
     error,
-    loggedInUser: users[jwtData.companyUserID]
+    loggedInUser: users[jwtData.companyUserID],
 });
 
 const mapDispatchToProps = dispatch => ({
     hideModal: () => dispatch(hideModal()),
     fetchCompanyUsers: () => dispatch(fetchCompanyUsers()),
-    changeUserType: (id, postBody) => dispatch(changeUserType(id, postBody))
+    changeUserType: (id, postBody) => dispatch(changeUserType(id, postBody)),
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(RevokeAdminAccessModalContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(RevokeAdminAccessModalContainer);

@@ -47,17 +47,17 @@ const CompanyReportsListItem = ({
         <tr>
             <td>
                 {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
-                {queueItem.friendlyName}
+                {queueItem.name}
             </td>
             <td>
                 {' '}
                 {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
-                {queueItem.createdByUserName}
+                {queueItem.createdBy}
             </td>
             <td>
                 {' '}
                 {onMobile && <span className="mobile-table-heading">{headers[2]}</span>}
-                {typeArr.join(', ')}
+                {queueItem.type}
             </td>
             <td>
                 {' '}
@@ -85,21 +85,18 @@ const CompanyReportsListItem = ({
                     //         <i className="fa fa-envelope" /> Report will be e-mailed
                     //     </button>
                     // ) :
-                    <button
-                        className="button red"
-                        onClick={() => retryCompanyReport(+queueItem.id)}
-                    >
+                    <button className="button red" onClick={() => retryCompanyReport(queueItem.id)}>
                         <i className="fa fa-times" /> Failed - Retry?
                     </button>
                 ) : isRetryAvailable ? (
-                    <button className="button" onClick={() => retryCompanyReport(+queueItem.id)}>
+                    <button className="button" onClick={() => retryCompanyReport(queueItem.id)}>
                         <LoadingIcon />
                         Generating... (retry?)
                     </button>
                 ) : queueItem.state === DELETED ? (
                     <button
                         className="button blue"
-                        onClick={() => retryCompanyReport(+queueItem.id)}
+                        onClick={() => retryCompanyReport(queueItem.id)}
                     >
                         <i className="fa fa-redo-alt"></i> Regenerate
                     </button>

@@ -11,6 +11,9 @@ const TimesheetCalender = ({
     companyUserIDs,
     setCompanyUserIDs,
     companyUserOptions,
+    jobReferenceIDs,
+    setJobReferenceIDs,
+    jobReferenceOptions,
     isFetching,
     fetchError,
     timesheets,
@@ -32,6 +35,9 @@ const TimesheetCalender = ({
                     companyUserIDs={companyUserIDs}
                     setCompanyUserIDs={setCompanyUserIDs}
                     companyUserOptions={companyUserOptions}
+                    jobReferenceIDs={jobReferenceIDs}
+                    setJobReferenceIDs={setJobReferenceIDs}
+                    jobReferenceOptions={jobReferenceOptions}
                 />
                 <WeekTable
                     startDate={startDate}

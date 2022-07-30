@@ -2,13 +2,7 @@ import React from 'react';
 
 import LabelTypeRadioButton from './LabelTypeRadioButton';
 
-const LabelTypeRadioButtonList = ({
-    options,
-    value,
-    handleInputChange,
-    name,
-    error
-}) => (
+const LabelTypeRadioButtonList = ({ options, value, handleInputChange, name, error }) => (
     <div className="checkbox-list size-lg-12">
         {options &&
             options.map(opt => (
@@ -22,9 +16,7 @@ const LabelTypeRadioButtonList = ({
                     handleInputChange={handleInputChange}
                 />
             ))}
-        {error && error.length && (
-            <p className="error red-text text-accent-4">{error}</p>
-        )}
+        {error && error.length && <p className="error red-text text-accent-4">{error}</p>}
     </div>
 );
 

@@ -3,7 +3,7 @@ import DeletionErrorModal from '../presentational/ErrorModal';
 
 const ErrorModal = ({
     message = 'An error occurred while processing your request, please try again later',
-    title = 'Error'
+    title = 'Error',
 }) => <DeletionErrorModal message={message} title={title} />;
 
 export default ErrorModal;

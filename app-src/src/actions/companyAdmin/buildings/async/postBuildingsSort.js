@@ -12,7 +12,7 @@ export default buildings => dispatch => {
         .post(
             `${API_URL}/buildings/sort`,
             { items: buildings.map(({ id, sort }) => ({ id, sort })) },
-            getHeaders()
+            getHeaders(),
         )
         .catch(() => dispatch(fetchAllBuildings()));
 };

@@ -3,5 +3,5 @@ import { CLIENT_UPDATE_FURTHER_FILTRATION_OPTION } from 'constants/client/action
 export default value => async dispatch =>
     await dispatch({
         type: CLIENT_UPDATE_FURTHER_FILTRATION_OPTION,
-        value
+        value,
     });

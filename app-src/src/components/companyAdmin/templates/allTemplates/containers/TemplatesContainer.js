@@ -10,10 +10,7 @@ class TemplatesContainer extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    fetchAllTemplates: () => dispatch(fetchAllTemplates())
+    fetchAllTemplates: () => dispatch(fetchAllTemplates()),
 });
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(TemplatesContainer);
+export default connect(null, mapDispatchToProps)(TemplatesContainer);

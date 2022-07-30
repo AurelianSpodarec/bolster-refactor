@@ -7,23 +7,18 @@ import InviteClientToSite from '../presentational/InviteClientToSite';
 
 class InviteClientToSiteContainer extends Component {
     state = {
-        siteName: ''
+        siteName: '',
     };
 
     render() {
-        return (
-            <InviteClientToSite
-                siteID={this.props.siteID}
-                siteName={this.state.siteName}
-            />
-        );
+        return <InviteClientToSite siteID={this.props.siteID} siteName={this.state.siteName} />;
     }
 
     _setSiteName = () => {
         const { site } = this.props;
 
         this.setState({
-            siteName: site.name
+            siteName: site.name,
         });
     };
 
@@ -48,16 +43,13 @@ class InviteClientToSiteContainer extends Component {
 
 const mapStateToProps = ({ companyAdmin: { sitesReducer } }, ownProps) => ({
     siteID: ownProps.match.params.id,
-    site: sitesReducer.sites[ownProps.match.params.id] || {}
+    site: sitesReducer.sites[ownProps.match.params.id] || {},
 });
 
 const mapDispatchToProps = dispatch => ({
     fetchSingleSite: siteID => {
         dispatch(fetchSingleSite(siteID));
-    }
+    },
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(InviteClientToSiteContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(InviteClientToSiteContainer);

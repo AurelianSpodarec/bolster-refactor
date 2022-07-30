@@ -22,11 +22,12 @@ export const softDeleteLibraryDocumentsFailure = error => ({
     error,
 });
 
-export default (ids = []) => dispatch => {
-    dispatch(softDeleteLibraryDocumentsRequest());
+export default (ids = []) =>
+    dispatch => {
+        dispatch(softDeleteLibraryDocumentsRequest());
 
-    return axios
-        .patch(`${API_URL}/document-library/archive`, { ids, undo: false }, getHeaders())
-        .then(() => dispatch(softDeleteLibraryDocumentsSuccess(ids)))
-        .catch(err => dispatch(softDeleteLibraryDocumentsFailure(err.message)));
-};
+        return axios
+            .patch(`${API_URL}/document-library/archive`, { ids, undo: false }, getHeaders())
+            .then(() => dispatch(softDeleteLibraryDocumentsSuccess(ids)))
+            .catch(err => dispatch(softDeleteLibraryDocumentsFailure(err.message)));
+    };

@@ -11,6 +11,7 @@ const CheckboxList = ({
     classes,
     allOptionsDisabled,
     hideDisabled,
+    isNumberValues,
 }) => (
     <div className={'checkbox-list size-lg-12'}>
         {options &&
@@ -21,7 +22,10 @@ const CheckboxList = ({
                     name={name}
                     text={text}
                     disabled={disabled || allOptionsDisabled}
-                    checked={selectedOptions.includes(String(value)) && !disabled}
+                    checked={
+                        selectedOptions.includes(isNumberValues ? value : String(value)) &&
+                        !disabled
+                    }
                     handleChange={handleChange}
                     classes={classes}
                     fromList

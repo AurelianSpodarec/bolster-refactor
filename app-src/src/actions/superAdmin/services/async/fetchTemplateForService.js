@@ -4,21 +4,21 @@ import { getHeaders } from 'helpers/api';
 import {
     ADMIN_FETCH_TEMPLATES_FOR_SERVICE_REQUEST,
     ADMIN_FETCH_TEMPLATES_FOR_SERVICE_SUCCESS,
-    ADMIN_FETCH_TEMPLATES_FOR_SERVICE_FAILURE
+    ADMIN_FETCH_TEMPLATES_FOR_SERVICE_FAILURE,
 } from 'constants/actionTypes/services';
 
 export const fetchServiceTemplateRequest = () => ({
-    type: ADMIN_FETCH_TEMPLATES_FOR_SERVICE_REQUEST
+    type: ADMIN_FETCH_TEMPLATES_FOR_SERVICE_REQUEST,
 });
 
 export const fetchServiceTemplateSuccess = payload => ({
     type: ADMIN_FETCH_TEMPLATES_FOR_SERVICE_SUCCESS,
-    payload
+    payload,
 });
 
 export const fetchServiceTemplateFailure = error => ({
     type: ADMIN_FETCH_TEMPLATES_FOR_SERVICE_FAILURE,
-    error
+    error,
 });
 
 export default serviceID => dispatch => {

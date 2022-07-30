@@ -35,7 +35,7 @@ const CompanyTracking = () => {
 
     return (
         <>
-            <PageHeading title="Company Tracking" withBackButton>
+            <PageHeading title="Company Tracking">
                 <button onClick={handleDownloadCSV} className="button blue">
                     <i className="fa fa-download"></i> Download CSV
                 </button>

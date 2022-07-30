@@ -5,6 +5,8 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import deleteCompanyUserInvite from 'actions/companyAdmin/userManagement/async/deleteCompanyUserInvite';
 
 import { RESEND_INVITE } from 'constants/shared/modalTypes';
+import ButtonWrapper from '../../../../../shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from '../../../../../shared/generic/button/presentational/ActionButton';
 
 const InvitedOperativesListItem = ({ user, headers }) => {
     const { userFirstName, userLastName, userEmail, id } = user;
@@ -30,14 +32,24 @@ const InvitedOperativesListItem = ({ user, headers }) => {
             </td>
             <td>
                 {onMobile && <span className="mobile-table-heading">{headers[2]}</span>}{' '}
-                <button className="button blue" onClick={handleResend}>
-                    <i className="fas fa-paper-plane" />
-                    Resend Invite
-                </button>
-                <button className="button red" onClick={handleDelete}>
-                    <i className="fas fa-trash" />
-                    Delete Invite
-                </button>
+                <ButtonWrapper alignment="right">
+                    <ActionButton
+                        text="Resend Invite"
+                        onClick={handleResend}
+                        icon="paper-plane"
+                        size="small"
+                        iconWeight="regular"
+                    />
+
+                    <ActionButton
+                        text="Delete Invite"
+                        onClick={handleDelete}
+                        icon="trash-alt"
+                        ambient="negative"
+                        size="small"
+                        iconWeight="regular"
+                    />
+                </ButtonWrapper>
             </td>
         </tr>
     );

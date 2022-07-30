@@ -29,7 +29,7 @@
         "react/jsx-no-duplicate-props": "warn",
         "max-len": [
             1,
-            100,
+            150,
             4,
             {
                 "ignorePattern": "^import\\s.+\\sfrom\\s.+;$",

@@ -5,10 +5,7 @@ const { ADD, DELETE, NONE, EXCLUDE } = RECTANGLE_MODES;
 
 const PinSelectorOptions = ({ setMode, mode, handleCancel }) => (
     <BlockButtonWrapper>
-        <button
-            onClick={() => setMode(ADD)}
-            className={`button ${mode === ADD ? 'green' : ''}`}
-        >
+        <button onClick={() => setMode(ADD)} className={`button ${mode === ADD ? 'green' : ''}`}>
             Add Mode
         </button>
         <button

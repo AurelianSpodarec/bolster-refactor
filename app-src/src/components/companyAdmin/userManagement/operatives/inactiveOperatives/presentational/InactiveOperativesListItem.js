@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { REACTIVATE_USER } from 'constants/shared/modalTypes';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import ActionButton from '../../../../../shared/generic/button/presentational/ActionButton';
+import ButtonWrapper from '../../../../../shared/generic/button/presentational/ButtonWrapper';
 
 const InactiveOperativesListItem = ({
     user,
@@ -29,9 +31,13 @@ const InactiveOperativesListItem = ({
             </td>
             <td>
                 {onMobile && <span className="mobile-table-heading">{headers[3]}</span>}
-                <button className="button blue" onClick={handleRequestReactivation}>
-                    Request Reactivation
-                </button>
+                <ButtonWrapper alignment="right">
+                    <ActionButton
+                        text="Request Reactivation"
+                        onClick={handleRequestReactivation}
+                        size="small"
+                    />
+                </ButtonWrapper>
             </td>
         </tr>
     );

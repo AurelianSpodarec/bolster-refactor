@@ -8,25 +8,30 @@ import {
     RESTRICT_ADMIN_PAYMENTS,
     DISABLE_USER,
     ENABLE_USER,
+    CONFIRM_SUBMIT,
 } from 'constants/shared/modalTypes';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 import AllCompanyAdminsListItem from '../presentational/AllCompanyAdminsListItem';
+import { COMPANY_USER_ROLE_TYPES } from '../../../../../../constants/companyAdmin/enums';
+import editCompanyUserType from '../../../../../../actions/companyAdmin/userManagement/async/editCompanyUserType';
 
-const AllCompanyAdminsListItemContainer = ({ user, colCount, headers }) => {
-    const { loggedInUser, onMobile, disabledUsers, maxDrawingsPerOperative } = useSelector(
-        mapStateToProps,
-    );
+const AllCompanyAdminsListItemContainer = ({ user, headers, isAdminPlus, isBolsterPlus }) => {
+    const { loggedInUser, onMobile, disabledUsers, maxDrawingsPerOperative } =
+        useSelector(mapStateToProps);
+
     const dispatch = useDispatch();
 
     const drawingLimitColour = getCompanyAdminDrawingLimitColour(user.drawingCount);
     const drawingLimitMaxed = user.drawingCount >= maxDrawingsPerOperative;
+    const canSetAdminPlusUsers =
+        isAdminPlus && isBolsterPlus && user.type !== COMPANY_USER_ROLE_TYPES.OWNER;
 
     return (
         <AllCompanyAdminsListItem
             user={user}
-            colCount={colCount}
+            colCount={headers.length}
             showDeleteModal={deleteModal}
             showDisableModal={showDisableUserModal}
             showEnableModal={showEnableUserModal}
@@ -41,11 +46,22 @@ const AllCompanyAdminsListItemContainer = ({ user, colCount, headers }) => {
             isDisabled={!!disabledUsers[user.id]}
             drawingLimitColour={drawingLimitColour}
             drawingLimitMaxed={drawingLimitMaxed}
+            maxDrawingsPerOperative={maxDrawingsPerOperative}
+            isAdminPlus={isAdminPlus}
+            canSetAdminPlusUsers={canSetAdminPlusUsers}
+            showSetAdminPlusModal={showSetAdminPlusModal}
         />
     );
 
     function deleteModal() {
-        dispatch(showModal(DELETE_COMPANY_USER, { id: user.id, user }));
+        dispatch(
+            showModal(DELETE_COMPANY_USER, {
+                id: user.id,
+                user,
+                deleteButtonText: 'Confirm',
+                icon: 'check',
+            }),
+        );
     }
 
     function unlinkModal() {
@@ -82,6 +98,23 @@ const AllCompanyAdminsListItemContainer = ({ user, colCount, headers }) => {
 
     function showEnableUserModal() {
         dispatch(showModal(ENABLE_USER, { user }));
+    }
+
+    function showSetAdminPlusModal() {
+        const { type, id } = user;
+        const isUserAdminPlus = type === COMPANY_USER_ROLE_TYPES.ADMIN_PLUS;
+        const handleSubmit = () => {
+            dispatch(editCompanyUserType(id, { type: isUserAdminPlus ? 'Admin' : 'AdminPlus' }));
+        };
+        dispatch(
+            showModal(CONFIRM_SUBMIT, {
+                hideModal: () => dispatch(hideModal()),
+                handleSubmit,
+                message: `Are you sure you want to ${isUserAdminPlus ? 'remove' : 'add'} ${
+                    user.userFirstName
+                } ${user.userLastName} as an admin plus user?`,
+            }),
+        );
     }
 
     function getCompanyAdminDrawingLimitColour(numberOfAttachedDrawings) {

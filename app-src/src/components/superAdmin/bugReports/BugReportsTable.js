@@ -18,13 +18,8 @@ const headers = [
 ];
 
 const BugReportsTable = () => {
-    const {
-        bugReports,
-        isFetching,
-        error,
-        handleViewBugReport,
-        handleMarkRead,
-    } = useBugReportsTable();
+    const { bugReports, isFetching, error, handleViewBugReport, handleMarkRead } =
+        useBugReportsTable();
     const [handleDeleteBugReport] = useDeleteBugReport();
 
     return (

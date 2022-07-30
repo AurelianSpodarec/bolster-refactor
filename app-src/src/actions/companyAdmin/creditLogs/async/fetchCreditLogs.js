@@ -5,21 +5,21 @@ import { getHeaders } from 'helpers/api';
 import {
     FETCH_CREDIT_LOGS_REQUEST,
     FETCH_CREDIT_LOGS_SUCCESS,
-    FETCH_CREDIT_LOGS_FAILURE
+    FETCH_CREDIT_LOGS_FAILURE,
 } from 'constants/actionTypes/creditLogs';
 
 export const fetchCreditLogsRequest = () => ({
-    type: FETCH_CREDIT_LOGS_REQUEST
+    type: FETCH_CREDIT_LOGS_REQUEST,
 });
 
 export const fetchCreditLogsSuccess = payload => ({
     type: FETCH_CREDIT_LOGS_SUCCESS,
-    payload
+    payload,
 });
 
 export const fetchCreditLogsFailure = error => ({
     type: FETCH_CREDIT_LOGS_FAILURE,
-    error
+    error,
 });
 
 export default () => dispatch => {

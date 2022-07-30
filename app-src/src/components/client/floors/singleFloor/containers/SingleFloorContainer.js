@@ -14,12 +14,8 @@ class SingleFloorContainer extends Component {
     }
 
     componentDidMount = () => {
-        const {
-            floorID,
-            fetchSingleFloor,
-            fetchAllDrawings,
-            fetchClientPinStatsForLevel
-        } = this.props;
+        const { floorID, fetchSingleFloor, fetchAllDrawings, fetchClientPinStatsForLevel } =
+            this.props;
         const selectedCompanyID = getSelectedCompanyForClient();
 
         fetchSingleFloor(selectedCompanyID, floorID);
@@ -29,7 +25,7 @@ class SingleFloorContainer extends Component {
 }
 
 const mapStateToProps = (_, { match }) => ({
-    floorID: match.params['id']
+    floorID: match.params['id'],
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -40,17 +36,8 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchAllDrawings(companyID));
     },
     fetchClientPinStatsForLevel: (selectedCompanyID, hierarchyType, siteID) => {
-        dispatch(
-            fetchClientPinStatsForLevel(
-                selectedCompanyID,
-                hierarchyType,
-                siteID
-            )
-        );
-    }
+        dispatch(fetchClientPinStatsForLevel(selectedCompanyID, hierarchyType, siteID));
+    },
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(SingleFloorContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(SingleFloorContainer);

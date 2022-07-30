@@ -1,11 +1,12 @@
 import React from 'react';
-import BlockButtonWrapper from '../../blockButtonWrappers/presentational/BlockButtonWrapper';
 import BlockHeading from '../../blockHeading/presentational/BlockHeading';
 import CheckboxContainer from '../../form/containers/CheckboxContainer';
 import Form from '../../form/containers/Form';
 import Field from '../../form/presentational/Field';
 
 import ModalOuterContainer from '../containers/ModalOuterContainer';
+import ButtonWrapper from '../../button/presentational/ButtonWrapper';
+import ActionButton from '../../button/presentational/ActionButton';
 
 const EditFreeCreditModal = ({
     company,
@@ -27,16 +28,17 @@ const EditFreeCreditModal = ({
                     />
                 </Field>
 
-                <BlockButtonWrapper>
-                    <button className="button green" type="submit">
-                        <i className="fa fa-save fa-fw" />
-                        Save
-                    </button>
-                    <button className="button " onClick={closeModal}>
-                        <i className="fa fa-times" />
-                        Cancel
-                    </button>
-                </BlockButtonWrapper>
+                <div className="size-lg-12">
+                    <ButtonWrapper alignment="right">
+                        <ActionButton
+                            text="Cancel"
+                            onClick={closeModal}
+                            source="secondary"
+                            size="small"
+                        />
+                        <ActionButton text="Confirm" type="submit" icon="check" size="small" />
+                    </ButtonWrapper>
+                </div>
             </Form>
         </ModalOuterContainer>
     );

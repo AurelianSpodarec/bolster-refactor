@@ -4,5 +4,5 @@ export default (name, value) => dispatch =>
     dispatch({
         type: CLIENT_UPDATE_FILTER_QUESTION_FIELD,
         name,
-        value
+        value,
     });

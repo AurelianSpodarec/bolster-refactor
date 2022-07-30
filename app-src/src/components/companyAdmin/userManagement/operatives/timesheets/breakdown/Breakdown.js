@@ -11,12 +11,16 @@ import moment from 'moment';
 
 const Breakdown = ({
     selectedDate,
+    startDate,
     timePeriod,
     isFetching,
     fetchError,
     timesheets,
     handlePDFReportGeneration,
     disableReportGenPin,
+    dailyHoursBreakdown,
+    weeklyHoursBreakdown,
+    onDaySelect,
 }) => {
     switch (timePeriod) {
         case TIME_PERIOD.WEEK:
@@ -49,6 +53,9 @@ const Breakdown = ({
                                     fetchError={fetchError}
                                     handlePDFReportGeneration={handlePDFReportGeneration}
                                     disableReportGenPin={disableReportGenPin}
+                                    weeklyHoursBreakdown={weeklyHoursBreakdown}
+                                    dailyHoursBreakdown={dailyHoursBreakdown}
+                                    onDaySelect={onDaySelect}
                                 />
                             ),
                         },
@@ -80,9 +87,11 @@ const Breakdown = ({
                             component: (
                                 <DayBreakdownOverview
                                     selectedDate={selectedDate}
+                                    startDate={startDate}
                                     timesheets={timesheets}
                                     handlePDFReportGeneration={handlePDFReportGeneration}
                                     disableReportGenPin={disableReportGenPin}
+                                    dailyHoursBreakdown={dailyHoursBreakdown}
                                 />
                             ),
                         },

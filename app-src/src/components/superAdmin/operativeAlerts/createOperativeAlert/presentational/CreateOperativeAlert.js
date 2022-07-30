@@ -7,24 +7,12 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 
-const CreateOperativeAlert = ({
-    handleSubmit,
-    handleChange,
-    message,
-    sending
-}) => (
+const CreateOperativeAlert = ({ handleSubmit, handleChange, message, sending }) => (
     <>
-        <PageHeading
-            leftChildren={true}
-            title="Create Operative Alert"
-            withBackButton
-        />
+        <PageHeading leftChildren={true} title="Create Operative Alert" withBackButton />
         <BlockContainer>
             <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
-                <p>
-                    ##This will send a message to all operatives using the
-                    Bolster Systems app ##
-                </p>
+                <p>##This will send a message to all operatives using the Bolster Systems app ##</p>
                 <div className="size-lg-12">
                     <Field name="Message" required>
                         <TextAreaContainer
@@ -37,16 +25,10 @@ const CreateOperativeAlert = ({
                     </Field>
                 </div>
                 <BlockButtonWrapper>
-                    <button
-                        className={`button ${sending ? 'red' : 'green'}`}
-                        disabled={sending}
-                    >
-                        <i className="far fa-bell" />{' '}
-                        {sending ? 'Sending...' : 'Send Alert'}
+                    <button className={`button ${sending ? 'red' : 'green'}`} disabled={sending}>
+                        <i className="far fa-bell" /> {sending ? 'Sending...' : 'Send Alert'}
                     </button>
-                    <ButtonContainer to="/company/message-centre">
-                        Cancel
-                    </ButtonContainer>
+                    <ButtonContainer to="/company/message-centre">Cancel</ButtonContainer>
                 </BlockButtonWrapper>
             </Form>
         </BlockContainer>

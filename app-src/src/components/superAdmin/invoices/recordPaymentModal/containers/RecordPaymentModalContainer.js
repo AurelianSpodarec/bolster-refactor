@@ -9,7 +9,7 @@ import { SUCCESS_MODAL } from 'constants/shared/modalTypes';
 
 class RecordPaymentModalContainer extends Component {
     state = {
-        paymentValue: Number(0).toFixed(2)
+        paymentValue: Number(0).toFixed(2),
     };
 
     render() {
@@ -42,7 +42,7 @@ class RecordPaymentModalContainer extends Component {
 
         if (!prevProps.postSuccess && postSuccess) {
             showModal(SUCCESS_MODAL, {
-                message: 'Payment successfully recorded.'
+                message: 'Payment successfully recorded.',
             });
         }
     }
@@ -53,33 +53,30 @@ class RecordPaymentModalContainer extends Component {
     handleSubmit = () => {
         const {
             invoice: { id: invoiceID },
-            recordInvoicePayment
+            recordInvoicePayment,
         } = this.props;
         const { paymentValue } = this.state;
 
         recordInvoicePayment(invoiceID, {
             invoiceID,
             amount: paymentValue,
-            paymentType: 2
+            paymentType: 2,
         });
     };
 }
 
 const mapStateToProps = ({
     superAdmin: {
-        invoicePaymentsReducer: { postSuccess }
-    }
+        invoicePaymentsReducer: { postSuccess },
+    },
 }) => ({
-    postSuccess
+    postSuccess,
 });
 
 const mapDispatchToProps = {
     hideModal,
     recordInvoicePayment,
-    showModal
+    showModal,
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(RecordPaymentModalContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(RecordPaymentModalContainer);

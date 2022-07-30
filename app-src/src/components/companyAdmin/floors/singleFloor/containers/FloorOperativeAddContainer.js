@@ -7,20 +7,17 @@ import OperativesAdd from 'components/shared/operatives/presentational/Operative
 
 let OperativeAddContainer = ({ floor: { drawingIDs } }) => (
     <BlockContainer>
-        <OperativesAdd
-            type="floor"
-            unavailable={!(drawingIDs && drawingIDs.length)}
-        />
+        <OperativesAdd type="floor" unavailable={!(drawingIDs && drawingIDs.length)} />
     </BlockContainer>
 );
 
 const mapStateToProps = (
     {
         companyAdmin: {
-            floorsReducer: { floors }
-        }
+            floorsReducer: { floors },
+        },
     },
-    { match: { params } }
+    { match: { params } },
 ) => ({ floor: floors[params.id] || {} });
 
 export default withRouter(connect(mapStateToProps)(OperativeAddContainer));

@@ -3,7 +3,7 @@ import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import React from 'react';
 import SeriesTableRowPins from './SeriesTableRowPins';
 
-const SeriesListRow = ({ pinTaskSeries, startEditPinTaskSeries }) => {
+const SeriesListRow = ({ pinTaskSeries, startEditPinTaskSeries, isFetching, error }) => {
     const {
         id,
         operativeFirstName,
@@ -30,7 +30,12 @@ const SeriesListRow = ({ pinTaskSeries, startEditPinTaskSeries }) => {
                 </a>
             </td>
             <td>
-                <SeriesTableRowPins pinCount={pinCount} pins={pins} />
+                <SeriesTableRowPins
+                    pinCount={pinCount}
+                    pins={pins}
+                    isFetching={isFetching}
+                    error={error}
+                />
             </td>
             <td>
                 <DateTimeContainer

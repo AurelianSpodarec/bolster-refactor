@@ -10,7 +10,7 @@ import fetchHistoricServicesForCompany from 'actions/companyAdmin/services/async
 
 import SingleBuilding from '../presentational/SingleBuilding';
 import setTabs from 'actions/shared/generic/tabs/sync/setTabs';
-import { BUILDING_TABS } from 'constants/shared/tabNames';
+import { HIERARCHY_TABS } from 'constants/shared/tabNames';
 
 class SingleBuildingContainer extends Component {
     render() {
@@ -26,10 +26,10 @@ class SingleBuildingContainer extends Component {
             buildingID,
             fetchPinStatsForLevel,
             fetchHistoricServicesForCompany,
-            setTabs
+            setTabs,
         } = this.props;
 
-        setTabs(Object.values(BUILDING_TABS), BUILDING_TABS.GENERAL_OVERVIEW);
+        setTabs(Object.values(HIERARCHY_TABS), HIERARCHY_TABS.GENERAL_OVERVIEW);
         fetchSingleBuilding(buildingID).then(() => {
             fetchPinStatsForLevel('building', buildingID);
             fetchAllDrawings();
@@ -47,10 +47,10 @@ const mapDispatchToProps = {
     fetchDocuments,
     fetchPinStatsForLevel,
     fetchHistoricServicesForCompany,
-    setTabs
+    setTabs,
 };
 
 export default connect(
     (_, { match }) => ({ buildingID: match.params['id'] }),
-    mapDispatchToProps
+    mapDispatchToProps,
 )(SingleBuildingContainer);

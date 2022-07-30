@@ -7,7 +7,7 @@ const Search = ({
     handleChange,
     autoComplete = 'off',
     className = '',
-    omitIcon = false,
+    hideIcon,
 }) => {
     const inputRef = useRef(null);
 
@@ -22,7 +22,7 @@ const Search = ({
                 onChange={({ target: { name, value } }) => handleChange(name, value)}
                 ref={inputRef}
             />
-            <i className="search-icon far fa-search" />
+            {!hideIcon && <i className="search-icon far fa-search" />}
         </div>
     );
 };

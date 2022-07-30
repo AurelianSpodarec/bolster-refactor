@@ -1,7 +1,8 @@
 import React from 'react';
+import { preventNonNumericalInput } from 'helpers/generic';
 
 const NumberInput = ({
-    type,
+    type = 'number',
     name,
     placeholder,
     classes,
@@ -9,10 +10,11 @@ const NumberInput = ({
     handleChange,
     handleBlur,
     error,
-    maxNum
+    maxNum,
 }) => (
     <>
         <input
+            onKeyPress={preventNonNumericalInput}
             className={`generic-input ${classes}`}
             type={type}
             name={name}
@@ -22,9 +24,7 @@ const NumberInput = ({
             onBlur={handleBlur}
             max={maxNum}
         />
-        {!!(error && error.length) && (
-            <p className="error red-text text-accent-4">{error}</p>
-        )}
+        {!!(error && error.length) && <p className="error red-text text-accent-4">{error}</p>}
     </>
 );
 

@@ -30,6 +30,8 @@ const SeriesTable = ({ startEditPinTaskSeries }) => {
                         key={i}
                         pinTaskSeries={pinTaskSeries}
                         startEditPinTaskSeries={startEditPinTaskSeries}
+                        isFetching={isFetching}
+                        error={error}
                     />
                 ))}
             </Table>

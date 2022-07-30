@@ -35,6 +35,9 @@ class OutputSettingsContainer extends Component {
                 includeFloorplan,
                 isOAndMManualGeneration,
                 includeFloorplanZones,
+                includeCostingData,
+                includeLabourCostingData,
+                includeCostPerType,
             },
             options: { showHidden, sortBy },
             furtherFiltrationOption,
@@ -45,25 +48,28 @@ class OutputSettingsContainer extends Component {
 
         return (
             <>
-            <OutputSettings
-                includePinLocation={includePinLocation}
-                isCSVGeneration={isCSVGeneration}
-                isFloorplanGeneration={isFloorplanGeneration}
-                isPDFGeneration={isPDFGeneration}
-                includeFloorplan={includeFloorplan}
-                isOAndMManualGeneration={isOAndMManualGeneration}
-                sortByOptions={Object.values(sortByOptions)}
-                selectSortBy={sortByOptions[sortBy]}
-                showHidden={showHidden}
-                handleFilterChange={this.handleFilterChange}
-                handleOptionChange={this.handleOptionChange}
-                handleSubmit={this.handleSubmit}
-                handleShowOandMModal={this.handleShowOandMModal}
-                isZoneFilter={+furtherFiltrationOption === FURTHER_FILTRATION_OPTIONS.ZONES}
-                includeFloorplanZones={includeFloorplanZones}
-                hasZones={hasZones}
-            />
-            <CreateReportReloadOptions />
+                <OutputSettings
+                    includePinLocation={includePinLocation}
+                    isCSVGeneration={isCSVGeneration}
+                    isFloorplanGeneration={isFloorplanGeneration}
+                    isPDFGeneration={isPDFGeneration}
+                    includeFloorplan={includeFloorplan}
+                    isOAndMManualGeneration={isOAndMManualGeneration}
+                    sortByOptions={Object.values(sortByOptions)}
+                    selectSortBy={sortByOptions[sortBy]}
+                    showHidden={showHidden}
+                    handleFilterChange={this.handleFilterChange}
+                    handleOptionChange={this.handleOptionChange}
+                    handleSubmit={this.handleSubmit}
+                    handleShowOandMModal={this.handleShowOandMModal}
+                    isZoneFilter={+furtherFiltrationOption === FURTHER_FILTRATION_OPTIONS.ZONES}
+                    includeFloorplanZones={includeFloorplanZones}
+                    hasZones={hasZones}
+                    includeCostingData={includeCostingData}
+                    includeLabourCostingData={includeLabourCostingData}
+                    includeCostPerType={includeCostPerType}
+                />
+                <CreateReportReloadOptions />
             </>
         );
     }
@@ -117,8 +123,13 @@ class OutputSettingsContainer extends Component {
             addFieldError('isOAndMManualGeneration', 'Must select at least one option');
         } else if (modeSelected && !prevModeSelected) {
             removeFieldError('isOAndMManualGeneration');
+            removeFieldError('isCSVGeneration');
         }
     };
+
+    componentWillUnmount() {
+        removeFieldError('isCSVGeneration');
+    }
 
     handleFilterChange = (name, value) => {
         this.props.handleChange(name, value);
@@ -145,7 +156,6 @@ class OutputSettingsContainer extends Component {
         if (!isEmpty(fieldErrors)) showFieldErrors();
         else if (isFloorplanGeneration || (isPDFGeneration && includeFloorplan)) {
             const drawingForPinScale = this._getDrawingForPinScale();
-            console.log(isFloorplanGeneration, drawingForPinScale);
 
             if (!drawingForPinScale) {
                 showModal(ERROR_MODAL, {

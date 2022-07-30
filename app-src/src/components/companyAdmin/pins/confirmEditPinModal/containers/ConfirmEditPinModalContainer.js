@@ -29,12 +29,7 @@ class ConfirmEditPinModalContainer extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    hideModal: () => dispatch(hideModal())
+    hideModal: () => dispatch(hideModal()),
 });
 
-export default withRouter(
-    connect(
-        null,
-        mapDispatchToProps
-    )(ConfirmEditPinModalContainer)
-);
+export default withRouter(connect(null, mapDispatchToProps)(ConfirmEditPinModalContainer));

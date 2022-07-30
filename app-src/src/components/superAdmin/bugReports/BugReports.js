@@ -7,7 +7,7 @@ import BugReportsTable from './BugReportsTable';
 const BugReports = () => {
     return (
         <>
-            <PageHeading title="Bug Reports" withBackButton></PageHeading>
+            <PageHeading title="Bug Reports"></PageHeading>
             <BlockContainer>
                 <BugReportsTable />
             </BlockContainer>

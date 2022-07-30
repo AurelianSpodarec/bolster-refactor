@@ -13,7 +13,7 @@ import {
     FETCH_COST_OF_CREDITS_FAILURE,
     ADD_CREDITS_TO_DRAWING_REQUEST,
     ADD_CREDITS_TO_DRAWING_SUCCESS,
-    ADD_CREDITS_TO_DRAWING_FAILURE
+    ADD_CREDITS_TO_DRAWING_FAILURE,
 } from 'constants/actionTypes/credits';
 
 export default combineReducers({

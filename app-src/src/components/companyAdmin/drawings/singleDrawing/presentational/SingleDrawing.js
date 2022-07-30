@@ -1,13 +1,15 @@
 import React from 'react';
 
 import SingleDrawingHeaderContainer from '../containers/SingleDrawingHeaderContainer';
-import GeneralOverviewContainer from '../containers/GeneralOverviewContainer';
+import SingleDrawingRouteContainer from '../containers/SingleDrawingRouteContainer';
+import CreateAndViewPinButtons from './CreateAndViewPinButtons';
 
 const SingleDrawing = () => (
-    <div className="size-lg-12">
+    <>
         <SingleDrawingHeaderContainer />
-        <GeneralOverviewContainer />
-    </div>
+        <CreateAndViewPinButtons />
+        <SingleDrawingRouteContainer />
+    </>
 );
 
 export default SingleDrawing;

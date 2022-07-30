@@ -5,8 +5,9 @@ import { connect } from 'react-redux';
 import Table from 'components/shared/generic/tables/presentational/Table';
 import DocumentsList from './DocumentsList';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
 
 const DocumentsTable = ({
     location,
@@ -16,30 +17,26 @@ const DocumentsTable = ({
     accessType,
     smallList = false,
     onMobile,
-    drawingExpired
+    drawingExpired,
 }) => {
     return (
         <div className="size-lg-12">
             <BlockHeading title="Documents" classes="w-table">
-                {!clientControls &&
-                    accessType >= ACCESS_TYPES_VALUES.WRITE &&
-                    !drawingExpired && (
-                        <ButtonContainer
-                            className="pull-right green"
-                            to={`${location.pathname}/attach-document`}
-                        >
-                            <i className="fa fa-plus" /> Add
-                        </ButtonContainer>
-                    )}
+                {!clientControls && accessType >= ACCESS_TYPES_VALUES.WRITE && !drawingExpired && (
+                    <ButtonWrapper alignment="right">
+                        <LinkButton
+                            href={`${location.pathname}/attach-document`}
+                            icon="plus"
+                            ambient="positive"
+                            text="Add"
+                        />
+                    </ButtonWrapper>
+                )}
             </BlockHeading>
             <div
                 className={`size-lg-12 ignore-padding ${
                     smallList && documents.length > 3 ? 'scrollbar-y' : ''
-                } ${
-                    !smallList && documents.length > 4
-                        ? 'scrollbar-y large'
-                        : ''
-                }`}
+                } ${!smallList && documents.length > 4 ? 'scrollbar-y large' : ''}`}
             >
                 <Table
                     headers={['Name', 'Actions']}
@@ -65,7 +62,13 @@ const DocumentsTable = ({
 };
 
 export default withRouter(
-    connect(({ shared: { mobileReducer: { onMobile } } }) => ({
-        onMobile
-    }))(DocumentsTable)
+    connect(
+        ({
+            shared: {
+                mobileReducer: { onMobile },
+            },
+        }) => ({
+            onMobile,
+        }),
+    )(DocumentsTable),
 );

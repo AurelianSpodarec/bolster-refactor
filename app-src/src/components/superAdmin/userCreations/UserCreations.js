@@ -27,7 +27,7 @@ const UserCreations = () => {
 
     return (
         <>
-            <PageHeading title="User Creations" withBackButton>
+            <PageHeading title="User Creations">
                 <button onClick={handleDownloadCSV} className="button blue">
                     <i className="fa fa-download"></i> Download CSV
                 </button>

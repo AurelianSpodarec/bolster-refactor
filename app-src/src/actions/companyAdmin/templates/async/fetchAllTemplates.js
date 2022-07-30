@@ -5,21 +5,21 @@ import { getHeaders } from 'helpers/api';
 import {
     FETCH_ALL_TEMPLATES_REQUEST,
     FETCH_ALL_TEMPLATES_SUCCESS,
-    FETCH_ALL_TEMPLATES_FAILURE
+    FETCH_ALL_TEMPLATES_FAILURE,
 } from 'constants/actionTypes/templates';
 
 export const fetchAllTemplatesRequest = () => ({
-    type: FETCH_ALL_TEMPLATES_REQUEST
+    type: FETCH_ALL_TEMPLATES_REQUEST,
 });
 
 export const fetchAllTemplatesSuccess = payload => ({
     type: FETCH_ALL_TEMPLATES_SUCCESS,
-    payload
+    payload,
 });
 
 export const fetchAllTemplatesFailure = error => ({
     type: FETCH_ALL_TEMPLATES_FAILURE,
-    error
+    error,
 });
 
 export default () => dispatch => {

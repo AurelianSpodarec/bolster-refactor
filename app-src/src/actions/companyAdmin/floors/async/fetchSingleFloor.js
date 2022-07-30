@@ -5,21 +5,21 @@ import { getHeaders } from 'helpers/api';
 import {
     FETCH_SINGLE_FLOOR_REQUEST,
     FETCH_SINGLE_FLOOR_SUCCESS,
-    FETCH_SINGLE_FLOOR_FAILURE
+    FETCH_SINGLE_FLOOR_FAILURE,
 } from 'constants/actionTypes/floors';
 
 export const fetchSingleFloorRequest = () => ({
-    type: FETCH_SINGLE_FLOOR_REQUEST
+    type: FETCH_SINGLE_FLOOR_REQUEST,
 });
 
 export const fetchSingleFloorSuccess = payload => ({
     type: FETCH_SINGLE_FLOOR_SUCCESS,
-    payload
+    payload,
 });
 
 export const fetchSingleFloorFailure = error => ({
     type: FETCH_SINGLE_FLOOR_FAILURE,
-    error
+    error,
 });
 
 export default id => dispatch => {

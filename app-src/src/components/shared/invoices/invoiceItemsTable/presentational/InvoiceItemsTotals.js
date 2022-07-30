@@ -1,10 +1,7 @@
 import React from 'react';
 import { formatCurrency } from 'helpers/generic';
 
-const InvoiceItemsTotals = ({
-    invoice: { subTotal, vatTotal, total },
-    onMobile
-}) => (
+const InvoiceItemsTotals = ({ invoice: { subTotal, vatTotal, total }, onMobile }) => (
     <tr>
         {!onMobile && (
             <>

@@ -6,21 +6,21 @@ import { getHeaders } from 'helpers/api';
 import {
     EDIT_COMPANY_USER_REQUEST,
     EDIT_COMPANY_USER_SUCCESS,
-    EDIT_COMPANY_USER_FAILURE
+    EDIT_COMPANY_USER_FAILURE,
 } from 'constants/actionTypes/usersManagement';
 
 export const editCompanyUserRequest = () => ({
-    type: EDIT_COMPANY_USER_REQUEST
+    type: EDIT_COMPANY_USER_REQUEST,
 });
 
 export const editCompanyUserSuccess = payload => ({
     type: EDIT_COMPANY_USER_SUCCESS,
-    payload
+    payload,
 });
 
 export const editCompanyUserFailure = error => ({
     type: EDIT_COMPANY_USER_FAILURE,
-    error
+    error,
 });
 
 export default (companyUserID, postBody) => dispatch => {

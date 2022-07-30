@@ -4,31 +4,28 @@ import { getHeaders } from 'helpers/api';
 import {
     FETCH_PIN_STATS_REQUEST,
     FETCH_PIN_STATS_SUCCESS,
-    FETCH_PIN_STATS_FAILURE
+    FETCH_PIN_STATS_FAILURE,
 } from 'constants/actionTypes/stats';
 
 export const fetchPinStatsForLevelRequest = () => ({
-    type: FETCH_PIN_STATS_REQUEST
+    type: FETCH_PIN_STATS_REQUEST,
 });
 
 export const fetchPinStatsForLevelSuccess = payload => ({
     type: FETCH_PIN_STATS_SUCCESS,
-    payload
+    payload,
 });
 
 export const fetchPinStatsForLevelFailure = error => ({
     type: FETCH_PIN_STATS_FAILURE,
-    error
+    error,
 });
 
 export default (hierarchicyType, hierarchicalID) => dispatch => {
     dispatch(fetchPinStatsForLevelRequest());
 
     axios
-        .get(
-            `${API_URL}/stats/${hierarchicyType}/${hierarchicalID}`,
-            getHeaders()
-        )
+        .get(`${API_URL}/stats/${hierarchicyType}/${hierarchicalID}`, getHeaders())
         .then(res => dispatch(fetchPinStatsForLevelSuccess(res.data)))
         .catch(err => dispatch(fetchPinStatsForLevelFailure(err.message)));
 };

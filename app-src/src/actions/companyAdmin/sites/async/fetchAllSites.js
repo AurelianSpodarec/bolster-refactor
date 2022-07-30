@@ -5,21 +5,21 @@ import { getHeaders } from 'helpers/api';
 import {
     FETCH_ALL_SITES_REQUEST,
     FETCH_ALL_SITES_SUCCESS,
-    FETCH_ALL_SITES_FAILURE
+    FETCH_ALL_SITES_FAILURE,
 } from 'constants/actionTypes/sites';
 
 export const fetchAllSitesRequest = () => ({
-    type: FETCH_ALL_SITES_REQUEST
+    type: FETCH_ALL_SITES_REQUEST,
 });
 
 export const fetchAllSitesSuccess = payload => ({
     type: FETCH_ALL_SITES_SUCCESS,
-    payload
+    payload,
 });
 
 export const fetchAllSitesFailure = error => ({
     type: FETCH_ALL_SITES_FAILURE,
-    error
+    error,
 });
 
 export default () => dispatch => {

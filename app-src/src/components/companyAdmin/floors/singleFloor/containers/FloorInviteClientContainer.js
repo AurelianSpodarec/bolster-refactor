@@ -7,22 +7,19 @@ import ClientInvite from 'components/shared/clients/presentational/ClientInvite'
 
 let FloorInviteClientContainer = ({ floor: { drawingIDs } }) => (
     <BlockContainer>
-        <ClientInvite
-            type="floor"
-            unavailable={!(drawingIDs && drawingIDs.length)}
-        />
+        <ClientInvite type="floor" unavailable={!(drawingIDs && drawingIDs.length)} />
     </BlockContainer>
 );
 
 const mapStateToProps = (
     {
         companyAdmin: {
-            floorsReducer: { floors }
-        }
+            floorsReducer: { floors },
+        },
     },
-    { match: { params } }
+    { match: { params } },
 ) => ({
-    floor: floors[params.id] || {}
+    floor: floors[params.id] || {},
 });
 
 export default withRouter(connect(mapStateToProps)(FloorInviteClientContainer));

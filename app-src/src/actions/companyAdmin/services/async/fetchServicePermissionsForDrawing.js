@@ -5,21 +5,21 @@ import { getHeaders } from 'helpers/api';
 import {
     FETCH_SERVICE_PERMISSIONS_FOR_DRAWING_REQUEST,
     FETCH_SERVICE_PERMISSIONS_FOR_DRAWING_SUCCESS,
-    FETCH_SERVICE_PERMISSIONS_FOR_DRAWING_FAILURE
+    FETCH_SERVICE_PERMISSIONS_FOR_DRAWING_FAILURE,
 } from 'constants/actionTypes/services';
 
 export const fetchServicePermissionsForDrawingRequest = () => ({
-    type: FETCH_SERVICE_PERMISSIONS_FOR_DRAWING_REQUEST
+    type: FETCH_SERVICE_PERMISSIONS_FOR_DRAWING_REQUEST,
 });
 
 export const fetchServicePermissionsForDrawingSuccess = payload => ({
     type: FETCH_SERVICE_PERMISSIONS_FOR_DRAWING_SUCCESS,
-    payload
+    payload,
 });
 
 export const fetchServicePermissionsForDrawingFailure = error => ({
     type: FETCH_SERVICE_PERMISSIONS_FOR_DRAWING_FAILURE,
-    error
+    error,
 });
 
 export default drawingID => dispatch => {

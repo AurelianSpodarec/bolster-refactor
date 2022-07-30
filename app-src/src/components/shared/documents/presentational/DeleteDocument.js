@@ -1,12 +1,16 @@
 import React from 'react';
 
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import { ReactComponent as TrashIcon } from '../../../../_content/images/icons/trash.svg';
+
 const DeleteDocument = ({ handleShowModal, document }) => (
-    <button
+    <ActionButton
         onClick={() => handleShowModal(document)}
-        className="button red icon-only"
-    >
-        <i className="far fa-trash-alt fa-fw" />
-    </button>
+        svgIconComponent={TrashIcon}
+        source="secondary"
+        ambient="positive"
+        extraClasses="icon-only typography-default-colour"
+    />
 );
 
 export default DeleteDocument;

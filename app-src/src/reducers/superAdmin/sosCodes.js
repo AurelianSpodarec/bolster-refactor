@@ -7,7 +7,7 @@ import {
     FETCH_ALL_SOS_CODES_FAILURE,
     CREATE_SOS_CODE_REQUEST,
     CREATE_SOS_CODE_SUCCESS,
-    CREATE_SOS_CODE_FAILURE
+    CREATE_SOS_CODE_FAILURE,
 } from 'constants/actionTypes/superAdminSOSCodes';
 
 export default combineReducers({
@@ -15,7 +15,7 @@ export default combineReducers({
     isFetching: isFetchingReducer,
     postSuccess: postSuccessReducer,
     error: errorReducer,
-    createdSOSCode: createdSOSCodeReducer
+    createdSOSCode: createdSOSCodeReducer,
 });
 
 function isFetchingReducer(state = false, action) {

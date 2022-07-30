@@ -74,11 +74,10 @@ const FileUpload = ({
 };
 const imageTypes = ['gif', 'jpeg', 'jpg', 'png'];
 
-function organizeS3KeysByType(s3KEys) {
-    return s3KEys.flat().reduce(
-        (acc, s3Key = '') => {
-            if (Array.isArray(s3Key));
-
+function organizeS3KeysByType(s3Keys) {
+    return s3Keys.flat().reduce(
+        (acc, s3Key) => {
+            if (Array.isArray(s3Key) || !s3Key) return acc;
             const fileTypeSuffix = s3Key.slice(s3Key.lastIndexOf('.') + 1).toLowerCase();
 
             if (imageTypes.includes(fileTypeSuffix)) {

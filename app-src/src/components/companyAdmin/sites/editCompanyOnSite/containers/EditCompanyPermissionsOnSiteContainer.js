@@ -14,12 +14,8 @@ class EditCompanyPermissionsOnSiteContainer extends Component {
     }
 
     componentDidMount = () => {
-        const {
-            siteID,
-            fetchSingleSite,
-            fetchPermissionsForCompanyPermission,
-            companyID,
-        } = this.props;
+        const { siteID, fetchSingleSite, fetchPermissionsForCompanyPermission, companyID } =
+            this.props;
         fetchSingleSite(siteID);
         fetchPermissionsForCompanyPermission('site', siteID, companyID);
     };

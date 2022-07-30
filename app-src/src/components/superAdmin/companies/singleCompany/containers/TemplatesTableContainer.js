@@ -47,7 +47,7 @@ class TemplatesTableContainer extends Component {
             showModal,
             companyID,
             history,
-            location: { pathname }
+            location: { pathname },
         } = this.props;
         const newUuid = uuid();
 
@@ -65,26 +65,23 @@ class TemplatesTableContainer extends Component {
 const mapStateToProps = (
     {
         superAdmin: {
-            templatesReducer: { templates, isFetching, error }
-        }
+            templatesReducer: { templates, isFetching, error },
+        },
     },
-    { match: { params } }
+    { match: { params } },
 ) => ({
     companyID: params.id,
     templates: Object.values(templates).filter(
-        temp => temp.companyID + '' === params.id + '' && !temp.isDeleted
+        temp => temp.companyID + '' === params.id + '' && !temp.isDeleted,
     ),
     isFetching,
-    error
+    error,
 });
 
 const mapDispatchToProps = dispatch => ({
-    showModal: (type, props) => dispatch(showModal(type, props))
+    showModal: (type, props) => dispatch(showModal(type, props)),
 });
 
-const TableWithConnect = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(TemplatesTableContainer);
+const TableWithConnect = connect(mapStateToProps, mapDispatchToProps)(TemplatesTableContainer);
 
 export default withRouter(TableWithConnect);

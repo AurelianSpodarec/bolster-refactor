@@ -11,10 +11,11 @@ const AddPinQuestionsContainer = ({
     sectionIDs,
     isSameTemplate,
     pinAnswersByGroupKey,
-    dropdownOptionsByType,
     oldAnswersByNameObj,
     template,
-    latestPinHistory
+    latestPinHistory,
+    pinOptions,
+    drawingID,
 }) => (
     <AddPinQuestions
         isHistory={isHistory}
@@ -24,19 +25,20 @@ const AddPinQuestionsContainer = ({
         sectionIDs={sectionIDs}
         isSameTemplate={isSameTemplate}
         pinAnswersByGroupKey={pinAnswersByGroupKey}
-        dropdownOptionsByType={dropdownOptionsByType}
         oldAnswersByNameObj={oldAnswersByNameObj}
         template={template}
         latestPinHistory={latestPinHistory}
+        pinOptions={pinOptions}
+        drawingID={drawingID}
     />
 );
 
 const mapStateToProps = ({
     companyAdmin: {
-        templateQuestionsReducer: { questions }
-    }
+        templateQuestionsReducer: { questions },
+    },
 }) => ({
-    questions: Object.values(questions)
+    questions: Object.values(questions),
 });
 
 export default connect(mapStateToProps)(AddPinQuestionsContainer);

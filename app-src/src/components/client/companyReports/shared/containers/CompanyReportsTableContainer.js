@@ -11,7 +11,7 @@ const CompanyReportsTableContainer = ({
     sortString = '',
     onMobile,
     fetchClientCompanyReportsFull,
-    fetchStatus
+    fetchStatus,
 }) => {
     return (
         <CompanyReportsTable
@@ -48,24 +48,21 @@ const mapStateToProps = ({
             error,
             isFetching,
             sort: { sortString },
-            fetchStatus
-        }
+            fetchStatus,
+        },
     },
     shared: {
-        mobileReducer: { onMobile }
-    }
+        mobileReducer: { onMobile },
+    },
 }) => ({
     companyReports: Object.values(companyReports),
     error,
     isFetching,
     sortString,
     onMobile,
-    fetchStatus
+    fetchStatus,
 });
 
 const mapDispatchToProps = { fetchClientCompanyReportsFull };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(CompanyReportsTableContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(CompanyReportsTableContainer);

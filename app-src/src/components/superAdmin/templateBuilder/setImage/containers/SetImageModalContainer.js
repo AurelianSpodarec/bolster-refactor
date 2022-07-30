@@ -31,7 +31,7 @@ const SetImageModalContainer = ({ sectionUUID, templateUUID, sort, hideModal, se
             questionType: QUESTION_TYPE_NUMBERS.STATIC_IMAGE,
             name,
             file,
-            sort
+            sort,
         };
 
         setQuestion(newQuestion);
@@ -41,7 +41,4 @@ const SetImageModalContainer = ({ sectionUUID, templateUUID, sort, hideModal, se
 
 const mapDispatchToProps = { setQuestion };
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(SetImageModalContainer);
+export default connect(null, mapDispatchToProps)(SetImageModalContainer);

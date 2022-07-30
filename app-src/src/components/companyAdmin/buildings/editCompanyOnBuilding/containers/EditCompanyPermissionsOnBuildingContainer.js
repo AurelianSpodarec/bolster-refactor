@@ -14,12 +14,8 @@ class EditCompanyPermissionsOnBuildingContainer extends Component {
     }
 
     componentDidMount = () => {
-        const {
-            buildingID,
-            fetchSingleBuilding,
-            fetchPermissionsForCompanyPermission,
-            companyID,
-        } = this.props;
+        const { buildingID, fetchSingleBuilding, fetchPermissionsForCompanyPermission, companyID } =
+            this.props;
         fetchSingleBuilding(buildingID);
         fetchPermissionsForCompanyPermission('building', buildingID, companyID);
     };

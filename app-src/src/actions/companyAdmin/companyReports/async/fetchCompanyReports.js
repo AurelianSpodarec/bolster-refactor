@@ -6,21 +6,21 @@ import { getHeaders } from 'helpers/api';
 import {
     FETCH_COMPANY_REPORTS_REQUEST,
     FETCH_COMPANY_REPORTS_SUCCESS,
-    FETCH_COMPANY_REPORTS_FAILURE
+    FETCH_COMPANY_REPORTS_FAILURE,
 } from 'constants/actionTypes/companyReports';
 
 export const fetchCompanyReportsRequest = () => ({
-    type: FETCH_COMPANY_REPORTS_REQUEST
+    type: FETCH_COMPANY_REPORTS_REQUEST,
 });
 
 export const fetchCompanyReportsSuccess = payload => ({
     type: FETCH_COMPANY_REPORTS_SUCCESS,
-    payload
+    payload,
 });
 
 export const fetchCompanyReportsFailure = error => ({
     type: FETCH_COMPANY_REPORTS_FAILURE,
-    error
+    error,
 });
 
 export default () => dispatch => {

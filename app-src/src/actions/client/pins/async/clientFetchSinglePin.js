@@ -5,21 +5,21 @@ import { getHeaders } from 'helpers/api';
 import {
     CLIENT_FETCH_SINGLE_PIN_REQUEST,
     CLIENT_FETCH_SINGLE_PIN_SUCCESS,
-    CLIENT_FETCH_SINGLE_PIN_FAILURE
+    CLIENT_FETCH_SINGLE_PIN_FAILURE,
 } from 'constants/client/actionTypes/clientPins';
 
 export const clientFetchSinglePinRequest = () => ({
-    type: CLIENT_FETCH_SINGLE_PIN_REQUEST
+    type: CLIENT_FETCH_SINGLE_PIN_REQUEST,
 });
 
 export const clientFetchSinglePinSuccess = payload => ({
     type: CLIENT_FETCH_SINGLE_PIN_SUCCESS,
-    payload
+    payload,
 });
 
 export const clientFetchSinglePinFailure = error => ({
     type: CLIENT_FETCH_SINGLE_PIN_FAILURE,
-    error
+    error,
 });
 
 export default (companyID, pinID) => dispatch => {

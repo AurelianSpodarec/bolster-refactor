@@ -70,9 +70,9 @@ export const getQuestionDetails = (question, dropdownOptions) => {
                 ...options,
                 'Question options': question.options.map(({ text }) => `"${text}"`).join(', '),
             };
-        case VALS.MULTI_DROPDOWN_OPTIONS:
-        case VALS.MULTI_MULTI_DROPDOWN_OPTIONS:
-        case VALS.DROPDOWN_OPTIONS:
+        case VALS.MULTI_PIN_OPTION_TYPES:
+        case VALS.MULTI_MULTI_PIN_OPTION_TYPES:
+        case VALS.PIN_OPTION_TYPES:
             return {
                 ...options,
                 'Question options': dropdownOptions.map(({ name }) => name).join(', '),
@@ -97,6 +97,7 @@ function setDynamicFieldsSingle({
     defaultValue,
     file,
     optionConfigurations,
+    pinOptionSetIDs,
     ...otherFields
 }) {
     let dynamicFields = {};
@@ -142,10 +143,10 @@ function setDynamicFieldsSingle({
         case VALS.MULTI_PHOTO:
             dynamicFields = { maxPhotos };
             break;
-        case VALS.DROPDOWN_OPTIONS:
-        case VALS.MULTI_DROPDOWN_OPTIONS:
-        case VALS.MULTI_MULTI_DROPDOWN_OPTIONS:
-            dynamicFields = { optionType, defaultValue };
+        case VALS.PIN_OPTION_TYPES:
+        case VALS.MULTI_PIN_OPTION_TYPES:
+        case VALS.MULTI_MULTI_PIN_OPTION_TYPES:
+            dynamicFields = { optionType, defaultValue, pinOptionSetIDs };
             break;
         case VALS.STATIC_IMAGE:
             dynamicFields = { file };

@@ -13,7 +13,7 @@ const CompanyReportsTable = ({
     error,
     onMobile,
     fetchStatus,
-    fetchClientCompanyReportsFull
+    fetchClientCompanyReportsFull,
 }) => (
     <>
         <BlockHeading title="Reports Table">

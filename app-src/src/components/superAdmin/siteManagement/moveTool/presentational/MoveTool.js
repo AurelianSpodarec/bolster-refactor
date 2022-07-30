@@ -4,7 +4,7 @@ import MoveToolBlocksContainer from '../containers/MoveToolBlocksContainer';
 
 const MoveTool = () => (
     <>
-        <PageHeading title="Move tool" withBackButton />
+        <PageHeading title="Move tool" />
         <MoveToolBlocksContainer />
     </>
 );

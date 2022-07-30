@@ -13,7 +13,7 @@ const CustomFilter = ({
     removeField,
     addOption,
     updateOption,
-    questionValues
+    questionValues,
 }) => (
     <div className="item size-lg-12">
         <Field name="Field Name">
@@ -32,12 +32,7 @@ const CustomFilter = ({
             />
             <div className="options-list-block size-lg-12">
                 {questionValues.map((option, i) => (
-                    <Field
-                        name={`Option ${i + 1}`}
-                        key={option.id}
-                        classes="option-item"
-                        required
-                    >
+                    <Field name={`Option ${i + 1}`} key={option.id} classes="option-item" required>
                         {questionValues.length > 1 && (
                             <button
                                 className="button red icon-only delete-question"

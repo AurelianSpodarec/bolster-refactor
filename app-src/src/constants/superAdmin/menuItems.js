@@ -48,6 +48,7 @@ export const superAdminNavMenuItems = [
         subNavItems: [
             { name: 'Bug Reports', link: '/admin/bug-reports' },
             { name: 'Operative Alerts', link: '/admin/operative-alerts' },
+            { name: 'Push Notifications', link: '/admin/push-notifications' },
             { name: 'User Guides', link: '/admin/user-guides' },
             { name: 'Legal Documents', link: '/admin/legal-documents' },
             { name: 'FAQs', link: '/admin/faqs' },
@@ -59,7 +60,7 @@ export const superAdminNavMenuItems = [
         link: '/admin/services',
         subNavItems: [
             { name: 'Services', link: '/admin/services' },
-            { name: 'Installation types', link: '/admin/pin-options/installation-types' },
+            { name: 'Pin Options', link: '/admin/pin-options' },
         ],
     },
     {

@@ -26,15 +26,15 @@ class SingleInvoiceContainer extends Component {
 const mapStateToProps = (
     {
         companyAdmin: {
-            invoicesReducer: { invoicePayments }
-        }
+            invoicesReducer: { invoicePayments },
+        },
     },
-    { match }
+    { match },
 ) => ({
     id: match.params.id,
     invoicePayments: Object.values(invoicePayments).filter(
-        payment => +payment.invoiceID === +match.params.id
-    )
+        payment => +payment.invoiceID === +match.params.id,
+    ),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -42,12 +42,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchSingleInvoice(id));
         dispatch(fetchSingleInvoiceItems(id));
     },
-    showModal: (type, props) => dispatch(showModal(type, props))
+    showModal: (type, props) => dispatch(showModal(type, props)),
 });
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(SingleInvoiceContainer)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SingleInvoiceContainer));

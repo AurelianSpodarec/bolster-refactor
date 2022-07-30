@@ -17,7 +17,7 @@ import {
     ADMIN_FETCH_TEMPLATES_FOR_SERVICE_FAILURE,
     ADMIN_POST_TEMPLATES_FOR_SERVICE_REQUEST,
     ADMIN_POST_TEMPLATES_FOR_SERVICE_SUCCESS,
-    ADMIN_POST_TEMPLATES_FOR_SERVICE_FAILURE
+    ADMIN_POST_TEMPLATES_FOR_SERVICE_FAILURE,
 } from 'constants/actionTypes/services';
 import { updateObj, convertArrToObj } from 'helpers/generic';
 
@@ -28,7 +28,7 @@ export default combineReducers({
     isFetching: isFetchingReducer,
     isFetchingTemplateForService: isFetchingTemplateForServiceReducer,
     adminServices: adminServicesReducer,
-    adminServiceTemplates: adminServiceTemplatesReducer
+    adminServiceTemplates: adminServiceTemplatesReducer,
 });
 
 function isFetchingReducer(state = false, action) {

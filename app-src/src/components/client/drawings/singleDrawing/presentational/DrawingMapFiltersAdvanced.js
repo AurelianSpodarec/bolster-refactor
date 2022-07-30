@@ -26,7 +26,7 @@ const DrawingMapFiltersAdvanced = ({
     handleChange,
     handleDateChange,
     dateError,
-    pins
+    pins,
 }) => (
     <div className="map-filters size-lg-12">
         <div className="size-lg-12">
@@ -35,54 +35,24 @@ const DrawingMapFiltersAdvanced = ({
                     <div className="pin">
                         <img alt="red pin" src={RedPin} />
                         <p>
-                            {
-                                pins.filter(
-                                    pin =>
-                                        pin.latestStatus ===
-                                        STATUS.ACTION_REQUIRED
-                                ).length
-                            }
+                            {pins.filter(pin => pin.latestStatus === STATUS.ACTION_REQUIRED).length}
                         </p>
                     </div>
                     <div className="pin">
                         <img alt="green pin" src={GreenPin} />
-                        <p>
-                            {
-                                pins.filter(
-                                    pin => pin.latestStatus === STATUS.INSTALLED
-                                ).length
-                            }
-                        </p>
+                        <p>{pins.filter(pin => pin.latestStatus === STATUS.INSTALLED).length}</p>
                     </div>
                     <div className="pin">
                         <img alt="blue pin" src={BluePin} />
-                        <p>
-                            {
-                                pins.filter(
-                                    pin => pin.latestStatus === STATUS.INSPECTED
-                                ).length
-                            }
-                        </p>
+                        <p>{pins.filter(pin => pin.latestStatus === STATUS.INSPECTED).length}</p>
                     </div>
                     <div className="pin">
                         <img alt="yellow pin" src={YellowPin} />
-                        <p>
-                            {
-                                pins.filter(
-                                    pin => pin.latestStatus === STATUS.NO_ACTION
-                                ).length
-                            }
-                        </p>
+                        <p>{pins.filter(pin => pin.latestStatus === STATUS.NO_ACTION).length}</p>
                     </div>
                     <div className="pin">
                         <img alt="purple pin" src={PurplePin} />
-                        <p>
-                            {
-                                pins.filter(
-                                    pin => pin.latestStatus === STATUS.OTHER
-                                ).length
-                            }
-                        </p>
+                        <p>{pins.filter(pin => pin.latestStatus === STATUS.OTHER).length}</p>
                     </div>
                 </div>
             </BlockHeading>
@@ -112,9 +82,7 @@ const DrawingMapFiltersAdvanced = ({
                         <DatePicker
                             name="fromDateInclusive"
                             selected={fromDateInclusive}
-                            onChange={e =>
-                                handleDateChange(e, 'fromDateInclusive')
-                            }
+                            onChange={e => handleDateChange(e, 'fromDateInclusive')}
                             placeholderText="Start Date"
                         />
                     </div>
@@ -123,17 +91,11 @@ const DrawingMapFiltersAdvanced = ({
                         <DatePicker
                             name="toDateInclusve"
                             selected={toDateInclusve}
-                            onChange={e =>
-                                handleDateChange(e, 'toDateInclusve')
-                            }
+                            onChange={e => handleDateChange(e, 'toDateInclusve')}
                             placeholderText="End Date"
                         />
                     </div>
-                    {dateError && (
-                        <p className="error red-text text-accent-4">
-                            {dateError}
-                        </p>
-                    )}
+                    {dateError && <p className="error red-text text-accent-4">{dateError}</p>}
                 </Field>
 
                 {/* <Field name="Operative" sizeClasses="size-lg-6">

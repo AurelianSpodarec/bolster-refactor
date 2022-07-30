@@ -12,7 +12,7 @@ const CompaniesAccessTable = ({
     parentId,
     handleShowModal,
     isFetching,
-    smallPod
+    smallPod,
 }) => (
     <div className="size-lg-12">
         <BlockHeading title="Company Permissions">
@@ -25,9 +25,7 @@ const CompaniesAccessTable = ({
         </BlockHeading>
         <div className="hide-overflow size-lg-12 always-scrollbar">
             <Table
-                headers={
-                    smallPod ? ['Name', 'Actions'] : ['Name', '', 'Actions']
-                }
+                headers={smallPod ? ['Name', 'Actions'] : ['Name', '', 'Actions']}
                 isFetching={isFetching}
                 noData={!companies.length}
                 noDataMessage="No companies to display"

@@ -1,7 +1,7 @@
 import React from 'react';
 
 const PickList = ({
-    name,
+    // name,
     error,
     handleChange = () => {},
     onBlur = () => {},

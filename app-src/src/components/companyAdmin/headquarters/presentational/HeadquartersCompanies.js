@@ -6,18 +6,12 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 
-const HeadquartersCompanies = ({
-    handleCancelImpersonation,
-    isImpersonating
-}) => (
+const HeadquartersCompanies = ({ handleCancelImpersonation, isImpersonating }) => (
     <>
         <PageHeading title="Headquarters Companies" withBackButton />
         <BlockContainer>
             <BlockHeading title="Companies" classes="w-table">
-                <Link
-                    to="/company/headquarters/companies/create"
-                    className="button green"
-                >
+                <Link to="/company/headquarters/companies/create" className="button green">
                     <i className="fa fa-plus" /> Add Company
                 </Link>
                 {isImpersonating && (

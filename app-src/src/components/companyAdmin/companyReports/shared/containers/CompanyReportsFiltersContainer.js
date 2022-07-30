@@ -3,20 +3,16 @@ import CompanyReportsFilters from '../presentational/CompanyReportsFilters';
 import updateCompanyReportsSort from 'actions/companyAdmin/companyReports/sync/updateCompanyReportsSort';
 import { connect } from 'react-redux';
 
-const CompanyReportsFiltersContainer = ({
-    updateCompanyReportsSort,
-    sortString,
-    onMobile
-}) => {
+const CompanyReportsFiltersContainer = ({ updateCompanyReportsSort, sortString, onMobile }) => {
     const sortOptions = {
         'createdOn asc': {
             text: 'Date (asc)',
-            value: 'createdOn asc'
+            value: 'createdOn asc',
         },
         'createdOn desc': {
             text: 'Date (desc)',
-            value: 'createdOn desc'
-        }
+            value: 'createdOn desc',
+        },
     };
     return (
         <CompanyReportsFilters
@@ -37,14 +33,11 @@ const mapDispatchToProps = { updateCompanyReportsSort };
 const mapStateToProps = ({
     companyAdmin: { companyReportsReducer },
     shared: {
-        mobileReducer: { onMobile }
-    }
+        mobileReducer: { onMobile },
+    },
 }) => ({
     sortString: companyReportsReducer.sort.sortString,
-    onMobile
+    onMobile,
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(CompanyReportsFiltersContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(CompanyReportsFiltersContainer);

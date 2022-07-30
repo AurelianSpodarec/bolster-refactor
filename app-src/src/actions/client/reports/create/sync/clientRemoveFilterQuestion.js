@@ -3,5 +3,5 @@ import { CLIENT_REMOVE_FILTER_QUESTION } from 'constants/client/actionTypes/clie
 export default id => dispatch =>
     dispatch({
         type: CLIENT_REMOVE_FILTER_QUESTION,
-        id
+        id,
     });

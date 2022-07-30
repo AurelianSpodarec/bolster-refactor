@@ -14,17 +14,18 @@ const BlockContainer = ({
     heading,
     noWhiteBackground = false,
     children,
+    onClick = () => {},
 }) => {
     if (error && error.length)
         return (
-            <Block containerClass={containerClass} contentClass={contentClass}>
+            <Block containerClass={containerClass} contentClass={contentClass} onClick={onClick}>
                 {!!heading && <h3 className="heading heading-3">{heading}</h3>}
                 <Error extraClasses="switched">{error}</Error>
             </Block>
         );
     if (isFetching && isEmpty)
         return (
-            <Block containerClass={containerClass} contentClass={contentClass}>
+            <Block containerClass={containerClass} contentClass={contentClass} onClick={onClick}>
                 {!!heading && <h3 className="heading heading-3">{heading}</h3>}
                 <Loading extraTextClasses="switched" />
             </Block>
@@ -32,7 +33,7 @@ const BlockContainer = ({
 
     if (isEmpty)
         return (
-            <Block containerClass={containerClass} contentClass={contentClass}>
+            <Block containerClass={containerClass} contentClass={contentClass} onClick={onClick}>
                 {!!heading && <h3 className="heading heading-3">{heading}</h3>}
                 <p className="no-data switched">{noDataMessage}</p>
             </Block>
@@ -41,7 +42,7 @@ const BlockContainer = ({
     if (noWhiteBackground) return children;
 
     return (
-        <Block containerClass={containerClass} contentClass={contentClass}>
+        <Block containerClass={containerClass} contentClass={contentClass} onClick={onClick}>
             {!!heading && <h3 className="heading heading-3">{heading}</h3>}
             {children}
         </Block>

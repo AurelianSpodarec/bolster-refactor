@@ -14,6 +14,10 @@ import { convertEnumToDropdownOptions } from 'helpers/generic';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import { isEmpty } from '../../../../../helpers/generic';
+import {
+    formatMeasurementsForPostBody,
+    isAnswerValueEmpty,
+} from '../../../../shared/pins/addPin/fieldTypes/helpers';
 
 class EditPinFormContainer extends Component {
     state = {
@@ -30,6 +34,8 @@ class EditPinFormContainer extends Component {
             filesUploading,
             confirmLeave,
             selectedHistory,
+            pinOptions,
+            drawingID,
         } = this.props;
 
         const statusOptions = convertEnumToDropdownOptions(PIN_STATUS_TYPES);
@@ -52,6 +58,8 @@ class EditPinFormContainer extends Component {
                         filesUploading={filesUploading}
                         confirmLeave={confirmLeave}
                         selectedHistory={selectedHistory}
+                        pinOptions={pinOptions}
+                        drawingID={drawingID}
                     />
                 </BlockContainer>
             </>
@@ -127,11 +135,14 @@ class EditPinFormContainer extends Component {
     handleSubmit = e => {
         e.preventDefault();
 
-        const { editPinHistory, answers, filesUploading, selectedHistory, status } = this.props;
+        const { editPinHistory, answers, filesUploading, selectedHistory, status, measurements } =
+            this.props;
 
-        const formattedAnswers = Object.keys(answers).map(function (key) {
-            return { questionID: key, answer: answers[key] };
-        });
+        const formattedAnswers = Object.keys(answers).map(key => ({
+            questionID: key,
+            answerValues: answers[key]?.filter(val => !isAnswerValueEmpty(val)),
+            measurements: formatMeasurementsForPostBody(measurements, key),
+        }));
 
         const postBody = {
             answers: formattedAnswers,
@@ -149,7 +160,7 @@ const mapStateToProps = (
         companyAdmin: {
             templatesReducer: { templates, isFetching: isFetchingTemplates, error },
             pinHistoriesReducer: { histories },
-            addPinFormReducer: { answers, status },
+            addPinFormReducer: { answers, status, measurements },
             addPinCoordinatesReducer: { coordinates },
             pinsReducer: { pins, postSuccess, isFetching: isFetchingPins },
         },
@@ -163,6 +174,7 @@ const mapStateToProps = (
     pins,
     templates: Object.values(templates),
     answers,
+    measurements,
     coordinates,
     isFetching: isFetchingPins || isFetchingTemplates,
     error,

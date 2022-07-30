@@ -30,6 +30,12 @@
   }
 }
 
+// to be wrapped around form fields if generic form has had calc width removed
+.form-fields-container {
+  width: calc(100% + 15px);
+  margin-left: -7.5px;
+}
+
 // multi select
 .multi-select {
   float: left;
@@ -82,8 +88,20 @@
     padding: 0;
   }
 
+  &.grey-out {
+    opacity: 0.3;
+  }
+
   &.basic {
     min-height: 0;
+  }
+
+  &.no-margin-bottom {
+    margin-bottom: 0;
+  }
+
+  &.margin-top {
+    margin-top: 15px;
   }
 
   &.w-dates {
@@ -141,6 +159,10 @@
       font-size: 90%;
       text-transform: none;
     }
+
+    &.small-margin {
+      margin-bottom: 5px;
+    }
   }
 
   .error {
@@ -194,18 +216,20 @@
       float: left;
       width: 100%;
     }
+  }
 
-    input {
-      float: left;
-      width: 100%;
-      padding: 5px 10px;
-      font-size: 140%;
-      @include ubuntu;
-      border-radius: 2.5px;
-      border: 1px solid var(--background-stroke);;
-      background-color: var(--input-default);
-      color: var(--typography-default);
-    }
+  .react-datepicker-wrapper, .date-picker {
+      input {
+          float: left;
+          width: 100%;
+          padding: 5px 10px;
+          font-size: 140%;
+          @include ubuntu;
+          border-radius: 2.5px;
+          border: 1px solid var(--background-stroke);;
+          background-color: var(--input-default);
+          color: var(--typography-default);
+      }
   }
 
   .sigCanvas {
@@ -241,8 +265,22 @@
     min-height: 10px;
   }
 
+  &.no-min-height {
+    min-height: 0;
+  }
+
   &.no-padding {
     padding: 0;
+  }
+
+  // measurement unit fields for add pin / add pin history
+  &.measurement-unit-field {
+    width: 100px;
+    min-width: 100px;
+  }
+
+  .tooltip-container {
+    margin-top: 0;
   }
 }
 
@@ -251,6 +289,10 @@
   float: left;
   cursor: pointer;
   width: 100%;
+
+  &.auto-width {
+    width: auto;
+  }
 
   input {
     position: absolute;
@@ -295,6 +337,10 @@
     border-radius: 20px;
     background-color: $button-grey;
     transition: background-color 0.2s;
+
+    &.labelToTheLeft {
+      left: auto;
+    }
   }
 
   .text {
@@ -302,6 +348,10 @@
     padding-left: 45px;
     padding-right: 10px;
     box-decoration-break: clone;
+
+    &.nowrap {
+      white-space: nowrap;
+    }
   }
 
   .inner {
@@ -315,6 +365,18 @@
     transition: left 0.2s;
   }
 
+  &.label-left {
+    .text {
+      padding-left: 10px;
+      padding-right: 45px;
+    }
+
+    .outer {
+      left: auto;
+      right: 0;
+    }
+  }
+
   &.left {
     .outer {
       left: 0;
@@ -324,6 +386,12 @@
 
   &.grey-out {
     opacity: 0.3;
+  }
+
+  &.grey-out-input {
+    .outer {
+      opacity: 0.3;
+    }
   }
 
   &.hide {
@@ -406,6 +474,14 @@
     cursor: default;
   }
 
+  &.grey-out-input {
+    cursor: default;
+
+    .outer {
+      opacity: 0.3;
+    }
+  }
+
   .holder {
     float: left;
     font-size: 140%;
@@ -484,12 +560,12 @@
     .option {
       padding: 4px 8px;
       color: var(--typography-default);
-      background-color: var(--input-default);
+      background-color: transparent;
       font-size: 140%;
-      border: 1px solid var(--background-stroke);
+      border: 1px solid var(--typography-default);
 
       &.selected {
-        background-color: $blue;
+        background-color: var(--primary-default);
       }
     }
   }
@@ -628,6 +704,7 @@
 
   p {
     text-align: center;
+    font-size: 14px;
 
     .button {
       font-size: 12px;
@@ -865,13 +942,13 @@
   padding: 8.5px 10px;
   font-size: 140%;
   background-color: var(--input-default);
-  border: var(--background-stroke) 1px solid;
+  border: var(--input-stroke) 1px solid;
   border-radius: 2.5px;
   @include ubuntu;
   color: var(--typography-default);
 
   &::placeholder {
-    color: var(--typography-greyed-out);
+    color: var(--typography-search);
   }
 
   &.large {
@@ -882,11 +959,28 @@
 
   &.currency {
     width: 90%;
+
+    &.fullwidth {
+      width: 100%;
+    }
   }
 
   &.colour-picker-input {
     width: calc(100% - 45px);
   }
+}
+
+// remove arrows from number inputs
+/* Chrome, Safari, Edge, Opera */
+.generic-input::-webkit-outer-spin-button,
+.generic-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.generic-input[type=number] {
+  -moz-appearance: textfield;
 }
 
 // custom dropdown
@@ -1001,7 +1095,7 @@
     color: var(--typography-default);
   }
 
-  .react-datepicker__input-container {
+  .react-datepicker__input-container, .rdt {
     input {
       background-color: var(--navigation-primary);
       color: var(--typography-default);
@@ -1011,6 +1105,89 @@
 
     input::placeholder {
       color: var(--typography-default);
+    }
+  }
+
+  .rdt {
+    &.picker-on-top {
+      .rdtPicker {
+        bottom: 0;
+        margin-top: 0;
+      }
+    }
+  }
+
+  .rdtPicker {
+    margin-top: 28px;
+    padding: 0;
+    background-color: var(--background-container);
+    border-color: var(--background-stroke);
+    font-size: 12px;
+
+    th, td {
+      vertical-align: middle;
+    }
+
+    thead {
+      tr {
+        &:first-of-type {
+          th {
+            &:hover {
+              background: var(--hover-primary);
+            }
+          }
+        }
+      }
+    }
+
+    tfoot {
+      border-top-color: var(--background-stroke);
+    }
+
+    th {
+      border-bottom: 1px solid var(--background-stroke);
+
+      &.rdtPrev, &.rdtNext {
+        span {
+          padding: 0 5px;
+          font-size: 18px;
+        }
+      }
+
+      &.dow {
+        border-bottom: none;
+      }
+    }
+
+    td {
+      &.rdtDay, &.rdtHour, &.rdtMinute, &.rdtSecond, &.rdtTimeToggle, &.rdtSwitch, &.rdtMonth, &.rdtYear {
+        &:hover {
+          background: var(--hover-primary);
+          cursor: pointer;
+        }
+      }
+
+      &.rdtSwitch {
+        border-bottom: 1px solid var(--background-stroke);
+      }
+      
+      &.rdtToday {
+        &::before {
+          border-bottom-color: var(--primary-default);
+        }
+      }
+
+      &.rdtActive {
+        background-color: var(--primary-default)!important;
+      }
+    }
+  }
+
+  .rdtCounter {
+    .rdtBtn {
+      &:hover {
+        background: var(--hover-primary);
+      }
     }
   }
 }
@@ -1029,8 +1206,33 @@
     white-space: nowrap;
     overflow: hidden;
 
+    i {
+      &.dark {
+        color:  var(--typography-default);
+      }
+    }
+
+    &.w-more {
+      padding-right: 90px;
+    }
+
+    &.line-limit {
+      .option {
+        display: inline-block;
+        max-width: 100%;
+        margin-bottom: 0;
+
+        p {
+          line-height: 16px;
+          overflow-x: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+    }
+
     .placeholder {
       padding: 6px 5px;
+      font-size: 14px;
     }
 
     .option {
@@ -1039,6 +1241,7 @@
       padding: 2.5px 5px;
       margin: 5px;
       background-color: var(--navigation-primary);
+      font-size: 14px;
       cursor: default;
 
       &.option-hidden {
@@ -1097,6 +1300,16 @@
     @include rounded-bottom(3px);
     white-space: nowrap;
 
+    &.top {
+      top: auto;
+      bottom: 100%;
+    }
+
+    &.static {
+      position: relative;
+      float: left;
+    }
+
     .search-box {
       float: left;
       width: 100%;
@@ -1136,10 +1349,16 @@
       .option {
         cursor: pointer;
         white-space: nowrap;
+        font-size: 14px;
 
         &:hover,
         &.active {
           background-color: var(--input-secondary);
+        }
+
+        &.clickable {
+          border-top: 1px solid var(--background-stroke);
+          font-weight: 500;
         }
       }
 
@@ -1149,11 +1368,18 @@
     }
   }
 
+  &.medium {
+    .option-selection {
+      .option-container {
+        max-height: 100px;
+      }
+    }
+  }
+
   &.large {
     .option-selection {
       .option-container {
         max-height: 147px;
-
       }
     }
   }
@@ -1387,4 +1613,10 @@
   display: flex;
   flex-direction: row;
   margin: 5px 0;
+}
+
+.option-wrapper {
+  .option-pod {
+    width: 31%
+  }
 }

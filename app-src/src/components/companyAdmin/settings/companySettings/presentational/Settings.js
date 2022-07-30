@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { FILE_STORAGE_URL } from 'config';
@@ -7,10 +6,10 @@ import { FILE_STORAGE_URL } from 'config';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import Block from 'components/shared/generic/block/presentational/Block';
 import {
-    TEMPLATE_USAGE_RULES,
     VAT_TYPE_NAME,
     VAT_TYPES,
     DEFAULT_SITES_SORT_NAMES,
+    CURRENCY_NAMES,
 } from 'constants/companyAdmin/enums';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
@@ -18,11 +17,11 @@ import FieldOutput from 'components/shared/generic/fieldOutput/presentational/Fi
 import { needsVatCode } from 'constants/shared/vatTypes';
 
 const Settings = ({ isFetching, error, companySettings: company, onMobile }) => {
-    const { timeZone = {}, dateFormat = {} } = company;
+    const { timeZone = {}, dateFormat = {}, reportingCurrency } = company;
     const notProvided = 'Not Provided';
     return (
         <>
-            <PageHeading title="Company Settings" withBackButton>
+            <PageHeading title="Company Settings">
                 <Link className="button yellow" to="/company/settings/edit-settings">
                     <i className="far fa-pencil" />
                     Edit Settings
@@ -37,8 +36,6 @@ const Settings = ({ isFetching, error, companySettings: company, onMobile }) => 
             >
                 <div className="size-lg-8 size-md-12">
                     <Block>
-                        {/* address, need block heading  */}
-
                         <BlockHeading title="Company Details" />
                         {onMobile ? (
                             <>
@@ -217,6 +214,10 @@ const Settings = ({ isFetching, error, companySettings: company, onMobile }) => 
                             title="Date Format"
                             description={dateFormat.momentDateTimeFormat}
                         />
+                        <FieldOutput
+                            title="Report Currency"
+                            description={CURRENCY_NAMES[reportingCurrency]}
+                        />
                     </Block>
                     <Block>
                         <BlockHeading title="Notifications" />
@@ -285,20 +286,8 @@ const Settings = ({ isFetching, error, companySettings: company, onMobile }) => 
                     <Block>
                         <BlockHeading title="Template Settings" />
                         <FieldOutput
-                            title="Default Template Usage Rule"
-                            description={TEMPLATE_USAGE_RULES[company.defaultTemplateUsageRule]}
-                            fieldClass="no-h-padding"
-                            sizeClass="size-lg-12"
-                        />
-                        <FieldOutput
                             title="Default Sites list sort"
                             description={DEFAULT_SITES_SORT_NAMES[company.defaultSitesSort]}
-                            fieldClass="no-h-padding"
-                            sizeClass="size-lg-12"
-                        />
-                        <FieldOutput
-                            title="Use O&M Manufacturing By Default?"
-                            description={company.useManufacturingByDefault ? 'Yes' : 'No'}
                             fieldClass="no-h-padding"
                             sizeClass="size-lg-12"
                         />
@@ -318,14 +307,4 @@ const Settings = ({ isFetching, error, companySettings: company, onMobile }) => 
     );
 };
 
-const mapStateToProps = ({
-    companyAdmin: {
-        companySettingsReducer: { isFetching, error, companySettings },
-    },
-}) => ({
-    isFetching,
-    error,
-    companySettings,
-});
-
-export default connect(mapStateToProps)(Settings);
+export default Settings;

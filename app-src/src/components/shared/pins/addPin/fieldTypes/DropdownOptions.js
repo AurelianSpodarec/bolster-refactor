@@ -1,104 +1,86 @@
 import React, { useEffect } from 'react';
 import Select from 'components/shared/generic/form/presentational/Select';
-import { DROPDOWN_OPTION_MANUFACTURER_ENABLED } from 'constants/companyAdmin/enums';
-import { getSortedDropdownOptions } from 'helpers/addPin';
+import { getSortedPinOptions } from 'helpers/addPin';
+import { useEditedPinOptionsMessage, useFilterPinOptions } from './helpers';
+import CostingMeasurement from './CostingMeasurement';
+import { useSelector } from 'react-redux';
+import { selectPinOptionType } from '../../../../../selectors/companyAdmin/pinOptionTypes';
 
 const DropdownOptions = ({
     isRequired,
-    question: { id, optionType, defaultValue },
-    dropdownOptions,
+    question: { id, defaultValue, optionType, pinOptionSetIDs },
     answers,
     handleChange,
     edit,
-    originalDropdownAns,
-    isManufacturingEnabledForDrawing,
+    originalPinOptionAns,
     defaultDropdownSorting,
     companyID,
-    optionValues,
+    pinOptions,
+    isCostingEnabled,
+    handleMeasurementChange,
+    measurements,
+    drawing,
+    editedPinOptionVersionIDs,
 }) => {
-    let isManufacturingEnabledForType = false;
     // ! If a user is editing a pin that has a dropdown option that's no longer available,
     // ! this needs to be kept as an option.
-    let formattedOpts = [];
-    const value = answers[id];
+    const questionValue = answers[id] ?? [];
 
+    // todo default value
     useEffect(() => {
-        if (!value && !edit && defaultValue) {
+        if (!questionValue && !edit && defaultValue) {
             handleChange(null, defaultValue);
         }
     }, []);
 
-    const filteredOptions = dropdownOptions.filter(option => {
-        // remove deleted option if not already selected
-        if (value !== option.value && option.isDeleted) return false;
-        if (option.companyID !== companyID && option.companyID !== null) {
-            return false;
-        }
-        if (option.type + '' === optionType + '') {
-            // while filtering check whether manufacturing enabled for specific type
-            if (
-                isManufacturingEnabledForDrawing &&
-                DROPDOWN_OPTION_MANUFACTURER_ENABLED[optionType]
-            ) {
-                if (option.isManufacturerDeleted) return false;
+    const type = useSelector(state => selectPinOptionType(state, optionType));
+    const formattedOpts = useFilterPinOptions(
+        questionValue,
+        pinOptions,
+        companyID,
+        type,
+        drawing,
+        originalPinOptionAns,
+        edit,
+        pinOptionSetIDs,
+    );
 
-                isManufacturingEnabledForType = true;
-            }
-            return true;
-        }
-        return false;
-    });
+    const [firstValue] = questionValue;
+    const selected = !firstValue
+        ? null
+        : pinOptions.find(opt => opt.latestVersion.id === firstValue.pinOptionVersionID);
 
-    if (edit) {
-        const curOptions = filteredOptions.map(opt =>
-            isManufacturingEnabledForType ? opt.id : opt.name,
-        );
+    const shouldShowCosting = isCostingEnabled && type.hasCosting && !!firstValue;
 
-        formattedOpts = filteredOptions.map(option => ({
-            value: isManufacturingEnabledForType ? option.id : option.name,
-            label: option.name,
-            id: option.id || null,
-            sort: option.sort,
-            createdOn: option.createdOn,
-            manufacturerSort: option.manufacturerSort,
-            manufacturerID: option.manufacturerID,
-        }));
+    const isMultiOptions = false;
 
-        if (!curOptions.includes(originalDropdownAns)) {
-            if (typeof originalDropdownAns === 'number') {
-                const manOption = Object.values(optionValues).find(
-                    manufacturerOptions => manufacturerOptions[originalDropdownAns],
-                )?.[originalDropdownAns];
-                if (manOption) {
-                    formattedOpts.push({ value: originalDropdownAns, label: manOption.name });
-                }
-            } else {
-                formattedOpts.push({ value: originalDropdownAns, label: originalDropdownAns });
-            }
-        }
-    } else {
-        formattedOpts = dropdownOptions
-            .filter(option => option.type + '' === optionType + '')
-            .map(option => ({
-                value: isManufacturingEnabledForType ? option.id : option.name,
-                label: option.name,
-                id: option.id || null,
-                sort: option.sort,
-                createdOn: option.createdOn,
-                manufacturerSort: option.manufacturerSort,
-                manufacturerID: option.manufacturerID,
-            }));
-    }
+    const EditedPinOptionsMessage = useEditedPinOptionsMessage(
+        editedPinOptionVersionIDs,
+        questionValue,
+        isMultiOptions,
+    );
 
     return (
-        <Select
-            placeholder="-- select --"
-            name={`answer-${id}`}
-            options={getSortedDropdownOptions(formattedOpts, defaultDropdownSorting)}
-            value={value}
-            onChange={handleChange}
-            required={isRequired}
-        />
+        <>
+            <Select
+                placeholder="-- select --"
+                name={`answer-${id}`}
+                options={getSortedPinOptions(formattedOpts, defaultDropdownSorting)}
+                value={firstValue?.pinOptionVersionID}
+                onChange={handleChange}
+                required={isRequired}
+            />
+            <EditedPinOptionsMessage />
+            {shouldShowCosting && (
+                <CostingMeasurement
+                    measurement={measurements[firstValue.uid]}
+                    option={selected}
+                    uid={firstValue.uid}
+                    handleChange={handleMeasurementChange}
+                    isFirst
+                />
+            )}
+        </>
     );
 };
 

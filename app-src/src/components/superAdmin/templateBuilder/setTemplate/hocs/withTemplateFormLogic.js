@@ -55,6 +55,7 @@ export default function (WrappedComponent) {
 
         render() {
             const { serviceID, labelType, ...otherFields } = this.state;
+            const { companyID } = this.props;
             const serviceOptions = this._getSeviceOptions();
 
             return (
@@ -63,6 +64,7 @@ export default function (WrappedComponent) {
                     {...otherFields}
                     labelType={labelType}
                     serviceID={serviceID}
+                    companyID={companyID}
                     labelTypeOptions={labelTypeOptions}
                     serviceOptions={Object.values(serviceOptions)}
                     selectedService={serviceOptions[serviceID]}

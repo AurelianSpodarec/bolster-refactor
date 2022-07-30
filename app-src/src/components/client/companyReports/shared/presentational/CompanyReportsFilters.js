@@ -1,11 +1,7 @@
 import React from 'react';
 import Dropdown from 'components/shared/generic/form/presentational/Dropdown';
 
-const CompanyReportsFilters = ({
-    sortOptions,
-    handleChange,
-    selectedOption
-}) => (
+const CompanyReportsFilters = ({ sortOptions, handleChange, selectedOption }) => (
     <form className="table-search in-table">
         <div className="table-filter">
             <Dropdown

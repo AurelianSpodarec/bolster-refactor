@@ -4,38 +4,137 @@ import { withRouter } from 'react-router-dom';
 
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
+import setHierarchyIsSorting from 'actions/companyAdmin/hierarchy/sync/setHierarchyIsSorting';
+import updateHierarchyAddState from 'actions/companyAdmin/hierarchy/sync/updateHierarchyAddState';
+import postSitesSort from 'actions/companyAdmin/sites/async/postSitesSort';
 
 import { ACCESS_TYPES_VALUES, DEFAULT_SITES_SORT } from 'constants/companyAdmin/enums';
-
-import { ADD_SITE, ERROR_MODAL } from 'constants/shared/modalTypes';
+import { TABLE_SORT_DIRECTIONS } from 'constants/shared/tables';
+import { hierarchySort } from 'helpers/generic';
+import { formatPermissions } from './SitesListItemContainer';
+import { ERROR_MODAL } from 'constants/shared/modalTypes';
 
 import SitesTable from '../presentational/SitesTable';
-import { hierarchySort } from 'helpers/generic';
-import updateHierarchyAddState from 'actions/companyAdmin/hierarchy/sync/updateHierarchyAddState';
-import updateSitesFilters from 'actions/companyAdmin/sites/sync/updateSitesFilters';
-import postSitesSort from 'actions/companyAdmin/sites/async/postSitesSort';
-import setHierarchyIsSorting from 'actions/companyAdmin/hierarchy/sync/setHierarchyIsSorting';
 
+const { ASC, DESC } = TABLE_SORT_DIRECTIONS;
+const columnNames = ['Site name', 'Client', 'Created on', 'Owned by', 'Permissions', ''];
+
+const nameSortFunc = (a, b) => a.name.localeCompare(b.name);
+const dateSortFunc = (a, b) => new Date(a.createdOn).getTime() - new Date(b.createdOn).getTime();
 class SitesTableContainer extends Component {
+    state = {
+        sortFunc: null,
+        sortDirection: null,
+        sortName: null,
+    };
+
     render() {
+        const { sortDirection, sortName } = this.state;
         const { isFetching, error, isSorting } = this.props;
+
+        const columns = [
+            {
+                key: 1,
+                name: columnNames[0],
+                onClick: () => {
+                    this.updateSortFunc(nameSortFunc, columnNames[0]);
+                },
+            },
+            {
+                key: 2,
+                name: columnNames[1],
+                onClick: () => {
+                    const sortFunc = (a, b) => a.client.localeCompare(b.client);
+                    this.updateSortFunc(sortFunc, columnNames[1]);
+                },
+            },
+            {
+                key: 3,
+                name: columnNames[2],
+                onClick: () => {
+                    this.updateSortFunc(dateSortFunc, columnNames[2]);
+                },
+            },
+            {
+                key: 4,
+                name: columnNames[3],
+                onClick: () => {
+                    const sortFunc = (a, b) => a.ownerCompanyName.localeCompare(b.ownerCompanyName);
+                    this.updateSortFunc(sortFunc, columnNames[3]);
+                },
+            },
+            {
+                key: 5,
+                name: columnNames[4],
+                onClick: () => {
+                    const sortFunc = (a, b) => {
+                        const aPermissions = formatPermissions(a.permissions, a.accessType);
+                        const bPermissions = formatPermissions(b.permissions, b.accessType);
+
+                        return aPermissions.localeCompare(bPermissions);
+                    };
+                    this.updateSortFunc(sortFunc, columnNames[4]);
+                },
+            },
+            {
+                key: 6,
+                name: columnNames[5],
+                onClick: null,
+            },
+        ];
+
         return (
             <SitesTable
                 isSorting={isSorting}
-                headers={['Site name', 'Client', 'Created on', 'Owned by', 'Permissions', '']}
+                headers={columns}
                 items={this._getFilteredSites()}
                 isFetching={isFetching}
                 error={error}
-                handleAddSite={this.handleAddSite}
-                toggleIsSortingSites={this.toggleIsSortingSites}
                 postSitesSort={this.postSitesSort}
+                sortDirection={sortDirection}
+                sortName={sortName}
             />
         );
     }
 
     componentDidMount = () => {
-        const { setHierarchyIsSorting } = this.props;
+        const { setHierarchyIsSorting, filters } = this.props;
         setHierarchyIsSorting(false);
+
+        // update sort based on saved filters
+        const { sortBy } = filters;
+        const { DATE_ASC, DATE_DESC, NAME_ASC, NAME_DESC } = DEFAULT_SITES_SORT;
+
+        switch (sortBy) {
+            case DATE_ASC:
+                this.setState({
+                    sortFunc: dateSortFunc,
+                    sortDirection: ASC,
+                    sortName: columnNames[2],
+                });
+                break;
+            case DATE_DESC:
+                this.setState({
+                    sortFunc: dateSortFunc,
+                    sortDirection: DESC,
+                    sortName: columnNames[2],
+                });
+                break;
+            case NAME_ASC:
+                this.setState({
+                    sortFunc: nameSortFunc,
+                    sortDirection: ASC,
+                    sortName: columnNames[0],
+                });
+                break;
+            case NAME_DESC:
+                this.setState({
+                    sortFunc: nameSortFunc,
+                    sortDirection: DESC,
+                    sortName: columnNames[0],
+                });
+                break;
+        }
     };
 
     componentDidUpdate = prevProps => {
@@ -92,11 +191,12 @@ class SitesTableContainer extends Component {
     };
 
     _getSortedSites = sites => {
+        const { sortFunc, sortDirection } = this.state;
         const {
             isSorting,
             filters: { sortBy },
         } = this.props;
-        const { CUSTOM, DATE_ASC, DATE_DESC, NAME_ASC, NAME_DESC } = DEFAULT_SITES_SORT;
+        const { DATE_ASC, DATE_DESC, NAME_ASC, NAME_DESC } = DEFAULT_SITES_SORT;
         const dateKeys = [DATE_DESC, DATE_ASC];
         const nameKeys = [NAME_ASC, NAME_DESC];
         // eslint-disable-next-line
@@ -110,7 +210,15 @@ class SitesTableContainer extends Component {
         const order = descKeys.includes(+sortBy) ? 'desc' : 'asc';
 
         // default sort order as per api
-        if (+sortBy === CUSTOM || isSorting) return sites.sort(hierarchySort);
+        if (isSorting) return sites.sort(hierarchySort);
+
+        if (sortFunc) {
+            if (sortDirection === DESC) {
+                return sites.sort(sortFunc).reverse();
+            }
+
+            return sites.sort(sortFunc);
+        }
 
         if (order === 'desc') {
             if (key === 'createdOn') {
@@ -129,22 +237,27 @@ class SitesTableContainer extends Component {
         }
     };
 
-    toggleIsSortingSites = e => {
-        e.preventDefault();
-
-        const { updateSitesFilters, setHierarchyIsSorting, isSorting } = this.props;
-        setHierarchyIsSorting(!isSorting);
-        updateSitesFilters('name', '');
-        updateSitesFilters('status', '');
-        updateSitesFilters('sortBy', DEFAULT_SITES_SORT.CUSTOM);
-    };
-
-    handleAddSite = () => {
-        this.props.showModal(ADD_SITE);
-    };
-
     postSitesSort = () => {
         this.props.postSitesSort(this.props.sites);
+    };
+
+    // update sort based on column and current sort direction
+    updateSortFunc = (sort, name) => {
+        const { sortDirection, sortName } = this.state;
+
+        if (name === sortName) {
+            if (sortDirection === ASC) {
+                this.setState({ sortDirection: DESC });
+                return;
+            }
+
+            if (sortDirection === DESC) {
+                this.setState({ sortFunc: null, sortDirection: null, sortName: null });
+                return;
+            }
+        }
+
+        this.setState({ sortFunc: sort, sortDirection: ASC, sortName: name });
     };
 }
 
@@ -169,7 +282,6 @@ const mapDispatchToProps = {
     showModal,
     hideModal,
     updateHierarchyAddState,
-    updateSitesFilters,
     postSitesSort,
     setHierarchyIsSorting,
 };

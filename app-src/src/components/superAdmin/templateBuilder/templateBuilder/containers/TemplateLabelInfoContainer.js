@@ -12,10 +12,7 @@ class TemplateLabelInfoContainer extends Component {
 
         if (!template) return null;
         return (
-            <TemplateLabelInfo
-                showSetLabelsModal={this.showSetLabelsModal}
-                fields={labelFields}
-            />
+            <TemplateLabelInfo showSetLabelsModal={this.showSetLabelsModal} fields={labelFields} />
         );
     }
 
@@ -29,30 +26,24 @@ const mapStateToProps = (
     {
         superAdmin: {
             templatesReducer: { templates },
-            templateLabelFieldsReducer: { labelFields }
-        }
+            templateLabelFieldsReducer: { labelFields },
+        },
     },
     {
         match: {
-            params: { uuid, companyID }
-        }
-    }
+            params: { uuid, companyID },
+        },
+    },
 ) => ({
     companyID,
     template: templates[uuid],
-    labelFields: Object.values(labelFields).filter(
-        ({ templateUUID }) => templateUUID === uuid
-    )
+    labelFields: Object.values(labelFields).filter(({ templateUUID }) => templateUUID === uuid),
 });
 
 const mapDispatchToProps = dispatch => ({
-    showModal: (modalType, modalProps) =>
-        dispatch(showModal(modalType, modalProps))
+    showModal: (modalType, modalProps) => dispatch(showModal(modalType, modalProps)),
 });
 
-const WithConnect = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(TemplateLabelInfoContainer);
+const WithConnect = connect(mapStateToProps, mapDispatchToProps)(TemplateLabelInfoContainer);
 
 export default withRouter(WithConnect);

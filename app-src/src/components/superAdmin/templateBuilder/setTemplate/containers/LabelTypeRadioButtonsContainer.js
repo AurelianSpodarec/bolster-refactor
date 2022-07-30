@@ -8,7 +8,7 @@ import LabelTypeRadioButtonList from '../presentational/LabelTypeRadioButtonList
 
 class LabelTypeRadioButtonListContainer extends Component {
     state = {
-        showFieldError: false
+        showFieldError: false,
     };
     render() {
         const { showFieldError } = this.state;
@@ -44,13 +44,7 @@ class LabelTypeRadioButtonListContainer extends Component {
     };
 
     _validate = () => {
-        const {
-            name,
-            error,
-            addFieldError,
-            removeFieldError,
-            value
-        } = this.props;
+        const { name, error, addFieldError, removeFieldError, value } = this.props;
 
         if (!value) {
             addFieldError(name, 'This is a required field.');
@@ -63,21 +57,18 @@ class LabelTypeRadioButtonListContainer extends Component {
 const mapStateToProps = (
     {
         shared: {
-            fieldErrorsReducer: { fieldErrors, errorsVisible }
-        }
+            fieldErrorsReducer: { fieldErrors, errorsVisible },
+        },
     },
-    { name }
+    { name },
 ) => ({
     error: fieldErrors[name],
-    errorsVisible: errorsVisible
+    errorsVisible: errorsVisible,
 });
 
 const mapDispatchToProps = dispatch => ({
     addFieldError: (name, error) => dispatch(addFieldError(name, error)),
-    removeFieldError: name => dispatch(removeFieldError(name))
+    removeFieldError: name => dispatch(removeFieldError(name)),
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(LabelTypeRadioButtonListContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(LabelTypeRadioButtonListContainer);

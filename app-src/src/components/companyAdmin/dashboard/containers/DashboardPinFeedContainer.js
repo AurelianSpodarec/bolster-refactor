@@ -38,20 +38,17 @@ class DashboardPinFeedContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
-        latestPinFeedReducer: { pins, isFetching, error, lastUpdatedOn }
-    }
+        latestPinFeedReducer: { pins, isFetching, error, lastUpdatedOn },
+    },
 }) => ({
     pins: pins || [],
     isFetching,
     error,
-    lastUpdatedOn
+    lastUpdatedOn,
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetchPinFeed: () => dispatch(fetchPinFeed())
+    fetchPinFeed: () => dispatch(fetchPinFeed()),
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(DashboardPinFeedContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(DashboardPinFeedContainer);

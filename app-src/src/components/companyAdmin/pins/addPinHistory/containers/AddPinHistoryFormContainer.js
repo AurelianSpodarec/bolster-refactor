@@ -7,32 +7,18 @@ import { convertArrToObj, isEmpty } from 'helpers/generic';
 import createPin from 'actions/companyAdmin/pins/async/createPin';
 import resetPinAnswers from 'actions/companyAdmin/drawings/sync/resetPinAnswers';
 import updateAddPinStatus from 'actions/companyAdmin/drawings/sync/updateAddPinStatus';
-import updateAddPinAnswer from 'actions/companyAdmin/drawings/sync/updateAddPinAnswer';
 import { QUESTION_TYPE_VALUES } from 'constants/shared/templateBuilder';
-import { DROPDOWN_OPTION_MANUFACTURER_ENABLED } from 'constants/companyAdmin/enums';
 
 import AddPinForm from 'components/shared/pins/addPin/presentational/AddPinForm';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
+import {
+    formatMeasurementsForPostBody,
+    isAnswerValueEmpty,
+} from '../../../../shared/pins/addPin/fieldTypes/helpers';
 
 const { SINGLE_PHOTO, MULTI_PHOTO, SIGNATURE } = QUESTION_TYPE_VALUES;
-
-function getDropdownOptionsByType(dropdownOptions, drawing) {
-    return Object.values(dropdownOptions).reduce((acc, option) => {
-        const isManufacturingEnabledForDrawingAndType =
-            drawing.isManufacturingEnabled && DROPDOWN_OPTION_MANUFACTURER_ENABLED[option.type];
-
-        const value = isManufacturingEnabledForDrawingAndType ? option.id : option.name;
-
-        if (acc[option.type]) {
-            acc[option.type].push(value);
-        } else {
-            acc[option.type] = [value];
-        }
-        return acc;
-    }, {});
-}
 
 class AddPinHistoryFormContainer extends Component {
     state = {
@@ -52,8 +38,8 @@ class AddPinHistoryFormContainer extends Component {
             isHistory,
             versions,
             latestPinHistory = {},
-            dropdownOptionsByType,
-            isReady,
+            pinOptions,
+            drawingID,
         } = this.props;
 
         const latestVersion =
@@ -77,12 +63,9 @@ class AddPinHistoryFormContainer extends Component {
                     />
                 </PageHeading>
                 <BlockContainer
-                    isEmpty={
-                        !templates.length || !isReady
-                        // || isEmpty(pinAnswers)
-                    }
+                    isEmpty={!templates.length}
                     noDataMessage="There is no data."
-                    isFetching={isFetching || !isReady}
+                    isFetching={isFetching}
                     error={error}
                 >
                     <AddPinForm
@@ -98,9 +81,10 @@ class AddPinHistoryFormContainer extends Component {
                         isHistory={isHistory}
                         isSameTemplate={isSameTemplate}
                         pinAnswersByGroupKey={pinAnswersByGroupKey}
-                        dropdownOptionsByType={dropdownOptionsByType}
                         oldAnswersByNameObj={this.getOldAnswersByNameObj()}
                         latestPinHistory={latestPinHistory}
+                        pinOptions={pinOptions}
+                        drawingID={drawingID}
                     />
                 </BlockContainer>
             </>
@@ -248,12 +232,10 @@ class AddPinHistoryFormContainer extends Component {
     };
 
     handleChange = (name, value) => {
-        const { resetPinAnswers, updateAddPinStatus, formatDropdownOptions } = this.props;
+        const { resetPinAnswers, updateAddPinStatus } = this.props;
         resetPinAnswers();
         updateAddPinStatus('');
-        if (name === 'serviceID') {
-            formatDropdownOptions(value);
-        }
+
         this.setState({ [name]: value });
     };
 
@@ -271,13 +253,15 @@ class AddPinHistoryFormContainer extends Component {
             hierarchyType,
             pinID,
             status,
+            measurements,
         } = this.props;
 
         const curTemplate = templates.find(({ id }) => +id === +templateID) || {};
 
         const formattedAnswers = Object.keys(answers).map(key => ({
             templateQuestionID: key,
-            answer: answers[key],
+            answerValues: answers[key]?.filter(val => !isAnswerValueEmpty(val)),
+            measurements: formatMeasurementsForPostBody(measurements, key),
         }));
 
         const postBody = {
@@ -300,29 +284,25 @@ class AddPinHistoryFormContainer extends Component {
     };
 }
 
-const mapStateToProps = (
-    {
-        companyAdmin: {
-            addPinDropdownOptions: { dropdownOptions },
-            templatesReducer: { templates, isFetching: isFetchingTemplates, error },
-            templateVersionsReducer: { versions },
-            templateSectionsReducer: { sections },
-            templateQuestionsReducer: { questions },
-            addPinFormReducer: { answers, status },
-            addPinCoordinatesReducer: { coordinates },
-            pinsReducer: { postSuccess, isFetching: isFetchingPins },
-            pinHistoriesReducer: { histories },
-            pinAnswersReducer: { answers: pinAnswers },
-            servicesReducer: { services },
-            subscriptionsReducer: { subscriptions },
-        },
-        shared: {
-            filesUploadingReducer: { filesUploading },
-            confirmLeaveReducer: { confirmLeave },
-        },
+const mapStateToProps = ({
+    companyAdmin: {
+        templatesReducer: { templates, isFetching: isFetchingTemplates, error },
+        templateVersionsReducer: { versions },
+        templateSectionsReducer: { sections },
+        templateQuestionsReducer: { questions },
+        addPinFormReducer: { answers, status, measurements },
+        addPinCoordinatesReducer: { coordinates },
+        pinsReducer: { postSuccess, isFetching: isFetchingPins },
+        pinHistoriesReducer: { histories },
+        pinAnswersReducer: { answers: pinAnswers },
+        servicesReducer: { services },
+        subscriptionsReducer: { subscriptions },
     },
-    ownProps,
-) => {
+    shared: {
+        filesUploadingReducer: { filesUploading },
+        confirmLeaveReducer: { confirmLeave },
+    },
+}) => {
     const latestPinHistory =
         Object.values(histories).sort((a, b) => moment(b.createdOn) - moment(a.createdOn))[0] || {};
 
@@ -344,7 +324,7 @@ const mapStateToProps = (
         histories,
         latestPinHistory,
         subscriptions,
-        dropdownOptionsByType: getDropdownOptionsByType(dropdownOptions, ownProps.drawing),
+        measurements,
     };
 };
 
@@ -352,7 +332,6 @@ const mapDispatchToProps = {
     createPin,
     resetPinAnswers,
     updateAddPinStatus,
-    updateAddPinAnswer,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddPinHistoryFormContainer));

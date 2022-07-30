@@ -2,14 +2,14 @@ import { combineReducers } from 'redux';
 import {
     SA_FETCH_COMPANY_SUBSCRIPTION_REQUEST,
     SA_FETCH_COMPANY_SUBSCRIPTION_SUCCESS,
-    SA_FETCH_COMPANY_SUBSCRIPTION_FAILURE
+    SA_FETCH_COMPANY_SUBSCRIPTION_FAILURE,
 } from 'constants/actionTypes/superAdminSubscriptions';
 import { updateObj } from 'helpers/generic';
 
 export default combineReducers({
     isFetching: isFetchingReducer,
     error: errorReducer,
-    subscriptions: subscriptionReducer
+    subscriptions: subscriptionReducer,
 });
 
 function isFetchingReducer(state = false, action) {

@@ -9,7 +9,7 @@ import BugReportForm from './BugReportForm';
 const BugReport = () => {
     return (
         <>
-            <PageHeading title="Bug Report" withBackButton />
+            <PageHeading title="Bug Report" />
 
             <BlockContainer>
                 <BlockHeading title="Bug Report Form">

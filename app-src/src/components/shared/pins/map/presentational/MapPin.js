@@ -27,7 +27,6 @@ const DrawingMapPin = ({
         templatePinImageS3Key,
         servicePinImageS3Key,
     },
-    pin,
     pinHistory = {},
     history,
     withLink,

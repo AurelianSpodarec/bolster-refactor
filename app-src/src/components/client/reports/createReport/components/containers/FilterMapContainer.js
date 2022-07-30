@@ -4,10 +4,7 @@ import moment from 'moment';
 import uuid from 'uuid/v4';
 
 import updateReportFilter from 'actions/client/reports/create/sync/clientUpdateReportFilter';
-import {
-    RECTANGLE_MODES,
-    FURTHER_FILTRATION_OPTIONS
-} from 'constants/companyAdmin/enums';
+import { RECTANGLE_MODES, FURTHER_FILTRATION_OPTIONS } from 'constants/companyAdmin/enums';
 import withUpdateOnChange from '../hocs/withUpdateOnChange';
 import FilterMap from 'components/shared/maps/presentational/FilterMap';
 import addRectangle from 'actions/client/reports/create/sync/clientAddRectangle';
@@ -53,7 +50,7 @@ class FilterMapContainer extends Component {
     componentDidMount = () => {
         const {
             fetchPins,
-            filters: { drawingID }
+            filters: { drawingID },
         } = this.props;
         const companyID = localStorage.getItem('selectedCompany');
         if (drawingID) fetchPins(companyID, drawingID);
@@ -70,7 +67,7 @@ class FilterMapContainer extends Component {
             furtherFiltrationOption,
             removeAllRectangles,
             filters: { drawingID },
-            fetchPins
+            fetchPins,
         } = this.props;
         if (rectangles.length !== prevRectangles.length) {
             postFilters();
@@ -111,11 +108,8 @@ class FilterMapContainer extends Component {
     };
 
     handleCancelPinSelector = () => {
-        const {
-            removeAllRectangles,
-            removeAllExcludedPins,
-            updateFurtherFiltrationOption
-        } = this.props;
+        const { removeAllRectangles, removeAllExcludedPins, updateFurtherFiltrationOption } =
+            this.props;
         updateFurtherFiltrationOption(FURTHER_FILTRATION_OPTIONS.NONE);
         removeAllExcludedPins();
         removeAllRectangles();
@@ -126,24 +120,17 @@ class FilterMapContainer extends Component {
 
         // ? Displays all pins if in rectangle mode, and only the selected pins otherwise.
         if (+furtherFiltrationOption === +PIN_SELECTOR) {
-            const {
-                fromDateInclusive,
-                toDateInclusive,
-                status,
-                serviceID
-            } = filters;
+            const { fromDateInclusive, toDateInclusive, status, serviceID } = filters;
             const filteredPins = pins.filter(pin => {
                 if (
                     fromDateInclusive &&
-                    moment(pin.createdOn) <
-                        moment(fromDateInclusive, momentComparisonFormat)
+                    moment(pin.createdOn) < moment(fromDateInclusive, momentComparisonFormat)
                 ) {
                     return false;
                 }
                 if (
                     toDateInclusive &&
-                    moment(pin.createdOn) >
-                        moment(toDateInclusive, momentComparisonFormat)
+                    moment(pin.createdOn) > moment(toDateInclusive, momentComparisonFormat)
                 ) {
                     return false;
                 }
@@ -165,15 +152,13 @@ const mapStateToProps = ({
     client: {
         reportsReducer: { filters, rectangles, furtherFiltrationOption },
         drawingsReducer: { drawings },
-        pinsReducer: { pins }
-    }
+        pinsReducer: { pins },
+    },
 }) => ({
     drawing: drawings[filters.drawingID] || {},
-    pins: Object.values(pins).filter(
-        ({ drawingID }) => +drawingID === +filters.drawingID
-    ),
+    pins: Object.values(pins).filter(({ drawingID }) => +drawingID === +filters.drawingID),
     rectangles: Object.values(rectangles),
-    furtherFiltrationOption
+    furtherFiltrationOption,
 });
 
 const mapDispatchToProps = {
@@ -183,12 +168,7 @@ const mapDispatchToProps = {
     removeAllExcludedPins,
     removeAllRectangles,
     fetchPins,
-    updateFurtherFiltrationOption
+    updateFurtherFiltrationOption,
 };
 
-export default withUpdateOnChange(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(FilterMapContainer)
-);
+export default withUpdateOnChange(connect(mapStateToProps, mapDispatchToProps)(FilterMapContainer));

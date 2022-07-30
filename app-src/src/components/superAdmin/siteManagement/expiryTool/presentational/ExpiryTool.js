@@ -4,7 +4,7 @@ import ExpiryFormContainer from '../containers/ExpiryToolFormContainer';
 
 const ExpiryTool = () => (
     <>
-        <PageHeading title="Expiry Tool" withBackButton />
+        <PageHeading title="Expiry Tool" />
         <ExpiryFormContainer />
     </>
 );

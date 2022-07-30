@@ -16,6 +16,7 @@ import fetchAllBuildings from 'actions/companyAdmin/buildings/async/fetchAllBuil
 import fetchSingleSite from 'actions/companyAdmin/sites/async/fetchSingleSite';
 import setHierarchyIsSorting from 'actions/companyAdmin/hierarchy/sync/setHierarchyIsSorting';
 import BuildingFiltersContainer from './BuildingsFiltersContainer';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 class SiteBuildingsTableContainer extends Component {
     render() {
         const { site, isSorting } = this.props;
@@ -23,18 +24,32 @@ class SiteBuildingsTableContainer extends Component {
             <BlockContainer>
                 <BlockHeading title="Buildings" classes="w-table">
                     {site.accessType === ACCESS_TYPES_VALUES.OWNER && (
-                        <button className="button green" onClick={this.handleAddBuildingsModal}>
-                            <i className="fa fa-plus" /> Add buildings
-                        </button>
+                        <ActionButton
+                            ambient="positive"
+                            onClick={this.handleAddBuildingsModal}
+                            icon="plus"
+                            text="Add buildings"
+                            size="medium"
+                        />
                     )}
                     {isSorting ? (
-                        <button className="button green" onClick={this._toggleIsSorting}>
-                            <i className="far fa-check" /> Finish Sort
-                        </button>
+                        <ActionButton
+                            onClick={this._toggleIsSorting}
+                            icon="check"
+                            text="Finish Sort"
+                            source="secondary"
+                            ambient="positive"
+                            size="medium"
+                        />
                     ) : (
-                        <button className="button" onClick={this._toggleIsSorting}>
-                            <i className="far fa-sort" /> Sort Mode
-                        </button>
+                        <ActionButton
+                            onClick={this._toggleIsSorting}
+                            icon="far fa-sort"
+                            text="Sort Mode"
+                            source="secondary"
+                            ambient="positive"
+                            size="medium"
+                        />
                     )}
                     <BuildingFiltersContainer />
                 </BlockHeading>

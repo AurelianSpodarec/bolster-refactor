@@ -4,5 +4,5 @@ export default (name, value) => async dispatch =>
     await dispatch({
         type: UPDATE_FILTER_QUESTION_FIELD,
         name,
-        value
+        value,
     });

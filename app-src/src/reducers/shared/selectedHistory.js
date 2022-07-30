@@ -3,7 +3,7 @@ import { combineReducers } from 'redux';
 import { SELECT_PIN_HISTORY } from 'constants/actionTypes/pins';
 
 export default combineReducers({
-    selectedHistoryId: selectedHistoryReducer
+    selectedHistoryId: selectedHistoryReducer,
 });
 
 function selectedHistoryReducer(state = 0, action) {

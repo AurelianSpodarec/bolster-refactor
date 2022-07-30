@@ -10,8 +10,8 @@ import { CRS } from 'leaflet';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import CustomPin from 'components/shared/pins/map/presentational/CustomPin';
 import Loading from 'components/shared/generic/misc/presentational/Loading';
-import { ACCESS_TYPES_VALUES, FLOORPLAN_STATES, HIERARCHY_IDS } from 'constants/companyAdmin/enums';
-import { CREATE_HIERARCHY_ALERT_MODAL, EDIT_DRAWING } from 'constants/shared/modalTypes';
+import { ACCESS_TYPES_VALUES, FLOORPLAN_STATES } from 'constants/companyAdmin/enums';
+import { EDIT_DRAWING } from 'constants/shared/modalTypes';
 import MapPinContainer from 'components/shared/pins/map/containers/MapPinContainer';
 import RedX from 'components/shared/pins/map/presentational/RedX';
 import PinSelectorOptions from 'components/shared/pinSelector/presentational/PinSelectorOptions';
@@ -21,7 +21,12 @@ import DrawingMapAddZone from './DrawingMapAddZone';
 import DrawingMapViewZones from './DrawingMapViewZones';
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 import { doPinsHaveIcons } from 'helpers/general';
-import { useDispatch } from 'react-redux';
+import ActionMenu from 'components/shared/actionMenu/ActionMenu';
+import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
+import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
 
 const getDataUrl = src => `${FILE_STORAGE_URL}/${src}/{z}/{x}/{y}.jpg`;
 
@@ -68,7 +73,6 @@ const DrawingMapViewSimple = ({
     togglePinIconView,
     togglePinTasksView,
 }) => {
-    const dispatch = useDispatch();
     const mapRef = useRef();
     const [shouldScroll, setShouldScroll] = useState(false);
 
@@ -88,15 +92,6 @@ const DrawingMapViewSimple = ({
         popupAnchor: [0, -50],
     });
     const shouldShowFloorplan = !!drawing.tilesetS3Key && !updating;
-
-    const handleCreateHierarchyAlertModal = () => {
-        dispatch(
-            showModal(CREATE_HIERARCHY_ALERT_MODAL, {
-                hierarchyType: HIERARCHY_IDS.DRAWING,
-                hierarchyID: drawing.id,
-            }),
-        );
-    };
 
     const handleMapClick = e => {
         if (shouldScroll) {
@@ -131,10 +126,18 @@ const DrawingMapViewSimple = ({
                             drawing.accessType === ACCESS_TYPES_VALUES.OWNER &&
                             !shouldRestrictPayments && (
                                 <>
-                                    <AddCreditsToDrawingButtonContainer drawing={drawing} />
-                                    <button onClick={() => {}} className="button red pull-right">
-                                        <i className="far fa-times" /> Drawing expired
-                                    </button>
+                                    <AddCreditsToDrawingButtonContainer
+                                        drawing={drawing}
+                                        isExpired={isExpired}
+                                    />
+
+                                    <ActionButton
+                                        text="Drawing expired"
+                                        ambient="negative"
+                                        icon="far fa-times"
+                                        onClick={() => {}}
+                                    />
+
                                     <TooltipContainer
                                         htmlText={`${`<p>This drawing expired on ${moment(
                                             drawing.expiresOn,
@@ -149,75 +152,57 @@ const DrawingMapViewSimple = ({
                             )
                         ) : (
                             drawing.accessType >= ACCESS_TYPES_VALUES.WRITE && (
-                                <>
+                                <FlexWrapper>
+                                    {drawing.accessType === ACCESS_TYPES_VALUES.OWNER &&
+                                        !shouldRestrictPayments && (
+                                            <ButtonWrapper alignment="right">
+                                                <ActionMenu extraClasses="to-the-right">
+                                                    <ActionMenuActionButton
+                                                        text="Edit drawing"
+                                                        onClick={() =>
+                                                            showModal(EDIT_DRAWING, {
+                                                                drawing,
+                                                            })
+                                                        }
+                                                    />
+
+                                                    <AddCreditsToDrawingButtonContainer
+                                                        drawing={drawing}
+                                                    />
+                                                </ActionMenu>
+                                            </ButtonWrapper>
+                                        )}
                                     {addMode ? (
                                         <>
-                                            <button
-                                                onClick={handleClearPinCache}
-                                                to={`${drawing.id}/add-pin`}
-                                                className="button green pull-right"
-                                            >
-                                                <i className="fa fa-check" /> Confirm position
-                                            </button>
-                                            <button
-                                                className="button red pull-right"
-                                                onClick={toggleAddMode}
-                                            >
-                                                Cancel
-                                            </button>
+                                            <ButtonWrapper alignment="left">
+                                                <ActionButton
+                                                    text="Cancel"
+                                                    onClick={toggleAddMode}
+                                                    source="secondary"
+                                                />
+                                            </ButtonWrapper>
+                                            <ButtonWrapper alignment="left">
+                                                <LinkButton
+                                                    text="Confirm position"
+                                                    icon="check"
+                                                    onClick={handleClearPinCache}
+                                                    href={`${drawing.id}/add-pin`}
+                                                />
+                                            </ButtonWrapper>
                                         </>
                                     ) : (
                                         !drawingNotStarted && (
-                                            <button
-                                                className="button green pull-right"
-                                                onClick={toggleAddMode}
-                                            >
-                                                <i className="fa fa-plus" /> Add pin
-                                            </button>
+                                            <ButtonWrapper alignment="left">
+                                                <ActionButton
+                                                    text="Add pin"
+                                                    icon="plus"
+                                                    onClick={toggleAddMode}
+                                                    ambient="positive"
+                                                />
+                                            </ButtonWrapper>
                                         )
                                     )}
-                                    {drawing.accessType === ACCESS_TYPES_VALUES.OWNER &&
-                                        !shouldRestrictPayments && (
-                                            <>
-                                                <button
-                                                    className="button yellow"
-                                                    onClick={() =>
-                                                        showModal(EDIT_DRAWING, {
-                                                            drawing,
-                                                        })
-                                                    }
-                                                >
-                                                    <i className="far fa-pencil fa-fw" /> Edit
-                                                    drawing
-                                                </button>
-
-                                                <AddCreditsToDrawingButtonContainer
-                                                    drawing={drawing}
-                                                />
-                                            </>
-                                        )}
-                                    <button
-                                        className="button yellow"
-                                        type="button"
-                                        onClick={() =>
-                                            history.push(
-                                                `/company/drawings/${drawing.id}/upcoming-alerts`,
-                                            )
-                                        }
-                                    >
-                                        <i className="fa fa-eye" />
-                                        View Alerts
-                                    </button>
-
-                                    <button
-                                        className="button green"
-                                        type="button"
-                                        onClick={handleCreateHierarchyAlertModal}
-                                    >
-                                        <i className="fa fa-plus" />
-                                        Create Alert
-                                    </button>
-                                </>
+                                </FlexWrapper>
                             )
                         )}
                     </BlockHeading>
@@ -282,48 +267,49 @@ const DrawingMapViewSimple = ({
                         drawing.accessType >= ACCESS_TYPES_VALUES.WRITE && (
                             <div className="map-bottom-buttons">
                                 {isAddingZone ? (
-                                    <>
-                                        <button
-                                            className={`button green ${
-                                                hasZoneCoords ? '' : 'disabled'
-                                            }`}
+                                    <FlexWrapper gap={5}>
+                                        <ActionButton
+                                            text="Confirm"
+                                            disabled={hasZoneCoords ? false : true}
                                             onClick={showAddZoneModal}
-                                        >
-                                            <i className="far fa-check fa-fw" /> Finish
-                                        </button>
-                                        <button className="button grey" onClick={cancelZoneAdd}>
-                                            Cancel
-                                        </button>
-                                    </>
+                                            extraClasses={pinTasksMode && 'active'}
+                                            icon="check"
+                                        />
+                                        <ActionButton
+                                            text="Cancel"
+                                            source="secondary"
+                                            onClick={cancelZoneAdd}
+                                        />
+                                    </FlexWrapper>
                                 ) : (
-                                    <>
-                                        <button
-                                            className={`button blue ${
-                                                pinTasksMode ? 'active' : ''
-                                            }`}
+                                    <FlexWrapper gap={10}>
+                                        <ActionButton text="View Zones" onClick={handleZoneAdd} />
+                                        <ActionButton
+                                            text=" Pin Tasks On/Off"
                                             onClick={togglePinTasksView}
-                                        >
-                                            Pin tasks on/off
-                                        </button>
+                                            extraClasses={pinTasksMode && 'active'}
+                                            source="secondary"
+                                            ambient={pinTasksMode ? 'positive' : ''}
+                                        />
+
                                         {doPinsHaveIcons(pins) && (
-                                            <button
-                                                className={`button blue ${
-                                                    pinViewMode === 'icon' ? 'active' : ''
-                                                }`}
+                                            <ActionButton
+                                                text="Pin Icon On/Off"
                                                 onClick={togglePinIconView}
-                                            >
-                                                Pin icon view on/off
-                                            </button>
+                                                extraClasses={
+                                                    pinViewMode === 'icon' ? 'active' : ''
+                                                }
+                                                source="secondary"
+                                                ambient={pinViewMode === 'icon' ? 'positive' : ''}
+                                            />
                                         )}
-                                        <button className="button blue" onClick={handleZoneAdd}>
-                                            View Zones
-                                        </button>
-                                        <button
-                                            className={`button blue ${showZones ? 'active' : ''}`}
+                                        <ActionButton
+                                            text="Toggle Zones On/Off"
                                             onClick={toggleZones}
-                                        >
-                                            Toggle zones on/off
-                                        </button>
+                                            extraClasses={showZones && 'active'}
+                                            source="secondary"
+                                            ambient={showZones ? 'positive' : ''}
+                                        />
                                         {showZones && (
                                             <div className="map-opacity pull-right">
                                                 <p>Opacity</p>
@@ -339,18 +325,17 @@ const DrawingMapViewSimple = ({
                                                 />
                                             </div>
                                         )}
-                                    </>
+                                    </FlexWrapper>
                                 )}
                             </div>
                         )}
                 </div>
             ) : drawing.latestFloorplanState === FLOORPLAN_STATES.FAILEDCANCELLED ? (
-                <button
-                    className="button yellow"
+                <ActionButton
+                    text="Upload failed - retry?"
                     onClick={() => showModal(EDIT_DRAWING, { drawing })}
-                >
-                    <i className="far fa-pencil fa-fw" /> Upload failed - retry?
-                </button>
+                    icon="pen"
+                />
             ) : (
                 <Loading
                     message="Floorplan is generating, please check back later."

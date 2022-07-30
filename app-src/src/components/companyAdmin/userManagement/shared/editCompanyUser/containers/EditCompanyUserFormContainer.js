@@ -6,15 +6,24 @@ import editCompanyUser from 'actions/companyAdmin/userManagement/async/editCompa
 import EditCompanyUserForm from '../presentational/EditCompanyUserForm';
 import { componentDidMount } from 'helpers/generic';
 import { usePrevious } from 'helpers/hooks';
+import { COMPANY_USER_ROLE_TYPES } from '../../../../../../constants/companyAdmin/enums';
 
 const EditCompanyUserFormContainer = () => {
-    const [state, setState] = useState({ firstName: '', lastName: '', phoneNumber: '' });
+    const [state, setState] = useState({
+        firstName: '',
+        lastName: '',
+        phoneNumber: '',
+        shouldHaveAdminPlus: null,
+    });
     const dispatch = useDispatch();
 
     const { id } = useParams();
-    const { users, postSuccess, isFetching } = useSelector(state => stateSelector(state));
+    const { users, postSuccess, isFetching, companyUserID } = useSelector(state =>
+        stateSelector(state),
+    );
     const user = users[id];
     const prevProps = usePrevious({ isFetching, postSuccess, user });
+    const curUser = users && users[companyUserID] ? users[companyUserID] : {};
 
     componentDidMount(() => {
         if (!isFetching && user)
@@ -22,6 +31,7 @@ const EditCompanyUserFormContainer = () => {
                 firstName: user.userFirstName,
                 lastName: user.userLastName,
                 phoneNumber: user.userPhoneNumber,
+                shouldHaveAdminPlus: user.type === COMPANY_USER_ROLE_TYPES.ADMIN_PLUS,
             });
     });
 
@@ -31,6 +41,7 @@ const EditCompanyUserFormContainer = () => {
                 firstName: user.userFirstName,
                 lastName: user.userLastName,
                 phoneNumber: user.userPhoneNumber,
+                shouldHaveAdminPlus: user.type === COMPANY_USER_ROLE_TYPES.ADMIN_PLUS,
             });
     }, [isFetching, user]);
 
@@ -42,6 +53,9 @@ const EditCompanyUserFormContainer = () => {
         }
     }, [postSuccess]);
 
+    const canSetAdminPlus = curUser.type && curUser.type >= COMPANY_USER_ROLE_TYPES.ADMIN_PLUS;
+    const isAdmin = user && user.type >= COMPANY_USER_ROLE_TYPES.ADMIN;
+
     return (
         <EditCompanyUserForm
             {...state}
@@ -49,6 +63,8 @@ const EditCompanyUserFormContainer = () => {
             handleSubmit={handleSubmit}
             location={location}
             userID={id}
+            showAdminPlusEdit={isAdmin}
+            canSetAdminPlus={canSetAdminPlus}
         />
     );
 
@@ -58,7 +74,18 @@ const EditCompanyUserFormContainer = () => {
 
     function handleSubmit(e) {
         e.preventDefault();
-        dispatch(editCompanyUser(id, state));
+        const { shouldHaveAdminPlus, ...rest } = state;
+
+        const postBody = isAdmin
+            ? {
+                  ...rest,
+                  type: shouldHaveAdminPlus
+                      ? COMPANY_USER_ROLE_TYPES.ADMIN_PLUS
+                      : COMPANY_USER_ROLE_TYPES.ADMIN,
+              }
+            : state;
+
+        dispatch(editCompanyUser(id, postBody));
     }
 };
 
@@ -66,10 +93,16 @@ const stateSelector = ({
     companyAdmin: {
         companyUsersReducer: { users, postSuccess, isFetching },
     },
+    shared: {
+        decodeJWTReducer: {
+            jwtData: { companyUserID },
+        },
+    },
 }) => ({
     users,
     postSuccess,
     isFetching,
+    companyUserID,
 });
 
 export default EditCompanyUserFormContainer;

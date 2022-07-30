@@ -6,19 +6,13 @@ import TabsContainer from 'components/shared/generic/tabs/containers/TabsContain
 
 const SitePageHeader = ({ site, children }) => (
     <PageHeading
-        title={`Site: ${site.name || ''} ${
-            site.isArchived ? '(ARCHIVED)' : ''
-        }`}
+        title={`Site: ${site.name || ''} ${site.isArchived ? '(ARCHIVED)' : ''}`}
         withBackButton
     >
+        <TabsContainer classes="hierarchy-tabs" />
         <Breadcrumb
-            breadcrumbs={[
-                { text: 'Sites', link: '/company/sites' },
-                { text: site.name }
-            ]}
-        >
-            <TabsContainer />
-        </Breadcrumb>
+            breadcrumbs={[{ text: 'Sites', link: '/company/sites' }, { text: site.name }]}
+        ></Breadcrumb>
         {children}
     </PageHeading>
 );

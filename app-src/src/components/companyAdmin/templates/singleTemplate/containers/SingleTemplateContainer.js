@@ -40,7 +40,6 @@ const mapStateToProps = (
             templateSectionsReducer: { sections },
             templateVersionsReducer: { versions },
             templateQuestionsReducer: { questions },
-            dropdownOptionsReducer: { isFetching: fetchingOptions },
         },
     },
     ownProps,
@@ -49,7 +48,7 @@ const mapStateToProps = (
     versions: Object.values(versions),
     sections: Object.values(sections),
     questions: Object.values(questions),
-    isFetching: !!(isFetching || fetchingOptions),
+    isFetching: isFetching,
     error,
     id: ownProps.match.params.id,
 });

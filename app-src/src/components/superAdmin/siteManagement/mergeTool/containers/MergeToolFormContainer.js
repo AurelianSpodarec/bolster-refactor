@@ -185,7 +185,7 @@ const MergeToolFormContainer = ({
         mergeDrawings(postBody);
     }
 
-    function handleCSVUpload(sourceDrawingID, file, event) {
+    function handleCSVUpload(sourceDrawingID, file) {
         setError(null);
         const data = new FormData();
         console.log('file', file);

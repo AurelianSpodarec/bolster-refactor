@@ -131,8 +131,7 @@ class CopyTemplateModalContainer extends Component {
 
                 let prereqVal = null;
                 if (q.prereqVal) {
-                    prereqVal = q.prereqVal.replace(/(#PREREQ_ID_)(\d+)/g, 
-                    (_, part1, oldID) => {
+                    prereqVal = q.prereqVal.replace(/(#PREREQ_ID_)(\d+)/g, (_, part1, oldID) => {
                         return part1 + newQuestionUUIDs[oldID];
                     });
                 }

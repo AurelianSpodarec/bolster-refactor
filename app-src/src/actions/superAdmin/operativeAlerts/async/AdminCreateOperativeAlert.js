@@ -4,23 +4,23 @@ import { getHeaders, handleErrors } from 'helpers/api';
 import {
     ADMIN_CREATE_OPERATIVE_ALERT_REQUEST,
     ADMIN_CREATE_OPERATIVE_ALERT_SUCCESS,
-    ADMIN_CREATE_OPERATIVE_ALERT_FAILURE
+    ADMIN_CREATE_OPERATIVE_ALERT_FAILURE,
 } from 'constants/actionTypes/operativeAlerts';
 
 import { ADMIN_API_URL } from 'config';
 
 export const createOperativeAlertRequest = () => ({
-    type: ADMIN_CREATE_OPERATIVE_ALERT_REQUEST
+    type: ADMIN_CREATE_OPERATIVE_ALERT_REQUEST,
 });
 
 export const createOperativeAlertSuccess = payload => ({
     type: ADMIN_CREATE_OPERATIVE_ALERT_SUCCESS,
-    payload
+    payload,
 });
 
 export const createOperativeAlertFailure = error => ({
     type: ADMIN_CREATE_OPERATIVE_ALERT_FAILURE,
-    error
+    error,
 });
 
 export default postBody => dispatch => {

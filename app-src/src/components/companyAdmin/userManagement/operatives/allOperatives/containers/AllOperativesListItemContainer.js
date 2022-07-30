@@ -13,9 +13,9 @@ import {
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import editCompanyUserType from 'actions/companyAdmin/userManagement/async/editCompanyUserType';
 
-const AllOperativesListItemContainer = ({ user, headers, onMobile }) => {
+const AllOperativesListItemContainer = ({ user, headers }) => {
     const dispatch = useDispatch();
-    const { disabledUsers, maxDrawingsPerOperative } = useSelector(mapStateToProps);
+    const { disabledUsers, maxDrawingsPerOperative, onMobile } = useSelector(mapStateToProps);
 
     const drawingLimitColour = getOperativeDrawingLimitColour(user.drawingCount);
     const drawingLimitMaxed = user.drawingCount >= maxDrawingsPerOperative;
@@ -25,7 +25,16 @@ const AllOperativesListItemContainer = ({ user, headers, onMobile }) => {
             user={user}
             drawingLimitColour={drawingLimitColour}
             drawingLimitMaxed={drawingLimitMaxed}
-            showDeleteModal={() => dispatch(showModal(DELETE_COMPANY_USER, { id: user.id, user }))}
+            showDeleteModal={() =>
+                dispatch(
+                    showModal(DELETE_COMPANY_USER, {
+                        id: user.id,
+                        user,
+                        deleteButtonText: 'Confirm',
+                        icon: 'check',
+                    }),
+                )
+            }
             showDisableModal={showDisableUserModal}
             showEnableModal={showEnableUserModal}
             showUnlinkModal={unlinkModal}
@@ -35,6 +44,7 @@ const AllOperativesListItemContainer = ({ user, headers, onMobile }) => {
             showNotUpsyncedRecentlyWarning={user.notUpsyncedRecently}
             tooltipDate={user.notUpSyncedInXDays}
             isDisabled={!!disabledUsers[user.id]}
+            maxDrawingsPerOperative={maxDrawingsPerOperative}
         />
     );
 
@@ -59,6 +69,8 @@ const AllOperativesListItemContainer = ({ user, headers, onMobile }) => {
                 user,
                 message: `Are you sure you want to make ${user.userFirstName} ${user.userLastName} an admin?`,
                 handleSubmit,
+                submitButtonText: 'Confirm',
+                submitButtonIcon: 'check',
             }),
         );
     }
@@ -89,9 +101,13 @@ const mapStateToProps = ({
         },
         inactiveCompanyUsersReducer: { disabled },
     },
+    shared: {
+        mobileReducer: { onMobile },
+    },
 }) => ({
     disabledUsers: disabled,
     maxDrawingsPerOperative,
+    onMobile,
 });
 
 export default AllOperativesListItemContainer;

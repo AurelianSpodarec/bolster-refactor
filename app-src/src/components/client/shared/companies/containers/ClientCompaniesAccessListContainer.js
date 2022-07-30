@@ -52,18 +52,16 @@ class CompaniesAccessListContainer extends Component {
                     serviceID,
                     inherited,
                     state,
-                    id: permissionID
-                }
+                    id: permissionID,
+                },
             ) => {
-                const companyServices = acc[companyID]
-                    ? acc[companyID].services
-                    : [];
+                const companyServices = acc[companyID] ? acc[companyID].services : [];
                 acc[companyID] = {
                     ...(acc[companyID] || {
                         companyID,
                         companyName,
                         accessType,
-                        allAccess: serviceID === null
+                        allAccess: serviceID === null,
                     }),
                     services: [
                         ...companyServices,
@@ -74,14 +72,14 @@ class CompaniesAccessListContainer extends Component {
                                   state,
                                   inherited,
                                   accessType,
-                                  permissionID
+                                  permissionID,
                               }
-                            : undefined
-                    ]
+                            : undefined,
+                    ],
                 };
                 return acc;
             },
-            {}
+            {},
         );
         return formatted;
     };
@@ -89,19 +87,16 @@ class CompaniesAccessListContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
-        servicesReducer: { services }
-    }
+        servicesReducer: { services },
+    },
 }) => ({
-    services
+    services,
 });
 
 const mapDispatchToProps = dispatch => ({
     showModal: (type, props) => dispatch(showModal(type, props)),
     hideModal: () => dispatch(hideModal()),
-    deleteCompanyPermissions: id => dispatch(deleteCompanyPermissions(id))
+    deleteCompanyPermissions: id => dispatch(deleteCompanyPermissions(id)),
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(CompaniesAccessListContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(CompaniesAccessListContainer);

@@ -5,14 +5,14 @@ import {
     CLIENT_FETCH_SINGLE_FLOOR_SUCCESS,
     CLIENT_FETCH_SINGLE_FLOOR_FAILURE,
     CLIENT_FETCH_ALL_FLOORS_SUCCESS,
-    CLIENT_FETCH_ALL_FLOORS_FAILURE
+    CLIENT_FETCH_ALL_FLOORS_FAILURE,
 } from 'constants/client/actionTypes/clientFloors';
 import { convertArrToObj, updateObj } from 'helpers/generic';
 
 export default combineReducers({
     isFetching: isFetchingReducer,
     error: errorReducer,
-    floors: floorsReducer
+    floors: floorsReducer,
 });
 
 function isFetchingReducer(state = false, action) {

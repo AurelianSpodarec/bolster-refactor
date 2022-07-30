@@ -245,18 +245,21 @@ $box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
   --positive-default: #2DAC57;
   --positive-hover: #36C967;
   --positive-pressed: #268D48;
-  --positive-disabled: #36C967;
+    --positive-disabled: #1B6533;
   --warning-default: #EFC206;
   --negative-default: #F91F2B;
   --negative-light: rgb(182, 45, 55);
-  --negative-hover: #B22724;
-  --negative-pressed: #B22724;
-  --negative-disabled: #B22724;
-  --negative-highlight: #ffdcdb;
+    --negative-hover: #E20612;
+    --negative-pressed: #B22724;
+    --negative-disabled: #B22724;
   --background-default: #FAFAFA;
   --background-container: #FFFFFF;
+  --background-box: #F1F1F3;
+  --inner-box: #AAACB1;
+  --background-container-switched: #2F3037;
   --background-stroke: #F2F2F2;
   --background-secondary: #E1E1E1;
+  --container-greyed-out: #e6e6e6;
   --navigation-primary: #FFFFFF;
   --navigation-secondary: #F1F1F3;
   --navigation-shadow: rgba(200, 198, 198, 0.3);
@@ -265,18 +268,23 @@ $box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
   --typography-greyed-out: #AAACB1;
   --typography-search-header: #AAACB1;
   --typography-search: #AAACB1;
+  --background-button-hover: #AAACB1;
+  --background-box-button-hover: #bbbcc5;
+  --background-button-stroke: #AAACB1;
   --input-default: #FFFFFF;
+  --input-stroke: #AAACB1;
   --pin-installed: #2DAC57;
   --pin-action-required: #B22724;
   --pin-inspected: #3364DD;
   --pin-no-action: #EFC206;
   --pin-other: #990099;
+  --semi-transparent-overlay: rgba(255, 255, 255, 0.5);
 
   // others not in palette (designs)
   // --input-default:  #E5E5E5;
   --input-secondary: rgba(229, 229, 229, 0.25);
   --tools-background: #0000001A;
-  --hover-primary: #F1F1F3;
+  --hover-primary: #FAFAFA;
 
   // text
   --dropdown-text: #F9FAFA;
@@ -298,7 +306,11 @@ $box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
   // from palette (designs)
   --background-default: #212227;
   --background-container: #2F3037;
+  --background-box: #3A3C45;
+  --inner-box: #494C5B;
+  --background-container-switched: #FFFFFF;
   --background-stroke: #494C5B;
+  --input-stroke: #494C5B;
   --background-secondary: #3A3C45;
   --navigation-primary: #3A3C45;
   --navigation-secondary: #525461;
@@ -308,7 +320,13 @@ $box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
   --typography-switched: #212227;
   --typography-search-header: #494C5B;
   --typography-search: #F9FAFA;
+  --container-greyed-out: #696C7C;
+  --typography-greyed-out: #696C7C;
+  --semi-transparent-overlay: rgba(0, 0, 0, 0.5);
 
+    --background-button-hover: #59595F;
+    --background-box-button-hover: #59595F;
+    --background-button-stroke: #59595F;
   //calendar
   --calendar-negative: #fc5c64;
   --calendar-greyed-out: #969696;

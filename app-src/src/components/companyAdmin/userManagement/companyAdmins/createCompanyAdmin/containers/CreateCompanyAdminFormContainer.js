@@ -10,11 +10,16 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { ERROR_MODAL, SUCCESS_MODAL } from 'constants/shared/modalTypes';
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
+import useBolsterPlus from '../../../../subscription/addOns/hooks/useBolsterPlus';
+import useIsAdminPlus from '../../../../../../hooks/useIsAdminPlus';
 
 const CreateCompanyAdminFormContainer = () => {
     const dispatch = useDispatch();
     const { isPosting, postSuccess, error, companyUserID, users } = useSelector(mapStateToProps);
     const prevProps = usePrevious({ postSuccess, error, users });
+    const { isBolsterPlusActivated } = useBolsterPlus();
+    const isAdminPlus = useIsAdminPlus();
+
     const [state, setState] = useState({
         firstName: '',
         lastName: '',
@@ -22,6 +27,7 @@ const CreateCompanyAdminFormContainer = () => {
         phoneNumber: '',
         shouldRestrictPayments: false,
         shouldRestrictPaymentsAccess: true,
+        shouldHaveAdminPlus: false,
     });
 
     componentDidMount(() => {
@@ -65,6 +71,7 @@ const CreateCompanyAdminFormContainer = () => {
     return (
         <CreateCompanyAdminForm
             {...state}
+            canSetAdminPlus={isAdminPlus && isBolsterPlusActivated}
             hideModal={() => dispatch(hideModal())}
             handleInputChange={handleInputChange}
             handleSubmit={handleSubmit}
@@ -79,11 +86,15 @@ const CreateCompanyAdminFormContainer = () => {
     function handleSubmit(e) {
         e.preventDefault();
         if (isPosting) return;
-        const { confirmPassword, shouldRestrictPaymentsAccess, ...rest } = state;
+        const { confirmPassword, shouldRestrictPaymentsAccess, shouldHaveAdminPlus, ...rest } =
+            state;
 
+        const shouldHaveAdminPlusValue = isBolsterPlusActivated && shouldHaveAdminPlus;
         const postBody = {
             ...rest,
-            type: COMPANY_USER_ROLE_TYPES.ADMIN,
+            type: shouldHaveAdminPlusValue
+                ? COMPANY_USER_ROLE_TYPES.ADMIN_PLUS
+                : COMPANY_USER_ROLE_TYPES.ADMIN,
         };
         dispatch(createCompanyUser(postBody));
     }

@@ -5,21 +5,21 @@ import { getHeaders } from 'helpers/api';
 import {
     FETCH_ALL_OPERATIVE_ALERTS_REQUEST,
     FETCH_ALL_OPERATIVE_ALERTS_SUCCESS,
-    FETCH_ALL_OPERATIVE_ALERTS_FAILURE
+    FETCH_ALL_OPERATIVE_ALERTS_FAILURE,
 } from 'constants/actionTypes/operativeAlerts';
 
 export const fetchAllOperativeAlertsRequest = () => ({
-    type: FETCH_ALL_OPERATIVE_ALERTS_REQUEST
+    type: FETCH_ALL_OPERATIVE_ALERTS_REQUEST,
 });
 
 export const fetchAllOperativeAlertsSuccess = payload => ({
     type: FETCH_ALL_OPERATIVE_ALERTS_SUCCESS,
-    payload
+    payload,
 });
 
 export const fetchAllOperativeAlertsFailure = error => ({
     type: FETCH_ALL_OPERATIVE_ALERTS_FAILURE,
-    error
+    error,
 });
 
 export default () => dispatch => {

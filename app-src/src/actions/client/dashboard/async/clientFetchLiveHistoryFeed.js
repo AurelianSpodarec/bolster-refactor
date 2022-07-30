@@ -5,21 +5,21 @@ import { getHeaders } from 'helpers/api';
 import {
     CLIENT_FETCH_LIVE_HISTORIES_REQUEST,
     CLIENT_FETCH_LIVE_HISTORIES_SUCCESS,
-    CLIENT_FETCH_LIVE_HISTORIES_FAILURE
+    CLIENT_FETCH_LIVE_HISTORIES_FAILURE,
 } from 'constants/client/actionTypes/clientDashboard';
 
 export const clientFetchLiveHistoriesRequest = () => ({
-    type: CLIENT_FETCH_LIVE_HISTORIES_REQUEST
+    type: CLIENT_FETCH_LIVE_HISTORIES_REQUEST,
 });
 
 export const clientFetchLiveHistoriesSuccess = payload => ({
     type: CLIENT_FETCH_LIVE_HISTORIES_SUCCESS,
-    payload
+    payload,
 });
 
 export const clientFetchLiveHistoriesFailure = error => ({
     type: CLIENT_FETCH_LIVE_HISTORIES_FAILURE,
-    error
+    error,
 });
 
 export default lastUpdate => dispatch => {
@@ -30,8 +30,6 @@ export default lastUpdate => dispatch => {
             // ! change the url
             .get(`${API_URL}/pins/historyfeed${lastUpdate}`, getHeaders())
             .then(res => dispatch(clientFetchLiveHistoriesSuccess(res.data)))
-            .catch(err =>
-                dispatch(clientFetchLiveHistoriesFailure(err.message))
-            )
+            .catch(err => dispatch(clientFetchLiveHistoriesFailure(err.message)))
     );
 };

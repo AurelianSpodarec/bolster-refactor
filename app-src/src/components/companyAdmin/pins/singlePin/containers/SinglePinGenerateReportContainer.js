@@ -3,10 +3,7 @@ import { connect } from 'react-redux';
 import SinglePinGenerateReport from '../presentational/SinglePinGenerateReport';
 import generateReport from 'actions/companyAdmin/pins/async/generateReport';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import {
-    ERROR_MODAL,
-    SINGLE_PIN_GENERATE_REPORT_SUCCESS
-} from 'constants/shared/modalTypes';
+import { ERROR_MODAL, SINGLE_PIN_GENERATE_REPORT_SUCCESS } from 'constants/shared/modalTypes';
 
 class SinglePinGenerateReportContainer extends Component {
     render() {
@@ -30,7 +27,7 @@ class SinglePinGenerateReportContainer extends Component {
         if (prevProps.isFetching && !isFetching && error) {
             showModal(ERROR_MODAL, {
                 title: 'Error',
-                message: error
+                message: error,
             });
         }
     };
@@ -44,22 +41,19 @@ class SinglePinGenerateReportContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
-        generatePinReportReducer: { isFetching, error, success }
-    }
+        generatePinReportReducer: { isFetching, error, success },
+    },
 }) => ({
     isFetching,
     error,
-    success
+    success,
 });
 
 const mapDispatchToProps = dispatch => ({
     generateReport: pinID => {
         dispatch(generateReport(pinID));
     },
-    showModal: (type, props) => dispatch(showModal(type, props))
+    showModal: (type, props) => dispatch(showModal(type, props)),
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(SinglePinGenerateReportContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(SinglePinGenerateReportContainer);

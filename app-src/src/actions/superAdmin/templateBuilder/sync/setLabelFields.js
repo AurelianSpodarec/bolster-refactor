@@ -4,5 +4,5 @@ export default (labelFields, templateUUID) => dispatch =>
     dispatch({
         type: SET_LABEL_FIELDS,
         labelFields,
-        templateUUID
+        templateUUID,
     });

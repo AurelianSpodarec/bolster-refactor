@@ -2,12 +2,14 @@ import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 
 import Form from 'components/shared/generic/form/containers/Form';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import Field from 'components/shared/generic/form/presentational/Field';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import Select from 'components/shared/generic/form/presentational/Select';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 
 const InviteCompanyForm = ({
     location,
@@ -17,8 +19,6 @@ const InviteCompanyForm = ({
     checkedServices,
     hierarchyType,
     handleChange,
-    templateUsageRule,
-    templateRules,
     showMoreServicesMesssage,
 }) => (
     <>
@@ -48,19 +48,8 @@ const InviteCompanyForm = ({
                     hideDisabled
                 />
             </Field>
-            <Field name="Set Template Usage Rule" required>
-                <Select
-                    placeholder="-- select rule --"
-                    name={'templateUsageRule'}
-                    options={templateRules}
-                    value={templateUsageRule}
-                    selectedOption={templateUsageRule}
-                    onChange={handleChange}
-                    required
-                />
-            </Field>
 
-            <BlockButtonWrapper>
+            <FlexWrapper>
                 {showMoreServicesMesssage && (
                     <p className="generic-text size-lg-12">
                         Looking for more service types? Check your{' '}
@@ -71,14 +60,15 @@ const InviteCompanyForm = ({
                     </p>
                 )}
 
-                <button className="button green">
-                    <i className="fa fa-plus" />
-                    Invite Company
-                </button>
-                <Link to={location.pathname.replace('/invite-company', '')} className="button">
-                    Cancel
-                </Link>
-            </BlockButtonWrapper>
+                <ButtonWrapper alignment="right">
+                    <LinkButton
+                        source="secondary"
+                        text="Cancel"
+                        href={location.pathname.replace('/invite-company', '')}
+                    />
+                    <ActionButton type="submit" text="Confirm" icon="check" />
+                </ButtonWrapper>
+            </FlexWrapper>
         </Form>
     </>
 );

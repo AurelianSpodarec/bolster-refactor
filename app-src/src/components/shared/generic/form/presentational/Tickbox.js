@@ -1,0 +1,23 @@
+import React from 'react';
+
+const Tickbox = ({ checked, handleChange, name, value, classes = '', label, disabled = false }) => {
+    return (
+        <label className={`tickbox ${classes}`}>
+            <input
+                type="checkbox"
+                checked={checked}
+                name={name}
+                onClick={({ target: { name, checked, value } }) =>
+                    handleChange(name, checked, value)
+                }
+                onChange={() => {}} // Stops error
+                value={value}
+                disabled={disabled}
+            />
+            <span className="checkmark"></span>
+            <p>{label}</p>
+        </label>
+    );
+};
+
+export default Tickbox;

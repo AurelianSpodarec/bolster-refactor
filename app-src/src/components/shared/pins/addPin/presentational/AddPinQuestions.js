@@ -11,10 +11,11 @@ const AddPinQuestions = ({
     sectionIDs,
     isSameTemplate,
     pinAnswersByGroupKey,
-    dropdownOptionsByType,
     oldAnswersByNameObj,
     template,
     latestPinHistory,
+    pinOptions,
+    drawingID,
 }) => {
     const answersCacheKey = `answersCache#${selectedVersion.id}`;
     return [...sections]
@@ -35,13 +36,14 @@ const AddPinQuestions = ({
                                 sectionIDs={sectionIDs}
                                 isSameTemplate={isSameTemplate}
                                 pinAnswersByGroupKey={pinAnswersByGroupKey}
-                                dropdownOptionsByType={dropdownOptionsByType}
                                 oldAnswersByNameObj={oldAnswersByNameObj}
                                 template={template}
                                 latestPinHistory={latestPinHistory}
                                 cachedAnswers={
                                     JSON.parse(localStorage.getItem(answersCacheKey)) || null
                                 }
+                                pinOptions={pinOptions}
+                                drawingID={drawingID}
                             />
                         ))}
                 </div>
@@ -49,4 +51,4 @@ const AddPinQuestions = ({
         ));
 };
 
-export default AddPinQuestions;
+export default React.memo(AddPinQuestions);

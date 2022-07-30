@@ -1,9 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import PieChart from 'components/shared/stats/presentational/PieChart';
 import SiteDetails from './SiteDetails';
 import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import ActionMenu from 'components/shared/actionMenu/ActionMenu';
+import ActionMenuLinkButton from 'components/shared/actionMenu/ActionMenuLinkButton';
+import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
 
 const SiteStats = ({
     site,
@@ -12,6 +17,7 @@ const SiteStats = ({
     handleArchive,
     onMobile,
     handleEditSiteModal,
+    handleEditSitePinOptionSetsModal,
     handleChange,
     serviceID,
     serviceOptions,
@@ -48,41 +54,67 @@ const SiteStats = ({
         </div>
 
         <div className="button-container relative-position">
-            {site.accessType === ACCESS_TYPES_VALUES.OWNER && (
-                <>
-                    <button className="button red" onClick={handleDelete} type="button">
-                        <i className="far fa-trash-alt fa-fw" /> Delete
-                    </button>
-                    <button className="button yellow" onClick={handleEditSiteModal}>
-                        <i className="far fa-pencil fa-fw" /> Edit
-                    </button>
-                    <Link className="button" to={`/company/sites/${site.id}/change-ownership`}>
-                        <i className="fa fa-exchange" /> Change Ownership
-                    </Link>
-                    <button className="button red" onClick={handleViewDrawingExpiryModal}>
-                        <i className="far fa-clock fa-fw" /> Drawing Expiry
-                    </button>
-                </>
-            )}
-
-            <button className="button blue" onClick={handleArchive} type="button">
-                <i className="fa fa-archive" />
-                {site.isArchived ? 'Un-Archive' : 'Archive'}
-            </button>
-
-            <button className="button yellow" type="button" onClick={handleViewHierarchyAlerts}>
-                <i className="fa fa-eye" />
-                View Alerts
-            </button>
-
-            <button
-                className="button green"
-                type="button"
-                onClick={handleCreateHierarchyAlertModal}
-            >
-                <i className="fa fa-plus" />
-                Create Alert
-            </button>
+            <FlexWrapper>
+                <ButtonWrapper alignment="right">
+                    <ActionMenu extraClasses="to-the-right">
+                        {site.accessType === ACCESS_TYPES_VALUES.OWNER && (
+                            <>
+                                <ActionMenuLinkButton
+                                    href={`/company/sites/${site.id}/change-ownership`}
+                                    text="Change Ownership"
+                                />
+                                <ActionMenuActionButton
+                                    onClick={handleViewDrawingExpiryModal}
+                                    text="Drawing Expiry"
+                                />
+                            </>
+                        )}
+                        <ActionMenuActionButton
+                            onClick={handleArchive}
+                            text={site.isArchived ? 'Un-Archive' : 'Archive'}
+                        />
+                        {site.accessType === ACCESS_TYPES_VALUES.OWNER && (
+                            <ActionMenuActionButton
+                                onClick={handleDelete}
+                                text="Delete"
+                                isNegative
+                            />
+                        )}
+                    </ActionMenu>
+                    {site.accessType === ACCESS_TYPES_VALUES.OWNER && (
+                        <ActionButton
+                            source="secondary"
+                            ambient="positive"
+                            onClick={handleEditSiteModal}
+                            type="button"
+                            icon="pencil"
+                            text="Edit"
+                        />
+                    )}
+                    <ActionButton
+                        source="secondary"
+                        ambient="positive"
+                        onClick={handleEditSitePinOptionSetsModal}
+                        icon="pencil"
+                        text="Edit Pin Options"
+                    />
+                    <ActionButton
+                        source="secondary"
+                        ambient="positive"
+                        onClick={handleViewHierarchyAlerts}
+                        icon="eye"
+                        text="View Alerts"
+                        type="button"
+                    />
+                    <ActionButton
+                        ambient="positive"
+                        onClick={handleCreateHierarchyAlertModal}
+                        icon="plus"
+                        text="Create Alert"
+                        type="button"
+                    />
+                </ButtonWrapper>
+            </FlexWrapper>
         </div>
     </div>
 );

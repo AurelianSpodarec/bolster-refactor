@@ -5,21 +5,21 @@ import { getHeaders } from 'helpers/api';
 import {
     FETCH_DRAWING_SHARE_LINKS_REQUEST,
     FETCH_DRAWING_SHARE_LINKS_SUCCESS,
-    FETCH_DRAWING_SHARE_LINKS_FAILURE
+    FETCH_DRAWING_SHARE_LINKS_FAILURE,
 } from 'constants/actionTypes/drawings';
 
 export const fetchDrawingShareLinksRequest = () => ({
-    type: FETCH_DRAWING_SHARE_LINKS_REQUEST
+    type: FETCH_DRAWING_SHARE_LINKS_REQUEST,
 });
 
 export const fetchDrawingShareLinksSuccess = payload => ({
     type: FETCH_DRAWING_SHARE_LINKS_SUCCESS,
-    payload
+    payload,
 });
 
 export const fetchDrawingShareLinksFailure = error => ({
     type: FETCH_DRAWING_SHARE_LINKS_FAILURE,
-    error
+    error,
 });
 
 export default id => dispatch => {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { batch, connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import { ADD_TEMPLATE_SECTION, SUCCESS_MODAL, ERROR_MODAL } from 'constants/shared/modalTypes';
@@ -13,8 +13,10 @@ import TemplateBuilder from '../presentational/TemplateBuilder';
 import { isEmpty } from 'helpers/generic';
 import fetchTemplateForCompany from 'actions/superAdmin/companies/async/fetchTemplateForCompany';
 import deleteTemplate from 'actions/superAdmin/templateBuilder/async/deleteTemplate';
-import fetchCompanyDropdownOptions from 'actions/superAdmin/templateBuilder/async/fetchCompanyDropdownOptions';
-import fetchCompanyManufacturingOptions from 'actions/superAdmin/templateBuilder/async/fetchCompanyManufacturingOptions';
+import fetchPinOptionsForCompany from '../../../../../actions/superAdmin/pinOptions/async/fetchPinOptionsForCompany';
+import fetchPinOptionVersionsForCompany from '../../../../../actions/superAdmin/pinOptions/async/fetchPinOptionVersionsForCompany';
+import fetchPinOptionSetsForCompany from '../../../../../actions/superAdmin/pinOptions/async/fetchPinOptionSetsForCompany';
+import fetchPinOptionTypes from '../../../../../actions/superAdmin/pinOptions/async/fetchPinOptionTypes';
 
 class TemplateBuilderContainer extends Component {
     render() {
@@ -139,11 +141,15 @@ const mapDispatchToProps = (
     hideModal: () => dispatch(hideModal()),
 
     fetchPageData: templateUUID => {
-        dispatch(fetchTemplateForCompany(companyID, templateUUID));
-        dispatch(fetchAllServices());
-        dispatch(fetchSingleCompany(companyID));
-        dispatch(fetchCompanyDropdownOptions(companyID));
-        dispatch(fetchCompanyManufacturingOptions(companyID));
+        batch(() => {
+            dispatch(fetchTemplateForCompany(companyID, templateUUID));
+            dispatch(fetchAllServices());
+            dispatch(fetchPinOptionTypes());
+            dispatch(fetchPinOptionSetsForCompany(companyID));
+            dispatch(fetchPinOptionsForCompany(companyID));
+            dispatch(fetchPinOptionVersionsForCompany(companyID));
+            dispatch(fetchSingleCompany(companyID));
+        });
     },
 
     deleteTemplate: templateUUID => dispatch(deleteTemplate(templateUUID)),

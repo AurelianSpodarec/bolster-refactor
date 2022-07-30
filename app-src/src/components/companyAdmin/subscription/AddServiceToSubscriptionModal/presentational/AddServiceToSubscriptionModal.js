@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import Form from 'components/shared/generic/form/containers/Form';
@@ -10,7 +10,7 @@ import DropdownContainer from 'components/shared/generic/form/containers/Dropdow
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import { formatNumber } from 'helpers/generic';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
-import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
+import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 
 const AddServiceToSubscriptionModal = ({
     handleSubmit,
@@ -22,7 +22,6 @@ const AddServiceToSubscriptionModal = ({
     service,
     proRataCost,
     noCards,
-    termsAgreed,
 }) => (
     <ModalOuterContainer>
         <BlockHeading title="Add service to your subscription" />
@@ -81,23 +80,6 @@ const AddServiceToSubscriptionModal = ({
                     />
                 </Field>
             )}
-            <div className="size-lg-6 size-md-12">
-                <Field name="Agree to terms" required>
-                    <p className="generic-text size-lg-12">
-                        Please check that you agree with the{' '}
-                        <Link to="/auth/terms" target="_blank" className="switched">
-                            sales terms
-                        </Link>{' '}
-                        to proceed with payment.
-                    </p>
-                    <CheckboxContainer
-                        checked={termsAgreed}
-                        handleChange={handleChange}
-                        name={'termsAgreed'}
-                        required
-                    />
-                </Field>
-            </div>
 
             <BlockButtonWrapper>
                 <button className="button green" type="submit">
@@ -105,6 +87,18 @@ const AddServiceToSubscriptionModal = ({
                 </button>
                 <ButtonContainer handleClick={hideModal}>Cancel</ButtonContainer>
             </BlockButtonWrapper>
+            <FlexWrapper justify="end">
+                <p>
+                    Upon clicking 'Buy' you are agreeing to Bolster Systems {''}
+                    <a
+                        href="/auth/terms"
+                        target="_blank"
+                        className="switched underline text-colour "
+                    >
+                        sales terms.
+                    </a>
+                </p>
+            </FlexWrapper>
         </Form>
     </ModalOuterContainer>
 );

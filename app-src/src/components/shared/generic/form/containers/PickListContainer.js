@@ -41,7 +41,7 @@ const PickListContainer = ({
         handleChange(name, newValue);
     };
 
-    useEffect(() => _validate(), [value, _validate]);
+    useEffect(() => _validate(), [value]);
 
     return (
         <PickList

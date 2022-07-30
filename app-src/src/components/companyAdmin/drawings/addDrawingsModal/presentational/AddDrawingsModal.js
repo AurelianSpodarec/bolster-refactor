@@ -2,30 +2,25 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import AddDrawingsFormContainer from '../containers/AddDrawingsFormContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
+import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
 
 const AddDrawingsModal = ({ floorID, isUsingBolsterLabels }) => (
-    <ModalOuterContainer
+    <FlexModalOuter
+        title="Create Drawings"
         extraClasses={`${isUsingBolsterLabels ? 'w-label-example' : ''}`}
     >
-        <BlockHeading title={'Create Drawings'} />
-
-        <AddDrawingsFormContainer
-            floorID={floorID}
-            isUsingBolsterLabels={isUsingBolsterLabels}
-        />
-    </ModalOuterContainer>
+        <AddDrawingsFormContainer floorID={floorID} isUsingBolsterLabels={isUsingBolsterLabels} />
+    </FlexModalOuter>
 );
 
 const mapStateToProps = ({
     companyAdmin: {
         companySettingsReducer: {
-            companySettings: { isUsingBolsterLabels }
-        }
-    }
+            companySettings: { isUsingBolsterLabels },
+        },
+    },
 }) => ({
-    isUsingBolsterLabels
+    isUsingBolsterLabels,
 });
 
 export default connect(mapStateToProps)(AddDrawingsModal);

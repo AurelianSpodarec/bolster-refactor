@@ -4,14 +4,14 @@ import {
     SET_TABS,
     SELECT_TAB,
     SET_MENU_TABS,
-    SELECT_MENU_TAB
+    SELECT_MENU_TAB,
 } from 'constants/actionTypes/generic';
 
 export default combineReducers({
     tabs: tabsReducer,
     selectedTab: selectedTabReducer,
     menuTabs: menuTabsReducer,
-    selectedMenuTab: selectedMenuTabReducer
+    selectedMenuTab: selectedMenuTabReducer,
 });
 
 function tabsReducer(state = [], action) {
@@ -22,10 +22,7 @@ function tabsReducer(state = [], action) {
             return state;
     }
 }
-function menuTabsReducer(
-    state = ['Super Admin', 'Admin', 'Client Access'],
-    action
-) {
+function menuTabsReducer(state = ['Super Admin', 'Admin', 'Client Access'], action) {
     switch (action.type) {
         case SET_MENU_TABS:
             return action.menuTabs;

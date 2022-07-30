@@ -3,29 +3,12 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PinAnswer from '../presentational/PinAnswer';
 
-import { convertManufacturersOptionsToObject } from 'helpers/manufacturers';
-
-const PinAnswersContainer = ({
-    questionType,
-    questions,
-    questionsObj,
-    pinAnswers,
-    pinHistory,
-    status,
-    relevantAnswer,
-    question,
-    optionValuesLookup,
-}) => (
+const PinAnswersContainer = ({ questionType, pinAnswers, relevantAnswer, question }) => (
     <PinAnswer
         question={question}
         answers={pinAnswers}
         trimmedAnswer={relevantAnswer}
-        questions={questions}
-        questionsObj={questionsObj}
         type={questionType}
-        pinHistory={pinHistory}
-        status={status}
-        optionValuesLookup={optionValuesLookup}
     />
 );
 
@@ -33,25 +16,19 @@ const mapStateToProps = (
     {
         companyAdmin: {
             pinAnswersReducer: { answers },
-            templateQuestionsReducer: { questions },
-            manufacturersOptionValuesReducer: { manufacturersOptionValues },
         },
     },
     { questionID, pinHistory },
 ) => {
     const pinAnswers = Object.values(answers);
     return {
-        status: pinHistory.status,
         pinAnswers,
-        questions: Object.values(questions),
-        questionsObj: questions,
         relevantAnswer:
             pinAnswers.find(
                 answer =>
                     answer.templateQuestionID === questionID &&
                     answer.pinHistoryID === pinHistory.id,
             ) || {},
-        optionValuesLookup: convertManufacturersOptionsToObject(manufacturersOptionValues),
     };
 };
 

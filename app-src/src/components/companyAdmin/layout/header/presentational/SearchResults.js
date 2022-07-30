@@ -7,7 +7,9 @@ import Loading from 'components/shared/generic/misc/presentational/Loading';
 const SearchResults = ({ results, error, handleLinkClick, isLoading }) =>
     error ? (
         <Error>{error}</Error>
-    ) : isLoading && results && !results.length ? <Loading /> : results && results.length ? (
+    ) : isLoading && results && !results.length ? (
+        <Loading />
+    ) : results && results.length ? (
         results.map(result => (
             <Link
                 to={`/company/${result.type}/${result.hierarchyID}`}
@@ -18,7 +20,7 @@ const SearchResults = ({ results, error, handleLinkClick, isLoading }) =>
             </Link>
         ))
     ) : (
-            <Link to="#">No results found</Link>
-        );
+        <Link to="#">No results found</Link>
+    );
 
 export default SearchResults;

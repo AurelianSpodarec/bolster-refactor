@@ -5,21 +5,21 @@ import { getHeaders } from 'helpers/api';
 import {
     FETCH_PINS_REQUEST,
     FETCH_PINS_SUCCESS,
-    FETCH_PINS_FAILURE
+    FETCH_PINS_FAILURE,
 } from 'constants/actionTypes/pins';
 
 export const fetchPinsRequest = () => ({
-    type: FETCH_PINS_REQUEST
+    type: FETCH_PINS_REQUEST,
 });
 
 export const fetchPinsSuccess = payload => ({
     type: FETCH_PINS_SUCCESS,
-    payload
+    payload,
 });
 
 export const fetchPinsFailure = error => ({
     type: FETCH_PINS_FAILURE,
-    error
+    error,
 });
 
 export default (type, id) => dispatch => {

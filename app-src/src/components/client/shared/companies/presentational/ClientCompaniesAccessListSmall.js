@@ -4,14 +4,10 @@ import { Link } from 'react-router-dom';
 import {
     COMPANY_USER_ROLE_TYPES,
     PERMISSION_STATES,
-    ACCESS_TYPES
+    ACCESS_TYPES,
 } from 'constants/companyAdmin/enums';
 
-const CompaniesAccessListSmall = ({
-    companies,
-    parentId,
-    handleRemovePermission
-}) =>
+const CompaniesAccessListSmall = ({ companies, parentId, handleRemovePermission }) =>
     companies.map(company => (
         <React.Fragment key={`${company.companyID} - ${parentId}`}>
             <tr>
@@ -26,9 +22,7 @@ const CompaniesAccessListSmall = ({
                     ) : (
                         <>
                             <Link
-                                to={`${parentId}/add-permissions/${
-                                    company.companyID
-                                }`}
+                                to={`${parentId}/add-permissions/${company.companyID}`}
                                 className="button icon-only green"
                             >
                                 <i className="far fa-plus fa-fw" />
@@ -42,8 +36,7 @@ const CompaniesAccessListSmall = ({
                     !!service && (
                         <tr key={service.serviceID + company.id}>
                             <td>
-                                {service.state ===
-                                    PERMISSION_STATES.PENDING && (
+                                {service.state === PERMISSION_STATES.PENDING && (
                                     <i>
                                         (Pending) <br />
                                     </i>
@@ -58,7 +51,7 @@ const CompaniesAccessListSmall = ({
                                         onClick={() => {
                                             handleRemovePermission(
                                                 service.permissionID,
-                                                service.serviceName
+                                                service.serviceName,
                                             );
                                         }}
                                         className="button red icon-only"
@@ -68,7 +61,7 @@ const CompaniesAccessListSmall = ({
                                 )}
                             </td>
                         </tr>
-                    )
+                    ),
             )}
         </React.Fragment>
     ));

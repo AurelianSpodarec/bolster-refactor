@@ -3,6 +3,8 @@ import React from 'react';
 import { ADD_MULTIPLE_SERVICES_TO_SUBSCRIPTION } from 'constants/shared/modalTypes';
 import StatusIcon from 'components/shared/generic/statusIcon/presentationl/StatusIcon';
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 
 const AddServiceItem = ({ service, showModal, canEdit }) => {
     if (canEdit)
@@ -12,16 +14,18 @@ const AddServiceItem = ({ service, showModal, canEdit }) => {
                     <StatusIcon classes="add" iconClass="fa fa-plus" />
                     <label>{service.name}</label>
                 </div>
-
-                <button
-                    className="button green"
-                    onClick={e => {
-                        e.preventDefault();
-                        showModal(ADD_MULTIPLE_SERVICES_TO_SUBSCRIPTION, { serviceID: service.id });
-                    }}
-                >
-                    Add
-                </button>
+                <ButtonWrapper alignment="right">
+                    <ActionButton
+                        text="Add"
+                        o
+                        onClick={e => {
+                            e.preventDefault();
+                            showModal(ADD_MULTIPLE_SERVICES_TO_SUBSCRIPTION, {
+                                serviceID: service.id,
+                            });
+                        }}
+                    />
+                </ButtonWrapper>
             </div>
         );
 
@@ -33,7 +37,7 @@ const AddServiceItem = ({ service, showModal, canEdit }) => {
             </div>
             <TooltipContainer
                 side="top"
-                text="You can add new services when your new subsciption begins."
+                text="You can add new services when your new subscription begins."
             >
                 <button
                     type="button"

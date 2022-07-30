@@ -1,0 +1,26 @@
+.measurement-fields-grid {
+    display: grid;
+    grid-template-columns: 2fr 120px 120px 50px;
+    width: 100%;
+    align-items: center;
+
+    .form-field {
+        min-height: 0;
+
+        .title {
+            margin-bottom: 0;
+        }
+    }
+
+    &.grey-out {
+        opacity: 0.3;
+      }
+
+    &.large-input {
+        grid-template-columns: 4fr 50px;
+    }
+
+    &.fixed-price {
+        grid-template-columns: 2fr 2fr 50px;
+    }
+}

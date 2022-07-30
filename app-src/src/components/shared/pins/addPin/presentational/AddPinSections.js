@@ -1,17 +1,18 @@
 import React from 'react';
 import AddPinQuestionsContainer from '../containers/AddPinQuestionsContainer';
 
-const AddPinSections = ({ 
-    sections, 
-    selectedVersion, 
-    isHistory, 
-    sectionIDs, 
-    isSameTemplate, 
-    pinAnswersByGroupKey, 
-    dropdownOptionsByType, 
-    oldAnswersByNameObj, 
+const AddPinSections = ({
+    sections,
+    selectedVersion,
+    isHistory,
+    sectionIDs,
+    isSameTemplate,
+    pinAnswersByGroupKey,
+    oldAnswersByNameObj,
     template,
-    latestPinHistory
+    latestPinHistory,
+    pinOptions,
+    drawingID,
 }) => (
     <AddPinQuestionsContainer
         isHistory={isHistory}
@@ -20,10 +21,11 @@ const AddPinSections = ({
         sectionIDs={sectionIDs}
         isSameTemplate={isSameTemplate}
         pinAnswersByGroupKey={pinAnswersByGroupKey}
-        dropdownOptionsByType={dropdownOptionsByType}
         oldAnswersByNameObj={oldAnswersByNameObj}
         template={template}
         latestPinHistory={latestPinHistory}
+        pinOptions={pinOptions}
+        drawingID={drawingID}
     />
 );
 

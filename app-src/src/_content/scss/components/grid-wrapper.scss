@@ -1,0 +1,8 @@
+.grid-wrapper {
+    display: grid;
+
+    &.horizontal-margin {
+        margin-left: 10px;
+        margin-right: 10px;
+    }    
+}

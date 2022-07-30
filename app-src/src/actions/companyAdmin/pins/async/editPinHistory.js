@@ -7,21 +7,21 @@ import { getHeaders } from 'helpers/api';
 import {
     EDIT_PIN_HISTORY_REQUEST,
     EDIT_PIN_HISTORY_SUCCESS,
-    EDIT_PIN_HISTORY_FAILURE
+    EDIT_PIN_HISTORY_FAILURE,
 } from 'constants/actionTypes/pins';
 
 export const editPinHistoryRequest = () => ({
-    type: EDIT_PIN_HISTORY_REQUEST
+    type: EDIT_PIN_HISTORY_REQUEST,
 });
 
 export const editPinHistorySuccess = payload => ({
     type: EDIT_PIN_HISTORY_SUCCESS,
-    payload
+    payload,
 });
 
 export const editPinHistoryFailure = error => ({
     type: EDIT_PIN_HISTORY_FAILURE,
-    error
+    error,
 });
 
 export default (pinHistoryID, postBody) => dispatch => {

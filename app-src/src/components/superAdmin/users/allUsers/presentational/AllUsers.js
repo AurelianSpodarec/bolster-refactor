@@ -6,7 +6,7 @@ import UsersFiltersContainer from '../containers/UsersFiltersContainer';
 
 const AllUsers = () => (
     <>
-        <PageHeading title="Users" withBackButton />
+        <PageHeading title="Users" />
         <BlockContainer>
             <UsersFiltersContainer />
         </BlockContainer>

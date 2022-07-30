@@ -3,11 +3,7 @@ import TransferRequestListItemContainer from '../containers/TransferRequestListI
 
 const TransferRequestsList = ({ requests, headers }) =>
     requests.map(request => (
-        <TransferRequestListItemContainer
-            key={request.id}
-            request={request}
-            headers={headers}
-        />
+        <TransferRequestListItemContainer key={request.id} request={request} headers={headers} />
     ));
 
 export default TransferRequestsList;

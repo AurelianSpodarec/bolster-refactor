@@ -13,6 +13,9 @@ import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import fetchCard from 'actions/companyAdmin/cards/async/fetchCard';
 import setPrimaryCard from 'actions/companyAdmin/cards/async/setPrimaryCard';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 
 class CheckoutForm extends Component {
     state = {
@@ -78,6 +81,7 @@ class CheckoutForm extends Component {
 
     render() {
         const { name, errorMessage, nameProvided } = this.state;
+        const { hideModal } = this.props;
         const isDarkMode = JSON.parse(localStorage.getItem('isDarkModeEnabled'));
 
         const createOptions = () => {
@@ -99,68 +103,89 @@ class CheckoutForm extends Component {
         };
 
         return (
-            <form onSubmit={this.submit}>
-                <div className="checkout">
-                    <Field name="Name on card" sizeClasses="size-lg-4 size-md-12" required>
-                        <TextInputContainer
-                            value={name}
-                            name="name"
-                            type="text"
-                            placeholder="Please enter your card name"
-                            handleChange={this.handleChange}
-                        />
-                    </Field>
-                    <div className="size-lg-12">
-                        <Field
-                            name="Card number"
-                            sizeClasses="size-lg-4 size-md-12 stripe-text-input"
-                            required
-                        >
-                            <CardNumberElement {...createOptions()} onChange={this.handleChange} />
+            <form className="flex-content-wrapper" onSubmit={this.submit}>
+                <div className="flex-content">
+                    <div className="form-fields-container">
+                        <Field name="Name on card" sizeClasses="size-lg-4 size-md-12" required>
+                            <TextInputContainer
+                                value={name}
+                                name="name"
+                                type="text"
+                                placeholder="Please enter your card name"
+                                handleChange={this.handleChange}
+                            />
                         </Field>
-                        <Field
-                            name="Expiration date"
-                            sizeClasses="size-lg-4 size-md-12 stripe-text-input"
-                            required
-                        >
-                            <CardExpiryElement {...createOptions()} onChange={this.handleChange} />
-                        </Field>
-                        <Field
-                            name="CVC"
-                            sizeClasses="size-lg-4 size-md-12 stripe-text-input"
-                            required
-                        >
-                            <CardCVCElement {...createOptions()} onChange={this.handleChange} />
-                        </Field>
-                        {errorMessage && nameProvided ? (
-                            <div
-                                className="size-lg-12"
-                                style={{ paddingLeft: 7.5, paddingRight: 7.5, marginBottom: 15 }}
+                        <div className="size-lg-12">
+                            <Field
+                                name="Card number"
+                                sizeClasses="size-lg-4 size-md-12 stripe-text-input"
+                                required
                             >
-                                <p className="info-message error size-lg-12">{errorMessage}</p>
-                            </div>
-                        ) : (
-                            <></>
-                        )}
-                        {!nameProvided ? (
-                            <div
-                                className="size-lg-12"
-                                style={{ paddingLeft: 7.5, paddingRight: 7.5, marginBottom: 15 }}
+                                <CardNumberElement
+                                    {...createOptions()}
+                                    onChange={this.handleChange}
+                                />
+                            </Field>
+                            <Field
+                                name="Expiration date"
+                                sizeClasses="size-lg-4 size-md-12 stripe-text-input"
+                                required
                             >
-                                <p className="info-message error size-lg-12">
-                                    You must provide a card name.
-                                </p>
-                            </div>
-                        ) : (
-                            <></>
-                        )}
-                        <div className="size-lg-12" style={{ paddingLeft: 7.5, paddingRight: 7.5 }}>
-                            <button className="button green pull-right" onClick={this.clickSubmit}>
-                                Submit
-                            </button>
+                                <CardExpiryElement
+                                    {...createOptions()}
+                                    onChange={this.handleChange}
+                                />
+                            </Field>
+                            <Field
+                                name="CVC"
+                                sizeClasses="size-lg-4 size-md-12 stripe-text-input"
+                                required
+                            >
+                                <CardCVCElement {...createOptions()} onChange={this.handleChange} />
+                            </Field>
+                            {errorMessage && nameProvided ? (
+                                <div
+                                    className="size-lg-12"
+                                    style={{
+                                        paddingLeft: 7.5,
+                                        paddingRight: 7.5,
+                                        marginBottom: 15,
+                                    }}
+                                >
+                                    <p className="info-message error size-lg-12">{errorMessage}</p>
+                                </div>
+                            ) : (
+                                <></>
+                            )}
+                            {!nameProvided ? (
+                                <div
+                                    className="size-lg-12"
+                                    style={{
+                                        paddingLeft: 7.5,
+                                        paddingRight: 7.5,
+                                        marginBottom: 15,
+                                    }}
+                                >
+                                    <p className="info-message error size-lg-12">
+                                        You must provide a card name.
+                                    </p>
+                                </div>
+                            ) : (
+                                <></>
+                            )}
                         </div>
                     </div>
                 </div>
+
+                <ButtonWrapper alignment="right" extraClasses="flex-modal-footer">
+                    <ActionButton text="Cancel" onClick={() => hideModal()} source="secondary" />
+                    <ActionButton
+                        text="Confirm"
+                        icon="check"
+                        onClick={this.clickSubmit}
+                        type="submit"
+                    />
+                </ButtonWrapper>
             </form>
         );
     }
@@ -191,5 +216,6 @@ const mapStateToProps = ({
 const mapDispatchToProps = {
     fetchCard,
     setPrimaryCard,
+    hideModal,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(injectStripe(CheckoutForm));

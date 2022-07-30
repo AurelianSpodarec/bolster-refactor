@@ -1,116 +1,71 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 import fetchSinglePin from 'actions/companyAdmin/pins/async/fetchSinglePin';
 import fetchPinTemplates from 'actions/companyAdmin/pins/async/fetchPinTemplates';
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 import SinglePin from '../presentational/SinglePin';
 import fetchDrawingTemplates from 'actions/companyAdmin/drawings/async/fetchDrawingTemplates';
-import fetchDrawingDropdownOptions from 'actions/companyAdmin/drawings/async/fetchDrawingDropdownOptions';
 import fetchAllPinsForDrawing from 'actions/companyAdmin/pins/async/fetchAllPinsForDrawing';
-import fetchAllOptionValues from 'actions/companyAdmin/manufacturers/async/fetchAllOptionValues';
 import fetchZonesByDrawingID from 'actions/companyAdmin/zones/async/fetchZonesByDrawingID';
-import fetchAllOptionValuesForDrawing from 'actions/companyAdmin/manufacturers/async/fetchAllOptionValuesForDrawing';
+import { componentDidMount } from '../../../../../helpers/generic';
+import { selectPin } from '../../../../../selectors/companyAdmin/pins';
+import fetchPinOptionVersions from '../../../../../actions/companyAdmin/pinOptions/async/fetchPinOptionVersions';
+import fetchPinOptionTypes from 'actions/companyAdmin/pinOptions/async/fetchPinOptionTypes';
+import fetchPinOptionVersionsForPinID from 'actions/companyAdmin/pinOptions/async/fetchPinOptionVersionsForPinID';
 
-class SinglePinContainer extends Component {
-    state = { isLoading: true };
-    render = () => (
-        <SinglePin
-            isLoading={this.state.isLoading}
-            pin={this.props.pin}
-            pinTasks={this.formatPinTasks}
-        />
-    );
+const SinglePinContainer = ({ singlePinTasks }) => {
+    const dispatch = useDispatch();
+    const [isLoading, setIsLoading] = useState(true);
+    const { id: pinID } = useParams();
+    const pin = useSelector(state => selectPin(state, pinID));
 
-    componentDidMount = () => {
-        this.fetchPin();
-    };
+    componentDidMount(fetchPin);
+    useEffect(() => {
+        if (pinID) dispatch(fetchPin);
+        dispatch(fetchPinOptionTypes());
+    }, [pinID]);
 
-    componentDidUpdate = prevProps => {
-        const { pinId } = this.props;
+    return <SinglePin isLoading={isLoading} pin={pin} pinTasks={formatPinTasks} />;
 
-        if (prevProps.pinId !== pinId && pinId) {
-            this.fetchPin();
-        }
-    };
+    function formatPinTasks() {
+        return singlePinTasks?.map(task => {
+            return {
+                ...task,
+                taskType: task.taskType.replace('_', ' '),
+                taskStatus: task.taskStatus.replace('_', ' '),
+            };
+        });
+    }
 
-    fetchPin = () => {
-        const {
-            pinId,
-            fetchSinglePinData,
-            fetchSinglePin,
-            fetchPinsForInspectionLog,
-            fetchAllOptionValues,
-            fetchAllOptionValuesForDrawing,
-            fetchZonesByDrawingID,
-        } = this.props;
-
+    function fetchPin() {
         let drawingID = null;
 
-        fetchAllOptionValues();
-
-        fetchSinglePin(pinId)
+        dispatch(fetchPinOptionVersions()).then(() =>
+            dispatch(fetchPinOptionVersionsForPinID(pinID)),
+        );
+        dispatch(fetchSinglePin(pinID))
             .then(({ payload }) => {
                 drawingID = payload.pin.drawingID;
                 if (drawingID) {
-                    fetchZonesByDrawingID(drawingID);
-                    fetchPinsForInspectionLog(drawingID, pinId);
-                    return fetchSinglePinData(pinId, drawingID);
+                    dispatch(fetchZonesByDrawingID(drawingID));
+                    dispatch(fetchAllPinsForDrawing(drawingID, pinID));
+                    return Promise.all([
+                        dispatch(fetchPinTemplates(pinID)),
+                        dispatch(fetchCompanyUsers()),
+                        dispatch(fetchDrawingTemplates(drawingID)),
+                        dispatch(fetchZonesByDrawingID(drawingID)),
+                    ]);
                 }
             })
             .then(() => {
-                this.setState({ isLoading: false });
+                setIsLoading(false);
                 if (drawingID) {
-                    fetchPinsForInspectionLog(drawingID, pinId);
-                    fetchAllOptionValuesForDrawing(drawingID);
+                    dispatch(fetchAllPinsForDrawing(drawingID, pinID));
                 }
             });
-    };
+    }
+};
 
-    formatPinTasks = () => {
-        const { singlePinTasks } = this.props;
-        if (singlePinTasks) {
-            return singlePinTasks.map(task => {
-                return {
-                    ...task,
-                    taskType: task.taskType.replace('_', ' '),
-                    taskStatus: task.taskStatus.replace('_', ' '),
-                };
-            });
-        }
-    };
-}
-
-const mapStateToProps = (
-    {
-        companyAdmin: {
-            pinsReducer: { pins },
-        },
-    },
-    { match: { params } },
-) => ({
-    pinId: params.id,
-    pin: pins[params.id],
-});
-
-const mapDispatchToProps = dispatch => ({
-    fetchSinglePinData: (id, drawingID) => {
-        return Promise.all([
-            dispatch(fetchPinTemplates(id)),
-            dispatch(fetchCompanyUsers()),
-            dispatch(fetchDrawingTemplates(drawingID)),
-            dispatch(fetchDrawingDropdownOptions(drawingID)),
-            dispatch(fetchZonesByDrawingID(drawingID)),
-        ]);
-    },
-    fetchSinglePin: id => dispatch(fetchSinglePin(id)),
-    fetchPinsForInspectionLog: (id, pinIDToKeep) =>
-        dispatch(fetchAllPinsForDrawing(id, pinIDToKeep)),
-    fetchAllOptionValues: () => dispatch(fetchAllOptionValues()),
-    fetchZonesByDrawingID: drawingID => fetchZonesByDrawingID(drawingID),
-    fetchAllOptionValuesForDrawing: drawingID =>
-        dispatch(fetchAllOptionValuesForDrawing(drawingID)),
-});
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SinglePinContainer));
+export default SinglePinContainer;

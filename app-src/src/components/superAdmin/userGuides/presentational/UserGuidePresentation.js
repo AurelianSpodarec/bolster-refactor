@@ -15,7 +15,7 @@ const UserGuidesPresentational = ({
     versions,
 }) => (
     <>
-        <PageHeading title="User Guides" withBackButton />
+        <PageHeading title="User Guides" />
         <Block>
             <BlockHeading title="Current Guide">
                 <button

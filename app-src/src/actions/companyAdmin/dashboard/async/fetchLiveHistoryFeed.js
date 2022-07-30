@@ -5,21 +5,21 @@ import { getHeaders } from 'helpers/api';
 import {
     FETCH_LIVE_HISTORIES_REQUEST,
     FETCH_LIVE_HISTORIES_SUCCESS,
-    FETCH_LIVE_HISTORIES_FAILURE
+    FETCH_LIVE_HISTORIES_FAILURE,
 } from 'constants/actionTypes/dashboard';
 
 export const fetchLiveHistoriesRequest = () => ({
-    type: FETCH_LIVE_HISTORIES_REQUEST
+    type: FETCH_LIVE_HISTORIES_REQUEST,
 });
 
 export const fetchLiveHistoriesSuccess = payload => ({
     type: FETCH_LIVE_HISTORIES_SUCCESS,
-    payload
+    payload,
 });
 
 export const fetchLiveHistoriesFailure = error => ({
     type: FETCH_LIVE_HISTORIES_FAILURE,
-    error
+    error,
 });
 
 export default lastUpdate => dispatch => {

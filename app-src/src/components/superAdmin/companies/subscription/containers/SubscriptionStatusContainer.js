@@ -15,10 +15,7 @@ class SubscriptionStatusContainer extends Component {
                     subscription={subscription}
                     services={services}
                     endOn={subscription.endOn}
-                    active={this.checkSubActive(
-                        subscription.startOn,
-                        subscription.endOn
-                    )}
+                    active={this.checkSubActive(subscription.startOn, subscription.endOn)}
                 />
             </BlockContainer>
         );
@@ -32,24 +29,19 @@ const mapStateToProps = (
     {
         superAdmin: {
             companySubscriptionReducer: { isFetching, subscriptions },
-            adminServicesReducer: {
-                adminServices: services,
-                isFetching: fetchingServices
-            }
-        }
+            adminServicesReducer: { adminServices: services, isFetching: fetchingServices },
+        },
     },
     {
         match: {
-            params: { id }
-        }
-    }
+            params: { id },
+        },
+    },
 ) => ({
     subscription: subscriptions[id] || {},
     isFetching,
     services,
-    fetchingServices
+    fetchingServices,
 });
 
-export default withRouter(
-    connect(mapStateToProps)(SubscriptionStatusContainer)
-);
+export default withRouter(connect(mapStateToProps)(SubscriptionStatusContainer));

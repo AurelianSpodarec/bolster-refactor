@@ -3,7 +3,7 @@ import { UPDATE_PIN_COORDINATES } from 'constants/actionTypes/drawings';
 import { updateObj } from 'helpers/generic';
 
 export default combineReducers({
-    coordinates: coordinatesReducer
+    coordinates: coordinatesReducer,
 });
 
 function coordinatesReducer(state = { lat: '', lng: '' }, action) {

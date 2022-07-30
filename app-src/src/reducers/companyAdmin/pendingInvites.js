@@ -13,7 +13,7 @@ import {
     RESPOND_TO_PENDING_INVITE_SUCCESS,
     DELETE_OUTGOING_INVITE_REQUEST,
     DELETE_OUTGOING_INVITE_SUCCESS,
-    DELETE_OUTGOING_INVITE_FAILURE
+    DELETE_OUTGOING_INVITE_FAILURE,
 } from 'constants/actionTypes/pendingInvites';
 
 export default combineReducers({
@@ -21,7 +21,7 @@ export default combineReducers({
     error: errorReducer,
     pendingInvites: pendingInvitesReducer,
     outgoingInvites: outgoingInvitesReducer,
-    postSuccess: postSuccessReducer
+    postSuccess: postSuccessReducer,
 });
 
 function isFetchingReducer(state = false, action) {

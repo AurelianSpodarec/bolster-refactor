@@ -18,6 +18,7 @@ import MultiMultiDropdownOptions from '../fieldTypes/MultiMultiDropdownOptions';
 import StaticImage from '../fieldTypes/StaticImage';
 
 import { QUESTION_TYPE_NUMBERS } from 'constants/shared/templateBuilder';
+import { emptyAnswer } from './helpers';
 const {
     SINGLE_LINE,
     MULTI_LINE,
@@ -30,10 +31,10 @@ const {
     SINGLE_PHOTO,
     MULTI_PHOTO,
     STATUS,
-    DROPDOWN_OPTIONS,
-    MULTI_DROPDOWN_OPTIONS,
+    PIN_OPTION_TYPES,
+    MULTI_PIN_OPTION_TYPES,
     MULTI_MULTI_DROPDOWN,
-    MULTI_MULTI_DROPDOWN_OPTIONS,
+    MULTI_MULTI_PIN_OPTION_TYPES,
     STATIC_IMAGE,
     DOCUMENT_UPLOAD,
 } = QUESTION_TYPE_NUMBERS;
@@ -51,10 +52,10 @@ export const fieldTypes = {
     [MULTI_PHOTO]: MultiPhoto,
     [SIGNATURE]: Signature,
     [STATUS]: Status,
-    [DROPDOWN_OPTIONS]: DropdownOptions,
-    [MULTI_DROPDOWN_OPTIONS]: MultiDropdownOptions,
+    [PIN_OPTION_TYPES]: DropdownOptions,
+    [MULTI_PIN_OPTION_TYPES]: MultiDropdownOptions,
     [MULTI_MULTI_DROPDOWN]: MultiMulti,
-    [MULTI_MULTI_DROPDOWN_OPTIONS]: MultiMultiDropdownOptions,
+    [MULTI_MULTI_PIN_OPTION_TYPES]: MultiMultiDropdownOptions,
     [STATIC_IMAGE]: StaticImage,
 };
 
@@ -64,28 +65,35 @@ export const getDefaultValue = question => {
         case MULTI_LINE:
         case NUMBER:
         case SINGLE_PHOTO:
-            return '';
-        case DROPDOWN_OPTIONS: {
-            return [question.defaultValue] || [];
+        case MULTI_PHOTO:
+            return [];
+        case PIN_OPTION_TYPES: {
+            if (!question.defaultValue) return [];
+            return [{ ...emptyAnswer, pinOptionVersionID: question.defaultValue }];
         }
         case RADIO:
-            return [question.defaultValue] || [];
         case DROPDOWN:
-            return question.defaultValue || '';
         case MULTI_DROPDOWN:
-            return [question.defaultValue] || [];
-        case MULTI_MULTI_DROPDOWN:
-            return [...(question.defaultValue || '').split(',')] || [];
-        case MULTI_PHOTO:
-        case MULTI_MULTI_DROPDOWN_OPTIONS:
-        case MULTI_DROPDOWN_OPTIONS:
             if (!question.defaultValue) return [];
-            return Array.isArray(question.defaultValue)
-                ? question.defaultValue
-                : [question.defaultValue];
+            return [{ ...emptyAnswer, textValue: question.defaultValue }];
+        case MULTI_MULTI_DROPDOWN:
+            if (!question.defaultValue) return [];
+            return question.defaultValue
+                .split(',')
+                .map(ans => ({ ...emptyAnswer, textValue: ans }));
+        case MULTI_MULTI_PIN_OPTION_TYPES:
+        case MULTI_PIN_OPTION_TYPES:
+            if (!question.defaultValue) return [];
+            if (Array.isArray(question.defaultValue)) {
+                return question.defaultValue.map(ans => ({
+                    ...emptyAnswer,
+                    pinOptionVersionID: ans,
+                }));
+            }
+            return [{ ...emptyAnswer, pinOptionVersionID: question.defaultValue }];
         case CHECKBOX:
-            return false;
+            return [{ ...emptyAnswer, booleanValue: false }];
         default:
-            return '';
+            return [];
     }
 };

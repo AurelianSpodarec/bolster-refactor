@@ -13,11 +13,7 @@ const Sites = ({ sites, handleSelectOption, isFetching }) => {
     if (isFetching && !sites.length) return <Loading />;
 
     if (!sites.length)
-        return (
-            <p className="generic-text no-data size-lg-12">
-                No sites were found
-            </p>
-        );
+        return <p className="generic-text no-data size-lg-12">No sites were found</p>;
 
     return (
         <Field name="Select a site" classes="full-length">
@@ -38,11 +34,7 @@ const Buildings = ({ buildings, handleSelectOption, isFetching }) => {
     if (isFetching && !buildings.length) return <Loading />;
 
     if (!buildings.length)
-        return (
-            <p className="generic-text no-data size-lg-12">
-                No buildings were found
-            </p>
-        );
+        return <p className="generic-text no-data size-lg-12">No buildings were found</p>;
 
     return (
         <Field name="Select a building" classes="full-length">
@@ -51,10 +43,7 @@ const Buildings = ({ buildings, handleSelectOption, isFetching }) => {
                     key={building.id}
                     className="select-option size-lg-12"
                     onClick={() =>
-                        handleSelectOption(
-                            `${building.siteName} / ${building.name}`,
-                            building.id
-                        )
+                        handleSelectOption(`${building.siteName} / ${building.name}`, building.id)
                     }
                 >
                     {`${building.siteName} / ${building.name}`}
@@ -68,11 +57,7 @@ const Floors = ({ floors, handleSelectOption, isFetching }) => {
     if (isFetching && !floors.length) return <Loading />;
 
     if (!floors.length)
-        return (
-            <p className="generic-text no-data size-lg-12">
-                No floors were found
-            </p>
-        );
+        return <p className="generic-text no-data size-lg-12">No floors were found</p>;
 
     return (
         <Field name="Select a floor" classes="full-length">
@@ -82,16 +67,12 @@ const Floors = ({ floors, handleSelectOption, isFetching }) => {
                     className="select-option size-lg-12"
                     onClick={() =>
                         handleSelectOption(
-                            `${floor.siteName} / ${floor.buildingName} / ${
-                                floor.name
-                            }`,
-                            floor.id
+                            `${floor.siteName} / ${floor.buildingName} / ${floor.name}`,
+                            floor.id,
                         )
                     }
                 >
-                    {`${floor.siteName} / ${floor.buildingName} / ${
-                        floor.name
-                    }`}
+                    {`${floor.siteName} / ${floor.buildingName} / ${floor.name}`}
                 </p>
             ))}
         </Field>
@@ -100,20 +81,13 @@ const Floors = ({ floors, handleSelectOption, isFetching }) => {
 
 class MoveToolMoveFromOptionsRoute extends Component {
     render() {
-        const {
-            hierarchyID,
-            sites,
-            buildings,
-            floors,
-            selectedOption,
-            companyID,
-            isFetching
-        } = this.props;
+        const { hierarchyID, sites, buildings, floors, selectedOption, companyID, isFetching } =
+            this.props;
 
         const listTypes = {
             [BUILDING]: Sites,
             [FLOOR]: Buildings,
-            [DRAWING]: Floors
+            [DRAWING]: Floors,
         };
 
         const SpecificField = listTypes[hierarchyID + ''] || null;
@@ -130,12 +104,8 @@ class MoveToolMoveFromOptionsRoute extends Component {
         return (
             <SpecificField
                 sites={sites.filter(site => site.ownerCompanyID === companyID)}
-                buildings={buildings.filter(
-                    building => building.ownerCompanyID === companyID
-                )}
-                floors={floors.filter(
-                    floor => floor.ownerCompanyID === companyID
-                )}
+                buildings={buildings.filter(building => building.ownerCompanyID === companyID)}
+                floors={floors.filter(floor => floor.ownerCompanyID === companyID)}
                 handleSelectOption={this.handleSelectOption}
                 isFetching={isFetching}
             />
@@ -149,7 +119,7 @@ class MoveToolMoveFromOptionsRoute extends Component {
             moveToName: name,
             moveToValue: value,
             moveFromCompany,
-            moveToCompany: companyID
+            moveToCompany: companyID,
         });
     };
 }
@@ -159,21 +129,18 @@ const mapStateToProps = ({
         sitesReducer: { sites, isFetching: isFetchingSites },
         buildingsReducer: { buildings, isFetching: isFetchingBuildings },
         floorsReducer: { floors, isFetching: isFetchingFloors },
-        moveToolReducer: { selectedOption }
-    }
+        moveToolReducer: { selectedOption },
+    },
 }) => ({
     sites: Object.values(sites),
     buildings: Object.values(buildings),
     floors: Object.values(floors),
     selectedOption,
-    isFetching: isFetchingSites || isFetchingBuildings || isFetchingFloors
+    isFetching: isFetchingSites || isFetchingBuildings || isFetchingFloors,
 });
 
 const mapDispatchToProps = dispatch => ({
-    showModal: (type, props) => dispatch(showModal(type, props))
+    showModal: (type, props) => dispatch(showModal(type, props)),
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(MoveToolMoveFromOptionsRoute);
+export default connect(mapStateToProps, mapDispatchToProps)(MoveToolMoveFromOptionsRoute);

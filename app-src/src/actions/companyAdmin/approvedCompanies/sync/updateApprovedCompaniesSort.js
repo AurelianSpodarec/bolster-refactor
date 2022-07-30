@@ -3,5 +3,5 @@ import { UPDATE_APPROVED_COMPANIES_SORT } from 'constants/actionTypes/approvedCo
 export default sort => dispatch =>
     dispatch({
         type: UPDATE_APPROVED_COMPANIES_SORT,
-        sort
+        sort,
     });

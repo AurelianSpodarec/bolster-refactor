@@ -12,30 +12,27 @@ class FloorBreadcrumbContainer extends Component {
         siteName: '',
         siteID: 0,
         buildingName: '',
-        buildingID: 0
+        buildingID: 0,
+        hasSetDetails: false,
     };
 
     render() {
         const breadcrumbsArray = [
             {
                 text: 'Sites',
-                link: '/company/sites/'
+                link: '/company/sites/',
             },
             {
                 text: this.state.siteName,
-                link: `/company/sites/${this.state.siteID}`
+                link: `/company/sites/${this.state.siteID}`,
             },
             {
                 text: this.state.buildingName,
-                link: `/company/buildings/${this.state.buildingID}`
+                link: `/company/buildings/${this.state.buildingID}`,
             },
-            { text: this.props.floor.name }
+            { text: this.props.floor.name },
         ];
-        return (
-            <Breadcrumb breadcrumbs={breadcrumbsArray}>
-                {this.props.children}
-            </Breadcrumb>
-        );
+        return <Breadcrumb breadcrumbs={breadcrumbsArray}>{this.props.children}</Breadcrumb>;
     }
 
     _setFloorDetails = () => {
@@ -45,42 +42,36 @@ class FloorBreadcrumbContainer extends Component {
             siteName: sites[buildings[floor.buildingID].siteID].name,
             siteID: buildings[floor.buildingID].siteID,
             buildingName: buildings[floor.buildingID].name,
-            buildingID: floor.buildingID
+            buildingID: floor.buildingID,
         });
     };
 
     componentDidMount = () => {
-        const { sites, buildings } = this.props;
+        const { sites, buildings, floor } = this.props;
 
-        if (Object.values(sites).length && Object.values(buildings).length) {
+        if (Object.values(sites).length && Object.values(buildings).length && buildings[floor.id]) {
             this._setFloorDetails();
         }
     };
 
     componentDidUpdate = prevProps => {
-        const {
-            floor,
-            buildings,
-            fetchSingleSite,
-            fetchSingleBuilding,
-            sites
-        } = this.props;
-
-        if (!prevProps.floor.id && !!floor.id) {
+        const { floor, buildings, fetchSingleSite, fetchSingleBuilding, sites } = this.props;
+        const isFloorFetched = !prevProps.floor.id && !!floor.id;
+        if (isFloorFetched && !buildings[floor.buildingID]) {
             fetchSingleBuilding(floor.buildingID);
         }
-
-        if (
-            !Object.values(prevProps.buildings).length &&
-            Object.values(buildings).length
-        ) {
+        const isBuildingFetched =
+            !prevProps.buildings[floor.buildingID] && buildings[floor.buildingID];
+        if (isBuildingFetched && !sites[buildings[floor.buildingID].siteID]) {
             fetchSingleSite(buildings[floor.buildingID].siteID);
         }
-        if (
-            !Object.values(prevProps.sites).length &&
-            Object.values(sites).length
-        ) {
-            this._setFloorDetails();
+        const isSiteFetched =
+            !prevProps.sites[buildings[floor.buildingID]?.siteID] &&
+            sites[buildings[floor.buildingID]?.siteID];
+        const hasAll =
+            floor.id && buildings[floor.buildingID] && sites[buildings[floor.buildingID].siteID];
+        if (isFloorFetched || isBuildingFetched || isSiteFetched) {
+            if (hasAll) this._setFloorDetails();
         }
     };
 }
@@ -90,14 +81,14 @@ const mapStateToProps = (
         companyAdmin: {
             floorsReducer: { floors },
             buildingsReducer: { buildings },
-            sitesReducer: { sites }
-        }
+            sitesReducer: { sites },
+        },
     },
-    { match }
+    { match },
 ) => ({
     floor: floors[match.params.id] || {},
     buildings: buildings,
-    sites: sites
+    sites: sites,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -106,12 +97,7 @@ const mapDispatchToProps = dispatch => ({
     },
     fetchSingleSite: siteID => {
         return dispatch(fetchSingleSite(siteID));
-    }
+    },
 });
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(FloorBreadcrumbContainer)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(FloorBreadcrumbContainer));

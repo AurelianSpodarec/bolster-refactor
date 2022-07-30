@@ -5,21 +5,21 @@ import { getHeaders, handleErrors } from 'helpers/api';
 import {
     DELETE_REPORT_REQUEST,
     DELETE_REPORT_SUCCESS,
-    DELETE_REPORT_FAILURE
+    DELETE_REPORT_FAILURE,
 } from 'constants/actionTypes/companyReports';
 
 export const deleteReportRequest = () => ({
-    type: DELETE_REPORT_REQUEST
+    type: DELETE_REPORT_REQUEST,
 });
 
 export const deleteReportSuccess = payload => ({
     type: DELETE_REPORT_SUCCESS,
-    payload
+    payload,
 });
 
 export const deleteReportFailure = error => ({
     type: DELETE_REPORT_FAILURE,
-    error
+    error,
 });
 
 export default id => dispatch => {

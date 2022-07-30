@@ -10,11 +10,12 @@ import fetchAllCards from 'actions/companyAdmin/cards/async/fetchAllCards';
 import fetchProRataSubscriptionCost from 'actions/companyAdmin/subscriptions/async/fetchProRataSubscriptionCost';
 import addServiceToSubscription from 'actions/companyAdmin/subscriptions/async/addServiceToSubscription';
 import { PAYMENT_SUCCESS, PAYMENT_ERROR } from 'constants/shared/modalTypes';
-import { PAYMENT_IDS } from 'constants/companyAdmin/enums';
+import { addOnsType, PAYMENT_IDS } from 'constants/companyAdmin/enums';
 import fetchAllSubscriptions from 'actions/companyAdmin/subscriptions/async/fetchAllSubscriptions';
 
 class AddMulitpleServicesToSubscriptionModalContainer extends Component {
     state = {
+        addonTypes: [],
         paymentType: 2,
         stripeCardID: null,
         termsAgreed: false,
@@ -24,6 +25,7 @@ class AddMulitpleServicesToSubscriptionModalContainer extends Component {
         selectedServiceNames: [],
         addCardVisible: false,
         idempotencyKey: uuid(),
+        isBolsterPlusIncluded: false,
     };
 
     render() {
@@ -62,6 +64,7 @@ class AddMulitpleServicesToSubscriptionModalContainer extends Component {
         return (
             <AddMulitpleServicesToSubscriptionModal
                 subscriptions={this.state.subscriptions}
+                isBolsterPlusIncluded={this.state.isBolsterPlusIncluded}
                 services={serviceOptions}
                 selectedServiceNames={selectedServiceNames}
                 checkedServices={serviceIDs}
@@ -73,6 +76,7 @@ class AddMulitpleServicesToSubscriptionModalContainer extends Component {
                 handleCreditsChange={this.handleCreditsChange}
                 showAddCard={this.showAddCard}
                 hideAddCard={this.hideAddCard}
+                handlesIsBolsterPlusIncluded={this.handlesIsBolsterPlusIncluded}
                 costWithVAT={costWithVAT}
                 costWithoutVAT={costWithoutVAT}
                 credits={credits}
@@ -192,13 +196,23 @@ class AddMulitpleServicesToSubscriptionModalContainer extends Component {
         this.setState({ [name]: num });
     };
 
+    handlesIsBolsterPlusIncluded = () => {
+        this.setState({ isBolsterPlusIncluded: !this.state.isBolsterPlusIncluded });
+
+        this.setState({
+            addonTypes: !this.state.isBolsterPlusIncluded === true ? [addOnsType.BOLSTER_PLUS] : [],
+        });
+    };
+
     handleSubmit = e => {
         e.preventDefault();
-        const { paymentType, stripeCardID, creditsToBuy, serviceIDs, idempotencyKey } = this.state;
+        const { paymentType, stripeCardID, creditsToBuy, serviceIDs, idempotencyKey, addonTypes } =
+            this.state;
         const { addServiceToSubscription, isPosting } = this.props;
 
         if (isPosting) return;
         const postBody = {
+            addonTypes,
             paymentType,
             stripeCardID: +paymentType === PAYMENT_IDS.CARD ? stripeCardID : null,
             serviceIDs: serviceIDs.map(id => parseInt(id)),

@@ -1,12 +1,12 @@
 import React from 'react';
+import { ChromePicker } from 'react-color';
 
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import { ChromePicker } from 'react-color';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import ButtonWrapper from '../../../../shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from '../../../../shared/generic/button/presentational/ActionButton';
+import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
 
 const DrawingZoneFormModal = ({
     action = 'Add',
@@ -18,36 +18,41 @@ const DrawingZoneFormModal = ({
     handleCancel,
 }) => {
     return (
-        <ModalOuterContainer>
-            <BlockHeading title={`${action} Drawing Zone`} />
-            <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
-                <Field name="Name" required>
-                    <TextInputContainer
-                        required
-                        name="name"
-                        value={name}
-                        handleChange={handleNameChange}
-                    />
-                </Field>
-                <Field name="Change Colour Scheme" required>
-                    <div className="size-lg-12">
-                        <ChromePicker
-                            color={colorHex}
-                            onChangeComplete={handleColorChange}
-                            disableAlpha
-                        />
+        <FlexModalOuter title={`${action} Drawing Zone`}>
+            <Form onSubmit={handleSubmit} className="generic-form flex-content-wrapper size-lg-12">
+                <div className="flex-content">
+                    <div className="form-fields-container size-lg-12">
+                        <Field name="Name" required>
+                            <TextInputContainer
+                                required
+                                name="name"
+                                value={name}
+                                handleChange={handleNameChange}
+                            />
+                        </Field>
+                        <Field name="Change Colour Scheme" required>
+                            <div className="size-lg-12">
+                                <ChromePicker
+                                    color={colorHex}
+                                    onChangeComplete={handleColorChange}
+                                    disableAlpha
+                                />
+                            </div>
+                        </Field>
                     </div>
-                </Field>
-                <BlockButtonWrapper>
-                    <button className="button green" type="submit">
-                        <i className="fa fa-plus" /> {action} Zone
-                    </button>
-                    <button className="button grey" onClick={handleCancel}>
-                        Cancel
-                    </button>
-                </BlockButtonWrapper>
+                </div>
+
+                <ButtonWrapper alignment="right" extraClasses="flex-modal-footer">
+                    <ActionButton
+                        text="Cancel"
+                        onClick={handleCancel}
+                        source="secondary"
+                        size="small"
+                    />
+                    <ActionButton text="Confirm" type="submit" icon="check" size="small" />
+                </ButtonWrapper>
             </Form>
-        </ModalOuterContainer>
+        </FlexModalOuter>
     );
 };
 

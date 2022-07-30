@@ -1,8 +1,6 @@
 import { useState, useRef, useEffect, useMemo, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import uuid from 'uuid/v4';
-import moment from 'moment';
-import { removeObjItem } from './generic';
 import { useDispatch, useSelector } from 'react-redux';
 import resendTwoFactor from 'actions/shared/auth/async/resendTwoFactor';
 import { addBanner } from 'actions/shared/banners/sync/addBanner';
@@ -26,24 +24,13 @@ export const useMultipleHierarchies = hierarchyShape => {
     }
 
     function getPostBody() {
-        return Object.values(state).map(hierarchy => {
-            // eslint-disable-next-line no-unused-vars
-            const { id, isAlertShowing, dateToSend, ...rest } = hierarchy;
-
-            return isAlertShowing
-                ? { dateToSend: moment(dateToSend).format(), ...rest }
-                : removeObjItem(removeObjItem(rest, 'message'), 'dateToSend');
-        });
+        return Object.values(state);
     }
 
-    function addHierarchy(initialOptions) {
+    function addHierarchy() {
         const newID = uuid();
 
-        if (initialOptions) {
-            setState({ ...state, [newID]: { ...hierarchyShape, ...initialOptions, id: newID } });
-        } else {
-            setState({ ...state, [newID]: { ...hierarchyShape, id: newID } });
-        }
+        setState({ ...state, [newID]: { ...hierarchyShape, id: newID } });
     }
 
     function deleteHierarchy(id) {
@@ -73,23 +60,6 @@ export const useMultipleHierarchies = hierarchyShape => {
         });
     }
 
-    function getState() {
-        return state;
-    }
-
-    function setInitialHierarchyManufacturerOptions(initialOptions, id) {
-        const isInitialSet = !id;
-
-        if (isInitialSet) {
-            // for the first building of the form
-            const formState = Object.entries(state);
-            let [buildingID, buildingState] = formState[0];
-
-            const newState = { [buildingID]: { ...buildingState, ...initialOptions } };
-            setState(newState);
-        }
-    }
-
     return [
         state,
         updateState,
@@ -97,8 +67,6 @@ export const useMultipleHierarchies = hierarchyShape => {
         deleteHierarchy,
         getKeys,
         getPostBody,
-        getState,
-        setInitialHierarchyManufacturerOptions,
         updateSelectAll,
     ];
 };

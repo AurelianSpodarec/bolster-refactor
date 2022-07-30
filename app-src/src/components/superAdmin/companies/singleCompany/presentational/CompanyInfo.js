@@ -10,7 +10,8 @@ const CompanyInfo = ({
     handleToggleClientList,
     handleShowEditAddressModal,
     handleShowEditFreeCreditModal,
-    handleShowEditJobRefDropdownModal,
+    showEnableCompanyModal,
+    showDisableCompanyModal,
 }) => (
     <div className="size-lg-12">
         <FieldOutput title="Company Code" description={company.code} fieldClass="no-h-padding" />
@@ -60,20 +61,35 @@ const CompanyInfo = ({
         <div className="button-container vertical-spacing left size-lg-12">
             <button
                 className={`button blue ${isPosting ? 'disabled' : ''}`}
+                onClick={() => {
+                    if (company.isDisabled) {
+                        showEnableCompanyModal();
+                        return;
+                    }
+
+                    showDisableCompanyModal();
+                }}
+                disabled={isPosting}
+            >
+                {isPosting && <i className="fa fa-spinner fa-spin" />}
+                {`${company.isDisabled ? 'Enable' : 'Disable'} Company`}
+            </button>
+            <button
+                className={`button blue ${isPosting ? 'disabled' : ''}`}
                 onClick={handleToggleClientList}
                 disabled={isPosting}
             >
                 {isPosting && <i className="fa fa-spinner fa-spin" />}
                 {`${company.hideOnClientList ? 'Show' : 'Hide'} on client list`}
             </button>
+        </div>
+
+        <div className="button-container vertical-spacing left size-lg-12">
             <button className="button yellow" onClick={() => handleShowEditAddressModal()}>
                 Edit Address
             </button>
             <button className="button yellow" onClick={() => handleShowEditFreeCreditModal()}>
                 Edit Free Credit
-            </button>
-            <button className="button yellow" onClick={() => handleShowEditJobRefDropdownModal()}>
-                Edit Job Reference Dropdown
             </button>
         </div>
     </div>

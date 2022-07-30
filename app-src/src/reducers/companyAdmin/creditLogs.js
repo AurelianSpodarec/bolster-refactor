@@ -4,13 +4,13 @@ import { convertArrToObj } from 'helpers/generic';
 import {
     FETCH_CREDIT_LOGS_REQUEST,
     FETCH_CREDIT_LOGS_SUCCESS,
-    FETCH_CREDIT_LOGS_FAILURE
+    FETCH_CREDIT_LOGS_FAILURE,
 } from 'constants/actionTypes/creditLogs';
 
 export default combineReducers({
     creditLogs: creditLogsReducer,
     isFetching: isFetchingReducer,
-    error: errorReducer
+    error: errorReducer,
 });
 
 function isFetchingReducer(state = false, action) {

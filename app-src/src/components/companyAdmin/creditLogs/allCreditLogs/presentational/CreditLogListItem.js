@@ -16,8 +16,8 @@ const CreditLogsListItem = ({
         floorName,
         drawingName,
         userFirstName,
-        userLastName
-    }
+        userLastName,
+    },
 }) => {
     const drawingDetails = drawingID
         ? `${siteName} / ${buildingName} / ${floorName} / ${drawingName}`

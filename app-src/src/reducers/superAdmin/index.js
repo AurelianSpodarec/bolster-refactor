@@ -25,9 +25,6 @@ import moveToolReducer from './moveTool';
 import sosCodesReducer from './sosCodes';
 import operativeAlertsReducer from 'reducers/superAdmin/operativeAlerts';
 import mergeToolReducer from './mergeTool';
-import manufacturersReducer from './manufacturers';
-import manufacturersOptionValuesReducer from './manufacturersOptionValues';
-import optionValueDocumentsReducer from './optionValueDocuments';
 import userGuideReducer from './userGuide';
 import frontendTextSettingsReducer from './frontendTextSettings';
 import frontendTrustedBySettingsReducer from './frontendTrustedBySettings';
@@ -43,50 +40,60 @@ import bugReportsReducer from './bugReports';
 import timesheetsReducer from './timesheets';
 import faqsReducer from './faqs';
 import drawingsLogsReducer from './drawingUploadLogs';
+import pinOptionTypesReducer from './pinOptionTypes';
+import pinOptionSetsReducer from './pinOptionSets';
+import pinOptionsReducer from './pinOptions';
+import pinOptionVersionsReducer from './pinOptionVersions';
+import pinOptionDocumentsReducer from './pinOptionDocuments';
+import pinOptionDocumentsVersionsReducer from './pinOptionDocumentsVersions';
+import pushNotificationsReducer from './pushNotifications';
 
 export default combineReducers({
     activityLogReducer,
     adminServicesReducer,
-    buildingsReducer,
+    bannerNotificationsReducer,
     bugReportsReducer,
+    buildingsReducer,
     companiesReducer,
     companyReportsReducer,
     companySubscriptionReducer,
     companyTrackingReducer,
-    deletedDataReducer,
-    drawingsReducer,
-    drawingsLogsReducer,
-    pinsReducer,
     contactSubmissionsReducer,
+    deletedDataReducer,
+    demoAccessCodesReducer,
+    drawingsLogsReducer,
+    drawingsReducer,
+    expiryToolReducer,
+    faqsReducer,
     floorsReducer,
+    frontendTextSettingsReducer,
+    frontendTrustedBySettingsReducer,
     invoicePaymentsReducer,
     invoicesReducer,
     legalDocumentsReducer,
-    manufacturersReducer,
-    manufacturersOptionValuesReducer,
     mergeToolReducer,
     moveToolReducer,
+    newFeaturesReducer,
     operativeAlertsReducer,
-    optionValueDocumentsReducer,
+    pinOptionsReducer,
+    pinOptionSetsReducer,
+    pinOptionTypesReducer,
+    pinOptionVersionsReducer,
+    pinOptionDocumentsReducer,
+    pinOptionDocumentsVersionsReducer,
+    pinsReducer,
+    pushNotificationsReducer,
     recentlyExtendedReducer,
     sitesReducer,
     sosCodesReducer,
-    templateLabelFieldsReducer,
+    syncsReducer,
     templatesReducer,
-    templateSectionsReducer,
+    templateLabelFieldsReducer,
     templateQuestionsReducer,
     templateQuestionFormReducer,
+    templateSectionsReducer,
     timesheetsReducer,
     usersReducer,
     userCreationsReducer,
     userGuideReducer,
-    frontendTextSettingsReducer,
-    frontendTrustedBySettingsReducer,
-    expiryToolReducer,
-    newFeaturesReducer,
-    syncsReducer,
-    bannerNotificationsReducer,
-    demoAccessCodesReducer,
-    drawingsReducer,
-    faqsReducer,
 });

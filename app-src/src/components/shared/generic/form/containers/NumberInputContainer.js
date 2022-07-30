@@ -20,7 +20,12 @@ class NumberInputContainer extends Component {
             classes = '',
             error,
             errorsVisible,
+            minNum,
             maxNum,
+            handleFocus,
+            disableMouseWheelControl,
+            disableUpDownArrowControl,
+            disabled,
         } = this.props;
 
         const errorMessage = showFieldError || errorsVisible ? error : null;
@@ -34,8 +39,13 @@ class NumberInputContainer extends Component {
                 placeholder={placeholder}
                 handleChange={this.handleChange}
                 handleBlur={this.handleBlur}
+                handleFocus={handleFocus}
                 error={errorMessage}
+                minNum={minNum}
                 maxNum={maxNum}
+                disableMouseWheelControl={disableMouseWheelControl}
+                disableUpDownArrowControl={disableUpDownArrowControl}
+                disabled={disabled}
             />
         );
     }
@@ -52,7 +62,9 @@ class NumberInputContainer extends Component {
         if (error) removeFieldError(name);
     };
 
-    handleChange = ({ target: { name, value } }) => this.props.handleChange(name, value);
+    handleChange = ({ target: { name, value } }) => {
+        this.props.handleChange(name, value.replace(/e/g, ''));
+    };
 
     handleBlur = () => this.setState({ showFieldError: true });
 

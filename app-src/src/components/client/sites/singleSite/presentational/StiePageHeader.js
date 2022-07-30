@@ -5,17 +5,10 @@ import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Brea
 
 const SitePageHeader = ({ site }) => (
     <PageHeading
-        title={`Site: ${site.name || ''} ${
-            site.isArchived ? '(ARCHIVED)' : ''
-        }`}
+        title={`Site: ${site.name || ''} ${site.isArchived ? '(ARCHIVED)' : ''}`}
         withBackButton
     >
-        <Breadcrumb
-            breadcrumbs={[
-                { text: 'Sites', link: '/client/sites' },
-                { text: site.name }
-            ]}
-        />
+        <Breadcrumb breadcrumbs={[{ text: 'Sites', link: '/client/sites' }, { text: site.name }]} />
     </PageHeading>
 );
 export default SitePageHeader;

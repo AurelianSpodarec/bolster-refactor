@@ -1,9 +1,6 @@
 import React from 'react';
 
-import {
-    QUESTION_TYPES,
-    QUESTION_TYPE_NUMBERS
-} from 'constants/shared/templateBuilder';
+import { QUESTION_TYPES, QUESTION_TYPE_NUMBERS } from 'constants/shared/templateBuilder';
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 
 const style = {};
@@ -14,17 +11,13 @@ const Question = ({
     showEditQuesModel,
     handleDuplicateQuestion,
     deleteQuestion,
-    isPrereq
+    isPrereq,
 }) => {
     const isStatus = +question.questionType === +QUESTION_TYPE_NUMBERS.STATUS;
-    const isImage =
-        +question.questionType === +QUESTION_TYPE_NUMBERS.STATIC_IMAGE;
+    const isImage = +question.questionType === +QUESTION_TYPE_NUMBERS.STATIC_IMAGE;
 
     return (
-        <div
-            className="question-item size-lg-12"
-            style={{ ...style, opacity: isDragging ? 0 : 1 }}
-        >
+        <div className="question-item size-lg-12" style={{ ...style, opacity: isDragging ? 0 : 1 }}>
             <p className="size-lg-3">{question.name}</p>
             {!isStatus && (
                 <>
@@ -54,38 +47,31 @@ const Question = ({
                     <div className="size-lg-2">
                         {isPrereq ? (
                             <TooltipContainer text="This item is a prerequisite, you must first remove it's dependents.">
-                                <button
-                                    disabled
-                                    className="button red icon-only"
-                                >
+                                <button disabled className="button red icon-only">
                                     <i className="far fa-trash-alt" />
                                 </button>
                             </TooltipContainer>
                         ) : (
+                            <button className="button red icon-only" onClick={deleteQuestion}>
+                                <i className="far fa-trash-alt" />
+                            </button>
+                        )}
+                        {+question.questionType !== +QUESTION_TYPE_NUMBERS.STATIC_IMAGE && (
+                            <>
                                 <button
-                                    className="button red icon-only"
-                                    onClick={deleteQuestion}
+                                    className="button icon-only"
+                                    onClick={handleDuplicateQuestion}
                                 >
-                                    <i className="far fa-trash-alt" />
+                                    <i className="far fa-clone" />
                                 </button>
-                            )}
-                        {+question.questionType !==
-                            +QUESTION_TYPE_NUMBERS.STATIC_IMAGE && (
-                                <>
-                                    <button
-                                        className="button icon-only"
-                                        onClick={handleDuplicateQuestion}
-                                    >
-                                        <i className="far fa-clone" />
-                                    </button>
-                                    <button
-                                        className="button yellow icon-only"
-                                        onClick={showEditQuesModel}
-                                    >
-                                        <i className="far fa-pencil" />
-                                    </button>
-                                </>
-                            )}
+                                <button
+                                    className="button yellow icon-only"
+                                    onClick={showEditQuesModel}
+                                >
+                                    <i className="far fa-pencil" />
+                                </button>
+                            </>
+                        )}
                     </div>
                 </>
             )}

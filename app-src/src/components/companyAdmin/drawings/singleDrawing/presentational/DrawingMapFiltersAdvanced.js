@@ -24,7 +24,7 @@ const DrawingMapFiltersAdvanced = ({
     toDateInclusive,
     handleChangeFilter,
     handleDateChange,
-    dateError
+    dateError,
     // pins
 }) => (
     <div className="map-filters size-lg-12">
@@ -114,9 +114,7 @@ const DrawingMapFiltersAdvanced = ({
                         <DatePicker
                             name="fromDateInclusive"
                             selected={fromDateInclusive}
-                            onChange={e =>
-                                handleDateChange(e, 'fromDateInclusive')
-                            }
+                            onChange={e => handleDateChange(e, 'fromDateInclusive')}
                             placeholderText="Start Date"
                         />
                     </div>
@@ -125,17 +123,13 @@ const DrawingMapFiltersAdvanced = ({
                         <DatePicker
                             name="toDateInclusive"
                             selected={toDateInclusive}
-                            onChange={e =>
-                                handleDateChange(e, 'toDateInclusive')
-                            }
+                            onChange={e => handleDateChange(e, 'toDateInclusive')}
                             placeholderText="End Date"
                         />
                     </div>
                     {dateError && (
                         <div className="size-lg-12">
-                            <p className="error red-text text-accent-4">
-                                {dateError}
-                            </p>
+                            <p className="error red-text text-accent-4">{dateError}</p>
                         </div>
                     )}
                 </Field>

@@ -7,21 +7,21 @@ import { getHeaders } from 'helpers/api';
 import {
     EDIT_BUILDING_REQUEST,
     EDIT_BUILDING_SUCCESS,
-    EDIT_BUILDING_FAILURE
+    EDIT_BUILDING_FAILURE,
 } from 'constants/actionTypes/buildings';
 
 export const editBuildingRequest = () => ({
-    type: EDIT_BUILDING_REQUEST
+    type: EDIT_BUILDING_REQUEST,
 });
 
 export const editBuildingSuccess = payload => ({
     type: EDIT_BUILDING_SUCCESS,
-    payload
+    payload,
 });
 
 export const editBuildingFailure = error => ({
     type: EDIT_BUILDING_FAILURE,
-    error
+    error,
 });
 
 export default (buildingID, postBody) => dispatch => {

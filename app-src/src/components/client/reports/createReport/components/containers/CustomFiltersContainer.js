@@ -12,12 +12,13 @@ const CustomFilterContainer = ({
     removeField,
     field,
     updateFilterQuestionField,
-    id
+    id,
 }) => {
     const { selectedQuestions, questionValues } = field;
-    const formattedOptions = Object.values(questionOptions).map(
-        ({ value, text }) => ({ value, label: text })
-    );
+    const formattedOptions = Object.values(questionOptions).map(({ value, text }) => ({
+        value,
+        label: text,
+    }));
     return (
         <CustomFilter
             questionOptions={formattedOptions}
@@ -31,10 +32,7 @@ const CustomFilterContainer = ({
         />
     );
     function handleChange(_, options) {
-        updateFilterQuestionField(
-            field.id,
-            updateObj(field, 'selectedQuestions', options)
-        );
+        updateFilterQuestionField(field.id, updateObj(field, 'selectedQuestions', options));
     }
 
     function addOption() {
@@ -42,14 +40,14 @@ const CustomFilterContainer = ({
         const updated = updateObj(field.questionValues, id, { id, value: '' });
         updateFilterQuestionField(
             field.id,
-            formatField(field.id, field.selectedQuestions, updated)
+            formatField(field.id, field.selectedQuestions, updated),
         );
     }
 
     function removeOption(id) {
         const updated = {
             ...field,
-            questionValues: removeObjItem(field.questionValues, id)
+            questionValues: removeObjItem(field.questionValues, id),
         };
         updateFilterQuestionField(field.id, updated);
     }
@@ -57,20 +55,17 @@ const CustomFilterContainer = ({
     function updateOption(name, value) {
         const updated = updateObj(field.questionValues, name, {
             id: name,
-            value
+            value,
         });
 
-        updateFilterQuestionField(
-            id,
-            formatField(id, field.selectedQuestions, updated)
-        );
+        updateFilterQuestionField(id, formatField(id, field.selectedQuestions, updated));
     }
 
     function formatField(id, selectedQuestions, questionValues) {
         return {
             id,
             selectedQuestions,
-            questionValues
+            questionValues,
         };
     }
 };
@@ -78,22 +73,17 @@ const CustomFilterContainer = ({
 const mapStateToProps = (
     {
         client: {
-            reportsReducer: { fields }
-        }
+            reportsReducer: { fields },
+        },
     },
-    ownProps
+    ownProps,
 ) => ({
-    field: fields[ownProps.id] || {}
+    field: fields[ownProps.id] || {},
 });
 
 const mapDispatchToProps = dispatch => ({
-    updateReportFilter: (name, val) =>
-        dispatch(clientUpdateReportFilter(name, val)),
-    updateFilterQuestionField: (name, val) =>
-        dispatch(clientUpdateFilterQuestionField(name, val))
+    updateReportFilter: (name, val) => dispatch(clientUpdateReportFilter(name, val)),
+    updateFilterQuestionField: (name, val) => dispatch(clientUpdateFilterQuestionField(name, val)),
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(CustomFilterContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(CustomFilterContainer);

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+
 import deleteInvoice from 'actions/companyAdmin/invoices/async/deleteInvoice';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { usePrevious } from 'helpers/hooks';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
 
 const RequestDeleteInvoiceModal = ({ id }) => {
     const dispatch = useDispatch();
@@ -24,35 +25,37 @@ const RequestDeleteInvoiceModal = ({ id }) => {
     }, [isPosting, prevPosting.isPosting]);
 
     return (
-        <ModalOuterContainer>
-            <BlockHeading title="Request Delete Invoice" />
-            <>
-                <p className="generic-text intro-text size-lg-12">
-                    Are you sure you want to request email to delete this invoice?
-                </p>
-                {postFailure && (
-                    <p className="generic-text intro-text size-lg-12 error">{postFailure}</p>
-                )}
-                {success && <p className="generic-text intro-text size-lg-12 success">{success}</p>}
-                <BlockButtonWrapper>
-                    {!success ? (
-                        <>
-                            <button className="button blue" onClick={handleDelete}>
-                                <i className="far fa-envelope fa-fw" />
-                                Request Delete
-                            </button>
-                            <button className="button" onClick={() => dispatch(hideModal())}>
-                                Cancel
-                            </button>{' '}
-                        </>
-                    ) : (
-                        <button className="button green" onClick={() => dispatch(hideModal())}>
-                            Close
-                        </button>
-                    )}
-                </BlockButtonWrapper>
-            </>
-        </ModalOuterContainer>
+        <FlexModalOuter title="Request Delete Invoice">
+            <div className="flex-content-wrapper">
+                <div className="flex-content">
+                    <p className="generic-text size-lg-12">
+                        Are you sure you want to request email to delete this invoice?
+                    </p>
+                    {postFailure && <p className="generic-text size-lg-12 error">{postFailure}</p>}
+                    {success && <p className="generic-text size-lg-12 success">{success}</p>}
+                </div>
+            </div>
+
+            {!success ? (
+                <ButtonWrapper alignment="right" extraClasses="flex-modal-footer">
+                    <ActionButton
+                        text="Cancel"
+                        onClick={() => dispatch(hideModal())}
+                        source="secondary"
+                        size="small"
+                    />
+                    <ActionButton onClick={handleDelete} text="Confirm" icon="check" />
+                </ButtonWrapper>
+            ) : (
+                <ButtonWrapper alignment="right" extraClasses="flex-modal-footer">
+                    <ActionButton
+                        text="Cancel"
+                        onClick={() => dispatch(hideModal())}
+                        source="secondary"
+                    />
+                </ButtonWrapper>
+            )}
+        </FlexModalOuter>
     );
 };
 

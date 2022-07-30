@@ -1,13 +1,10 @@
 import { combineReducers } from 'redux';
 
-import {
-    FILE_UPLOAD_START,
-    FILE_UPLOAD_FINISH
-} from 'constants/actionTypes/fileUpload';
+import { FILE_UPLOAD_START, FILE_UPLOAD_FINISH } from 'constants/actionTypes/fileUpload';
 
 export default combineReducers({
     filesUploading: filesUploadingReducer,
-    filesUploaded: filesUploadedReducer
+    filesUploaded: filesUploadedReducer,
 });
 
 function filesUploadingReducer(state = 0, action) {

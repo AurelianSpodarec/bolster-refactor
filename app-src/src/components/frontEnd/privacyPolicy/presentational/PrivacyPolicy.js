@@ -13,7 +13,7 @@ const PrivacyPolicy = ({ privacy, error, isFetching }) => {
 
     if (error) {
         return (
-            <>  
+            <>
                 <PageMeta meta={{ title: pageTitle, ...meta }} />
                 <div className="content-page wysiwyg">
                     <p>There was an error fetching the data.</p>

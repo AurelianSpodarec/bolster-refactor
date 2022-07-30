@@ -9,28 +9,23 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import InvoicePaymentsTableContainer from '../../invoicePayments/containers/InvoicePaymentsTableContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 
 const SingleInvoice = ({ id, showModal, hasPayed }) => (
     <>
-        <PageHeading
-            leftChildren={true}
-            title={`Invoice #${id}`}
-            withBackButton
-        />
+        <PageHeading leftChildren={true} title={`Invoice #${id}`} withBackButton />
         <InvoiceDetailsContainer />
         <BlockContainer containerClass="size-lg-8 size-md-12">
             <BlockHeading title="Items" />
             <InvoiceItemsTableContainer />
             {!hasPayed && (
                 <BlockButtonWrapper sizeClasses="size-lg-12">
-                    <button
-                        className="button green"
-                        onClick={() =>
-                            showModal(PAY_INVOICE, { invoiceID: id })
-                        }
+                    <ActionButton
+                        text="Pay"
+                        onClick={() => showModal(PAY_INVOICE, { invoiceID: id })}
                     >
                         Pay
-                    </button>
+                    </ActionButton>
                 </BlockButtonWrapper>
             )}
         </BlockContainer>

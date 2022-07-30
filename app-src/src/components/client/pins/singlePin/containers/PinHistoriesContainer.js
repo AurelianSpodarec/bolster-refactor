@@ -13,7 +13,7 @@ const PinHistoriesContainer = ({
     histories,
     selectedHistoryId,
     isFetching,
-    error
+    error,
 }) => (
     <BlockContainer
         error={error}
@@ -37,13 +37,13 @@ const mapStateToProps = (
             pinsReducer: { singlePin, isFetching, error },
             drawingOperativesReducer: { users },
             servicesReducer: { services },
-            pinHistoriesReducer: { histories }
+            pinHistoriesReducer: { histories },
         },
         shared: {
-            selectedHistoryReducer: { selectedHistoryId }
-        }
+            selectedHistoryReducer: { selectedHistoryId },
+        },
     },
-    { match }
+    { match },
 ) => {
     const pin = singlePin[match.params.id] || {};
 
@@ -54,7 +54,7 @@ const mapStateToProps = (
         users: Object.values(users),
         services: Object.values(services),
         histories: Object.values(histories),
-        selectedHistoryId
+        selectedHistoryId,
     };
 };
 

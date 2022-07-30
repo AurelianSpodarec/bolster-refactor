@@ -13,15 +13,14 @@ import CheckboxListContainer from 'components/shared/generic/form/containers/Che
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
 
-const {
-    VISIBLE_TO_ALL,
-    VISIBLE_TO_OWN_COMPANY,
-    VISIBLE_TO_SELECT_OPERATIVES,
-} = DOCUMENT_VISIBILITY;
+const { VISIBLE_TO_ALL, VISIBLE_TO_OWN_COMPANY, VISIBLE_TO_SELECT_OPERATIVES } =
+    DOCUMENT_VISIBILITY;
 
 const EditDocumentForm = ({
     handleInputChange,
@@ -215,18 +214,21 @@ const EditDocumentForm = ({
                     </>
                 )}
                 <BlockButtonWrapper>
-                    <button
-                        disabled={filesUploading}
-                        onClick={handleSubmit}
-                        className="button green"
-                    >
-                        {filesUploading ? 'Please wait...' : <>{'Confirm'}</>}
-                    </button>
-                    <ButtonContainer
-                        to={location.pathname.replace(`/edit-document/${documentID}`, '')}
-                    >
-                        Cancel
-                    </ButtonContainer>
+                    <ButtonWrapper alignment="right">
+                        <LinkButton
+                            text="Cancel"
+                            href={location.pathname.replace(`/edit-document/${documentID}`, '')}
+                            source="secondary"
+                            size="small"
+                        />
+                        <ActionButton
+                            text={filesUploading ? 'Please wait...' : <>{'Confirm'}</>}
+                            disabled={filesUploading}
+                            onClick={handleSubmit}
+                            icon={filesUploading ? 'fa fa-spinner fa-spin' : 'check'}
+                            size="small"
+                        />
+                    </ButtonWrapper>
                 </BlockButtonWrapper>
             </Form>
         </BlockContainer>

@@ -8,19 +8,21 @@ const AddPinVersionsContainer = ({
     isHistory,
     isSameTemplate,
     pinAnswersByGroupKey,
-    dropdownOptionsByType,
     oldAnswersByNameObj,
     latestPinHistory,
+    pinOptions,
+    drawingID,
 }) => (
     <AddPinVersions
         selectedVersion={selectedVersion}
         isHistory={isHistory}
         isSameTemplate={isSameTemplate}
         pinAnswersByGroupKey={pinAnswersByGroupKey}
-        dropdownOptionsByType={dropdownOptionsByType}
         oldAnswersByNameObj={oldAnswersByNameObj}
         template={template}
         latestPinHistory={latestPinHistory}
+        pinOptions={pinOptions}
+        drawingID={drawingID}
     />
 );
 

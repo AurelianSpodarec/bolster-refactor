@@ -1,30 +1,29 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import EditBuildingFormContainer from '../containers/EditBuildingFormContainer';
+import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
 
 const EditBuildingModal = ({ building, isUsingBolsterLabels }) => (
-    <ModalOuterContainer
+    <FlexModalOuter
+        title={`Edit Building - ${building.name}`}
         extraClasses={`${isUsingBolsterLabels ? 'w-label-example' : ''}`}
     >
-        <BlockHeading title={`Edit Building - ${building.name}`} />
         <EditBuildingFormContainer
             building={building}
             isUsingBolsterLabels={isUsingBolsterLabels}
         />
-    </ModalOuterContainer>
+    </FlexModalOuter>
 );
 
 const mapStateToProps = ({
     companyAdmin: {
         companySettingsReducer: {
-            companySettings: { isUsingBolsterLabels }
-        }
-    }
+            companySettings: { isUsingBolsterLabels },
+        },
+    },
 }) => ({
-    isUsingBolsterLabels
+    isUsingBolsterLabels,
 });
 
 export default connect(mapStateToProps)(EditBuildingModal);

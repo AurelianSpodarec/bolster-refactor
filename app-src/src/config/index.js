@@ -15,6 +15,9 @@ export const INVOICE_GEN_URL =
     'https://6eixv6n0wf.execute-api.eu-west-1.amazonaws.com/staging/bolster-invoice-gen-staging';
 export const GOOGLE_SITE_KEY = '6LeV28wZAAAAAOyyOGzeQiiqtCr_F6WIQGKqXA0a';
 export const DOCUMENT_LIBRARY_S3_ROOT = 'DocumentLibraryItemsStaging';
+export const IOS_APP_URL = 'https://apps.apple.com/gb/app/bolster-systems-2022/id1625869431';
+export const ANDROID_APP_URL =
+    'https://play.google.com/store/apps/details?id=com.bolstersystems.app';
 
 // - Staging
 // export const API_URL = 'https://api.company.bolster-staging.com';

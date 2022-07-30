@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { DRAWING_TABS } from 'constants/shared/tabNames';
+import { HIERARCHY_TABS } from 'constants/shared/tabNames';
 import setTabs from 'actions/shared/generic/tabs/sync/setTabs';
 
 import fetchSingleClientDrawing from 'actions/client/drawings/async/clientFetchSingleDrawing';
@@ -18,7 +18,7 @@ class SingleDrawingContainer extends Component {
 
     componentDidMount = () => {
         const { drawingID, setTabs, fetchDrawingData } = this.props;
-        setTabs(Object.values(DRAWING_TABS), DRAWING_TABS.GENERAL_OVERVIEW);
+        setTabs(Object.values(HIERARCHY_TABS), HIERARCHY_TABS.GENERAL_OVERVIEW);
         const selectedCompanyID = getSelectedCompanyForClient();
 
         fetchDrawingData(selectedCompanyID, drawingID);

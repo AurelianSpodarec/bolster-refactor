@@ -7,13 +7,13 @@ import {
     CLIENT_FETCH_DOCUMENTS_SUCCESS,
     CLIENT_FETCH_SINGLE_DOCUMENT_SUCCESS,
     CLIENT_FETCH_DOCUMENTS_FAILURE,
-    CLIENT_FETCH_SINGLE_DOCUMENT_FAILURE
+    CLIENT_FETCH_SINGLE_DOCUMENT_FAILURE,
 } from 'constants/actionTypes/documents';
 
 export default combineReducers({
     documents: documentsReducer,
     isFetching: isFetchingReducer,
-    error: errorReducer
+    error: errorReducer,
 });
 
 function isFetchingReducer(state = false, action) {

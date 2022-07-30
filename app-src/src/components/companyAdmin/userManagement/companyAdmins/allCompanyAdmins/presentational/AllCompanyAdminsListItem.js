@@ -1,14 +1,16 @@
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import { getStorageString } from 'helpers/generic';
 
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
-import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
-import { boolToYesNo } from 'helpers/generic';
 import { getLowMemoryMessage } from 'constants/shared/messages';
+import LinkButton from '../../../../../shared/generic/button/presentational/LinkButton';
+import TooltipContainer from '../../../../../shared/generic/tooltip/containers/TooltipContainer';
+import CompanyAdminUserActionsMenu from './CompanyAdminUserActionsMenu';
+import { getDeviceNameColour, getTooltipRamText } from '../../../shared/utils';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 
 const AllCompanyAdminsListItem = ({
     user,
@@ -26,210 +28,136 @@ const AllCompanyAdminsListItem = ({
     isDisabled,
     drawingLimitColour,
     drawingLimitMaxed,
+    maxDrawingsPerOperative,
+    showSetAdminPlusModal,
+    canSetAdminPlusUsers,
 }) => {
     const history = useHistory();
 
     const lowMemMessage = getLowMemoryMessage(user.deviceRAM, user.physicalStorageAvailable);
 
-    const isRowRed = lowMemMessage !== null || showNotUpsyncedRecentlyWarning || drawingLimitMaxed;
     const upsyncedMessage = tooltipDate
-        ? `This operative has not upsynced in ${tooltipDate} days`
-        : 'This operative has never upsynced.';
+        ? `This admin has not upsynced in ${tooltipDate} days`
+        : 'This admin has never upsynced.';
+
+    const userTypeStatus =
+        user.type === COMPANY_USER_ROLE_TYPES.OWNER
+            ? '(OWNER)'
+            : user.type === COMPANY_USER_ROLE_TYPES.ADMIN_PLUS
+            ? '(ADMIN PLUS)'
+            : '';
+    const userDisabledStatus = isDisabled ? '(DISABLED)' : '';
+    const userStatus = `${userTypeStatus} ${userDisabledStatus}`;
+
+    const nameString = `${user.userFirstName} ${user.userLastName} ${userStatus} - ${user.formattedOperativeCode}`;
+
+    const tooltipText = user.linkedDeviceName ? (
+        <>
+            <p>{getTooltipRamText(user.deviceRAM, user.physicalStorageAvailable)}</p>
+            <p>{getStorageString(user.physicalStorageAvailable)} Storage Free</p>
+        </>
+    ) : (
+        <p>No linked device</p>
+    );
+
+    const isDeviceNameColour = getDeviceNameColour(user.deviceRAM, user.physicalStorageAvailable);
+
+    const deviceNameColour = isDeviceNameColour && user.linkedDeviceName ? isDeviceNameColour : '';
 
     return (
-        <tr key={user.id} className={`${isDisabled ? 'grey-row' : isRowRed ? 'red-row' : ''}`}>
+        <tr key={user.id} className={`user-table-row ${isDisabled ? 'grey-row' : ''}`}>
             <td>
-                {isRowRed && (
-                    <TooltipContainer
-                        htmlText={`${
-                            showNotUpsyncedRecentlyWarning ? `<p>${upsyncedMessage}</p>` : ''
-                        } ${lowMemMessage ? `<p>${lowMemMessage}</p>` : ''} 
+                {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
+                <span>{nameString}</span>
+                <br />
+                <span className="email">
+                    {user.userEmail}{' '}
+                    {user.isEmailConfirmed ? <i className="fas fa-check-circle" /> : ''}
+                </span>
+            </td>
+
+            <td>
+                {onMobile && <span className="mobile-table-heading">{headers[2]}</span>}
+                {user.userPhoneNumber || '-'}
+            </td>
+
+            <td>
+                {onMobile && <span className="mobile-table-heading">{headers[3]}</span>}
+                <TooltipContainer
+                    text={deviceNameColour ? lowMemMessage : tooltipText}
+                    containerSide="left"
+                    side="bottom"
+                >
+                    <span className={deviceNameColour}>
+                        {deviceNameColour ? (
+                            <i className={`fal fa-exclamation-triangle ${deviceNameColour}`}></i>
+                        ) : (
+                            ''
+                        )}{' '}
+                        {`${user.linkedDeviceName || '-'}`}
+                    </span>
+                </TooltipContainer>
+            </td>
+
+            <td>
+                {showNotUpsyncedRecentlyWarning && (
+                    <TooltipContainer text={upsyncedMessage} containerSide="left">
+                        <i className="far fa-exclamation-triangle red-icon" />
+                    </TooltipContainer>
+                )}
+                {onMobile && <span className="mobile-table-heading">{headers[5]}</span>}
+                {user.lastUpSynced ? <DateTimeContainer date={user.lastUpSynced} /> : '-'}
+            </td>
+
+            <td>
+                {onMobile && <span className="mobile-table-heading">{headers[7]}</span>}
+                {user.appVersion ? `${user.appVersion}` : '-'}
+            </td>
+
+            <td>
+                <TooltipContainer
+                    htmlText={`
                         ${
                             drawingLimitColour === 'red'
                                 ? '<p>This operative has reached the maximum number of drawings.</p>'
                                 : ''
                         }`}
-                        containerSide="left"
-                    >
-                        <i className="far fa-exclamation-triangle red-icon" />
-                    </TooltipContainer>
-                )}
-                {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
-                {`${user.userFirstName} ${user.userLastName}`}{' '}
-                {user.type === COMPANY_USER_ROLE_TYPES.OWNER ? <span>(OWNER)</span> : null}
-                {isDisabled && <span>(DISABLED)</span>}
-            </td>
-            <td>
-                {' '}
-                {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
-                {user.userEmail}
-            </td>
-            <td>
-                {' '}
-                {onMobile && <span className="mobile-table-heading">{headers[2]}</span>}
-                {user.userPhoneNumber}
-            </td>
-            <td>
-                {' '}
-                {onMobile && <span className="mobile-table-heading">{headers[3]}</span>}
-                {user.linkedDeviceID ? 'Yes' : 'No'}
-                {user.linkedDeviceName && (
-                    <span className="red-text">{` (${user.linkedDeviceName})`}</span>
-                )}
-                {user.deviceRAM && (
-                    <>
-                        <br />({getStorageString(user.deviceRAM)} RAM.)
-                    </>
-                )}
-                {user.physicalStorageTotal && (
-                    <>
-                        <br />({getStorageString(user.physicalStorageAvailable)} /{' '}
-                        {getStorageString(user.physicalStorageTotal)} storage free)
-                    </>
-                )}
-            </td>
-            <td>
-                {' '}
-                {onMobile && <span className="mobile-table-heading">{headers[4]}</span>}
-                {user.formattedOperativeCode}
-            </td>
-            <td>
-                {' '}
-                {onMobile && <span className="mobile-table-heading">{headers[5]}</span>}
-                {user.lastUpSynced ? <DateTimeContainer date={user.lastUpSynced} /> : '-'}
-            </td>
-            <td>
-                {' '}
-                {onMobile && <span className="mobile-table-heading">{headers[6]}</span>}
-                {user.lastDetectedUnsyncedData ? (
-                    <DateTimeContainer date={user.lastDetectedUnsyncedData} />
-                ) : (
-                    '-'
-                )}
-            </td>
-            <td>
-                {' '}
-                {onMobile && <span className="mobile-table-heading">{headers[7]}</span>}
-                {user.appVersion ? `${user.appVersion}` : '-'}
-            </td>
-            <td>
-                {onMobile && <span className="mobile-table-heading">{headers[8]}</span>}
-                <span className={`limit-${drawingLimitColour}`}>{user.drawingCount}</span>
-            </td>
-            <td>
-                {onMobile && <span className="mobile-table-heading">{headers[9]}</span>}
-                {boolToYesNo(user.isEmailConfirmed)}
-            </td>
-            <td>
-                {' '}
-                {onMobile && <span className="mobile-table-heading">{headers[10]}</span>}
-                <BlockButtonWrapper additionalClasses="stacked">
-                    {user.linkedDeviceID && !isDisabled && (
-                        <button className="button blue" onClick={showUnlinkModal}>
-                            <i className="far fa-unlink" />
-                            Unlink Device
-                        </button>
-                    )}
-                    <button className="button" onClick={generateReport}>
-                        Generate Report
-                    </button>
-                    <Link
-                        className="button green"
-                        to={`/company/users-management/company-admins/${user.id}/timesheet`}
-                    >
-                        <i className="far fa-eye" /> View Timesheet
-                    </Link>
-                    <Link
-                        className="button yellow "
-                        to={`/company/users-management/company-admins/${user.id}/edit`}
-                    >
-                        <i className="far fa-pencil" />
-                        Edit
-                    </Link>
-                    <Link
-                        className="button yellow "
-                        to={`/company/users-management/company-admins/${user.id}/edit-email`}
-                    >
-                        <i className="far fa-at" />
-                        Edit Email
-                    </Link>
-                    <Link
-                        className="button yellow "
-                        to={`/company/users-management/company-admins/${user.id}/documents`}
-                    >
-                        <i className="far fa-file-upload" />
-                        User Documents
-                    </Link>
-                    <Link
-                        className="button blue"
-                        to={`/company/users-management/company-admins/${user.id}/drawings`}
-                    >
-                        <i className="far fa-key" /> Drawings Access
-                    </Link>
-                    {loggedInUser.type === +COMPANY_USER_ROLE_TYPES.OWNER &&
-                        +user.type !== +COMPANY_USER_ROLE_TYPES.OWNER &&
-                        !isDisabled && (
-                            <button
-                                className="button red"
-                                onClick={() => showRevokeAdminAccessModal(user.id)}
-                            >
-                                <i className="far fa-ban" />
-                                Revoke Admin
-                            </button>
-                        )}
-                    {loggedInUser.type === +COMPANY_USER_ROLE_TYPES.OWNER &&
-                        +user.type !== +COMPANY_USER_ROLE_TYPES.OWNER &&
-                        (user.shouldRestrictPayments ? (
-                            <button
-                                className="button green"
-                                onClick={() => showRestrictUserPaymentsModal(user.id)}
-                            >
-                                <i className="far fa-money-bill-alt" />
-                                Enable Payments
-                            </button>
-                        ) : isDisabled ? (
-                            <></>
-                        ) : (
-                            <button
-                                className="button red"
-                                onClick={() => showRestrictUserPaymentsModal(user.id)}
-                            >
-                                <i className="far fa-money-bill-alt" />
-                                Restrict Payments
-                            </button>
-                        ))}
+                    containerSide="left"
+                >
+                    {drawingLimitMaxed && <i className="far fa-exclamation-triangle red-icon" />}
+                </TooltipContainer>
 
-                    {+user.type !== +COMPANY_USER_ROLE_TYPES.OWNER && (
-                        <>
-                            {isDisabled ? (
-                                <button
-                                    className="button green"
-                                    onClick={() => showEnableModal(user.id)}
-                                >
-                                    <i className="far fa-check" />
-                                    Enable
-                                </button>
-                            ) : (
-                                <>
-                                    <button
-                                        className="button red"
-                                        onClick={() => showDisableModal(user.id)}
-                                    >
-                                        <i className="far fa-ban" />
-                                        Disable
-                                    </button>
-                                    <button
-                                        className="button red"
-                                        onClick={() => showDeleteModal(user.id)}
-                                    >
-                                        <i className="far fa-trash-alt" />
-                                        Delete
-                                    </button>
-                                </>
-                            )}
-                        </>
-                    )}
-                </BlockButtonWrapper>
+                {onMobile && <span className="mobile-table-heading">{headers[8]}</span>}
+                <span className={`limit-${drawingLimitColour}`}>
+                    {`${user.drawingCount}/${maxDrawingsPerOperative}`}
+                </span>
+            </td>
+
+            <td>
+                <ButtonWrapper alignment="right">
+                    <LinkButton
+                        text="Drawing Access"
+                        size="small"
+                        icon="key"
+                        iconWeight="regular"
+                        href={`/company/users-management/company-admins/${user.id}/drawings`}
+                        extraClasses="drawing-access-button"
+                    />
+                    <CompanyAdminUserActionsMenu
+                        user={user}
+                        generateReport={generateReport}
+                        isDisabled={isDisabled}
+                        showUnlinkModal={showUnlinkModal}
+                        loggedInUser={loggedInUser}
+                        canSetAdminPlusUsers={canSetAdminPlusUsers}
+                        showRestrictUserPaymentsModal={showRestrictUserPaymentsModal}
+                        showRevokeAdminAccessModal={showRevokeAdminAccessModal}
+                        showEnableModal={showEnableModal}
+                        showDisableModal={showDisableModal}
+                        showDeleteModal={showDeleteModal}
+                        showSetAdminPlusModal={showSetAdminPlusModal}
+                    />
+                </ButtonWrapper>
             </td>
         </tr>
     );

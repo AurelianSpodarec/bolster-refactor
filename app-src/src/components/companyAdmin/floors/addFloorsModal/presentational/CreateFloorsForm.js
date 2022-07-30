@@ -1,13 +1,13 @@
 import React from 'react';
+
 import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
-import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
-import { DROPDOWN_OPTIONS } from 'constants/companyAdmin/enums';
-import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
-import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
+import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import { ReactComponent as TrashIcon } from '../../../../../_content/images/icons/trash.svg';
 
 // * .*. in names is used for splitting up field validations without risking overlap with real names
 
@@ -19,239 +19,71 @@ const CreateFloorsForm = ({
     removeFloor,
     handleClose,
     isUsingBolsterLabels,
-    initialOptions,
-    setShowManufacturingOptions,
-    showManufacturingOptions,
-    showDropdownOptions,
-    setShowDropdownOptions,
-    buildingName,
-    combinedOptions,
-    handleShowOandMModal,
     isFetchingHierarchies,
 }) => (
-    <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
-        <div className="size-lg-12">
-            {floors.map((floor, i) => (
-                <>
-                    <div
-                        className={`size-lg-${isUsingBolsterLabels ? '6' : '12'} size-md-12`}
-                        key={floor.id}
-                    >
-                        <Field name="Floor name" required>
-                            <TextInputContainer
-                                name={`${floor.id}.*.name`}
-                                value={floor.name}
-                                handleChange={(name, value) => updateFloor(name, value, floor.id)}
-                                required
-                            />
-                        </Field>
-                    </div>
-                    {showManufacturingOptions ? (
+    <Form onSubmit={handleSubmit} className="generic-form flex-content-wrapper size-lg-12">
+        <div className="flex-content">
+            <div className="form-fields-container size-lg-12">
+                <div className="size-lg-12">
+                    {floors.map(floor => (
                         <>
-                            <div className="size-lg-12">
-                                <div className="size-lg-6 size-md-12">
-                                    <Field
-                                        labelClasses="no-capitalise"
-                                        name="Set manufacturer(s) for floor?"
-                                    >
-                                        <CheckboxContainer
-                                            checked={floor.setManufacturersForHierarchy}
-                                            name={`${floor.id}.*.setManufacturersForHierarchy`}
-                                            text=""
-                                            handleChange={(name, value) => {
-                                                updateFloor(name, value, floor.id);
-                                                if (value) {
-                                                    handleShowOandMModal();
-                                                }
-                                            }}
-                                            disabled={floor.isManufacturingInherited}
-                                        />
-                                    </Field>
-                                </div>
-                            </div>
-
-                            {floor.setManufacturersForHierarchy && (
-                                <div className="size-lg-12">
-                                    <Field
-                                        labelClasses="no-capitalise"
-                                        name="Manufacturer(s)"
-                                        required={floor.setManufacturersForHierarchy}
-                                    >
-                                        <CheckboxListContainer
-                                            name={`${floor.id}.*.selectedManufacturerOptions`}
-                                            text=""
-                                            handleChange={(name, value) =>
-                                                updateFloor(name, value, floor.id)
-                                            }
-                                            selectedOptions={floor.selectedManufacturerOptions}
-                                            options={floor.manufacturerOptions}
-                                            allOptionsDisabled={floor.isManufacturingInherited}
-                                            required={floor.setManufacturersForHierarchy}
-                                        />
-                                    </Field>
-                                </div>
-                            )}
-
-                            {floor.setManufacturersForHierarchy &&
-                                Object.entries(floor.optionValuesOptions).map(
-                                    ([manufacturerID, optionValues]) => {
-                                        if (
-                                            floor.selectedManufacturerOptions.includes(
-                                                manufacturerID,
-                                            )
-                                        ) {
-                                            const manufacturerInfo = floor.manufacturerOptions.find(
-                                                element =>
-                                                    String(element.id) === String(manufacturerID),
-                                            );
-
-                                            return (
-                                                <div className="size-lg-12">
-                                                    <Field
-                                                        labelClasses="no-capitalise"
-                                                        name={`${manufacturerInfo.name} ${
-                                                            DROPDOWN_OPTIONS[
-                                                                manufacturerInfo.pinOptionType
-                                                            ].name
-                                                        }
-                              `}
-                                                        required
-                                                    >
-                                                        <CheckboxListContainer
-                                                            name={`${floor.id}.*.selectedOptionValues`}
-                                                            text=""
-                                                            handleChange={(name, value) =>
-                                                                updateFloor(name, value, floor.id)
-                                                            }
-                                                            selectedOptions={
-                                                                floor.selectedOptionValues
-                                                            }
-                                                            options={Object.values(optionValues)}
-                                                            allOptionsDisabled={
-                                                                floor.isManufacturingInherited
-                                                            }
-                                                            required
-                                                        />
-                                                    </Field>
-                                                </div>
-                                            );
-                                        } else return null;
-                                    },
-                                )}
-                        </>
-                    ) : (
-                        <FieldOutput fieldClass="center-align">
-                            <div className="form-field size-lg-12">
-                                <p>
-                                    Manufacturers already set at{' '}
-                                    {initialOptions.manufacturingInheritedFrom}.
-                                    <br /> This cannot be overridden at this level, click{' '}
-                                    <span
-                                        onClick={() => {
-                                            setShowManufacturingOptions(true);
-                                        }}
-                                    >
-                                        here
-                                    </span>{' '}
-                                    to see the settings.
-                                </p>
-                            </div>
-                        </FieldOutput>
-                    )}
-                    {showDropdownOptions ? (
-                        <>
-                            <div className="size-lg-12">
-                                <div className="size-lg-6 size-md-12">
-                                    <Field
-                                        labelClasses="no-capitalise"
-                                        name="Set item types for floor?"
-                                    >
-                                        <CheckboxContainer
-                                            checked={floor.setDropdownOptionsForHierarchy}
-                                            name={`${floor.id}.*.setDropdownOptionsForHierarchy`}
-                                            text=""
-                                            handleChange={(name, value) =>
-                                                updateFloor(name, value, floor.id)
-                                            }
-                                            disabled={floor.isDropdownOptionsInherited}
-                                        />
-                                    </Field>
-                                </div>
-                            </div>
-                            {floor.setDropdownOptionsForHierarchy && (
-                                <div className="size-lg-12">
-                                    <Field
-                                        labelClasses="no-capitalise"
-                                        name="Manufacturer(s)"
-                                        required={floor.setDropdownOptionsForHierarchy}
-                                    >
-                                        <CheckboxListContainer
-                                            name={`${floor.id}.*.selectedDropdownOptions`}
-                                            text=""
-                                            handleChange={(name, value) =>
-                                                updateFloor(name, value, floor.id)
-                                            }
-                                            selectedOptions={floor.selectedDropdownOptions}
-                                            options={floor.dropdownOptions}
-                                            allOptionsDisabled={floor.isDropdownOptionsInherited}
-                                            required={floor.setDropdownOptionsForHierarchy}
-                                        />
-                                    </Field>
-                                </div>
-                            )}
-                        </>
-                    ) : (
-                        <>
-                            <FieldOutput fieldClass="center-align">
-                                <div className="form-field size-lg-12">
-                                    <p>
-                                        Item types already set at {buildingName}.
-                                        <br /> This cannot be overridden at this level, click{' '}
-                                        <span
-                                            onClick={() => {
-                                                setShowDropdownOptions(true);
-                                            }}
-                                        >
-                                            here
-                                        </span>{' '}
-                                        to see the settings.
-                                    </p>
-                                </div>
-                            </FieldOutput>
-                        </>
-                    )}
-
-                    {floors.length > 1 && (
-                        <BlockButtonWrapper>
-                            <button
-                                className="button red icon-only"
-                                type="button"
-                                onClick={() => removeFloor(floor.id)}
+                            <div
+                                className={`size-lg-${
+                                    isUsingBolsterLabels ? '6' : '12'
+                                } size-md-12`}
+                                key={floor.id}
                             >
-                                <i className="fa fa-trash" />
-                            </button>
-                        </BlockButtonWrapper>
-                    )}
-                </>
-            ))}
+                                <Field name="Floor name" required>
+                                    <TextInputContainer
+                                        name={`${floor.id}.*.name`}
+                                        value={floor.name}
+                                        handleChange={(name, value) =>
+                                            updateFloor(name, value, floor.id)
+                                        }
+                                        required
+                                    />
+                                </Field>
+                            </div>
+
+                            {floors.length > 1 && (
+                                <BlockButtonWrapper>
+                                    <ActionButton
+                                        type="button"
+                                        svgIconComponent={TrashIcon}
+                                        onClick={() => removeFloor(floor.id)}
+                                        ambient="positive"
+                                        source="secondary"
+                                        iconOnly
+                                    />
+                                </BlockButtonWrapper>
+                            )}
+                        </>
+                    ))}
+                </div>
+            </div>
         </div>
-        <BlockButtonWrapper>
-            <button
-                className="button blue left"
+
+        <FlexWrapper justify="between" extraClasses="flex-modal-footer">
+            <ActionButton
                 type="button"
-                onClick={() => addFloor(combinedOptions)}
-            >
-                <i className="fa fa-plus" /> Add another floor
-            </button>
-            {isFetchingHierarchies ? (
-                <button className="button green disabled" disabled>
-                    <i className="fa fa-spinner fa-spin"></i> Please wait...
-                </button>
-            ) : (
-                <button className="button green">Submit</button>
-            )}
-            <ButtonContainer handleClick={handleClose}>Cancel</ButtonContainer>
-        </BlockButtonWrapper>
+                text="Add another floor"
+                icon="plus"
+                onClick={addFloor}
+                ambient="positive"
+                extraClasses="margin-left"
+            />
+
+            <ButtonWrapper>
+                <ActionButton source="secondary" text="Cancel" onClick={handleClose} />
+                <ActionButton
+                    type="submit"
+                    text={isFetchingHierarchies ? 'Please wait...' : 'Confirm'}
+                    icon={isFetchingHierarchies ? 'spinner' : 'check'}
+                    iconSpin={isFetchingHierarchies}
+                    disabled={isFetchingHierarchies}
+                />
+            </ButtonWrapper>
+        </FlexWrapper>
     </Form>
 );
 

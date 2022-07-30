@@ -1,8 +1,9 @@
 import React from 'react';
-import ModalOuterContainer from '../containers/ModalOuterContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+
 import ButtonContainer from '../../button/containers/ButtonContainer';
+import ActionButton from '../../button/presentational/ActionButton';
+import FlexModalOuter from './FlexModalOuter';
+import ButtonWrapper from '../../button/presentational/ButtonWrapper';
 
 const SuccessModal = ({
     hideModal,
@@ -11,11 +12,14 @@ const SuccessModal = ({
     link,
     linkMessage,
 }) => (
-    <ModalOuterContainer>
-        <BlockHeading title={title} />
-        <BlockButtonWrapper>
-            <p className="generic-text">{message}</p>
+    <FlexModalOuter title={title}>
+        <div className="flex-content-wrapper">
+            <div className="flex-content">
+                <p className="generic-text">{message}</p>
+            </div>
+        </div>
 
+        <ButtonWrapper alignment="right" extraClasses="flex-modal-footer">
             {link && linkMessage && (
                 <ButtonContainer
                     setColour="#2eac58"
@@ -26,11 +30,10 @@ const SuccessModal = ({
                     {linkMessage}
                 </ButtonContainer>
             )}
-            <button className="button" onClick={hideModal}>
-                <i className="fa fa-times" /> Close
-            </button>
-        </BlockButtonWrapper>
-    </ModalOuterContainer>
+
+            <ActionButton text="Close" onClick={hideModal} />
+        </ButtonWrapper>
+    </FlexModalOuter>
 );
 
 export default SuccessModal;

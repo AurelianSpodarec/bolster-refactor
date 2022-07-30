@@ -9,8 +9,8 @@ const BolsterLabelExample = ({ name, hierarchy }) => (
     <div className="size-lg-12 label-example">
         <BlockHeading title="Label example" />
         <p className="generic-text size-lg-12 padded">
-            If you choose to have this name display on your Bolster labels,
-            below is how this will look.
+            If you choose to have this name display on your Bolster labels, below is how this will
+            look.
         </p>
         <div className="label-example-container size-lg-12">
             <div className="label-example size-lg-6 size-md-12">

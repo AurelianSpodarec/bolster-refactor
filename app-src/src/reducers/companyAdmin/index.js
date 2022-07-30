@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux';
 
 import activityLogReducer from './activityLog';
-import addPinDropdownOptions from './addPinDropdownOptions';
 import addPinFormReducer from './addPinForm';
 import addPinCoordinatesReducer from './addPinCoordinates';
 import appReducer from './app';
@@ -12,6 +11,7 @@ import companyAddressesGeocodeReducer from './companyAddressesGeocode';
 import companiesPermissionsReducer from './companiesPermissions';
 import companySettingsReducer from './companySettings';
 import companyUsersReducer from '../companyAdmin/companyUsers';
+import costingAndEstimatingReducer from '../companyAdmin/costingAndEstimating';
 import creditsReducer from './credits';
 import creditLogsReducer from './creditLogs';
 import dashboardReducer from './dashboard';
@@ -32,7 +32,16 @@ import operativesReducer from './operatives';
 import pendingInvitesReducer from './pendingInvites';
 import pinAnswersReducer from './pinAnswers';
 import pinHistoriesReducer from './pinHistories';
+import pinOptionsReducer from './pinOptions';
+import pinOptionSetsReducer from './pinOptionSets';
+import pinOptionTypesReducer from './pinOptionTypes';
+import pinOptionVersionsReducer from './pinOptionVersions';
 import pinsReducer from './pins';
+import prelimsReducer from './prelims';
+import pinOptionDocumentsReducer from './pinOptionDocuments';
+import pinOptionDocumentsVersionsReducer from './pinOptionDocumentsVersions';
+import pinTasksReducer from './pinTasks';
+import pushNotificationsReducer from './pushNotifications';
 import searchReducer from './search';
 import servicesReducer from './services';
 import recentUpdatesReducer from './recentUpdates';
@@ -45,16 +54,12 @@ import templateSectionsReducer from './templateSections';
 import templateVersionsReducer from './templateVersions';
 import templateQuestionsReducer from './templateQuestions';
 import transferRequestsReducer from './transferRequests';
-import dropdownOptionsReducer from './dropdownOptions';
 import approvedCompaniesReducer from './approvedCompanies';
 import hierarchyReducer from './hierarchy';
 import generatePinReportReducer from './generatePinReport';
 import userDrawingsReducer from './userDrawings';
 import deletedDataReducer from './deletedData';
 import qrCodesReducer from './qrCodes';
-import manufacturersReducer from './manufacturers';
-import manufacturersOptionValuesReducer from './manufacturersOptionValues';
-import optionValueDocumentsReducer from './optionValueDocuments';
 import userGuideReducer from './userGuide';
 import userDocumentsReducer from './userDocuments';
 import zonesReducer from './zones';
@@ -65,11 +70,12 @@ import timesheetPinStatsReducer from './timesheetPinStats';
 import userPinFeedsReducer from './userPinFeeds';
 import bugReportsReducer from './bugReports';
 import documentLibraryReducer from './documentLibrary';
-import pinTasksReducer from './pinTasks';
+import addOnReducer from './addOns';
+import payRatesReducer from './payRates';
+import workingHoursReducer from './workingHours';
 
 export default combineReducers({
     activityLogReducer,
-    addPinDropdownOptions,
     addPinCoordinatesReducer,
     addPinFormReducer,
     alertsReducer,
@@ -84,6 +90,7 @@ export default combineReducers({
     companySelectionReducer,
     companySettingsReducer,
     companyUsersReducer,
+    costingAndEstimatingReducer,
     creditsReducer,
     creditLogsReducer,
     dashboardReducer,
@@ -91,7 +98,6 @@ export default combineReducers({
     documentLibraryReducer,
     documentsReducer,
     drawingsReducer,
-    dropdownOptionsReducer,
     floorsReducer,
     generatePinReportReducer,
     headquartersReducer,
@@ -104,16 +110,22 @@ export default combineReducers({
     latestPinFeedReducer,
     companyReportsReducer,
     messageCentreReducer,
-    manufacturersReducer,
-    manufacturersOptionValuesReducer,
     operativeAlertsReducer,
     operativesReducer,
-    optionValueDocumentsReducer,
+    payRatesReducer,
     pendingInvitesReducer,
     pinAnswersReducer,
     pinHistoriesReducer,
+    pinOptionDocumentsReducer,
+    pinOptionDocumentsVersionsReducer,
+    pinOptionsReducer,
+    pinOptionSetsReducer,
+    pinOptionTypesReducer,
+    pinOptionVersionsReducer,
     pinsReducer,
     pinTasksReducer,
+    prelimsReducer,
+    pushNotificationsReducer,
     qrCodesReducer,
     recentUpdatesReducer,
     reportsReducer,
@@ -134,4 +146,6 @@ export default combineReducers({
     timesheetsReducer,
     timesheetPinStatsReducer,
     userPinFeedsReducer,
+    addOnReducer,
+    workingHoursReducer,
 });

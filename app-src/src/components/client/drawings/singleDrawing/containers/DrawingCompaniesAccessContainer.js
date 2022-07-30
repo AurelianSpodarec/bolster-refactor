@@ -4,9 +4,7 @@ import CompaniesAccessContainer from 'components/client/shared/companies/contain
 
 class DrawingCompaniesAccessContainer extends Component {
     render() {
-        return (
-            <CompaniesAccessContainer smallPod={true} hierarchyType="drawing" />
-        );
+        return <CompaniesAccessContainer smallPod={true} hierarchyType="drawing" />;
     }
 }
 

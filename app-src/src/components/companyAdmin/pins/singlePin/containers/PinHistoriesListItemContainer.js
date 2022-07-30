@@ -9,13 +9,7 @@ class PinHistoriesListItemContainer extends Component {
     state = { active: false };
 
     render() {
-        const {
-            history,
-            historyCount,
-            users,
-            services,
-            allHistories
-        } = this.props;
+        const { history, historyCount, users, services, allHistories } = this.props;
         const { active } = this.state;
 
         const user = users[history.createdByCompanyUserID] || {};
@@ -48,20 +42,14 @@ class PinHistoriesListItemContainer extends Component {
     componentDidUpdate = prevProps => {
         const { selectedHistoryId, history } = this.props;
 
-        if (
-            prevProps.selectedHistoryId !== history.id &&
-            selectedHistoryId === history.id
-        ) {
+        if (prevProps.selectedHistoryId !== history.id && selectedHistoryId === history.id) {
             this.setState({
-                active: !this.state.active
+                active: !this.state.active,
             });
         }
-        if (
-            prevProps.selectedHistoryId === history.id &&
-            selectedHistoryId !== history.id
-        ) {
+        if (prevProps.selectedHistoryId === history.id && selectedHistoryId !== history.id) {
             this.setState({
-                active: !this.state.active
+                active: !this.state.active,
             });
         }
     };
@@ -79,19 +67,16 @@ const mapStateToProps = ({
     companyAdmin: {
         companyUsersReducer: { users },
         servicesReducer: { services },
-        pinHistoriesReducer: { histories }
-    }
+        pinHistoriesReducer: { histories },
+    },
 }) => ({
     users,
     services,
-    allHistories: Object.values(histories)
+    allHistories: Object.values(histories),
 });
 
 const mapDispatchToProps = dispatch => ({
-    selectPinHistory: historyID => dispatch(selectPinHistory(historyID))
+    selectPinHistory: historyID => dispatch(selectPinHistory(historyID)),
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(PinHistoriesListItemContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(PinHistoriesListItemContainer);

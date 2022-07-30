@@ -30,17 +30,11 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchAllClientBuildings(selectedCompanyID));
         dispatch(fetchAllClientDrawings(selectedCompanyID));
         dispatch(fetchAllClientFloors(selectedCompanyID));
-        dispatch(
-            fetchClientPinStatsForLevel(
-                selectedCompanyID,
-                hierarchyType,
-                siteID
-            )
-        );
-    }
+        dispatch(fetchClientPinStatsForLevel(selectedCompanyID, hierarchyType, siteID));
+    },
 });
 
 export default connect(
     (_, { match }) => ({ siteID: match.params['id'] }),
-    mapDispatchToProps
+    mapDispatchToProps,
 )(SingleSiteContainer);

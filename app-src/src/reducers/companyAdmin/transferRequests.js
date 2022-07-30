@@ -13,7 +13,7 @@ import {
     DELETE_TRANSFER_REQUEST_FAILURE,
     DELETE_TRANSFER_REQUEST_SUCCESS,
     RESPOND_TO_TRANSFER_REQUEST_REQUEST,
-    RESPOND_TO_TRANSFER_REQUEST_SUCCESS
+    RESPOND_TO_TRANSFER_REQUEST_SUCCESS,
 } from 'constants/actionTypes/transferRequests';
 
 export default combineReducers({
@@ -21,7 +21,7 @@ export default combineReducers({
     outgoingTransferRequests: outgoingTransferRequestsReducer,
     isFetching: isFetchingReducer,
     error: errorReducer,
-    postSuccess: postSuccessReducer
+    postSuccess: postSuccessReducer,
 });
 
 function isFetchingReducer(state = false, action) {

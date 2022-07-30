@@ -1,0 +1,100 @@
+.pay-rate-item {
+  background-color: var(--navigation-primary);
+  border: 1px solid var(--input-stroke);
+  padding: 10px;
+  margin: 16px 0;
+  border-radius: 10px;
+
+  p {
+    font-size: 140%;
+    font-weight: 500;
+  }
+
+  i {
+    font-size: 140%;
+    color: var(--typography-default);
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &.expanded {
+    background-color: var(--input-default);
+    padding: 0 10px 0 0;
+
+    i {
+      transform: rotate(90deg);
+      transition: transform 500ms;
+    }
+
+    .generic-input {
+      padding: 10px 0 10px 10px;
+      border-color: transparent;
+      border-radius: 10px;
+      font-size: 140%;
+      font-weight: 500;
+    }
+  }
+}
+
+.pay-rate-form {
+  display: none;
+  border: 1px solid var(--background-stroke);
+  border-radius: 10px;
+  background-color: transparent;
+  padding: 10px;
+
+    &.expanded {
+        display: block;
+    }
+
+}
+  .delete-icon {
+    &.rate {
+      margin-left: 16px;
+    }
+  }
+
+  .wages-filters-wrapper {
+    button {
+      color: var(--typography-default);
+      margin-left: 16px;
+    }
+
+    .filters-popup {
+      position: absolute;
+      top: 50px;
+      right: 0;
+      background-color: var(--background-default);
+      padding: 16px;
+      min-width: 350px;
+      border-radius: 10px;
+      border: 1px solid var(--background-stroke);
+      z-index: 2;
+
+      .form-field {
+        min-height: 10px;
+        margin: 16px 0;
+      }
+    }
+  }
+
+  .regular-hours-grid {
+    display: grid;
+    grid-template-columns: 20% 15% 15% 15% 15% 20%;
+    grid-gap: 16px;
+    margin-bottom: 16px;
+    z-index: 1;
+
+    p {
+        font-size: 140%;
+        font-weight: 500;
+    }
+
+    .tickbox {
+      p {
+        font-size: 120%;
+      }
+    }
+ }

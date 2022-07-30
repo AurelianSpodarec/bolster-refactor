@@ -16,10 +16,7 @@ const HierarchyAdvancedReport = ({ isDrawingPage }) => (
                     isDrawingPage={isDrawingPage}
                 />
             )}
-            <BasicFiltersContainer
-                blockName="basicFilters"
-                isDrawingPage={isDrawingPage}
-            />
+            <BasicFiltersContainer blockName="basicFilters" isDrawingPage={isDrawingPage} />
         </div>
 
         <FurtherFiltrationContainer />

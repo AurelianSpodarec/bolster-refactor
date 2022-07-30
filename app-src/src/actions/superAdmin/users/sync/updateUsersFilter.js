@@ -4,5 +4,5 @@ export default (fieldName, searchTerm) => dispatch =>
     dispatch({
         type: UPDATE_USERS_FILTERS,
         fieldName,
-        searchTerm
+        searchTerm,
     });

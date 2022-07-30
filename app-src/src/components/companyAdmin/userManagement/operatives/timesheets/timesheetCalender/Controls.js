@@ -8,8 +8,19 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
 import { useDispatch } from 'react-redux';
 import { setCompanyUserIDs } from 'actions/companyAdmin/timesheets/sync/setSelectedCompanyUserID';
+import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 
-const Controls = ({ startDate, onPrev, onNext, onToday, companyUserIDs, companyUserOptions }) => {
+const Controls = ({
+    startDate,
+    onPrev,
+    onNext,
+    onToday,
+    companyUserIDs,
+    companyUserOptions,
+    jobReferenceIDs,
+    setJobReferenceIDs,
+    jobReferenceOptions,
+}) => {
     const dispatch = useDispatch();
 
     return (
@@ -45,21 +56,39 @@ const Controls = ({ startDate, onPrev, onNext, onToday, companyUserIDs, companyU
                     </ButtonContainer>
 
                     <div className="end">
-                        <MultiSelect
-                            options={companyUserOptions.sort((a, b) =>
-                                a.label.localeCompare(b.label),
-                            )}
-                            value={companyUserIDs}
-                            onChange={(_, value) => dispatch(setCompanyUserIDs(value))}
-                            search
-                            maxSelectedVisible={4}
-                            maxLines={1}
-                        />
+                        <FlexWrapper gap={10}>
+                            <MultiSelect
+                                options={companyUserOptions.sort((a, b) =>
+                                    a.label.localeCompare(b.label),
+                                )}
+                                value={companyUserIDs}
+                                onChange={(_, value) => dispatch(setCompanyUserIDs(value))}
+                                search
+                                maxSelectedVisible={4}
+                                maxLines={1}
+                                placeholder="-- select users --"
+                                styles={selectStyles}
+                            />
+                            <MultiSelect
+                                options={jobReferenceOptions.sort((a, b) =>
+                                    a.label.localeCompare(b.label),
+                                )}
+                                value={jobReferenceIDs}
+                                onChange={(_, value) => dispatch(setJobReferenceIDs(value))}
+                                search
+                                maxSelectedVisible={4}
+                                maxLines={1}
+                                placeholder="-- select job references --"
+                                styles={selectStyles}
+                            />
+                        </FlexWrapper>
                     </div>
                 </>
             }
         />
     );
 };
+
+const selectStyles = { width: '100%', maxWidth: '50%' };
 
 export default Controls;

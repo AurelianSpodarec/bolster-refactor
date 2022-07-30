@@ -4,12 +4,7 @@ import { connect } from 'react-redux';
 import TemplateSectionQuestion from '../presentational/TemplateSectionQuestion';
 import selectQuestion from 'actions/companyAdmin/templates/sync/selectQuestion';
 
-const TemplateSectionQuestionContainer = ({
-    question,
-    dispatch,
-    onMobile,
-    headers
-}) => (
+const TemplateSectionQuestionContainer = ({ question, dispatch, onMobile, headers }) => (
     <TemplateSectionQuestion
         question={question}
         onMobile={onMobile}
@@ -20,9 +15,9 @@ const TemplateSectionQuestionContainer = ({
 
 const mapStateToProps = ({
     shared: {
-        mobileReducer: { onMobile }
-    }
+        mobileReducer: { onMobile },
+    },
 }) => ({
-    onMobile
+    onMobile,
 });
 export default connect(mapStateToProps)(TemplateSectionQuestionContainer);

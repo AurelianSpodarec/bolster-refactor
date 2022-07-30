@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import fetchRecentlyDeleted from 'actions/superAdmin/recentlyDeleted/async/fetchRecentlyDeleted';

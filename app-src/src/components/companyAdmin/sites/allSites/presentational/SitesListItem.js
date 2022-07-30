@@ -4,8 +4,9 @@ import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import withDrag from 'components/shared/dragDrop/hocs/withDrag';
 import withToggleExpand from 'components/shared/generic/tables/hocs/withToggleExpand';
 import BuildingsTableContainer from 'components/companyAdmin/buildings/shared/containers/BuildingsTableContainer';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 
 let SitesListItem = ({
     toggleExpanded,
@@ -61,12 +62,16 @@ let SitesListItem = ({
                             {permissions}
                         </td>
                         <td>
-                            <ButtonContainer
-                                to={`/company/sites/${site.id}`}
-                                handleClick={e => e.stopPropagation()}
-                            >
-                                View
-                            </ButtonContainer>
+                            <ButtonWrapper alignment="right">
+                                <LinkButton
+                                    href={`/company/sites/${site.id}`}
+                                    text="View"
+                                    size="small"
+                                    source="secondary"
+                                    ambient="positive"
+                                    handleClick={e => e.stopPropagation()}
+                                />
+                            </ButtonWrapper>
                         </td>
                     </>
                 </tr>,

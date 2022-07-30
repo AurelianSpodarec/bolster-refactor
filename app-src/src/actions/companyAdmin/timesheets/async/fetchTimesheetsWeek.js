@@ -23,17 +23,25 @@ export const fetchTimesheetsWeekFailure = error => ({
     error,
 });
 
-export default (userIDs, startDate) => dispatch => {
-    dispatch(fetchTimesheetsWeekRequest());
-    console.log(userIDs);
-    axios
-        .get(`${API_URL}/clockerEntries/weekforusers?${arrayToQueryString(userIDs, 'ids')}`, {
-            ...getHeaders(),
-            params: {
-                date: startDate,
-                ids: userIDs,
-            },
-        })
-        .then(res => dispatch(fetchTimesheetsWeekSuccess(res.data)))
-        .catch(err => dispatch(fetchTimesheetsWeekFailure(err.message)));
-};
+export default (userIDs = [], jobReferenceIDs = [], startDate) =>
+    async dispatch => {
+        dispatch(fetchTimesheetsWeekRequest());
+
+        return axios
+            .get(
+                `${API_URL}/clockerEntries/weekforusers?${arrayToQueryString(
+                    userIDs,
+                    'ids',
+                )}&${arrayToQueryString(jobReferenceIDs, 'jobReferenceIDs')}`,
+                {
+                    ...getHeaders(),
+                    params: {
+                        date: startDate,
+                        ids: userIDs,
+                        jobReferenceIDs,
+                    },
+                },
+            )
+            .then(res => dispatch(fetchTimesheetsWeekSuccess(res.data)))
+            .catch(err => dispatch(fetchTimesheetsWeekFailure(err.message)));
+    };

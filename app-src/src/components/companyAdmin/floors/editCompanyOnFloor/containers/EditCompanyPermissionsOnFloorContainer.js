@@ -14,12 +14,8 @@ class EditCompanyPermissionsOnFloorContainer extends Component {
     }
 
     componentDidMount = () => {
-        const {
-            floorID,
-            fetchSingleFloor,
-            fetchPermissionsForCompanyPermission,
-            companyID,
-        } = this.props;
+        const { floorID, fetchSingleFloor, fetchPermissionsForCompanyPermission, companyID } =
+            this.props;
         fetchSingleFloor(floorID);
         fetchPermissionsForCompanyPermission('floor', floorID, companyID);
     };

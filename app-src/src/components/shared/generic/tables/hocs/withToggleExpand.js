@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function(WrappedComponent) {
+export default function (WrappedComponent) {
     class WithToggleExpand extends React.Component {
         state = { isOpen: false };
         render() {
@@ -19,7 +19,7 @@ export default function(WrappedComponent) {
 
             this.setState({
                 ...this.state,
-                isOpen: !this.state.isOpen
+                isOpen: !this.state.isOpen,
             });
         };
     }

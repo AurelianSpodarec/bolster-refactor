@@ -6,7 +6,7 @@ import CompanyAdminsRoutes from './CompanyAdminsRoutes';
 
 const AllCompanyAdmins = () => (
     <>
-        <PageHeading title="All Admins" withBackButton>
+        <PageHeading title="All Admins">
             <TabsContainer classes="no-breadcrumb" />
         </PageHeading>
         <CompanyAdminsRoutes />

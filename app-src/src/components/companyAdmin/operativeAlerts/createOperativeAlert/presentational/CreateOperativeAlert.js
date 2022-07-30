@@ -7,11 +7,7 @@ import CreateOperativeAlertFormContainer from '../containers/CreateOperativeAler
 
 const CreateOperativeAlert = () => (
     <>
-        <PageHeading
-            leftChildren={true}
-            title="Create Operative Alert"
-            withBackButton
-        />
+        <PageHeading leftChildren={true} title="Create Operative Alert" withBackButton />
         <BlockContainer>
             <BlockHeading title="Alert Details" />
             <CreateOperativeAlertFormContainer />

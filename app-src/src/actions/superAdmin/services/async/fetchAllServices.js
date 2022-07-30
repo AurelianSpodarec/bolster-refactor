@@ -4,21 +4,21 @@ import { getHeaders } from 'helpers/api';
 import {
     ADMIN_FETCH_ALL_SERVICES_REQUEST,
     ADMIN_FETCH_ALL_SERVICES_SUCCESS,
-    ADMIN_FETCH_ALL_SERVICES_FAILURE
+    ADMIN_FETCH_ALL_SERVICES_FAILURE,
 } from 'constants/actionTypes/services';
 
 export const fetchAllServicesRequest = () => ({
-    type: ADMIN_FETCH_ALL_SERVICES_REQUEST
+    type: ADMIN_FETCH_ALL_SERVICES_REQUEST,
 });
 
 export const fetchAllServicesSuccess = payload => ({
     type: ADMIN_FETCH_ALL_SERVICES_SUCCESS,
-    payload
+    payload,
 });
 
 export const fetchAllServicesFailure = error => ({
     type: ADMIN_FETCH_ALL_SERVICES_FAILURE,
-    error
+    error,
 });
 
 export default () => dispatch => {

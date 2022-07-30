@@ -8,12 +8,8 @@ import PDF_Pins from '_content/images/icons/output_icons/PDF_Pins.svg';
 import PDF_Floorplan_Pins from '_content/images/icons/output_icons/PDF_Floorplan_Pins.svg';
 
 export const filterOutput = currentState => {
-    const {
-        isPDFGeneration,
-        isCSVGeneration,
-        isFloorplanGeneration,
-        isOAndMManualGeneration,
-    } = currentState;
+    const { isPDFGeneration, isCSVGeneration, isFloorplanGeneration, isOAndMManualGeneration } =
+        currentState;
 
     const obj = {
         isPDFGeneration,

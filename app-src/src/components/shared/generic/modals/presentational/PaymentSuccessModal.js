@@ -1,55 +1,48 @@
 import React from 'react';
-import ModalOuterContainer from '../containers/ModalOuterContainer';
-import BlockHeading from '../../blockHeading/presentational/BlockHeading';
-import StatusIcon from '../../statusIcon/presentationl/StatusIcon';
 import { useSelector } from 'react-redux';
+
 import { INVOICE_GEN_URL } from 'config';
 import { isEmpty } from 'helpers/generic';
+import LinkButton from '../../button/presentational/LinkButton';
+import ButtonWrapper from '../../button/presentational/ButtonWrapper';
+import FlexModalOuter from './FlexModalOuter';
+import ActionButton from '../../button/presentational/ActionButton';
 
 const PaymentSuccessModal = ({
     title = 'Order Complete',
     message = 'Your order has been placed successfully.',
+    handleClose,
 }) => {
     const createdInvoice = useSelector(
         state => state.companyAdmin.invoicesReducer.createdInvoiceDetails,
     );
 
     return (
-        <ModalOuterContainer extraClasses="response-modal">
-            <div
-                className=" size-lg-12"
-                style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignContent: 'center',
-                }}
-            >
-                <i
-                    className="fa fa-check"
-                    style={{
-                        borderRadius: '100%',
-                        backgroundColor: 'green',
-                        color: 'white',
-                        fontSize: '3em',
-                        padding: '0.5em',
-                    }}
-                />
-                <StatusIcon classes="large" />
+        <FlexModalOuter title={title} extraClasses="response-modal">
+            <div className="flex-content-wrapper">
+                <div className="flex-content">
+                    <p className="generic-text">{message}</p>
+                </div>
+
+                <ButtonWrapper alignment="right" extraClasses="flex-modal-footer">
+                    <ActionButton
+                        text="Close"
+                        source={isEmpty(createdInvoice) ? 'primary' : 'secondary'}
+                        onClick={handleClose}
+                    />
+                    {!isEmpty(createdInvoice) && (
+                        <LinkButton
+                            text="Download Invoice"
+                            icon="download"
+                            href={`${INVOICE_GEN_URL}/${createdInvoice.guid}/invoice-${createdInvoice.id}`}
+                            isExternalLink
+                            openInNewTab
+                            isDownloadable
+                        />
+                    )}
+                </ButtonWrapper>
             </div>
-            <BlockHeading title={title} />
-            <p>{message}</p>
-            {!isEmpty(createdInvoice) && (
-                <a
-                    style={{ float: 'left', marginTop: 10 }}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href={`${INVOICE_GEN_URL}/${createdInvoice.guid}/invoice-${createdInvoice.id}`}
-                    className="button blue"
-                >
-                    <i className="fa fa-download fa-fw" /> Download Invoice
-                </a>
-            )}
-        </ModalOuterContainer>
+        </FlexModalOuter>
     );
 };
 

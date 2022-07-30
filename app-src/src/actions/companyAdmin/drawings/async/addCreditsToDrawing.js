@@ -6,21 +6,21 @@ import { getHeaders } from 'helpers/api';
 import {
     ADD_CREDITS_TO_DRAWING_REQUEST,
     ADD_CREDITS_TO_DRAWING_SUCCESS,
-    ADD_CREDITS_TO_DRAWING_FAILURE
+    ADD_CREDITS_TO_DRAWING_FAILURE,
 } from 'constants/actionTypes/credits';
 
 export const addCreditsToDrawingRequest = () => ({
-    type: ADD_CREDITS_TO_DRAWING_REQUEST
+    type: ADD_CREDITS_TO_DRAWING_REQUEST,
 });
 
 export const addCreditsToDrawingSuccess = payload => ({
     type: ADD_CREDITS_TO_DRAWING_SUCCESS,
-    payload
+    payload,
 });
 
 export const addCreditsToDrawingFailure = error => ({
     type: ADD_CREDITS_TO_DRAWING_FAILURE,
-    error
+    error,
 });
 
 export default (drawingID, postBody) => dispatch => {

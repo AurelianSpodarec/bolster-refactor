@@ -12,7 +12,4 @@ const AllOperativeAlertsContainer = ({ adminFetchOperativeAlerts }) => {
 
 const mapDispatchToProps = { adminFetchOperativeAlerts };
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(AllOperativeAlertsContainer);
+export default connect(null, mapDispatchToProps)(AllOperativeAlertsContainer);

@@ -8,16 +8,8 @@ import AddHeadquartersCompany from 'components/companyAdmin/headquarters/addHead
 const HeadquartersRoutes = ({ base = '/company/headquarters' }) => (
     <SwitchWith404>
         <Route exact path={base} component={HeadquartersCompaniesContainer} />
-        <Route
-            exact
-            path={`${base}/companies`}
-            component={HeadquartersCompaniesContainer}
-        />
-        <Route
-            exact
-            path={`${base}/companies/create`}
-            component={AddHeadquartersCompany}
-        />
+        <Route exact path={`${base}/companies`} component={HeadquartersCompaniesContainer} />
+        <Route exact path={`${base}/companies/create`} component={AddHeadquartersCompany} />
     </SwitchWith404>
 );
 

@@ -22,17 +22,20 @@ export const postCompanyTrackingFailure = error => ({
     error,
 });
 
-export default ({ ContactPeriod, Contacted, CompanyId }) => dispatch => {
-    dispatch(postCompanyTrackingRequest());
+export default ({ ContactPeriod, Contacted, CompanyId }) =>
+    dispatch => {
+        dispatch(postCompanyTrackingRequest());
 
-    return axios
-        .post(
-            `${ADMIN_API_URL}/companies/subscriptions/contacted`,
-            { ContactPeriod, Contacted, CompanyId },
-            getHeaders(),
-        )
-        .then(res =>
-            dispatch(postCompanyTrackingSuccess(res.data, { ContactPeriod, Contacted, CompanyId })),
-        )
-        .catch(err => dispatch(postCompanyTrackingFailure(err.message)));
-};
+        return axios
+            .post(
+                `${ADMIN_API_URL}/companies/subscriptions/contacted`,
+                { ContactPeriod, Contacted, CompanyId },
+                getHeaders(),
+            )
+            .then(res =>
+                dispatch(
+                    postCompanyTrackingSuccess(res.data, { ContactPeriod, Contacted, CompanyId }),
+                ),
+            )
+            .catch(err => dispatch(postCompanyTrackingFailure(err.message)));
+    };

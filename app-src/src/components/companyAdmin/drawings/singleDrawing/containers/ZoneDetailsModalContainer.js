@@ -31,11 +31,11 @@ const ZoneDetailsModalContainer = ({ zone, pins, servicesObj, showModal }) => {
 
     function _getPinsIncludedPinIDs() {
         const pinIDsWithinZones = zone.coordinates
-            .reduce((acc) => {
+            .reduce(acc => {
                 const pinIDsWithinCoords = _filterPinsWithinPolygon();
                 return acc.concat(pinIDsWithinCoords);
             }, [])
-            .map((pin) => pin.id);
+            .map(pin => pin.id);
 
         return [...new Set(pinIDsWithinZones)];
     }
@@ -60,9 +60,7 @@ const ZoneDetailsModalContainer = ({ zone, pins, servicesObj, showModal }) => {
             var xj = polygon[j][0],
                 yj = polygon[j][1];
 
-            var intersect =
-                yi > y !== yj > y &&
-                x < ((xj - xi) * (y - yi)) / (yj - yi) + xi;
+            var intersect = yi > y !== yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi;
             if (intersect) inside = !inside;
         }
 
@@ -79,18 +77,16 @@ const ZoneDetailsModalContainer = ({ zone, pins, servicesObj, showModal }) => {
     function _getServiceAreas() {
         const filteredPins = _getFilteredPins();
         const filteredServices = [
-            ...new Set(
-                filteredPins.map(({ latestServiceID }) => latestServiceID)
-            ),
+            ...new Set(filteredPins.map(({ latestServiceID }) => latestServiceID)),
         ];
 
         const services = [];
 
-        filteredServices.forEach((service) => {
+        filteredServices.forEach(service => {
             const curService = servicesObj[service];
 
             const pinsInService = filteredPins.filter(
-                ({ latestServiceID }) => latestServiceID === service
+                ({ latestServiceID }) => latestServiceID === service,
             );
 
             services.push({
@@ -104,13 +100,7 @@ const ZoneDetailsModalContainer = ({ zone, pins, servicesObj, showModal }) => {
     }
 
     function _getStatusIcon(status) {
-        const {
-            ACTION_REQUIRED,
-            INSTALLED,
-            INSPECTED,
-            NO_ACTION,
-            OTHER,
-        } = PIN_STATUS_IDS;
+        const { ACTION_REQUIRED, INSTALLED, INSPECTED, NO_ACTION, OTHER } = PIN_STATUS_IDS;
 
         let icon = redPin;
 
@@ -152,7 +142,4 @@ const mapDispatchToProps = {
     showModal,
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(ZoneDetailsModalContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(ZoneDetailsModalContainer);

@@ -5,21 +5,21 @@ import { getHeaders } from 'helpers/api';
 import {
     RESPOND_TO_PENDING_INVITE_REQUEST,
     RESPOND_TO_PENDING_INVITE_SUCCESS,
-    RESPOND_TO_PENDING_INVITE_FAILURE
+    RESPOND_TO_PENDING_INVITE_FAILURE,
 } from 'constants/actionTypes/pendingInvites';
 
 export const respondToPendingInviteRequest = () => ({
-    type: RESPOND_TO_PENDING_INVITE_REQUEST
+    type: RESPOND_TO_PENDING_INVITE_REQUEST,
 });
 
 export const respondToPendingInviteSuccess = payload => ({
     type: RESPOND_TO_PENDING_INVITE_SUCCESS,
-    payload
+    payload,
 });
 
 export const respondToPendingInviteFailure = error => ({
     type: RESPOND_TO_PENDING_INVITE_FAILURE,
-    error
+    error,
 });
 
 export default postBody => dispatch => {

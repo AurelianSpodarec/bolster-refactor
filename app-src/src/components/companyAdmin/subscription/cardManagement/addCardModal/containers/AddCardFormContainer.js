@@ -15,7 +15,7 @@ class AddCardFormContainer extends Component {
         expiryMonth: '',
         expiryYear: '',
         CV2: '',
-        saveCardDetails: false
+        saveCardDetails: false,
     };
 
     render = () => (
@@ -38,14 +38,12 @@ class AddCardFormContainer extends Component {
             isPostingSuccess,
             isPostingFailure,
             postError,
-            onSuccess = () => {}
+            onSuccess = () => {},
         } = this.props;
         const { expiryMonth, expiryYear } = this.state;
 
         if (expiryMonth !== prevState.expiryMonth || expiryYear !== prevState.expiryYear) {
-            const [thisMonth, thisYear] = moment(Date.now())
-                .format('MM YYYY')
-                .split(' ');
+            const [thisMonth, thisYear] = moment(Date.now()).format('MM YYYY').split(' ');
 
             if (
                 +expiryYear < +thisYear ||
@@ -87,7 +85,7 @@ class AddCardFormContainer extends Component {
             cardNumber,
             expiryMonth,
             expiryYear,
-            CV2
+            CV2,
         };
 
         const { addCard } = this.props;
@@ -101,27 +99,24 @@ class AddCardFormContainer extends Component {
 
 const mapStateToProps = ({
     companyAdmin: {
-        cardsReducer: { postError, isPosting, isPostingSuccess, isPostingFailure }
+        cardsReducer: { postError, isPosting, isPostingSuccess, isPostingFailure },
     },
     shared: {
-        fieldErrorsReducer: { fieldErrors }
-    }
+        fieldErrorsReducer: { fieldErrors },
+    },
 }) => ({
     postError,
     isPosting,
     isPostingSuccess,
     isPostingFailure,
-    postingError: fieldErrors['errorPostingCard']
+    postingError: fieldErrors['errorPostingCard'],
 });
 
 const mapDispatchToProps = {
     showModal,
     addCard,
     addFieldError,
-    removeFieldError
+    removeFieldError,
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(AddCardFormContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(AddCardFormContainer);

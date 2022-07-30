@@ -1,10 +1,13 @@
+import React from 'react';
+
 import deleteClientFromDrawing from 'actions/companyAdmin/clients/async/deleteClientFromDrawing';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { CONFIRM_DELETE } from 'constants/shared/modalTypes';
-import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
+import ActionButton from '../../../../../shared/generic/button/presentational/ActionButton';
+import ButtonWrapper from '../../../../../shared/generic/button/presentational/ButtonWrapper';
 
 const SingleClientPermissionItem = ({ permission, user }) => {
     const dispatch = useDispatch();
@@ -21,12 +24,16 @@ const SingleClientPermissionItem = ({ permission, user }) => {
             </td>
             <td>{permission.serviceIDs.map(id => services[id].name).join(', ')}</td>
             <td>
-                <button className="button yellow" onClick={goToEdit}>
-                    <i className="fal fa-pencil" /> Edit
-                </button>
-                <button className="button red" onClick={removeAccess}>
-                    <i className="fal fa-ban" /> Remove access
-                </button>
+                <ButtonWrapper alignment="right">
+                    <ActionButton
+                        text="Remove Access"
+                        source="secondary"
+                        onClick={removeAccess}
+                        icon="ban"
+                        size="small"
+                    />
+                    <ActionButton text="Edit" onClick={goToEdit} icon="pencil" size="small" />
+                </ButtonWrapper>
             </td>
         </tr>
     );

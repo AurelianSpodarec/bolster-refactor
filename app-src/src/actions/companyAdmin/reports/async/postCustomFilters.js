@@ -24,7 +24,6 @@ export const postCustomFiltersFailure = error => ({
 
 export default postBody => dispatch => {
     dispatch(postCustomFiltersRequest());
-    console.log(postBody);
     return axios
         .post(`${API_URL}/reports/filters`, postBody, getHeaders())
         .then(res => dispatch(postCustomFiltersSuccess(res.data)))

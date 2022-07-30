@@ -5,21 +5,21 @@ import { getHeaders } from 'helpers/api';
 import {
     DELETE_PIN_HISTORY_REQUEST,
     DELETE_PIN_HISTORY_SUCCESS,
-    DELETE_PIN_HISTORY_FAILURE
+    DELETE_PIN_HISTORY_FAILURE,
 } from 'constants/actionTypes/pins';
 
 export const deletePinHistoryRequest = () => ({
-    type: DELETE_PIN_HISTORY_REQUEST
+    type: DELETE_PIN_HISTORY_REQUEST,
 });
 
 export const deletePinHistorySuccess = payload => ({
     type: DELETE_PIN_HISTORY_SUCCESS,
-    payload
+    payload,
 });
 
 export const deletePinHistoryFailure = error => ({
     type: DELETE_PIN_HISTORY_FAILURE,
-    error
+    error,
 });
 
 export default pinHistoryID => dispatch => {

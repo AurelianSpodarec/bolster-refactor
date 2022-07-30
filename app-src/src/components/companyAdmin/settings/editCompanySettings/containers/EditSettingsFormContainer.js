@@ -9,6 +9,7 @@ import EditSettingsForm from '../presentational/EditSettingsForm';
 import { sortTimezones, isObjEmpty, enumFormat } from 'helpers/generic';
 import {
     COMPANY_USER_ROLE_TYPES,
+    CURRENCIES,
     DEFAULT_SITES_SORT,
     DEFAULT_SITES_SORT_NAMES,
 } from 'constants/companyAdmin/enums';
@@ -16,11 +17,6 @@ import { vatOptions } from 'constants/shared/vatTypes';
 
 class EditSettingsFormContainer extends Component {
     state = {
-        templateUsageRuleOptions: {
-            1: { label: 'Use Only Owner Company', value: 1 },
-            2: { label: 'Use Only Own', value: 2 },
-            3: { label: 'Use Any', value: 3 },
-        },
         name: '',
         addressLine1: '',
         addressLine2: '',
@@ -35,7 +31,6 @@ class EditSettingsFormContainer extends Component {
         fax: null,
         labelTelNumber: null,
         labelCompanyName: null,
-        defaultTemplateUsageRule: undefined,
         initialFile: '',
         timeZone: '',
         dateFormat: { value: '', label: '' },
@@ -49,18 +44,17 @@ class EditSettingsFormContainer extends Component {
         // defaultDropdownSorting: DEFAULT_PIN_OPTIONS_SORT.CUSTOM,
         shouldDeleteReportsAfterDownload: false,
         enableQRCodes: false,
-        useManufacturingByDefault: false,
         unsyncedCompanyNotificationDays: '',
         unsyncedOperativeWarningDays: '',
         reportAutoDelete: 0,
         invoiceEmail: '',
         isTwoFactorAuthRequired: false,
+        reportingCurrency: 0,
     };
 
     render() {
         const { filesUploading, isOwner } = this.props;
         const {
-            defaultTemplateUsageRule,
             timeZone,
             dateFormat,
             timeZoneOptions,
@@ -68,12 +62,6 @@ class EditSettingsFormContainer extends Component {
             unsyncedCompanyNotificationDays,
             unsyncedOperativeWarningDays,
         } = this.state;
-
-        const templateUsageRuleOptions = {
-            1: { text: 'Use Only Owner Company', value: 1 },
-            2: { text: 'Use Only Own', value: 2 },
-            3: { text: 'Use Any', value: 3 },
-        };
 
         const siteSortOptions = enumFormat(DEFAULT_SITES_SORT_NAMES);
 
@@ -85,8 +73,6 @@ class EditSettingsFormContainer extends Component {
                 handleSubmit={this.handleSubmit}
                 handleColourSelect={this.handleColourSelect}
                 handleCheckboxChange={this.handleCheckboxChange}
-                templateUsageRules={Object.values(templateUsageRuleOptions)}
-                selectedRule={templateUsageRuleOptions[defaultTemplateUsageRule]}
                 timeZoneOptions={timeZoneOptions}
                 timeZone={timeZone}
                 dateFormatOptions={dateFormatOptions}

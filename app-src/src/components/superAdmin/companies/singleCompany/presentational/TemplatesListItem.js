@@ -1,10 +1,7 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 
-const TemplatesListItem = ({
-    location: { pathname },
-    template: { name, uuid }
-}) => (
+const TemplatesListItem = ({ location: { pathname }, template: { name, uuid } }) => (
     <>
         <tr>
             <td>{name}</td>

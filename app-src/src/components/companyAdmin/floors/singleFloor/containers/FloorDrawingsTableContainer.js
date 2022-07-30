@@ -16,6 +16,7 @@ import fetchSingleFloor from 'actions/companyAdmin/floors/async/fetchSingleFloor
 import fetchAllDrawings from 'actions/companyAdmin/drawings/async/fetchAllDrawings';
 import setHierarchyIsSorting from 'actions/companyAdmin/hierarchy/sync/setHierarchyIsSorting';
 import DrawingFiltersContainer from '../../../../companyAdmin/drawings/singleDrawing/containers/DrawingFiltersContainer';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 
 class FloorDrawingsTableContainer extends Component {
     state = { shouldRestrictPayments: false };
@@ -26,18 +27,32 @@ class FloorDrawingsTableContainer extends Component {
                 <BlockHeading title="Drawings" classes="w-table">
                     {floor.accessType === ACCESS_TYPES_VALUES.OWNER &&
                         !this.state.shouldRestrictPayments && (
-                            <button className="button green" onClick={this.handleAddDrawingsModal}>
-                                <i className="fa fa-plus" /> Add Drawing
-                            </button>
+                            <ActionButton
+                                ambient="positive"
+                                onClick={this.handleAddDrawingsModal}
+                                icon="plus"
+                                text="Add Drawing"
+                                size="medium"
+                            />
                         )}
                     {isSorting ? (
-                        <button className="button green" onClick={this._toggleIsSorting}>
-                            <i className="far fa-check" /> Finish Sort
-                        </button>
+                        <ActionButton
+                            onClick={this._toggleIsSorting}
+                            icon="check"
+                            text="Finish Sort"
+                            source="secondary"
+                            ambient="positive"
+                            size="medium"
+                        />
                     ) : (
-                        <button className="button" onClick={this._toggleIsSorting}>
-                            <i className="far fa-sort" /> Sort Mode
-                        </button>
+                        <ActionButton
+                            onClick={this._toggleIsSorting}
+                            icon="far fa-sort"
+                            text="Sort Mode"
+                            source="secondary"
+                            ambient="positive"
+                            size="medium"
+                        />
                     )}
                     <DrawingFiltersContainer />
                 </BlockHeading>
@@ -47,14 +62,8 @@ class FloorDrawingsTableContainer extends Component {
     }
 
     componentDidMount = () => {
-        const {
-            showModal,
-            floorID,
-            isAdding,
-            users,
-            companyUserID,
-            setHierarchyIsSorting,
-        } = this.props;
+        const { showModal, floorID, isAdding, users, companyUserID, setHierarchyIsSorting } =
+            this.props;
 
         setHierarchyIsSorting(false);
 

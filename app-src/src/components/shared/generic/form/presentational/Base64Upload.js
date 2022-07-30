@@ -3,28 +3,37 @@ import FileBase64 from 'react-file-base64';
 
 import withFieldValidation from '../hocs/withFieldValidation';
 
-const Base64Upload = ({ 
-    onChange, 
-    name, 
-    fileName, 
-    value, 
-    required, 
+const Base64Upload = ({
+    onChange,
+    name,
+    fileName,
+    value,
+    required,
     showError,
-    addFieldError, 
-    removeFieldError, 
-    allowedFileTypes }) => 
-{
+    addFieldError,
+    removeFieldError,
+    allowedFileTypes,
+}) => {
     const [validationMessage, setValidationMessage] = useState(null);
 
     return (
         <>
-            <FileBase64 multiple={false} onDone={ handleChange.bind(this) } />
-            {!!value && <>
-                <img className="base64-image-preview" alt='Uploaded company logo' src={value} />
-                <button className='frontend-button gray small base64-image-button' onClick={() => removeFile()}>Remove</button>
-            </>}
-            
-            {validationMessage && <p className="error red-text text-accent-4">{validationMessage}</p>}
+            <FileBase64 multiple={false} onDone={handleChange.bind(this)} />
+            {!!value && (
+                <>
+                    <img className="base64-image-preview" alt="Uploaded company logo" src={value} />
+                    <button
+                        className="frontend-button gray small base64-image-button"
+                        onClick={() => removeFile()}
+                    >
+                        Remove
+                    </button>
+                </>
+            )}
+
+            {validationMessage && (
+                <p className="error red-text text-accent-4">{validationMessage}</p>
+            )}
         </>
     );
 
@@ -42,7 +51,7 @@ const Base64Upload = ({
             onChange(fileName, '');
             handleValidation('File type not allowed.');
         }
-        
+
         showError();
     }
 
@@ -62,7 +71,7 @@ const Base64Upload = ({
         if (!allowedFileTypes) {
             return true;
         }
-     
+
         return type && allowedFileTypes.includes(type);
     }
 
@@ -75,4 +84,3 @@ const Base64Upload = ({
 };
 
 export default withFieldValidation(Base64Upload);
-

@@ -10,16 +10,8 @@ import withUpdateOnChange from 'components/companyAdmin/reports/createReport/com
 
 class DrawingDetailsContainer extends Component {
     render() {
-        const {
-            drawing,
-            stats,
-            error,
-            isFetching,
-            onMobile,
-            pins,
-            getFilteredPins,
-            pinTasksMode,
-        } = this.props;
+        const { drawing, stats, error, isFetching, onMobile, pins, getFilteredPins, pinTasksMode } =
+            this.props;
         // Drawing uses filtered pins to display stats.
 
         const filteredStats = {

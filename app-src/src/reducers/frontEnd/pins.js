@@ -2,13 +2,13 @@ import { combineReducers } from 'redux';
 import {
     FETCH_PINS_BY_SHARE_LINK_REQUEST,
     FETCH_PINS_BY_SHARE_LINK_SUCCESS,
-    FETCH_PINS_BY_SHARE_LINK_FAILURE
+    FETCH_PINS_BY_SHARE_LINK_FAILURE,
 } from 'constants/actionTypes/pins';
 
 export default combineReducers({
     postSuccess: postSuccessReducer,
     error: errorReducer,
-    pins: pinsReducer
+    pins: pinsReducer,
 });
 
 function postSuccessReducer(state = false, action) {

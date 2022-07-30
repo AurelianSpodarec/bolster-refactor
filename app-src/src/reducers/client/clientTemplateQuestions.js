@@ -6,7 +6,7 @@ import { convertArrToObj } from 'helpers/generic';
 import { formatQuestions } from 'helpers/templates';
 
 export default combineReducers({
-    questions: questionsReducer
+    questions: questionsReducer,
 });
 
 function questionsReducer(state = {}, action) {
@@ -14,7 +14,7 @@ function questionsReducer(state = {}, action) {
         case CLIENT_FETCH_PIN_TEMPLATES_SUCCESS:
             return {
                 ...state,
-                ...convertArrToObj(formatQuestions(action.payload.questions))
+                ...convertArrToObj(formatQuestions(action.payload.questions)),
             };
         default:
             return state;

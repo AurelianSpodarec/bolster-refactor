@@ -129,11 +129,8 @@ class BasicFiltersContainer extends Component {
     };
 
     handleFetchTemplates = () => {
-        const {
-            clientFetchAllTemplates,
-            clientFetchTemplatesForDrawing,
-            isDrawingPage,
-        } = this.props;
+        const { clientFetchAllTemplates, clientFetchTemplatesForDrawing, isDrawingPage } =
+            this.props;
         const selectedCompanyID = getSelectedCompanyForClient();
         if (isDrawingPage) {
             const {

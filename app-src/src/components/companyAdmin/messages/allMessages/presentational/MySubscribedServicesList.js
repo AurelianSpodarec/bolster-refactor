@@ -5,14 +5,9 @@ import MySubscribedServiceListItem from './MySubscribedServiceListItem';
 const MySubscribedServicesList = ({ services }) => (
     <div className="subscriptions-list alt ignore-padding size-lg-12">
         {services.map(service => (
-            <MySubscribedServiceListItem
-                key={service.value}
-                serviceName={service.text}
-            />
+            <MySubscribedServiceListItem key={service.value} serviceName={service.text} />
         ))}
-        {services.length % 2 !== 0 && (
-            <div className="subscription-item size-lg-6 size-md-12" />
-        )}
+        {services.length % 2 !== 0 && <div className="subscription-item size-lg-6 size-md-12" />}
     </div>
 );
 

@@ -8,7 +8,7 @@ import {
     CLIENT_UPDATE_COMPANY_REPORTS_SORT,
     CLIENT_FETCH_COMPANY_REPORTS_FULL_REQUEST,
     CLIENT_FETCH_COMPANY_REPORTS_FULL_SUCCESS,
-    CLIENT_FETCH_COMPANY_REPORTS_FULL_FAILURE
+    CLIENT_FETCH_COMPANY_REPORTS_FULL_FAILURE,
 } from 'constants/client/actionTypes/clientCompanyReports';
 import { FETCH_STATUS } from 'constants/companyAdmin/enums';
 
@@ -17,7 +17,7 @@ export default combineReducers({
     isFetching: isFetchingReducer,
     error: errorReducer,
     sort: sortReducer,
-    fetchStatus: fetchStatusReducer
+    fetchStatus: fetchStatusReducer,
 });
 
 function isFetchingReducer(state = false, action) {

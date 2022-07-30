@@ -1,74 +1,26 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { isEmpty } from 'helpers/generic';
+import ShiftPod from './ShiftPod';
+import useDeleteShift from '../hooks/useDeleteShift';
 
-import { selectFilterByHasClockedIn } from 'selectors/companyAdmin/timesheets';
-import useDayOverview from '../../hooks/useDayOverview';
+const BreakdownOverviewList = ({ startDate, shiftsForToday = [] }) => {
+    const [shiftToEdit, setShiftToEdit] = useState(null);
 
-import BreakdownNotes from '../BreakdownNotes';
-import BreakdownSummary from '../BreakdownSummary';
+    const { handleShowDeleteShiftModal } = useDeleteShift(shiftsForToday);
 
-import { timesheetFilter, timesheetSort } from './hooks/useOverviewFilters';
-import { timesheetSelectedCompanyIDs } from 'selectors/companyAdmin/timesheets';
+    if (isEmpty(shiftsForToday) || !shiftsForToday?.length)
+        return <p>No clock in data to display.</p>;
 
-const BreakdownOverviewList = ({ timesheets, selectedDate, filterType, filterDirection }) => {
-    const selectedUserIDs = useSelector(timesheetSelectedCompanyIDs);
-
-    const filterByHasClockedIn = useSelector(selectFilterByHasClockedIn);
-
-    let formattedTimesheets = [];
-
-    if (filterByHasClockedIn && selectedUserIDs.length === 0) {
-        formattedTimesheets = timesheets
-            .filter(timesheetFilter(filterByHasClockedIn, selectedDate))
-            .sort(timesheetSort(filterType, filterDirection, selectedDate));
-    }
-
-    if (!filterByHasClockedIn && selectedUserIDs.length === 0) {
-        formattedTimesheets = timesheets.sort(
-            timesheetSort(filterType, filterDirection, selectedDate),
-        );
-    }
-
-    if (selectedUserIDs.length) {
-        formattedTimesheets = timesheets
-            .filter(({ companyUserID }) => selectedUserIDs.includes(companyUserID))
-            .sort(timesheetSort(filterType, filterDirection, selectedDate));
-    }
-
-    if (formattedTimesheets.length === 0) return <p>No clock in data to display.</p>;
-
-    return formattedTimesheets.map(timesheet => {
-        const {
-            companyUserID,
-            firstName,
-            lastName,
-            email,
-            formattedHours,
-            formattedBreakHours,
-            formattedClockedInHours,
-            jobReferenceIDs,
-            totalPins,
-            clockIn,
-            clockOut,
-            clockerNotes,
-        } = useDayOverview(timesheet, selectedDate);
-
-        return (
-            <div className="day" key={companyUserID}>
-                <BreakdownSummary
-                    name={`${firstName} ${lastName} (${email})`}
-                    formattedHours={formattedHours}
-                    formattedBreakHours={formattedBreakHours}
-                    formattedClockedInHours={formattedClockedInHours}
-                    totalPins={totalPins}
-                    clockIn={clockIn}
-                    clockOut={clockOut}
-                    jobReferenceIDs={jobReferenceIDs}
-                />
-                <BreakdownNotes notes={clockerNotes} />
-            </div>
-        );
-    });
+    return shiftsForToday.map((shift, i) => (
+        <ShiftPod
+            key={`${i}-${shift.id}`}
+            shift={shift}
+            shiftToEdit={shiftToEdit}
+            setShiftToEdit={setShiftToEdit}
+            startDate={startDate}
+            handleShowDeleteShiftModal={handleShowDeleteShiftModal}
+        />
+    ));
 };
 
 export default BreakdownOverviewList;

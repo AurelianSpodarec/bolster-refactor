@@ -1,0 +1,260 @@
+import { combineReducers } from 'redux';
+
+import { convertArrToObj, removeObjItem, updateObj } from 'helpers/generic';
+import {
+    FETCH_PIN_OPTION_SETS_REQUEST,
+    FETCH_PIN_OPTION_SETS_SUCCESS,
+    FETCH_PIN_OPTION_SETS_FAILURE,
+    CREATE_PIN_OPTION_SET_REQUEST,
+    CREATE_PIN_OPTION_SET_SUCCESS,
+    CREATE_PIN_OPTION_SET_FAILURE,
+    EDIT_PIN_OPTION_SET_REQUEST,
+    EDIT_PIN_OPTION_SET_SUCCESS,
+    EDIT_PIN_OPTION_SET_FAILURE,
+    ENABLE_PIN_OPTION_SET_REQUEST,
+    ENABLE_PIN_OPTION_SET_SUCCESS,
+    ENABLE_PIN_OPTION_SET_FAILURE,
+    DISABLE_PIN_OPTION_SET_REQUEST,
+    DISABLE_PIN_OPTION_SET_SUCCESS,
+    DISABLE_PIN_OPTION_SET_FAILURE,
+    DELETE_PIN_OPTION_SET_REQUEST,
+    DELETE_PIN_OPTION_SET_SUCCESS,
+    DELETE_PIN_OPTION_SET_FAILURE,
+    DUPLICATE_PIN_OPTION_SET_REQUEST,
+    DUPLICATE_PIN_OPTION_SET_SUCCESS,
+    DUPLICATE_PIN_OPTION_SET_FAILURE,
+    SET_OPTION_SET_AS_DEFAULT_REQUEST,
+    SET_OPTION_SET_AS_DEFAULT_SUCCESS,
+    SET_OPTION_SET_AS_DEFAULT_FAILURE,
+    REORDER_PIN_OPTION_SETS,
+    SET_OPTION_SET_AS_HIDDEN_REQUEST,
+    SET_OPTION_SET_AS_HIDDEN_SUCCESS,
+    SET_OPTION_SET_AS_HIDDEN_FAILURE,
+    SET_OPTION_SET_AS_NOT_HIDDEN_REQUEST,
+    SET_OPTION_SET_AS_NOT_HIDDEN_SUCCESS,
+    SET_OPTION_SET_AS_NOT_HIDDEN_FAILURE,
+    MERGE_PIN_OPTION_SETS_REQUEST,
+    MERGE_PIN_OPTION_SETS_SUCCESS,
+    MERGE_PIN_OPTION_SETS_FAILURE,
+    QUICK_EDIT_OPTION_SET_REQUEST,
+    QUICK_EDIT_OPTION_SET_SUCCESS,
+    QUICK_EDIT_OPTION_SET_FAILURE,
+    UNSET_OPTION_SET_AS_DEFAULT_REQUEST,
+    UNSET_OPTION_SET_AS_DEFAULT_FAILURE,
+    UNSET_OPTION_SET_AS_DEFAULT_SUCCESS,
+} from 'constants/actionTypes/pinOptions';
+import { SET_API_FIELD_ERRORS } from 'constants/actionTypes/generic';
+
+export default combineReducers({
+    sets: setsReducer,
+    isFetching: isFetchingReducer,
+    fetchError: fetchErrorReducer,
+    isPosting: isPostingReducer,
+    postError: postErrorReducer,
+    postSuccess: postSuccessReducer,
+    deleteSuccess: deleteSuccessReducer,
+    duplicateSuccess: duplicateSuccessReducer,
+});
+
+function isFetchingReducer(state = false, action) {
+    switch (action.type) {
+        case FETCH_PIN_OPTION_SETS_REQUEST:
+            return true;
+        case FETCH_PIN_OPTION_SETS_SUCCESS:
+        case FETCH_PIN_OPTION_SETS_FAILURE:
+            return false;
+        default:
+            return state;
+    }
+}
+
+function fetchErrorReducer(state = null, action) {
+    switch (action.type) {
+        case FETCH_PIN_OPTION_SETS_REQUEST:
+            return null;
+        case FETCH_PIN_OPTION_SETS_FAILURE:
+            return action.error;
+        default:
+            return state;
+    }
+}
+
+function isPostingReducer(state = false, action) {
+    switch (action.type) {
+        case CREATE_PIN_OPTION_SET_REQUEST:
+        case EDIT_PIN_OPTION_SET_REQUEST:
+        case ENABLE_PIN_OPTION_SET_REQUEST:
+        case DISABLE_PIN_OPTION_SET_REQUEST:
+        case DELETE_PIN_OPTION_SET_REQUEST:
+        case DUPLICATE_PIN_OPTION_SET_REQUEST:
+        case SET_OPTION_SET_AS_DEFAULT_REQUEST:
+        case UNSET_OPTION_SET_AS_DEFAULT_REQUEST:
+        case SET_OPTION_SET_AS_HIDDEN_REQUEST:
+        case SET_OPTION_SET_AS_NOT_HIDDEN_REQUEST:
+        case MERGE_PIN_OPTION_SETS_REQUEST:
+        case QUICK_EDIT_OPTION_SET_REQUEST:
+            return true;
+        case CREATE_PIN_OPTION_SET_SUCCESS:
+        case CREATE_PIN_OPTION_SET_FAILURE:
+        case EDIT_PIN_OPTION_SET_SUCCESS:
+        case EDIT_PIN_OPTION_SET_FAILURE:
+        case ENABLE_PIN_OPTION_SET_SUCCESS:
+        case ENABLE_PIN_OPTION_SET_FAILURE:
+        case DISABLE_PIN_OPTION_SET_SUCCESS:
+        case DISABLE_PIN_OPTION_SET_FAILURE:
+        case DELETE_PIN_OPTION_SET_SUCCESS:
+        case DELETE_PIN_OPTION_SET_FAILURE:
+        case DUPLICATE_PIN_OPTION_SET_SUCCESS:
+        case DUPLICATE_PIN_OPTION_SET_FAILURE:
+        case SET_OPTION_SET_AS_DEFAULT_SUCCESS:
+        case SET_OPTION_SET_AS_DEFAULT_FAILURE:
+        case SET_API_FIELD_ERRORS:
+        case SET_OPTION_SET_AS_HIDDEN_SUCCESS:
+        case SET_OPTION_SET_AS_HIDDEN_FAILURE:
+        case SET_OPTION_SET_AS_NOT_HIDDEN_SUCCESS:
+        case SET_OPTION_SET_AS_NOT_HIDDEN_FAILURE:
+        case MERGE_PIN_OPTION_SETS_SUCCESS:
+        case MERGE_PIN_OPTION_SETS_FAILURE:
+        case QUICK_EDIT_OPTION_SET_SUCCESS:
+        case QUICK_EDIT_OPTION_SET_FAILURE:
+        case UNSET_OPTION_SET_AS_DEFAULT_FAILURE:
+        case UNSET_OPTION_SET_AS_DEFAULT_SUCCESS:
+            return false;
+        default:
+            return state;
+    }
+}
+
+function postErrorReducer(state = null, action) {
+    switch (action.type) {
+        case CREATE_PIN_OPTION_SET_REQUEST:
+        case EDIT_PIN_OPTION_SET_REQUEST:
+        case ENABLE_PIN_OPTION_SET_REQUEST:
+        case DISABLE_PIN_OPTION_SET_REQUEST:
+        case DELETE_PIN_OPTION_SET_REQUEST:
+        case DUPLICATE_PIN_OPTION_SET_REQUEST:
+        case SET_OPTION_SET_AS_DEFAULT_REQUEST:
+        case UNSET_OPTION_SET_AS_DEFAULT_REQUEST:
+        case SET_OPTION_SET_AS_HIDDEN_REQUEST:
+        case SET_OPTION_SET_AS_NOT_HIDDEN_REQUEST:
+        case MERGE_PIN_OPTION_SETS_REQUEST:
+        case QUICK_EDIT_OPTION_SET_REQUEST:
+            return null;
+        case CREATE_PIN_OPTION_SET_FAILURE:
+        case EDIT_PIN_OPTION_SET_FAILURE:
+        case ENABLE_PIN_OPTION_SET_FAILURE:
+        case DISABLE_PIN_OPTION_SET_FAILURE:
+        case DELETE_PIN_OPTION_SET_FAILURE:
+        case DUPLICATE_PIN_OPTION_SET_FAILURE:
+        case SET_OPTION_SET_AS_DEFAULT_FAILURE:
+        case SET_OPTION_SET_AS_HIDDEN_FAILURE:
+        case SET_OPTION_SET_AS_NOT_HIDDEN_FAILURE:
+        case MERGE_PIN_OPTION_SETS_FAILURE:
+        case QUICK_EDIT_OPTION_SET_FAILURE:
+        case UNSET_OPTION_SET_AS_DEFAULT_FAILURE:
+            return action.error;
+        default:
+            return state;
+    }
+}
+
+function postSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case CREATE_PIN_OPTION_SET_REQUEST:
+        case EDIT_PIN_OPTION_SET_REQUEST:
+        case ENABLE_PIN_OPTION_SET_REQUEST:
+        case DISABLE_PIN_OPTION_SET_REQUEST:
+        case DELETE_PIN_OPTION_SET_REQUEST:
+        case DUPLICATE_PIN_OPTION_SET_REQUEST:
+        case SET_OPTION_SET_AS_DEFAULT_REQUEST:
+        case SET_OPTION_SET_AS_HIDDEN_REQUEST:
+        case SET_OPTION_SET_AS_NOT_HIDDEN_REQUEST:
+        case MERGE_PIN_OPTION_SETS_REQUEST:
+        case QUICK_EDIT_OPTION_SET_REQUEST:
+        case UNSET_OPTION_SET_AS_DEFAULT_REQUEST:
+            return false;
+        case CREATE_PIN_OPTION_SET_SUCCESS:
+        case EDIT_PIN_OPTION_SET_SUCCESS:
+        case ENABLE_PIN_OPTION_SET_SUCCESS:
+        case DISABLE_PIN_OPTION_SET_SUCCESS:
+        case DELETE_PIN_OPTION_SET_SUCCESS:
+        case DUPLICATE_PIN_OPTION_SET_SUCCESS:
+        case SET_OPTION_SET_AS_DEFAULT_SUCCESS:
+        case SET_OPTION_SET_AS_HIDDEN_SUCCESS:
+        case SET_OPTION_SET_AS_NOT_HIDDEN_SUCCESS:
+        case MERGE_PIN_OPTION_SETS_SUCCESS:
+        case QUICK_EDIT_OPTION_SET_SUCCESS:
+        case UNSET_OPTION_SET_AS_DEFAULT_SUCCESS:
+            return true;
+        default:
+            return state;
+    }
+}
+
+function deleteSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case DELETE_PIN_OPTION_SET_REQUEST:
+            return false;
+        case DELETE_PIN_OPTION_SET_SUCCESS:
+            return true;
+        default:
+            return state;
+    }
+}
+
+function duplicateSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case DUPLICATE_PIN_OPTION_SET_REQUEST:
+            return false;
+        case DUPLICATE_PIN_OPTION_SET_SUCCESS:
+            return true;
+        default:
+            return state;
+    }
+}
+
+function setsReducer(state = {}, action) {
+    switch (action.type) {
+        case FETCH_PIN_OPTION_SETS_SUCCESS:
+        case REORDER_PIN_OPTION_SETS:
+            return convertArrToObj(action.payload);
+        case CREATE_PIN_OPTION_SET_SUCCESS:
+        case EDIT_PIN_OPTION_SET_SUCCESS:
+        case ENABLE_PIN_OPTION_SET_SUCCESS:
+        case DISABLE_PIN_OPTION_SET_SUCCESS:
+        case ENABLE_PIN_OPTION_SET_FAILURE:
+        case DISABLE_PIN_OPTION_SET_FAILURE:
+        case DUPLICATE_PIN_OPTION_SET_SUCCESS:
+        case SET_OPTION_SET_AS_HIDDEN_SUCCESS:
+        case SET_OPTION_SET_AS_HIDDEN_FAILURE:
+        case SET_OPTION_SET_AS_NOT_HIDDEN_SUCCESS:
+        case SET_OPTION_SET_AS_NOT_HIDDEN_FAILURE:
+        case UNSET_OPTION_SET_AS_DEFAULT_SUCCESS:
+        case SET_OPTION_SET_AS_DEFAULT_SUCCESS:
+            return updateObj(state, action.payload.id, action.payload);
+        case ENABLE_PIN_OPTION_SET_REQUEST:
+        case DISABLE_PIN_OPTION_SET_REQUEST:
+            return updateObj(state, action.payload.id, {
+                ...action.payload,
+                isDisabled: !action.payload.isDisabled,
+            });
+        case SET_OPTION_SET_AS_NOT_HIDDEN_REQUEST:
+        case SET_OPTION_SET_AS_HIDDEN_REQUEST:
+            return updateObj(state, action.payload.id, {
+                ...action.payload,
+                isHidden: !action.payload.isHidden,
+            });
+        case DELETE_PIN_OPTION_SET_SUCCESS:
+            return removeObjItem(state, action.id);
+        case MERGE_PIN_OPTION_SETS_SUCCESS:
+            return updateOnMerge(state, action.mergedSetID, action.payload);
+        default:
+            return state;
+    }
+}
+
+function updateOnMerge(state, mergedSetID, payload) {
+    const addedItemObj = updateObj(state, payload.id, payload);
+    const removedItemArr = Object.values(addedItemObj).filter(set => set.id !== mergedSetID);
+    return convertArrToObj(removedItemArr);
+}

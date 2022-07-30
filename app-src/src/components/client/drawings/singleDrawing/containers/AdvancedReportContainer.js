@@ -14,15 +14,12 @@ class AdvancedReportContainer extends Component {
     }
 
     componentDidMount = () => {
-        const {
-            isFetching,
-            showModal,
-            pins,
-            handleChange,
-            drawingID
-        } = this.props;
+        const { isFetching, showModal, pins, handleChange, drawingID } = this.props;
         if (pins && pins.length) {
-            handleChange('pinIDs', pins.map(({ id }) => id));
+            handleChange(
+                'pinIDs',
+                pins.map(({ id }) => id),
+            );
         }
         if (isFetching) {
             showModal(LOADING_DATA, { message: 'Loading data...' });
@@ -31,16 +28,13 @@ class AdvancedReportContainer extends Component {
     };
 
     componentDidUpdate = prevProps => {
-        const {
-            isFetching,
-            showModal,
-            hideModal,
-            pins,
-            handleChange
-        } = this.props;
+        const { isFetching, showModal, hideModal, pins, handleChange } = this.props;
 
         if (pins.length !== prevProps.pins.length) {
-            handleChange('pinIDs', pins.map(({ id }) => id));
+            handleChange(
+                'pinIDs',
+                pins.map(({ id }) => id),
+            );
         }
         if (isFetching && !prevProps.isFetching) {
             showModal(LOADING_DATA, { message: 'Loading pins...' });
@@ -56,25 +50,22 @@ const mapStateToProps = (
         client: {
             reportsReducer: {
                 isFetching,
-                customFilters: { pins = [] }
-            }
-        }
+                customFilters: { pins = [] },
+            },
+        },
     },
-    { match: { params } }
+    { match: { params } },
 ) => ({
     isFetching,
     pins,
-    drawingID: params.id
+    drawingID: params.id,
 });
 
 const mapDispatchToProps = dispatch => ({
     showModal: (type, modalProps) => dispatch(showModal(type, modalProps)),
-    hideModal: () => dispatch(hideModal())
+    hideModal: () => dispatch(hideModal()),
 });
 
 export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(withUpdateOnChange(AdvancedReportContainer))
+    connect(mapStateToProps, mapDispatchToProps)(withUpdateOnChange(AdvancedReportContainer)),
 );

@@ -34,6 +34,7 @@ class UserDrawingsTableContainer extends Component {
                 showModal={showModal}
                 userID={id}
                 drawingServices={drawingServices}
+                isAllSelected={selectedLength === totalLength}
             />
         );
     }
@@ -65,14 +66,25 @@ class UserDrawingsTableContainer extends Component {
 
     _selectAll = () => {
         const { drawings } = this.props;
-        //get all drawing
+        const { drawingIDs } = this.state;
+
+        const selectedLength = drawingIDs?.length;
+        const totalLength = drawings?.length;
+
         let allDrawingIDs = [];
-        drawings.forEach(drawing => {
-            allDrawingIDs.push(String(drawing.id));
-        });
-        this.setState({
-            drawingIDs: [...allDrawingIDs],
-        });
+
+        if (selectedLength === totalLength) {
+            this.setState({
+                drawingIDs: [],
+            });
+        } else {
+            drawings.forEach(drawing => {
+                allDrawingIDs.push(String(drawing.id));
+            });
+            this.setState({
+                drawingIDs: [...allDrawingIDs],
+            });
+        }
     };
 }
 

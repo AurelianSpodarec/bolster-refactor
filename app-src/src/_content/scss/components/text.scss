@@ -58,9 +58,17 @@
     }
   }
 
+  strong {
+    @include ubuntu-medium;
+  }
+
   &.in-form {
     padding-left: 7.5px;
     padding-right: 7.5px;
+  }
+
+  &.no-margin {
+    margin-bottom: 0;
   }
 }
 

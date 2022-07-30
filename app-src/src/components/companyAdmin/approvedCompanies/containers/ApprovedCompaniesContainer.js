@@ -13,10 +13,7 @@ class ApprovedCompaniesContainer extends Component {
     }
     componentDidMount = () => {
         const { setTabs, fetchApprovedCompanies } = this.props;
-        setTabs(
-            Object.values(APPROVED_COMPANIES_TABS),
-            APPROVED_COMPANIES_TABS.LIST
-        );
+        setTabs(Object.values(APPROVED_COMPANIES_TABS), APPROVED_COMPANIES_TABS.LIST);
         fetchApprovedCompanies();
     };
 }
@@ -25,10 +22,7 @@ const mapDispatchToProps = dispatch => ({
     fetchApprovedCompanies: () => {
         dispatch(fetchApprovedCompanies());
     },
-    setTabs: (tabs, selectedTab) => dispatch(setTabs(tabs, selectedTab))
+    setTabs: (tabs, selectedTab) => dispatch(setTabs(tabs, selectedTab)),
 });
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(ApprovedCompaniesContainer);
+export default connect(null, mapDispatchToProps)(ApprovedCompaniesContainer);

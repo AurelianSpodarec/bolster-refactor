@@ -2,6 +2,8 @@ import React from 'react';
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
 
 const DocumentUpload = ({ isRequired, question: { id }, answers, handleChange }) => {
+    const [questionValue] = answers[id] ?? [];
+
     return (
         <FileUploadContainer
             name={`answer-${id}`}
@@ -9,7 +11,7 @@ const DocumentUpload = ({ isRequired, question: { id }, answers, handleChange })
             acceptedTypes={['application/pdf']}
             maxFiles={1}
             handleChange={handleChange}
-            value={answers[id]}
+            value={questionValue?.s3KeyValue}
             displayDocLib
         />
     );

@@ -11,7 +11,7 @@ import {
     ADMIN_MOVE_FLOOR_FAILURE,
     ADMIN_MOVE_DRAWING_REQUEST,
     ADMIN_MOVE_DRAWING_SUCCESS,
-    ADMIN_MOVE_DRAWING_FAILURE
+    ADMIN_MOVE_DRAWING_FAILURE,
 } from 'constants/actionTypes/moveTool';
 
 export default combineReducers({
@@ -19,7 +19,7 @@ export default combineReducers({
     selectedOption: selectedOptionReducer,
     isPosting: isPostingReducer,
     postSuccess: postSuccessReducer,
-    error: errorReducer
+    error: errorReducer,
 });
 
 function selectedHierarchyReducer(state = null, action) {

@@ -48,7 +48,7 @@ class DropdownContainer extends Component {
 
     componentDidUpdate = ({ selectedOption: prevValue }) => {
         const { selectedOption } = this.props;
-        if (selectedOption !== prevValue) {
+        if (selectedOption?.value !== prevValue?.value) {
             this._validate(selectedOption);
         }
     };

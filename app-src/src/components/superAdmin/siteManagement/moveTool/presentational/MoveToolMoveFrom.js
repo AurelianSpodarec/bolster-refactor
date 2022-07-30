@@ -11,7 +11,7 @@ const MoveToolMoveFrom = ({
     companies,
     selectedCompany,
     hierarchies,
-    selectedHierarchy
+    selectedHierarchy,
 }) => (
     <Block>
         <BlockHeading title="Company to move from" />
@@ -39,10 +39,7 @@ const MoveToolMoveFrom = ({
             </Field>
         )}
 
-        <MoveToolMoveFromOptionsRoute
-            hierarchyID={selectedHierarchy}
-            companyID={selectedCompany}
-        />
+        <MoveToolMoveFromOptionsRoute hierarchyID={selectedHierarchy} companyID={selectedCompany} />
     </Block>
 );
 

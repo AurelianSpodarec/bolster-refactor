@@ -101,8 +101,12 @@ class MapPinContainer extends Component {
         } = this.props;
 
         return answers.reduce((acc, answer) => {
-            if (answer.pinHistoryID === latestHistoryID && PHOTO_EXT_REGEX.test(answer.answer)) {
-                return acc.concat(answer.answer);
+            if (answer.pinHistoryID === latestHistoryID) {
+                const photoAnswers =
+                    answer.answerValues
+                        ?.filter(val => val.s3KeyValue?.match(PHOTO_EXT_REGEX))
+                        .map(val => val.s3KeyValue) ?? [];
+                return acc.concat(photoAnswers);
             }
             return acc;
         }, []);

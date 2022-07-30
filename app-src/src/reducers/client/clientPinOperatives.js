@@ -4,13 +4,13 @@ import { convertArrToObj } from 'helpers/generic';
 import {
     CLIENT_FETCH_PIN_OPERATIVES_REQUEST,
     CLIENT_FETCH_PIN_OPERATIVES_SUCCESS,
-    CLIENT_FETCH_PIN_OPERATIVES_FAILURE
+    CLIENT_FETCH_PIN_OPERATIVES_FAILURE,
 } from 'constants/client/actionTypes/clientPinOperatives';
 
 export default combineReducers({
     users: companyUsersReducer,
     isFetching: isFetchingReducer,
-    error: errorReducer
+    error: errorReducer,
 });
 
 function isFetchingReducer(state = false, action) {

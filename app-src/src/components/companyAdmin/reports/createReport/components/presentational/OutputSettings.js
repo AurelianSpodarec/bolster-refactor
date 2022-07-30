@@ -1,12 +1,21 @@
 import React from 'react';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import Field from 'components/shared/generic/form/presentational/Field';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
-import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import ImageVisualContainer from '../containers/ImageVisualContainer';
-import useColourTheme from 'hooks/useColourTheme';
+import OptionPodContainer from '../../../../../shared/generic/form/containers/OptionPodContainer';
+
+import { ReactComponent as PdfIcon } from '_content/images/icons/PDF-Outline.svg';
+import { ReactComponent as FloorplanIcon } from '_content/images/icons/pin-floorplan.svg';
+import { ReactComponent as CsvIcon } from '_content/images/icons/CSV-Outline.svg';
+import { ReactComponent as DocIcon } from '_content/images/icons/doc-Outline.svg';
+import FlexWrapper from '../../../../../shared/generic/flexWrapper/FlexWrapper';
+import Tickbox from '../../../../../shared/generic/form/presentational/Tickbox';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
+import useBolsterPlus from 'components/companyAdmin/subscription/addOns/hooks/useBolsterPlus';
+import useIsAdminPlus from '../../../../../../hooks/useIsAdminPlus';
 
 const OutputSettings = ({
     handleSubmit,
@@ -24,8 +33,16 @@ const OutputSettings = ({
     handleShowOandMModal,
     includeFloorplanZones,
     hasZones = false,
+    includeCostingData,
+    includeLabourCostingData,
+    includeCostPerType,
 }) => {
-    const colourTheme = useColourTheme();
+    const { isBolsterPlusActivated } = useBolsterPlus();
+    const isAdminPlus = useIsAdminPlus();
+    const errSuffix = `is available ${
+        !isBolsterPlusActivated ? 'through Bolster Plus' : !isAdminPlus ? 'to Admin Plus users' : ''
+    }`;
+    const isPricingDisabled = !isBolsterPlusActivated || !isAdminPlus;
     return (
         <div className="size-lg-12">
             <BlockContainer>
@@ -37,127 +54,179 @@ const OutputSettings = ({
                     <div className="generic-form">
                         <div className="size-lg-6 size-md-12">
                             <Field name="Report formats">
-                                <div className="checkbox-list size-lg-12">
-                                    <CheckboxContainer
+                                <FlexWrapper gap={15} wrap="wrap" extraClasses="option-wrapper">
+                                    <OptionPodContainer
                                         checked={isPDFGeneration}
-                                        handleChange={handleFilterChange}
+                                        onChange={handleFilterChange}
                                         name="isPDFGeneration"
-                                        text="PDF"
+                                        svgIconComponent={PdfIcon}
                                     />
-                                    <CheckboxContainer
+
+                                    <OptionPodContainer
                                         checked={isCSVGeneration}
-                                        handleChange={handleFilterChange}
+                                        onChange={handleFilterChange}
                                         name="isCSVGeneration"
-                                        text="CSV"
+                                        svgIconComponent={CsvIcon}
                                     />
-                                    <CheckboxContainer
+
+                                    <OptionPodContainer
                                         checked={isFloorplanGeneration}
-                                        handleChange={handleFilterChange}
+                                        onChange={handleFilterChange}
                                         name="isFloorplanGeneration"
-                                        text="Floor plan"
+                                        svgIconComponent={FloorplanIcon}
+                                        pathStroke
                                     />
-                                    <CheckboxContainer
+
+                                    <OptionPodContainer
                                         checked={isOAndMManualGeneration}
-                                        handleChange={(name, value) => {
+                                        onChange={(name, value) => {
                                             handleFilterChange(name, value);
                                             if (value) {
                                                 handleShowOandMModal();
                                             }
                                         }}
                                         name="isOAndMManualGeneration"
-                                        text="Include O&M Manuals?"
+                                        svgIconComponent={DocIcon}
                                     />
-                                </div>
+                                </FlexWrapper>
                             </Field>
-                            {isPDFGeneration && (
-                                <>
-                                    <div className="size-lg-12 " style={{ marginBottom: '10px' }}>
-                                        <div
-                                            className="size-lg-10 size-md-12 options-container"
-                                            style={
-                                                colourTheme === 'dark'
-                                                    ? {
-                                                          backgroundColor: 'transparent',
-                                                          border: '1px solid var(--positive-stroke)',
-                                                      }
-                                                    : {}
-                                            }
-                                        >
-                                            <BlockHeading title="Additional PDF Settings" />
-                                            <Field
-                                                sizeClasses="size-lg-6 size-md-12"
-                                                name="Include Pin Location?"
+                            <>
+                                <FlexWrapper direction="column">
+                                    <BlockHeading title="Include:" />
+                                    <FlexWrapper direction="row">
+                                        {isPDFGeneration && (
+                                            <>
+                                                <Field sizeClasses="size-lg-3 size-md-12">
+                                                    <Tickbox
+                                                        classes="large-text"
+                                                        checked={
+                                                            isPDFGeneration
+                                                                ? includePinLocation
+                                                                : isPDFGeneration
+                                                        }
+                                                        name="includePinLocation"
+                                                        handleChange={handleFilterChange}
+                                                        label="Pin Locations"
+                                                    />
+                                                </Field>
+                                                <Field sizeClasses="size-lg-3 size-md-12">
+                                                    <Tickbox
+                                                        classes="large-text"
+                                                        checked={
+                                                            isPDFGeneration
+                                                                ? includeFloorplan
+                                                                : isPDFGeneration
+                                                        }
+                                                        name="includeFloorplan"
+                                                        handleChange={handleFilterChange}
+                                                        label="Floorplan"
+                                                    />
+                                                </Field>
+                                            </>
+                                        )}
+                                        <Field sizeClasses="size-lg-3 size-md-12">
+                                            <Tickbox
+                                                classes="large-text"
+                                                checked={showHidden}
+                                                name="showHidden"
+                                                handleChange={handleOptionChange}
+                                                label="Hidden"
+                                            />
+                                        </Field>
+                                    </FlexWrapper>
+                                    {(isPDFGeneration || isCSVGeneration) && (
+                                        <FlexWrapper direction="row">
+                                            <TooltipContainer
+                                                side="top"
+                                                text={`Cost per pin ${errSuffix}`}
+                                                shouldOutput={isPricingDisabled}
                                             >
-                                                <CheckboxContainer
-                                                    classes="with-subtext"
-                                                    checked={
-                                                        isPDFGeneration
-                                                            ? includePinLocation
-                                                            : isPDFGeneration
+                                                <Field
+                                                    sizeClasses={
+                                                        isPricingDisabled
+                                                            ? ''
+                                                            : 'size-lg-4 size-md-12'
                                                     }
-                                                    handleChange={handleFilterChange}
-                                                    name="includePinLocation"
-                                                />
-                                                <p className="sub-text" />
-                                            </Field>
-                                            <Field
-                                                sizeClasses="size-lg-6 size-md-12"
-                                                name="Include Floorplan?"
+                                                >
+                                                    <Tickbox
+                                                        classes="large-text"
+                                                        checked={includeCostingData}
+                                                        name="includeCostingData"
+                                                        handleChange={handleFilterChange}
+                                                        label="Cost Per Pin"
+                                                        disabled={isPricingDisabled}
+                                                    />
+                                                </Field>
+                                            </TooltipContainer>
+                                            <TooltipContainer
+                                                side="top"
+                                                text={`Labour Cost per pin ${errSuffix}`}
+                                                shouldOutput={isPricingDisabled}
                                             >
-                                                <CheckboxContainer
-                                                    classes="with-subtext"
-                                                    checked={
-                                                        isPDFGeneration
-                                                            ? includeFloorplan
-                                                            : isPDFGeneration
+                                                <Field
+                                                    sizeClasses={
+                                                        isPricingDisabled
+                                                            ? ''
+                                                            : 'size-lg-4 size-md-12'
                                                     }
-                                                    handleChange={handleFilterChange}
-                                                    name="includeFloorplan"
-                                                />
-                                                <p className="sub-text" />
-                                            </Field>
-                                        </div>
-                                    </div>
-                                </>
-                            )}
+                                                >
+                                                    <Tickbox
+                                                        classes="large-text"
+                                                        checked={includeLabourCostingData}
+                                                        name="includeLabourCostingData"
+                                                        handleChange={handleFilterChange}
+                                                        label="Labour Cost Per Pin"
+                                                        disabled={isPricingDisabled}
+                                                    />
+                                                </Field>
+                                            </TooltipContainer>
+                                            {(includeCostingData || includeLabourCostingData) && (
+                                                <TooltipContainer
+                                                    side="top"
+                                                    text={`Cost Per Installation Type ${errSuffix}`}
+                                                    shouldOutput={isPricingDisabled}
+                                                >
+                                                    <Field
+                                                        sizeClasses={
+                                                            isPricingDisabled
+                                                                ? ''
+                                                                : 'size-lg-6 size-md-12'
+                                                        }
+                                                    >
+                                                        <Tickbox
+                                                            classes="large-text"
+                                                            checked={includeCostPerType}
+                                                            name="includeCostPerType"
+                                                            handleChange={handleFilterChange}
+                                                            label="Cost Per Installation Type"
+                                                            disabled={isPricingDisabled}
+                                                        />
+                                                    </Field>
+                                                </TooltipContainer>
+                                            )}
+                                        </FlexWrapper>
+                                    )}
+                                </FlexWrapper>
+                            </>
                             {hasZones &&
                                 ((isPDFGeneration && includeFloorplan) ||
                                     isFloorplanGeneration) && (
                                     <>
-                                        <div
-                                            className="size-lg-12 "
-                                            style={{ marginBottom: '10px' }}
-                                        >
-                                            <div
-                                                className="size-lg-10 size-md-12 options-container"
-                                                style={
-                                                    colourTheme === 'dark'
-                                                        ? {
-                                                              backgroundColor: 'transparent',
-                                                              border: '1px solid var(--positive-stroke)',
-                                                          }
-                                                        : {}
-                                                }
-                                            >
-                                                <BlockHeading title="Additional floor plan Settings" />
-                                                <Field
-                                                    sizeClasses="size-lg-6 size-md-12"
-                                                    name="Include zones?"
-                                                >
-                                                    <CheckboxContainer
-                                                        classes="with-subtext"
-                                                        checked={includeFloorplanZones}
-                                                        handleChange={handleFilterChange}
-                                                        name="includeFloorplanZones"
-                                                    />
-                                                    <p className="sub-text" />
-                                                </Field>
-                                            </div>
+                                        <div className="size-lg-12">
+                                            <BlockHeading title="Additional floor plan Settings" />
+                                            <Field sizeClasses="size-lg-3 size-md-12">
+                                                <Tickbox
+                                                    classes="large-text"
+                                                    checked={includeFloorplanZones}
+                                                    name="includeFloorplanZones"
+                                                    handleChange={handleFilterChange}
+                                                    label="Include Zones:"
+                                                />
+                                            </Field>
                                         </div>
                                     </>
                                 )}
-
-                            <Field name="Sort by">
+                            <Field name="Sort">
                                 <DropdownContainer
                                     name="sortBy"
                                     options={sortByOptions}
@@ -168,28 +237,17 @@ const OutputSettings = ({
                                     withoutPlaceholder
                                 />
                             </Field>
-
-                            <Field name="Show hidden?">
-                                <CheckboxContainer
-                                    classes="with-subtext"
-                                    checked={showHidden}
-                                    handleChange={handleOptionChange}
-                                    name="showHidden"
-                                />
-                                <p className="sub-text">
-                                    - Check to include questions that are hidden on the templates?
-                                </p>
-                            </Field>
                         </div>
                         <div className="size-lg-6 size-md-12">
                             <ImageVisualContainer />
                         </div>
-                        <BlockButtonWrapper>
-                            <button className="button green" onClick={handleSubmit}>
-                                <i className="fa fa-file" />
-                                Generate report
-                            </button>
-                        </BlockButtonWrapper>
+                        <FlexWrapper align="end" justify="end">
+                            <ActionButton
+                                onClick={handleSubmit}
+                                text="Generate Report"
+                                size="small"
+                            />
+                        </FlexWrapper>
                     </div>
                 </div>
             </BlockContainer>

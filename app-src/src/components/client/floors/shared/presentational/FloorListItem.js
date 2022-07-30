@@ -5,10 +5,7 @@ import ButtonContainer from 'components/shared/generic/button/containers/ButtonC
 
 const FloorListItem = ({ floor, isExpanded, colCount, toggleExpanded }) => (
     <>
-        <tr
-            onClick={toggleExpanded}
-            className={`draggable expandable ${isExpanded ? 'open' : ''}`}
-        >
+        <tr onClick={toggleExpanded} className={`draggable expandable ${isExpanded ? 'open' : ''}`}>
             <td>
                 {isExpanded ? (
                     <i className="fa fa-chevron-down" />

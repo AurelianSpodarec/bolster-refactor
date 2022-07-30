@@ -16,9 +16,8 @@ const timeRenderer = ({ formatted: { minutes, seconds } }) => (
 );
 
 const ConfirmTwoFactorModal = ({ phoneNumber, handleSubmit, email }) => {
-    const { canResend2FA, setCanResend2FA, lastResent, handleResendTwoFactor } = useResend2FA(
-        email,
-    );
+    const { canResend2FA, setCanResend2FA, lastResent, handleResendTwoFactor } =
+        useResend2FA(email);
     const [code, setCode] = useState('');
 
     const onSubmit = e => {

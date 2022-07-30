@@ -5,11 +5,7 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import Table from 'components/shared/generic/tables/presentational/Table';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import {
-    ADD_DEMO_ACCESS_CODES,
-    DELETE_DEMO_ACCESS_CODES,
-    EDIT_DEMO_ACCESS_CODES,
-} from 'constants/shared/modalTypes';
+import { ADD_DEMO_ACCESS_CODES, DELETE_DEMO_ACCESS_CODES } from 'constants/shared/modalTypes';
 import { useDispatch } from 'react-redux';
 
 const headers = ['Email', 'Company Name', 'Access Code', 'Last Viewed On', 'Total Views', ''];
@@ -18,10 +14,6 @@ const DemoAccessCodes = ({ accessCodes, isFetching }) => {
     const dispatch = useDispatch();
     const handleNewModal = () => {
         dispatch(showModal(ADD_DEMO_ACCESS_CODES));
-    };
-
-    const handleEditModal = item => {
-        dispatch(showModal(EDIT_DEMO_ACCESS_CODES, { item }));
     };
 
     const handleDeleteModal = (item, disable) => {

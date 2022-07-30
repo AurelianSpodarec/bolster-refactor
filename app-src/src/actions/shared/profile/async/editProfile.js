@@ -5,21 +5,21 @@ import { getHeaders, handleErrors } from 'helpers/api';
 import {
     EDIT_PROFILE_REQUEST,
     EDIT_PROFILE_SUCCESS,
-    EDIT_PROFILE_FAILURE
+    EDIT_PROFILE_FAILURE,
 } from 'constants/actionTypes/profile';
 
 export const editProfileRequest = () => ({
-    type: EDIT_PROFILE_REQUEST
+    type: EDIT_PROFILE_REQUEST,
 });
 
 export const editProfileSuccess = payload => ({
     type: EDIT_PROFILE_SUCCESS,
-    payload
+    payload,
 });
 
 export const editProfileFailure = error => ({
     type: EDIT_PROFILE_FAILURE,
-    error
+    error,
 });
 
 export default postBody => dispatch => {

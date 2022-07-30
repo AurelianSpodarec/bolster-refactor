@@ -2,13 +2,13 @@ import { combineReducers } from 'redux';
 import {
     FETCH_DRAWING_BY_SHARE_LINK_REQUEST,
     FETCH_DRAWING_BY_SHARE_LINK_SUCCESS,
-    FETCH_DRAWING_BY_SHARE_LINK_FAILURE
+    FETCH_DRAWING_BY_SHARE_LINK_FAILURE,
 } from 'constants/actionTypes/drawings';
 
 export default combineReducers({
     postSuccess: postSuccessReducer,
     error: errorReducer,
-    drawing: drawingsReducer
+    drawing: drawingsReducer,
 });
 
 function postSuccessReducer(state = false, action) {

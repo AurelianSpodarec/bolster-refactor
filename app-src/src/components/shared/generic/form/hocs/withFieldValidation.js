@@ -8,7 +8,7 @@ import { isEmpty } from 'helpers/generic';
 export default function withFieldValidation(WrappedComponent) {
     class WithFieldValidation extends Component {
         state = {
-            showError: false
+            showError: false,
         };
 
         render() {
@@ -62,7 +62,7 @@ export default function withFieldValidation(WrappedComponent) {
                 error,
                 validate = () => {},
                 addFieldError,
-                removeFieldError
+                removeFieldError,
             } = this.props;
             const customError = validate(value);
 
@@ -78,7 +78,7 @@ export default function withFieldValidation(WrappedComponent) {
 
     const mapStateToProps = ({ shared: { fieldErrorsReducer } }, ownProps) => ({
         error: fieldErrorsReducer.fieldErrors[ownProps.name],
-        showFieldErrors: fieldErrorsReducer.errorsVisible
+        showFieldErrors: fieldErrorsReducer.errorsVisible,
     });
 
     const mapDispatchToProps = dispatch => ({
@@ -87,11 +87,8 @@ export default function withFieldValidation(WrappedComponent) {
         },
         removeFieldError: name => {
             dispatch(removeFieldError(name));
-        }
+        },
     });
 
-    return connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(WithFieldValidation);
+    return connect(mapStateToProps, mapDispatchToProps)(WithFieldValidation);
 }

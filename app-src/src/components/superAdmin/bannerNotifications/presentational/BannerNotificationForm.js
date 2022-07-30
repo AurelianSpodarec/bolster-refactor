@@ -3,10 +3,11 @@ import React from 'react';
 import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import DatePicker from 'components/shared/generic/form/presentational/DatePicker';
 import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import ReactQuill from 'react-quill';
+import ButtonWrapper from '../../../shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from '../../../shared/generic/button/presentational/ActionButton';
 
 const modules = {
     toolbar: [
@@ -71,12 +72,12 @@ const BannerNotificationForm = ({
                     handleChange={handleColourChange}
                 />
             </Field>
-            <BlockButtonWrapper>
-                <button type="submit" className="button green">
-                    <i className="fa fa-check" />
-                    Submit Banner
-                </button>
-            </BlockButtonWrapper>
+
+            <div className="size-lg-12">
+                <ButtonWrapper alignment="right">
+                    <ActionButton text="Confirm" type="submit" icon="check" size="small" />
+                </ButtonWrapper>
+            </div>
         </Form>
     );
 };

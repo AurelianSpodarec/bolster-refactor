@@ -16,7 +16,7 @@ const BreakdownBasicTimelineBlock = ({ block }) => {
                     <BreakdownPositionCard {...clockIn} />
                 </div>
             </div>
-            {breakIn && (
+            {breakIn?.timestamp && (
                 <div className="block-entry break-in">
                     <DateTimeContainer date={breakIn.timestamp} datetime={DATE_TIME_IDS.TIME} />
                     <Bar type="breakIn" />
@@ -26,7 +26,7 @@ const BreakdownBasicTimelineBlock = ({ block }) => {
                     </div>
                 </div>
             )}
-            {breakOut && (
+            {breakOut?.timestamp && (
                 <div className="block-entry break-out">
                     <DateTimeContainer date={breakOut.timestamp} datetime={DATE_TIME_IDS.TIME} />
                     <Bar type="breakOut" />
@@ -36,14 +36,16 @@ const BreakdownBasicTimelineBlock = ({ block }) => {
                     </div>
                 </div>
             )}
-            <div className="block-entry clock-out">
-                <DateTimeContainer date={clockOut.timestamp} datetime={DATE_TIME_IDS.TIME} />
-                <Bar type="clockOut" />
-                <div className="wrapper">
-                    <p className="title">Time Out</p>
-                    <BreakdownPositionCard {...clockOut} />
+            {clockOut?.timestamp && (
+                <div className="block-entry clock-out">
+                    <DateTimeContainer date={clockOut.timestamp} datetime={DATE_TIME_IDS.TIME} />
+                    <Bar type="clockOut" />
+                    <div className="wrapper">
+                        <p className="title">Time Out</p>
+                        <BreakdownPositionCard {...clockOut} />
+                    </div>
                 </div>
-            </div>
+            )}
         </div>
     );
 };

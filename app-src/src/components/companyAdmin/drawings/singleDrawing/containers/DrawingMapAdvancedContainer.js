@@ -10,7 +10,7 @@ class DrawingMapAdvancedContainer extends Component {
     state = {
         pinLat: -128,
         pinLng: 128,
-        mapZoom: 3
+        mapZoom: 3,
     };
 
     render() {
@@ -43,16 +43,16 @@ const mapStateToProps = (
             pinsReducer: { isFetching, error, pins },
             drawingsReducer: { drawings },
             reportsReducer: {
-                filters: { pinIDs }
-            }
-        }
+                filters: { pinIDs },
+            },
+        },
     },
-    { match: { params } }
+    { match: { params } },
 ) => ({
     pins: Object.values(pins).filter(({ id }) => pinIDs.includes(id)),
     isFetching,
     error,
-    drawing: drawings[params.id]
+    drawing: drawings[params.id],
 });
 
 const WithConnect = connect(mapStateToProps)(DrawingMapAdvancedContainer);

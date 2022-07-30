@@ -9,6 +9,7 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import LegendSegment from './views/calendar/LegendSegment';
 
 import { PIN_TASK_RECURRING_NAMES, PIN_TASK_STATUS_NAMES } from 'constants/companyAdmin/enums';
+import fetchAllTemplates from 'actions/companyAdmin/templates/async/fetchAllTemplates';
 
 const titleEnum = {
     recurring: PIN_TASK_RECURRING_NAMES.RECURRING,
@@ -72,6 +73,7 @@ const TasksLegend = ({ types, statuses, pinTasks }) => {
             dispatch(fetchCompanyUsers());
             dispatch(fetchAllServices());
             dispatch(fetchAllSites());
+            dispatch(fetchAllTemplates());
         });
     }, [dispatch]);
 

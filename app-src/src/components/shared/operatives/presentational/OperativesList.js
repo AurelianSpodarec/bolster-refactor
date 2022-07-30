@@ -1,7 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
+import { ReactComponent as TrashIcon } from '../../../../_content/images/icons/trash.svg';
 
 const OperativesList = ({ operatives, documentID, handleDeleteOperativeModal }) =>
     operatives.map(operative => {
@@ -40,23 +44,27 @@ const OperativesList = ({ operatives, documentID, handleDeleteOperativeModal }) 
                     <br />
                     {email}
                 </td>
-                <td>
+                <td className="pull-right">
                     {canEditUser && (
-                        <>
-                            <Link
-                                to={`/company/drawings/${documentID}/edit-operative/${id}`}
-                                className="button yellow icon-only"
-                            >
-                                <i className="far fa-pencil fa-fw" />
-                            </Link>
-                            <button
-                                onClick={() => handleDeleteOperativeModal(operative)}
-                                to="#"
-                                className="button red icon-only"
-                            >
-                                <i className="far fa-trash-alt fa-fw" />
-                            </button>
-                        </>
+                        <FlexWrapper>
+                            <ButtonWrapper>
+                                <LinkButton
+                                    href={`/company/drawings/${documentID}/edit-operative/${id}`}
+                                    icon="far fa-pencil fa-fw"
+                                    extraClasses="icon-only typography-default-colour"
+                                />
+                            </ButtonWrapper>
+                            <ButtonWrapper>
+                                <ActionButton
+                                    href="#"
+                                    onClick={() => handleDeleteOperativeModal(operative)}
+                                    svgIconComponent={TrashIcon}
+                                    source="secondary"
+                                    ambient="positive"
+                                    extraClasses="icon-only typography-default-colour"
+                                />
+                            </ButtonWrapper>
+                        </FlexWrapper>
                     )}
                 </td>
             </tr>

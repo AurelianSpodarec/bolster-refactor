@@ -1,41 +1,67 @@
 import { combineReducers } from 'redux';
 
 import {
-    FETCH_TIMESHEET_WEEK_DROPDOWN_OPTIONS_REQUEST,
-    FETCH_TIMESHEET_WEEK_DROPDOWN_OPTIONS_SUCCESS,
-    FETCH_TIMESHEET_WEEK_DROPDOWN_OPTIONS_FAILURE,
+    FETCH_TIMESHEET_WEEK_PIN_OPTION_TYPES_REQUEST,
+    FETCH_TIMESHEET_WEEK_PIN_OPTION_TYPES_SUCCESS,
+    FETCH_TIMESHEET_WEEK_PIN_OPTION_TYPES_FAILURE,
     FETCH_TIMESHEET_WEEK_REQUEST,
     FETCH_TIMESHEET_WEEK_FAILURE,
     FETCH_TIMESHEET_WEEK_SUCCESS,
-    FETCH_TIMESHEET_DAY_REQUEST,
-    FETCH_TIMESHEET_DAY_FAILURE,
-    FETCH_TIMESHEET_DAY_SUCCESS,
     TOGGLE_FILTER_BY_HAS_CLOCKED_IN,
     SET_SELECTED_COMPANY_ID,
+    SET_SELECTED_JOB_REFERENCE_ID,
+    POST_OVERRIDE_SHIFT_REQUEST,
+    POST_OVERRIDE_SHIFT_FAILURE,
+    POST_OVERRIDE_SHIFT_SUCCESS,
+    POST_REJECT_SHIFT_REQUEST,
+    POST_REJECT_SHIFT_FAILURE,
+    POST_REJECT_SHIFT_SUCCESS,
+    POST_APPROVE_SHIFT_REQUEST,
+    POST_APPROVE_SHIFT_FAILURE,
+    POST_APPROVE_SHIFT_SUCCESS,
+    DELETE_SHIFT_REQUEST,
+    DELETE_SHIFT_FAILURE,
+    DELETE_SHIFT_SUCCESS,
+    PATCH_CLOCKER_ENTRY_REQUEST,
+    PATCH_CLOCKER_ENTRY_SUCCESS,
+    PATCH_CLOCKER_ENTRY_FAILURE,
+    POST_GENERATE_TIMESHEETS_CSV_REQUEST,
+    POST_GENERATE_TIMESHEETS_CSV_FAILURE,
+    POST_GENERATE_TIMESHEETS_CSV_SUCCESS,
+    POST_ADD_EXPENSE_TO_SHIFT_REQUEST,
+    POST_ADD_EXPENSE_TO_SHIFT_FAILURE,
+    POST_ADD_EXPENSE_TO_SHIFT_SUCCESS,
+    DELETE_EXPENSE_FROM_SHIFT_REQUEST,
+    DELETE_EXPENSE_FROM_SHIFT_FAILURE,
+    DELETE_EXPENSE_FROM_SHIFT_SUCCESS,
+    SET_REPORT_DATES,
 } from 'constants/actionTypes/timesheets';
+import moment from 'moment';
 
 export default combineReducers({
     isFetching: isFetchingReducer,
     error: errorReducer,
+    isPosting: isPostingReducer,
+    postError: postErrorReducer,
+    postSuccess: postSuccessReducer,
     timesheets: timesheetReducer,
     timesheetOptions: timesheetOptionsReducer,
     filterByHasClockedIn: filterByHasClockedInReducer,
     selectedCompanyUserIDs: selectedCompanyUserIDsReducer,
+    selectedJobReferenceIDs: selectedJobReferenceIDsReducer,
+    isDeleting: isDeletingReducer,
+    deleteError: deleteErrorReducer,
+    deleteSuccess: deleteSuccessReducer,
+    reportDates: reportDatesReducer,
 });
 
 function isFetchingReducer(state = false, action) {
     switch (action.type) {
         case FETCH_TIMESHEET_WEEK_REQUEST:
             return true;
-        case FETCH_TIMESHEET_DAY_REQUEST:
-            return true;
         case FETCH_TIMESHEET_WEEK_FAILURE:
             return false;
-        case FETCH_TIMESHEET_DAY_FAILURE:
-            return false;
         case FETCH_TIMESHEET_WEEK_SUCCESS:
-            return false;
-        case FETCH_TIMESHEET_DAY_SUCCESS:
             return false;
         default:
             return state;
@@ -46,16 +72,131 @@ function errorReducer(state = null, action) {
     switch (action.type) {
         case FETCH_TIMESHEET_WEEK_REQUEST:
             return null;
-        case FETCH_TIMESHEET_DAY_REQUEST:
-            return null;
         case FETCH_TIMESHEET_WEEK_FAILURE:
-            return action.error;
-        case FETCH_TIMESHEET_DAY_FAILURE:
             return action.error;
         case FETCH_TIMESHEET_WEEK_SUCCESS:
             return null;
-        case FETCH_TIMESHEET_DAY_SUCCESS:
+        default:
+            return state;
+    }
+}
+
+function isPostingReducer(state = false, action) {
+    switch (action.type) {
+        case POST_OVERRIDE_SHIFT_REQUEST:
+        case POST_REJECT_SHIFT_REQUEST:
+        case POST_APPROVE_SHIFT_REQUEST:
+        case PATCH_CLOCKER_ENTRY_REQUEST:
+        case POST_GENERATE_TIMESHEETS_CSV_REQUEST:
+        case POST_ADD_EXPENSE_TO_SHIFT_REQUEST:
+            return true;
+        case POST_OVERRIDE_SHIFT_SUCCESS:
+        case POST_OVERRIDE_SHIFT_FAILURE:
+        case POST_REJECT_SHIFT_SUCCESS:
+        case POST_REJECT_SHIFT_FAILURE:
+        case POST_APPROVE_SHIFT_SUCCESS:
+        case POST_APPROVE_SHIFT_FAILURE:
+        case PATCH_CLOCKER_ENTRY_SUCCESS:
+        case PATCH_CLOCKER_ENTRY_FAILURE:
+        case POST_GENERATE_TIMESHEETS_CSV_SUCCESS:
+        case POST_GENERATE_TIMESHEETS_CSV_FAILURE:
+        case POST_ADD_EXPENSE_TO_SHIFT_SUCCESS:
+        case POST_ADD_EXPENSE_TO_SHIFT_FAILURE:
+            return false;
+        default:
+            return state;
+    }
+}
+
+function postErrorReducer(state = null, action) {
+    switch (action.type) {
+        case POST_OVERRIDE_SHIFT_REQUEST:
+        case POST_OVERRIDE_SHIFT_SUCCESS:
+        case POST_REJECT_SHIFT_REQUEST:
+        case POST_REJECT_SHIFT_SUCCESS:
+        case POST_APPROVE_SHIFT_REQUEST:
+        case POST_APPROVE_SHIFT_SUCCESS:
+        case PATCH_CLOCKER_ENTRY_REQUEST:
+        case POST_GENERATE_TIMESHEETS_CSV_REQUEST:
+        case POST_GENERATE_TIMESHEETS_CSV_SUCCESS:
+        case POST_ADD_EXPENSE_TO_SHIFT_REQUEST:
+        case POST_ADD_EXPENSE_TO_SHIFT_SUCCESS:
             return null;
+        case POST_OVERRIDE_SHIFT_FAILURE:
+        case POST_REJECT_SHIFT_FAILURE:
+        case POST_APPROVE_SHIFT_FAILURE:
+        case PATCH_CLOCKER_ENTRY_FAILURE:
+        case POST_GENERATE_TIMESHEETS_CSV_FAILURE:
+        case POST_ADD_EXPENSE_TO_SHIFT_FAILURE:
+            return action.error;
+        default:
+            return state;
+    }
+}
+
+function postSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case POST_OVERRIDE_SHIFT_REQUEST:
+        case POST_OVERRIDE_SHIFT_FAILURE:
+        case POST_REJECT_SHIFT_REQUEST:
+        case POST_REJECT_SHIFT_FAILURE:
+        case POST_APPROVE_SHIFT_REQUEST:
+        case POST_APPROVE_SHIFT_FAILURE:
+        case PATCH_CLOCKER_ENTRY_REQUEST:
+        case POST_ADD_EXPENSE_TO_SHIFT_REQUEST:
+        case POST_ADD_EXPENSE_TO_SHIFT_FAILURE:
+            return false;
+        case POST_OVERRIDE_SHIFT_SUCCESS:
+        case POST_REJECT_SHIFT_SUCCESS:
+        case POST_APPROVE_SHIFT_SUCCESS:
+        case PATCH_CLOCKER_ENTRY_SUCCESS:
+        case POST_ADD_EXPENSE_TO_SHIFT_SUCCESS:
+            return true;
+        default:
+            return state;
+    }
+}
+
+function isDeletingReducer(state = false, action) {
+    switch (action.type) {
+        case DELETE_SHIFT_REQUEST:
+        case DELETE_EXPENSE_FROM_SHIFT_REQUEST:
+            return true;
+        case DELETE_SHIFT_SUCCESS:
+        case DELETE_SHIFT_FAILURE:
+        case DELETE_EXPENSE_FROM_SHIFT_SUCCESS:
+        case DELETE_EXPENSE_FROM_SHIFT_FAILURE:
+            return false;
+        default:
+            return state;
+    }
+}
+
+function deleteErrorReducer(state = null, action) {
+    switch (action.type) {
+        case DELETE_SHIFT_REQUEST:
+        case DELETE_SHIFT_SUCCESS:
+        case DELETE_EXPENSE_FROM_SHIFT_REQUEST:
+        case DELETE_EXPENSE_FROM_SHIFT_SUCCESS:
+            return null;
+        case DELETE_SHIFT_FAILURE:
+        case DELETE_EXPENSE_FROM_SHIFT_FAILURE:
+            return action.error;
+        default:
+            return state;
+    }
+}
+
+function deleteSuccessReducer(state = false, action) {
+    switch (action.type) {
+        case DELETE_SHIFT_REQUEST:
+        case DELETE_SHIFT_FAILURE:
+        case DELETE_EXPENSE_FROM_SHIFT_REQUEST:
+        case DELETE_EXPENSE_FROM_SHIFT_FAILURE:
+            return false;
+        case DELETE_SHIFT_SUCCESS:
+        case DELETE_EXPENSE_FROM_SHIFT_SUCCESS:
+            return true;
         default:
             return state;
     }
@@ -63,28 +204,28 @@ function errorReducer(state = null, action) {
 
 function timesheetOptionsReducer(state = [], action) {
     switch (action.type) {
-        case FETCH_TIMESHEET_WEEK_DROPDOWN_OPTIONS_REQUEST:
+        case FETCH_TIMESHEET_WEEK_PIN_OPTION_TYPES_REQUEST:
             return state;
-        case FETCH_TIMESHEET_WEEK_DROPDOWN_OPTIONS_FAILURE:
+        case FETCH_TIMESHEET_WEEK_PIN_OPTION_TYPES_FAILURE:
             return state;
-        case FETCH_TIMESHEET_WEEK_DROPDOWN_OPTIONS_SUCCESS:
+        case FETCH_TIMESHEET_WEEK_PIN_OPTION_TYPES_SUCCESS:
             return action.payload;
         default:
             return state;
     }
 }
 
-function timesheetReducer(state = [], action) {
+function timesheetReducer(
+    state = { companyUserWeeks: [], dailyHoursBreakdown: [], weeklyHoursBreakdown: {} },
+    action,
+) {
     switch (action.type) {
         case FETCH_TIMESHEET_WEEK_REQUEST:
             return state;
-        case FETCH_TIMESHEET_DAY_REQUEST:
         case FETCH_TIMESHEET_WEEK_FAILURE:
             return state;
-        case FETCH_TIMESHEET_DAY_FAILURE:
         case FETCH_TIMESHEET_WEEK_SUCCESS:
             return action.payload;
-        case FETCH_TIMESHEET_DAY_SUCCESS:
         default:
             return state;
     }
@@ -102,6 +243,27 @@ function filterByHasClockedInReducer(state = true, action) {
 function selectedCompanyUserIDsReducer(state = [], action) {
     switch (action.type) {
         case SET_SELECTED_COMPANY_ID:
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
+function selectedJobReferenceIDsReducer(state = [], action) {
+    switch (action.type) {
+        case SET_SELECTED_JOB_REFERENCE_ID:
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
+function reportDatesReducer(
+    state = { startDate: moment().subtract(7, 'days').toDate(), endDate: moment().toDate() },
+    action,
+) {
+    switch (action.type) {
+        case SET_REPORT_DATES:
             return action.payload;
         default:
             return state;

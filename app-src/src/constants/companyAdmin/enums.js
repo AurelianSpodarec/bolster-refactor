@@ -1,10 +1,3 @@
-export const ROLE_TYPES = {
-    0: 'Owner',
-    1: 'Admin',
-    2: 'Operative',
-    3: 'Client',
-};
-
 export const HIERARCHY_TYPES = {
     1: 'site',
     2: 'building',
@@ -27,18 +20,6 @@ export const HIERARCHY_IDS = {
     ALL_SITES: 100,
 };
 
-export const TEMPLATE_USAGE_RULES = {
-    1: 'Use Only Owner Company',
-    2: 'Use Only Own',
-    3: 'Use Any',
-};
-
-export const TEMPLATE_USAGE_RULES_VALUES = {
-    ONLY_OWNER_COMPANY: 1,
-    ONLY_OWN: 2,
-    USE_ANY: 3,
-};
-
 export const DOCUMENT_TYPE = {
     1: 'View only',
     2: 'Requires agreement (once)',
@@ -46,19 +27,21 @@ export const DOCUMENT_TYPE = {
 };
 
 export const COMPANY_USER_ROLE_TYPES = {
-    OWNER: 100,
+    OWNER: 999,
+    ADMIN_PLUS: 100,
     ADMIN: 75,
     OPERATIVE: 50,
     CLIENT: 25,
-    DELETED: 1000,
+    DELETED: -1,
 };
 
 export const COMPANY_USER_ROLE_IDS = {
+    '-1': 'Deleted',
     25: 'Client Access',
     50: 'Operative',
     75: 'Admin',
-    100: 'Owner',
-    1000: 'Deleted',
+    100: 'Admin Plus',
+    999: 'Owner',
 };
 
 export const COMPANY_USER_ROLE_STATUS_VALUES = {
@@ -102,13 +85,6 @@ export const PERMISSION_STATES = {
     ACCEPTED: 1,
     REJECTED: 2,
 };
-
-export const SITES_FILTER_TYPES = {
-    active: 'Active',
-    readonly: 'Read only',
-    archived: 'Archived',
-};
-
 export const LABEL_TYPES = {
     1: 'Standard',
     2: 'Trim',
@@ -317,42 +293,6 @@ export const PARENTAL_TYPES = {
     NONE: 1,
     HEADQUARTERS: 2,
     CHILD_COMPANY: 3,
-};
-
-/*  adding new dropdown options to these two enum objects
-    will dynamically add a new page for that option. */
-export const DROPDOWN_OPTIONS = {
-    1: { name: 'FR Ratings', link: 'fr-ratings', singular: 'FR Rating', reduxKey: 'frRatings' },
-    2: { name: 'Item Types', link: 'item-types', singular: 'Item Type', reduxKey: 'itemTypes' },
-    3: {
-        name: 'Installation Types',
-        link: 'installation-types',
-        singular: 'Installation Type',
-        reduxKey: 'installationTypes',
-    },
-};
-
-export const DROPDOWN_OPTION_LOOKUP = {
-    'fr-ratings': 1,
-    'item-types': 2,
-    'installation-types': 3,
-};
-
-export const DROPDOWN_OPTION_ENUM = {
-    1: 'FR Ratings',
-    2: 'Item Types',
-    3: 'Installation Types',
-};
-export const DROPDOWN_OPTION_VALS = {
-    frRatings: 1,
-    itemTypes: 2,
-    installationTypes: 3,
-};
-
-export const DROPDOWN_OPTION_MANUFACTURER_ENABLED = {
-    1: false,
-    2: false,
-    3: true,
 };
 
 export const FLOORPLAN_STATES = {
@@ -575,6 +515,8 @@ export const ACTIVITY_LOG_REFERENCE_TYPES = {
     TWO_FACTOR_AUTH: 36,
     COMPANY_DOCUMENT: 37,
     COMPANY_DOCUMENT_FOLDER: 38,
+    PIN_OPTION_FOLDER: 39,
+    PIN_OPTION_DOCUMENT: 40,
 };
 
 export const ACTIVITY_LOG_REFERENCE_VALUES = {
@@ -617,6 +559,8 @@ export const ACTIVITY_LOG_REFERENCE_VALUES = {
     36: 'Two Factor Auth',
     37: 'Company Document',
     38: 'Company Document Folder',
+    39: 'Pin Option Folder',
+    40: 'Pin Option Document',
 };
 
 export const COMPANY_REPORTS_OUTPUT_TYPES = {
@@ -754,8 +698,198 @@ export const DOCUMENT_LIBRARY_TYPES = {
     FOLDER: 100,
     FILE: 200,
 };
+
 export const sendToEnum = {
     ALL_OPERATIVES: 0,
     OPERATIVES_WITHIN_SITE: 1,
     SELECTED_OPERATIVES: 2,
+};
+
+export const PRELIMS_SVG = {
+    10: 'percentSvg',
+    20: 'fixPriceSvg',
+};
+
+export const PRELIMS_TYPES = {
+    PERCENT: 10,
+    FIX_PRICE: 20,
+};
+
+export const PRELIMS_ENUM = {
+    10: 'Percent',
+    20: 'Fixed Price',
+};
+
+export const MEASUREMENT_TYPES = {
+    LINEAR: 1,
+    SQUARE: 2,
+    CUBIC: 3,
+    VOLUME: 4,
+    NUMBER: 5,
+    FIXED: 6,
+    DIAMETER: 7,
+};
+
+export const MEASUREMENT_VALUES = {
+    1: 'Linear (m)',
+    2: 'Square (m2)',
+    3: 'Cubic (m3)',
+    4: 'Volume (l)',
+    5: 'Number',
+    6: 'Fixed Price',
+    7: 'Diameter (mm)',
+};
+
+export const MEASUREMENT_TYPES_OUTPUTS_PLURAL = {
+    [MEASUREMENT_TYPES.LINEAR]: 'metres',
+    [MEASUREMENT_TYPES.SQUARE]: 'metres',
+    [MEASUREMENT_TYPES.CUBIC]: 'metres',
+    [MEASUREMENT_TYPES.VOLUME]: 'litres',
+    [MEASUREMENT_TYPES.NUMBER]: null,
+    [MEASUREMENT_TYPES.FIXED]: null,
+    [MEASUREMENT_TYPES.DIAMETER]: 'millimetres',
+};
+
+export const MEASUREMENT_UNITS = {
+    MILLIMETRE: 1,
+    CENTIMETRE: 2,
+    METRE: 3,
+    INCH: 4,
+    FOOT: 5,
+    MILLILITRE: 6,
+    LITRE: 7,
+    GALLON: 8,
+};
+
+export const MEASUREMENT_UNIT_OUTPUTS = {
+    [MEASUREMENT_UNITS.MILLIMETRE]: 'mm',
+    [MEASUREMENT_UNITS.CENTIMETRE]: 'cm',
+    [MEASUREMENT_UNITS.METRE]: 'M',
+    [MEASUREMENT_UNITS.INCH]: 'In.',
+    [MEASUREMENT_UNITS.FOOT]: 'Foot',
+    [MEASUREMENT_UNITS.MILLILITRE]: 'ml',
+    [MEASUREMENT_UNITS.LITRE]: 'L',
+    [MEASUREMENT_UNITS.GALLON]: 'Gal.',
+};
+
+export const UNIT_OPTIONS = {
+    DISTANCE: [
+        MEASUREMENT_UNITS.MILLIMETRE,
+        MEASUREMENT_UNITS.CENTIMETRE,
+        MEASUREMENT_UNITS.METRE,
+        MEASUREMENT_UNITS.INCH,
+        MEASUREMENT_UNITS.FOOT,
+    ].map(unit => ({
+        value: unit,
+        label: MEASUREMENT_UNIT_OUTPUTS[unit],
+    })),
+    VOLUME: [MEASUREMENT_UNITS.MILLILITRE, MEASUREMENT_UNITS.LITRE, MEASUREMENT_UNITS.GALLON].map(
+        unit => ({
+            value: unit,
+            label: MEASUREMENT_UNIT_OUTPUTS[unit],
+        }),
+    ),
+};
+
+export const CURRENCIES = {
+    GBP: 0,
+    NZD: 1,
+    EUR: 2,
+    USD: 3,
+    AUD: 4,
+};
+
+export const CURRENCY_NAMES = {
+    0: 'GBP',
+    1: 'NZD',
+    2: 'EUR',
+    3: 'USD',
+    4: 'AUD',
+};
+
+export const CURRENCY_SYMBOLS = {
+    0: '£',
+    1: '$',
+    2: '€',
+    3: '$',
+    4: '$',
+};
+
+export const COSTING_GRAPH_FILTER_TYPES = {
+    OPERATIVES: 0,
+    SERVICES: 1,
+    INSTALLATION_TYPES: 2,
+    PRICE_RANGE: 4,
+};
+
+export const COSTING_GRAPH_FILTER_VALUES = {
+    0: 'operatives',
+    1: 'services',
+    2: 'installationTypes',
+    4: 'price',
+};
+
+export const costingAndEstimatingType = {
+    COSTING: 0,
+    ESTIMATING: 1,
+};
+
+export const costingAndEstimatingNames = {
+    0: 'Costing',
+    1: 'Estimating',
+};
+
+export const PIN_OPTIONS_SETS_FILTERS_OPTIONS = {
+    SERVICE: 1,
+    CREATED_BY: 2,
+    ENABLED_DISABLED: 3,
+    HIDDEN_NOT_HIDDEN: 4,
+};
+
+export const PIN_OPTIONS_VALUES_FILTERS_OPTIONS = {
+    SERVICE: 1,
+    ENABLED_DISABLED: 3,
+    HIDDEN_NOT_HIDDEN: 4,
+};
+
+export const PIN_OPTIONS_SETS_FILTERS_CREATED_BY_OPTIONS = {
+    COMPANY: 1,
+    SUPER_ADMIN: 2,
+};
+
+export const PIN_OPTIONS_FILTERS_ENABLED_DISABLED_OPTIONS = {
+    ENABLED: 1,
+    DISABLED: 2,
+};
+
+export const PIN_OPTIONS_FILTERS_HIDDEN_NOT_HIDDEN_OPTIONS = {
+    NOT_HIDDEN: 1,
+    HIDDEN: 2,
+};
+
+export const PIN_OPTIONS_FILTERS_ALL = 0;
+
+export const TOOLTIP_FILTERS_TYPES = {
+    SINGLE_SELECTION: 1,
+    MULTI_SELECTION: 2,
+};
+
+export const addOnsType = {
+    BOLSTER_PLUS: 1,
+};
+
+export const addOnsNames = {
+    1: 'BolsterPlus',
+};
+
+export const SHIFT_STATUS = {
+    PENDING: 0,
+    APPROVED: 1,
+    REJECTED: 2,
+};
+
+export const SHIFT_STATUS_REVERSE = {
+    [SHIFT_STATUS.PENDING]: 'Pending',
+    [SHIFT_STATUS.APPROVED]: 'Approved',
+    [SHIFT_STATUS.REJECTED]: 'Rejected',
 };

@@ -5,34 +5,28 @@ import { getHeaders, handleErrors } from 'helpers/api';
 import {
     CLIENT_POST_CUSTOM_FILTERS_REQUEST,
     CLIENT_POST_CUSTOM_FILTERS_SUCCESS,
-    CLIENT_POST_CUSTOM_FILTERS_FAILURE
+    CLIENT_POST_CUSTOM_FILTERS_FAILURE,
 } from 'constants/client/actionTypes/clientReports';
 
 export const clientPostCustomFiltersRequest = () => ({
-    type: CLIENT_POST_CUSTOM_FILTERS_REQUEST
+    type: CLIENT_POST_CUSTOM_FILTERS_REQUEST,
 });
 
 export const clientPostCustomFiltersSuccess = payload => ({
     type: CLIENT_POST_CUSTOM_FILTERS_SUCCESS,
-    payload
+    payload,
 });
 
 export const clientPostCustomFiltersFailure = error => ({
     type: CLIENT_POST_CUSTOM_FILTERS_FAILURE,
-    error
+    error,
 });
 
 export default (companyID, postBody) => dispatch => {
     dispatch(clientPostCustomFiltersRequest());
 
     return axios
-        .post(
-            `${CLIENT_API_URL}/reports/${companyID}/filters`,
-            postBody,
-            getHeaders()
-        )
+        .post(`${CLIENT_API_URL}/reports/${companyID}/filters`, postBody, getHeaders())
         .then(res => dispatch(clientPostCustomFiltersSuccess(res.data)))
-        .catch(err =>
-            dispatch(handleErrors(clientPostCustomFiltersFailure)(err))
-        );
+        .catch(err => dispatch(handleErrors(clientPostCustomFiltersFailure)(err)));
 };

@@ -1,7 +1,6 @@
 import React from 'react';
 import { RAW_S3_STORAGE_URL } from 'config';
 
-
 const StaticImage = ({ question }) => (
     <img
         style={{ maxWidth: '100%' }}

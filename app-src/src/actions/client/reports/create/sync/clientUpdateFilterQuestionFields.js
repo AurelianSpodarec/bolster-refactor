@@ -3,5 +3,5 @@ import { CLIENT_UPDATE_FILTER_QUESTION_FIELDS } from 'constants/client/actionTyp
 export default fields => dispatch =>
     dispatch({
         type: CLIENT_UPDATE_FILTER_QUESTION_FIELDS,
-        fields
+        fields,
     });

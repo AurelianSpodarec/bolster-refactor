@@ -1,25 +1,26 @@
 import React from 'react';
-import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+
+import ButtonWrapper from '../../../../shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from '../../../../shared/generic/button/presentational/ActionButton';
+import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
 
 const ConfirmEditPinModal = ({
     handleEditPin,
     hideModal,
-    message = 'Are you sure you want to edit this pin?'
+    message = 'Are you sure you want to edit this pin?',
 }) => (
-    <ModalOuterContainer>
-        <BlockHeading title={'Confirm Edit Pin'} />
-        <p className="generic-text intro-text size-lg-12">{message}</p>
-        <BlockButtonWrapper>
-            <button className="button yellow" onClick={handleEditPin}>
-                <i className="far fa-check" /> Confirm
-            </button>
-            <button className="button" onClick={hideModal}>
-                Cancel
-            </button>
-        </BlockButtonWrapper>
-    </ModalOuterContainer>
+    <FlexModalOuter title="Confirm Edit Pin">
+        <div className="flex-content-wrapper">
+            <div className="flex-content">
+                <p className="generic-text size-lg-12">{message}</p>
+            </div>
+
+            <ButtonWrapper alignment="right" extraClasses="flex-modal-footer">
+                <ActionButton text="Cancel" onClick={hideModal} source="secondary" size="small" />
+                <ActionButton text="Confirm" onClick={handleEditPin} icon="check" size="small" />
+            </ButtonWrapper>
+        </div>
+    </FlexModalOuter>
 );
 
 export default ConfirmEditPinModal;

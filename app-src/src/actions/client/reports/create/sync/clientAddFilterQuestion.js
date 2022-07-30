@@ -3,5 +3,5 @@ import { CLIENT_ADD_FILTER_QUESTION } from 'constants/client/actionTypes/clientR
 export default id => dispatch =>
     dispatch({
         type: CLIENT_ADD_FILTER_QUESTION,
-        id
+        id,
     });

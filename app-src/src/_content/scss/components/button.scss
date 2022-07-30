@@ -47,10 +47,20 @@ button {
     }
 
     &.blue {
-        background-color: $blue;
-
+            padding: 5px 16px;
+            font-size: 12px;
+            line-height: 12px;
+            border-radius: 4px;
+            background-color: #3364DD;
+            font-family: "Ubuntu",sans-serif;
+            font-weight: 500;
+            color: #f9fafa;
+            border: 1px solid transparent;  
+            text-decoration: none;
+            white-space: nowrap;
+       
         &:hover, &.active {
-            background-color: #1083b3;
+            background-color: #0047FF;
         }
     }
 
@@ -370,4 +380,338 @@ button {
         z-index: 1;
         @include rounded-all(50%);
     }
+}
+
+// custom button
+.custom-button {
+    background-color: transparent;
+    @include ubuntu-medium;
+    color: #F9FAFA;
+    padding: 11px 16px;
+    text-align: left;
+    font-size: 15px;
+    line-height: 15px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    transition: background-color 0.1s ease-in-out;
+    text-decoration: none;
+    white-space: nowrap;
+
+    &.center {
+       justify-content: center;
+       text-align: center;
+    }
+
+    &.margin-left {
+        margin-left: 10px;
+    }
+
+    .text {
+        + .icon, + .svg-icon {
+            margin-left: 8px;
+        }
+    }
+
+    .icon {
+        height: 15px;
+
+        + .text {
+            margin-left: 8px;
+        }
+    }
+
+    .svg-icon {
+        width: auto;
+        height: 15px;
+
+        path {
+            stroke: #F9FAFA;
+        }
+        
+        + .text {
+            margin-left: 8px;
+        }
+    }
+
+    &:active, &.active {
+        color: #F9FAFA;
+    }
+
+    &:disabled, &[data-disabled="true"] {
+        cursor: not-allowed;
+        opacity: 0.5;
+    }
+
+    &.icon-only {
+        padding: 11px 12px;
+
+        .icon {
+            margin-left: 0;
+            margin-right: 0;
+        }
+    }
+
+    // small
+    &[data-size="small"] {
+        padding: 5px 16px;
+        font-size: 12px;
+        line-height: 12px;
+        border-radius: 4px;
+
+        &.icon-only {
+            padding: 5px 6px;
+        }
+
+        .icon {
+            height: 12px;
+        }
+
+        .svg-icon {
+            height: 12px;
+        }
+    }
+
+    // primary source
+    &[data-source="primary"] {
+        // primary ambient
+        &[data-ambient="primary"] {
+            background-color: var(--primary-default);
+
+            &:not(:disabled) {
+                &:hover {
+                    background-color: var(--primary-hover);
+                   
+                }
+
+                &:active, &.active {
+                    background-color: var(--primary-pressed);
+                }
+            }
+
+            &:disabled {
+                background-color: var(--primary-hover);
+            }
+        }
+
+        // positive ambient
+        &[data-ambient="positive"] {
+            background-color: var(--positive-default);
+
+            &:not(:disabled) {
+                &:hover {
+                    background-color: var(--positive-hover);
+                }
+
+                &:active, &.active {
+                    background-color: var(--positive-pressed);
+                }
+            }
+
+            &:disabled {
+                background-color: var(--positive-hover);
+            }
+        }
+
+        // negative ambient
+        &[data-ambient="negative"] {
+            background-color: var(--negative-default);
+
+            &:not(:disabled) {
+                &:hover {
+                    background-color: var(--negative-hover);
+                }
+
+                &:active, &.active {
+                    background-color: var(--negative-pressed);
+                }
+            }
+
+            &:disabled {
+                background-color: var(--negative-hover);
+            }
+        }
+    }
+
+    // secondary source
+    &[data-source="secondary"] {
+        color: var(--typography-default);
+
+        .svg-icon {
+            path {
+                stroke: var(--typography-default);
+            }
+        }
+
+        // all ambients
+        &:not(:disabled) {
+            &:hover, &.active {
+                background-color: var(--background-button-hover);
+            }
+
+            &:active {
+                background-color: transparent;
+            }
+        }
+
+        // positive ambient
+        &[data-ambient="positive"] {
+            border-color: var(--background-button-hover);
+        }
+
+        // negative ambient
+        &[data-ambient="negative"] {
+            color: var(--negative-default);
+
+            &.bordered {
+                border-color: var(--negative-default);
+            }
+        }
+    }
+
+    &.transparent {
+        background-color: transparent!important;
+        color: var(--typography-default)!important;;
+    }
+}
+
+// button wrapper
+.button-wrapper {
+    .button-wrapper-info {
+        font-size: 100%;
+
+        &.large {
+            font-size: 140%;
+        }
+
+        &.disabled {
+            color: var(--typography-greyed-out);
+        }
+
+        &.primary {
+            color: var(--primary-hover);
+        }
+
+        &.positive {
+            color: var(--positive-hover);
+        }
+
+        &.negative {
+            color: var(--negative-hover);
+        }
+
+        &.no-spacing {
+            margin-left: 0!important;
+            margin-right: 0!important;
+        }
+    }
+
+    &.left {
+        .custom-button {
+            margin-right: 5px;
+        }
+
+        .button-wrapper-info {
+            margin-left: 10px;
+        }
+    }
+
+    &.center {
+        .custom-button {
+            margin: {
+                left: 2.5px;
+                right: 2.5px;
+            };
+        }
+
+        .button-wrapper-info {
+            &.right {
+                margin-left: 10px;
+            }
+
+            &.left {
+                margin-right: 10px;
+            }
+        }
+    }
+
+    &.right {
+        .custom-button {
+            margin-left: 5px;
+        }
+
+        .button-wrapper-info {
+            margin-right: 10px;
+        }
+    }
+}
+
+// dropdown list button
+.dropdown-list-button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    float: none!important;
+    width: 100%;
+    margin: 0 0 5px 0 !important;
+    padding: 5px 10px;
+    background-color: transparent;
+    color: var(--typography-default);
+    text-align: left;
+    border-radius: 20px;
+    font-size: 15px;
+
+    &:last-child {
+        margin-bottom: 0!important;
+    }
+
+    &:hover {
+        background-color: var(--hover-primary)
+    }
+
+    &.active {
+        background-color: var(--primary-default);
+        color: #F9FAFA;
+    }
+    
+    .icon {
+        margin-left: 15px;
+        height: 8px;
+        min-width: auto;
+
+        path {
+            stroke: #F9FAFA;
+        }
+    }
+}
+
+.accordion-button {
+    width: 15px;
+    height: 15px;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    color: var(--typography-default);
+    background-color: transparent;
+    text-decoration: none;
+
+    i {
+        transition : all 0.2s ease-in-out;
+        font-size: 10px;
+        background-color: transparent;
+    }
+
+    &.active {
+        i {
+            transform: rotate(90deg);
+        }
+    }
+}
+
+.back-btn {
+   border: 1px solid var(--background-button-stroke);
+    margin-right: 10px;
+    float: left !important;
+    width: auto;
 }

@@ -10,7 +10,7 @@ import { CONFIRM_SUBMIT } from 'constants/shared/modalTypes';
 
 class ChangeOwnershipFormContainer extends Component {
     state = {
-        companyCode: ''
+        companyCode: '',
     };
 
     render = () => (
@@ -34,12 +34,7 @@ class ChangeOwnershipFormContainer extends Component {
     handleSubmitModal = e => {
         e.preventDefault();
         const { companyCode } = this.state;
-        const {
-            createTransferSiteRequest,
-            showModal,
-            hideModal,
-            id: siteID
-        } = this.props;
+        const { createTransferSiteRequest, showModal, hideModal, id: siteID } = this.props;
         const handleSubmit = () => {
             createTransferSiteRequest({ siteID, companyCode });
             hideModal();
@@ -55,26 +50,22 @@ class ChangeOwnershipFormContainer extends Component {
 const mapStateToProps = (
     {
         companyAdmin: {
-            sitesReducer: { postSuccess }
-        }
+            sitesReducer: { postSuccess },
+        },
     },
-    { match, location }
+    { match, location },
 ) => ({
     postSuccess,
     id: match.params.id,
-    url: location.pathname
+    url: location.pathname,
 });
 
 const mapDispatchToProps = dispatch => ({
-    createTransferSiteRequest: postbody =>
-        dispatch(createTransferSiteRequest(postbody)),
+    createTransferSiteRequest: postbody => dispatch(createTransferSiteRequest(postbody)),
     showModal: (type, props) => dispatch(showModal(type, props)),
-    hideModal: () => dispatch(hideModal())
+    hideModal: () => dispatch(hideModal()),
 });
 
 export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(ChangeOwnershipFormContainer)
+    connect(mapStateToProps, mapDispatchToProps)(ChangeOwnershipFormContainer),
 );

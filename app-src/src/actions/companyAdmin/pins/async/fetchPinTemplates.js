@@ -5,21 +5,21 @@ import { getHeaders } from 'helpers/api';
 import {
     FETCH_PIN_TEMPLATES_REQUEST,
     FETCH_PIN_TEMPLATES_SUCCESS,
-    FETCH_PIN_TEMPLATES_FAILURE
+    FETCH_PIN_TEMPLATES_FAILURE,
 } from 'constants/actionTypes/pins';
 
 export const fetchPinTemplatesRequest = () => ({
-    type: FETCH_PIN_TEMPLATES_REQUEST
+    type: FETCH_PIN_TEMPLATES_REQUEST,
 });
 
 export const fetchPinTemplatesSuccess = payload => ({
     type: FETCH_PIN_TEMPLATES_SUCCESS,
-    payload
+    payload,
 });
 
 export const fetchPinTemplatesFailure = error => ({
     type: FETCH_PIN_TEMPLATES_FAILURE,
-    error
+    error,
 });
 
 export default id => dispatch => {

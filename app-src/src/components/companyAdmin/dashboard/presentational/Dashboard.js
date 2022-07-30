@@ -3,15 +3,16 @@ import React from 'react';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import DashboardPinFeedContainer from '../containers/DashboardPinFeedContainer';
 import DashboardStatsFiltersContainer from '../containers/DashboardStatsFiltersContainer';
-import DashboardPieChartContainer from '../containers/DashboardPieChartContainer';
-import DashboardBarChartContainer from '../containers/DashboardBarChartContainer';
 import DashboardDataByContainer from '../containers/DashboardDataByContainer';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import { useConfirmDarkTheme } from 'helpers/hooks';
+import DashboardPinHistoryCharts from '../containers/DashboardPinHistoryCharts';
+import { isIE } from 'react-device-detect';
+import DashboardCostingCharts from '../containers/DashboardCostingCharts';
 
-const Dashboard = ({ isIE10 }) => {
+const Dashboard = ({ isIE10, costEstGraph }) => {
     useConfirmDarkTheme('/company/profile');
-
+    const showLineGraph = !!costEstGraph;
     return (
         <>
             <PageHeading title="Dashboard" />
@@ -26,11 +27,18 @@ const Dashboard = ({ isIE10 }) => {
                 <>
                     <DashboardStatsFiltersContainer />
                     <div className="flex-row flex-wrap width-12 size-lg-12">
-                        <DashboardBarChartContainer />
+                        <DashboardCostingCharts showLineGraph={showLineGraph} />
                         <DashboardDataByContainer />
                     </div>
                     <div className="flex-row flex-wrap width-12 size-lg-12">
-                        <DashboardPieChartContainer />
+                        {!isIE ? (
+                            <DashboardPinHistoryCharts showLineGraph={showLineGraph} />
+                        ) : (
+                            <BlockContainer
+                                error={'Pie charts not supported on Internet Explorer'}
+                                containerClass="flex-row-item size-lg-6 size-md-12"
+                            />
+                        )}
                         <DashboardPinFeedContainer />
                     </div>
                 </>

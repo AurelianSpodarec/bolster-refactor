@@ -14,7 +14,7 @@ const TemplateSectionFormModal = ({
     handleSubmit,
     hideModal,
     action,
-    isAfterLabel
+    isAfterLabel,
 }) => (
     <ModalOuterContainer>
         <BlockHeading title={`${action} section`} />

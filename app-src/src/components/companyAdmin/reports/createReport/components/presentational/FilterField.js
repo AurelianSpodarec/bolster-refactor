@@ -7,14 +7,14 @@ const FilterField = ({
     questions,
     handleShowCustomFieldModal,
     removeCustomField,
-    isQuestionFilterExact
+    isQuestionFilterExact,
 }) => {
     const seperator = isQuestionFilterExact ? ' AND ' : ' OR ';
     const answers = selectedValues.length ? selectedValues : questionValues;
     const joinedAnswers = answers.join(seperator);
     const chosenQuestions = selectedQuestions.map(id => questions[id].text);
     const joinedQuestions = chosenQuestions.join(seperator);
-    
+
     return (
         <FieldOutput fieldClass="filters">
             <div className="filters-calc">

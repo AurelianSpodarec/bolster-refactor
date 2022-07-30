@@ -7,18 +7,19 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import Field from 'components/shared/generic/form/presentational/Field';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
-import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import Select from 'components/shared/generic/form/presentational/Select';
-import { VAT_TYPES } from 'constants/companyAdmin/enums';
+import { CURRENCY_NAMES, VAT_TYPES } from 'constants/companyAdmin/enums';
 import CountriesSelectList from 'components/shared/generic/form/presentational/CountriesSelectList';
 import { needsVatCode } from 'constants/shared/vatTypes';
+import { enumFormat } from '../../../../../helpers/generic';
+
+const currencyOptions = enumFormat(CURRENCY_NAMES);
 
 const EditSettingsForm = ({
     handleInputChange,
     handleSubmit,
-    templateUsageRules,
     filesUploading,
     location,
     name,
@@ -38,7 +39,6 @@ const EditSettingsForm = ({
     telephone,
     fax,
     isEditButtonEnabled,
-    selectedRule,
     timeZoneOptions,
     timeZone,
     dateFormatOptions,
@@ -47,13 +47,13 @@ const EditSettingsForm = ({
     siteSortOptions,
     shouldDeleteReportsAfterDownload,
     enableQRCodes,
-    useManufacturingByDefault,
     unsyncedCompanyNotificationDays,
     unsyncedOperativeWarningDays,
     reportAutoDelete,
     invoiceEmail,
     isTwoFactorAuthRequired,
     isOwner,
+    reportingCurrency,
 }) => (
     <>
         <Form className="generic-form ize-lg-12" onSubmit={handleSubmit}>
@@ -230,19 +230,7 @@ const EditSettingsForm = ({
                     />
                 </Field>
             </div>
-            <div className="size-lg-12">
-                <Field name="Default Template Usage Rule" sizeClasses="size-lg-12" required>
-                    <DropdownContainer
-                        placeholder="-- select rule --"
-                        name="defaultTemplateUsageRule"
-                        options={templateUsageRules}
-                        value={selectedRule}
-                        selectedOption={selectedRule}
-                        handleChange={handleInputChange}
-                        required
-                    />
-                </Field>
-            </div>
+            <div className="size-lg-12"></div>
             <div className="size-lg-12">
                 <Field name="Default sites list sort" sizeClasses="size-lg-6 size-md-12">
                     <Select
@@ -255,20 +243,19 @@ const EditSettingsForm = ({
                 </Field>
             </div>
             <div className="size-lg-12">
-                <Field name="Use O&M Manufacturing By Default" sizeClasses="size-lg-6 size-md-12">
-                    <CheckboxContainer
-                        checked={useManufacturingByDefault}
-                        handleChange={handleInputChange}
-                        name="useManufacturingByDefault"
-                    />
-                </Field>
-            </div>
-            <div className="size-lg-12">
                 <Field name="Allow companies to edit?" sizeClasses="size-lg-6 size-md-12">
                     <CheckboxContainer
                         checked={isEditButtonEnabled}
                         handleChange={handleInputChange}
                         name="isEditButtonEnabled"
+                    />
+                </Field>
+                <Field name="Report Currency" sizeClasses="size-lg-6 size-md-12">
+                    <Select
+                        options={currencyOptions}
+                        value={reportingCurrency}
+                        onChange={handleInputChange}
+                        name="reportingCurrency"
                     />
                 </Field>
             </div>

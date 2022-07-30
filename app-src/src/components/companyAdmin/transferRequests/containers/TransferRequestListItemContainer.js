@@ -16,7 +16,7 @@ const TransferRequestListItemContainer = ({
     showModal,
     hideModal,
     onMobile,
-    headers
+    headers,
 }) => {
     return (
         <TransferRequestListItem
@@ -62,26 +62,22 @@ const TransferRequestListItemContainer = ({
 const mapStateToProps = ({
     companyAdmin: {
         companySettingsReducer: {
-            companySettings: { id }
-        }
+            companySettings: { id },
+        },
     },
     shared: {
-        mobileReducer: { onMobile }
-    }
+        mobileReducer: { onMobile },
+    },
 }) => ({
     id,
-    onMobile
+    onMobile,
 });
 
 const mapDispatchToProps = dispatch => ({
     deleteTransferRequest: id => dispatch(deleteTransferRequest(id)),
-    respondToTransferRequest: (id, body) =>
-        dispatch(respondToTransferRequest(id, body)),
+    respondToTransferRequest: (id, body) => dispatch(respondToTransferRequest(id, body)),
     showModal: (type, props) => dispatch(showModal(type, props)),
-    hideModal: () => dispatch(hideModal())
+    hideModal: () => dispatch(hideModal()),
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(TransferRequestListItemContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(TransferRequestListItemContainer);

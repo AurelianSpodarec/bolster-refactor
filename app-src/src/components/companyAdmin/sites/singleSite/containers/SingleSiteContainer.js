@@ -10,7 +10,7 @@ import fetchPinStatsForLevel from 'actions/companyAdmin/stats/async/fetchPinStat
 
 import SingleSite from '../presentational/SingleSite';
 import setTabs from 'actions/shared/generic/tabs/sync/setTabs';
-import { SITE_TABS } from 'constants/shared/tabNames';
+import { HIERARCHY_TABS } from 'constants/shared/tabNames';
 import resetFilterOptions from 'actions/companyAdmin/reports/sync/resetFilterOptions';
 import fetchHistoricServicesForCompany from 'actions/companyAdmin/services/async/fetchHistoricServicesForCompany';
 
@@ -19,7 +19,7 @@ class SingleSiteContainer extends Component {
 
     componentDidMount = () => {
         const { siteID, fetchSiteData, setTabs } = this.props;
-        setTabs(Object.values(SITE_TABS), SITE_TABS.GENERAL_OVERVIEW);
+        setTabs(Object.values(HIERARCHY_TABS), HIERARCHY_TABS.GENERAL_OVERVIEW);
 
         fetchSiteData(siteID);
     };
@@ -40,10 +40,10 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchHistoricServicesForCompany());
     },
     setTabs: (tabs, selectedTab) => dispatch(setTabs(tabs, selectedTab)),
-    resetFilterOptions: () => dispatch(resetFilterOptions())
+    resetFilterOptions: () => dispatch(resetFilterOptions()),
 });
 
 export default connect(
     (_, { match }) => ({ siteID: match.params['id'] }),
-    mapDispatchToProps
+    mapDispatchToProps,
 )(SingleSiteContainer);

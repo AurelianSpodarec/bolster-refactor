@@ -39,7 +39,7 @@ const ActivityLog = () => {
 
     return (
         <>
-            <PageHeading title="Activity Log" withBackButton>
+            <PageHeading title="Activity Log">
                 {isOwner && (
                     <Link className="button yellow" to="/company/activity-log/edit-settings">
                         <i className="far fa-pencil" />

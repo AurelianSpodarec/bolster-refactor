@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {
     LABEL_QUES_TYPES,
     LABEL_QUES_TYPES_NUMS,
-    LABEL_STATIC_FIELDS
+    LABEL_STATIC_FIELDS,
 } from 'constants/shared/templateBuilder';
 import LabelFieldExampleItem from '../presentational/LabelFieldExampleItem';
 
@@ -13,8 +13,7 @@ class LabelFieldExampleItemContainer extends Component {
         const { title, source, staticField } = field.config;
         const { STATIC, DYNAMIC } = LABEL_QUES_TYPES_NUMS;
         let content;
-        if (source + '' === STATIC + '')
-            content = LABEL_STATIC_FIELDS[staticField];
+        if (source + '' === STATIC + '') content = LABEL_STATIC_FIELDS[staticField];
         if (source + '' === DYNAMIC + '' && question) content = question.name;
 
         return (
@@ -30,12 +29,12 @@ class LabelFieldExampleItemContainer extends Component {
 const mapStateToProps = (
     {
         superAdmin: {
-            templateQuestionsReducer: { questions }
-        }
+            templateQuestionsReducer: { questions },
+        },
     },
-    { field: { config } }
+    { field: { config } },
 ) => ({
-    question: questions[config.questionUUID]
+    question: questions[config.questionUUID],
 });
 
 export default connect(mapStateToProps)(LabelFieldExampleItemContainer);

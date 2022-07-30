@@ -1,6 +1,6 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import Select from 'components/shared/generic/form/presentational/Select';
-import { formatDropdownOptions } from 'helpers/general';
+import { useDropdownOpts } from './helpers';
 
 const SingleDropdown = ({
     isRequired,
@@ -8,22 +8,15 @@ const SingleDropdown = ({
     answers,
     handleChange,
 }) => {
-    const opts = useMemo(() => {
-        if (!optionConfigurations) return formatDropdownOptions(options);
+    const opts = useDropdownOpts(options, optionConfigurations);
 
-        const enabledOpts = optionConfigurations
-            .filter(opt => !opt.isDisabled)
-            .map(opt => opt.name);
-        const optsFiltered = options.filter(opt => enabledOpts.includes(opt.id));
-        return formatDropdownOptions(optsFiltered);
-    }, [options, optionConfigurations]);
-
+    const [questionValue] = answers[id] ?? [];
     return (
         <Select
             placeholder="-- select --"
             name={`answer-${id}`}
             options={opts}
-            value={answers[id]}
+            value={questionValue?.textValue}
             onChange={handleChange}
             required={isRequired}
         />

@@ -5,7 +5,7 @@ import CompanyReportsTableContainer from '../containers/CompanyReportsTableConta
 
 const CompanyReports = () => (
     <>
-        <PageHeading title="Reports" withBackButton />
+        <PageHeading title="Reports" />
 
         <BlockContainer>
             <CompanyReportsTableContainer />

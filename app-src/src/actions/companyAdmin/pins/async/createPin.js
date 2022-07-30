@@ -5,21 +5,21 @@ import { getHeaders, handleErrors } from 'helpers/api';
 import {
     CREATE_PIN_REQUEST,
     CREATE_PIN_SUCCESS,
-    CREATE_PIN_FAILURE
+    CREATE_PIN_FAILURE,
 } from 'constants/actionTypes/pins';
 
 export const addPinRequest = () => ({
-    type: CREATE_PIN_REQUEST
+    type: CREATE_PIN_REQUEST,
 });
 
 export const addPinSuccess = payload => ({
     type: CREATE_PIN_SUCCESS,
-    payload
+    payload,
 });
 
 export const addPinFailure = error => ({
     type: CREATE_PIN_FAILURE,
-    error
+    error,
 });
 
 export default postBody => dispatch => {

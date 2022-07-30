@@ -3,7 +3,7 @@ import { combineReducers } from 'redux';
 import {
     FETCH_ALL_APPROVED_COMPANIES_GEOCODE_REQUEST,
     FETCH_ALL_APPROVED_COMPANIES_GEOCODE_SUCCESS,
-    FETCH_ALL_APPROVED_COMPANIES_GEOCODE_FAILURE
+    FETCH_ALL_APPROVED_COMPANIES_GEOCODE_FAILURE,
 } from 'constants/actionTypes/approvedCompanies';
 
 // import { updateObj } from 'helpers/generic';
@@ -11,7 +11,7 @@ import {
 export default combineReducers({
     companyGeocode: companyGeocodeReducer,
     isFetching: isFetchingReducer,
-    error: errorReducer
+    error: errorReducer,
 });
 
 function companyGeocodeReducer(state = {}, action) {

@@ -1,17 +1,7 @@
-export const DRAWING_TABS = {
+export const HIERARCHY_TABS = {
     GENERATE_REPORT: 'Generate Report',
-    GENERAL_OVERVIEW: 'General Overview',
-};
-export const FLOOR_TABS = {
-    GENERATE_REPORT: 'Generate Report',
-    GENERAL_OVERVIEW: 'General Overview',
-};
-export const BUILDING_TABS = {
-    GENERATE_REPORT: 'Generate Report',
-    GENERAL_OVERVIEW: 'General Overview',
-};
-export const SITE_TABS = {
-    GENERATE_REPORT: 'Generate Report',
+    COSTING: 'Costing',
+    ESTIMATING: 'Estimating',
     GENERAL_OVERVIEW: 'General Overview',
 };
 
@@ -42,4 +32,10 @@ export const USERS_OPERATIVES_TABS = {
     INVITED: 'Invited',
     INACTIVE: 'Inactive',
     ACTIVE: 'Active',
+};
+
+export const TIMESHEETS_TABS = {
+    JOB_REFERENCES: 'Job References',
+    WAGES: 'Wages',
+    GENERAL_OVERVIEW: 'General Overview',
 };

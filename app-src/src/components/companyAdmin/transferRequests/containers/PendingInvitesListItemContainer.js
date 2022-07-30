@@ -17,14 +17,9 @@ const PendingInvitesListItemContainer = ({
     isIncoming,
     headers,
     onMobile,
-    services
+    services,
 }) => {
-    const {
-        siteName,
-        buildingName,
-        floorName,
-        drawingName,
-    } = invite;
+    const { siteName, buildingName, floorName, drawingName } = invite;
     const name = [siteName, buildingName, floorName, drawingName]
         .filter(notNull => notNull)
         .join(' / ');
@@ -42,8 +37,7 @@ const PendingInvitesListItemContainer = ({
     );
 
     function getServiceName() {
-        return services.filter(service => service.id === invite.serviceID)[0]
-            .name;
+        return services.filter(service => service.id === invite.serviceID)[0].name;
     }
 
     function handleAcceptModal() {
@@ -74,7 +68,7 @@ const PendingInvitesListItemContainer = ({
             message,
             handleDelete,
             hideModal,
-            isIncoming
+            isIncoming,
         });
     }
 };
@@ -84,29 +78,25 @@ const mapStateToProps = (
         companyAdmin: {
             servicesReducer: { services },
             companySettingsReducer: {
-                companySettings: { id }
-            }
+                companySettings: { id },
+            },
         },
         shared: {
-            mobileReducer: { onMobile }
-        }
+            mobileReducer: { onMobile },
+        },
     },
-    { invite: { companyID } }
+    { invite: { companyID } },
 ) => ({
     isIncoming: companyID === id,
     onMobile,
-    services: Object.values(services)
+    services: Object.values(services),
 });
 
 const mapDispatchToProps = dispatch => ({
-    respondToPendingInvite: postbody =>
-        dispatch(respondToPendingInvite(postbody)),
+    respondToPendingInvite: postbody => dispatch(respondToPendingInvite(postbody)),
     deleteOutgoingInvite: id => dispatch(deleteOutgoingInvite(id)),
     showModal: (type, props) => dispatch(showModal(type, props)),
-    hideModal: () => dispatch(hideModal())
+    hideModal: () => dispatch(hideModal()),
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(PendingInvitesListItemContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(PendingInvitesListItemContainer);

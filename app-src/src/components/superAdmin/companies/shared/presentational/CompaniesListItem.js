@@ -1,8 +1,10 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
+
+import { withRouter } from 'react-router-dom';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import { DATE_TIME_IDS, COMPANY_TYPES, getEnumKey } from 'constants/companyAdmin/enums';
 import { capitaliseWords } from 'helpers/generic';
+import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
 
 const CompaniesListItem = ({
     company: {
@@ -35,9 +37,12 @@ const CompaniesListItem = ({
         <td>{creditValue || 0}</td>
         <td>{!hideOnClientList ? 'Yes' : 'No'}</td>
         <td>
-            <Link to={`${url}/${id}`} className="button">
-                More info
-            </Link>
+            <LinkButton
+                text="More info"
+                href={`${url}/${id}`}
+                source="secondary"
+                ambient="positive"
+            />
         </td>
     </tr>
 );

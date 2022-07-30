@@ -6,25 +6,23 @@ class PinSectionsContainer extends Component {
     render() {
         const { relevantSections, pinHistory } = this.props;
 
-        return (
-            <PinSection sections={relevantSections} pinHistory={pinHistory} />
-        );
+        return <PinSection sections={relevantSections} pinHistory={pinHistory} />;
     }
 }
 
 const mapStateToProps = (
     {
         client: {
-            templateSectionsReducer: { sections }
-        }
+            templateSectionsReducer: { sections },
+        },
     },
-    ownProps
+    ownProps,
 ) => {
     const { templateVersionID } = ownProps.pinHistory;
     return {
         relevantSections: Object.values(sections).filter(
-            section => section.templateVersionID === templateVersionID
-        )
+            section => section.templateVersionID === templateVersionID,
+        ),
     };
 };
 

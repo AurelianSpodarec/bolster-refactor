@@ -5,21 +5,21 @@ import { getHeaders } from 'helpers/api';
 import {
     FETCH_OPERATIVE_ALERT_DELIVERIES_REQUEST,
     FETCH_OPERATIVE_ALERT_DELIVERIES_SUCCESS,
-    FETCH_OPERATIVE_ALERT_DELIVERIES_FAILURE
+    FETCH_OPERATIVE_ALERT_DELIVERIES_FAILURE,
 } from 'constants/actionTypes/operativeAlerts';
 
 export const fetchOperativeAlertDeliveriesRequest = () => ({
-    type: FETCH_OPERATIVE_ALERT_DELIVERIES_REQUEST
+    type: FETCH_OPERATIVE_ALERT_DELIVERIES_REQUEST,
 });
 
 export const fetchOperativeAlertDeliveriesSuccess = payload => ({
     type: FETCH_OPERATIVE_ALERT_DELIVERIES_SUCCESS,
-    payload
+    payload,
 });
 
 export const fetchOperativeAlertDeliveriesFailure = error => ({
     type: FETCH_OPERATIVE_ALERT_DELIVERIES_FAILURE,
-    error
+    error,
 });
 
 export default alertID => dispatch => {
@@ -27,10 +27,6 @@ export default alertID => dispatch => {
 
     axios
         .get(`${API_URL}/operativealerts/${alertID}/deliveries`, getHeaders())
-        .then(({ data }) =>
-            dispatch(fetchOperativeAlertDeliveriesSuccess(data))
-        )
-        .catch(err =>
-            dispatch(fetchOperativeAlertDeliveriesFailure(err.message))
-        );
+        .then(({ data }) => dispatch(fetchOperativeAlertDeliveriesSuccess(data)))
+        .catch(err => dispatch(fetchOperativeAlertDeliveriesFailure(err.message)));
 };

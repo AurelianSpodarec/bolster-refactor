@@ -5,17 +5,13 @@ import withUpdateOnChange from '../hocs/withUpdateOnChange';
 
 class Block1FiltersContainer extends Component {
     state = {
-        showError: false
+        showError: false,
     };
     render() {
         const { fieldError, advanced, isFetching } = this.props;
 
         return (
-            <Block1Filters
-                fieldError={fieldError}
-                advanced={advanced}
-                isFetching={isFetching}
-            />
+            <Block1Filters fieldError={fieldError} advanced={advanced} isFetching={isFetching} />
         );
     }
 
@@ -24,7 +20,7 @@ class Block1FiltersContainer extends Component {
     componentDidUpdate = prevProps => {
         const {
             filters: { siteID, companyUserIDs },
-            showFieldError
+            showFieldError,
         } = this.props;
         if (
             prevProps.filters.siteID !== siteID ||
@@ -38,7 +34,7 @@ class Block1FiltersContainer extends Component {
     _validate = () => {
         const {
             filters: { siteID, companyUserIDs },
-            validate
+            validate,
         } = this.props;
 
         if (!siteID && !companyUserIDs.length) {

@@ -15,22 +15,22 @@ class PinSingleBreadCrumbContainer extends Component {
         const breadcrumbsArray = [
             {
                 text: 'Sites',
-                link: '/company/sites/'
+                link: '/company/sites/',
             },
             {
                 text: site.name,
-                link: `/company/sites/${site.id}`
+                link: `/company/sites/${site.id}`,
             },
             {
                 text: building.name,
-                link: `/company/buildings/${building.id}`
+                link: `/company/buildings/${building.id}`,
             },
             {
                 text: floor.name,
-                link: `/company/floors/${floor.id}`
+                link: `/company/floors/${floor.id}`,
             },
             { text: drawing.name, link: `/company/drawings/${pin.drawingID}` },
-            { text: `Pin ${pin.pinCode}` }
+            { text: `Pin ${pin.pinCode}` },
         ];
         return (
             <Breadcrumb breadcrumbs={!isFetching ? breadcrumbsArray : [{ text: 'Loading...' }]}>
@@ -53,13 +53,8 @@ class PinSingleBreadCrumbContainer extends Component {
     }
 
     fetchData = () => {
-        const {
-            pin,
-            fetchSingleFloor,
-            fetchSingleBuilding,
-            fetchSingleSite,
-            fetchSingleDrawing
-        } = this.props;
+        const { pin, fetchSingleFloor, fetchSingleBuilding, fetchSingleSite, fetchSingleDrawing } =
+            this.props;
         fetchSingleDrawing(pin.drawingID)
             .then(({ payload }) => fetchSingleFloor(payload.floorID))
             .then(({ payload }) => fetchSingleBuilding(payload.buildingID))
@@ -74,10 +69,10 @@ const mapStateToProps = (
             drawingsReducer: { drawings, isFetching: fetchingDrawings },
             floorsReducer: { floors, isFetching: fetchingFloors },
             buildingsReducer: { buildings, isFetching: fetchingBuildings },
-            sitesReducer: { sites, isFetching: fetchingSites }
-        }
+            sitesReducer: { sites, isFetching: fetchingSites },
+        },
     },
-    { match }
+    { match },
 ) => {
     const pin = singlePin[match.params.id] || {};
     const drawing = drawings[pin.drawingID] || {};
@@ -91,7 +86,11 @@ const mapStateToProps = (
         building,
         site,
         isFetching:
-            fetchingPins || fetchingDrawings || fetchingFloors || fetchingBuildings || fetchingSites
+            fetchingPins ||
+            fetchingDrawings ||
+            fetchingFloors ||
+            fetchingBuildings ||
+            fetchingSites,
     };
 };
 
@@ -107,12 +106,9 @@ const mapDispatchToProps = dispatch => ({
     },
     fetchSingleDrawing: drawingID => {
         return dispatch(fetchSingleDrawing(drawingID));
-    }
+    },
 });
 
 export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(PinSingleBreadCrumbContainer)
+    connect(mapStateToProps, mapDispatchToProps)(PinSingleBreadCrumbContainer),
 );

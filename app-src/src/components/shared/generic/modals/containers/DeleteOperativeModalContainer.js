@@ -6,11 +6,7 @@ import deleteOperative from 'actions/companyAdmin/operatives/async/deleteOperati
 
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
-const DeleteOperativeModalContainer = ({
-    operative,
-    handleDelete,
-    hideModal
-}) => {
+const DeleteOperativeModalContainer = ({ operative, handleDelete, hideModal }) => {
     const { userFirstName, userLastName, id } = operative;
     return (
         <ConfirmDeleteModal
@@ -31,10 +27,7 @@ const mapDispatchToProps = dispatch => ({
     handleDelete: id => {
         dispatch(deleteOperative(id));
         dispatch(hideModal());
-    }
+    },
 });
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(DeleteOperativeModalContainer);
+export default connect(null, mapDispatchToProps)(DeleteOperativeModalContainer);

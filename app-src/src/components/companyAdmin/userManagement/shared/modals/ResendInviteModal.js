@@ -11,6 +11,9 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import Form from 'components/shared/generic/form/containers/Form';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import resendCompanyUserInvite from 'actions/companyAdmin/userManagement/async/resendCompanyUserInvite';
+import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 
 const ResendInviteModal = ({ user: { id, userFirstName, userLastName } }) => {
     const dispatch = useDispatch();
@@ -38,13 +41,22 @@ const ResendInviteModal = ({ user: { id, userFirstName, userLastName } }) => {
                     {`${userFirstName} ${userLastName}`}?
                 </p>
                 <BlockButtonWrapper>
-                    <button
-                        className={`button green ${isPosting ? 'disabled' : ''}`}
-                        disabled={isPosting}
-                    >
-                        {isPosting && <i className="fa fa-spinner fa-spin"></i>}
-                        Confirm
-                    </button>
+                    <ButtonWrapper alignment="right">
+                        <ActionButton
+                            text="Cancel"
+                            size="small"
+                            source="secondary"
+                            onClick={() => dispatch(hideModal())}
+                        />
+                        <ActionButton
+                            type="submit"
+                            text="Confirm"
+                            size="small"
+                            icon={isPosting ? 'spinner' : 'check'}
+                            iconSpin={isPosting}
+                            disabled={isPosting}
+                        />
+                    </ButtonWrapper>
                 </BlockButtonWrapper>
             </Form>
         </ModalOuterContainer>

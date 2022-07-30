@@ -1,7 +1,6 @@
 import React from 'react';
 import { NativeTypes } from 'react-dnd-html5-backend';
 import { useDrop } from 'react-dnd';
-import { useDispatch } from 'react-redux';
 
 const styles = {
     wrapper: {

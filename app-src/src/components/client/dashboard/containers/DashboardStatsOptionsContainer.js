@@ -9,11 +9,11 @@ class DashboardStatsOptionsContainer extends Component {
     render() {
         const {
             services,
-            settings: { startDate, endDate, serviceType, liveTimePeriod }
+            settings: { startDate, endDate, serviceType, liveTimePeriod },
         } = this.props;
         const serviceSelectOptions = services.map(({ id, name }) => ({
             label: name,
-            value: id
+            value: id,
         }));
         return (
             <DashboardStatsOptions
@@ -37,16 +37,13 @@ class DashboardStatsOptionsContainer extends Component {
 const mapStateToProps = ({
     companyAdmin: {
         servicesReducer: { services },
-        dashboardReducer: { settings }
-    }
+        dashboardReducer: { settings },
+    },
 }) => ({
     services: Object.values(services),
-    settings
+    settings,
 });
 
 const mapDispatchToProps = { fetchAllServices, updateDashboardSetting };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(DashboardStatsOptionsContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(DashboardStatsOptionsContainer);

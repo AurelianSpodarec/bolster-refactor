@@ -6,11 +6,7 @@ import CompanyReportsQueueContainer from 'components/companyAdmin/companyReports
 
 const ReportsRoutes = ({ base = '/company/reports' }) => (
     <SwitchWith404>
-        <Route
-            exact
-            path={`${base}`}
-            component={CompanyReportsQueueContainer}
-        />
+        <Route exact path={`${base}`} component={CompanyReportsQueueContainer} />
     </SwitchWith404>
 );
 

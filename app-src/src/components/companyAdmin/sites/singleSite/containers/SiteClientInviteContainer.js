@@ -13,11 +13,9 @@ class SiteClientInviteContainer extends Component {
         );
     }
 }
-const mapStateToProps = ({
-    companyAdmin: { servicesReducer, subscriptionsReducer }
-}) => ({
+const mapStateToProps = ({ companyAdmin: { servicesReducer, subscriptionsReducer } }) => ({
     services: Object.values(servicesReducer.services),
-    subscriptions: subscriptionsReducer.subscriptions || {}
+    subscriptions: subscriptionsReducer.subscriptions || {},
 });
 
 export default connect(mapStateToProps)(SiteClientInviteContainer);

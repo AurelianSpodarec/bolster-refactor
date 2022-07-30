@@ -4,9 +4,7 @@ import PageHeading from 'components/shared/generic/pageHeading/presentational/Pa
 
 const SingleDrawingHeader = ({ drawing, children }) => (
     <PageHeading
-        title={`Drawing: ${drawing.name || ''} ${
-            drawing.isArchived ? '(ARCHIVED)' : ''
-        }`}
+        title={`Drawing: ${drawing.name || ''} ${drawing.isArchived ? '(ARCHIVED)' : ''}`}
         withBackButton
     >
         {children}

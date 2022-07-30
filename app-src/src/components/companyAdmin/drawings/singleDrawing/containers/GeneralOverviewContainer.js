@@ -10,7 +10,7 @@ import {
     CONFIRM_DELETE,
     ERROR_MODAL,
     CONFIRM_ARCHIVE,
-    SUCCESS_MODAL
+    SUCCESS_MODAL,
 } from 'constants/shared/modalTypes';
 import deleteDrawing from 'actions/companyAdmin/drawings/async/deleteDrawing';
 import archiveDrawing from 'actions/companyAdmin/drawings/async/archiveDrawing';
@@ -23,8 +23,7 @@ class GeneralOverviewContainer extends Component {
 
         const gotAccess = drawing.accessType >= ACCESS_TYPES_VALUES.WRITE;
 
-        const drawingExpired =
-            moment(drawing.expiresOn).format() < moment().format();
+        const drawingExpired = moment(drawing.expiresOn).format() < moment().format();
 
         return (
             <GeneralOverview
@@ -38,29 +37,17 @@ class GeneralOverviewContainer extends Component {
     }
 
     componentDidUpdate = prevProps => {
-        const {
-            deleteSuccess,
-            postFailure,
-            history,
-            showModal,
-            hideModal,
-            drawing
-        } = this.props;
+        const { deleteSuccess, postFailure, history, showModal, hideModal, drawing } = this.props;
         if (deleteSuccess && !prevProps.deleteSuccess) {
             hideModal();
             history.push(`/company/floors/${drawing.floorID}`);
         }
         if (postFailure && !prevProps.postFailure) showModal(ERROR_MODAL);
 
-        if (
-            drawing.isArchived !== prevProps.drawing.isArchived &&
-            !isObjEmpty(prevProps.drawing)
-        ) {
+        if (drawing.isArchived !== prevProps.drawing.isArchived && !isObjEmpty(prevProps.drawing)) {
             showModal(SUCCESS_MODAL, {
                 title: 'Archive success',
-                message: `Drawing successfully ${
-                    !drawing.isArchived ? 'un' : ''
-                }archived.`
+                message: `Drawing successfully ${!drawing.isArchived ? 'un' : ''}archived.`,
             });
         }
     };
@@ -73,30 +60,24 @@ class GeneralOverviewContainer extends Component {
             hideModal,
             handleDelete,
             message,
-            isIncoming: false
+            isIncoming: false,
         });
     };
 
     handleArchiveModal = () => {
-        const {
-            id,
-            showModal,
-            hideModal,
-            drawing,
-            archiveDrawing
-        } = this.props;
+        const { id, showModal, hideModal, drawing, archiveDrawing } = this.props;
         const handleArchive = () => {
             archiveDrawing(id, drawing.isArchived);
             hideModal();
         };
-        const message = `Are you sure you want to ${
-            drawing.isArchived ? 'un-' : ''
-        }archive ${drawing.name}?`;
+        const message = `Are you sure you want to ${drawing.isArchived ? 'un-' : ''}archive ${
+            drawing.name
+        }?`;
         showModal(CONFIRM_ARCHIVE, {
             hideModal,
             handleArchive,
             message,
-            archive: !drawing.isArchived
+            archive: !drawing.isArchived,
         });
     };
 }
@@ -104,27 +85,22 @@ class GeneralOverviewContainer extends Component {
 const mapStateToProps = (
     {
         companyAdmin: {
-            drawingsReducer: { deleteSuccess, postFailure, drawings }
-        }
+            drawingsReducer: { deleteSuccess, postFailure, drawings },
+        },
     },
-    { match: { params } }
+    { match: { params } },
 ) => ({
     drawing: drawings[params.id] || {},
     deleteSuccess,
     postFailure,
-    id: params.id
+    id: params.id,
 });
 
 const mapDispatchToProps = {
     hideModal,
     showModal,
     deleteDrawing,
-    archiveDrawing
+    archiveDrawing,
 };
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(GeneralOverviewContainer)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(GeneralOverviewContainer));

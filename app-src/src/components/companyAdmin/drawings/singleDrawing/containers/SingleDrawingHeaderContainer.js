@@ -4,15 +4,17 @@ import { connect } from 'react-redux';
 
 import SingleDrawingHeader from '../presentational/SingleDrawingHeader';
 import DrawingBreadcrumbContainer from './DrawingBreadcrumbContainer';
+import TabsContainer from '../../../../shared/generic/tabs/containers/TabsContainer';
 
 const SingleDrawingHeaderContainer = ({ drawing }) => (
     <SingleDrawingHeader drawing={drawing}>
-        <DrawingBreadcrumbContainer />
+        <TabsContainer classes="hierarchy-tabs" />
+        <DrawingBreadcrumbContainer></DrawingBreadcrumbContainer>
     </SingleDrawingHeader>
 );
 
 export default withRouter(
     connect(({ companyAdmin: { drawingsReducer } }, ownProps) => ({
-        drawing: drawingsReducer.drawings[ownProps.match.params.id] || {}
-    }))(SingleDrawingHeaderContainer)
+        drawing: drawingsReducer.drawings[ownProps.match.params.id] || {},
+    }))(SingleDrawingHeaderContainer),
 );

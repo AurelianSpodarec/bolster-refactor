@@ -23,10 +23,7 @@ const mapDispatchToProps = dispatch => ({
     handleDelete: id => {
         dispatch(deleteDocument(id));
         dispatch(hideModal());
-    }
+    },
 });
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(DeleteDocumentModalContainer);
+export default connect(null, mapDispatchToProps)(DeleteDocumentModalContainer);

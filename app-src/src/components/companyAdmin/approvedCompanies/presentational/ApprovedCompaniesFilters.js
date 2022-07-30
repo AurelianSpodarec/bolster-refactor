@@ -10,7 +10,7 @@ const ApprovedCompaniesFilters = ({
     sortOptions,
     selectedOption,
     serviceOptions,
-    serviceIDs
+    serviceIDs,
 }) => (
     <>
         <form className="table-search larger-search size-lg-12">

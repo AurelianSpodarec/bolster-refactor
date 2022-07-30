@@ -3,17 +3,10 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
-const MoveToolConfirmMoveModal = ({
-    moveFromName,
-    moveToName,
-    hideModal,
-    handleSubmit
-}) => (
+const MoveToolConfirmMoveModal = ({ moveFromName, moveToName, hideModal, handleSubmit }) => (
     <ModalOuterContainer>
         <BlockHeading title="Please confirm" />
-        <p className="generic-text size-lg-12">
-            Are you sure you would like to make this change?
-        </p>
+        <p className="generic-text size-lg-12">Are you sure you would like to make this change?</p>
         <p className="size-lg-12">{`${moveFromName} --> ${moveToName}`}</p>
 
         <BlockButtonWrapper>

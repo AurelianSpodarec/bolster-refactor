@@ -1,48 +1,44 @@
 import React from 'react';
-import ModalOuterContainer from '../containers/ModalOuterContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+
 import Error from '../../misc/presentational/Error';
+import ButtonWrapper from '../../button/presentational/ButtonWrapper';
+import ActionButton from '../../button/presentational/ActionButton';
+import FlexModalOuter from './FlexModalOuter';
 
 const ConfirmDeleteModal = ({
     handleDelete,
     hideModal,
     handleCancel = hideModal,
+    title = 'Delete?',
     message = 'Are you sure you want to delete this?',
-    isIncoming = false,
     deleteButtonText = 'Delete',
-    icon = 'trash-alt',
-    isPosting = false,
+    deleteButtonIcon = 'trash-alt',
     error = null,
 }) => {
     return (
-        <ModalOuterContainer>
-            <BlockHeading title={'Confirmation'} />
-            <p className="generic-text intro-text size-lg-12">{message}</p>
-            {error && <Error>{error}</Error>}
-        <BlockButtonWrapper>
-            <button
-                className={`button red ${isPosting ? 'disabled' : ''}`}
-                onClick={handleDelete}
-                disabled={isPosting}
-            >
-                {isIncoming ? (
-                    <>
-                        <i className="far fa-ban fa-fw" />
-                        Decline
-                    </>
-                ) : (
-                    <>
-                        <i className={`far fa-${icon} fa-fw`} />
-                        {deleteButtonText}
-                    </>
-                )}
-            </button>
-            <button className="button" onClick={handleCancel}>
-                Cancel
-            </button>
-        </BlockButtonWrapper>
-    </ModalOuterContainer>
-)};
+        <FlexModalOuter title={title}>
+            <div className="flex-content-wrapper">
+                <div className="flex-content">
+                    <p className="generic-text size-lg-12">{message}</p>
+                    {error && <Error>{error}</Error>}
+                </div>
+            </div>
+
+            <ButtonWrapper alignment="right" extraClasses="flex-modal-footer">
+                <ActionButton
+                    text="Cancel"
+                    size="small"
+                    source="secondary"
+                    onClick={handleCancel}
+                />
+                <ActionButton
+                    text={deleteButtonText}
+                    onClick={handleDelete}
+                    icon={deleteButtonIcon}
+                />
+            </ButtonWrapper>
+        </FlexModalOuter>
+    );
+};
 
 export default ConfirmDeleteModal;

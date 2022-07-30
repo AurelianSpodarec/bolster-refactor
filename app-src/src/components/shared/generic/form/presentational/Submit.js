@@ -1,15 +1,15 @@
 import React from 'react';
 
-const Submit = ({ withPlus, text = 'Submit', filesUploading }) => {
+import ActionButton from '../../button/presentational/ActionButton';
+
+const Submit = ({ icon = 'check', text = 'Submit', filesUploading }) => {
     return (
-        <button
-            className="button green"
+        <ActionButton
             type="submit"
+            icon={icon}
             disabled={filesUploading}
-        >
-            {withPlus && <i className="fa fa-plus" />}
-            {filesUploading ? 'Please wait...' : text}
-        </button>
+            text={filesUploading ? 'Please wait...' : text}
+        />
     );
 };
 

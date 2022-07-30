@@ -7,7 +7,7 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 
 const SuperAdminInvoices = () => (
     <>
-        <PageHeading title="Invoices" withBackButton></PageHeading>
+        <PageHeading title="Invoices"></PageHeading>
         <BlockContainer>
             <InvoicesFilterContainer />
         </BlockContainer>

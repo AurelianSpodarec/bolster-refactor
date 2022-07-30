@@ -4,7 +4,6 @@ import BlockHeading from 'components/shared/generic/blockHeading/presentational/
 import Form from 'components/shared/generic/form/containers/Form';
 import Field from 'components/shared/generic/form/presentational/Field';
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import DatePickerContainer from 'components/shared/generic/form/containers/DatePickerContainer';
 import ToggleSelect from 'components/shared/generic/form/presentational/ToggleSelect';
 import Select from 'components/shared/generic/form/presentational/Select';
@@ -12,8 +11,11 @@ import useEditPinTaskSeries from './hooks/useEditPinTaskSeries';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import { isEmpty } from 'helpers/generic';
 import usePinOptions from '../hooks/usePinOptions';
-import { dayOptions, seriesRecurringOptions } from 'constants/companyAdmin/pinTasks';
+import { seriesRecurringOptions } from 'constants/companyAdmin/pinTasks';
+import { dayOptions } from 'constants/companyAdmin/options';
 import PickListContainer from 'components/shared/generic/form/containers/PickListContainer';
+import ButtonWrapper from '../../../../shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from '../../../../shared/generic/button/presentational/ActionButton';
 
 const EditPinTaskSeriesModal = ({ id }) => {
     const {
@@ -21,7 +23,6 @@ const EditPinTaskSeriesModal = ({ id }) => {
         handleChange,
         closeModal,
         isFetching,
-        isPosting,
         error,
         onSubmit,
         pinTaskSeries,
@@ -125,27 +126,25 @@ const EditPinTaskSeriesModal = ({ id }) => {
                             required
                         />
                     </Field>
-                    <BlockButtonWrapper>
-                        <button className="button green" key={3} disabled={isPosting}>
-                            Submit
-                        </button>
-                        <button
-                            type="button"
-                            className="button red"
-                            onClick={handleDeleteSeries}
-                            disabled={isPosting}
-                        >
-                            Delete
-                        </button>
-                        <button
-                            type="button"
-                            className="button"
-                            onClick={closeModal}
-                            disabled={isPosting}
-                        >
-                            Cancel
-                        </button>
-                    </BlockButtonWrapper>
+
+                    <div className="size-lg-12">
+                        <ButtonWrapper alignment="right">
+                            <ActionButton
+                                text="Confirm"
+                                onClick={handleDeleteSeries}
+                                icon="check"
+                            />
+
+                            <ActionButton
+                                text="Cancel"
+                                onClick={closeModal}
+                                source="secondary"
+                                size="small"
+                            />
+
+                            <ActionButton text="Confirm" type="submit" icon="check" size="small" />
+                        </ButtonWrapper>
+                    </div>
                 </BlockContainer>
             </Form>
         </ModalOuterContainer>

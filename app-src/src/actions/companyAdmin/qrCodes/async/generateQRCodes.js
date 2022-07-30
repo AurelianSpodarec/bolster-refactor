@@ -24,17 +24,18 @@ export const generateQRCodesFailure = error => ({
     error,
 });
 
-export default (numberOfCodes, type = 'pin') => dispatch => {
-    dispatch(generateQRCodesRequest());
+export default (numberOfCodes, type = 'pin') =>
+    dispatch => {
+        dispatch(generateQRCodesRequest());
 
-    return axios
-        .get(
-            `${API_URL}/companies/qrCodes?numberOfCodes=${numberOfCodes}&type=${type.toLowerCase()}`,
-            getHeaders(),
-        )
-        .then(res => {
-            dispatch(generateQRCodesSuccess(res.data));
-            fileDownload(res.data, 'qrCodes.csv');
-        })
-        .catch(err => dispatch(generateQRCodesFailure(err.message)));
-};
+        return axios
+            .get(
+                `${API_URL}/companies/qrCodes?numberOfCodes=${numberOfCodes}&type=${type.toLowerCase()}`,
+                getHeaders(),
+            )
+            .then(res => {
+                dispatch(generateQRCodesSuccess(res.data));
+                fileDownload(res.data, 'qrCodes.csv');
+            })
+            .catch(err => dispatch(generateQRCodesFailure(err.message)));
+    };

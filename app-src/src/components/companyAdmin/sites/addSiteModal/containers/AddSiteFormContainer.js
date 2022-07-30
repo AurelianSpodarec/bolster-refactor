@@ -1,24 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import moment from 'moment';
-
-import { formatOptions } from 'helpers/manufacturers';
 
 import AddSiteForm from '../presentational/AddSiteForm';
 import createSite from 'actions/companyAdmin/sites/async/createSite';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
-import fetchManufacturersByPinOptionType from 'actions/companyAdmin/manufacturers/async/fetchManufacturersByPinOptionType';
-import {
-    DROPDOWN_OPTION_MANUFACTURER_ENABLED,
-    DROPDOWN_OPTIONS,
-} from 'constants/companyAdmin/enums';
-import fetchAllOptionValues from 'actions/companyAdmin/manufacturers/async/fetchAllOptionValues';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import { isObjEmpty } from 'helpers/generic';
-import fetchAllDropdownOptions from 'actions/companyAdmin/dropdownOptions/async/fetchAllDropdownOptions';
-import { formatDropdownOptions, getPreselectedItemTypes } from 'helpers/itemTypes';
-import { showOAndMTsAndCsModal } from 'actions/shared/generic/modals/sync/showOAndMTsAndCsModal';
+import fetchPinOptionSets from '../../../../../actions/companyAdmin/pinOptions/async/fetchPinOptionSets';
+import fetchPinOptionTypes from '../../../../../actions/companyAdmin/pinOptions/async/fetchPinOptionTypes';
 
 class AddSiteFormContainer extends Component {
     state = {
@@ -30,19 +19,50 @@ class AddSiteFormContainer extends Component {
         isAlertShowing: false,
         message: '',
         dateToSend: '',
-        setManufacturersForSite: this.props.useManufacturingByDefault,
-        manufacturerOptions: [],
-        selectedManufacturerOptions: [],
-        selectedOptionValues: [],
-        optionValuesOptions: {},
-        setDropDownOptions: false,
-        selectedDropDownOptions: [],
-        dropdownOptions: [],
+        selectedPinOptionTypes: {},
+        selectedPinOptionSets: {},
+        selectedPinOptionDocumentsTypes: {},
+        selectedPinOptionDocumentsSets: {},
     };
 
     render() {
-        const { isUsingBolsterLabels, isFetching, error, manufacturers, isFetchingHierarchies } =
-            this.props;
+        const {
+            selectedPinOptionTypes,
+            selectedPinOptionSets,
+            selectedPinOptionDocumentsTypes,
+            selectedPinOptionDocumentsSets,
+        } = this.state;
+
+        const {
+            isUsingBolsterLabels,
+            isFetching,
+            error,
+            isFetchingHierarchies,
+            types,
+            sets,
+            subscriptionServiceIDs,
+        } = this.props;
+
+        const typesToDisplay = Object.values(types).filter(type => type.hasSiteLinks);
+        const typeIDs = typesToDisplay.map(type => type.id);
+        const typeSets = Object.values(sets)
+            .filter(set => typeIDs.includes(set.pinOptionTypeID))
+            .reduce((acc, set) => {
+                // only services company has access to
+                if (
+                    set.serviceIDs &&
+                    !set.serviceIDs.some(id => subscriptionServiceIDs.includes(id))
+                ) {
+                    return acc;
+                }
+                if (
+                    this.state.selectedPinOptionSets[set.pinOptionTypeID]?.includes(set.ID) ||
+                    (!set.isDisabled && !set.isHidden)
+                ) {
+                    acc[set.pinOptionTypeID] = (acc[set.pinOptionTypeID] || []).concat(set);
+                }
+                return acc;
+            }, {});
 
         return (
             <BlockContainer
@@ -50,91 +70,82 @@ class AddSiteFormContainer extends Component {
                 isFetching={isFetching}
                 error={error}
                 contentClass="no-padding no-border"
+                noWhiteBackground={!isFetching && !error}
             >
                 <AddSiteForm
                     {...this.state}
                     handleInputChange={this.handleInputChange}
                     handleDateChange={this.handleDateChange}
+                    handlePinOptionTypeChange={this.handlePinOptionTypeChange}
+                    handlePinOptionSetChange={this.handlePinOptionSetChange}
+                    handlePinOptionDocumentsTypesChange={this.handlePinOptionDocumentsTypesChange}
+                    handlePinOptionDocumentsSetsChange={this.handlePinOptionDocumentsSetsChange}
                     handleSubmit={this.handleSubmit}
                     hideModal={this.props.hideModal}
                     isUsingBolsterLabels={isUsingBolsterLabels}
                     isFetching={isFetching}
                     error={error}
-                    manufacturers={manufacturers}
                     isFetchingHierarchies={isFetchingHierarchies}
+                    types={typesToDisplay}
+                    typeSets={typeSets}
+                    selectedPinOptionTypes={selectedPinOptionTypes}
+                    selectedPinOptionSets={selectedPinOptionSets}
+                    selectedPinOptionDocumentsTypes={selectedPinOptionDocumentsTypes}
+                    selectedPinOptionDocumentsSets={selectedPinOptionDocumentsSets}
                 />
             </BlockContainer>
         );
     }
 
-    async componentDidMount() {
-        const {
-            fetchManufacturersByPinOptionType,
-            fetchAllOptionValues,
-            fetchAllDropdownOptions,
-            useManufacturingByDefault,
-            showOAndMTsAndCsModal,
-        } = this.props;
-        if (useManufacturingByDefault) {
-            showOAndMTsAndCsModal('add site');
-        }
-        // ** Only do a fetch for the manufacturers of a specific type if manufacturing is enabled. Wait for them to resolve before adding a site.
-        const pinOptionTypes = Object.keys(DROPDOWN_OPTIONS).filter(option => {
-            return DROPDOWN_OPTION_MANUFACTURER_ENABLED[option];
-        });
-
-        const fn = function fetchManufacturers(pinOptionType) {
-            return fetchManufacturersByPinOptionType(pinOptionType);
-        };
-
-        const actions = pinOptionTypes.map(fn);
-
-        await fetchAllDropdownOptions(2);
-
-        await Promise.all(actions).then(() => {
-            fetchAllOptionValues();
-        });
+    componentDidMount() {
+        const { fetchPinOptionSets, fetchPinOptionTypes } = this.props;
+        fetchPinOptionSets();
+        fetchPinOptionTypes();
     }
 
-    componentDidUpdate = prevProps => {
-        const { postSuccess, history, updatedSiteID, isFetching, dropdownOptions } = this.props;
+    componentDidUpdate = (prevProps, prevState) => {
+        const { postSuccess, history, updatedSiteID, sets } = this.props;
+        const {
+            selectedPinOptionTypes,
+            selectedPinOptionSets,
+            selectedPinOptionDocumentsTypes,
+            selectedPinOptionDocumentsSets,
+        } = this.state;
 
         if (postSuccess && !prevProps.postSuccess) {
             history.push(`/company/sites/${updatedSiteID}`);
         }
-
-        if (prevProps.isFetching && !isFetching) {
-            const manufacturerOptions = this.createManufacturerOptionList();
-            const selectedManufacturerOptions = manufacturerOptions.reduce((acc, manufacturer) => {
-                if (manufacturer.isEnabled) {
-                    acc.push(String(manufacturer.value));
+        if (selectedPinOptionTypes !== prevState.selectedPinOptionTypes) {
+            Object.keys(selectedPinOptionTypes).forEach(typeID => {
+                if (selectedPinOptionTypes[typeID] && !prevState.selectedPinOptionTypes[typeID]) {
+                    const defaultSetIDs = Object.values(sets)
+                        .filter(set => set.pinOptionTypeID === +typeID && set.isDefault)
+                        .map(set => set.id);
+                    this.setState({
+                        selectedPinOptionSets: {
+                            ...selectedPinOptionSets,
+                            [typeID]: defaultSetIDs,
+                        },
+                    });
                 }
-
-                return acc;
-            }, []);
-            const optionValuesOptions = this.createOptionValuesList();
-            let selectedOptionValues = [];
-            Object.values(optionValuesOptions).forEach(optionList => {
-                const optionListSelectedIDs = optionList.reduce((acc, optionValue) => {
-                    if (optionValue.isEnabled) {
-                        acc.push(String(optionValue.value));
-                    }
-
-                    return acc;
-                }, []);
-                selectedOptionValues = selectedOptionValues.concat(optionListSelectedIDs);
             });
-
-            const convertedDropdown = Object.values(dropdownOptions);
-            const selectedDropDownOptions = getPreselectedItemTypes(convertedDropdown);
-
-            this.setState({
-                manufacturerOptions,
-                selectedManufacturerOptions,
-                optionValuesOptions,
-                selectedOptionValues,
-                dropdownOptions: formatDropdownOptions(convertedDropdown),
-                selectedDropDownOptions,
+        }
+        if (selectedPinOptionDocumentsTypes !== prevState.selectedPinOptionDocumentsTypes) {
+            Object.keys(selectedPinOptionDocumentsTypes).forEach(typeID => {
+                if (
+                    selectedPinOptionDocumentsTypes[typeID] &&
+                    !prevState.selectedPinOptionDocumentsTypes[typeID]
+                ) {
+                    const defaultSetIDs = Object.values(sets)
+                        .filter(set => set.pinOptionTypeID === +typeID && set.isDefault)
+                        .map(set => set.id);
+                    this.setState({
+                        selectedPinOptionDocumentsSets: {
+                            ...selectedPinOptionDocumentsSets,
+                            [typeID]: defaultSetIDs,
+                        },
+                    });
+                }
             });
         }
     };
@@ -149,6 +160,53 @@ class AddSiteFormContainer extends Component {
         });
     };
 
+    handlePinOptionTypeChange = (type, value) => {
+        const { selectedPinOptionTypes, selectedPinOptionSets } = this.state;
+
+        this.setState({
+            selectedPinOptionTypes: { ...selectedPinOptionTypes, [type]: value },
+            selectedPinOptionSets: {
+                ...selectedPinOptionSets,
+                // resets selected sets if type is un-selected
+                [type]: value ? selectedPinOptionSets[type] : [],
+            },
+        });
+    };
+
+    handlePinOptionSetChange = (type, value) => {
+        this.setState({
+            selectedPinOptionSets: {
+                ...this.state.selectedPinOptionSets,
+                [type]: value,
+            },
+        });
+    };
+
+    handlePinOptionDocumentsTypesChange = (type, value) => {
+        const { selectedPinOptionDocumentsTypes, selectedPinOptionDocumentsSets } = this.state;
+
+        this.setState({
+            selectedPinOptionDocumentsTypes: {
+                ...selectedPinOptionDocumentsTypes,
+                [type]: value,
+            },
+            selectedPinOptionDocumentsSets: {
+                ...selectedPinOptionDocumentsSets,
+                // resets selected sets if type is un-selected
+                [type]: value ? selectedPinOptionDocumentsSets[type] : [],
+            },
+        });
+    };
+
+    handlePinOptionDocumentsSetsChange = (type, value) => {
+        this.setState({
+            selectedPinOptionDocumentsSets: {
+                ...this.state.selectedPinOptionDocumentsSets,
+                [type]: value,
+            },
+        });
+    };
+
     handleSubmit = e => {
         e.preventDefault();
         const { hideModal, createSite } = this.props;
@@ -158,117 +216,30 @@ class AddSiteFormContainer extends Component {
             addressLine1,
             addressLine2,
             postcode,
-            message,
-            dateToSend,
-            isAlertShowing,
-            setManufacturersForSite,
-            setDropDownOptions,
-            selectedDropDownOptions,
+            selectedPinOptionSets,
+            selectedPinOptionDocumentsSets,
         } = this.state;
 
-        const filteredOptionValues = this.removeUnusedManufacturerDefaults();
+        const pinOptionSets = Object.entries(selectedPinOptionSets)
+            .filter(([, value]) => value.length > 0)
+            .map(([key, value]) => ({ pinOptionTypeID: key, pinOptionSetIDs: value }));
 
-        let postBody = {};
-        if (isAlertShowing) {
-            postBody = {
-                name,
-                client,
-                addressLine1,
-                addressLine2,
-                postcode,
-                message: message,
-                dateToSend: moment(dateToSend).format(),
-                isManufacturingEnabled: setManufacturersForSite,
-                optionValueIDs: filteredOptionValues,
-                isDropDownOptionsEnabled: setDropDownOptions,
-                dropDownOptionIDs: selectedDropDownOptions.map(id => +id),
-            };
-        } else {
-            postBody = {
-                name,
-                client,
-                addressLine1,
-                addressLine2,
-                postcode,
-                isManufacturingEnabled: setManufacturersForSite,
-                optionValueIDs: filteredOptionValues,
-                isDropDownOptionsEnabled: setDropDownOptions,
-                dropDownOptionIDs: selectedDropDownOptions.map(id => +id),
-            };
-        }
+        const pinOptionSetDocuments = Object.entries(selectedPinOptionDocumentsSets)
+            .filter(([, value]) => value.length > 0)
+            .map(([key, value]) => ({ pinOptionTypeID: key, pinOptionSetIDs: value }));
+
+        const postBody = {
+            name,
+            client,
+            addressLine1,
+            addressLine2,
+            postcode,
+            pinOptionSets,
+            pinOptionSetDocuments,
+        };
 
         createSite(postBody);
         hideModal();
-    };
-
-    createManufacturerOptionList = () => {
-        const { manufacturers } = this.props;
-        if (!isObjEmpty(manufacturers)) {
-            return Object.values(DROPDOWN_OPTIONS).reduce((acc, { reduxKey }) => {
-                if (manufacturers[reduxKey]) {
-                    const manufacturerOptions = formatOptions(
-                        Object.values(manufacturers[reduxKey]),
-                    );
-
-                    acc = [...acc, ...manufacturerOptions];
-                }
-
-                return acc;
-            }, []);
-        }
-        return [];
-    };
-
-    createOptionValuesList = () => {
-        const { optionValues } = this.props;
-
-        return Object.entries(optionValues).reduce((acc, [manufacturerID, options]) => {
-            const formattedOptionValues = formatOptions(Object.values(options));
-            console.log(formattedOptionValues);
-            const filteredOptionValues = formattedOptionValues.filter(option =>
-                this.shouldOptionValueBeIncluded(option.serviceIDs),
-            );
-            acc = { ...acc, [manufacturerID]: filteredOptionValues };
-            return acc;
-        }, {});
-    };
-
-    shouldOptionValueBeIncluded = serviceIDs => {
-        if (!serviceIDs) return false;
-        const { subscriptionServiceIDs } = this.props;
-
-        if (!serviceIDs) {
-            return true;
-        }
-        return serviceIDs.some(id => subscriptionServiceIDs.includes(id));
-    };
-
-    removeUnusedManufacturerDefaults = () => {
-        const {
-            selectedOptionValues,
-            optionValuesOptions,
-            selectedManufacturerOptions,
-            setManufacturersForSite,
-        } = this.state;
-
-        if (setManufacturersForSite) {
-            const possibleOptionValues = Object.entries(optionValuesOptions).reduce(
-                (acc, [manufacturerID, optionList]) => {
-                    if (selectedManufacturerOptions.includes(manufacturerID)) {
-                        const optionsToInclude = optionList.map(option => option.id);
-                        acc = [...acc, ...optionsToInclude];
-                    }
-                    return acc;
-                },
-                [],
-            );
-
-            return selectedOptionValues.filter(option =>
-                possibleOptionValues.includes(Number(option)),
-            );
-        } else {
-            return [];
-        }
     };
 }
 
@@ -279,20 +250,10 @@ const mapStateToProps = ({
         floorsReducer: { isFetching: isFetchingFloors },
         drawingsReducer: { isFetching: isFetchingDrawings },
         companySettingsReducer: {
-            companySettings: { isUsingBolsterLabels, useManufacturingByDefault },
+            companySettings: { isUsingBolsterLabels },
         },
-
-        dropdownOptionsReducer: { dropdownOptions, isFetching: isFetchingDropdownOptions },
-        manufacturersReducer: {
-            manufacturers,
-            isFetching: isFetchingManufacturers,
-            error: manufacturersError,
-        },
-        manufacturersOptionValuesReducer: {
-            manufacturersOptionValues,
-            isFetching: isFetchingOptionValues,
-            error: optionValuesError,
-        },
+        pinOptionSetsReducer: { isFetching: isFetchingPinOptionSets, sets },
+        pinOptionTypesReducer: { isFetching: isFetchingPinOptionTypes, types },
         subscriptionsReducer: {
             subscriptions: { serviceIDs: subscriptionServiceIDs },
         },
@@ -300,14 +261,12 @@ const mapStateToProps = ({
 }) => ({
     isUsingBolsterLabels,
     postSuccess: sitesReducer.postSuccess,
-    error: sitesReducer.error || manufacturersError || optionValuesError,
+    error: sitesReducer.error,
     updatedSiteID: sitesReducer.updatedSiteID,
-    manufacturers,
-    optionValues: manufacturersOptionValues,
-    isFetching: isFetchingManufacturers || isFetchingOptionValues || isFetchingDropdownOptions,
-    useManufacturingByDefault,
+    isFetching: isFetchingPinOptionSets || isFetchingPinOptionTypes,
     subscriptionServiceIDs,
-    dropdownOptions,
+    sets,
+    types,
     isFetchingHierarchies:
         sitesReducer.isFetching || isFetchingBuildings || isFetchingFloors || isFetchingDrawings,
 });
@@ -315,10 +274,8 @@ const mapStateToProps = ({
 const mapDispatchToProps = {
     createSite,
     hideModal,
-    fetchManufacturersByPinOptionType,
-    fetchAllOptionValues,
-    fetchAllDropdownOptions,
-    showOAndMTsAndCsModal,
+    fetchPinOptionSets,
+    fetchPinOptionTypes,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddSiteFormContainer));

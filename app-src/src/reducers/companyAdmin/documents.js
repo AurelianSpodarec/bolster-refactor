@@ -19,7 +19,7 @@ import {
     DELETE_DOCUMENT_FAILURE,
     FETCH_DOCUMENT_RESPONSES_REQUEST,
     FETCH_DOCUMENT_RESPONSES_SUCCESS,
-    FETCH_DOCUMENT_RESPONSES_FAILURE
+    FETCH_DOCUMENT_RESPONSES_FAILURE,
 } from 'constants/actionTypes/documents';
 
 export default combineReducers({
@@ -31,7 +31,7 @@ export default combineReducers({
     isDeleting: isDeletingReducer,
     deletionError: deletionErrorReducer,
     deleteSuccess: deleteSuccessReducer,
-    documentResponses: documentResponsesReducer
+    documentResponses: documentResponsesReducer,
 });
 
 function isFetchingReducer(state = false, action) {

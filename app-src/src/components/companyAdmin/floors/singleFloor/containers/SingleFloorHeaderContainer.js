@@ -8,14 +8,13 @@ import TabsContainer from 'components/shared/generic/tabs/containers/TabsContain
 
 const SingleFloorHeaderContainer = ({ floor }) => (
     <SingleFloorHeader floor={floor}>
-        <FloorBreadcrumbContainer>
-            <TabsContainer />
-        </FloorBreadcrumbContainer>
+        <TabsContainer classes="hierarchy-tabs" />
+        <FloorBreadcrumbContainer></FloorBreadcrumbContainer>
     </SingleFloorHeader>
 );
 
 export default withRouter(
     connect(({ companyAdmin: { floorsReducer } }, ownProps) => ({
-        floor: floorsReducer.floors[ownProps.match.params.id] || {}
-    }))(SingleFloorHeaderContainer)
+        floor: floorsReducer.floors[ownProps.match.params.id] || {},
+    }))(SingleFloorHeaderContainer),
 );

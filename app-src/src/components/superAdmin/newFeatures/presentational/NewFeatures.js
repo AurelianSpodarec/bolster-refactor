@@ -5,7 +5,7 @@ import NewFeaturesTableContainer from '../containers/NewFeaturesTableContainer';
 
 const NewFeatures = () => (
     <>
-        <PageHeading title="New Features" withBackButton />
+        <PageHeading title="New Features" />
 
         <NewFeaturesTableContainer />
     </>

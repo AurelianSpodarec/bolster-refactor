@@ -20,13 +20,10 @@ class InviteCompanyToSiteContainer extends Component {
 
 const mapStateToProps = ({ companyAdmin: { sitesReducer } }, { match }) => ({
     siteID: match.params.id,
-    site: sitesReducer.sites[match.params.id] || {}
+    site: sitesReducer.sites[match.params.id] || {},
 });
 
 const mapDispatchToProps = { fetchSingleSite };
 export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(InviteCompanyToSiteContainer)
+    connect(mapStateToProps, mapDispatchToProps)(InviteCompanyToSiteContainer),
 );

@@ -3,23 +3,23 @@ import axios from 'axios';
 import {
     FETCH_TIMEZONES_REQUEST,
     FETCH_TIMEZONES_SUCCESS,
-    FETCH_TIMEZONES_FAILURE
+    FETCH_TIMEZONES_FAILURE,
 } from 'constants/actionTypes/time';
 import { getHeaders } from 'helpers/api';
 import { AUTH_API_URL } from 'config';
 
 export const fetchTimezonesRequest = () => ({
-    type: FETCH_TIMEZONES_REQUEST
+    type: FETCH_TIMEZONES_REQUEST,
 });
 
 export const fetchTimezonesSuccess = payload => ({
     type: FETCH_TIMEZONES_SUCCESS,
-    payload
+    payload,
 });
 
 export const fetchTimezonesFailure = error => ({
     type: FETCH_TIMEZONES_FAILURE,
-    error
+    error,
 });
 
 export default () => dispatch => {

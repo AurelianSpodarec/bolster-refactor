@@ -1,14 +1,14 @@
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import updateDemoAccessCodes from 'actions/superAdmin/demoAccessCodes/async/updateDemoAccessCodes';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import Form from 'components/shared/generic/form/containers/Form';
-import SubmitContainer from 'components/shared/generic/form/containers/SubmitContainer';
 import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
 import Field from 'components/shared/generic/form/presentational/Field';
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import ButtonWrapper from '../../../shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from '../../../shared/generic/button/presentational/ActionButton';
 
 const EditDemoAccessCodesModal = ({ item }) => {
     const dispatch = useDispatch();
@@ -57,9 +57,18 @@ const EditDemoAccessCodesModal = ({ item }) => {
                         />
                     </Field>
                 </div>
-                <BlockButtonWrapper>
-                    <SubmitContainer text="Submit" withPlus />
-                </BlockButtonWrapper>
+
+                <div className="size-lg-12">
+                    <ButtonWrapper alignment="right">
+                        <ActionButton
+                            text="Cancel"
+                            onClick={() => dispatch(hideModal())}
+                            source="secondary"
+                            size="small"
+                        />
+                        <ActionButton text="Confirm" type="submit" icon="check" size="small" />
+                    </ButtonWrapper>
+                </div>
             </Form>
         </ModalOuterContainer>
     );

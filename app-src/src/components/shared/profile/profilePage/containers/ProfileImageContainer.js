@@ -3,16 +3,14 @@ import { connect } from 'react-redux';
 
 import ProfileImage from '../presentational/ProfileImage';
 
-const ProfileImageContainer = ({ profile }) => (
-    <ProfileImage profile={profile} />
-);
+const ProfileImageContainer = ({ profile }) => <ProfileImage profile={profile} />;
 
 const mapStateToProps = ({
     shared: {
-        profileReducer: { profile }
-    }
+        profileReducer: { profile },
+    },
 }) => ({
-    profile: profile || null
+    profile: profile || null,
 });
 
 export default connect(mapStateToProps)(ProfileImageContainer);

@@ -5,6 +5,9 @@
 
     &.heading-1 {
         font-size: 220%;
+        &.centered-align {
+            top: 10px;
+        }
     }
     &.heading-2 {
         font-size: 200%;
@@ -12,11 +15,15 @@
     &.heading-3 {
         font-size: 160%;
     }
+    &.heading-4 {
+        font-size: 140%;
+    }
 }
 
 // page headings
 .page-heading {
     margin-bottom: 10px;
+   
 
     &.left-controls {
         .heading {
@@ -40,7 +47,6 @@
     .back-button {
         float: left;
         width: auto;
-        margin-right: 1em;
     }
     .heading {
         float: left;
@@ -71,6 +77,20 @@
             margin-left: 0;
         }
     }
+
+    // flex heading
+    &.flex-heading {
+        .heading {
+            margin-bottom: 0;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .content-container {
+            min-height: 40px;
+        }
+    }
 }
 
 // headings within the block areas
@@ -78,6 +98,10 @@
     float: left;
     width: 100%;
     margin-bottom: 20px;
+
+    &.auto-width {
+        width: auto;
+    }
 
     &.sub-heading {
         margin-top: 10px;
@@ -121,6 +145,10 @@
         margin-left: 2.5px;
         &.r-margin {
             margin-right: 10px;
+        }
+
+        &.left-align-btn {
+            float: left;
         }
     }
 

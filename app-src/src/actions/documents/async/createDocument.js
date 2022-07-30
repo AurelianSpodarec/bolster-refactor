@@ -6,30 +6,26 @@ import setAPIFieldErrors from 'actions/shared/generic/fieldErrors/sync/setAPIFie
 import {
     CREATE_DOCUMENT_REQUEST,
     CREATE_DOCUMENT_SUCCESS,
-    CREATE_DOCUMENT_FAILURE
+    CREATE_DOCUMENT_FAILURE,
 } from 'constants/actionTypes/documents';
 
 export const createDocumentRequest = () => ({
-    type: CREATE_DOCUMENT_REQUEST
+    type: CREATE_DOCUMENT_REQUEST,
 });
 
 export const createDocumentSuccess = payload => ({
     type: CREATE_DOCUMENT_SUCCESS,
-    payload
+    payload,
 });
 
 export const createDocumentFailure = error => ({
     type: CREATE_DOCUMENT_FAILURE,
-    error
+    error,
 });
 
 export default (type, id, postBody) => dispatch => {
     dispatch(createDocumentRequest());
-    return Axios.post(
-        `${API_URL}/documents/${type}/${id}`,
-        postBody,
-        getHeaders()
-    )
+    return Axios.post(`${API_URL}/documents/${type}/${id}`, postBody, getHeaders())
         .then(({ data }) => dispatch(createDocumentSuccess(data)))
         .catch(err => {
             dispatch(createDocumentFailure(err.message));

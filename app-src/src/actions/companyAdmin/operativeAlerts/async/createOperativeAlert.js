@@ -22,17 +22,22 @@ export const createOperativeAlertFailure = error => ({
     error,
 });
 
-export default (postBody, filterOptionsVal = 0) => dispatch => {
-    dispatch(createOperativeAlertRequest());
+export default (postBody, filterOptionsVal = 0) =>
+    dispatch => {
+        dispatch(createOperativeAlertRequest());
 
-    const endpoints = {
-        0: '',
-        1: 'sites',
-        2: 'operatives',
+        const endpoints = {
+            0: '',
+            1: 'sites',
+            2: 'operatives',
+        };
+
+        return axios
+            .post(
+                `${API_URL}/operativealerts/${endpoints[filterOptionsVal]}`,
+                postBody,
+                getHeaders(),
+            )
+            .then(result => dispatch(createOperativeAlertSuccess(result.data)))
+            .catch(err => dispatch(handleErrors(createOperativeAlertFailure)(err)));
     };
-
-    return axios
-        .post(`${API_URL}/operativealerts/${endpoints[filterOptionsVal]}`, postBody, getHeaders())
-        .then(result => dispatch(createOperativeAlertSuccess(result.data)))
-        .catch(err => dispatch(handleErrors(createOperativeAlertFailure)(err)));
-};

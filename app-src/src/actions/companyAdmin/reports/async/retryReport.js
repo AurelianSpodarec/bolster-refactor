@@ -5,21 +5,21 @@ import { getHeaders, handleErrors } from 'helpers/api';
 import {
     RETRY_REPORT_REQUEST,
     RETRY_REPORT_SUCCESS,
-    RETRY_REPORT_FAILURE
+    RETRY_REPORT_FAILURE,
 } from 'constants/actionTypes/reports';
 
 export const retryReportRequest = () => ({
-    type: RETRY_REPORT_REQUEST
+    type: RETRY_REPORT_REQUEST,
 });
 
 export const retryReportSuccess = payload => ({
     type: RETRY_REPORT_SUCCESS,
-    payload
+    payload,
 });
 
 export const retryReportFailure = error => ({
     type: RETRY_REPORT_FAILURE,
-    error
+    error,
 });
 
 export default id => dispatch => {

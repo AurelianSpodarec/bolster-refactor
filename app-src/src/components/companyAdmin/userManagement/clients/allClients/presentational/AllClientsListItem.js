@@ -1,8 +1,10 @@
 import React from 'react';
 
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import ActionMenu from 'components/shared/actionMenu/ActionMenu';
+import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
+import FlexWrapper from '../../../../../../components/shared/generic/flexWrapper/FlexWrapper';
+import LinkButton from '../../../../../shared/generic/button/presentational/LinkButton';
 
 const AllClientsListItem = ({
     client,
@@ -12,61 +14,58 @@ const AllClientsListItem = ({
     headers,
     disableClient,
     deleteClient,
-}) => (
-    <tr key={client.id} className={`${client.isDisabled ? 'grey-row' : ''}`}>
-        <td>
-            {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
-            {`${client.firstName} ${client.lastName}`}{' '}
-            {client.isDisabled && <span>(DISABLED)</span>}
-        </td>
-        <td>
-            {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
-            {client.companyName}
-        </td>
-        <td>
-            {onMobile && <span className="mobile-table-heading">{headers[2]}</span>}
-            {client.email}
-        </td>
-        <td>
-            {onMobile && <span className="mobile-table-heading">{headers[3]}</span>}
-            {client.phoneNumber}
-        </td>
-        <td>
-            {onMobile && <span className="mobile-table-heading">{headers[4]}</span>}
-            {client.lastLoginOn ? <DateTimeContainer date={client.lastLoginOn} /> : 'N/A'}
-        </td>
-        <td>
-            {onMobile && <span className="mobile-table-heading">{headers[5]}</span>}
-            {client.lastReportCreatedOn ? (
-                <DateTimeContainer date={client.lastReportCreatedOn} />
-            ) : (
-                'N/A'
-            )}
-        </td>
-        <td>
-            {onMobile && <span className="mobile-table-heading">{headers[6]}</span>}
-            <BlockButtonWrapper>
-                <ButtonContainer to={`/company/users-management/clients/${client.id}`}>
-                    View
-                </ButtonContainer>
-                <button className="button yellow" onClick={goToEdit}>
-                    <i className="fal fa-pencil" /> Edit
-                </button>
-                <button className="button yellow" onClick={goToEditEmail}>
-                    <i className="fal fa-at" /> Edit Email
-                </button>
-                <button
-                    className={`button ${client.isDisabled ? 'green' : 'red'}`}
-                    onClick={disableClient}
-                >
-                    <i className="fal fa-ban" /> {client.isDisabled ? 'Enable' : 'Disable'}
-                </button>
-                <button className="button red" onClick={deleteClient}>
-                    <i className="fal fa-trash-alt" /> Delete
-                </button>
-            </BlockButtonWrapper>
-        </td>
-    </tr>
-);
+}) => {
+    return (
+        <tr key={client.id} className={`${client.isDisabled ? 'grey-row' : ''}`}>
+            <td>
+                {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
+                {`${client.firstName} ${client.lastName}`} <br />
+                <span className="email">{client.email}</span>
+                {client.isDisabled && <span>(DISABLED)</span>}
+            </td>
+            <td>
+                {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
+                {client.companyName}
+            </td>
+            <td>
+                {onMobile && <span className="mobile-table-heading">{headers[2]}</span>}
+                {client.phoneNumber}
+            </td>
+            <td>
+                {onMobile && <span className="mobile-table-heading">{headers[3]}</span>}
+                {client.lastLoginOn ? <DateTimeContainer date={client.lastLoginOn} /> : 'N/A'}
+            </td>
+            <td>
+                {onMobile && <span className="mobile-table-heading">{headers[4]}</span>}
+                {client.lastReportCreatedOn ? (
+                    <DateTimeContainer date={client.lastReportCreatedOn} />
+                ) : (
+                    'N/A'
+                )}
+            </td>
+            <td>
+                {onMobile && <span className="mobile-table-heading">{headers[6]}</span>}
+                <FlexWrapper justify="end" align="center">
+                    <LinkButton
+                        source="secondary"
+                        ambient="positive"
+                        href={`/company/users-management/clients/${client.id}`}
+                        text="View"
+                    />
+
+                    <ActionMenu>
+                        <ActionMenuActionButton text="Edit" onClick={goToEdit} />
+                        <ActionMenuActionButton text="Edit Email" onClick={goToEditEmail} />
+                        <ActionMenuActionButton
+                            onClick={disableClient}
+                            text={client.isDisabled ? 'Enable' : 'Disable'}
+                        />
+                        <ActionMenuActionButton text="Delete" onClick={deleteClient} />
+                    </ActionMenu>
+                </FlexWrapper>
+            </td>
+        </tr>
+    );
+};
 
 export default AllClientsListItem;

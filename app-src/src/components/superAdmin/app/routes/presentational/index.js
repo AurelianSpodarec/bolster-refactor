@@ -14,7 +14,6 @@ import DashboardContainer from 'components/superAdmin/dashboard/containers/Dashb
 import OperativeAlertsRoutes from './OperativeAlertsRoutes';
 import MergeToolRoutes from './MergeToolRoutes';
 import ExpiryToolRoutes from './ExpiryToolRoutes';
-import PinOptionsManufacturersRoutes from './PinOptionsManufacturersRoutes';
 import UserGuidesRoutes from './UserGuidesRoutes';
 import NewFeaturesRoutes from './NewFeaturesRoutes';
 import TextSettingRoutes from './TextSettingRoutes';
@@ -31,6 +30,8 @@ import BugReportsRoutes from './BugReportsRoutes';
 import CompanyTimesheetsRoutes from './CompanyTimesheetsRoutes';
 import FaqsRoutes from './FaqsRoutes';
 import DrawingUploadLog from 'components/superAdmin/drawingUploadLog/DrawingUploadLog';
+import PinOptionsRoutes from './PinOptionsRoutes';
+import PushNotificationsRoutes from './PushNotificationsRoutes';
 
 const AdminRoutes = ({ base = '/admin' }) => (
     <SwitchWith404>
@@ -50,7 +51,6 @@ const AdminRoutes = ({ base = '/admin' }) => (
         <Route path={`${base}/expiry-tool`} component={ExpiryToolRoutes} />
         <Route path={`${base}/operative-alerts`} component={OperativeAlertsRoutes} />
         <Route path={`${base}/user-guides`} component={UserGuidesRoutes} />
-        <Route path={`${base}/pin-options`} component={PinOptionsManufacturersRoutes} />
         <Route path={`${base}/trusted-by-settings`} component={TrustedBySettingRoutes} />
         <Route path={`${base}/text-settings`} component={TextSettingRoutes} />
         <Route path={`${base}/legal-documents`} component={LegalDocumentsRoutes} />
@@ -63,6 +63,8 @@ const AdminRoutes = ({ base = '/admin' }) => (
         <Route path={`${base}/banners`} component={BannersRoutes} />
         <Route path={`${base}/bug-reports`} component={BugReportsRoutes} />
         <Route path={`${base}/company-timesheets`} component={CompanyTimesheetsRoutes} />
+        <Route path={`${base}/pin-options`} component={PinOptionsRoutes} />
+        <Route path={`${base}/push-notifications`} component={PushNotificationsRoutes} />
     </SwitchWith404>
 );
 

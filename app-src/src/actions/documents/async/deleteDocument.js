@@ -3,24 +3,24 @@ import axios from 'axios';
 import {
     DELETE_DOCUMENT_REQUEST,
     DELETE_DOCUMENT_SUCCESS,
-    DELETE_DOCUMENT_FAILURE
+    DELETE_DOCUMENT_FAILURE,
 } from 'constants/actionTypes/documents';
 
 import { API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
 
 export const deleteDocumentRequest = () => ({
-    type: DELETE_DOCUMENT_REQUEST
+    type: DELETE_DOCUMENT_REQUEST,
 });
 
 export const deleteDocumentSuccess = id => ({
     type: DELETE_DOCUMENT_SUCCESS,
-    id
+    id,
 });
 
 export const deleteDocumentFailure = error => ({
     type: DELETE_DOCUMENT_FAILURE,
-    error
+    error,
 });
 
 export default documentID => dispatch => {

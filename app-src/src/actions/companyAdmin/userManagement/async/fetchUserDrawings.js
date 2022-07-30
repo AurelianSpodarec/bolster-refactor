@@ -5,21 +5,21 @@ import { getHeaders } from 'helpers/api';
 import {
     FETCH_USER_DRAWINGS_REQUEST,
     FETCH_USER_DRAWINGS_SUCCESS,
-    FETCH_USER_DRAWINGS_FAILURE
+    FETCH_USER_DRAWINGS_FAILURE,
 } from 'constants/actionTypes/usersManagement';
 
 export const fetchUserDrawingsRequest = () => ({
-    type: FETCH_USER_DRAWINGS_REQUEST
+    type: FETCH_USER_DRAWINGS_REQUEST,
 });
 
 export const fetchUserDrawingsSuccess = payload => ({
     type: FETCH_USER_DRAWINGS_SUCCESS,
-    payload
+    payload,
 });
 
 export const fetchUserDrawingsFailure = error => ({
     type: FETCH_USER_DRAWINGS_FAILURE,
-    error
+    error,
 });
 
 export default id => dispatch => {

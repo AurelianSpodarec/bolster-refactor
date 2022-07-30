@@ -5,6 +5,8 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { RECOVER_USER } from 'constants/shared/modalTypes';
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 import moment from 'moment';
+import ButtonWrapper from '../../../../../shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from '../../../../../shared/generic/button/presentational/ActionButton';
 
 const DeletedCompanyAdminsListItem = ({
     user,
@@ -61,9 +63,9 @@ const DeletedCompanyAdminsListItem = ({
             </td>
             <td>
                 {onMobile && <span className="mobile-table-heading">{headers[4]}</span>}
-                <button className="button blue" onClick={handleRecover}>
-                    Recover
-                </button>
+                <ButtonWrapper alignment="right">
+                    <ActionButton text="Recover" onClick={handleRecover} size="small" />
+                </ButtonWrapper>
             </td>
         </tr>
     );

@@ -8,7 +8,7 @@ let sliderSettings = {
     infinite: true,
     speed: 1000,
     autoplay: true,
-    arrows: false
+    arrows: false,
 };
 
 const MapPinPhotoSlider = ({ pinImages }) => {
@@ -16,11 +16,7 @@ const MapPinPhotoSlider = ({ pinImages }) => {
         <Slider {...sliderSettings}>
             {pinImages.map(src => (
                 <div key={src}>
-                    <img
-                        style={{ width: '230px' }}
-                        alt=""
-                        src={`${RAW_S3_STORAGE_URL}/${src}`}
-                    />
+                    <img style={{ width: '230px' }} alt="" src={`${RAW_S3_STORAGE_URL}/${src}`} />
                 </div>
             ))}
         </Slider>

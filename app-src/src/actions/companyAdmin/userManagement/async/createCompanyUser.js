@@ -6,21 +6,21 @@ import { getHeaders } from 'helpers/api';
 import {
     CREATE_COMPANY_USER_REQUEST,
     CREATE_COMPANY_USER_SUCCESS,
-    CREATE_COMPANY_USER_FAILURE
+    CREATE_COMPANY_USER_FAILURE,
 } from 'constants/actionTypes/usersManagement';
 
 export const createCompanyUserRequest = () => ({
-    type: CREATE_COMPANY_USER_REQUEST
+    type: CREATE_COMPANY_USER_REQUEST,
 });
 
 export const createCompanyUserSuccess = payload => ({
     type: CREATE_COMPANY_USER_SUCCESS,
-    payload
+    payload,
 });
 
 export const createCompanyUserFailure = error => ({
     type: CREATE_COMPANY_USER_FAILURE,
-    error
+    error,
 });
 
 export default postBody => dispatch => {

@@ -32,14 +32,11 @@ const NewSelect = ({ options, value, onChange, name, singleSelect }) => {
         if (singleSelect) {
             selectAll = value ? '-- Deselect --' : '-- Select an item --';
         } else {
-            selectAll =
-                value.length === options.length
-                    ? '-- Deselect All --'
-                    : '-- Select All --';
+            selectAll = value.length === options.length ? '-- Deselect All --' : '-- Select All --';
         }
 
         return {
-            selectAll
+            selectAll,
         };
     }
 

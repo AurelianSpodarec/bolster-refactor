@@ -4,10 +4,7 @@ import { RAW_S3_STORAGE_URL } from 'config';
 
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 
-import {
-    GENERATION_STATE_TEXT,
-    GENERATION_STATE_VAL
-} from 'constants/companyAdmin/enums';
+import { GENERATION_STATE_TEXT, GENERATION_STATE_VAL } from 'constants/companyAdmin/enums';
 
 const CompanyReportsListItem = ({ queueItem, onMobile, headers }) => {
     const typeArr = [];
@@ -18,49 +15,33 @@ const CompanyReportsListItem = ({ queueItem, onMobile, headers }) => {
         <tr>
             <td>
                 {' '}
-                {onMobile && (
-                    <span className="mobile-table-heading">{headers[0]}</span>
-                )}
+                {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
                 {queueItem.friendlyName}
             </td>
             <td>
                 {' '}
-                {onMobile && (
-                    <span className="mobile-table-heading">{headers[1]}</span>
-                )}
+                {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
                 {typeArr.join(', ')}
             </td>
             <td>
                 {' '}
-                {onMobile && (
-                    <span className="mobile-table-heading">{headers[2]}</span>
-                )}
+                {onMobile && <span className="mobile-table-heading">{headers[2]}</span>}
                 {!!queueItem.stateMessage && queueItem.stateMessage}
             </td>
             <td>
                 {' '}
-                {onMobile && (
-                    <span className="mobile-table-heading">{headers[3]}</span>
-                )}
+                {onMobile && <span className="mobile-table-heading">{headers[3]}</span>}
                 {GENERATION_STATE_TEXT[queueItem.state]}
             </td>
             <td>
                 {' '}
-                {onMobile && (
-                    <span className="mobile-table-heading">{headers[4]}</span>
-                )}
+                {onMobile && <span className="mobile-table-heading">{headers[4]}</span>}
                 <DateTimeContainer date={queueItem.createdOn} />
             </td>
             <td>
                 {' '}
-                {onMobile && (
-                    <span className="mobile-table-heading">{headers[5]}</span>
-                )}
-                {queueItem.completedOn ? (
-                    <DateTimeContainer date={queueItem.completedOn} />
-                ) : (
-                    'N/A'
-                )}
+                {onMobile && <span className="mobile-table-heading">{headers[5]}</span>}
+                {queueItem.completedOn ? <DateTimeContainer date={queueItem.completedOn} /> : 'N/A'}
             </td>
             <td>
                 {queueItem.state === GENERATION_STATE_VAL.COMPLETE ? (
@@ -72,12 +53,9 @@ const CompanyReportsListItem = ({ queueItem, onMobile, headers }) => {
                     >
                         <i className="fa fa-download" /> Download File
                     </a>
-                ) : queueItem.state === GENERATION_STATE_VAL.DELETED ? 
-                (
+                ) : queueItem.state === GENERATION_STATE_VAL.DELETED ? (
                     <button className="button red disabled">Report deleted</button>
-                ) : 
-                
-                (
+                ) : (
                     <button className="button disabled">Generating...</button>
                 )}
             </td>

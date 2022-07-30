@@ -6,17 +6,17 @@ import { getHeaders } from 'helpers/api';
 import { ADD_CARD_REQUEST, ADD_CARD_SUCCESS, ADD_CARD_FAILURE } from 'constants/actionTypes/cards';
 
 export const addCardRequest = () => ({
-    type: ADD_CARD_REQUEST
+    type: ADD_CARD_REQUEST,
 });
 
 export const addCardSuccess = payload => ({
     type: ADD_CARD_SUCCESS,
-    payload
+    payload,
 });
 
 export const addCardFailure = error => ({
     type: ADD_CARD_FAILURE,
-    error
+    error,
 });
 
 export default postBody => dispatch => {

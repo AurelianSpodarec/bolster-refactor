@@ -10,12 +10,7 @@ class DeleteDocumentContainer extends Component {
     render() {
         const { document } = this.props;
 
-        return (
-            <DeleteDocument
-                document={document}
-                handleShowModal={this.handleShowModal}
-            />
-        );
+        return <DeleteDocument document={document} handleShowModal={this.handleShowModal} />;
     }
 
     componentDidUpdate(prevProps) {
@@ -23,8 +18,7 @@ class DeleteDocumentContainer extends Component {
         if (deletionError && !prevProps.deletionError) {
             showModal(ERROR_MODAL, {
                 title: 'Deletion Error:',
-                message:
-                    'An error occurred while deleting this document, please try again later'
+                message: 'An error occurred while deleting this document, please try again later',
             });
         }
     }
@@ -36,18 +30,13 @@ class DeleteDocumentContainer extends Component {
 }
 
 const mapStateToProps = ({ companyAdmin: { documentsReducer } }) => ({
-    deletionError: documentsReducer.deletionError
+    deletionError: documentsReducer.deletionError,
 });
 
 const mapDispatchToProps = dispatch => ({
     showModal: (modalType, modalProps) => {
         dispatch(showModal(modalType, modalProps));
-    }
+    },
 });
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(DeleteDocumentContainer)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(DeleteDocumentContainer));
