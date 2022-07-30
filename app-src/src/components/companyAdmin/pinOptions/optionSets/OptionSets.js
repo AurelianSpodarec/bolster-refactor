@@ -148,6 +148,7 @@ const OptionSets = ({ forwardRef, selectedTypeID }) => {
                             isCompanySet={set.companyID === companyID}
                             tableColumnWidths={columnWidths}
                             removeAsDefault={removeAsDefault}
+                            parentType={selectedPinOptionType}
                         />
                     ))}
                 </tbody>

@@ -31,6 +31,7 @@ const OptionSetsListItem = ({
     forwardRef,
     isCompanySet,
     tableColumnWidths,
+    parentType,
 }) => {
     const dispatch = useDispatch();
     let rowClass = 'draggable expandable';
@@ -80,7 +81,7 @@ const OptionSetsListItem = ({
                         }}
                     >
                         <ButtonWrapper alignment="right">
-                            {isDefault && (
+                            {isDefault && parentType.hasSiteLinks && (
                                 <ButtonWrapperInfo
                                     text="Default"
                                     ambient="positive"
@@ -89,16 +90,20 @@ const OptionSetsListItem = ({
                             )}
 
                             <ActionMenu disabled={isSorting}>
-                                {isDefault ? (
-                                    <ActionMenuActionButton
-                                        text="Remove as default"
-                                        onClick={() => removeAsDefault(set)}
-                                    />
-                                ) : (
-                                    <ActionMenuActionButton
-                                        text="Set as default"
-                                        onClick={() => setAsDefault(set)}
-                                    />
+                                {parentType.hasSiteLinks && (
+                                    <>
+                                        {isDefault ? (
+                                            <ActionMenuActionButton
+                                                text="Remove as default"
+                                                onClick={() => removeAsDefault(set)}
+                                            />
+                                        ) : (
+                                            <ActionMenuActionButton
+                                                text="Set as default"
+                                                onClick={() => setAsDefault(set)}
+                                            />
+                                        )}
+                                    </>
                                 )}
 
                                 <ActionMenuActionButton
