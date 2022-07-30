@@ -35,6 +35,8 @@ const DisabledEditButton = () => (
     <ActionButton size="small" source="secondary" icon="pencil" iconOnly disabled />
 );
 
+const DisabledKebabButton = () => <ActionMenu size="small" disabled />;
+
 const ShiftPod = ({
     shift,
     shiftToEdit,
@@ -125,6 +127,44 @@ const ShiftPod = ({
         );
     };
 
+    const KebabButton = () => {
+        if (!isBolsterPlusActivated) {
+            return (
+                <TooltipContainer text="Delete and approve/reject is available through Bolster Plus.">
+                    <DisabledKebabButton />
+                </TooltipContainer>
+            );
+        }
+
+        if (!isAdminPlus) {
+            return (
+                <TooltipContainer text="Delete and approve/reject is available only to Admin Plus users.">
+                    <DisabledKebabButton />
+                </TooltipContainer>
+            );
+        }
+
+        if (!timeOut) {
+            return (
+                <TooltipContainer text="You cannot delete/approve/reject. User has not finished their shift.">
+                    <DisabledKebabButton />
+                </TooltipContainer>
+            );
+        }
+
+        return (
+            <ActionMenu size="small">
+                {status !== SHIFT_STATUS.APPROVED && <ApproveShiftMenuButton shiftID={shift.id} />}
+                {status !== SHIFT_STATUS.REJECTED && <RejectShiftMenuButton shiftID={shift.id} />}
+                <ActionMenuActionButton
+                    text="Delete"
+                    onClick={() => handleShowDeleteShiftModal(shift.id)}
+                    isNegative
+                />
+            </ActionMenu>
+        );
+    };
+
     return (
         <BlockContainer
             contentClass={`shift-pod ${isBolsterPlusActivated && statusClassLookup[status]}`}
@@ -143,38 +183,7 @@ const ShiftPod = ({
                     ) : null}
 
                     <EditButton />
-
-                    {isBolsterPlusActivated && isAdminPlus ? (
-                        <ActionMenu size="small">
-                            {status !== SHIFT_STATUS.APPROVED && (
-                                <ApproveShiftMenuButton shiftID={shift.id} />
-                            )}
-                            {status !== SHIFT_STATUS.REJECTED && (
-                                <RejectShiftMenuButton shiftID={shift.id} />
-                            )}
-                            <ActionMenuActionButton
-                                text="Delete"
-                                onClick={() => handleShowDeleteShiftModal(shift.id)}
-                                isNegative
-                            />
-                        </ActionMenu>
-                    ) : (
-                        <TooltipContainer text="Delete and approve/reject is available through Bolster Plus.">
-                            <ActionMenu size="small" disabled={true}>
-                                {status !== SHIFT_STATUS.APPROVED && (
-                                    <ApproveShiftMenuButton shiftID={shift.id} />
-                                )}
-                                {status !== SHIFT_STATUS.REJECTED && (
-                                    <RejectShiftMenuButton shiftID={shift.id} />
-                                )}
-                                <ActionMenuActionButton
-                                    text="Delete"
-                                    onClick={() => handleShowDeleteShiftModal(shift.id)}
-                                    isNegative
-                                />
-                            </ActionMenu>
-                        </TooltipContainer>
-                    )}
+                    <KebabButton />
                 </ButtonWrapper>
             </BlockHeading>
             <div className="divider" />
