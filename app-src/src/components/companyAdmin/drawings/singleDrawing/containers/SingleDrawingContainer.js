@@ -45,7 +45,7 @@ const mapDispatchToProps = dispatch => ({
                 dispatch(fetchPinOptionVersions());
             });
         }
-        dispatch(fetchCompanyUsers());
+        // dispatch(fetchCompanyUsers());
         dispatch(fetchHistoricServicesForCompany());
     },
 });

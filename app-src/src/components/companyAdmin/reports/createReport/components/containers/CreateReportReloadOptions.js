@@ -19,8 +19,10 @@ class CreateReportReloadOptions extends Component {
         const { postBody } = this.props;
 
         if (
-            isDifferent(postBody.hierarchyType, prevPostBody.hierarchyType) ||
-            isDifferent(postBody.hierarchyID, prevPostBody.hierarchyID) ||
+            (!!postBody.hierarchyType &&
+                isDifferent(postBody.hierarchyType, prevPostBody.hierarchyType)) ||
+            (!!postBody.hierarchyID &&
+                isDifferent(postBody.hierarchyID, prevPostBody.hierarchyID)) ||
             isDifferent(postBody.pinBoundingBoxes, prevPostBody.pinBoundingBoxes) ||
             isDifferent(postBody.companyUserIDs, prevPostBody.companyUserIDs) ||
             isDifferent(postBody.fromDateInclusive, prevPostBody.fromDateInclusive) ||

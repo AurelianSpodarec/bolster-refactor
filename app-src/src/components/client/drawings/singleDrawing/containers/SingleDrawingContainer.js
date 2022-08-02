@@ -31,7 +31,6 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchSingleClientDrawing(companyID, drawingID));
         dispatch(fetchClientPins(companyID, drawingID));
         dispatch(fetchClientPinStatsForLevel(companyID, 4, drawingID));
-        dispatch(fetchCompanyUsers());
         dispatch(clientFetchServicesForDrawing(drawingID));
     },
 });

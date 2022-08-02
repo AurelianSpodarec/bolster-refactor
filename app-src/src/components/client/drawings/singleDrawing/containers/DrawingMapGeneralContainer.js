@@ -117,7 +117,7 @@ class DrawingMapGeneralContainer extends Component {
             handleChange('floorID', String(drawing.floorID));
         }
 
-        updateReportFilter('drawingID', match.params.id).then(postFilters);
+        updateReportFilter('drawingID', match.params.id);
         if (drawing.isFloorplanUpdating) {
             this._floorplanInterval = setInterval(() => {
                 fetchSingleDrawing(drawing.id);
