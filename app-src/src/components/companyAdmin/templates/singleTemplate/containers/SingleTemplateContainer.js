@@ -6,6 +6,8 @@ import fetchAllTemplates from 'actions/companyAdmin/templates/async/fetchAllTemp
 import Loading from 'components/shared/generic/misc/presentational/Loading';
 import { getLatestVersion, getVersionSections, getSectionQuestions } from 'helpers/templates';
 import selectQuestion from 'actions/companyAdmin/templates/sync/selectQuestion';
+import fetchPinOptions from 'actions/companyAdmin/pinOptions/async/fetchPinOptions';
+import fetchPinOptionVersions from 'actions/companyAdmin/pinOptions/async/fetchPinOptionVersions';
 
 class SingleTemplateContainer extends Component {
     render = () => {
@@ -27,19 +29,24 @@ class SingleTemplateContainer extends Component {
     };
 
     componentDidMount = () => {
-        const { selectQuestion, fetchAllTemplates } = this.props;
+        const { selectQuestion, fetchAllTemplates, fetchPinOptions, fetchPinOptionVersions } =
+            this.props;
         selectQuestion(0);
         fetchAllTemplates();
+        fetchPinOptions();
+        fetchPinOptionVersions();
     };
 }
 
 const mapStateToProps = (
     {
         companyAdmin: {
-            templatesReducer: { templates, isFetching, error },
+            templatesReducer: { templates, isFetching: isFetchingTemplates, error },
             templateSectionsReducer: { sections },
             templateVersionsReducer: { versions },
             templateQuestionsReducer: { questions },
+            pinOptionsReducer: { isFetching: isFetchingPinOptions },
+            pinOptionVersionsReducer: { isFetching: isFetchingPinOptionVersions },
         },
     },
     ownProps,
@@ -48,10 +55,15 @@ const mapStateToProps = (
     versions: Object.values(versions),
     sections: Object.values(sections),
     questions: Object.values(questions),
-    isFetching: isFetching,
+    isFetching: isFetchingTemplates || isFetchingPinOptions || isFetchingPinOptionVersions,
     error,
     id: ownProps.match.params.id,
 });
 
-const mapDispatchToProps = { fetchAllTemplates, selectQuestion };
+const mapDispatchToProps = {
+    fetchAllTemplates,
+    selectQuestion,
+    fetchPinOptions,
+    fetchPinOptionVersions,
+};
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SingleTemplateContainer));

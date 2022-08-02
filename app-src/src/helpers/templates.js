@@ -1,5 +1,6 @@
 import { QUESTION_TYPES } from 'constants/shared/templateBuilder';
 import { QUESTION_TYPE_VALUES as VALS } from 'constants/shared/templateBuilder';
+import { getLatestVersionNameForPinOption } from './pinOptions';
 
 const formatQuestion = ({ type, dynamicFields, prereqUUIDs, ...otherFields }) => {
     const question = {
@@ -43,8 +44,9 @@ export const getSectionQuestions = (sections, questions) =>
         {},
     );
 
-export const getQuestionDetails = (question, dropdownOptions) => {
-    const { name, questionType, isHidden, isPrefill, isRequired, groupKey, type } = question;
+export const getQuestionDetails = (question, pinOptions, pinOptionVersions) => {
+    const { name, questionType, isHidden, isPrefill, isRequired, groupKey, type, optionType } =
+        question;
     const options = {
         Name: name,
         'Question type': questionType,
@@ -75,7 +77,14 @@ export const getQuestionDetails = (question, dropdownOptions) => {
         case VALS.PIN_OPTION_TYPES:
             return {
                 ...options,
-                'Question options': dropdownOptions.map(({ name }) => name).join(', '),
+                // 'Question options': dropdownOptions.map(({ name }) => name).join(', '),
+                'Question options': pinOptions
+                    .filter(
+                        opt =>
+                            opt.pinOptionTypeID === optionType && !opt.isDisabled && !opt.isDeleted,
+                    )
+                    .map(opt => getLatestVersionNameForPinOption(opt.id, pinOptionVersions))
+                    .join(', '),
             };
 
         case VALS.MULTI_PHOTO:
