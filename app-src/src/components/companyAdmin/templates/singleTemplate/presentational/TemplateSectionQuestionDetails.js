@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
 import { isObjEmpty } from 'helpers/generic';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
@@ -14,7 +15,18 @@ const TemplateSectionQuestionDetails = ({ question, details = {}, showModal }) =
                 )}
             </BlockHeading>
             {Object.entries(details).map(([key, val]) => (
-                <FieldOutput key={key} title={key} description={val} fieldClass="no-h-padding" />
+                <FieldOutput
+                    key={key}
+                    title={key}
+                    description={val !== 'SEE_PIN_OPTIONS' ? val : null}
+                    fieldClass="no-h-padding"
+                >
+                    {val === 'SEE_PIN_OPTIONS' && (
+                        <p>
+                            See <Link to="/company/pin-options">Pin Options</Link>
+                        </p>
+                    )}
+                </FieldOutput>
             ))}
         </>
     ) : (

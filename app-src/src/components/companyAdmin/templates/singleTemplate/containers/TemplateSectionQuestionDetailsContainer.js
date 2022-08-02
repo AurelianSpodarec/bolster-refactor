@@ -10,15 +10,13 @@ import { QUESTION_TYPE_NUMBERS as TYPES } from 'constants/shared/templateBuilder
 
 class TemplateSectionQuestionDetailsContainer extends React.Component {
     render = () => {
-        const { question, showModal, pinOptions, pinOptionVersions } = this.props;
+        const { question, showModal } = this.props;
 
         return (
             <BlockContainer>
                 <TemplateSectionQuestionDetails
                     question={question}
-                    details={
-                        question && getQuestionDetails(question, pinOptions, pinOptionVersions)
-                    }
+                    details={question && getQuestionDetails(question)}
                     showModal={() => showModal(COMPANY_EDIT_TEMPLATE_QUESTION, { question })}
                 />
             </BlockContainer>
@@ -29,8 +27,6 @@ class TemplateSectionQuestionDetailsContainer extends React.Component {
 const mapStateToProps = ({
     companyAdmin: {
         templateQuestionsReducer: { selectedQuestionID, questions },
-        pinOptionsReducer: { options },
-        pinOptionVersionsReducer: { versions },
     },
 }) => {
     const question =
@@ -44,8 +40,6 @@ const mapStateToProps = ({
     return {
         question,
         shouldFetchOptions,
-        pinOptions: Object.values(options),
-        pinOptionVersions: Object.values(versions),
     };
 };
 
