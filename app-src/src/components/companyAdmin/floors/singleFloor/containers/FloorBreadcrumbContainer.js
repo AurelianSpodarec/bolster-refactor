@@ -47,9 +47,12 @@ class FloorBreadcrumbContainer extends Component {
     };
 
     componentDidMount = () => {
-        const { sites, buildings } = this.props;
-
-        if (Object.values(sites).length && Object.values(buildings).length) {
+        const { sites, buildings, floor } = this.props;
+        if (
+            Object.values(sites).length &&
+            Object.values(buildings).length &&
+            Object.values(floor).length
+        ) {
             this._setFloorDetails();
         }
     };
