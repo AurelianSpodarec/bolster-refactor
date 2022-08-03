@@ -11,7 +11,7 @@ import fetchDocuments from 'actions/documents/async/fetchDocuments';
 import fetchPins from 'actions/companyAdmin/pins/async/fetchPins';
 import fetchClientsForDrawing from 'actions/companyAdmin/clients/async/fetchClientsForDrawing';
 import fetchOperativesForDrawing from 'actions/companyAdmin/operatives/async/fetchOperativesForDrawing';
-import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
+// import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 import fetchPinStatsForLevel from 'actions/companyAdmin/stats/async/fetchPinStatsForLevel';
 import fetchHistoricServicesForCompany from 'actions/companyAdmin/services/async/fetchHistoricServicesForCompany';
 import { componentDidMount } from 'helpers/generic';

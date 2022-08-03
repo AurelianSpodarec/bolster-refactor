@@ -100,7 +100,6 @@ class DrawingMapGeneralContainer extends Component {
     componentDidMount = () => {
         const {
             drawing = {},
-            postFilters,
             updateReportFilter,
             match,
             fetchSingleDrawing,

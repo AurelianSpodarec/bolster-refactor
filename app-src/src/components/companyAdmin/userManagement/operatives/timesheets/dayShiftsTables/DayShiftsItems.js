@@ -3,7 +3,10 @@ import { CURRENCY_SYMBOLS, SHIFT_STATUS, SHIFT_STATUS_REVERSE } from 'constants/
 import { formatAsHrsMins, formatCurrency } from 'helpers/generic';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
-import { selectCompanyCurrency } from 'selectors/companyAdmin/companySettings';
+import {
+    selectCompanyCurrency,
+    selectCompanyTimeZone,
+} from 'selectors/companyAdmin/companySettings';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import ActionMenu from 'components/shared/actionMenu/ActionMenu';
@@ -48,6 +51,8 @@ const DayShiftsItems = ({ shiftsForDay, onDaySelect }) => {
             isWageOverridden,
         } = shift;
 
+        const timeZone = useSelector(selectCompanyTimeZone);
+
         const jobReferences = hoursBreakdown.jobReferenceBreakdowns
             .map(({ jobReferenceName }) => jobReferenceName)
             .filter(name => name !== 'N/A');
@@ -73,7 +78,7 @@ const DayShiftsItems = ({ shiftsForDay, onDaySelect }) => {
                     )}
                 </td>
                 <td>
-                    {moment(startOn).format('HH:mm')}
+                    {moment.utc(startOn).tz(timeZone).format('HH:mm')}
                     {lateClockIn && (
                         <TooltipContainer side="right" text="Operative started shift late.">
                             <img alt="Warning Icon" src={WarningIcon} style={{ top: '5px' }} />
@@ -81,7 +86,7 @@ const DayShiftsItems = ({ shiftsForDay, onDaySelect }) => {
                     )}
                 </td>
                 <td>
-                    {endOn ? moment(endOn).format('HH:mm') : 'N/A'}
+                    {endOn ? moment.utc(endOn).tz(timeZone).format('HH:mm') : 'N/A'}
                     {lateClockOut && (
                         <TooltipContainer side="right" text="Operative ended shift late.">
                             <img alt="Warning Icon" src={WarningIcon} style={{ top: '5px' }} />

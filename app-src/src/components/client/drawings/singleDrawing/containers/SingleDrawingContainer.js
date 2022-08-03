@@ -10,7 +10,7 @@ import fetchClientPins from 'actions/client/pins/async/clientFetchPins';
 import SingleDrawing from '../presentational/SingleDrawing';
 import { getSelectedCompanyForClient } from 'helpers/generic';
 import fetchClientPinStatsForLevel from 'actions/client/stats/async/fetchClientPinStatsForLevel';
-import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
+// import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 import clientFetchServicesForDrawing from 'actions/client/services/async/clientFetchServicesForDrawing';
 
 class SingleDrawingContainer extends Component {
