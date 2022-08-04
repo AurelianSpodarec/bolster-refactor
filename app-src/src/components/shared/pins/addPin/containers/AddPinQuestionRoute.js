@@ -380,7 +380,7 @@ const AddPinQuestionRoute = ({
             );
 
             const matchedAnswer = oldAnswersMatchingNameAndType[thisQuestionIndex];
-            const matchedAnswerValues = matchedAnswer.answerValues.map(ans =>
+            const matchedAnswerValues = matchedAnswer.answerValues?.map(ans =>
                 checkAnswerAgainstLatest(ans),
             );
             setEditedPinOptionVersionIDs(getLatestVersionIDsForEdited(matchedAnswer.answerValues));
