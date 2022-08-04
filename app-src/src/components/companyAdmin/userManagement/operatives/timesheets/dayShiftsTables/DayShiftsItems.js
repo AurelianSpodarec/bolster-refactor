@@ -24,6 +24,7 @@ const DayShiftsItems = ({ shiftsForDay, onDaySelect }) => {
     const currency = useSelector(selectCompanyCurrency);
     const currencySymbol = CURRENCY_SYMBOLS[currency];
     const { isBolsterPlusActivated } = useBolsterPlus();
+    const timeZone = useSelector(selectCompanyTimeZone);
 
     const { handleShowDeleteShiftModal } = useDeleteShift(shiftsForDay);
     const isAdminPlus = useIsAdminPlus();
@@ -50,8 +51,6 @@ const DayShiftsItems = ({ shiftsForDay, onDaySelect }) => {
             isShiftTimeOverridden,
             isWageOverridden,
         } = shift;
-
-        const timeZone = useSelector(selectCompanyTimeZone);
 
         const jobReferences = hoursBreakdown.jobReferenceBreakdowns
             .map(({ jobReferenceName }) => jobReferenceName)
