@@ -41,7 +41,7 @@ class BuildingBreadcrumbContainer extends Component {
     componentDidMount = () => {
         const { sites, building } = this.props;
 
-        if (Object.values(sites).length) {
+        if (Object.values(sites).length && Object.values(building).length) {
             this._setSiteDetails(building.siteID);
         }
     };
