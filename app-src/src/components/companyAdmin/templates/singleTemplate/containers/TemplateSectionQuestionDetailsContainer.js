@@ -10,23 +10,17 @@ import { QUESTION_TYPE_NUMBERS as TYPES } from 'constants/shared/templateBuilder
 
 class TemplateSectionQuestionDetailsContainer extends React.Component {
     render = () => {
-        const { question, options, showModal } = this.props;
+        const { question, showModal } = this.props;
 
         return (
             <BlockContainer>
                 <TemplateSectionQuestionDetails
                     question={question}
-                    details={question && getQuestionDetails(question, options)}
+                    details={question && getQuestionDetails(question)}
                     showModal={() => showModal(COMPANY_EDIT_TEMPLATE_QUESTION, { question })}
                 />
             </BlockContainer>
         );
-    };
-    componentDidUpdate = prevProps => {
-        const { shouldFetchOptions, fetchAllDropdownOptions, question } = this.props;
-        if (shouldFetchOptions && question.optionType !== prevProps.question.optionType) {
-            fetchAllDropdownOptions(question.optionType);
-        }
     };
 }
 

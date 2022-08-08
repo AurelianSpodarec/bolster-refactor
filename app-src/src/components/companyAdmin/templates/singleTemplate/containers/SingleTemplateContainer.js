@@ -48,10 +48,13 @@ const mapStateToProps = (
     versions: Object.values(versions),
     sections: Object.values(sections),
     questions: Object.values(questions),
-    isFetching: isFetching,
+    isFetching,
     error,
     id: ownProps.match.params.id,
 });
 
-const mapDispatchToProps = { fetchAllTemplates, selectQuestion };
+const mapDispatchToProps = {
+    fetchAllTemplates,
+    selectQuestion,
+};
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SingleTemplateContainer));

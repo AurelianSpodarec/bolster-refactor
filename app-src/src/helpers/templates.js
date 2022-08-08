@@ -43,7 +43,7 @@ export const getSectionQuestions = (sections, questions) =>
         {},
     );
 
-export const getQuestionDetails = (question, dropdownOptions) => {
+export const getQuestionDetails = question => {
     const { name, questionType, isHidden, isPrefill, isRequired, groupKey, type } = question;
     const options = {
         Name: name,
@@ -75,7 +75,7 @@ export const getQuestionDetails = (question, dropdownOptions) => {
         case VALS.PIN_OPTION_TYPES:
             return {
                 ...options,
-                'Question options': dropdownOptions.map(({ name }) => name).join(', '),
+                'Question options': 'SEE_PIN_OPTIONS',
             };
 
         case VALS.MULTI_PHOTO:
