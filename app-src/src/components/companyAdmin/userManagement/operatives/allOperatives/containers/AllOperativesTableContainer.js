@@ -32,7 +32,7 @@ const AllOperativesTableContainer = ({ filteredUsers }) => {
                 headers={[
                     'Name',
                     'Phone number',
-                    'Device name',
+                    'Last device used',
                     'Last upsynced date',
                     'App version',
                     'Drawing count',
