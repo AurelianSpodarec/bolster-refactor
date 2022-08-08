@@ -35,17 +35,23 @@ let SitesListItem = ({
                 >
                     <>
                         <td>
-                            {onMobile && <span className="mobile-table-heading">{headers[0]}</span>}
+                            {onMobile && (
+                                <span className="mobile-table-heading">{headers[0].name}</span>
+                            )}
                             <i className={`fa fa-chevron-${isExpanded ? 'down' : 'right'}`} />
                             {site.name}
                         </td>
 
                         <td>
-                            {onMobile && <span className="mobile-table-heading">{headers[1]}</span>}
+                            {onMobile && (
+                                <span className="mobile-table-heading">{headers[1].name}</span>
+                            )}
                             {site.client}
                         </td>
                         <td>
-                            {onMobile && <span className="mobile-table-heading">{headers[2]}</span>}
+                            {onMobile && (
+                                <span className="mobile-table-heading">{headers[2].name}</span>
+                            )}
                             <DateTimeContainer
                                 date={site.createdOn}
                                 datetime={DATE_TIME_IDS.DATE}
@@ -53,12 +59,16 @@ let SitesListItem = ({
                         </td>
                         <td>
                             {' '}
-                            {onMobile && <span className="mobile-table-heading">{headers[3]}</span>}
+                            {onMobile && (
+                                <span className="mobile-table-heading">{headers[3].name}</span>
+                            )}
                             {site.ownerCompanyName}
                         </td>
                         <td>
                             {' '}
-                            {onMobile && <span className="mobile-table-heading">{headers[4]}</span>}
+                            {onMobile && (
+                                <span className="mobile-table-heading">{headers[4].name}</span>
+                            )}
                             {permissions}
                         </td>
                         <td>
