@@ -13,6 +13,7 @@ class AttachDrawingOperativeContainer extends Component {
         const operativeUsersOptions = operativeUsers.filter(
             user => !drawingUserIDs.includes(user.id),
         );
+
         return (
             <AttachOperativesFormContainer
                 hierarchyType={HIERARCHY_IDS.DRAWING}

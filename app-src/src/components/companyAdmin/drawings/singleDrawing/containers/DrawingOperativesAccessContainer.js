@@ -7,10 +7,12 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import { ERROR_MODAL, DELETE_OPERATIVE } from 'constants/shared/modalTypes';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { isEmpty } from 'helpers/generic';
+import fetchCompanyUsers from '../../../../../actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 
 class DrawingOperativesAccessContainer extends Component {
     render() {
         const { operatives, isFetching, error, users } = this.props;
+
         const operativesWithCodes = operatives
             .map(operative => {
                 const user = users.find(({ id }) => id === operative.companyUserID) || {};
@@ -37,6 +39,11 @@ class DrawingOperativesAccessContainer extends Component {
         );
     }
 
+    componentDidMount() {
+        const { fetchCompanyUsers } = this.props;
+        fetchCompanyUsers();
+    }
+
     componentDidUpdate(prevProps) {
         const { deletionError, showModal } = this.props;
         if (deletionError && !prevProps.deletionError) {
@@ -49,7 +56,10 @@ class DrawingOperativesAccessContainer extends Component {
 
     checkAvailableOperatives = () => {
         const { operatives, users } = this.props;
-        return operatives.length === users.length;
+        const companyOperatives = operatives.filter(
+            operative => users.filter(user => user.id === operative.companyUserID).length,
+        );
+        return companyOperatives.length === users.length;
     };
 
     handleDeleteOperativeModal = operative => {
@@ -66,6 +76,6 @@ const mapStateToProps = ({ companyAdmin: { operativesReducer, companyUsersReduce
     deletionError: operativesReducer.deletionError,
 });
 
-const mapDispatchToProps = { showModal };
+const mapDispatchToProps = { showModal, fetchCompanyUsers };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DrawingOperativesAccessContainer);
