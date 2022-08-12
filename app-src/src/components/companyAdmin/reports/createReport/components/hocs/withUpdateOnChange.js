@@ -122,7 +122,7 @@ export default function (ProtectedComponent) {
                         return NO;
                     }
                     // companies
-                    if (createdByCompanyID && createdByCompanyID !== pin.companyID) {
+                    if (createdByCompanyID && createdByCompanyID !== pin.latestCreatedByCompanyID) {
                         return NO;
                     }
                     // operatives
