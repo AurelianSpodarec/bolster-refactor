@@ -19,7 +19,7 @@ const DrawingShareLink = ({ shareLink, postShareLink }) => (
 
             <ActionButton
                 text="Generate New Link"
-                handleClick={postShareLink}
+                onClick={postShareLink}
                 source="secondary"
                 ambient="positive"
             />
