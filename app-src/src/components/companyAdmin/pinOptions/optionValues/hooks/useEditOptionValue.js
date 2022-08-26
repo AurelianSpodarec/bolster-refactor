@@ -161,10 +161,6 @@ const useEditOptionValue = option => {
             serviceIDs,
         };
 
-        if (!serviceIDs.length) {
-            return setServicesError(true);
-        }
-
         if (pinOptionType.hasCosting && costMeasurementType) {
             const isFixed = +costMeasurementType === MEASUREMENT_TYPES.FIXED;
 
