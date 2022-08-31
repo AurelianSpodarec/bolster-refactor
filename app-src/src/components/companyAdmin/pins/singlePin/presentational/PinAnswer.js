@@ -1,10 +1,7 @@
 import React, { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import {
-    QUESTION_TYPE_NUMBERS,
-    QUESTION_TYPE_NUMBERS as TYPES,
-} from 'constants/shared/templateBuilder';
+import { QUESTION_TYPE_NUMBERS as TYPES } from 'constants/shared/templateBuilder';
 import { FILE_STORAGE_URL, RAW_S3_STORAGE_URL } from 'config';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { PIN_IMAGE } from 'constants/shared/modalTypes';
@@ -166,7 +163,7 @@ const PinAnswer = ({ trimmedAnswer, type, answers, question }) => {
     }
     if (
         !isEmpty(curAnswer.pinHistoryAnswerValueQuantities) &&
-        question.questionType === QUESTION_TYPE_NUMBERS.MULTI_MULTI_PIN_OPTION_TYPES
+        question.type === TYPES.MULTI_MULTI_PIN_OPTION_TYPES
     ) {
         const { pinHistoryAnswerValueQuantities } = curAnswer;
 
