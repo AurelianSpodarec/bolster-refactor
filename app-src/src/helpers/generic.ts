@@ -205,6 +205,7 @@ const sortByOffset = (a, b) => getOffsetValue(a) - getOffsetValue(b);
 export const sortTimezones = timezonesArr => [...timezonesArr].sort(sortByOffset);
 
 export const formatDate = date => moment(date).format(DATE_TIME_DEFAULTS.DATETIME);
+export const formatDateToDay = date => moment(date).format(DATE_TIME_DEFAULTS['2']);
 
 // boolean byID for if using an array of objects with IDs
 export const removeDuplicates = (arr, byID) =>

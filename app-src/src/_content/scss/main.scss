@@ -3523,5 +3523,14 @@ input {
   opacity: 0.5;
 }
 
+.calendar-select {
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+}
+
+.border {
+  border: 1px solid var(--background-stroke);
+}
 // mobile
 @import './dashboard-mobile.scss';
