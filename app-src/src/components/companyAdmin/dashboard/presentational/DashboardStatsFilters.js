@@ -19,6 +19,7 @@ const DashboardStatsFilters = ({
 }) => {
     const start = new Date(selectedStartDate);
     const end = new Date(selectedEndDate);
+
     return (
         <form className="multi-filters size-lg-12">
             <div className="flex item ">
