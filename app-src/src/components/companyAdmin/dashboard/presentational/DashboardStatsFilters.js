@@ -53,6 +53,7 @@ const DashboardStatsFilters = ({
                         onChange={(_, date) => handleDateChange('dates', date)}
                         text={`${formatDateToDay(start)} - ${formatDateToDay(end)}`}
                         hideStaticRanges={true}
+                        maxDate={new Date()}
                     />
                 </div>
             </div>
