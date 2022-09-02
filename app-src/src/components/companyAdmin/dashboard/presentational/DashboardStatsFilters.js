@@ -47,17 +47,6 @@ const DashboardStatsFilters = ({
             </div>
             <div className="flex item ">
                 <p className="">Dates</p>
-                {/*<div className="flex">*/}
-                {/*    <DateRangePicker*/}
-                {/*        onChange={date => handleDateChange('dates', date)}*/}
-                {/*        value={[start, end]}*/}
-                {/*        showDoubleView*/}
-                {/*        calendarIcon={null}*/}
-                {/*        clearIcon={null}*/}
-                {/*        hideStaticRanges={true}*/}
-                {/*    />*/}
-                {/*</div>*/}
-
                 <div className="calendar-select border">
                     <DateRangePicker
                         value={{ startDate: start, endDate: end }}
