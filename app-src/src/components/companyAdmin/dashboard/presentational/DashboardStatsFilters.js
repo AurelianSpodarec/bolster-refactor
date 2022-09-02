@@ -47,7 +47,7 @@ const DashboardStatsFilters = ({
                 </div>
             </div>
             <div className="flex item ">
-                <p className="">Dates</p>
+                <p className="">Dates (Max 3 Months):</p>
                 <div className="calendar-select border">
                     <DateRangePicker
                         value={{ startDate: start, endDate: end }}
