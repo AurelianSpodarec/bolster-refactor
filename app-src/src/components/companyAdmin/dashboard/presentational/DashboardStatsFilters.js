@@ -1,7 +1,8 @@
 import React from 'react';
 
 import Dropdown from 'components/shared/generic/form/presentational/Dropdown';
-import DateRangePicker from '@wojtekmaj/react-daterange-picker';
+import DateRangePicker from 'components/shared/generic/form/presentational/DateRangePicker';
+import { formatDateToDay } from '../../../../helpers/generic';
 
 const DashboardStatsFilters = ({
     serviceOptions,
@@ -16,8 +17,9 @@ const DashboardStatsFilters = ({
     selectedMonth,
     handleChange,
 }) => {
-    const start = new Date(selectedStartDate).toUTCString().replace('GMT', '');
-    const end = new Date(selectedEndDate).toUTCString().replace('GMT', '');
+    const start = new Date(selectedStartDate);
+    const end = new Date(selectedEndDate);
+
     return (
         <form className="multi-filters size-lg-12">
             <div className="flex item ">
@@ -45,15 +47,14 @@ const DashboardStatsFilters = ({
                 </div>
             </div>
             <div className="flex item ">
-                <p className="">Dates</p>
-                <div className="flex">
+                <p className="">Dates (Max 3 Months):</p>
+                <div className="calendar-select border">
                     <DateRangePicker
-                        onChange={date => handleDateChange('dates', date)}
-                        value={[start, end]}
-                        showDoubleView
-                        calendarIcon={null}
-                        clearIcon={null}
+                        value={{ startDate: start, endDate: end }}
+                        onChange={(_, date) => handleDateChange('dates', date)}
+                        text={`${formatDateToDay(start)} - ${formatDateToDay(end)}`}
                         hideStaticRanges={true}
+                        maxDate={new Date()}
                     />
                 </div>
             </div>

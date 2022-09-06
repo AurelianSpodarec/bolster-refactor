@@ -60,20 +60,20 @@ class DashboardStatsFiltersContainer extends Component {
     handleDateChange = (name, date) => {
         const { updateDashboardFilters } = this.props;
 
-        const [startDateValue, endDateValue] = date;
+        const { startDate, endDate } = date;
 
-        const diffFromEnd = Math.abs(moment(endDateValue).diff(startDateValue, 'days'));
+        const diffFromEnd = Math.abs(moment(endDate).diff(startDate, 'days'));
 
         if (diffFromEnd > 90) {
-            const newEnd = moment(startDateValue).add(90, 'days').toDate();
-            updateDashboardFilters('startDate', startDateValue);
+            const newEnd = moment(startDate).add(90, 'days').toDate();
+            updateDashboardFilters('startDate', startDate);
             updateDashboardFilters('endDate', newEnd);
         } else {
-            updateDashboardFilters('startDate', startDateValue);
-            updateDashboardFilters('endDate', endDateValue);
+            updateDashboardFilters('startDate', startDate);
+            updateDashboardFilters('endDate', endDate);
         }
-        localStorage.setItem('selectedStartDate', startDateValue);
-        localStorage.setItem('selectedEndDate', endDateValue);
+        localStorage.setItem('selectedStartDate', startDate);
+        localStorage.setItem('selectedEndDate', endDate);
     };
 
     handleMonthChange = (name, month) => {
