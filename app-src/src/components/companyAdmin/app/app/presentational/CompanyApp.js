@@ -6,7 +6,7 @@ import { pageMeta } from 'constants/frontEnd/meta';
 import CompanyHeader from 'components/companyAdmin/layout/header/presentational/CompanyHeader';
 import MenuContainer from 'components/shared/layout/menu/containers/MenuContainer';
 import Routes from 'components/companyAdmin/app/routes/presentational';
-import PageMeta from 'components/frontEnd/shared/meta/presentational/PageMeta';
+import PageMeta from 'pages/public/shared/meta/presentational/PageMeta';
 import BannerNotificationContainer from 'components/shared/banners/containers/BannerNotificationContainer';
 import Banner from 'components/shared/generic/banner/Banner';
 import UnconfirmedEmailBanner from 'components/shared/generic/banner/UnconfirmedEmailBanner';

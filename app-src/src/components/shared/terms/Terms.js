@@ -7,7 +7,7 @@ import fetchTerms from 'actions/shared/legalDocuments/fetchTerms';
 
 import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
 // import TermsAndConditions from './TermsAndConditions';
-import PageMeta from 'components/frontEnd/shared/meta/presentational/PageMeta';
+import PageMeta from 'pages/public/shared/meta/presentational/PageMeta';
 import PageHeading from '../generic/pageHeading/presentational/PageHeading';
 
 const Terms = ({ fetchTerms }) => {

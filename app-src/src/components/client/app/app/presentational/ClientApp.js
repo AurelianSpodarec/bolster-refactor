@@ -5,7 +5,7 @@ import { pageMeta } from 'constants/frontEnd/meta';
 import ClientHeaderContainer from 'components/client/layout/header/containers/ClientHeaderContainer';
 import MenuContainer from 'components/shared/layout/menu/containers/MenuContainer';
 import Routes from 'components/client/app/routes';
-import PageMeta from 'components/frontEnd/shared/meta/presentational/PageMeta';
+import PageMeta from 'pages/public/shared/meta/presentational/PageMeta';
 import Banner from 'components/shared/generic/banner/Banner';
 import UnconfirmedEmailBanner from 'components/shared/generic/banner/UnconfirmedEmailBanner';
 import LoggedInFooter from 'components/shared/loggedInFooter/LoggedInFooter';

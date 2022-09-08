@@ -220,7 +220,7 @@ import ConfirmFreeInvoiceModalContainer from 'components/superAdmin/invoices/con
 import EditPaymentModalContainer from 'components/superAdmin/invoices/editPaymentModal/containers/EditPaymentModalContainer';
 import DeletePaymentModalContainer from 'components/superAdmin/invoices/confirmDeletePaymentModal/containers/DeletePaymentModalContainer';
 import RemoveUserDrawingsAccessModalContainer from 'components/companyAdmin/userManagement/userDrawings/containers/RemoveUserDrawingsAccessModalContainer';
-import ForgotPasswordModalContainer from 'components/frontEnd/auth/forgotPasswordModal/containers/ForgotPasswordModalContainer';
+import ForgotPasswordModalContainer from 'pages/public/auth/forgotPasswordModal/containers/ForgotPasswordModalContainer';
 import AddCreditsToDrawingModal from 'components/companyAdmin/drawings/addCreditsToDrawing/presentational/AddCreditsToDrawingModal';
 import SiteManagementConfirmMoveModalContainer from 'components/superAdmin/siteManagement/moveTool/containers/MoveToolConfirmMoveModalContainer';
 import ConfirmSetIsInvoicePaidModalContainer from 'components/superAdmin/invoices/confirmSetIsInvoicePaidModal/containers/ConfirmSetIsInvoicePaidModalContainer';
@@ -241,7 +241,7 @@ import ZoneDetailsModalContainer from 'components/companyAdmin/drawings/singleDr
 import EditZoneModalContainer from 'components/companyAdmin/drawings/singleDrawing/containers/EditZoneModalContainer';
 import AddCommentToInvoiceModalContainer from 'components/superAdmin/invoices/singleInvoice/containers/AddCommentToInvoiceModalContainer';
 import AddCommentToContactSubmissionModalContainer from 'components/superAdmin/contactSubmissions/singleContactSubmission/containers/AddCommentToContactSubmissionModalContainer';
-import OurSystemModalContainer from 'components/frontEnd/whyUseOurSystem/containers/OurSystemModalContainer';
+import OurSystemModalContainer from 'pages/public/whyUseOurSystem/containers/OurSystemModalContainer';
 import UserLatestSyncsModalContainer from 'components/superAdmin/companies/singleCompany/containers/UserLatestSyncsModalContainer';
 import EditBannerNotificationModal from 'components/superAdmin/bannerNotifications/editBannerNotificationModal/presentational/EditBannerNotificationModal';
 import AddBannerNotificationModal from 'components/superAdmin/bannerNotifications/addBannerNotifcationModel/presentational/AddBannerNotificationModal';

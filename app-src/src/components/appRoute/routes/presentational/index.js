@@ -11,7 +11,7 @@ import AdminAppContainer from 'components/superAdmin/app/app/containers/AdminApp
 import CompanyAppContainer from 'components/companyAdmin/app/app/containers/CompanyAppContainer';
 
 import ClientAppContainer from 'components/client/app/app/containers/ClientAppContainer';
-import FrontEndAppContainer from 'components/frontEnd/app/app/containers/FrontEndAppContainer';
+import FrontEndAppContainer from 'pages/public/app/FrontEndAppContainer';
 import DemoFullSite from 'components/shared/demo-full-site/presentational/DemoFullSite';
 
 const Routes = () => {

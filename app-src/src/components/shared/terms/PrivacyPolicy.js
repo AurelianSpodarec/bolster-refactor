@@ -5,7 +5,7 @@ import { NavHashLink } from 'react-router-hash-link';
 import { pageMeta } from 'constants/frontEnd/meta';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import PageMeta from 'components/frontEnd/shared/meta/presentational/PageMeta';
+import PageMeta from 'pages/public/shared/meta/presentational/PageMeta';
 
 const PrivacyPolicy = () => (
     <>

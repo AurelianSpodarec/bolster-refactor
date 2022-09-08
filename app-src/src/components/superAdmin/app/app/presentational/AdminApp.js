@@ -5,7 +5,7 @@ import { pageMeta } from 'constants/frontEnd/meta';
 import AdminHeader from 'components/superAdmin/layout/header/presentational/AdminHeader';
 import MenuContainer from 'components/shared/layout/menu/containers/MenuContainer';
 import AdminRoutes from '../../routes/presentational';
-import PageMeta from 'components/frontEnd/shared/meta/presentational/PageMeta';
+import PageMeta from 'pages/public/shared/meta/presentational/PageMeta';
 import LoggedInFooter from 'components/shared/loggedInFooter/LoggedInFooter';
 
 import '_content/scss/dashboard.scss';

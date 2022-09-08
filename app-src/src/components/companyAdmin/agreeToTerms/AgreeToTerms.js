@@ -6,7 +6,7 @@ import Block from 'components/shared/generic/block/presentational/Block';
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import agreeToTerms from 'actions/companyAdmin/legalDocuments/agreeToTerms';
 import Field from 'components/shared/generic/form/presentational/Field';
-import TsCsContainer from 'components/frontEnd/termsAndConditions/containers/Ts&CsContainer';
+import TsCsContainer from 'pages/public/termsAndConditions/containers/Ts&CsContainer';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 
 const AgreeToTerms = ({ agreeToTerms, handleClick }) => {
