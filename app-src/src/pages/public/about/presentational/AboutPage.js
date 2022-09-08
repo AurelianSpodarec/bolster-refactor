@@ -12,7 +12,8 @@ import setIsBannerScrolling from 'actions/frontEnd/banners/sync/setIsBannerScrol
 
 import AboutUsInfoContainer from '../container/AboutUsInfoContainer';
 import FrontEndBanner from 'pages/public/shared/banners/presentational/FrontEndBanner';
-import Accreditations from 'pages/public/accreditations/presentational/Accreditations';
+import Accreditations from 'pages/public/Accreditations';
+
 import BackToTopContainer from 'pages/public/shared/backToTop/containers/BackToTopContainer';
 import PageMeta from 'pages/public/shared/meta/presentational/PageMeta';
 

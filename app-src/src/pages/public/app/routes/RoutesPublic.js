@@ -26,7 +26,7 @@ import RegistrationSuccess from 'pages/public/auth/success/RegistrationSuccess';
 import InvitationAcceptedAdmin from 'pages/public/auth/success/InvitationAcceptedAdmin';
 import ConfirmChangeEmail from 'pages/public/auth/confirmChangeEmail/ConfirmChangeEmail';
 
-const FrontEndRoutes = ({ base = '/' }) => (
+const RoutesPublic = ({ base = '/' }) => (
     <SwitchWith404>
         <Route exact path={`${base}page-not-found`} component={PageNotFound} />
 
@@ -80,4 +80,4 @@ const FrontEndRoutes = ({ base = '/' }) => (
     </SwitchWith404>
 );
 
-export default FrontEndRoutes;
+export default RoutesPublic;

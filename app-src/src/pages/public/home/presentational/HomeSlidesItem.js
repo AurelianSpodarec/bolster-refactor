@@ -1,7 +1,7 @@
 /* eslint-disable react/display-name */
 import React, { useEffect, useRef, useState, forwardRef } from 'react';
 import HomeCarouselControls from './HomeCarouselControls';
-import FrontEndFooterContainer from 'pages/public/layout/footer/containers/FrontEndFooterContainer';
+import FrontEndFooterContainer from 'pages/public/_components/footer/containers/FrontEndFooterContainer';
 import TrustedByContainer from 'pages/public/trustedBy/containers/TrustedByContainer';
 import BackToTopContainer from 'pages/public/shared/backToTop/containers/BackToTopContainer';
 import FrontEndButton from 'pages/public/shared/buttons/presentational/FrontEndButton';

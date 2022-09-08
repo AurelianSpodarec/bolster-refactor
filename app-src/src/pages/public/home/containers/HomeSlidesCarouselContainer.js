@@ -5,7 +5,7 @@ import { HomeSlidesList } from 'constants/frontEnd/homeSlides';
 
 import HomeSlidesItem from '../presentational/HomeSlidesItem';
 import HomeCarouselControls from '../presentational/HomeCarouselControls';
-import FrontEndFooterContainer from 'pages/public/layout/footer/containers/FrontEndFooterContainer';
+import FrontEndFooterContainer from 'pages/public/_components/footer/containers/FrontEndFooterContainer';
 import TrustedByContainer from 'pages/public/trustedBy/containers/TrustedByContainer';
 import BackToTopContainer from 'pages/public/shared/backToTop/containers/BackToTopContainer';
 import HomeSlidesMobileItem from '../presentational/HomeSlidesMobileItem';

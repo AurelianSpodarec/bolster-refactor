@@ -4,10 +4,12 @@ import { useDispatch } from 'react-redux';
 
 import decodeJWT from 'actions/shared/jwt/async/decodeJWT';
 
-import FrontEndRoutes from './routes/presentational';
-import FrontEndFooterContainer from 'pages/public/layout/footer/containers/FrontEndFooterContainer';
-import FrontEndHeaderContainer from 'pages/public/layout/header/container/FrontEndHeaderContainer';
-import CookieConsentContainer from 'pages/public/cookieConsent/containers/CookieConsentContainer';
+import RoutesPublic from './routes/RoutesPublic';
+
+import FrontEndFooterContainer from 'pages/public/_components/footer/containers/FrontEndFooterContainer';
+import FrontEndHeaderContainer from 'pages/public/_components/header/container/FrontEndHeaderContainer';
+
+import CookieConsentContainer from 'pages/public/CookieConsentContainer';
 
 const FrontEndAppContainer = ({ isHome }) => {
     const dispatch = useDispatch();
@@ -20,7 +22,7 @@ const FrontEndAppContainer = ({ isHome }) => {
     return (
         <div id="frontend-site">
             <FrontEndHeaderContainer />
-            <FrontEndRoutes />
+            <RoutesPublic />
 
             <CookieConsentContainer />
             {location.pathname === '/' && <FrontEndFooterContainer />}
