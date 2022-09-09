@@ -1,14 +1,14 @@
-import FirstSlide from '_content/videos/frontend/home1.mp4';
-import SecondSlide from '_content/videos/frontend/home2.mp4';
-import ThirdSlide from '_content/videos/frontend/home3.mp4';
-import FourthSlide from '_content/videos/frontend/home4.mp4';
-import FifthSlide from '_content/videos/frontend/home5.mp4';
-import FirstPoster from '_content/videos/frontend/posters/home1.jpg';
-import SecondPoster from '_content/videos/frontend/posters/home2.jpg';
-import ThirdPoster from '_content/videos/frontend/posters/home3.jpg';
-import FourthPoster from '_content/videos/frontend/posters/home4.jpg';
-import FifthPoster from '_content/videos/frontend/posters/home5.jpg';
-import PromotionalVideo from '_content/videos/frontend/PromotionalVideo.mp4';
+import FirstSlide from 'assets/videos/frontend/home1.mp4';
+import SecondSlide from 'assets/videos/frontend/home2.mp4';
+import ThirdSlide from 'assets/videos/frontend/home3.mp4';
+import FourthSlide from 'assets/videos/frontend/home4.mp4';
+import FifthSlide from 'assets/videos/frontend/home5.mp4';
+import FirstPoster from 'assets/videos/frontend/posters/home1.jpg';
+import SecondPoster from 'assets/videos/frontend/posters/home2.jpg';
+import ThirdPoster from 'assets/videos/frontend/posters/home3.jpg';
+import FourthPoster from 'assets/videos/frontend/posters/home4.jpg';
+import FifthPoster from 'assets/videos/frontend/posters/home5.jpg';
+import PromotionalVideo from 'assets/videos/frontend/PromotionalVideo.mp4';
 
 export const HomeSlidesList = [
     {

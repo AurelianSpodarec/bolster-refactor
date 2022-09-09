@@ -6,7 +6,7 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
 import DatePickerPresentational from 'components/shared/generic/form/presentational/DatePicker';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import { ReactComponent as TrashIcon } from '../../../../../_content/images/icons/trash.svg';
+import { ReactComponent as TrashIcon } from '../../../../../assets/images/icons/trash.svg';
 
 // * .*. in names is used for splitting up field validations without risking overlap with real names
 

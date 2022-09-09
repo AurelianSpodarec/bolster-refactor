@@ -17,7 +17,7 @@ import useBolsterPlus from 'components/companyAdmin/subscription/addOns/hooks/us
 import ApproveShiftMenuButton from '../breakdown/dayBreakdown/ApproveShiftMenuButton';
 import RejectShiftMenuButton from '../breakdown/dayBreakdown/RejectShiftMenuButton';
 import useDeleteShift from '../breakdown/hooks/useDeleteShift';
-import WarningIcon from '../../../../../../_content/images/icons/Triangle_Warning.svg';
+import WarningIcon from '../../../../../../assets/images/icons/Triangle_Warning.svg';
 import useIsAdminPlus from '../../../../../../hooks/useIsAdminPlus';
 
 const DayShiftsItems = ({ shiftsForDay, onDaySelect }) => {

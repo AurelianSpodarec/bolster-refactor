@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom';
 
 import useColourTheme from '../../../hooks/useColourTheme';
 
-import linkedInIcon from '_content/images/icons/socials/linked-in-lightmode.svg';
-import vimeoIcon from '_content/images/icons/socials/vimeo-lightmode.svg';
-import instagramIcon from '_content/images/icons/socials/instagram-lightmode.svg';
-import twitterIcon from '_content/images/icons/socials/twitter-lightmode.svg';
-import linkedInIconDarkMode from '_content/images/icons/socials/linked-in.svg';
-import vimeoIconDarkMode from '_content/images/icons/socials/vimeo.svg';
-import instagramIconDarkMode from '_content/images/icons/socials/instagram.svg';
-import twitterIconDarkMode from '_content/images/icons/socials/twitter.svg';
+import linkedInIcon from 'assets/images/icons/socials/linked-in-lightmode.svg';
+import vimeoIcon from 'assets/images/icons/socials/vimeo-lightmode.svg';
+import instagramIcon from 'assets/images/icons/socials/instagram-lightmode.svg';
+import twitterIcon from 'assets/images/icons/socials/twitter-lightmode.svg';
+import linkedInIconDarkMode from 'assets/images/icons/socials/linked-in.svg';
+import vimeoIconDarkMode from 'assets/images/icons/socials/vimeo.svg';
+import instagramIconDarkMode from 'assets/images/icons/socials/instagram.svg';
+import twitterIconDarkMode from 'assets/images/icons/socials/twitter.svg';
 
 const LoggedInFooter = () => {
     const colourTheme = useColourTheme();

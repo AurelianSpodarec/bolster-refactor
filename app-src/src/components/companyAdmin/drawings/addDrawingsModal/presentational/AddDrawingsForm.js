@@ -10,8 +10,8 @@ import DatePickerPresentational from 'components/shared/generic/form/presentatio
 import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
 import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import { ReactComponent as TrashIcon } from '../../../../../_content/images/icons/trash.svg';
-import { ReactComponent as ArrowsRotate } from '../../../../../_content/images/icons/arrows-rotate.svg';
+import { ReactComponent as TrashIcon } from '../../../../../assets/images/icons/trash.svg';
+import { ReactComponent as ArrowsRotate } from '../../../../../assets/images/icons/arrows-rotate.svg';
 import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 

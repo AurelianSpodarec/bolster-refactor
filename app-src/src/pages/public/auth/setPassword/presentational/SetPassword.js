@@ -1,7 +1,7 @@
 import React from 'react';
 import { useIsMobile } from 'helpers/hooks';
-import LoginVideo from '_content/videos/frontend/Login.mp4';
-import LoginPoster from '_content/videos/frontend/posters/Login.jpg';
+import LoginVideo from 'assets/videos/frontend/Login.mp4';
+import LoginPoster from 'assets/videos/frontend/posters/Login.jpg';
 import SetPasswordFormContainer from '../containers/SetPasswordFormContainer';
 
 const SetPassword = () => {

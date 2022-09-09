@@ -3,7 +3,7 @@ import GoogleMapReact from 'google-map-react';
 // import BreakdownPositionCard from './BreakdownPositionCard';
 // import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 // import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
-import { pin2xImgs } from '_content/images/map-markers';
+import { pin2xImgs } from 'assets/images/map-markers';
 
 const BreakdownDetailedTimelineMap = ({
     markers = [],

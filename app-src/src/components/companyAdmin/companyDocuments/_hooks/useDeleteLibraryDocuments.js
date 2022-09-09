@@ -8,7 +8,7 @@ import {
 } from 'constants/shared/modalTypes';
 import { getIconFromExt } from 'helpers/general';
 import FileTypeIcon from '../FileTypeIcon';
-import FolderIcon from '_content/images/icons/dl-folder-icon.svg';
+import FolderIcon from 'assets/images/icons/dl-folder-icon.svg';
 import softDeleteLibraryDocuments from 'actions/companyAdmin/documentLibrary/async/softDeleteLibraryDocuments';
 import hardDeleteLibraryDocuments from 'actions/companyAdmin/documentLibrary/async/hardDeleteLibraryDocuments';
 import { usePrevious } from 'helpers/hooks';

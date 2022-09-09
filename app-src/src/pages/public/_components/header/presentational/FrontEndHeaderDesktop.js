@@ -2,9 +2,9 @@ import React from 'react';
 
 import { ANDROID_APP_URL, IOS_APP_URL } from 'config';
 
-import Logo from '_content/images/frontend-new/logo.png';
-import GoogleAppStore from '_content/images/frontend-new/google-play-badge.png';
-import AppleAppStore from '_content/images/frontend-new/apple-store.svg';
+import Logo from 'assets/images/frontend-new/logo.png';
+import GoogleAppStore from 'assets/images/frontend-new/google-play-badge.png';
+import AppleAppStore from 'assets/images/frontend-new/apple-store.svg';
 import Container from 'pages/public/shared/container/presentational/Container';
 import FrontEndButton from 'pages/public/shared/buttons/presentational/FrontEndButton';
 import navItems from 'constants/frontEnd/navItems';

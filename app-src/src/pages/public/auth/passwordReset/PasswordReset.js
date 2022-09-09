@@ -12,8 +12,8 @@ import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError
 import removeFieldError from 'actions/shared/generic/fieldErrors/sync/removeFieldError';
 import { useIsMobile } from 'helpers/hooks';
 
-import LoginVideo from '_content/videos/frontend/Login.mp4';
-import LoginPoster from '_content/videos/frontend/posters/Login.jpg';
+import LoginVideo from 'assets/videos/frontend/Login.mp4';
+import LoginPoster from 'assets/videos/frontend/posters/Login.jpg';
 import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
 import { Link } from 'react-router-dom';
 import PageMeta from 'pages/public/shared/meta/presentational/PageMeta';

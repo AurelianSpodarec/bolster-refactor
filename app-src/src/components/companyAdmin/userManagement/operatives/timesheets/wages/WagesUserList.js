@@ -9,7 +9,7 @@ import Search from '../../../../../shared/generic/form/presentational/Search';
 import Tickbox from '../../../../../shared/generic/form/presentational/Tickbox';
 import FiltersPopup from './FiltersPopup';
 
-import plusIcon from '_content/images/icons/plus-solid.svg';
+import plusIcon from 'assets/images/icons/plus-solid.svg';
 
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 import { TABLE_SORT_DIRECTIONS } from 'constants/shared/tables';

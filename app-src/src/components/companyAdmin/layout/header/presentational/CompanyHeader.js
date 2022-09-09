@@ -7,8 +7,8 @@ import defaultStyles from 'constants/defaultStyles';
 import useCompanyHeader from '../hooks/useCompanyHeader';
 
 import SearchContainer from '../containers/SearchContainer';
-import ExchangeIcon from '../../../../../_content/images/icons/exchange.png';
-import EnvelopeIcon from '../../../../../_content/images/icons/envelope.png';
+import ExchangeIcon from '../../../../../assets/images/icons/exchange.png';
+import EnvelopeIcon from '../../../../../assets/images/icons/envelope.png';
 import CircleButton from 'components/shared/generic/button/presentational/CircleButton';
 import CreditsButton from 'components/companyAdmin/generic/button/CreditsButton';
 import HeaderProfile from './HeaderProfile';

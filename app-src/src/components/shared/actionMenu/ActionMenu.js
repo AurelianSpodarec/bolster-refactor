@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 
 import useClickOutside from 'hooks/useClickOutside';
 import ActionMenuContent from './ActionMenuContent';
-import HamburgerMenuIcon from '../../../_content/images/icons/hamburger-menu-icon.svg';
-import HamburgerMenuIconLight from '../../../_content/images/icons/hamburger-menu-icon-light.svg';
+import HamburgerMenuIcon from '../../../assets/images/icons/hamburger-menu-icon.svg';
+import HamburgerMenuIconLight from '../../../assets/images/icons/hamburger-menu-icon-light.svg';
 import useColourTheme from 'hooks/useColourTheme';
 
 const ActionMenu = ({

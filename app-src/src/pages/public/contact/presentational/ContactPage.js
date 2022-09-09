@@ -3,8 +3,8 @@ import React from 'react';
 import { pageMeta } from 'constants/frontEnd/meta';
 
 import ContactPageFormContainer from '../containers/ContactPageFormContainer';
-import ServerRoomBackgroundVideo from '_content/videos/frontend/Server_Room_Long.mp4';
-import ServerRoomBackgroundPoster from '_content/videos/frontend/posters/Server_Room_Long.jpg';
+import ServerRoomBackgroundVideo from 'assets/videos/frontend/Server_Room_Long.mp4';
+import ServerRoomBackgroundPoster from 'assets/videos/frontend/posters/Server_Room_Long.jpg';
 import PageMeta from 'pages/public/shared/meta/presentational/PageMeta';
 
 const ContactPage = () => {

@@ -4,11 +4,11 @@ import { isIOS, isAndroid } from 'react-device-detect';
 
 import { ANDROID_APP_URL, IOS_APP_URL } from 'config';
 
-import AppStoreBadge from '_content/images/frontend-new/app-store-badge.png';
-import GooglePlayBadge from '_content/images/frontend-new/google-play-badge.png';
+import AppStoreBadge from 'assets/images/frontend-new/app-store-badge.png';
+import GooglePlayBadge from 'assets/images/frontend-new/google-play-badge.png';
 
 import Container from 'pages/public/shared/container/presentational/Container';
-import FooterLogo from '_content/images/frontend-new/footer-logo.png';
+import FooterLogo from 'assets/images/frontend-new/footer-logo.png';
 
 const FrontEndFooter = ({ hideFooter, isMobile, cookieConsent }) => {
     return (

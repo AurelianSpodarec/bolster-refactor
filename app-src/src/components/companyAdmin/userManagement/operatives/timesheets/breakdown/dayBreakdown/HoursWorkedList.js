@@ -12,7 +12,7 @@ import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import useIsAdminPlus from '../../../../../../../hooks/useIsAdminPlus';
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
-import WarningIcon from '../../../../../../../_content/images/icons/Triangle_Warning.svg';
+import WarningIcon from '../../../../../../../assets/images/icons/Triangle_Warning.svg';
 
 const HoursWorkedList = ({
     shiftID,

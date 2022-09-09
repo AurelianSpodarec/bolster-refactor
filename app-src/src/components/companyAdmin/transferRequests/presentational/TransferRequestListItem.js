@@ -3,7 +3,7 @@ import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/pr
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import { ReactComponent as TrashIcon } from '../../../../_content/images/icons/trash.svg';
+import { ReactComponent as TrashIcon } from '../../../../assets/images/icons/trash.svg';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 
 const TransferRequestListItem = ({

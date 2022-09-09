@@ -1,6 +1,6 @@
 import React from 'react';
-import ZIP from '_content/images/icons/output_icons/ZIP_Only.svg';
-import Arrow from '_content/images/icons/output_icons/Arrow.svg';
+import ZIP from 'assets/images/icons/output_icons/ZIP_Only.svg';
+import Arrow from 'assets/images/icons/output_icons/Arrow.svg';
 import { IMAGE_VISUAL_POSITION } from 'constants/companyAdmin/enums';
 import { filteredImage, isTherePDF } from 'helpers/outputVisuals';
 import useColourTheme from 'hooks/useColourTheme';

@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import FileTypeIcon from '../FileTypeIcon';
 import { RESTORE_LIBRARY_DOCUMENTS } from 'constants/shared/modalTypes';
 import { getIconFromExt } from 'helpers/general';
-import FolderIcon from '_content/images/icons/dl-folder-icon.svg';
+import FolderIcon from 'assets/images/icons/dl-folder-icon.svg';
 import { usePrevious } from 'helpers/hooks';
 
 const useRestoreLibraryDocuments = (ids = [], setSelectedItems) => {

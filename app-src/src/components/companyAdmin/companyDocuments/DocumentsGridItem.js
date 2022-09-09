@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import { DATE_TIME_IDS, DOCUMENT_LIBRARY_TYPES } from 'constants/companyAdmin/enums';
 import React, { useState } from 'react';
-import FolderIcon from '_content/images/icons/dl-folder-icon.svg';
+import FolderIcon from 'assets/images/icons/dl-folder-icon.svg';
 import { getIconFromExt } from 'helpers/general';
 import FileTypeIcon from './FileTypeIcon';
 import { RAW_S3_STORAGE_URL } from 'config';

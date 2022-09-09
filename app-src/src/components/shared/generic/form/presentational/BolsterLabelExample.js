@@ -1,7 +1,7 @@
 import React from 'react';
 
-import standardLabel from '_content/images/labels/standard.png';
-import trimLabel from '_content/images/labels/trim.png';
+import standardLabel from 'assets/images/labels/standard.png';
+import trimLabel from 'assets/images/labels/trim.png';
 
 import BlockHeading from '../../blockHeading/presentational/BlockHeading';
 

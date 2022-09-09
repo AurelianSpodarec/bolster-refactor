@@ -1,5 +1,5 @@
 import React from 'react';
-import FileIcon from '_content/images/icons/dl-file-icon.svg';
+import FileIcon from 'assets/images/icons/dl-file-icon.svg';
 
 const FileTypeIcon = ({
     src = FileIcon,

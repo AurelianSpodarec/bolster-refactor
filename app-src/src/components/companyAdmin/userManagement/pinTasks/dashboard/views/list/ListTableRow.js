@@ -11,7 +11,7 @@ import {
 import TaskStatusPill from '../../TaskStatusPill';
 import TaskRecurrencePill from '../../TaskRecurrencePill';
 
-import PinTaskNoteIcon from '../../../../../../../_content/images/icons/pinTaskNoteWhite.png';
+import PinTaskNoteIcon from '../../../../../../../assets/images/icons/pinTaskNoteWhite.png';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
 const ListTableRow = ({ pinTask, startEditPinTask, viewTaskNote }) => {

@@ -5,8 +5,8 @@ import { pageMeta } from 'constants/frontEnd/meta';
 import { useWindowDimensions } from 'helpers/hooks';
 import { useBannerScroll } from 'helpers/frontEndHooks';
 
-import InspectVideo from '_content/videos/frontend/about-us.mp4';
-import InspectPoster from '_content/videos/frontend/posters/about-us.jpg';
+import InspectVideo from 'assets/videos/frontend/about-us.mp4';
+import InspectPoster from 'assets/videos/frontend/posters/about-us.jpg';
 
 import setIsBannerScrolling from 'actions/frontEnd/banners/sync/setIsBannerScrolling';
 

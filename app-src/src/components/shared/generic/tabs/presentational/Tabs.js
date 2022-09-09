@@ -1,8 +1,8 @@
 import React from 'react';
 
-import SuperAdminIcon from '_content/images/icons/nav/SuperAdmin.svg';
-import CompanyAdminIcon from '_content/images/icons/nav/CompanyAdmin.svg';
-import ClientAccessIcon from '_content/images/icons/nav/ClientAccess.svg';
+import SuperAdminIcon from 'assets/images/icons/nav/SuperAdmin.svg';
+import CompanyAdminIcon from 'assets/images/icons/nav/CompanyAdmin.svg';
+import ClientAccessIcon from 'assets/images/icons/nav/ClientAccess.svg';
 import TooltipContainer from '../../tooltip/containers/TooltipContainer';
 
 const Tabs = ({

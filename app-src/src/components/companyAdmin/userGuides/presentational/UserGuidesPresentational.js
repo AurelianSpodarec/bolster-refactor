@@ -3,7 +3,7 @@ import React from 'react';
 import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import pdfImage from '_content/images/user-guide.jpg';
+import pdfImage from 'assets/images/user-guide.jpg';
 
 const UserGuidesPresentational = ({ userGuideLink, isFetching, error }) => (
     <>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ReactComponent as BolsterPlusLogo } from '../../../../_content/images/logos/bolster-plus-logo.svg';
+import { ReactComponent as BolsterPlusLogo } from '../../../../assets/images/logos/bolster-plus-logo.svg';
 
 import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 

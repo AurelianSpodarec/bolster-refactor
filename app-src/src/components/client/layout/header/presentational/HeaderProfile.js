@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import NoProfilePic from '_content/images/layout/blank-profile.png';
+import NoProfilePic from 'assets/images/layout/blank-profile.png';
 import { FILE_STORAGE_URL } from 'config';
 
 const HeaderProfile = ({ profile, dropdownVisible, handleClick, logout, updateNode }) => (

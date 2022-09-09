@@ -7,7 +7,7 @@ import useAccountDeactivated from './hooks/useAccountDeactivated';
 import PageHeading from '../generic/pageHeading/presentational/PageHeading';
 import BlockContainer from '../generic/block/containers/BlockContainer';
 import FlexWrapper from '../generic/flexWrapper/FlexWrapper';
-import BolsterLogo from '../../../_content/images/bolster_logo_no_background.png';
+import BolsterLogo from '../../../assets/images/bolster_logo_no_background.png';
 
 const AccountDeactivated = () => {
     const { invoices } = useAccountDeactivated();

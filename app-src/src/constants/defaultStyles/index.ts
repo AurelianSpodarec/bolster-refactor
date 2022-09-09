@@ -1,4 +1,4 @@
-import bolsterLogo from '_content/images/bolster_logo.png';
+import bolsterLogo from 'assets/images/bolster_logo.png';
 export default {
     id: 1,
     name: 'Bolster Systems',

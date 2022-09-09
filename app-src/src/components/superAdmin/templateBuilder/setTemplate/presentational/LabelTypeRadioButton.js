@@ -1,8 +1,8 @@
 import React from 'react';
 import { LABEL_TYPES_NUMS as LABEL_TYPE } from 'constants/companyAdmin/enums';
 
-import StandardLabelImage from '_content/images/labels/standard.png';
-import TrimLabelImage from '_content/images/labels/trim.png';
+import StandardLabelImage from 'assets/images/labels/standard.png';
+import TrimLabelImage from 'assets/images/labels/trim.png';
 
 const LabelTypeRadioButton = ({
     name,

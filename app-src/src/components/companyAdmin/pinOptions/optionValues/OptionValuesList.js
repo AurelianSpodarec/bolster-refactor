@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import { ReactComponent as SortAscIcon } from '_content/images/icons/sort-asc.svg';
+import { ReactComponent as SortAscIcon } from 'assets/images/icons/sort-asc.svg';
 
 import { isEmpty } from 'helpers/generic';
 

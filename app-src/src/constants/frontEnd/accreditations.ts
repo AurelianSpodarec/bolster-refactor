@@ -1,6 +1,6 @@
-import ASFP from '_content/images/frontend-new/trusted-by/asfp.png';
-import CyberEssentials from '_content/images/frontend-new/trusted-by/cyber-essential-logo.png';
-import AWS from '_content/images/frontend-new/trusted-by/AWS-logo.png';
+import ASFP from 'assets/images/frontend-new/trusted-by/asfp.png';
+import CyberEssentials from 'assets/images/frontend-new/trusted-by/cyber-essential-logo.png';
+import AWS from 'assets/images/frontend-new/trusted-by/AWS-logo.png';
 
 export const AccreditationsList = [
     {

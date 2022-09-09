@@ -3,8 +3,8 @@ import ModalOuterContainer from '../containers/ModalOuterContainer';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import { Link } from 'react-router-dom';
-import LightThemePreview from '_content/images/previews/light-theme-preview.jpg';
-import DarkThemePreview from '_content/images/previews/dark-theme-preview.jpg';
+import LightThemePreview from 'assets/images/previews/light-theme-preview.jpg';
+import DarkThemePreview from 'assets/images/previews/dark-theme-preview.jpg';
 
 const ConfirmDarkThemeModal = ({
     handleConfirm = () => {},

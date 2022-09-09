@@ -6,7 +6,7 @@ import TrustedByContainer from 'pages/public/trustedBy/containers/TrustedByConta
 import BackToTopContainer from 'pages/public/shared/backToTop/containers/BackToTopContainer';
 import FrontEndButton from 'pages/public/shared/buttons/presentational/FrontEndButton';
 import { useVideoShouldPlay } from 'helpers/frontEndHooks';
-import PlayButton from '_content/images/frontend-new/banners/play-button.png';
+import PlayButton from 'assets/images/frontend-new/banners/play-button.png';
 import { usePrevious } from 'helpers/hooks';
 
 const HomeSlidesItem = forwardRef(

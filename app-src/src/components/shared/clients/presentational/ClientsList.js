@@ -4,7 +4,7 @@ import ButtonWrapper from 'components/shared/generic/button/presentational/Butto
 import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
-import { ReactComponent as TrashIcon } from '../../../../_content/images/icons/trash.svg';
+import { ReactComponent as TrashIcon } from '../../../../assets/images/icons/trash.svg';
 
 const ClientsList = ({ location, clients, handleDeleteClientModal }) =>
     clients.map(client => (

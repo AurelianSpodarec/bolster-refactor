@@ -1,7 +1,7 @@
 import React from 'react';
 import { formatBytes } from './createDocument/CreateDocumentForm';
 import useDocumentLibraryStorageInformation from './_hooks/useDocumentLibraryStorageInformation';
-import InfoIcon from '../../../_content/images/icons/info-icon.svg';
+import InfoIcon from '../../../assets/images/icons/info-icon.svg';
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 
 const DocumentLibraryStats = ({ items, isRoot }) => {

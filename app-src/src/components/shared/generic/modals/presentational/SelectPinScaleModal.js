@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { FILE_STORAGE_URL } from 'config';
-import RedPin from '_content/images/map-markers/red-pin2x.png';
+import RedPin from 'assets/images/map-markers/red-pin2x.png';
 
 import ActionButton from '../../button/presentational/ActionButton';
 import FlexModalOuter from './FlexModalOuter';

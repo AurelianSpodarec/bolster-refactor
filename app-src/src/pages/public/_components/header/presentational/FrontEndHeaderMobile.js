@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Logo from '_content/images/frontend-new/logo.png';
+import Logo from 'assets/images/frontend-new/logo.png';
 import navItems from 'constants/frontEnd/navItems';
 
 import Container from 'pages/public/shared/container/presentational/Container';

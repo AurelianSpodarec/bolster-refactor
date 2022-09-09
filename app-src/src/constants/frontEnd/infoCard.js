@@ -1,16 +1,16 @@
-import PassiveFire from '_content/images/frontend-new/why-use-our-system/passive-fire-protection.png';
-import Electrical from '_content/images/frontend-new/why-use-our-system/electrical.png';
-import ProjectManagement from '_content/images/frontend-new/why-use-our-system/project-management.png';
-import FireDoor from '_content/images/frontend-new/why-use-our-system/firedoor.png';
-import WaterManagement from '_content/images/frontend-new/why-use-our-system/water-management.png';
-import HealthAndSafety from '_content/images/frontend-new/why-use-our-system/health-and-safety.png';
-import Joinery from '_content/images/frontend-new/why-use-our-system/joinery.png';
-import Dampers from '_content/images/frontend-new/why-use-our-system/dampers.png';
-import ExternalWalls from '_content/images/frontend-new/why-use-our-system/external-walls.png';
-import InternalWalls from '_content/images/frontend-new/why-use-our-system/internal-walls.png';
-import AssetManagement from '_content/images/frontend-new/why-use-our-system/asset-management.png';
-import AnyOtherDocs from '_content/images/frontend-new/why-use-our-system/any-other-docs.png';
-import Windows from '_content/images/frontend-new/why-use-our-system/windows.png';
+import PassiveFire from 'assets/images/frontend-new/why-use-our-system/passive-fire-protection.png';
+import Electrical from 'assets/images/frontend-new/why-use-our-system/electrical.png';
+import ProjectManagement from 'assets/images/frontend-new/why-use-our-system/project-management.png';
+import FireDoor from 'assets/images/frontend-new/why-use-our-system/firedoor.png';
+import WaterManagement from 'assets/images/frontend-new/why-use-our-system/water-management.png';
+import HealthAndSafety from 'assets/images/frontend-new/why-use-our-system/health-and-safety.png';
+import Joinery from 'assets/images/frontend-new/why-use-our-system/joinery.png';
+import Dampers from 'assets/images/frontend-new/why-use-our-system/dampers.png';
+import ExternalWalls from 'assets/images/frontend-new/why-use-our-system/external-walls.png';
+import InternalWalls from 'assets/images/frontend-new/why-use-our-system/internal-walls.png';
+import AssetManagement from 'assets/images/frontend-new/why-use-our-system/asset-management.png';
+import AnyOtherDocs from 'assets/images/frontend-new/why-use-our-system/any-other-docs.png';
+import Windows from 'assets/images/frontend-new/why-use-our-system/windows.png';
 
 export const InfoCardList = [
     {

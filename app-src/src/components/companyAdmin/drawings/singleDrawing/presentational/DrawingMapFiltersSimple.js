@@ -1,11 +1,11 @@
 import React from 'react';
 
-// import RedPin from '_content/images/pins-examples/red-pin.svg';
-import RedPin from '_content/images/map-markers/red-pin2x.png';
-import GreenPin from '_content/images/map-markers/green-pin2x.png';
-import BluePin from '_content/images/map-markers/blue-pin2x.png';
-import YellowPin from '_content/images/map-markers/yellow-pin2x.png';
-import PurplePin from '_content/images/map-markers/purple-pin2x.png';
+// import RedPin from 'assets/images/pins-examples/red-pin.svg';
+import RedPin from 'assets/images/map-markers/red-pin2x.png';
+import GreenPin from 'assets/images/map-markers/green-pin2x.png';
+import BluePin from 'assets/images/map-markers/blue-pin2x.png';
+import YellowPin from 'assets/images/map-markers/yellow-pin2x.png';
+import PurplePin from 'assets/images/map-markers/purple-pin2x.png';
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 
 const DrawingMapFiltersSimple = ({ installed, inspected, noAction, action, other }) => (

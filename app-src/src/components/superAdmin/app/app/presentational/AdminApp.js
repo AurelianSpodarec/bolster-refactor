@@ -8,7 +8,7 @@ import AdminRoutes from '../../routes/presentational';
 import PageMeta from 'pages/public/shared/meta/presentational/PageMeta';
 import LoggedInFooter from 'components/shared/loggedInFooter/LoggedInFooter';
 
-import '_content/scss/dashboard.scss';
+import 'styles/dashboard.scss';
 
 const AdminApp = () => (
     <>

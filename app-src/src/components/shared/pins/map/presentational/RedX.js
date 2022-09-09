@@ -1,6 +1,6 @@
 import React from 'react';
 
-import imageLocation from '_content/images/icons/red-x.png';
+import imageLocation from 'assets/images/icons/red-x.png';
 
 const RedX = () => {
     return (

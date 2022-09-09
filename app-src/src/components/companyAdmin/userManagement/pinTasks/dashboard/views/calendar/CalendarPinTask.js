@@ -3,7 +3,7 @@ import React from 'react';
 import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
 import useTypeAndStatus from '../hooks/useTypeAndStatus';
 
-import PinTaskNoteIcon from '../../../../../../../_content/images/icons/pinTaskNote.png';
+import PinTaskNoteIcon from '../../../../../../../assets/images/icons/pinTaskNote.png';
 
 const CalendarPinTask = ({
     isRecurring,

@@ -6,8 +6,8 @@ import { pageMeta } from 'constants/frontEnd/meta';
 import { useWindowDimensions } from 'helpers/hooks';
 import { useBannerScroll } from 'helpers/frontEndHooks';
 
-import PinsVideo from '_content/videos/frontend/05_Pins.mp4';
-import PinsPoster from '_content/videos/frontend/posters/05_Pins.jpg';
+import PinsVideo from 'assets/videos/frontend/05_Pins.mp4';
+import PinsPoster from 'assets/videos/frontend/posters/05_Pins.jpg';
 
 import setIsBannerScrolling from 'actions/frontEnd/banners/sync/setIsBannerScrolling';
 

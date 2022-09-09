@@ -3,19 +3,19 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { FILE_STORAGE_URL } from 'config';
-import ProfileIcon from '../../../../../_content/images/icons/profile.png';
-import ProfileIconDark from '../../../../../_content/images/icons/profile-dark.png';
-import ExchangeIcon from '../../../../../_content/images/icons/exchange-in-user-profile.png';
-import ExchangeIconDark from '../../../../../_content/images/icons/exchange-in-user-profile-dark.png';
-import LogoutIcon from '../../../../../_content/images/icons/logout.png';
-import LogoutIconDark from '../../../../../_content/images/icons/logout-dark.png';
+import ProfileIcon from '../../../../../assets/images/icons/profile.png';
+import ProfileIconDark from '../../../../../assets/images/icons/profile-dark.png';
+import ExchangeIcon from '../../../../../assets/images/icons/exchange-in-user-profile.png';
+import ExchangeIconDark from '../../../../../assets/images/icons/exchange-in-user-profile-dark.png';
+import LogoutIcon from '../../../../../assets/images/icons/logout.png';
+import LogoutIconDark from '../../../../../assets/images/icons/logout-dark.png';
 
 import { selectIsBolsterLogoDark } from 'selectors/companyAdmin/companySettings';
 
 import useHeaderProfile from '../hooks/useHeaderProfile';
 import useGetUserInitials from 'hooks/useGetUserInitials';
 import defaultStyles from 'constants/defaultStyles';
-import superAdminIcon from '../../../../../_content/images/icons/super-admin.png';
+import superAdminIcon from '../../../../../assets/images/icons/super-admin.png';
 
 const HeaderProfile = ({ isAdmin, isClient }) => {
     const { profile, backgroundColor, handleLogout } = useHeaderProfile(isAdmin);

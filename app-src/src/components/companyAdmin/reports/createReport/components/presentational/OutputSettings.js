@@ -6,10 +6,10 @@ import DropdownContainer from 'components/shared/generic/form/containers/Dropdow
 import ImageVisualContainer from '../containers/ImageVisualContainer';
 import OptionPodContainer from '../../../../../shared/generic/form/containers/OptionPodContainer';
 
-import { ReactComponent as PdfIcon } from '_content/images/icons/PDF-Outline.svg';
-import { ReactComponent as FloorplanIcon } from '_content/images/icons/pin-floorplan.svg';
-import { ReactComponent as CsvIcon } from '_content/images/icons/CSV-Outline.svg';
-import { ReactComponent as DocIcon } from '_content/images/icons/doc-Outline.svg';
+import { ReactComponent as PdfIcon } from 'assets/images/icons/PDF-Outline.svg';
+import { ReactComponent as FloorplanIcon } from 'assets/images/icons/pin-floorplan.svg';
+import { ReactComponent as CsvIcon } from 'assets/images/icons/CSV-Outline.svg';
+import { ReactComponent as DocIcon } from 'assets/images/icons/doc-Outline.svg';
 import FlexWrapper from '../../../../../shared/generic/flexWrapper/FlexWrapper';
 import Tickbox from '../../../../../shared/generic/form/presentational/Tickbox';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';

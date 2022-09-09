@@ -3,10 +3,10 @@ import React, { useState } from 'react';
 import BlockContainer from '../../../shared/generic/block/containers/BlockContainer';
 import FlexWrapper from '../../../shared/generic/flexWrapper/FlexWrapper';
 
-import employeeIcon from '_content/images/icons/person_icon.png';
-import buildingIcon from '_content/images/icons/building_icon.png';
-import poundIcon from '_content/images/icons/pound_icon.png';
-import plusIcon from '_content/images/icons/plus_icon.png';
+import employeeIcon from 'assets/images/icons/person_icon.png';
+import buildingIcon from 'assets/images/icons/building_icon.png';
+import poundIcon from 'assets/images/icons/pound_icon.png';
+import plusIcon from 'assets/images/icons/plus_icon.png';
 import { formatCurrency } from 'helpers/generic';
 import { useSelector } from 'react-redux';
 import { selectCompanyCurrency } from '../../../../selectors/companyAdmin/companySettings';

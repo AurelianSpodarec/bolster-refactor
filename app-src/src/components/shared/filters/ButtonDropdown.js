@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 
-import { ReactComponent as TickIcon } from '_content/images/icons/tick.svg';
+import { ReactComponent as TickIcon } from 'assets/images/icons/tick.svg';
 
 import useGetFixedElementPosition from 'hooks/useGetFixedElementPosition';
 import useClickOutside from 'hooks/useClickOutside';

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import L from 'leaflet';
 import { Marker } from 'react-leaflet';
-import { pin2xImgs } from '_content/images/map-markers';
+import { pin2xImgs } from 'assets/images/map-markers';
 
 const MergeMapPin = ({ point, name }) => {
     const redPin = pin2xImgs.red;

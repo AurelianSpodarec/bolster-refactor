@@ -4,7 +4,7 @@ import {
     PIN_STATUS_TYPES as TYPES,
 } from 'constants/companyAdmin/enums';
 
-import { pin2xImgs } from '_content/images/map-markers';
+import { pin2xImgs } from 'assets/images/map-markers';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
 

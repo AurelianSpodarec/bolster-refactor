@@ -9,7 +9,7 @@ import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
 import DrawingShareLinkContainer from '../containers/DrawingShareLinkContainer';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
-import { ReactComponent as TrashIcon } from '../../../../../_content/images/icons/trash.svg';
+import { ReactComponent as TrashIcon } from '../../../../../assets/images/icons/trash.svg';
 
 const GeneralOverview = ({ handleDelete, handleArchive, drawing, drawingExpired, gotAccess }) => (
     <>

@@ -1,5 +1,5 @@
 import React from 'react';
-import image from '_content/images/examples/pipe.jpg';
+import image from 'assets/images/examples/pipe.jpg';
 
 const PinImages = ({ images, showModal }) =>
     images.map((src, i) => (

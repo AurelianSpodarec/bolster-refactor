@@ -8,7 +8,7 @@ import FieldOutput from 'components/shared/generic/fieldOutput/presentational/Fi
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import { formatCurrency } from 'helpers/generic';
 import { INVOICE_GEN_URL } from 'config';
-import { ReactComponent as TrashIcon } from '../../../../../_content/images/icons/trash.svg';
+import { ReactComponent as TrashIcon } from '../../../../../assets/images/icons/trash.svg';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import LinkButton from 'components/shared/generic/button/presentational/LinkButton';

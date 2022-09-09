@@ -1,6 +1,6 @@
-import sitesIcon from '../../_content/images/icons/nav/Sites.svg';
-import reportsIcon from '../../_content/images/icons/nav/Reports.svg';
-import companyIcon from '../../_content/images/icons/nav/Company.svg';
+import sitesIcon from '../../assets/images/icons/nav/Sites.svg';
+import reportsIcon from '../../assets/images/icons/nav/Reports.svg';
+import companyIcon from '../../assets/images/icons/nav/Company.svg';
 
 export const clientNavMenuItems = [
     {

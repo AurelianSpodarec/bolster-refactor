@@ -20,7 +20,7 @@ import { formatAsHrsMinsSecs, formatCurrency } from 'helpers/generic';
 import useOverrideShift from './hooks/useOverrideShift';
 import ActionMenu from 'components/shared/actionMenu/ActionMenu';
 import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
-import WarningIcon from '../../../../../../../_content/images/icons/Triangle_Warning.svg';
+import WarningIcon from '../../../../../../../assets/images/icons/Triangle_Warning.svg';
 import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
 import ApproveShiftButton from './ApproveShiftButton';

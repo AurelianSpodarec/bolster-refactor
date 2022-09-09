@@ -3,7 +3,7 @@ import {
     PIN_STATUS_COLOURS as COLOURS,
     PIN_STATUS_TYPES as TYPES,
 } from 'constants/companyAdmin/enums';
-import { pin2xImgs } from '_content/images/map-markers';
+import { pin2xImgs } from 'assets/images/map-markers';
 import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 

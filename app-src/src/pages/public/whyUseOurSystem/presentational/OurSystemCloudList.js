@@ -1,6 +1,6 @@
 import React from 'react';
 
-import BolsterCloud from '_content/images/frontend-new/why-use-our-system/bolster-animated.gif';
+import BolsterCloud from 'assets/images/frontend-new/why-use-our-system/bolster-animated.gif';
 
 import { topList, bottomList } from 'constants/frontEnd/cloudList';
 import { useCloudShouldAnimate } from 'helpers/frontEndHooks';

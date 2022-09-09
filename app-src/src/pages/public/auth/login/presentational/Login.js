@@ -2,8 +2,8 @@ import React from 'react';
 
 import { pageMeta } from 'constants/frontEnd/meta';
 
-import LoginVideo from '_content/videos/frontend/Login.mp4';
-import LoginPoster from '_content/videos/frontend/posters/Login.jpg';
+import LoginVideo from 'assets/videos/frontend/Login.mp4';
+import LoginPoster from 'assets/videos/frontend/posters/Login.jpg';
 import LoginFormContainer from '../containers/LoginFormContainer';
 import PageMeta from 'pages/public/shared/meta/presentational/PageMeta';
 import { useIsMobile } from 'helpers/hooks';

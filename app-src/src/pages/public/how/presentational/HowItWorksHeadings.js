@@ -1,9 +1,9 @@
 import React from 'react';
 
-import InspectIcon from '_content/images/frontend-new/how-it-works/inspect2.png';
-import LocateIcon from '_content/images/frontend-new/how-it-works/locate2.png';
-import DocumentIcon from '_content/images/frontend-new/how-it-works/document2.png';
-import ManageIcon from '_content/images/frontend-new/how-it-works/manage2.png';
+import InspectIcon from 'assets/images/frontend-new/how-it-works/inspect2.png';
+import LocateIcon from 'assets/images/frontend-new/how-it-works/locate2.png';
+import DocumentIcon from 'assets/images/frontend-new/how-it-works/document2.png';
+import ManageIcon from 'assets/images/frontend-new/how-it-works/manage2.png';
 
 const HowItWorksHeadings = () => (
     <div className="section how-it-works-headings">

@@ -12,7 +12,7 @@ import BlockContainer from 'components/shared/generic/block/containers/BlockCont
 import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
 import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
 import FileTypeIcon from './FileTypeIcon';
-import FolderIcon from '_content/images/icons/dl-folder-icon.svg';
+import FolderIcon from 'assets/images/icons/dl-folder-icon.svg';
 import Error from 'components/shared/generic/misc/presentational/Error';
 import {
     selectDocumentLibrary,

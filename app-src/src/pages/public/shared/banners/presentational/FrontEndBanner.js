@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ArrowIcon from '_content/images/frontend-new/banners/banner-arrow.png';
+import ArrowIcon from 'assets/images/frontend-new/banners/banner-arrow.png';
 
 const FrontEndBanner = ({ video = '', heading = '', description = '', poster }) => (
     <div className="frontend-banner">

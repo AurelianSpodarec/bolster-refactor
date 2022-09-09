@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { iconPinImgs } from '_content/images/map-markers';
-import placeholder from '_content/images/layout/loading.gif';
+import { iconPinImgs } from 'assets/images/map-markers';
+import placeholder from 'assets/images/layout/loading.gif';
 import { RAW_S3_STORAGE_URL } from 'config';
 
 const IconPin = ({ pinColour = 'red', excluded = false, icon }) => {

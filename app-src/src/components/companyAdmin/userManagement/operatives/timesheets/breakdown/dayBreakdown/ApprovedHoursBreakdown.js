@@ -13,7 +13,7 @@ import Table from 'components/shared/generic/tables/presentational/Table';
 import StickyComponent from 'components/shared/sticky/StickyComponent';
 import useIsAdminPlus from '../../../../../../../hooks/useIsAdminPlus';
 import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
-import WarningIcon from '../../../../../../../_content/images/icons/Triangle_Warning.svg';
+import WarningIcon from '../../../../../../../assets/images/icons/Triangle_Warning.svg';
 
 const ApprovedHoursBreakdown = ({ dailyHoursBreakdown, selectedDate }) => {
     const currency = useSelector(selectCompanyCurrency);

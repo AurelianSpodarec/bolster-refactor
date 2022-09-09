@@ -3,8 +3,8 @@ import React from 'react';
 import { pageMeta } from 'constants/frontEnd/meta';
 
 import RegisterFormContainer from '../containers/RegisterFormContainer';
-import RegisterVideo from '_content/videos/frontend/Register.mp4';
-import RegisterPoster from '_content/videos/frontend/posters/Register.jpg';
+import RegisterVideo from 'assets/videos/frontend/Register.mp4';
+import RegisterPoster from 'assets/videos/frontend/posters/Register.jpg';
 import PageMeta from 'pages/public/shared/meta/presentational/PageMeta';
 
 const Register = () => {

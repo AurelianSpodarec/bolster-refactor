@@ -3,11 +3,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import greenPin from '_content/images/map-markers/green-pin2x.png';
-import redPin from '_content/images/map-markers/red-pin2x.png';
-import bluePin from '_content/images/map-markers/blue-pin2x.png';
-import yellowPin from '_content/images/map-markers/yellow-pin2x.png';
-import purplePin from '_content/images/map-markers/purple-pin2x.png';
+import greenPin from 'assets/images/map-markers/green-pin2x.png';
+import redPin from 'assets/images/map-markers/red-pin2x.png';
+import bluePin from 'assets/images/map-markers/blue-pin2x.png';
+import yellowPin from 'assets/images/map-markers/yellow-pin2x.png';
+import purplePin from 'assets/images/map-markers/purple-pin2x.png';
 
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { VIEW_ZONES } from 'constants/shared/modalTypes';

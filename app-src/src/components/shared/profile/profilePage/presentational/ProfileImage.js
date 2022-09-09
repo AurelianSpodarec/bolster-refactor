@@ -2,7 +2,7 @@ import React from 'react';
 
 import { FILE_STORAGE_URL } from 'config';
 
-import NoProfilePic from '_content/images/layout/blank-profile.png';
+import NoProfilePic from 'assets/images/layout/blank-profile.png';
 
 const ProfileImage = ({ profile: { profileImageS3Key } }) => {
     return (

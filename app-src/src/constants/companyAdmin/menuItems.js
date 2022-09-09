@@ -1,14 +1,14 @@
-import dashboardIcon from '../../_content/images/icons/nav/Dashboard.svg';
-import sitesIcon from '../../_content/images/icons/nav/Sites.svg';
-import usersIcon from '../../_content/images/icons/nav/Users.svg';
-import ordersIcon from '../../_content/images/icons/nav/Orders.svg';
-import reportsIcon from '../../_content/images/icons/nav/Reports.svg';
-import settingsIcon from '../../_content/images/icons/nav/Settings.svg';
-import toolsIcon from '../../_content/images/icons/nav/Tools.svg';
-import supportIcon from '../../_content/images/icons/nav/Support-CompanyAdmin.svg';
-import logoutIcon from '../../_content/images/icons/logout.png';
-import companyIcon from '../../_content/images/icons/nav/Company.svg';
-import selectCompanyIcon from '../../_content/images/icons/nav/SelectCompany.svg';
+import dashboardIcon from '../../assets/images/icons/nav/Dashboard.svg';
+import sitesIcon from '../../assets/images/icons/nav/Sites.svg';
+import usersIcon from '../../assets/images/icons/nav/Users.svg';
+import ordersIcon from '../../assets/images/icons/nav/Orders.svg';
+import reportsIcon from '../../assets/images/icons/nav/Reports.svg';
+import settingsIcon from '../../assets/images/icons/nav/Settings.svg';
+import toolsIcon from '../../assets/images/icons/nav/Tools.svg';
+import supportIcon from '../../assets/images/icons/nav/Support-CompanyAdmin.svg';
+import logoutIcon from '../../assets/images/icons/logout.png';
+import companyIcon from '../../assets/images/icons/nav/Company.svg';
+import selectCompanyIcon from '../../assets/images/icons/nav/SelectCompany.svg';
 
 export const companyNavMenuItems = [
     {

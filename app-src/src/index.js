@@ -10,8 +10,10 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 
 import reducer from 'reducers';
-import '_content/scss/font-awesome.css';
-import '_content/scss/main.scss';
+
+import './styles/font-awesome.css';
+import './styles/main.scss';
+
 import 'filepond/dist/filepond.min.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
 import AppContainer from 'components/appRoute/app/containers/AppContainer';

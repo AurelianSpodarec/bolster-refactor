@@ -1,7 +1,7 @@
 import moment from 'moment';
-import FileIcon from '_content/images/icons/dl-file-icon.svg';
-import PDFIcon from '_content/images/icons/dl-pdf-icon.svg';
-import ImageIcon from '_content/images/icons/dl-image-icon.svg';
+import FileIcon from 'assets/images/icons/dl-file-icon.svg';
+import PDFIcon from 'assets/images/icons/dl-pdf-icon.svg';
+import ImageIcon from 'assets/images/icons/dl-image-icon.svg';
 export const companyTrackingShowWarning = company => {
     const {
         contactedAfterMonth,

@@ -2955,7 +2955,8 @@ $back-to-top-height: 35px;
 
         &.tickbox {
           & .inner {
-            background-image: url('../images/frontend-new/register/tick@2x.png');
+            // TODO: CSS Fix
+            // background-image: url('/images/frontend-new/register/tick@2x.png');
             background-repeat: no-repeat;
             background-position: 50% 50%;
             background-size: cover;

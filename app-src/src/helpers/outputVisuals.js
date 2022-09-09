@@ -1,11 +1,11 @@
 import head from 'lodash/head';
-import CSV from '_content/images/icons/output_icons/CSV.svg';
-import Floorplan from '_content/images/icons/output_icons/Floorplan.svg';
-import O_M from '_content/images/icons/output_icons/O_M.svg';
-import PDF from '_content/images/icons/output_icons/PDF.svg';
-import PDF_Floorplan from '_content/images/icons/output_icons/PDF_Floorplan.svg';
-import PDF_Pins from '_content/images/icons/output_icons/PDF_Pins.svg';
-import PDF_Floorplan_Pins from '_content/images/icons/output_icons/PDF_Floorplan_Pins.svg';
+import CSV from 'assets/images/icons/output_icons/CSV.svg';
+import Floorplan from 'assets/images/icons/output_icons/Floorplan.svg';
+import O_M from 'assets/images/icons/output_icons/O_M.svg';
+import PDF from 'assets/images/icons/output_icons/PDF.svg';
+import PDF_Floorplan from 'assets/images/icons/output_icons/PDF_Floorplan.svg';
+import PDF_Pins from 'assets/images/icons/output_icons/PDF_Pins.svg';
+import PDF_Floorplan_Pins from 'assets/images/icons/output_icons/PDF_Floorplan_Pins.svg';
 
 export const filterOutput = currentState => {
     const { isPDFGeneration, isCSVGeneration, isFloorplanGeneration, isOAndMManualGeneration } =

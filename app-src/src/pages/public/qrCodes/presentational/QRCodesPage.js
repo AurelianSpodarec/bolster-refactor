@@ -4,10 +4,10 @@ import { pageMeta } from 'constants/frontEnd/meta';
 
 import { ANDROID_APP_URL, IOS_APP_URL } from 'config';
 
-import TwoPhonesGoldImage from '_content/images/frontend/example-images/two-phones-gold.png';
+import TwoPhonesGoldImage from 'assets/images/frontend/example-images/two-phones-gold.png';
 
-import AppleStoreImage from '_content/images/frontend/buttons/apple-store.svg';
-import GooglePlayImage from '_content/images/frontend/buttons/google-play-badge.png';
+import AppleStoreImage from 'assets/images/frontend/buttons/apple-store.svg';
+import GooglePlayImage from 'assets/images/frontend/buttons/google-play-badge.png';
 import PageMeta from 'pages/public/shared/meta/presentational/PageMeta';
 
 const AboutPage = () => (

@@ -12,7 +12,7 @@ import Banner from 'components/shared/generic/banner/Banner';
 import UnconfirmedEmailBanner from 'components/shared/generic/banner/UnconfirmedEmailBanner';
 import LoggedInFooter from 'components/shared/loggedInFooter/LoggedInFooter';
 
-import '_content/scss/dashboard.scss';
+import 'styles/dashboard.scss';
 
 const CompanyApp = () => {
     return (

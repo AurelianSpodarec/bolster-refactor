@@ -8,7 +8,7 @@ import MultiSelect from 'components/shared/generic/form/presentational/MultiSele
 import RadioButtonListContainer from 'components/shared/generic/form/containers/RadioButtonListContainer';
 import { RAW_S3_STORAGE_URL } from 'config';
 import Field from 'components/shared/generic/form/presentational/Field';
-import MobileSwitch from '_content/images/mobile-switch.png';
+import MobileSwitch from 'assets/images/mobile-switch.png';
 
 const {
     STATUS,

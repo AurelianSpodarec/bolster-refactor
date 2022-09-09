@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { pin2xImgs } from '_content/images/map-markers';
+import { pin2xImgs } from 'assets/images/map-markers';
 
 const CustomPin = ({ pinColour = 'red', pinCode = '', excluded = false }) => {
     const topCode = pinCode.slice(0, 4);

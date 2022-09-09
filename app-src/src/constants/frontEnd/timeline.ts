@@ -1,24 +1,24 @@
-import BespokeTemplatesIcon from '_content/images/frontend-new/how-it-works/timeline/bespoke-templates.png';
-import CreateUsersIcon from '_content/images/frontend-new/how-it-works/timeline/Create-Users.png';
-import CreateSitesAndUploadIcon from '_content/images/frontend-new/how-it-works/timeline/Create–sites-&-upload-floorplan-drawings.png';
-import UploadAndSignIcon from '_content/images/frontend-new/how-it-works/timeline/Attach-site-required-documentation.png';
-import DropPinsIcon from '_content/images/frontend-new/how-it-works/timeline/Drop-pins-on-drawings.png';
-import UpsyncWorkIcon from '_content/images/frontend-new/how-it-works/timeline/Up-sync-work–to-the-cloud.png';
-import GrantsClientsFreeAccessIcon from '_content/images/frontend-new/how-it-works/timeline/Grant-clients-free-access.png';
-import GenerateUnlimitedPDFIcon from '_content/images/frontend-new/how-it-works/timeline/Generate-PDF-CSV-&-Floorplan-reports.png';
-import TransferRecieveIcon from '_content/images/frontend-new/how-it-works/timeline/Transfer-receive-works-from-other-Bolster-companies-free–of-charge.png';
-import ManageJobsIcon from '_content/images/frontend-new/how-it-works/timeline/Schedule-alerts-on-sites-for-future-works.png';
+import BespokeTemplatesIcon from 'assets/images/frontend-new/how-it-works/timeline/bespoke-templates.png';
+import CreateUsersIcon from 'assets/images/frontend-new/how-it-works/timeline/Create-Users.png';
+import CreateSitesAndUploadIcon from 'assets/images/frontend-new/how-it-works/timeline/Create–sites-&-upload-floorplan-drawings.png';
+import UploadAndSignIcon from 'assets/images/frontend-new/how-it-works/timeline/Attach-site-required-documentation.png';
+import DropPinsIcon from 'assets/images/frontend-new/how-it-works/timeline/Drop-pins-on-drawings.png';
+import UpsyncWorkIcon from 'assets/images/frontend-new/how-it-works/timeline/Up-sync-work–to-the-cloud.png';
+import GrantsClientsFreeAccessIcon from 'assets/images/frontend-new/how-it-works/timeline/Grant-clients-free-access.png';
+import GenerateUnlimitedPDFIcon from 'assets/images/frontend-new/how-it-works/timeline/Generate-PDF-CSV-&-Floorplan-reports.png';
+import TransferRecieveIcon from 'assets/images/frontend-new/how-it-works/timeline/Transfer-receive-works-from-other-Bolster-companies-free–of-charge.png';
+import ManageJobsIcon from 'assets/images/frontend-new/how-it-works/timeline/Schedule-alerts-on-sites-for-future-works.png';
 
-import BespokeTemplatesIconRed from '_content/images/frontend-new/how-it-works/timeline/bespoke-templates-red.png';
-import CreateUsersIconRed from '_content/images/frontend-new/how-it-works/timeline/Create-Users-red.png';
-import CreateSitesAndUploadIconRed from '_content/images/frontend-new/how-it-works/timeline/Create–sites-&-upload-floorplan-drawings-red.png';
-import UploadAndSignIconRed from '_content/images/frontend-new/how-it-works/timeline/Attach-site-required-documentation-red.png';
-import DropPinsIconRed from '_content/images/frontend-new/how-it-works/timeline/Drop-pins-on-drawings-red.jpg';
-import UpsyncWorkIconRed from '_content/images/frontend-new/how-it-works/timeline/Up-sync-work–to-the-cloud-red.png';
-import GrantsClientsFreeAccessIconRed from '_content/images/frontend-new/how-it-works/timeline/Grant-clients-free-access-red.jpg';
-import GenerateUnlimitedPDFIconRed from '_content/images/frontend-new/how-it-works/timeline/Generate-PDF-CSV-&-Floorplan-reports-red.png';
-import TransferRecieveIconRed from '_content/images/frontend-new/how-it-works/timeline/Transfer-receive-works-from-other-Bolster-companies-free–of-charge-red.png';
-import ManageJobsIconRed from '_content/images/frontend-new/how-it-works/timeline/Schedule-alerts-on-sites-for-future-works-red.png';
+import BespokeTemplatesIconRed from 'assets/images/frontend-new/how-it-works/timeline/bespoke-templates-red.png';
+import CreateUsersIconRed from 'assets/images/frontend-new/how-it-works/timeline/Create-Users-red.png';
+import CreateSitesAndUploadIconRed from 'assets/images/frontend-new/how-it-works/timeline/Create–sites-&-upload-floorplan-drawings-red.png';
+import UploadAndSignIconRed from 'assets/images/frontend-new/how-it-works/timeline/Attach-site-required-documentation-red.png';
+import DropPinsIconRed from 'assets/images/frontend-new/how-it-works/timeline/Drop-pins-on-drawings-red.jpg';
+import UpsyncWorkIconRed from 'assets/images/frontend-new/how-it-works/timeline/Up-sync-work–to-the-cloud-red.png';
+import GrantsClientsFreeAccessIconRed from 'assets/images/frontend-new/how-it-works/timeline/Grant-clients-free-access-red.jpg';
+import GenerateUnlimitedPDFIconRed from 'assets/images/frontend-new/how-it-works/timeline/Generate-PDF-CSV-&-Floorplan-reports-red.png';
+import TransferRecieveIconRed from 'assets/images/frontend-new/how-it-works/timeline/Transfer-receive-works-from-other-Bolster-companies-free–of-charge-red.png';
+import ManageJobsIconRed from 'assets/images/frontend-new/how-it-works/timeline/Schedule-alerts-on-sites-for-future-works-red.png';
 
 export default [
     {

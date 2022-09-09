@@ -3,7 +3,7 @@ import Block from 'components/shared/generic/block/presentational/Block';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { ENTER_DEMO_ACCESS_CODES } from 'constants/shared/modalTypes';
 import { useDispatch, useSelector } from 'react-redux';
-import video from '_content/videos/frontend/home1.mp4';
+import video from 'assets/videos/frontend/home1.mp4';
 
 const DemoFullSite = () => {
     const dispatch = useDispatch();

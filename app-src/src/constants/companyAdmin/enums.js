@@ -96,8 +96,8 @@ export const LABEL_TYPES_NUMS = {
 };
 
 export const LABEL_TYPES_IMAGES = {
-    1: '_content/images/labels/standard.png',
-    2: '_content/images/labels/trim.png',
+    1: 'assets/images/labels/standard.png',
+    2: 'assets/images/labels/trim.png',
 };
 
 export const LABEL_QUES_TYPES = {

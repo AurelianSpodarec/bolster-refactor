@@ -1,7 +1,7 @@
 /* eslint-disable react/display-name */
 import React, { useRef, useState } from 'react';
 
-import PlayButton from '_content/images/frontend-new/banners/play-button.png';
+import PlayButton from 'assets/images/frontend-new/banners/play-button.png';
 
 import FrontEndButton from 'pages/public/shared/buttons/presentational/FrontEndButton';
 

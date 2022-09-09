@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { PIN_STATUS_IDS as STATUS } from 'constants/companyAdmin/enums';
-import { pin2xImgs } from '_content/images/map-markers';
+import { pin2xImgs } from 'assets/images/map-markers';
 
 import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
 import LinkButton from 'components/shared/generic/button/presentational/LinkButton';

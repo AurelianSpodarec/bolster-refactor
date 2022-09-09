@@ -1,6 +1,6 @@
 import React from 'react';
 
-import PlusIcon from '_content/images/frontend-new/why-use-our-system/plus-icon.png';
+import PlusIcon from 'assets/images/frontend-new/why-use-our-system/plus-icon.png';
 
 const InfoCard = ({ title = '', icon, hidePlusIcon = false, handleClick = () => {} }) => {
     return (
