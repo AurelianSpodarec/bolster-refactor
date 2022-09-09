@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import PinSelector from '../presentational/PinSelector';
-import withUpdateOnChange from 'components/client/reports/createReport/components/hocs/withUpdateOnChange';
+import withUpdateOnChange from 'pages/dashboard/client/reports/createReport/components/hocs/withUpdateOnChange';
 
 class PinSelectorContainer extends Component {
     state = {

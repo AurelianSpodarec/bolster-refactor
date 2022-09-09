@@ -209,7 +209,7 @@ import CreateOperativeModal from 'pages/dashboard/companyAdmin/userManagement/op
 import CopyTemplateModalContainer from 'pages/dashboard/superAdmin/templateBuilder/copyTemplate/containers/CopyTemplateModalContainer';
 import DocumentResponseAgreeanceModalContainer from 'components/shared/documents/containers/DocumentResponseAgreeanceModalContainer';
 import SinglePinGenerateReportSuccessModalContainer from 'pages/dashboard/companyAdmin/pins/singlePin/containers/SinglePinGenerateReportSuccessModalContainer';
-import ClientSinglePinGenerateReportSuccessModalContainer from 'components/client/pins/singlePin/containers/SinglePinGenerateReportSuccessModalContainer';
+import ClientSinglePinGenerateReportSuccessModalContainer from 'pages/dashboard/client/pins/singlePin/containers/SinglePinGenerateReportSuccessModalContainer';
 import SelectPinScaleModalContainer from 'components/shared/generic/modals/containers/SelectPinScaleModalContainer';
 import CreateBuildingsModal from 'pages/dashboard/companyAdmin/buildings/addBuildingsModal/presentational/CreateBuildingsModal';
 import CreateFloorsModal from 'pages/dashboard/companyAdmin/floors/addFloorsModal/presentational/CreateFloorsModal';

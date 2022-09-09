@@ -10,7 +10,7 @@ import SwitchWith404 from './SwitchWith404';
 import AdminAppContainer from 'pages/dashboard/superAdmin/app/app/containers/AdminAppContainer';
 import CompanyAppContainer from 'pages/dashboard/companyAdmin/app/app/containers/CompanyAppContainer';
 
-import ClientAppContainer from 'components/client/app/app/containers/ClientAppContainer';
+import ClientAppContainer from 'pages/dashboard/client/app/app/containers/ClientAppContainer';
 import FrontEndAppContainer from 'pages/public/app/FrontEndAppContainer';
 import DemoFullSite from 'components/shared/demo-full-site/presentational/DemoFullSite';
 
