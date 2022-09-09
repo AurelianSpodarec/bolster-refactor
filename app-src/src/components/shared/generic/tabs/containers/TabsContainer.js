@@ -6,7 +6,7 @@ import selectTab from 'actions/shared/generic/tabs/sync/selectTab';
 import Tabs from '../presentational/Tabs';
 import { selectSelectedTab, selectTabs } from '../../../../../selectors/shared/tabs';
 import useIsAdminPlus from '../../../../../hooks/useIsAdminPlus';
-import useBolsterPlus from '../../../../companyAdmin/subscription/addOns/hooks/useBolsterPlus';
+import useBolsterPlus from '../../../../../pages/dashboard/companyAdmin/subscription/addOns/hooks/useBolsterPlus';
 
 const TabsContainer = ({ dispatch, classes }) => {
     const selectedTab = useSelector(selectSelectedTab);

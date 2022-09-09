@@ -8,7 +8,7 @@ import {
 import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
 import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import { ReactComponent as TrashIcon } from '../../../../assets/images/icons/trash.svg';
+import { ReactComponent as TrashIcon } from 'assets/images/icons/trash.svg';
 
 const CompaniesAccessList = ({
     companies,

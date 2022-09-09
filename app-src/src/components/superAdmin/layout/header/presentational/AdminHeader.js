@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import HeaderProfile from 'components/companyAdmin/layout/header/presentational/HeaderProfile';
+import HeaderProfile from 'pages/dashboard/companyAdmin/layout/header/presentational/HeaderProfile';
 import bolsterLogo from 'assets/images/bolster_logo.png';
 import useAdminHeader from '../hooks/useAdminHeader';
 

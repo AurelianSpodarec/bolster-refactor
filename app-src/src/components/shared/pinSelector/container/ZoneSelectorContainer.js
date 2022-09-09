@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import ZoneSelector from '../presentational/ZoneSelector';
-import withUpdateOnChange from 'components/companyAdmin/reports/createReport/components/hocs/withUpdateOnChange';
+import withUpdateOnChange from 'pages/dashboard/companyAdmin/reports/createReport/components/hocs/withUpdateOnChange';
 
 class ZoneSelectorContainer extends Component {
     state = {

@@ -7,7 +7,7 @@ import {
     selectAdminPushNotificationsIsFetching,
     selectAdminPushNotificationsFetchError,
 } from 'selectors/superAdmin/pushNotifications';
-import useBolsterPlus from 'components/companyAdmin/subscription/addOns/hooks/useBolsterPlus';
+import useBolsterPlus from 'pages/dashboard/companyAdmin/subscription/addOns/hooks/useBolsterPlus';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import { BOLSTER_PLUS_UPGRADE_MODAL } from 'constants/shared/modalTypes';
 import { selectSubscriptionsPostSuccess } from 'selectors/companyAdmin/subscriptions';

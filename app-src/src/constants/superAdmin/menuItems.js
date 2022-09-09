@@ -1,9 +1,9 @@
-import informationIcon from '../../assets/images/icons/nav/Information.svg';
-import companyIcon from '../../assets/images/icons/nav/Company.svg';
-import toolsIcon from '../../assets/images/icons/nav/Tools.svg';
-import supportIcon from '../../assets/images/icons/nav/support-SuperAdmin.svg';
-import systemIcon from '../../assets/images/icons/nav/System.svg';
-import contactIcon from '../../assets/images/icons/nav/Contact.svg';
+import informationIcon from 'assets/images/icons/nav/Information.svg';
+import companyIcon from 'assets/images/icons/nav/Company.svg';
+import toolsIcon from 'assets/images/icons/nav/Tools.svg';
+import supportIcon from 'assets/images/icons/nav/support-SuperAdmin.svg';
+import systemIcon from 'assets/images/icons/nav/System.svg';
+import contactIcon from 'assets/images/icons/nav/Contact.svg';
 
 export const superAdminNavMenuItems = [
     {

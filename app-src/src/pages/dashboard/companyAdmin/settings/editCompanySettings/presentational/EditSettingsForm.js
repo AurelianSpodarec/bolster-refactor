@@ -1,0 +1,356 @@
+import React from 'react';
+import { withRouter } from 'react-router-dom';
+import { HuePicker } from 'react-color';
+
+import Form from 'components/shared/generic/form/containers/Form';
+import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import Field from 'components/shared/generic/form/presentational/Field';
+import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
+import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
+import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
+import Select from 'components/shared/generic/form/presentational/Select';
+import { CURRENCY_NAMES, VAT_TYPES } from 'constants/companyAdmin/enums';
+import CountriesSelectList from 'components/shared/generic/form/presentational/CountriesSelectList';
+import { needsVatCode } from 'constants/shared/vatTypes';
+import { enumFormat } from '../../../../../../helpers/generic';
+
+const currencyOptions = enumFormat(CURRENCY_NAMES);
+
+const EditSettingsForm = ({
+    handleInputChange,
+    handleSubmit,
+    filesUploading,
+    location,
+    name,
+    addressLine1,
+    addressLine2,
+    town,
+    county,
+    postcode,
+    country,
+    vatCode,
+    vatType,
+    vatOptions,
+    logoFile,
+    colourCode,
+    isBolsterLogoDark,
+    isUsingBolsterLabels,
+    telephone,
+    fax,
+    isEditButtonEnabled,
+    timeZoneOptions,
+    timeZone,
+    dateFormatOptions,
+    dateFormat,
+    defaultSitesSort,
+    siteSortOptions,
+    shouldDeleteReportsAfterDownload,
+    enableQRCodes,
+    unsyncedCompanyNotificationDays,
+    unsyncedOperativeWarningDays,
+    reportAutoDelete,
+    invoiceEmail,
+    isTwoFactorAuthRequired,
+    isOwner,
+    reportingCurrency,
+}) => (
+    <>
+        <Form className="generic-form ize-lg-12" onSubmit={handleSubmit}>
+            {/* <p>##Company Details##</p> */}
+            <Field name="Company Name" sizeClasses="size-lg-6 size-md-12" required>
+                <TextInputContainer
+                    value={name}
+                    name="name"
+                    type="text"
+                    handleChange={handleInputChange}
+                    required
+                />
+            </Field>
+            <Field name="Address Line 1" sizeClasses="size-lg-6 size-md-12" required>
+                <TextInputContainer
+                    value={addressLine1}
+                    name="addressLine1"
+                    type="text"
+                    handleChange={handleInputChange}
+                    required
+                />
+            </Field>
+            <Field name="Address Line 2" sizeClasses="size-lg-6 size-md-12">
+                <TextInputContainer
+                    value={addressLine2}
+                    name="addressLine2"
+                    type="text"
+                    handleChange={handleInputChange}
+                />
+            </Field>
+            <Field name="Town / City" sizeClasses="size-lg-6 size-md-12" required>
+                <TextInputContainer
+                    value={town}
+                    name="town"
+                    type="text"
+                    handleChange={handleInputChange}
+                    required
+                />
+            </Field>
+            <Field name="County" sizeClasses="size-lg-6 size-md-12" required>
+                <TextInputContainer
+                    value={county}
+                    name="county"
+                    type="text"
+                    handleChange={handleInputChange}
+                    required
+                />
+            </Field>
+            <Field name="Postcode" sizeClasses="size-lg-6 size-md-12" required>
+                <TextInputContainer
+                    value={postcode}
+                    name="postcode"
+                    type="text"
+                    handleChange={handleInputChange}
+                    required
+                />
+            </Field>
+            <Field name="Country" sizeClasses="size-lg-6 size-md-12" required>
+                <CountriesSelectList
+                    value={country}
+                    name="country"
+                    onChange={handleInputChange}
+                    required
+                />
+            </Field>
+            <Field name="Telephone No." sizeClasses="size-lg-6 size-md-12" required>
+                <TextInputContainer
+                    value={telephone}
+                    name="telephone"
+                    type="text"
+                    handleChange={handleInputChange}
+                    required
+                />
+            </Field>
+            <Field name="Fax No." sizeClasses="size-lg-6 size-md-12">
+                <TextInputContainer
+                    value={fax}
+                    name="fax"
+                    type="text"
+                    handleChange={handleInputChange}
+                />
+            </Field>
+            <Field name="VAT Type" sizeClasses="size-lg-6 size-md-12" required>
+                <Select
+                    name="vatType"
+                    options={vatOptions}
+                    value={vatType}
+                    onChange={handleInputChange}
+                    omitPlaceholder
+                    required
+                />
+            </Field>
+            {vatType && needsVatCode(vatType) && (
+                <Field
+                    name="VAT Code"
+                    smallDesc={
+                        vatType === VAT_TYPES.GB
+                            ? '(Please enter GB before your VAT code e.g GB123456789)'
+                            : null
+                    }
+                    required={needsVatCode(vatType)}
+                    sizeClasses="size-lg-6 size-md-12"
+                >
+                    <TextInputContainer
+                        value={vatCode}
+                        name="vatCode"
+                        type="text"
+                        handleChange={handleInputChange}
+                    />
+                </Field>
+            )}
+            {isOwner && (
+                <Field name="Is Two Factor Auth Required?" sizeClasses="size-lg-6 size-md-12">
+                    <CheckboxContainer
+                        checked={isTwoFactorAuthRequired}
+                        name="isTwoFactorAuthRequired"
+                        handleChange={handleInputChange}
+                    />
+                </Field>
+            )}
+            <div className="size-lg-12">
+                {/* <p>##Display Settings##</p> */}
+                <Field name="Change Company Logo">
+                    <FileUploadContainer
+                        name="logoFile"
+                        value={logoFile}
+                        acceptedTypes={['application/pdf', 'image/*']}
+                        handleChange={handleInputChange}
+                    />
+                </Field>
+                <div className="size-lg-6 size-md-12">
+                    <Field name="Change Colour Scheme">
+                        <div className="size-lg-12">
+                            <HuePicker
+                                color={colourCode || '#FFF'}
+                                onChangeComplete={e => handleInputChange('colourCode', e.hex)}
+                            />
+                        </div>
+                    </Field>
+                </div>
+                <div className="size-lg-6 size-md-12">
+                    <Field name="Colour scheme (hex code)">
+                        <div
+                            style={{
+                                backgroundColor: colourCode,
+                            }}
+                            className="hex-box"
+                        />
+                        <TextInputContainer
+                            value={colourCode}
+                            name="colourCode"
+                            handleChange={handleInputChange}
+                            classes="colour-picker-input"
+                        />
+                    </Field>
+                </div>
+                <Field name="Dark Text">
+                    <p>Affects text on company colours</p>
+                    <br />
+                    <CheckboxContainer
+                        checked={isBolsterLogoDark}
+                        handleChange={handleInputChange}
+                        name="isBolsterLogoDark"
+                    />
+                </Field>
+            </div>
+            <div className="size-lg-12">
+                {/* <p>##Label Settings##</p> */}
+                <Field name="Use Bolster Labels">
+                    <CheckboxContainer
+                        checked={isUsingBolsterLabels}
+                        handleChange={handleInputChange}
+                        name="isUsingBolsterLabels"
+                    />
+                </Field>
+            </div>
+            <div className="size-lg-12"></div>
+            <div className="size-lg-12">
+                <Field name="Default sites list sort" sizeClasses="size-lg-6 size-md-12">
+                    <Select
+                        options={siteSortOptions}
+                        onChange={handleInputChange}
+                        name="defaultSitesSort"
+                        value={defaultSitesSort}
+                        omitPlaceholder
+                    />
+                </Field>
+            </div>
+            <div className="size-lg-12">
+                <Field name="Allow companies to edit?" sizeClasses="size-lg-6 size-md-12">
+                    <CheckboxContainer
+                        checked={isEditButtonEnabled}
+                        handleChange={handleInputChange}
+                        name="isEditButtonEnabled"
+                    />
+                </Field>
+                <Field name="Report Currency" sizeClasses="size-lg-6 size-md-12">
+                    <Select
+                        options={currencyOptions}
+                        value={reportingCurrency}
+                        onChange={handleInputChange}
+                        name="reportingCurrency"
+                    />
+                </Field>
+            </div>
+            <div className="size-lg-12">
+                <Field name="Enable QR codes?" sizeClasses="size-lg-6 size-md-12">
+                    <CheckboxContainer
+                        checked={enableQRCodes}
+                        handleChange={handleInputChange}
+                        name="enableQRCodes"
+                    />
+                </Field>
+            </div>
+            <div className="size-lg-12">
+                <Field name="Delete reports after download?" sizeClasses="size-lg-6 size-md-12">
+                    <CheckboxContainer
+                        checked={shouldDeleteReportsAfterDownload}
+                        handleChange={handleInputChange}
+                        name="shouldDeleteReportsAfterDownload"
+                    />
+                </Field>
+                <Field
+                    name="Auto delete reports after (days - max 30)"
+                    sizeClasses="size-lg-6 size-md-12"
+                >
+                    <TextInputContainer
+                        handleChange={handleInputChange}
+                        name={'reportAutoDelete'}
+                        value={reportAutoDelete}
+                        type="number"
+                        maxNum={30}
+                        required
+                    />
+                </Field>
+            </div>
+            <div className="size-lg-12">
+                <Field name="Time zone">
+                    <Select
+                        options={timeZoneOptions}
+                        name="timeZone"
+                        value={timeZone}
+                        isSearchable
+                        onChange={handleInputChange}
+                    />
+                </Field>
+                <Field name="Date format">
+                    <Select
+                        options={dateFormatOptions}
+                        value={dateFormat}
+                        name="dateFormat"
+                        isSearchable
+                        onChange={handleInputChange}
+                    />
+                </Field>
+            </div>
+            <div className="size-lg-12">
+                <Field
+                    name="Unsynced Company Notification (Days)"
+                    sizeClasses="size-lg-6 size-md-12"
+                >
+                    <TextInputContainer
+                        value={unsyncedCompanyNotificationDays}
+                        name="unsyncedCompanyNotificationDays"
+                        type="number"
+                        handleChange={handleInputChange}
+                    />
+                </Field>
+                <Field name="Unsynced Operative Warning (Days)" sizeClasses="size-lg-6 size-md-12">
+                    <TextInputContainer
+                        value={unsyncedOperativeWarningDays}
+                        name="unsyncedOperativeWarningDays"
+                        type="number"
+                        handleChange={handleInputChange}
+                    />
+                </Field>
+            </div>
+            <div className="size-lg-12">
+                <Field name="Invoice Email" sizeClasses="size-lg-6 size-md-12">
+                    <TextInputContainer
+                        value={invoiceEmail}
+                        name="invoiceEmail"
+                        type="email"
+                        handleChange={handleInputChange}
+                    />
+                </Field>
+            </div>
+            <BlockButtonWrapper>
+                <button disabled={filesUploading} onClick={handleSubmit} className="button green">
+                    {filesUploading ? 'Please wait...' : <>{'Confirm'}</>}
+                </button>
+                <ButtonContainer to={location.pathname.replace('/edit-settings', '')}>
+                    Cancel
+                </ButtonContainer>
+            </BlockButtonWrapper>
+        </Form>
+    </>
+);
+
+export default withRouter(EditSettingsForm);

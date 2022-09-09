@@ -1,13 +1,13 @@
 import React from 'react';
 
-import InvoicesTableContainer from 'components/companyAdmin/invoices/shared/invoiceListTable/containers/InvoicesTableContainer';
+import InvoicesTableContainer from 'pages/dashboard/companyAdmin/invoices/shared/invoiceListTable/containers/InvoicesTableContainer';
 
 import Block from '../generic/block/presentational/Block';
 import useAccountDeactivated from './hooks/useAccountDeactivated';
 import PageHeading from '../generic/pageHeading/presentational/PageHeading';
 import BlockContainer from '../generic/block/containers/BlockContainer';
 import FlexWrapper from '../generic/flexWrapper/FlexWrapper';
-import BolsterLogo from '../../../assets/images/bolster_logo_no_background.png';
+import BolsterLogo from 'assets/images/bolster_logo_no_background.png';
 
 const AccountDeactivated = () => {
     const { invoices } = useAccountDeactivated();

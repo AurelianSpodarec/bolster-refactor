@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { STATUS_TO_STATS } from 'constants/companyAdmin/enums';
 
 import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import DrawingStats from 'components/companyAdmin/drawings/singleDrawing/presentational/DrawingStats';
+import DrawingStats from 'pages/dashboard/companyAdmin/drawings/singleDrawing/presentational/DrawingStats';
 import withUpdateOnChange from 'components/client/reports/createReport/components/hocs/withUpdateOnChange';
 
 class DrawingDetailsContainer extends Component {

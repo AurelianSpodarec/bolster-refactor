@@ -1,7 +1,7 @@
 import React from 'react';
 
 import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import { ReactComponent as TrashIcon } from '../../../../assets/images/icons/trash.svg';
+import { ReactComponent as TrashIcon } from 'assets/images/icons/trash.svg';
 
 const DeleteDocument = ({ handleShowModal, document }) => (
     <ActionButton

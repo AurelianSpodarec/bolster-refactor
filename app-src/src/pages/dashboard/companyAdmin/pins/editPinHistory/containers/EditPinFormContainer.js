@@ -1,0 +1,190 @@
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { isObjEmpty } from 'helpers/generic';
+
+import editPinHistory from 'actions/companyAdmin/pins/async/editPinHistory';
+import resetPinAnswers from 'actions/companyAdmin/drawings/sync/resetPinAnswers';
+
+import EditPinForm from '../presentational/EditPinForm';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+
+import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
+import { convertEnumToDropdownOptions } from 'helpers/generic';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import { isEmpty } from '../../../../../../helpers/generic';
+import {
+    formatMeasurementsForPostBody,
+    isAnswerValueEmpty,
+} from '../../../../../../components/shared/pins/addPin/fieldTypes/helpers';
+
+class EditPinFormContainer extends Component {
+    state = {
+        status: '',
+    };
+
+    render() {
+        const { status } = this.state;
+        const {
+            location,
+            isFetching,
+            error,
+            templates,
+            filesUploading,
+            confirmLeave,
+            selectedHistory,
+            pinOptions,
+            drawingID,
+        } = this.props;
+
+        const statusOptions = convertEnumToDropdownOptions(PIN_STATUS_TYPES);
+
+        return (
+            <>
+                <PageHeading leftChildren={true} title="Edit Pin History" withBackButton />
+                <BlockContainer
+                    isEmpty={!Object.values(templates).length}
+                    isFetching={isFetching}
+                    error={error}
+                >
+                    <BlockHeading title="Pin history Details" />
+                    <EditPinForm
+                        statuses={Object.values(statusOptions)}
+                        selectedStatus={statusOptions[status]}
+                        location={location}
+                        handleChange={this.handleChange}
+                        handleSubmit={this.handleSubmit}
+                        filesUploading={filesUploading}
+                        confirmLeave={confirmLeave}
+                        selectedHistory={selectedHistory}
+                        pinOptions={pinOptions}
+                        drawingID={drawingID}
+                    />
+                </BlockContainer>
+            </>
+        );
+    }
+
+    componentDidMount = () => {
+        const { pins, drawingID, pinID, coordinates, history, hierarchyType, selectedHistory } =
+            this.props;
+
+        if (isEmpty(coordinates.lat) || isEmpty(coordinates.lng)) {
+            if (hierarchyType === 'drawing') {
+                history.push(`/company/drawings/${drawingID}`);
+            }
+
+            if (hierarchyType === 'pin') {
+                history.push(`/company/pins/${pinID}`);
+            }
+        }
+
+        if (!isObjEmpty(pins)) {
+            this.setState({
+                status: selectedHistory.status,
+            });
+        }
+
+        window.addEventListener('beforeunload', this.handleBeforeUnload);
+    };
+
+    componentWillUnmount() {
+        this.props.resetPinAnswers();
+        window.removeEventListener('beforeunload', this.handleBeforeUnload);
+    }
+
+    handleBeforeUnload = e => {
+        e.returnValue = '';
+    };
+
+    componentDidUpdate = prevProps => {
+        const {
+            pins,
+            postSuccess,
+            history,
+            drawingID,
+            pinID,
+            resetPinAnswers,
+            hierarchyType,
+            selectedHistory,
+        } = this.props;
+
+        if (isObjEmpty(prevProps.pins) && !isObjEmpty(pins)) {
+            this.setState({
+                status: selectedHistory.status,
+            });
+        }
+
+        if (!prevProps.postSuccess && postSuccess) {
+            resetPinAnswers();
+
+            if (hierarchyType === 'drawing') {
+                history.push(`/company/drawings/${drawingID}`);
+            }
+
+            if (hierarchyType === 'pin') {
+                history.push(`/company/pins/${pinID}`);
+            }
+        }
+    };
+    handleChange = (name, value) => {
+        this.setState({ [name]: value });
+    };
+
+    handleSubmit = e => {
+        e.preventDefault();
+
+        const { editPinHistory, answers, filesUploading, selectedHistory, status, measurements } =
+            this.props;
+
+        const formattedAnswers = Object.keys(answers).map(key => ({
+            questionID: key,
+            answerValues: answers[key]?.filter(val => !isAnswerValueEmpty(val)),
+            measurements: formatMeasurementsForPostBody(measurements, key),
+        }));
+
+        const postBody = {
+            answers: formattedAnswers,
+            status,
+        };
+
+        if (!filesUploading) {
+            editPinHistory(selectedHistory.id, postBody);
+        }
+    };
+}
+
+const mapStateToProps = (
+    {
+        companyAdmin: {
+            templatesReducer: { templates, isFetching: isFetchingTemplates, error },
+            pinHistoriesReducer: { histories },
+            addPinFormReducer: { answers, status, measurements },
+            addPinCoordinatesReducer: { coordinates },
+            pinsReducer: { pins, postSuccess, isFetching: isFetchingPins },
+        },
+        shared: {
+            filesUploadingReducer: { filesUploading },
+            confirmLeaveReducer: { confirmLeave },
+        },
+    },
+    { historyID },
+) => ({
+    pins,
+    templates: Object.values(templates),
+    answers,
+    measurements,
+    coordinates,
+    isFetching: isFetchingPins || isFetchingTemplates,
+    error,
+    postSuccess,
+    filesUploading,
+    confirmLeave,
+    selectedHistory: histories[historyID] || {},
+    status,
+});
+
+const mapDispatchToProps = { editPinHistory, resetPinAnswers };
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(EditPinFormContainer));

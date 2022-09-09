@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-import bolsterLogo from '../../../../../assets/images/footer/bolster-logo-nav-footer-light.svg';
-import bolsterLogoDarkMode from '../../../../../assets/images/footer/powered–by-bolster-white.svg';
+import bolsterLogo from 'assets/images/footer/bolster-logo-nav-footer-light.svg';
+import bolsterLogoDarkMode from 'assets/images/footer/powered–by-bolster-white.svg';
 import SuperAdminMenuItemContainer from '../containers/SuperAdminMenuItemContainer';
 import useColourTheme from '../../../../../hooks/useColourTheme';
 

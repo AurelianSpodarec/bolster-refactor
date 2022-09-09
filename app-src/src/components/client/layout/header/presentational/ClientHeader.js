@@ -6,8 +6,8 @@ import defaultStyles from 'constants/defaultStyles';
 
 import SearchContainer from '../containers/SearchContainer';
 
-import HeaderProfile from 'components/companyAdmin/layout/header/presentational/HeaderProfile';
-import useCompanyHeader from 'components/companyAdmin/layout/header/hooks/useCompanyHeader';
+import HeaderProfile from 'pages/dashboard/companyAdmin/layout/header/presentational/HeaderProfile';
+import useCompanyHeader from 'pages/dashboard/companyAdmin/layout/header/hooks/useCompanyHeader';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectIsMobile } from 'selectors/shared/mobile';
 import { toggleMobileMenu as toggleMobileMenuAction } from 'actions/shared/mobile/sync/toggleMobileMenu';

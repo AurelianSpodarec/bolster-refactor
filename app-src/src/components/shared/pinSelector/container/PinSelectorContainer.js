@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import PinSelector from '../presentational/PinSelector';
-import withUpdateOnChange from 'components/companyAdmin/reports/createReport/components/hocs/withUpdateOnChange';
+import withUpdateOnChange from 'pages/dashboard/companyAdmin/reports/createReport/components/hocs/withUpdateOnChange';
 import { sortArrayByKeyAndOrder } from 'helpers/generic';
 
 class PinSelectorContainer extends Component {

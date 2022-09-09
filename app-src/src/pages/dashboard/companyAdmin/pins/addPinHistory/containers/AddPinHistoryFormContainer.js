@@ -1,0 +1,337 @@
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import moment from 'moment';
+import { convertArrToObj, isEmpty } from 'helpers/generic';
+
+import createPin from 'actions/companyAdmin/pins/async/createPin';
+import resetPinAnswers from 'actions/companyAdmin/drawings/sync/resetPinAnswers';
+import updateAddPinStatus from 'actions/companyAdmin/drawings/sync/updateAddPinStatus';
+import { QUESTION_TYPE_VALUES } from 'constants/shared/templateBuilder';
+
+import AddPinForm from 'components/shared/pins/addPin/presentational/AddPinForm';
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
+import {
+    formatMeasurementsForPostBody,
+    isAnswerValueEmpty,
+} from '../../../../../../components/shared/pins/addPin/fieldTypes/helpers';
+
+const { SINGLE_PHOTO, MULTI_PHOTO, SIGNATURE } = QUESTION_TYPE_VALUES;
+
+class AddPinHistoryFormContainer extends Component {
+    state = {
+        templateID: null,
+        serviceID: null,
+    };
+
+    render() {
+        const { templateID, serviceID } = this.state;
+        const {
+            location,
+            isFetching,
+            error,
+            templates,
+            filesUploading,
+            confirmLeave,
+            isHistory,
+            versions,
+            latestPinHistory = {},
+            pinOptions,
+            drawingID,
+        } = this.props;
+
+        const latestVersion =
+            versions.find(vers => vers.id === latestPinHistory.templateVersionID) || {};
+
+        const isSameTemplate = templateID === latestVersion.templateID;
+
+        const serviceOptions = convertArrToObj(this._relevantServiceOptions(), 'value');
+        const templateOptions = this._getTemplates(templates, serviceID);
+
+        const pinAnswersByGroupKey = this.getPinAnswersByGroupKey();
+
+        return (
+            <>
+                <PageHeading leftChildren={true} title={`Add Pin ${isHistory ? 'History' : ''}`}>
+                    <BackButtonContainer
+                        backFromForm={{
+                            urlToReplace: isHistory ? '/add-history' : '/add-pin',
+                            with: '',
+                        }}
+                    />
+                </PageHeading>
+                <BlockContainer
+                    isEmpty={!templates.length}
+                    noDataMessage="There is no data."
+                    isFetching={isFetching}
+                    error={error}
+                >
+                    <AddPinForm
+                        templates={Object.values(templateOptions)}
+                        selectedTemplate={templateOptions[templateID]}
+                        location={location}
+                        handleChange={this.handleChange}
+                        handleSubmit={this.handleSubmit}
+                        filesUploading={filesUploading}
+                        confirmLeave={confirmLeave}
+                        services={Object.values(serviceOptions)}
+                        selectedService={serviceOptions[serviceID]}
+                        isHistory={isHistory}
+                        isSameTemplate={isSameTemplate}
+                        pinAnswersByGroupKey={pinAnswersByGroupKey}
+                        oldAnswersByNameObj={this.getOldAnswersByNameObj()}
+                        latestPinHistory={latestPinHistory}
+                        pinOptions={pinOptions}
+                        drawingID={drawingID}
+                    />
+                </BlockContainer>
+            </>
+        );
+    }
+
+    componentDidMount = () => {
+        const {
+            drawingID,
+            coordinates,
+            history,
+            hierarchyType,
+            updateAddPinStatus,
+            latestPinHistory,
+            histories,
+            pinID,
+            templates,
+            versions,
+        } = this.props;
+
+        if (!coordinates.lat || !coordinates.lng) {
+            if (hierarchyType === 'drawing') {
+                history.push(`/company/drawings/${drawingID}`);
+            }
+        }
+
+        if (isEmpty(histories)) {
+            history.push(`/company/pins/${pinID}`);
+            return;
+        }
+        const templateVersion =
+            versions.find(version => latestPinHistory.templateVersionID === version.id) || {};
+        const latestTemplateUsed =
+            templates.find(template => templateVersion.templateID === template.id) || {};
+
+        this.setState(
+            {
+                templateID: latestTemplateUsed.id,
+                serviceID: latestTemplateUsed.serviceID,
+            },
+            () => {
+                updateAddPinStatus(latestPinHistory.status);
+            },
+        );
+    };
+
+    handleBeforeUnload = e => {
+        e.returnValue = '';
+    };
+
+    getPinAnswersByGroupKey = () => {
+        const { pinAnswers, latestPinHistory, sections, versions, questions } = this.props;
+
+        const invalidTypes = [SINGLE_PHOTO, MULTI_PHOTO, SIGNATURE];
+        const latestVersion =
+            versions.find(vers => vers.id === latestPinHistory.templateVersionID) || {};
+
+        const pinAnswersByGroupKey = pinAnswers
+            .filter(answer => answer.pinHistoryID === latestPinHistory.id)
+            .reduce((acc, ans) => {
+                const question = questions[ans.templateQuestionID];
+                if (!question) return acc;
+                const section = sections[question.templateSectionID];
+                if (!section) return acc;
+                // filter by only relevant questions/answers
+                if (
+                    invalidTypes.includes(question.type) ||
+                    section.templateVersionID !== latestVersion.id
+                ) {
+                    return acc;
+                } else {
+                    return {
+                        ...acc,
+                        [question.groupKey]: { ...ans, name: question.name, type: question.type },
+                    };
+                }
+            }, {});
+        return pinAnswersByGroupKey;
+    };
+
+    getOldAnswersByNameObj = () => {
+        const { pinAnswers, questions } = this.props;
+
+        const oldAnswersByNameObj = pinAnswers.reduce((acc, oldAnswer) => {
+            const question = questions[oldAnswer.templateQuestionID];
+
+            if (!question || !question.name) return acc;
+
+            const answerToSave = { ...oldAnswer, name: question.name, type: question.type };
+            acc[question.name] = [answerToSave, ...(acc[question.name] || [])];
+            return acc;
+        }, {});
+
+        return oldAnswersByNameObj;
+    };
+
+    componentDidUpdate = prevProps => {
+        const { postSuccess, history, drawingID, pinID, resetPinAnswers, hierarchyType } =
+            this.props;
+
+        if (!prevProps.postSuccess && postSuccess) {
+            resetPinAnswers();
+
+            if (hierarchyType === 'drawing') {
+                history.replace(`/company/drawings/${drawingID}`);
+            }
+
+            if (hierarchyType === 'pin') {
+                history.replace(`/company/pins/${pinID}`);
+            }
+        }
+    };
+
+    _getTemplates = (templates, selectedServiceID) => {
+        const filteredTemplates = templates.filter(
+            ({ serviceID }) => +serviceID === +selectedServiceID,
+        );
+        const templateOptions = filteredTemplates.map(({ id, name, companyName }) => ({
+            value: id,
+            label: `${name} (${companyName})`,
+            text: `${name} (${companyName})`,
+        }));
+
+        return convertArrToObj(templateOptions, 'value');
+    };
+
+    _relevantServiceOptions = () => {
+        const {
+            services,
+            subscriptions: { serviceIDs },
+        } = this.props;
+
+        const serviceOptions = [];
+
+        serviceIDs.forEach(serviceID => {
+            const option = services.find(service => service.id === serviceID);
+            if (option) serviceOptions.push(option);
+        });
+
+        return serviceOptions.map(({ id, name }) => ({
+            value: id,
+            label: name,
+            text: name,
+        }));
+    };
+
+    handleChange = (name, value) => {
+        const { resetPinAnswers, updateAddPinStatus } = this.props;
+        resetPinAnswers();
+        updateAddPinStatus('');
+
+        this.setState({ [name]: value });
+    };
+
+    handleSubmit = e => {
+        e.preventDefault();
+
+        const { templateID } = this.state;
+        const {
+            templates,
+            answers,
+            drawingID,
+            createPin,
+            coordinates,
+            filesUploading,
+            hierarchyType,
+            pinID,
+            status,
+            measurements,
+        } = this.props;
+
+        const curTemplate = templates.find(({ id }) => +id === +templateID) || {};
+
+        const formattedAnswers = Object.keys(answers).map(key => ({
+            templateQuestionID: key,
+            answerValues: answers[key]?.filter(val => !isAnswerValueEmpty(val)),
+            measurements: formatMeasurementsForPostBody(measurements, key),
+        }));
+
+        const postBody = {
+            history: {
+                templateVersionID: curTemplate.latestVersionID,
+                pinStatus: status,
+            },
+            answers: formattedAnswers,
+        };
+
+        if (hierarchyType === 'drawing') {
+            postBody.pin = {
+                drawingID: parseInt(drawingID),
+                location: { lngX: coordinates.lng, latY: coordinates.lat },
+            };
+        }
+
+        if (hierarchyType === 'pin') postBody.pinID = pinID;
+        if (!filesUploading) createPin(postBody);
+    };
+}
+
+const mapStateToProps = ({
+    companyAdmin: {
+        templatesReducer: { templates, isFetching: isFetchingTemplates, error },
+        templateVersionsReducer: { versions },
+        templateSectionsReducer: { sections },
+        templateQuestionsReducer: { questions },
+        addPinFormReducer: { answers, status, measurements },
+        addPinCoordinatesReducer: { coordinates },
+        pinsReducer: { postSuccess, isFetching: isFetchingPins },
+        pinHistoriesReducer: { histories },
+        pinAnswersReducer: { answers: pinAnswers },
+        servicesReducer: { services },
+        subscriptionsReducer: { subscriptions },
+    },
+    shared: {
+        filesUploadingReducer: { filesUploading },
+        confirmLeaveReducer: { confirmLeave },
+    },
+}) => {
+    const latestPinHistory =
+        Object.values(histories).sort((a, b) => moment(b.createdOn) - moment(a.createdOn))[0] || {};
+
+    return {
+        templates: Object.values(templates).filter(({ isDeleted }) => !isDeleted),
+        answers,
+        coordinates,
+        isFetching: isFetchingTemplates || isFetchingPins,
+        questions,
+        sections,
+        error,
+        postSuccess,
+        filesUploading,
+        confirmLeave,
+        status,
+        services: Object.values(services),
+        versions: Object.values(versions),
+        pinAnswers: Object.values(pinAnswers),
+        histories,
+        latestPinHistory,
+        subscriptions,
+        measurements,
+    };
+};
+
+const mapDispatchToProps = {
+    createPin,
+    resetPinAnswers,
+    updateAddPinStatus,
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddPinHistoryFormContainer));

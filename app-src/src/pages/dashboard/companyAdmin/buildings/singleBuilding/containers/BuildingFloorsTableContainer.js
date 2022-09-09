@@ -1,0 +1,145 @@
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+
+import { showModal } from 'actions/shared/generic/modals/sync/showModal';
+import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
+import { ADD_FLOORS, ERROR_MODAL } from 'constants/shared/modalTypes';
+
+import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import FloorTableContainer from 'pages/dashboard/companyAdmin/floors/shared/containers/FloorTableContainer';
+import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import updateHierarchyAddState from 'actions/companyAdmin/hierarchy/sync/updateHierarchyAddState';
+import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
+import fetchSingleBuilding from 'actions/companyAdmin/buildings/async/fetchSingleBuilding';
+import fetchAllFloors from 'actions/companyAdmin/floors/async/fetchAllFloors';
+import setHierarchyIsSorting from 'actions/companyAdmin/hierarchy/sync/setHierarchyIsSorting';
+import FloorFiltersContainer from 'pages/dashboard/companyAdmin/floors/singleFloor/containers/FloorFiltersContainer';
+import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+
+class BuildingsFloorsTableContainer extends Component {
+    render() {
+        const { building, isSorting } = this.props;
+        return (
+            <BlockContainer>
+                <BlockHeading title="Floors" classes="w-table">
+                    {building.accessType === ACCESS_TYPES_VALUES.OWNER && (
+                        <ActionButton
+                            ambient="positive"
+                            onClick={this.handleAddFloorsModal}
+                            icon="plus"
+                            text="Add floor"
+                            size="medium"
+                        />
+                    )}
+                    {isSorting ? (
+                        <ActionButton
+                            onClick={this._toggleIsSorting}
+                            icon="check"
+                            text="Finish Sort"
+                            source="secondary"
+                            ambient="positive"
+                            size="medium"
+                        />
+                    ) : (
+                        <ActionButton
+                            onClick={this._toggleIsSorting}
+                            icon="far fa-sort"
+                            text="Sort Mode"
+                            source="secondary"
+                            ambient="positive"
+                            size="medium"
+                        />
+                    )}
+                    <FloorFiltersContainer />
+                </BlockHeading>
+                <FloorTableContainer ids={building.floorIDs || []} />
+            </BlockContainer>
+        );
+    }
+
+    componentDidMount = () => {
+        const { showModal, buildingID, isAdding, setHierarchyIsSorting } = this.props;
+        if (isAdding) showModal(ADD_FLOORS, { buildingID });
+        setHierarchyIsSorting(false);
+    };
+
+    componentDidUpdate = prevProps => {
+        const {
+            postSuccess,
+            error,
+            showModal,
+            hideModal,
+            updatedFloorID,
+            history,
+            updateHierarchyAddState,
+            buildingID,
+            fetchAllFloors,
+            fetchSingleBuilding,
+        } = this.props;
+
+        if (!prevProps.postSuccess && postSuccess) {
+            if (updatedFloorID) {
+                history.push(`/company/floors/${updatedFloorID}`);
+            } else {
+                fetchAllFloors();
+                fetchSingleBuilding(buildingID);
+            }
+        }
+
+        if (error && !prevProps.error) {
+            showModal(ERROR_MODAL, {
+                hideModal,
+                title: 'Error',
+                message:
+                    error.message ||
+                    '##There was an error processing your request, please try again later.##',
+            });
+            updateHierarchyAddState(false);
+        }
+    };
+
+    handleAddFloorsModal = () => {
+        const { showModal, buildingID } = this.props;
+        showModal(ADD_FLOORS, { buildingID });
+    };
+
+    _toggleIsSorting = () => {
+        const { setHierarchyIsSorting, isSorting } = this.props;
+        setHierarchyIsSorting(!isSorting);
+    };
+}
+
+const mapStateToProps = (
+    {
+        companyAdmin: {
+            buildingsReducer: { buildings, isFetching },
+            floorsReducer: { postSuccess, updatedFloorID, error, floors },
+            hierarchyReducer: { isAdding, isSorting },
+        },
+    },
+    { match: { params } },
+) => ({
+    error,
+    postSuccess,
+    updatedFloorID,
+    building: buildings[params.id] || {},
+    isFetching: isFetching,
+    buildingID: params.id,
+    floors,
+    isAdding,
+    isSorting,
+});
+
+const mapDispatchToProps = {
+    showModal,
+    hideModal,
+    updateHierarchyAddState,
+    fetchAllFloors,
+    fetchSingleBuilding,
+    setHierarchyIsSorting,
+};
+
+export default withRouter(
+    connect(mapStateToProps, mapDispatchToProps)(BuildingsFloorsTableContainer),
+);
