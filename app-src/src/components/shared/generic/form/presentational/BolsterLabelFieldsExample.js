@@ -4,7 +4,7 @@ import standardLabel from 'assets/images/labels/standard.png';
 import trimLabel from 'assets/images/labels/trim.png';
 
 import BlockHeading from '../../blockHeading/presentational/BlockHeading';
-import LabelFieldExampleItemContainer from 'components/superAdmin/templateBuilder/templateBuilder/containers/LabelFieldExampleItemContainer';
+import LabelFieldExampleItemContainer from 'pages/dashboard/superAdmin/templateBuilder/templateBuilder/containers/LabelFieldExampleItemContainer';
 import { LABEL_TYPES_NUMS } from 'constants/companyAdmin/enums';
 
 const BolsterLabelFieldsExample = ({ fields, template }) => (

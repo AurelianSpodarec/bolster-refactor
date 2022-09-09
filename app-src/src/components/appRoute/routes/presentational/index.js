@@ -7,7 +7,7 @@ import { usePrevious } from 'helpers/hooks';
 import NotFound from 'components/shared/notFound/presentational/NotFound';
 import SwitchWith404 from './SwitchWith404';
 
-import AdminAppContainer from 'components/superAdmin/app/app/containers/AdminAppContainer';
+import AdminAppContainer from 'pages/dashboard/superAdmin/app/app/containers/AdminAppContainer';
 import CompanyAppContainer from 'pages/dashboard/companyAdmin/app/app/containers/CompanyAppContainer';
 
 import ClientAppContainer from 'components/client/app/app/containers/ClientAppContainer';
