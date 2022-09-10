@@ -19,6 +19,8 @@ import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css
 import AppContainer from 'components_DEPRECATED/appRoute/app/containers/AppContainer';
 import ScrollToTop from 'components_DEPRECATED/appRoute/app/containers/ScrollToTop';
 
+import ModalProvider from 'context/modal/modalContext';
+
 const middleware = [thunk];
 const composeEnhancers = composeWithDevTools({ trace: true, traceLimit: 10 });
 
@@ -28,9 +30,11 @@ ReactDOM.render(
     <Router>
         <ScrollToTop>
             <Provider store={store}>
-                <DragDropContextProvider backend={HTML5Backend}>
-                    <AppContainer />
-                </DragDropContextProvider>
+                <ModalProvider>
+                    <DragDropContextProvider backend={HTML5Backend}>
+                        <AppContainer />
+                    </DragDropContextProvider>
+                </ModalProvider>
             </Provider>
         </ScrollToTop>
     </Router>,
