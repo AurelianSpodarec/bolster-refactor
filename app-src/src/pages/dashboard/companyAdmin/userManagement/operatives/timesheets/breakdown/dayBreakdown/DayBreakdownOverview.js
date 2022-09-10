@@ -10,13 +10,13 @@ import BreakdownColumns from '../BreakdownColumns';
 import BreakdownOverviewFilters from './BreakdownOverviewFilters';
 import BreakdownOverviewList from './BreakdownOverviewList';
 // import DashboardPinFeed from '../../../../../dashboard/presentational/DashboardPinFeed';
-// import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
-// import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-// import PieChart from 'components/shared/stats/presentational/PieChart';
+// import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
+// import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+// import PieChart from 'components_DEPRECATED/shared/stats/presentational/PieChart';
 
 // import { isEmpty } from 'helpers/generic';
 // import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
-// import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+// import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
 // import { timesheetSelectedCompanyIDs } from 'selectors/companyAdmin/timesheets';
 import ApprovedHoursBreakdown from './ApprovedHoursBreakdown';
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';

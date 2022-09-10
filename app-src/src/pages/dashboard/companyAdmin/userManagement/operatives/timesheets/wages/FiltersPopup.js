@@ -1,9 +1,9 @@
 import React from 'react';
 
-import Field from '../../../../../../../components/shared/generic/form/presentational/Field';
-import Select from '../../../../../../../components/shared/generic/form/presentational/Select';
-import Tickbox from '../../../../../../../components/shared/generic/form/presentational/Tickbox';
-import ActionButton from '../../../../../../../components/shared/generic/button/presentational/ActionButton';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
+import Select from 'components_DEPRECATED/shared/generic/form/presentational/Select';
+import Tickbox from 'components_DEPRECATED/shared/generic/form/presentational/Tickbox';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
 
 const FiltersPopup = ({
     userRoleOptions,

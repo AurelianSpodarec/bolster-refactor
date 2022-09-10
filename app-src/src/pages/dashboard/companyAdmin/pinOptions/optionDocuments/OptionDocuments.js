@@ -11,11 +11,11 @@ import { selectJwtData } from 'selectors/shared/jwt';
 import useFetchBatchForOptionDocuments from './hooks/useFetchBatchForOptionDocuments';
 import useDocumentsSetActions from './hooks/useDocumentsSetActions';
 
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 import OptionDocumentsList from './OptionDocumentsList';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import FlexHeading from 'components/shared/generic/pageHeading/presentational/FlexHeading';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
+import FlexHeading from 'components_DEPRECATED/shared/generic/pageHeading/presentational/FlexHeading';
 
 const OptionDocuments = () => {
     const { optionID } = useParams();

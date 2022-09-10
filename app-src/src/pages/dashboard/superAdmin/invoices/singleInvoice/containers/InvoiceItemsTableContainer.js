@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import InvoiceItemsTable from 'components/shared/invoices/invoiceItemsTable/presentational/InvoiceItemsTable';
+import InvoiceItemsTable from 'components_DEPRECATED/shared/invoices/invoiceItemsTable/presentational/InvoiceItemsTable';
 
 const InvoiceItemsTableContainer = ({ invoice, error, isFetching, invoiceItems }) => {
     return (

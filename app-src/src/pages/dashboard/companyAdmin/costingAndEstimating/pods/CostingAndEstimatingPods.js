@@ -1,4 +1,4 @@
-import Error from 'components/shared/generic/misc/presentational/Error';
+import Error from 'components_DEPRECATED/shared/generic/misc/presentational/Error';
 import React from 'react';
 import LoadingOverlay from '../LoadingOverlay';
 import CostingAndEstimatingPod from './CostingAndEstimatingPod';

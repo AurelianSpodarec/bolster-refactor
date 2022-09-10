@@ -1,9 +1,9 @@
 import React from 'react';
-import Form from 'components/shared/generic/form/containers/Form';
+import Form from 'components_DEPRECATED/shared/generic/form/containers/Form';
 import BuildingFormFieldsNoLabel from './BuildingFormFieldsNoLabel';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
-import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
+import FlexWrapper from 'components_DEPRECATED/shared/generic/flexWrapper/FlexWrapper';
 
 // * .*. in names is used for splitting up field validations without risking overlap with real names
 

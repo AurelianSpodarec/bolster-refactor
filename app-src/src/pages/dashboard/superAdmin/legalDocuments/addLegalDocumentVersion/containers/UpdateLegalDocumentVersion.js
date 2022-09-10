@@ -7,7 +7,7 @@ import { isEmpty } from 'helpers/generic';
 
 import AddLegalDocumentVersionContainer from './AddLegalDocumentVersionContainer';
 import EditLegalDocumentVersionContainer from './EditLegalDocumentVersionContainer';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 
 const UpdateLegalDocumentVersionContainer = () => {
     const dispatch = useDispatch();

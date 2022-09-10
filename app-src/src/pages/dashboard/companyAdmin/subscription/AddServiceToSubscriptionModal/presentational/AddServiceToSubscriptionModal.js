@@ -1,16 +1,16 @@
 import React from 'react';
 
-import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import Form from 'components/shared/generic/form/containers/Form';
-import Field from 'components/shared/generic/form/presentational/Field';
-import RadioButton from 'components/shared/generic/form/presentational/RadioButton';
+import ModalOuterContainer from 'components_DEPRECATED/shared/generic/modals/containers/ModalOuterContainer';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import Form from 'components_DEPRECATED/shared/generic/form/containers/Form';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
+import RadioButton from 'components_DEPRECATED/shared/generic/form/presentational/RadioButton';
 import { PAYMENT_IDS } from 'constants/companyAdmin/enums';
-import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import DropdownContainer from 'components_DEPRECATED/shared/generic/form/containers/DropdownContainer';
+import BlockButtonWrapper from 'components_DEPRECATED/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import { formatNumber } from 'helpers/generic';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
-import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
+import ButtonContainer from 'components_DEPRECATED/shared/generic/button/containers/ButtonContainer';
+import FlexWrapper from 'components_DEPRECATED/shared/generic/flexWrapper/FlexWrapper';
 
 const AddServiceToSubscriptionModal = ({
     handleSubmit,

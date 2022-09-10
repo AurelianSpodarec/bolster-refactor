@@ -1,5 +1,5 @@
 import React from 'react';
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import PageHeading from 'components_DEPRECATED/shared/generic/pageHeading/presentational/PageHeading';
 import BlockTableContainer from '../../blockTable/container/BlockTableContainer';
 import { FAQS_PAGES } from 'constants/superAdmin/faqs';
 import { reverseObj } from 'helpers/generic';

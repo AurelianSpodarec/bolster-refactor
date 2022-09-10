@@ -1,6 +1,6 @@
 import React from 'react';
 import { batch, connect } from 'react-redux';
-import withAuth from 'components/shared/auth/auth/hocs/withAuth';
+import withAuth from 'components_DEPRECATED/shared/auth/auth/hocs/withAuth';
 import ClientApp from '../presentational/ClientApp';
 import fetchProfile from 'actions/shared/profile/async/fetchProfile';
 import decodeJWT from 'actions/shared/jwt/async/decodeJWT';

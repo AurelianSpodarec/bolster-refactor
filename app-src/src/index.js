@@ -16,8 +16,8 @@ import './styles/main.scss';
 
 import 'filepond/dist/filepond.min.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
-import AppContainer from 'components/appRoute/app/containers/AppContainer';
-import ScrollToTop from 'components/appRoute/app/containers/ScrollToTop';
+import AppContainer from 'components_DEPRECATED/appRoute/app/containers/AppContainer';
+import ScrollToTop from 'components_DEPRECATED/appRoute/app/containers/ScrollToTop';
 
 const middleware = [thunk];
 const composeEnhancers = composeWithDevTools({ trace: true, traceLimit: 10 });

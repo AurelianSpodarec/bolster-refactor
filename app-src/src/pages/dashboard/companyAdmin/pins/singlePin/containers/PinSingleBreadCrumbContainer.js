@@ -7,7 +7,7 @@ import fetchSingleBuilding from 'actions/companyAdmin/buildings/async/fetchSingl
 import fetchSingleFloor from 'actions/companyAdmin/floors/async/fetchSingleFloor';
 import fetchSingleDrawing from 'actions/companyAdmin/drawings/async/fetchSingleDrawing';
 
-import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
+import Breadcrumb from 'components_DEPRECATED/shared/generic/breadcrumb/presentational/Breadcrumb';
 
 class PinSingleBreadCrumbContainer extends Component {
     render() {

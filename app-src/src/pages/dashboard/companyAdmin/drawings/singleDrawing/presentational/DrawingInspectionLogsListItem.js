@@ -4,8 +4,8 @@ import {
     PIN_STATUS_TYPES as TYPES,
 } from 'constants/companyAdmin/enums';
 import { pin2xImgs } from 'assets/images/map-markers';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
-import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
+import LinkButton from 'components_DEPRECATED/shared/generic/button/presentational/LinkButton';
 
 const DrawingInspectionLogsListItem = ({ pin, onMobile, headers }) => {
     const pinColour = COLOURS[pin.latestStatus] || 'red';

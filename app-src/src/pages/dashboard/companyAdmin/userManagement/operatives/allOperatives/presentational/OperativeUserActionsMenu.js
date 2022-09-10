@@ -1,8 +1,8 @@
 import React from 'react';
 
-import ActionMenu from 'components/shared/actionMenu/ActionMenu';
-import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
-import ActionMenuLinkButton from 'components/shared/actionMenu/ActionMenuLinkButton';
+import ActionMenu from 'components_DEPRECATED/shared/actionMenu/ActionMenu';
+import ActionMenuActionButton from 'components_DEPRECATED/shared/actionMenu/ActionMenuActionButton';
+import ActionMenuLinkButton from 'components_DEPRECATED/shared/actionMenu/ActionMenuLinkButton';
 
 const CompanyAdminUserActionsMenu = ({
     user,

@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import UserTable from '../presentational/UserTable';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import PageSelector from 'components/shared/pagination/presentational/pageSelector';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import PageSelector from 'components_DEPRECATED/shared/pagination/presentational/pageSelector';
 import fetchUsersBySearch from 'actions/superAdmin/users/async/fetchUsersBySearch';
 import updateUsersFilters from 'actions/superAdmin/users/sync/updateUsersFilter';
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';

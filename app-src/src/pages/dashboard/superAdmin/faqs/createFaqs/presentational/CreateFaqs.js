@@ -1,15 +1,15 @@
 import React from 'react';
 
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import Field from 'components/shared/generic/form/presentational/Field';
-import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
+import PageHeading from 'components_DEPRECATED/shared/generic/pageHeading/presentational/PageHeading';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import BlockButtonWrapper from 'components_DEPRECATED/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
+import TextInputContainer from 'components_DEPRECATED/shared/generic/form/containers/TextInputContainer';
+import DropdownContainer from 'components_DEPRECATED/shared/generic/form/containers/DropdownContainer';
 import { FAQS_PAGES } from 'constants/superAdmin/faqs';
-import SunEditorSimpleWysiwyg from 'components/shared/generic/form/presentational/SunEditorSimpleWysiwyg';
-import BlockEditor from 'components/shared/generic/block/presentational/BlockEditor';
-import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
+import SunEditorSimpleWysiwyg from 'components_DEPRECATED/shared/generic/form/presentational/SunEditorSimpleWysiwyg';
+import BlockEditor from 'components_DEPRECATED/shared/generic/block/presentational/BlockEditor';
+import FileUploadContainer from 'components_DEPRECATED/shared/generic/form/containers/FileUploadContainer';
 
 const buttonOptions = [['formatBlock'], ['bold', 'italic', 'underline'], ['list']];
 

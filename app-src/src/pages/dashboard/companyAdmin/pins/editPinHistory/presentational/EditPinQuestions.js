@@ -1,7 +1,7 @@
 import React from 'react';
 
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import AddPinQuestionRoute from 'components/shared/pins/addPin/containers/AddPinQuestionRoute';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import AddPinQuestionRoute from 'components_DEPRECATED/shared/pins/addPin/containers/AddPinQuestionRoute';
 
 const EditPinQuestions = ({ sections, questions, selectedVersion, pinOptions, drawingID }) =>
     [...sections]

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
+import SwitchWith404 from 'components_DEPRECATED/appRoute/routes/presentational/SwitchWith404';
 import ActivityLog from 'pages/dashboard/companyAdmin/activityLog/presentational/ActivityLog';
 import EditActivityLogContainer from 'pages/dashboard/companyAdmin/activityLog/containers/EditActivityLogContainer';
 

@@ -3,12 +3,12 @@ import { withRouter } from 'react-router-dom';
 
 import { PAYMENT_TYPES, DATE_TIME_IDS, INVOICE_TYPES } from 'constants/companyAdmin/enums';
 import { PAY_INVOICE } from 'constants/shared/modalTypes';
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
 import { formatCurrency } from 'helpers/generic';
-import StatusIcon from 'components/shared/generic/statusIcon/presentationl/StatusIcon';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
+import StatusIcon from 'components_DEPRECATED/shared/generic/statusIcon/presentationl/StatusIcon';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
+import LinkButton from 'components_DEPRECATED/shared/generic/button/presentational/LinkButton';
 
 const InvoiceListItem = ({
     invoice: {

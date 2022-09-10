@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
+import SwitchWith404 from 'components_DEPRECATED/appRoute/routes/presentational/SwitchWith404';
 import PinOptions from 'pages/dashboard/companyAdmin/pins/pinOptions/presentational/PinOptions';
 import Support from 'pages/dashboard/companyAdmin/support/support/presentational/Support';
 import CompanyReportsContainer from 'pages/dashboard/companyAdmin/companyReports/shared/containers/CompanyReportsQueueContainer';

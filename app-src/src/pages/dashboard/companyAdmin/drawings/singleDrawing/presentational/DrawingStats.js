@@ -1,6 +1,6 @@
 import React from 'react';
 
-import PieChart from 'components/shared/stats/presentational/PieChart';
+import PieChart from 'components_DEPRECATED/shared/stats/presentational/PieChart';
 import DrawingDetails from './DrawingDetails';
 
 const DrawingStats = ({ drawing, stats, onMobile, isFiltered = false }) => (

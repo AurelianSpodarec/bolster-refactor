@@ -1,15 +1,15 @@
 import React from 'react';
 import useCreateNewOperativeAlerts from './hooks/useCreateNewOperativeAlerts';
 
-import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import Form from 'components/shared/generic/form/containers/Form';
-import Field from 'components/shared/generic/form/presentational/Field';
-import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
+import ModalOuterContainer from 'components_DEPRECATED/shared/generic/modals/containers/ModalOuterContainer';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import Form from 'components_DEPRECATED/shared/generic/form/containers/Form';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
+import TextAreaContainer from 'components_DEPRECATED/shared/generic/form/containers/TextAreaContainer';
 import { sendToEnum } from 'constants/companyAdmin/enums';
-import Select from 'components/shared/generic/form/presentational/Select';
-import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import Select from 'components_DEPRECATED/shared/generic/form/presentational/Select';
+import MultiSelect from 'components_DEPRECATED/shared/generic/form/presentational/MultiSelect';
+import BlockButtonWrapper from 'components_DEPRECATED/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
 const CreateNewOperativeAlertsModal = () => {
     const {

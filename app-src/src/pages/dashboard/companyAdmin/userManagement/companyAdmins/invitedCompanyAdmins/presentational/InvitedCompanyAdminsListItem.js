@@ -5,8 +5,8 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import deleteCompanyUserInvite from 'actions/companyAdmin/userManagement/async/deleteCompanyUserInvite';
 
 import { RESEND_INVITE } from 'constants/shared/modalTypes';
-import ActionButton from '../../../../../../../components/shared/generic/button/presentational/ActionButton';
-import ButtonWrapper from '../../../../../../../components/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
 
 const InvitedCompanyAdminsListItem = ({ user, headers }) => {
     const { userFirstName, userLastName, userEmail, id } = user;

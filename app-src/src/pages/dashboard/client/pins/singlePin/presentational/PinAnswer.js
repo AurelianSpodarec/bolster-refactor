@@ -8,8 +8,8 @@ import { boolToYesNo } from 'helpers/generic';
 
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 
-import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import FieldOutput from 'components_DEPRECATED/shared/generic/fieldOutput/presentational/FieldOutput';
+import ButtonContainer from 'components_DEPRECATED/shared/generic/button/containers/ButtonContainer';
 
 const PinAnswer = ({ trimmedAnswer, type, answers, question }) => {
     const dispatch = useDispatch();

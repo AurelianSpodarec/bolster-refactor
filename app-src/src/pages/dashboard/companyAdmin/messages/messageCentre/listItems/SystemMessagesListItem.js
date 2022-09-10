@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import dismissSystemMessage from 'actions/companyAdmin/messageCentre/async/dismissSystemMessage';
 
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
 import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 
 const SystemMessagesListItem = ({ message: { id, createdOn, message } }) => {

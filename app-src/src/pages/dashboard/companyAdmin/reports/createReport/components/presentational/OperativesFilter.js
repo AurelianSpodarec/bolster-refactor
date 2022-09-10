@@ -1,6 +1,6 @@
 import React from 'react';
-import Field from 'components/shared/generic/form/presentational/Field';
-import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
+import MultiSelect from 'components_DEPRECATED/shared/generic/form/presentational/MultiSelect';
 
 const OperativesFilter = ({
     operativeOptions,

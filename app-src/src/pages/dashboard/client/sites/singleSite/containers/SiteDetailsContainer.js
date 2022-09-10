@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import SiteStats from '../presentational/SiteStats';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 
 const SiteDetailsContainer = ({ site, error, isFetching, stats }) => (
     <BlockContainer error={error} isFetching={isFetching} isEmpty={!site.id || !stats.statuses}>

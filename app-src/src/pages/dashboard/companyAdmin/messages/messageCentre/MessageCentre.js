@@ -7,7 +7,7 @@ import fetchSystemMessages from 'actions/companyAdmin/messageCentre/async/fetchS
 import fetchOperativeAlerts from 'actions/companyAdmin/messageCentre/async/fetchOperativeAlerts';
 import fetchDrawingExpiryMessages from 'actions/companyAdmin/messageCentre/async/fetchDrawingExpiryMessages';
 
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import PageHeading from 'components_DEPRECATED/shared/generic/pageHeading/presentational/PageHeading';
 import MessageCentreTable from './MessageCentreTable';
 import {
     selectMessageCentreIsFetchingCompanyAlerts,

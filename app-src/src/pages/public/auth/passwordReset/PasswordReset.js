@@ -1,8 +1,8 @@
 import postPasswordReset from 'actions/shared/auth/async/postPasswordReset';
 import FrontEndFormHeading from 'pages/public/shared/forms/presentational/FrontEndFormHeading';
-import Form from 'components/shared/generic/form/containers/Form';
-import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import Field from 'components/shared/generic/form/presentational/Field';
+import Form from 'components_DEPRECATED/shared/generic/form/containers/Form';
+import TextInputContainer from 'components_DEPRECATED/shared/generic/form/containers/TextInputContainer';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
 import FrontEndButton from 'pages/public/shared/buttons/presentational/FrontEndButton';
 import { useForm } from 'helpers/hooks';
 import React from 'react';
@@ -14,7 +14,7 @@ import { useIsMobile } from 'helpers/hooks';
 
 import LoginVideo from 'assets/videos/frontend/Login.mp4';
 import LoginPoster from 'assets/videos/frontend/posters/Login.jpg';
-import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
+import LoadingIcon from 'components_DEPRECATED/shared/generic/misc/presentational/LoadingIcon';
 import { Link } from 'react-router-dom';
 import PageMeta from 'pages/public/shared/meta/presentational/PageMeta';
 import { pageMeta } from 'constants/frontEnd/meta';

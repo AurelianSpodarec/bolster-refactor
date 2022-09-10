@@ -4,8 +4,8 @@ import { withRouter, Link, useHistory } from 'react-router-dom';
 import moment from 'moment';
 
 import PinDetails from '../presentational/PinDetails';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
 import fetchSinglePin from 'actions/companyAdmin/pins/async/fetchSinglePin';
 import fetchSingleDrawing from 'actions/companyAdmin/drawings/async/fetchSingleDrawing';
 import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';

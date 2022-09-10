@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { CREDIT_LOG_TYPES } from 'constants/companyAdmin/enums';
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
+import ButtonContainer from 'components_DEPRECATED/shared/generic/button/containers/ButtonContainer';
 
 const CreditLogsListItem = ({
     item: {

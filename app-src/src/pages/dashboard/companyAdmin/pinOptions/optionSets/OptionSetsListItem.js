@@ -2,14 +2,14 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import withDrag from 'components/shared/dragDrop/hocs/withDrag';
+import withDrag from 'components_DEPRECATED/shared/dragDrop/hocs/withDrag';
 
-import ActionMenu from 'components/shared/actionMenu/ActionMenu';
-import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
-import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
-import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
-import ButtonWrapperInfo from 'components/shared/generic/button/presentational/ButtonWrapperInfo';
+import ActionMenu from 'components_DEPRECATED/shared/actionMenu/ActionMenu';
+import ActionMenuActionButton from 'components_DEPRECATED/shared/actionMenu/ActionMenuActionButton';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
+import CheckboxContainer from 'components_DEPRECATED/shared/generic/form/containers/CheckboxContainer';
+import FlexWrapper from 'components_DEPRECATED/shared/generic/flexWrapper/FlexWrapper';
+import ButtonWrapperInfo from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapperInfo';
 import setOptionSetAsHidden from 'actions/companyAdmin/pinOptions/async/setOptionSetAsHidden';
 import setOptionSetAsNotHidden from 'actions/companyAdmin/pinOptions/async/setOptionSetAsNotHidden';
 

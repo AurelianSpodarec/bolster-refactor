@@ -2,8 +2,8 @@ import React from 'react';
 
 import CompaniesTableContainer from '../../shared/containers/CompaniesTableContainer';
 
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import PageHeading from 'components_DEPRECATED/shared/generic/pageHeading/presentational/PageHeading';
 import CompaniesFiltersContainer from '../../shared/containers/CompaniesFiltersContainer';
 
 const AllCompanies = () => (

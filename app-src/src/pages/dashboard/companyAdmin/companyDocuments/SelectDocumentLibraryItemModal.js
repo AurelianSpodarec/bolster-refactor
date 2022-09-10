@@ -8,12 +8,12 @@ import { getIconFromExt } from 'helpers/general';
 import { FILE_API_URL, RAW_S3_STORAGE_URL } from 'config';
 import { DOCUMENT_LIBRARY_TYPES } from 'constants/companyAdmin/enums';
 
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import ModalOuterContainer from 'components_DEPRECATED/shared/generic/modals/containers/ModalOuterContainer';
 import FileTypeIcon from './FileTypeIcon';
 import FolderIcon from 'assets/images/icons/dl-folder-icon.svg';
-import Error from 'components/shared/generic/misc/presentational/Error';
+import Error from 'components_DEPRECATED/shared/generic/misc/presentational/Error';
 import {
     selectDocumentLibrary,
     selectDocumentLibraryFetchError,

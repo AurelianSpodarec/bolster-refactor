@@ -1,9 +1,9 @@
 import React from 'react';
 import moment from 'moment';
 
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import FieldOutput from 'components_DEPRECATED/shared/generic/fieldOutput/presentational/FieldOutput';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
 import { FILE_STORAGE_URL } from 'config';
 
 const TemplateDetails = ({

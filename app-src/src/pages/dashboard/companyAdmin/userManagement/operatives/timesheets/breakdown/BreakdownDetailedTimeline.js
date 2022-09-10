@@ -1,9 +1,9 @@
 import React from 'react';
 import buildTimeline from '../hooks/buildTimeline';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
 import BreakdownDetailedTimelineBlock from './BreakdownDetailedTimelineBlock';
 import BreakdownDetailedTimelineMap from './BreakdownDetailedTimelineMap';
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
 import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 
 const BreakdownDetailedTimeline = ({ clockerEntries, selectedDate }) => {

@@ -6,16 +6,16 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { ADD_FLOORS, ERROR_MODAL } from 'constants/shared/modalTypes';
 
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 import FloorTableContainer from 'pages/dashboard/companyAdmin/floors/shared/containers/FloorTableContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
 import updateHierarchyAddState from 'actions/companyAdmin/hierarchy/sync/updateHierarchyAddState';
 import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
 import fetchSingleBuilding from 'actions/companyAdmin/buildings/async/fetchSingleBuilding';
 import fetchAllFloors from 'actions/companyAdmin/floors/async/fetchAllFloors';
 import setHierarchyIsSorting from 'actions/companyAdmin/hierarchy/sync/setHierarchyIsSorting';
 import FloorFiltersContainer from 'pages/dashboard/companyAdmin/floors/singleFloor/containers/FloorFiltersContainer';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
 
 class BuildingsFloorsTableContainer extends Component {
     render() {

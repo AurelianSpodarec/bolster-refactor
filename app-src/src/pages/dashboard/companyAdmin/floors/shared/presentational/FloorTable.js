@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Table from 'components/shared/generic/tables/presentational/Table';
+import Table from 'components_DEPRECATED/shared/generic/tables/presentational/Table';
 import FloorList from './FloorList';
-import withDropZone from 'components/shared/dragDrop/hocs/withDropZone';
+import withDropZone from 'components_DEPRECATED/shared/dragDrop/hocs/withDropZone';
 
 const FloorTable = ({
     floors,

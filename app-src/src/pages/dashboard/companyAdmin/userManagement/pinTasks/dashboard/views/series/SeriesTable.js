@@ -1,5 +1,5 @@
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import Table from 'components/shared/generic/tables/presentational/Table';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import Table from 'components_DEPRECATED/shared/generic/tables/presentational/Table';
 import { isEmpty } from 'helpers/generic';
 import React from 'react';
 import useSeries from './hooks/useSeries';

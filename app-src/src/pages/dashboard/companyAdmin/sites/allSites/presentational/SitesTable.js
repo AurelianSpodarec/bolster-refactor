@@ -1,9 +1,9 @@
 import React from 'react';
 
-import Table from 'components/shared/generic/tables/presentational/Table';
+import Table from 'components_DEPRECATED/shared/generic/tables/presentational/Table';
 import SitesList from './SitesList';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import withDropZone from 'components/shared/dragDrop/hocs/withDropZone';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import withDropZone from 'components_DEPRECATED/shared/dragDrop/hocs/withDropZone';
 
 const SitesTable = ({
     headers,

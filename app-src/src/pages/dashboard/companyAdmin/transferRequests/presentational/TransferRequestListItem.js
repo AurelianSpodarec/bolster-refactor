@@ -1,10 +1,10 @@
 import React from 'react';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import BlockButtonWrapper from 'components_DEPRECATED/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
 import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
 import { ReactComponent as TrashIcon } from 'assets/images/icons/trash.svg';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
 
 const TransferRequestListItem = ({
     request,

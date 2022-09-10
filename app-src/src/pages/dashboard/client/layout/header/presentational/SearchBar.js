@@ -1,5 +1,5 @@
 import React from 'react';
-import Search from 'components/shared/generic/form/presentational/Search';
+import Search from 'components_DEPRECATED/shared/generic/form/presentational/Search';
 import SearchResults from './SearchResults';
 
 const SearchBar = ({

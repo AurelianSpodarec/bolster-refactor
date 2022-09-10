@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import EditBuildingFormContainer from '../containers/EditBuildingFormContainer';
-import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
+import FlexModalOuter from 'components_DEPRECATED/shared/generic/modals/presentational/FlexModalOuter';
 
 const EditBuildingModal = ({ building, isUsingBolsterLabels }) => (
     <FlexModalOuter

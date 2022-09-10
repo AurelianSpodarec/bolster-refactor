@@ -3,10 +3,10 @@ import moment from 'moment';
 
 import { RAW_S3_STORAGE_URL } from 'config';
 
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
 
 import { GENERATION_STATE_TEXT, GENERATION_STATE_VAL } from 'constants/companyAdmin/enums';
-import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
+import LoadingIcon from 'components_DEPRECATED/shared/generic/misc/presentational/LoadingIcon';
 
 const CompanyReportsListItem = ({
     queueItem,

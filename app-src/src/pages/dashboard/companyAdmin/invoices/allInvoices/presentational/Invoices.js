@@ -1,7 +1,7 @@
 import React from 'react';
 import PendingInvoicesContainer from 'pages/dashboard/companyAdmin/invoices/pendingInvoices/containers/PendingInvoicesContainer';
 import PaidInvoicesContainer from '../../paidInvoices/containers/PaidInvoicesContainer';
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import PageHeading from 'components_DEPRECATED/shared/generic/pageHeading/presentational/PageHeading';
 
 const Invoices = () => (
     <>

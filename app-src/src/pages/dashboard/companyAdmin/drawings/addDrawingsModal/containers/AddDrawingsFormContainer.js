@@ -11,7 +11,7 @@ import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import updateHierarchyAddState from 'actions/companyAdmin/hierarchy/sync/updateHierarchyAddState';
 import { useMultipleHierarchies, usePrevious } from 'helpers/hooks';
 import createDrawing from 'actions/companyAdmin/drawings/async/createDrawing';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 
 import AddDrawingsForm from '../presentational/AddDrawingsForm';
 

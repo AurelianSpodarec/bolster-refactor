@@ -1,7 +1,7 @@
 import React from 'react';
 
 import AllClientsTableContainer from '../containers/AllClientsTableContainer';
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import PageHeading from 'components_DEPRECATED/shared/generic/pageHeading/presentational/PageHeading';
 
 const AllClients = () => (
     <>

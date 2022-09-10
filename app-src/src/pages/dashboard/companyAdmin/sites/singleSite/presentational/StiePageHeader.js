@@ -1,8 +1,8 @@
 import React from 'react';
 
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
-import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
-import TabsContainer from 'components/shared/generic/tabs/containers/TabsContainer';
+import PageHeading from 'components_DEPRECATED/shared/generic/pageHeading/presentational/PageHeading';
+import Breadcrumb from 'components_DEPRECATED/shared/generic/breadcrumb/presentational/Breadcrumb';
+import TabsContainer from 'components_DEPRECATED/shared/generic/tabs/containers/TabsContainer';
 
 const SitePageHeader = ({ site, children }) => (
     <PageHeading

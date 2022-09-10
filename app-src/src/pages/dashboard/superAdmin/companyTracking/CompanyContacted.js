@@ -1,5 +1,5 @@
 import postCompanyTracking from 'actions/superAdmin/companies/async/postCompanyTracking';
-import Checkbox from 'components/shared/generic/form/presentational/Checkbox';
+import Checkbox from 'components_DEPRECATED/shared/generic/form/presentational/Checkbox';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 

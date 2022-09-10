@@ -6,7 +6,7 @@ import deletePinHistory from 'actions/companyAdmin/pins/async/deletePinHistory';
 import { CONFIRM_DELETE, CONFIRM_EDIT_PIN } from 'constants/shared/modalTypes';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
-import Loading from 'components/shared/generic/misc/presentational/Loading';
+import Loading from 'components_DEPRECATED/shared/generic/misc/presentational/Loading';
 
 class PinHistoryDetailsItemContainer extends Component {
     render() {

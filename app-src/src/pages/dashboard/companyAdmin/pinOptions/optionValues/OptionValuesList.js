@@ -16,16 +16,16 @@ import useOptionValueActions from './hooks/useOptionValueActions';
 import useUpdateOptionValueSort from './hooks/useUpdateOptionValueSort';
 import useShouldRedirectFromOptionValues from './hooks/useShouldRedirectFromOptionValues';
 
-import withDropZone from 'components/shared/dragDrop/hocs/withDropZone';
+import withDropZone from 'components_DEPRECATED/shared/dragDrop/hocs/withDropZone';
 
-import FilterRow from 'components/shared/filters/FilterRow';
-import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import Table from 'components/shared/generic/tables/presentational/Table';
+import FilterRow from 'components_DEPRECATED/shared/filters/FilterRow';
+import TextInputContainer from 'components_DEPRECATED/shared/generic/form/containers/TextInputContainer';
+import Table from 'components_DEPRECATED/shared/generic/tables/presentational/Table';
 import OptionValuesListItem from './OptionValuesListItem';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import TooltipFilters from 'components/shared/filters/TooltipFilters/TooltipFilters';
-import TooltipFiltersItem from 'components/shared/filters/TooltipFilters/TooltipFiltersItem';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
+import TooltipFilters from 'components_DEPRECATED/shared/filters/TooltipFilters/TooltipFilters';
+import TooltipFiltersItem from 'components_DEPRECATED/shared/filters/TooltipFilters/TooltipFiltersItem';
 
 const OptionValuesList = ({ forwardRef, hasFetched }) => {
     const { setID, type } = useParams();

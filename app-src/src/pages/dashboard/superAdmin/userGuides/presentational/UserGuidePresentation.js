@@ -1,10 +1,10 @@
 import React from 'react';
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
-import Block from 'components/shared/generic/block/presentational/Block';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import Table from 'components/shared/generic/tables/presentational/Table';
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import PageHeading from 'components_DEPRECATED/shared/generic/pageHeading/presentational/PageHeading';
+import Block from 'components_DEPRECATED/shared/generic/block/presentational/Block';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import Table from 'components_DEPRECATED/shared/generic/tables/presentational/Table';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
+import ButtonContainer from 'components_DEPRECATED/shared/generic/button/containers/ButtonContainer';
 import { RAW_S3_STORAGE_URL } from 'config';
 
 const UserGuidesPresentational = ({

@@ -2,8 +2,8 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import ClientInvite from 'components/shared/clients/presentational/ClientInvite';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import ClientInvite from 'components_DEPRECATED/shared/clients/presentational/ClientInvite';
 
 let FloorInviteClientContainer = ({ floor: { drawingIDs } }) => (
     <BlockContainer>

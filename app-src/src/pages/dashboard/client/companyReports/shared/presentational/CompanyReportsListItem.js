@@ -2,7 +2,7 @@ import React from 'react';
 
 import { RAW_S3_STORAGE_URL } from 'config';
 
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
 
 import { GENERATION_STATE_TEXT, GENERATION_STATE_VAL } from 'constants/companyAdmin/enums';
 

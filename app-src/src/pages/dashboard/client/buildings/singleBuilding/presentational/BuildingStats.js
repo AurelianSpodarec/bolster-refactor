@@ -1,6 +1,6 @@
 import React from 'react';
 
-import PieChart from 'components/shared/stats/presentational/PieChart';
+import PieChart from 'components_DEPRECATED/shared/stats/presentational/PieChart';
 import BuildingDetails from './BuildingDetails';
 
 const BuildingStats = ({ building, stats }) => (

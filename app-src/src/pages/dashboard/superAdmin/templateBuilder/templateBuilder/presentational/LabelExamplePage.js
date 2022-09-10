@@ -1,10 +1,10 @@
 import React from 'react';
 
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 import TemplateLabelInfoContainer from '../containers/TemplateLabelInfoContainer';
 import LabelExampleContainer from '../containers/LabelExampleContainer';
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
-import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
+import PageHeading from 'components_DEPRECATED/shared/generic/pageHeading/presentational/PageHeading';
+import BackButtonContainer from 'components_DEPRECATED/shared/generic/backButton/containers/BackButtonContainer';
 import { isEmpty } from 'helpers/generic';
 
 const LabelExamplePage = ({ templates, isFetching, error }) => (

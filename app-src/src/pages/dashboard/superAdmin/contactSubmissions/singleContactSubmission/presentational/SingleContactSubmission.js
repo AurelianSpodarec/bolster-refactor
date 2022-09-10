@@ -1,6 +1,6 @@
 import React from 'react';
-import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import Breadcrumb from 'components_DEPRECATED/shared/generic/breadcrumb/presentational/Breadcrumb';
+import PageHeading from 'components_DEPRECATED/shared/generic/pageHeading/presentational/PageHeading';
 import ContactSubmissionDetailsContainer from '../containers/ContactSubmissionDetailsContainer';
 
 const SingleContactSubmission = () => (

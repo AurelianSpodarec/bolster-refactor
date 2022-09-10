@@ -3,8 +3,8 @@ import { StripeProvider, Elements } from 'react-stripe-elements';
 
 import { STRIPE_PUBLIC_KEY } from 'config';
 
-import AddCardForm from 'components/stripe/AddCardForm';
-import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
+import AddCardForm from 'components_DEPRECATED/stripe/AddCardForm';
+import FlexModalOuter from 'components_DEPRECATED/shared/generic/modals/presentational/FlexModalOuter';
 
 const AddCardModal = ({ hideModal, close }) => {
     return (

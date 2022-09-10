@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Table from 'components/shared/generic/tables/presentational/Table';
+import Table from 'components_DEPRECATED/shared/generic/tables/presentational/Table';
 import { days } from 'constants/companyAdmin/timesheets';
 import { isEmpty } from 'helpers/generic';
 import WeekTableInner from './WeekTableInner';

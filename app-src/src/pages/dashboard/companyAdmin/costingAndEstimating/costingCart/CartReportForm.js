@@ -17,10 +17,10 @@ import createCostingAndEstimatingCSVReport from '../../../../../actions/companyA
 import { costingAndEstimatingType } from 'constants/companyAdmin/enums';
 import { ERROR_MODAL, LOADING_DATA, SUCCESS_MODAL } from 'constants/shared/modalTypes';
 
-import Field from 'components/shared/generic/form/presentational/Field';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
-import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
+import TextAreaContainer from 'components_DEPRECATED/shared/generic/form/containers/TextAreaContainer';
+import TextInputContainer from 'components_DEPRECATED/shared/generic/form/containers/TextInputContainer';
 import { selectCompanyTimeZone } from '../../../../../selectors/companyAdmin/companySettings';
 import moment from 'moment';
 

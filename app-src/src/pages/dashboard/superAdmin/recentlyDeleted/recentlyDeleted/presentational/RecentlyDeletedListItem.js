@@ -1,8 +1,8 @@
 import React from 'react';
 
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
+import BlockButtonWrapper from 'components_DEPRECATED/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
 
 const RecentlyDeletedListItem = ({ item, onMobile, headers, handleRestore }) => (
     <tr key={item.createdOn}>

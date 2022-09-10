@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import Error from 'components/shared/generic/misc/presentational/Error';
-import Loading from 'components/shared/generic/misc/presentational/Loading';
+import Error from 'components_DEPRECATED/shared/generic/misc/presentational/Error';
+import Loading from 'components_DEPRECATED/shared/generic/misc/presentational/Loading';
 
 const SearchResults = ({ results, error, handleLinkClick, isLoading }) =>
     error ? (

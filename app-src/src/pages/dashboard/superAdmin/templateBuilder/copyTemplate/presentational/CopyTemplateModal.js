@@ -1,10 +1,10 @@
 import React from 'react';
-import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import Form from 'components/shared/generic/form/containers/Form';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import Select from 'components/shared/generic/form/presentational/Select';
-import Field from 'components/shared/generic/form/presentational/Field';
+import ModalOuterContainer from 'components_DEPRECATED/shared/generic/modals/containers/ModalOuterContainer';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import Form from 'components_DEPRECATED/shared/generic/form/containers/Form';
+import BlockButtonWrapper from 'components_DEPRECATED/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import Select from 'components_DEPRECATED/shared/generic/form/presentational/Select';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
 
 const CopyTemplateModal = ({
     hideModal,

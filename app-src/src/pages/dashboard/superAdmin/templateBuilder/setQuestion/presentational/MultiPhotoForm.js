@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Field from 'components/shared/generic/form/presentational/Field';
-import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
+import TextInputContainer from 'components_DEPRECATED/shared/generic/form/containers/TextInputContainer';
 
 const MultiPhotoForm = ({ handleInputChange, maxPhotos }) => (
     <Field name="Maximum files" required>

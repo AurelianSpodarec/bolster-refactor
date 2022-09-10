@@ -1,7 +1,7 @@
 import React from 'react';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
 import DashboardDataByTableRoute from '../containers/DashboardDataByTableRoute';
-import TabsContainer from 'components/shared/generic/tabs/containers/TabsContainer';
+import TabsContainer from 'components_DEPRECATED/shared/generic/tabs/containers/TabsContainer';
 
 const DashboardDataBy = ({ selectedTab, onMobile }) => (
     <>

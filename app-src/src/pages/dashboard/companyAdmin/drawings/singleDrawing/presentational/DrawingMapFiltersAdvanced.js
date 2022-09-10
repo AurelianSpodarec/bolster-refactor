@@ -6,13 +6,13 @@ import React from 'react';
 // import YellowPin from 'assets/images/map-markers/yellow-pin2x.png';
 // import PurplePin from 'assets/images/map-markers/purple-pin2x.png';
 
-import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
-import DatePicker from 'components/shared/generic/form/presentational/DatePicker';
+import DropdownContainer from 'components_DEPRECATED/shared/generic/form/containers/DropdownContainer';
+import DatePicker from 'components_DEPRECATED/shared/generic/form/presentational/DatePicker';
 
 // import { PIN_STATUS_IDS as STATUS } from 'constants/companyAdmin/enums';
-import Form from 'components/shared/generic/form/containers/Form';
-import Field from 'components/shared/generic/form/presentational/Field';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import Form from 'components_DEPRECATED/shared/generic/form/containers/Form';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
 import OperativesFilterContainer from 'pages/dashboard/companyAdmin/reports/createReport/components/containers/OperativesFilterContainer';
 
 const DrawingMapFiltersAdvanced = ({

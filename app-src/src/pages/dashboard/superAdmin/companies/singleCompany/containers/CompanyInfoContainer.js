@@ -4,8 +4,8 @@ import { withRouter } from 'react-router-dom';
 
 import toggleCompanyOnClientList from 'actions/superAdmin/companies/async/toggleCompanyOnClientList';
 
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
 import CompanyInfo from '../presentational/CompanyInfo';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { ADMIN_EDIT_COMPANY_ADDRESS, EDIT_FREE_CREDIT } from 'constants/shared/modalTypes';

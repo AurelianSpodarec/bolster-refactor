@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
+import SwitchWith404 from 'components_DEPRECATED/appRoute/routes/presentational/SwitchWith404';
 import SinglePinContainer from 'pages/dashboard/companyAdmin/pins/singlePin/containers/SinglePinContainer';
 import AddPinHistory from 'pages/dashboard/companyAdmin/pins/addPinHistory/presentational/AddPinHistory';
 import EditPinHistory from 'pages/dashboard/companyAdmin/pins/editPinHistory/presentational/EditPinHistory';

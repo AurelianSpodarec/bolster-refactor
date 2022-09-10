@@ -2,16 +2,16 @@ import React from 'react';
 import fileDownload from 'js-file-download';
 import { connect } from 'react-redux';
 
-import Form from 'components/shared/generic/form/containers/Form';
-import Field from 'components/shared/generic/form/presentational/Field';
-import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
+import Form from 'components_DEPRECATED/shared/generic/form/containers/Form';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
+import FileUploadContainer from 'components_DEPRECATED/shared/generic/form/containers/FileUploadContainer';
 import { RAW_S3_STORAGE_URL } from 'config';
-import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import DatePickerPresentational from 'components/shared/generic/form/presentational/DatePicker';
+import TextInputContainer from 'components_DEPRECATED/shared/generic/form/containers/TextInputContainer';
+import DatePickerPresentational from 'components_DEPRECATED/shared/generic/form/presentational/DatePicker';
 import { FLOORPLAN_STATES } from 'constants/companyAdmin/enums';
-import ActionButton from '../../../../../../components/shared/generic/button/presentational/ActionButton';
-import ButtonWrapper from '../../../../../../components/shared/generic/button/presentational/ButtonWrapper';
-import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
+import FlexModalOuter from 'components_DEPRECATED/shared/generic/modals/presentational/FlexModalOuter';
 
 const getFileName = src => src.match('[^/]*$')[0];
 const EditDrawingModal = ({

@@ -7,7 +7,7 @@ import editFloor from 'actions/companyAdmin/floors/async/editFloor';
 import fetchSingleBuilding from 'actions/companyAdmin/buildings/async/fetchSingleBuilding';
 
 import EditFloorForm from '../presentational/EditFloorForm';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 
 class EditFloorFormContainer extends Component {
     state = {

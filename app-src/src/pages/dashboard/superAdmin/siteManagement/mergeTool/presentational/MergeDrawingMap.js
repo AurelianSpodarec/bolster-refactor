@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Map, TileLayer } from 'react-leaflet';
 import { CRS } from 'leaflet';
 
-import Block from 'components/shared/generic/block/presentational/Block';
+import Block from 'components_DEPRECATED/shared/generic/block/presentational/Block';
 import { FILE_STORAGE_URL } from 'config';
 import MergeMapPin from './MergeMapPin';
 

@@ -1,17 +1,17 @@
 import React from 'react';
 
-import Form from 'components/shared/generic/form/containers/Form';
+import Form from 'components_DEPRECATED/shared/generic/form/containers/Form';
 import useBugReport from './hooks/useBugReport';
-import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import Field from 'components/shared/generic/form/presentational/Field';
-import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
-import NumberInputContainer from 'components/shared/generic/form/containers/NumberInputContainer';
-import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
-import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
-import DatePickerContainer from 'components/shared/generic/form/containers/DatePickerContainer';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
-import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
+import TextInputContainer from 'components_DEPRECATED/shared/generic/form/containers/TextInputContainer';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
+import TextAreaContainer from 'components_DEPRECATED/shared/generic/form/containers/TextAreaContainer';
+import NumberInputContainer from 'components_DEPRECATED/shared/generic/form/containers/NumberInputContainer';
+import FieldOutput from 'components_DEPRECATED/shared/generic/fieldOutput/presentational/FieldOutput';
+import FileUploadContainer from 'components_DEPRECATED/shared/generic/form/containers/FileUploadContainer';
+import DatePickerContainer from 'components_DEPRECATED/shared/generic/form/containers/DatePickerContainer';
+import BlockButtonWrapper from 'components_DEPRECATED/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import LoadingIcon from 'components_DEPRECATED/shared/generic/misc/presentational/LoadingIcon';
+import CheckboxContainer from 'components_DEPRECATED/shared/generic/form/containers/CheckboxContainer';
 
 const BugReportForm = () => {
     const { form, handleChange, handleSubmit, isPosting } = useBugReport();

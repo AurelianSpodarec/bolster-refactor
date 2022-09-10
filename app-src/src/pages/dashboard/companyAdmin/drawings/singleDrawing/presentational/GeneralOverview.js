@@ -7,8 +7,8 @@ import DrawingCompaniesAccessContainer from '../containers/DrawingCompaniesAcces
 import DrawingOperativesAccessContainer from '../containers/DrawingOperativesAccessContainer';
 import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
 import DrawingShareLinkContainer from '../containers/DrawingShareLinkContainer';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
 import { ReactComponent as TrashIcon } from 'assets/images/icons/trash.svg';
 
 const GeneralOverview = ({ handleDelete, handleArchive, drawing, drawingExpired, gotAccess }) => (

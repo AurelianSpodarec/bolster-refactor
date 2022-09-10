@@ -3,9 +3,9 @@ import React from 'react';
 import { PIN_STATUS_IDS, PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
 
 import { isEmpty } from 'helpers/generic';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
+import FlexModalOuter from 'components_DEPRECATED/shared/generic/modals/presentational/FlexModalOuter';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
 
 const ZoneDetailsModal = ({ zone, services, getStatusIcon, handleHideDetails }) => (
     <FlexModalOuter title={`Zone - ${zone.name}`}>

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { FILE_STORAGE_URL } from 'config';
 
 import GoogleMapReact from 'google-map-react';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 
 import redPin from 'assets/images/map-markers/red-pin2x.png';
 

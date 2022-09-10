@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import ButtonContainer from 'components_DEPRECATED/shared/generic/button/containers/ButtonContainer';
 import useTypeAndStatus from '../hooks/useTypeAndStatus';
 
 import PinTaskNoteIcon from 'assets/images/icons/pinTaskNote.png';

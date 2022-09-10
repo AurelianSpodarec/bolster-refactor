@@ -1,8 +1,8 @@
 import React from 'react';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import Table from 'components/shared/generic/tables/presentational/Table';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import Table from 'components_DEPRECATED/shared/generic/tables/presentational/Table';
+import BlockButtonWrapper from 'components_DEPRECATED/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import { Link } from 'react-router-dom';
 
 const BlockTable = ({ faqs, isFetching, title, headers, handleDelete }) => {

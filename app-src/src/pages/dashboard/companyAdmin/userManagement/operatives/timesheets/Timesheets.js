@@ -1,12 +1,12 @@
 import React from 'react';
 
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import PageHeading from 'components_DEPRECATED/shared/generic/pageHeading/presentational/PageHeading';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
 import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
-import TabsContainer from 'components/shared/generic/tabs/containers/TabsContainer';
+import TabsContainer from 'components_DEPRECATED/shared/generic/tabs/containers/TabsContainer';
 import TimesheetsRouteContainer from './TimesheetsRouteContainer';
 import useTimesheetsTitle from './hooks/useTimesheetsTitle';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
 import { connect, useDispatch } from 'react-redux';
 import { TIMESHEETS_TABS } from 'constants/shared/tabNames';
 import { showModal } from '../../../../../../actions/shared/generic/modals/sync/showModal';

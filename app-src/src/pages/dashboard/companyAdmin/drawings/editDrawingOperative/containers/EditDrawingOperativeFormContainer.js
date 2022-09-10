@@ -11,7 +11,7 @@ import fetchAllTemplates from 'actions/companyAdmin/templates/async/fetchAllTemp
 
 import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 import { isEmpty } from 'helpers/generic';
 
 class EditDrawingOperativeFormContainer extends Component {

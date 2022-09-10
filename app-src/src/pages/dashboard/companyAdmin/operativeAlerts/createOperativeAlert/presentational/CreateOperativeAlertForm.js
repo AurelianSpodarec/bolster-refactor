@@ -1,12 +1,12 @@
 import React from 'react';
 
-import Field from 'components/shared/generic/form/presentational/Field';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import Form from 'components/shared/generic/form/containers/Form';
-import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
-import Select from 'components/shared/generic/form/presentational/Select';
-import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
+import BlockButtonWrapper from 'components_DEPRECATED/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import Form from 'components_DEPRECATED/shared/generic/form/containers/Form';
+import TextAreaContainer from 'components_DEPRECATED/shared/generic/form/containers/TextAreaContainer';
+import ButtonContainer from 'components_DEPRECATED/shared/generic/button/containers/ButtonContainer';
+import Select from 'components_DEPRECATED/shared/generic/form/presentational/Select';
+import MultiSelect from 'components_DEPRECATED/shared/generic/form/presentational/MultiSelect';
 
 const CreateOperativeAlertForm = ({
     handleSubmit,

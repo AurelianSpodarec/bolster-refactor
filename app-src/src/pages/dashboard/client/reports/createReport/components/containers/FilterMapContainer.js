@@ -6,7 +6,7 @@ import uuid from 'uuid/v4';
 import updateReportFilter from 'actions/client/reports/create/sync/clientUpdateReportFilter';
 import { RECTANGLE_MODES, FURTHER_FILTRATION_OPTIONS } from 'constants/companyAdmin/enums';
 import withUpdateOnChange from '../hocs/withUpdateOnChange';
-import FilterMap from 'components/shared/maps/presentational/FilterMap';
+import FilterMap from 'components_DEPRECATED/shared/maps/presentational/FilterMap';
 import addRectangle from 'actions/client/reports/create/sync/clientAddRectangle';
 import removeRectangle from 'actions/client/reports/create/sync/clientRemoveRectangle';
 import removeAllRectangles from 'actions/client/reports/create/sync/clientRemoveAllRectangles';

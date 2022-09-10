@@ -1,5 +1,5 @@
-import AccordionButton from 'components/shared/generic/button/presentational/AccordionButton';
-import Tickbox from 'components/shared/generic/form/presentational/Tickbox';
+import AccordionButton from 'components_DEPRECATED/shared/generic/button/presentational/AccordionButton';
+import Tickbox from 'components_DEPRECATED/shared/generic/form/presentational/Tickbox';
 import React from 'react';
 
 const ListItemControls = ({

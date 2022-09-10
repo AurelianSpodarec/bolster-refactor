@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import SingleDrawingHeader from '../presentational/SingleDrawingHeader';
 import DrawingBreadcrumbContainer from './DrawingBreadcrumbContainer';
-import TabsContainer from '../../../../../../components/shared/generic/tabs/containers/TabsContainer';
+import TabsContainer from 'components_DEPRECATED/shared/generic/tabs/containers/TabsContainer';
 
 const SingleDrawingHeaderContainer = ({ drawing }) => (
     <SingleDrawingHeader drawing={drawing}>

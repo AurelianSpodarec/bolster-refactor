@@ -1,10 +1,10 @@
 import React from 'react';
 
-import ActionMenu from 'components/shared/actionMenu/ActionMenu';
-import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
-import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
-import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
+import ActionMenu from 'components_DEPRECATED/shared/actionMenu/ActionMenu';
+import ActionMenuActionButton from 'components_DEPRECATED/shared/actionMenu/ActionMenuActionButton';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
+import FlexWrapper from 'components_DEPRECATED/shared/generic/flexWrapper/FlexWrapper';
+import CheckboxContainer from 'components_DEPRECATED/shared/generic/form/containers/CheckboxContainer';
 
 const JobReferenceTableItem = ({
     jobReference,

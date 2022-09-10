@@ -8,8 +8,8 @@ import fetchCompanyTracking from 'actions/superAdmin/companies/async/fetchCompan
 import { ADMIN_API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
 
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import PageHeading from 'components_DEPRECATED/shared/generic/pageHeading/presentational/PageHeading';
 import CompanyTrackingTable from './CompanyTrackingTable';
 import fetchAllServices from 'actions/superAdmin/services/async/fetchAllServices';
 

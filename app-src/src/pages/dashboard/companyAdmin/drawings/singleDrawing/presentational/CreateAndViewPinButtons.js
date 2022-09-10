@@ -2,10 +2,10 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
-import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
-import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
+import FlexWrapper from 'components_DEPRECATED/shared/generic/flexWrapper/FlexWrapper';
+import LinkButton from 'components_DEPRECATED/shared/generic/button/presentational/LinkButton';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import { CREATE_HIERARCHY_ALERT_MODAL } from 'constants/shared/modalTypes';
 import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';

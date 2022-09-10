@@ -1,13 +1,13 @@
 import React from 'react';
 
-import Form from 'components/shared/generic/form/containers/Form';
-import Field from 'components/shared/generic/form/presentational/Field';
-import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import DatePicker from 'components/shared/generic/form/presentational/DatePicker';
-import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
+import Form from 'components_DEPRECATED/shared/generic/form/containers/Form';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
+import TextInputContainer from 'components_DEPRECATED/shared/generic/form/containers/TextInputContainer';
+import DatePicker from 'components_DEPRECATED/shared/generic/form/presentational/DatePicker';
+import DropdownContainer from 'components_DEPRECATED/shared/generic/form/containers/DropdownContainer';
 import ReactQuill from 'react-quill';
-import ButtonWrapper from '../../../../../components/shared/generic/button/presentational/ButtonWrapper';
-import ActionButton from '../../../../../components/shared/generic/button/presentational/ActionButton';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
 
 const modules = {
     toolbar: [

@@ -3,17 +3,17 @@ import { Link } from 'react-router-dom';
 
 import { FILE_STORAGE_URL } from 'config';
 
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import Block from 'components/shared/generic/block/presentational/Block';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import Block from 'components_DEPRECATED/shared/generic/block/presentational/Block';
 import {
     VAT_TYPE_NAME,
     VAT_TYPES,
     DEFAULT_SITES_SORT_NAMES,
     CURRENCY_NAMES,
 } from 'constants/companyAdmin/enums';
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
+import PageHeading from 'components_DEPRECATED/shared/generic/pageHeading/presentational/PageHeading';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import FieldOutput from 'components_DEPRECATED/shared/generic/fieldOutput/presentational/FieldOutput';
 import { needsVatCode } from 'constants/shared/vatTypes';
 
 const Settings = ({ isFetching, error, companySettings: company, onMobile }) => {

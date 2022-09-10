@@ -1,9 +1,9 @@
 import React from 'react';
 
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import PageHeading from 'components_DEPRECATED/shared/generic/pageHeading/presentational/PageHeading';
 import SuperAdminInvoicesTableContainer from '../containers/SuperAdminInvoicesTableContainer';
 import InvoicesFilterContainer from '../containers/InvoicesFilterContainer';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 
 const SuperAdminInvoices = () => (
     <>

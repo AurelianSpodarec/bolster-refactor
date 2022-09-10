@@ -7,12 +7,12 @@ import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { ERROR_MODAL } from 'constants/shared/modalTypes';
 import { usePrevious } from 'helpers/hooks';
 
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import Form from 'components/shared/generic/form/containers/Form';
-import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import BlockButtonWrapper from 'components_DEPRECATED/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import Form from 'components_DEPRECATED/shared/generic/form/containers/Form';
+import ModalOuterContainer from 'components_DEPRECATED/shared/generic/modals/containers/ModalOuterContainer';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
 
 const DisableUserModal = ({ user }) => {
     const dispatch = useDispatch();

@@ -1,5 +1,5 @@
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 

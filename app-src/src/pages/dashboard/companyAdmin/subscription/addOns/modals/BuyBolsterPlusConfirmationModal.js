@@ -1,11 +1,11 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
-import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
+import FlexModalOuter from 'components_DEPRECATED/shared/generic/modals/presentational/FlexModalOuter';
 import { PAYMENT_IDS } from 'constants/companyAdmin/enums';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
 
 const BuyBolsterPlusConfirmationModal = ({ paymentType, hideModal, handleClose }) => {
     const location = useLocation();

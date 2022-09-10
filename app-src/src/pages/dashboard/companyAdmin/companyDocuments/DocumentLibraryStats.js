@@ -2,7 +2,7 @@ import React from 'react';
 import { formatBytes } from './createDocument/CreateDocumentForm';
 import useDocumentLibraryStorageInformation from './_hooks/useDocumentLibraryStorageInformation';
 import InfoIcon from 'assets/images/icons/info-icon.svg';
-import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
+import TooltipContainer from 'components_DEPRECATED/shared/generic/tooltip/containers/TooltipContainer';
 
 const DocumentLibraryStats = ({ items, isRoot }) => {
     const { totalStorageRemaining, totalStorageSizeForDownSync, totalStorageUsed, folderSize } =

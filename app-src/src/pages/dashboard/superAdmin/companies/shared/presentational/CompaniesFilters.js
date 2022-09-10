@@ -1,7 +1,7 @@
 import React from 'react';
-import Search from 'components/shared/generic/form/presentational/Search';
-import Select from 'components/shared/generic/form/presentational/Select';
-import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
+import Search from 'components_DEPRECATED/shared/generic/form/presentational/Search';
+import Select from 'components_DEPRECATED/shared/generic/form/presentational/Select';
+import MultiSelect from 'components_DEPRECATED/shared/generic/form/presentational/MultiSelect';
 
 const CompaniesFilters = ({
     handleChange,

@@ -3,11 +3,11 @@ import React, { useState } from 'react';
 import useGetCompanyPayRates from '../hooks/useGetCompanyPayRates';
 import usePayRatesForm from '../hooks/usePayRatesForm';
 
-import ModalOuter from '../../../../../../../../components/shared/generic/modals/presentational/ModalOuter';
-import ModalHeading from '../../../../../../../../components/shared/generic/modals/presentational/ModalHeading';
-import BlockContainer from '../../../../../../../../components/shared/generic/block/containers/BlockContainer';
+import ModalOuter from 'components_DEPRECATED/shared/generic/modals/presentational/ModalOuter';
+import ModalHeading from 'components_DEPRECATED/shared/generic/modals/presentational/ModalHeading';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 import PayRateItem from './PayRateItem';
-import ActionButton from '../../../../../../../../components/shared/generic/button/presentational/ActionButton';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
 
 const PayRatesModal = () => {
     const { isFetching, error } = useGetCompanyPayRates();

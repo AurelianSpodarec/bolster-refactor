@@ -1,11 +1,11 @@
 import React from 'react';
 
-import Field from 'components/shared/generic/form/presentational/Field';
-import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
-import DatePickerPresentational from 'components/shared/generic/form/presentational/DatePicker';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
+import TextInputContainer from 'components_DEPRECATED/shared/generic/form/containers/TextInputContainer';
+import BlockButtonWrapper from 'components_DEPRECATED/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import TextAreaContainer from 'components_DEPRECATED/shared/generic/form/containers/TextAreaContainer';
+import DatePickerPresentational from 'components_DEPRECATED/shared/generic/form/presentational/DatePicker';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
 import { ReactComponent as TrashIcon } from 'assets/images/icons/trash.svg';
 
 // * .*. in names is used for splitting up field validations without risking overlap with real names

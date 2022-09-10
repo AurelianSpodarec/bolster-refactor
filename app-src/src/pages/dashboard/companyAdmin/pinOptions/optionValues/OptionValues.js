@@ -10,18 +10,18 @@ import { selectPinOptionSet } from 'selectors/companyAdmin/pinOptionSets';
 import useFetchBatchForOptionValues from './hooks/useFetchBatchForOptionValues';
 import useOptionSetActions from './hooks/useOptionSetActions';
 
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 import OptionValuesList from './OptionValuesList';
-import FlexHeading from 'components/shared/generic/pageHeading/presentational/FlexHeading';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
-import ActionMenu from 'components/shared/actionMenu/ActionMenu';
-import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import FlexHeading from 'components_DEPRECATED/shared/generic/pageHeading/presentational/FlexHeading';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
+import ActionMenu from 'components_DEPRECATED/shared/actionMenu/ActionMenu';
+import ActionMenuActionButton from 'components_DEPRECATED/shared/actionMenu/ActionMenuActionButton';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
 import useBolsterPlus from 'pages/dashboard/companyAdmin/subscription/addOns/hooks/useBolsterPlus';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import { BOLSTER_PLUS_UPGRADE_MODAL } from 'constants/shared/modalTypes';
 import useIsAdminPlus from '../../../../../hooks/useIsAdminPlus';
-import TooltipContainer from '../../../../../components/shared/generic/tooltip/containers/TooltipContainer';
+import TooltipContainer from 'components_DEPRECATED/shared/generic/tooltip/containers/TooltipContainer';
 
 const OptionValues = () => {
     const dispatch = useDispatch();

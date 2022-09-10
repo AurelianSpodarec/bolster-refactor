@@ -3,14 +3,14 @@ import moment from 'moment';
 
 import { RAW_S3_STORAGE_URL, REPORT_VIEWER_URL } from 'config';
 
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
 
 import {
     COMPANY_REPORTS_OUTPUT_TYPES,
     GENERATION_STATE_TEXT,
     GENERATION_STATE_VAL,
 } from 'constants/companyAdmin/enums';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import BlockButtonWrapper from 'components_DEPRECATED/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
 const isBeforeOneHour = date => moment(date).isBefore(moment().subtract(1, 'hours'));
 

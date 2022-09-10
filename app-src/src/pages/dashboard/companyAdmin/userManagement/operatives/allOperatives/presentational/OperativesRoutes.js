@@ -9,8 +9,8 @@ import AllOperativesTableContainer from '../containers/AllOperativesTableContain
 import InactiveOperativesTable from '../../inactiveOperatives/presentational/InactiveOperativesTable';
 import InvitedOperativesTable from '../../invitedOperatives/presentational/InvitedOperativesTable';
 import DeletedOperativesTable from '../../deletedOperatives/presentational/DeletedOperativesTable';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import Search from 'components/shared/generic/form/presentational/Search';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import Search from 'components_DEPRECATED/shared/generic/form/presentational/Search';
 
 const { ACTIVE, INACTIVE, INVITED, DELETED } = USERS_OPERATIVES_TABS;
 

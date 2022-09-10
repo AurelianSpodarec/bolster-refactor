@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Field from 'components/shared/generic/form/presentational/Field';
-import Loading from 'components/shared/generic/misc/presentational/Loading';
-import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
+import Loading from 'components_DEPRECATED/shared/generic/misc/presentational/Loading';
+import MultiSelect from 'components_DEPRECATED/shared/generic/form/presentational/MultiSelect';
 import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
 
 const LevelFilters = ({

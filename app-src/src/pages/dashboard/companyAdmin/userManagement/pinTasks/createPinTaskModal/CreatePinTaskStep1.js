@@ -1,9 +1,9 @@
-import DatePickerContainer from 'components/shared/generic/form/containers/DatePickerContainer';
-import Field from 'components/shared/generic/form/presentational/Field';
+import DatePickerContainer from 'components_DEPRECATED/shared/generic/form/containers/DatePickerContainer';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
 import useStep1Options from './hooks/useStep1Options';
 import React from 'react';
-import Loading from 'components/shared/generic/misc/presentational/Loading';
-import Select from 'components/shared/generic/form/presentational/Select';
+import Loading from 'components_DEPRECATED/shared/generic/misc/presentational/Loading';
+import Select from 'components_DEPRECATED/shared/generic/form/presentational/Select';
 import moment from 'moment';
 
 const CreatePinTaskStep1 = ({

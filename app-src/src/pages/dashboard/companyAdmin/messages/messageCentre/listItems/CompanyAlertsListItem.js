@@ -6,7 +6,7 @@ import { DATE_TIME_IDS, HIERARCHY_LINK_VALUES } from 'constants/companyAdmin/enu
 
 import dismissCompanyAlert from 'actions/companyAdmin/messageCentre/async/dismissCompanyAlert';
 
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
 
 const CompanyAlertsListItem = ({
     message: {

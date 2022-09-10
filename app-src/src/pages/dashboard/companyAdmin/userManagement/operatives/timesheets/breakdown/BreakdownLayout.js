@@ -1,4 +1,4 @@
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 import React, { useEffect } from 'react';
 import BreakdownTabs from './BreakdownTabs';
 import useSelectedTab from './hooks/useSelectedTab';

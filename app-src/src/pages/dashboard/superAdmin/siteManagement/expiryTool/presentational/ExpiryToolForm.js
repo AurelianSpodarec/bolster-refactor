@@ -1,15 +1,15 @@
 import React from 'react';
 
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
 
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 import { isEmpty } from 'helpers/generic';
-import Field from 'components/shared/generic/form/presentational/Field';
-import Select from 'components/shared/generic/form/presentational/Select';
-import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import DatePickerContainer from 'components/shared/generic/form/containers/DatePickerContainer';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
+import Select from 'components_DEPRECATED/shared/generic/form/presentational/Select';
+import MultiSelect from 'components_DEPRECATED/shared/generic/form/presentational/MultiSelect';
+import BlockButtonWrapper from 'components_DEPRECATED/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import TextInputContainer from 'components_DEPRECATED/shared/generic/form/containers/TextInputContainer';
+import DatePickerContainer from 'components_DEPRECATED/shared/generic/form/containers/DatePickerContainer';
 
 const ExpiryToolForm = ({
     companiesOptions,

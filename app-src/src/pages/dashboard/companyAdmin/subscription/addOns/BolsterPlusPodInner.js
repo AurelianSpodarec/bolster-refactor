@@ -9,11 +9,11 @@ import showModal from 'actions/shared/generic/modals/sync/showModal';
 import useAutoRenew from './hooks/useBolsterPlusAutoRenew';
 import useBolsterPlus from './hooks/useBolsterPlus';
 
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
-import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
-import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
+import LinkButton from 'components_DEPRECATED/shared/generic/button/presentational/LinkButton';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
+import FlexWrapper from 'components_DEPRECATED/shared/generic/flexWrapper/FlexWrapper';
+import CheckboxContainer from 'components_DEPRECATED/shared/generic/form/containers/CheckboxContainer';
 import BolsterPlusHeading from './BolsterPlusHeading';
 import BolsterPlusFeatures from './BolsterPlusFeatures';
 

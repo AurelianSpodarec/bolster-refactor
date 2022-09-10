@@ -5,9 +5,9 @@ import { QUESTION_TYPE_NUMBERS as TYPES } from 'constants/shared/templateBuilder
 import { FILE_STORAGE_URL, RAW_S3_STORAGE_URL } from 'config';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { PIN_IMAGE } from 'constants/shared/modalTypes';
-import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
+import FieldOutput from 'components_DEPRECATED/shared/generic/fieldOutput/presentational/FieldOutput';
 import { boolToYesNo, isEmpty } from 'helpers/generic';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import ButtonContainer from 'components_DEPRECATED/shared/generic/button/containers/ButtonContainer';
 import { selectPinOptionVersions } from '../../../../../../selectors/companyAdmin/pinOptionVersions';
 
 const PinAnswer = ({ trimmedAnswer, type, answers, question }) => {

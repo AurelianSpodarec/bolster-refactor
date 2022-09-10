@@ -1,9 +1,9 @@
 import React from 'react';
-import Table from 'components/shared/generic/tables/presentational/Table';
+import Table from 'components_DEPRECATED/shared/generic/tables/presentational/Table';
 import CardsList from './CardsList';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import BlockButtonWrapper from 'components_DEPRECATED/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
 
 const CardTable = ({
     headers,

@@ -1,11 +1,11 @@
 import React from 'react';
-import Form from 'components/shared/generic/form/containers/Form';
-import Field from 'components/shared/generic/form/presentational/Field';
-import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import ActionButton from '../../../../../../../components/shared/generic/button/presentational/ActionButton';
-import LinkButton from '../../../../../../../components/shared/generic/button/presentational/LinkButton';
-import ButtonWrapper from '../../../../../../../components/shared/generic/button/presentational/ButtonWrapper';
-import CheckboxContainer from '../../../../../../../components/shared/generic/form/containers/CheckboxContainer';
+import Form from 'components_DEPRECATED/shared/generic/form/containers/Form';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
+import TextInputContainer from 'components_DEPRECATED/shared/generic/form/containers/TextInputContainer';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
+import LinkButton from 'components_DEPRECATED/shared/generic/button/presentational/LinkButton';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
+import CheckboxContainer from 'components_DEPRECATED/shared/generic/form/containers/CheckboxContainer';
 
 const EditCompanyUserForm = ({
     handleSubmit,

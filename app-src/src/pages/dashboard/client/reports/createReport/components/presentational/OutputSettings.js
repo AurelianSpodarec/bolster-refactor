@@ -1,12 +1,12 @@
 import React from 'react';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import Field from 'components/shared/generic/form/presentational/Field';
-import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
-import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
+import DropdownContainer from 'components_DEPRECATED/shared/generic/form/containers/DropdownContainer';
+import CheckboxContainer from 'components_DEPRECATED/shared/generic/form/containers/CheckboxContainer';
 import useColourTheme from 'hooks/useColourTheme';
-import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import FlexWrapper from 'components_DEPRECATED/shared/generic/flexWrapper/FlexWrapper';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
 
 const OutputSettings = ({
     handleSubmit,

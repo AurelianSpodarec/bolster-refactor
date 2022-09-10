@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
-import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
+import FieldOutput from 'components_DEPRECATED/shared/generic/fieldOutput/presentational/FieldOutput';
 
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
 import PinSectionsContainer from '../containers/PinSectionsContainer';
 
 const PinHistoryDetailsItem = ({ history, createdBy, services, drawingID, editedBy }) => (

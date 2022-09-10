@@ -1,9 +1,9 @@
 import React from 'react';
 
 import EditBuildingFormFieldsNoLabel from 'pages/dashboard/companyAdmin/buildings/editBuildingModal/presentational/EditBuildingFormFieldsNoLabel';
-import Form from 'components/shared/generic/form/containers/Form';
-import ButtonWrapper from '../../../../../../components/shared/generic/button/presentational/ButtonWrapper';
-import ActionButton from '../../../../../../components/shared/generic/button/presentational/ActionButton';
+import Form from 'components_DEPRECATED/shared/generic/form/containers/Form';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
 
 const BuildingEditForm = ({ handleSubmit, handleInputChange, hideModal, name, location }) => (
     <Form onSubmit={handleSubmit} className="generic-form flex-content-wrapper size-lg-12">

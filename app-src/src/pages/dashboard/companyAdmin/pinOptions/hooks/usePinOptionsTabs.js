@@ -10,7 +10,7 @@ import {
     selectPinOptionTypesSelectedTabID,
 } from 'selectors/companyAdmin/pinOptionTypes';
 
-import useBlockTabs from 'components/shared/tabs/hooks/useBlockTabs';
+import useBlockTabs from 'components_DEPRECATED/shared/tabs/hooks/useBlockTabs';
 
 import OptionSets from '../optionSets/OptionSets';
 import Prelims from '../prelims/Prelims';

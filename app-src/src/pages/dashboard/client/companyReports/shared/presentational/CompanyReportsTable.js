@@ -1,10 +1,10 @@
 import React from 'react';
-import Table from 'components/shared/generic/tables/presentational/Table';
+import Table from 'components_DEPRECATED/shared/generic/tables/presentational/Table';
 import CompanyReportsList from './CompanyReportsList';
 import CompanyReportsFiltersContainer from '../containers/CompanyReportsFiltersContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
 import { FETCH_STATUS } from 'constants/companyAdmin/enums';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import ButtonContainer from 'components_DEPRECATED/shared/generic/button/containers/ButtonContainer';
 
 const CompanyReportsTable = ({
     companyReports,

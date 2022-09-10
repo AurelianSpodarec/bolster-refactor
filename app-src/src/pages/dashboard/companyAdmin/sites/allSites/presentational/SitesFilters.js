@@ -1,9 +1,9 @@
 import React from 'react';
 
-import Search from 'components/shared/generic/form/presentational/Search';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
-import ButtonDropdown from 'components/shared/filters/ButtonDropdown';
+import Search from 'components_DEPRECATED/shared/generic/form/presentational/Search';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
+import ButtonDropdown from 'components_DEPRECATED/shared/filters/ButtonDropdown';
 
 const SitesListFilters = ({
     name,

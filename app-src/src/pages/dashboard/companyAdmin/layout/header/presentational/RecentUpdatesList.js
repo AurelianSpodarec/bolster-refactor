@@ -1,6 +1,6 @@
 import React from 'react';
 import { isEmpty } from 'helpers/generic';
-import Loading from 'components/shared/generic/misc/presentational/Loading';
+import Loading from 'components_DEPRECATED/shared/generic/misc/presentational/Loading';
 
 const RecentUpdatesList = ({ isFetching, error, updates, handleOpenUpdate }) => {
     if (error) return <p className="info">There was an error retrieving the data.</p>;

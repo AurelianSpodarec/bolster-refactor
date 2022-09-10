@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
-import Field from 'components/shared/generic/form/presentational/Field';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
 import selectOption from 'actions/superAdmin/moveTool/sync/selectOption';
-import Loading from 'components/shared/generic/misc/presentational/Loading';
+import Loading from 'components_DEPRECATED/shared/generic/misc/presentational/Loading';
 
 const { BUILDING, FLOOR, DRAWING } = HIERARCHY_IDS;
 

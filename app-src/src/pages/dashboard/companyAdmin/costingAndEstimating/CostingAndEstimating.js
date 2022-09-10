@@ -1,6 +1,6 @@
 import React from 'react';
 
-import GridWrapper from '../../../../components/shared/generic/gridWrapper/GridWrapper';
+import GridWrapper from 'components_DEPRECATED/shared/generic/gridWrapper/GridWrapper';
 
 import CostingAndEstimatingPods from './pods/CostingAndEstimatingPods';
 import CostingCart from './costingCart/CostingCart';

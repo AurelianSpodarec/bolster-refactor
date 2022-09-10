@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Dropdown from 'components/shared/generic/form/presentational/Dropdown';
-import DateRangePicker from 'components/shared/generic/form/presentational/DateRangePicker';
+import Dropdown from 'components_DEPRECATED/shared/generic/form/presentational/Dropdown';
+import DateRangePicker from 'components_DEPRECATED/shared/generic/form/presentational/DateRangePicker';
 import { formatDateToDay } from '../../../../../helpers/generic';
 
 const DashboardStatsFilters = ({

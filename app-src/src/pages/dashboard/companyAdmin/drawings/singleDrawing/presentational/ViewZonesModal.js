@@ -2,10 +2,10 @@ import React from 'react';
 import QRCode from 'qrcode.react';
 
 import ZoneListItem from './ZoneListItem';
-import ModalOuter from 'components/shared/generic/modals/presentational/ModalOuter';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import ModalOuter from 'components_DEPRECATED/shared/generic/modals/presentational/ModalOuter';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
+import FlexModalOuter from 'components_DEPRECATED/shared/generic/modals/presentational/FlexModalOuter';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
 
 const ViewZonesModal = ({
     hideModal,

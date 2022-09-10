@@ -1,8 +1,8 @@
 import React from 'react';
-import Field from 'components/shared/generic/form/presentational/Field';
-import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
-import Select from 'components/shared/generic/form/presentational/Select';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
+import TextInputContainer from 'components_DEPRECATED/shared/generic/form/containers/TextInputContainer';
+import CheckboxContainer from 'components_DEPRECATED/shared/generic/form/containers/CheckboxContainer';
+import Select from 'components_DEPRECATED/shared/generic/form/presentational/Select';
 import ColorPicker from 'rc-color-picker';
 import 'rc-color-picker/assets/index.css';
 

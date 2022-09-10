@@ -4,13 +4,13 @@ import useCostingAndEstimatingGraph from '../_hooks/useCostingAndEstimatingGraph
 
 import { formatCurrency } from 'helpers/generic';
 import { Line } from 'react-chartjs-2';
-import BlockContainer from '../../../../../components/shared/generic/block/containers/BlockContainer';
-import DateRangePicker from '../../../../../components/shared/generic/form/presentational/DateRangePicker';
-import FlexWrapper from '../../../../../components/shared/generic/flexWrapper/FlexWrapper';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import DateRangePicker from 'components_DEPRECATED/shared/generic/form/presentational/DateRangePicker';
+import FlexWrapper from 'components_DEPRECATED/shared/generic/flexWrapper/FlexWrapper';
 import CostingGraphFilters from './CostingGraphFilters';
-import Error from 'components/shared/generic/misc/presentational/Error';
+import Error from 'components_DEPRECATED/shared/generic/misc/presentational/Error';
 import LoadingOverlay from '../LoadingOverlay';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
 import { useSelector } from 'react-redux';
 import { selectCompanyCurrency } from '../../../../../selectors/companyAdmin/companySettings';
 import { CURRENCY_SYMBOLS } from '../../../../../constants/companyAdmin/enums';

@@ -1,8 +1,8 @@
 import React from 'react';
 
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import ModalOuterContainer from 'components_DEPRECATED/shared/generic/modals/containers/ModalOuterContainer';
 
 const SeriesPinTaskModal = ({ pins, isFetching, error }) => {
     return (

@@ -8,15 +8,15 @@ import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { ADD_DRAWINGS, ERROR_MODAL } from 'constants/shared/modalTypes';
 
 import DrawingTableContainer from 'pages/dashboard/companyAdmin/drawings/shared/containers/DrawingTableContainer';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
 import updateHierarchyAddState from 'actions/companyAdmin/hierarchy/sync/updateHierarchyAddState';
 import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
 import fetchSingleFloor from 'actions/companyAdmin/floors/async/fetchSingleFloor';
 import fetchAllDrawings from 'actions/companyAdmin/drawings/async/fetchAllDrawings';
 import setHierarchyIsSorting from 'actions/companyAdmin/hierarchy/sync/setHierarchyIsSorting';
 import DrawingFiltersContainer from '../../../drawings/singleDrawing/containers/DrawingFiltersContainer';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
 
 class FloorDrawingsTableContainer extends Component {
     state = { shouldRestrictPayments: false };

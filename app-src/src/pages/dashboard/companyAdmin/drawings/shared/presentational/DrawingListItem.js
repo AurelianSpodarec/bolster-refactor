@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
-import withDrag from 'components/shared/dragDrop/hocs/withDrag';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
-import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
+import withDrag from 'components_DEPRECATED/shared/dragDrop/hocs/withDrag';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
+import LinkButton from 'components_DEPRECATED/shared/generic/button/presentational/LinkButton';
 
 const DrawingListItem = ({
     drawing,

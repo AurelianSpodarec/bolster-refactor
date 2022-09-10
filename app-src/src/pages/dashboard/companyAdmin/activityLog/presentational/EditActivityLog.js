@@ -1,8 +1,8 @@
 import React from 'react';
 
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 import EditActivityLogFormContainer from '../containers/EditActivityLogFormContainer';
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import PageHeading from 'components_DEPRECATED/shared/generic/pageHeading/presentational/PageHeading';
 
 const EditActivityLog = ({ settings, isFetching, error }) => (
     <>

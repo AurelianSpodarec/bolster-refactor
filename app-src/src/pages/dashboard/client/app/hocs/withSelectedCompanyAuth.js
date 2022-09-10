@@ -2,9 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import clientFetchCompaniesRequest from 'actions/client/companies/async/clientFetchCompaniesRequest';
-import Error from 'components/shared/generic/misc/presentational/Error';
-import Loading from 'components/shared/generic/misc/presentational/Loading';
-import Block from 'components/shared/generic/block/presentational/Block';
+import Error from 'components_DEPRECATED/shared/generic/misc/presentational/Error';
+import Loading from 'components_DEPRECATED/shared/generic/misc/presentational/Loading';
+import Block from 'components_DEPRECATED/shared/generic/block/presentational/Block';
 
 import { getSelectedCompanyForClient } from 'helpers/generic';
 

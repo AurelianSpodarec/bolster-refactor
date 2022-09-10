@@ -1,9 +1,9 @@
 import React from 'react';
 
-import Table from 'components/shared/generic/tables/presentational/Table';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import Table from 'components_DEPRECATED/shared/generic/tables/presentational/Table';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
 import AllOperativesListItemContainer from '../containers/AllOperativesListItemContainer';
-import ActionButton from '../../../../../../../components/shared/generic/button/presentational/ActionButton';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
 
 const AllOperativesTable = ({ headers, users, isFetching, error, handleShowModal }) => (
     <>

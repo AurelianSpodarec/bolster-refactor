@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 
 import { STATUS_TO_STATS } from 'constants/companyAdmin/enums';
 
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 import DrawingStats from 'pages/dashboard/companyAdmin/drawings/singleDrawing/presentational/DrawingStats';
 import withUpdateOnChange from 'pages/dashboard/client/reports/createReport/components/hocs/withUpdateOnChange';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Select from 'components/shared/generic/form/presentational/Select';
+import Select from 'components_DEPRECATED/shared/generic/form/presentational/Select';
 
 const DrawingFilters = ({ statusOptions, filterStatus, handleChange, onMobile }) => (
     <form className="table-search">

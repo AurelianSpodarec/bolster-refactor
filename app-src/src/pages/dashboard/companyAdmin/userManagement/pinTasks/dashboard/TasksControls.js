@@ -3,11 +3,11 @@ import moment from 'moment';
 
 import useTasksFilters from './_hooks/useTasksFilters';
 
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import Select from 'components/shared/generic/form/presentational/Select';
-import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
+import ButtonContainer from 'components_DEPRECATED/shared/generic/button/containers/ButtonContainer';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import Select from 'components_DEPRECATED/shared/generic/form/presentational/Select';
+import MultiSelect from 'components_DEPRECATED/shared/generic/form/presentational/MultiSelect';
 
 import { DATE_TIME_IDS, PIN_STATS_DASHBOARD_VIEW } from 'constants/companyAdmin/enums';
 

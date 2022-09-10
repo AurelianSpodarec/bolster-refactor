@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 
 import { Link } from 'react-router-dom';
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
 import { RAW_S3_STORAGE_URL } from 'config';
 
 const NewFeaturesList = ({ newFeatures, showDeleteModal, showEditModal }) => {

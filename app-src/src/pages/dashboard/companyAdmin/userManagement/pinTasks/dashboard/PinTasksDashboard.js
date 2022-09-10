@@ -1,9 +1,9 @@
 import React from 'react';
 import usePinTasksDashboard from '../hooks/usePinTasksDashboard';
 
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import ButtonContainer from 'components_DEPRECATED/shared/generic/button/containers/ButtonContainer';
+import PageHeading from 'components_DEPRECATED/shared/generic/pageHeading/presentational/PageHeading';
 
 import TasksControls from './TasksControls';
 import CalendarView from './views/calendar/CalendarView';

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 import HeadquartersCompaniesTableContainer from '../containers/HeadquartersCompaniesTableContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import PageHeading from 'components_DEPRECATED/shared/generic/pageHeading/presentational/PageHeading';
+import ButtonContainer from 'components_DEPRECATED/shared/generic/button/containers/ButtonContainer';
 
 const HeadquartersCompanies = ({ handleCancelImpersonation, isImpersonating }) => (
     <>

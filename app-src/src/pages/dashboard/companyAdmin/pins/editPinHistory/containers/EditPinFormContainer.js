@@ -7,17 +7,17 @@ import editPinHistory from 'actions/companyAdmin/pins/async/editPinHistory';
 import resetPinAnswers from 'actions/companyAdmin/drawings/sync/resetPinAnswers';
 
 import EditPinForm from '../presentational/EditPinForm';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 
 import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
 import { convertEnumToDropdownOptions } from 'helpers/generic';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import PageHeading from 'components_DEPRECATED/shared/generic/pageHeading/presentational/PageHeading';
 import { isEmpty } from '../../../../../../helpers/generic';
 import {
     formatMeasurementsForPostBody,
     isAnswerValueEmpty,
-} from '../../../../../../components/shared/pins/addPin/fieldTypes/helpers';
+} from 'components_DEPRECATED/shared/pins/addPin/fieldTypes/helpers';
 
 class EditPinFormContainer extends Component {
     state = {

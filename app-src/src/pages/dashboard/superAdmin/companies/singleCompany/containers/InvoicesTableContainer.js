@@ -11,9 +11,9 @@ import {
 } from 'selectors/superAdmin/invoices';
 
 import InvoicesTable from '../presentational/InvoicesTable';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import PageSelector from 'components/shared/pagination/presentational/pageSelector';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import PageSelector from 'components_DEPRECATED/shared/pagination/presentational/pageSelector';
 
 const InvoicesTableContainer = () => {
     const dispatch = useDispatch();

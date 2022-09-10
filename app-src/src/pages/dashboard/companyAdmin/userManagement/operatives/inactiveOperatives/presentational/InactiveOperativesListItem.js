@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { REACTIVATE_USER } from 'constants/shared/modalTypes';
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
-import ActionButton from '../../../../../../../components/shared/generic/button/presentational/ActionButton';
-import ButtonWrapper from '../../../../../../../components/shared/generic/button/presentational/ButtonWrapper';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
 
 const InactiveOperativesListItem = ({
     user,

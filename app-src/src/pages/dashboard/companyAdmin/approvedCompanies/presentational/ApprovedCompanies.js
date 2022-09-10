@@ -1,7 +1,7 @@
 import React from 'react';
 
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
-import TabsContainer from 'components/shared/generic/tabs/containers/TabsContainer';
+import PageHeading from 'components_DEPRECATED/shared/generic/pageHeading/presentational/PageHeading';
+import TabsContainer from 'components_DEPRECATED/shared/generic/tabs/containers/TabsContainer';
 import ApprovedCompaniesRoutesContainer from '../containers/ApprovedCompaniesRouteContainer';
 
 const ApprovedCompanies = ({ companies }) => (

@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import axios from 'axios';
 import { connect, useDispatch } from 'react-redux';
 
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
-import PageSelector from 'components/shared/pagination/presentational/pageSelector';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import ButtonContainer from 'components_DEPRECATED/shared/generic/button/containers/ButtonContainer';
+import PageSelector from 'components_DEPRECATED/shared/pagination/presentational/pageSelector';
 
 import fileDownload from 'js-file-download';
 

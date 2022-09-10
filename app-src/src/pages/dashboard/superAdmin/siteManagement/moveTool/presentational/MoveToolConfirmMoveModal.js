@@ -1,7 +1,7 @@
 import React from 'react';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import ModalOuterContainer from 'components_DEPRECATED/shared/generic/modals/containers/ModalOuterContainer';
+import BlockButtonWrapper from 'components_DEPRECATED/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
 const MoveToolConfirmMoveModal = ({ moveFromName, moveToName, hideModal, handleSubmit }) => (
     <ModalOuterContainer>

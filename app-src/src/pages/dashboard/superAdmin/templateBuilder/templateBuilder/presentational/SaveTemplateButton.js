@@ -1,6 +1,6 @@
 import React from 'react';
 import { withRouter, Prompt } from 'react-router-dom';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import BlockButtonWrapper from 'components_DEPRECATED/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
 const SaveTemplateButton = ({ saveRequired, promptMessage, handleSave }) => (
     <>

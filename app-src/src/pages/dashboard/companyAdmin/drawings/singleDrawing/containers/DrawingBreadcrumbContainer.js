@@ -6,7 +6,7 @@ import fetchSingleSite from 'actions/companyAdmin/sites/async/fetchSingleSite';
 import fetchSingleBuilding from 'actions/companyAdmin/buildings/async/fetchSingleBuilding';
 import fetchSingleFloor from 'actions/companyAdmin/floors/async/fetchSingleFloor';
 
-import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
+import Breadcrumb from 'components_DEPRECATED/shared/generic/breadcrumb/presentational/Breadcrumb';
 
 class DrawingBreadcrumbContainer extends Component {
     render() {

@@ -1,10 +1,10 @@
 import React from 'react';
 
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
-import ActionMenu from 'components/shared/actionMenu/ActionMenu';
-import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
-import FlexWrapper from '../../../../../../../components/shared/generic/flexWrapper/FlexWrapper';
-import LinkButton from '../../../../../../../components/shared/generic/button/presentational/LinkButton';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
+import ActionMenu from 'components_DEPRECATED/shared/actionMenu/ActionMenu';
+import ActionMenuActionButton from 'components_DEPRECATED/shared/actionMenu/ActionMenuActionButton';
+import FlexWrapper from 'components_DEPRECATED/shared/generic/flexWrapper/FlexWrapper';
+import LinkButton from 'components_DEPRECATED/shared/generic/button/presentational/LinkButton';
 
 const AllClientsListItem = ({
     client,

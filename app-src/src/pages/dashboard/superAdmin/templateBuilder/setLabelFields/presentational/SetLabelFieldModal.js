@@ -1,9 +1,9 @@
 import React from 'react';
 
-import ModalOuter from 'components/shared/generic/modals/presentational/ModalOuter';
-import Form from 'components/shared/generic/form/containers/Form';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import ModalOuter from 'components_DEPRECATED/shared/generic/modals/presentational/ModalOuter';
+import Form from 'components_DEPRECATED/shared/generic/form/containers/Form';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import BlockButtonWrapper from 'components_DEPRECATED/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import LabelFields from './LabelFields';
 
 const SetLabelModal = ({

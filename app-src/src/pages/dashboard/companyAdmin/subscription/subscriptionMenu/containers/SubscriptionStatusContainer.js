@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import SubscriptionStatus from '../presentational/SubscriptionStatus';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 import { isEmpty } from 'helpers/generic';
 
 class SubscriptionStatusContainer extends Component {

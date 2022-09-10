@@ -1,7 +1,7 @@
 import React from 'react';
-import Table from 'components/shared/generic/tables/presentational/Table';
+import Table from 'components_DEPRECATED/shared/generic/tables/presentational/Table';
 import { formatCurrency } from 'helpers/generic';
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
 
 const InvoicePaymentsTable = ({ payments, headers, onMobile }) => (
     <Table

@@ -2,9 +2,9 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import disableCompany from 'actions/superAdmin/companies/async/disableCompany';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
-import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
+import FlexModalOuter from 'components_DEPRECATED/shared/generic/modals/presentational/FlexModalOuter';
 import { selectCompaniesIsPosting } from 'selectors/superAdmin/companies';
 
 const DisableCompanyModal = ({ company }) => {

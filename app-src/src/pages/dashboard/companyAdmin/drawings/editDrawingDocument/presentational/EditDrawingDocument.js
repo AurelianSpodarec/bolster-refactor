@@ -1,6 +1,6 @@
 import React from 'react';
 
-import EditDocumentFormContainer from 'components/shared/documents/containers/EditDocumentFormContainer';
+import EditDocumentFormContainer from 'components_DEPRECATED/shared/documents/containers/EditDocumentFormContainer';
 
 const EditFloorDocument = () => (
     <>

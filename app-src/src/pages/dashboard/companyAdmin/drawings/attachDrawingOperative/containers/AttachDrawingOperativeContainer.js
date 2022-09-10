@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { HIERARCHY_IDS, COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 import fetchOperativesForDrawing from 'actions/companyAdmin/operatives/async/fetchOperativesForDrawing';
 
-import AttachOperativesFormContainer from 'components/shared/operatives/containers/AttachOperativesFormContainer';
+import AttachOperativesFormContainer from 'components_DEPRECATED/shared/operatives/containers/AttachOperativesFormContainer';
 
 class AttachDrawingOperativeContainer extends Component {
     render() {

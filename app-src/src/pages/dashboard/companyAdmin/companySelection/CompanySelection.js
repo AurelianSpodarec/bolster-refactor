@@ -9,11 +9,11 @@ import postCompanyLogin from 'actions/companyAdmin/companySelection/postCompanyL
 import postCompanyReset from 'actions/companyAdmin/companySelection/postCompanyReset';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import decodeJWT from 'actions/shared/jwt/async/decodeJWT';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import Block from 'components/shared/generic/block/presentational/Block';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import Search from 'components/shared/generic/form/presentational/Search';
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import Block from 'components_DEPRECATED/shared/generic/block/presentational/Block';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import Search from 'components_DEPRECATED/shared/generic/form/presentational/Search';
+import PageHeading from 'components_DEPRECATED/shared/generic/pageHeading/presentational/PageHeading';
 import { FILE_STORAGE_URL } from 'config';
 import { COMPANY_USER_ROLE_IDS, COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 import { ERROR_MODAL } from 'constants/shared/modalTypes';

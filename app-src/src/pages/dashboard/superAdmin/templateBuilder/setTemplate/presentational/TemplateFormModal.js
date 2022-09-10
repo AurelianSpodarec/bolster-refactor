@@ -1,17 +1,17 @@
 import React from 'react';
 
-import ModalOuter from 'components/shared/generic/modals/presentational/ModalOuter';
-import Form from 'components/shared/generic/form/containers/Form';
-import Field from 'components/shared/generic/form/presentational/Field';
-import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
+import ModalOuter from 'components_DEPRECATED/shared/generic/modals/presentational/ModalOuter';
+import Form from 'components_DEPRECATED/shared/generic/form/containers/Form';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
+import TextInputContainer from 'components_DEPRECATED/shared/generic/form/containers/TextInputContainer';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import DropdownContainer from 'components_DEPRECATED/shared/generic/form/containers/DropdownContainer';
 import LabelTypeRadioButtonsContainer from '../containers/LabelTypeRadioButtonsContainer';
-import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
-import Select from 'components/shared/generic/form/presentational/Select';
-import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
-import ButtonWrapper from '../../../../../../components/shared/generic/button/presentational/ButtonWrapper';
-import ActionButton from '../../../../../../components/shared/generic/button/presentational/ActionButton';
+import MultiSelect from 'components_DEPRECATED/shared/generic/form/presentational/MultiSelect';
+import Select from 'components_DEPRECATED/shared/generic/form/presentational/Select';
+import FileUploadContainer from 'components_DEPRECATED/shared/generic/form/containers/FileUploadContainer';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
 
 const TemplateformModal = ({
     action,

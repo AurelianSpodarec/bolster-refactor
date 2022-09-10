@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { Map, TileLayer } from 'react-leaflet';
 import { CRS } from 'leaflet';
 
-import MapPin from 'components/shared/pins/map/presentational/MapPin';
+import MapPin from 'components_DEPRECATED/shared/pins/map/presentational/MapPin';
 import { FILE_STORAGE_URL } from 'config';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
+import ButtonContainer from 'components_DEPRECATED/shared/generic/button/containers/ButtonContainer';
 import SinglePinGenerateReportContainer from '../containers/SinglePinGenerateReportContainer';
 
 const SinglePinMap = ({ pin, zoom, user, drawing = {}, pinHistory }) => {

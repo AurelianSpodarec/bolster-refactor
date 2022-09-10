@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
+import SwitchWith404 from 'components_DEPRECATED/appRoute/routes/presentational/SwitchWith404';
 import AllLegalDocumentsTableContainer from 'pages/dashboard/superAdmin/legalDocuments/allLegalDocuments/containers/AllLegalDocumentsTableContainer';
 import CreateLegalDocumentContainer from 'pages/dashboard/superAdmin/legalDocuments/createLegalDocument/containers/CreateLegalDocumentContainer';
 import UpdateLegalDocumentVersionContainer from 'pages/dashboard/superAdmin/legalDocuments/addLegalDocumentVersion/containers/UpdateLegalDocumentVersion';

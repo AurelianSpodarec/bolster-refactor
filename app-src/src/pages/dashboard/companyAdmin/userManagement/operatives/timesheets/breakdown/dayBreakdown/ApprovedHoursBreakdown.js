@@ -7,12 +7,12 @@ import { formatAsHrsMins, formatCurrency } from 'helpers/generic';
 
 import { selectCompanyCurrency } from 'selectors/companyAdmin/companySettings';
 
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import Table from 'components/shared/generic/tables/presentational/Table';
-import StickyComponent from 'components/shared/sticky/StickyComponent';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import Table from 'components_DEPRECATED/shared/generic/tables/presentational/Table';
+import StickyComponent from 'components_DEPRECATED/shared/sticky/StickyComponent';
 import useIsAdminPlus from '../../../../../../../../hooks/useIsAdminPlus';
-import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
+import TooltipContainer from 'components_DEPRECATED/shared/generic/tooltip/containers/TooltipContainer';
 
 import WarningIcon from 'assets/images/icons/Triangle_Warning.svg';
 

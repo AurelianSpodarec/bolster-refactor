@@ -1,6 +1,6 @@
 import React from 'react';
 import PinQuestionsContainer from '../containers/PinQuestionsContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
 
 const PinSection = ({ sections, pinHistory }) =>
     sections.map(({ id, name }) => (

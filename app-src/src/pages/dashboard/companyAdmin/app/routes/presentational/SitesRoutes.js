@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
+import SwitchWith404 from 'components_DEPRECATED/appRoute/routes/presentational/SwitchWith404';
 import AllSitesContainer from 'pages/dashboard/companyAdmin/sites/allSites/containers/AllSitesContainer';
 import SingleSiteContainer from 'pages/dashboard/companyAdmin/sites/singleSite/containers/SingleSiteContainer';
 import ChangeSiteOwnership from 'pages/dashboard/companyAdmin/sites/changeSiteOwnership/presentational/ChangeSiteOwnership';
@@ -12,7 +12,7 @@ import AttachSiteDocument from 'pages/dashboard/companyAdmin/sites/attachSiteDoc
 import EditSiteDocument from 'pages/dashboard/companyAdmin/sites/editSiteDocument/presentational/EditSiteDocument';
 import EditCompanyPermissionsOnSiteContainer from 'pages/dashboard/companyAdmin/sites/editCompanyOnSite/containers/EditCompanyPermissionsOnSiteContainer';
 import AddCompanyPermissionsToSite from 'pages/dashboard/companyAdmin/sites/addCompanyPermissionsToSite/presentational/AddCompanyPermissionsToSite';
-import DocumentResponsesContainer from 'components/shared/documents/containers/DocumentResponsesContainer';
+import DocumentResponsesContainer from 'components_DEPRECATED/shared/documents/containers/DocumentResponsesContainer';
 import HierarchyAlerts from 'pages/dashboard/companyAdmin/upcomingAlerts/hierarchys/HierarchyAlerts';
 
 const SitesRoutes = ({ base = '/company/sites' }) => (

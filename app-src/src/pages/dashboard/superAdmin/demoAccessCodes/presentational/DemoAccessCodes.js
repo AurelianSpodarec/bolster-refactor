@@ -1,9 +1,9 @@
 import React from 'react';
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import Table from 'components/shared/generic/tables/presentational/Table';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import PageHeading from 'components_DEPRECATED/shared/generic/pageHeading/presentational/PageHeading';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import Table from 'components_DEPRECATED/shared/generic/tables/presentational/Table';
+import BlockButtonWrapper from 'components_DEPRECATED/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { ADD_DEMO_ACCESS_CODES, DELETE_DEMO_ACCESS_CODES } from 'constants/shared/modalTypes';
 import { useDispatch } from 'react-redux';

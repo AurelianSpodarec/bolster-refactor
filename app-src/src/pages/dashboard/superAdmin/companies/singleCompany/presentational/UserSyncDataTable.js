@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment-timezone';
 
-import Table from 'components/shared/generic/tables/presentational/Table';
+import Table from 'components_DEPRECATED/shared/generic/tables/presentational/Table';
 
 const UserSyncDataTable = ({ headers, syncData, isFetching, companyTimezone }) => {
     return (

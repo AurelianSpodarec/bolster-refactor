@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
-import Block from 'components/shared/generic/block/presentational/Block';
+import Breadcrumb from 'components_DEPRECATED/shared/generic/breadcrumb/presentational/Breadcrumb';
+import Block from 'components_DEPRECATED/shared/generic/block/presentational/Block';
 
 const CompanyAdmins = () => (
     <div>

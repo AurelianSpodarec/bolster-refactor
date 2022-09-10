@@ -1,12 +1,12 @@
 import React from 'react';
-import Block from 'components/shared/generic/block/presentational/Block';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import Table from 'components/shared/generic/tables/presentational/Table';
+import Block from 'components_DEPRECATED/shared/generic/block/presentational/Block';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import Table from 'components_DEPRECATED/shared/generic/tables/presentational/Table';
 import TemplateSection from './TemplateSection';
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import PageHeading from 'components_DEPRECATED/shared/generic/pageHeading/presentational/PageHeading';
 import { formatQuestions } from 'helpers/templates';
 import TemplateSectionQuestionDetailsContainer from '../containers/TemplateSectionQuestionDetailsContainer';
-import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
+import BackButtonContainer from 'components_DEPRECATED/shared/generic/backButton/containers/BackButtonContainer';
 import TemplateDetailsContainer from '../containers/TemplateDetailsContainer';
 
 const SingleTemplate = ({ sections, questions, headers, templateID }) => (

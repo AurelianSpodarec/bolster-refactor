@@ -10,7 +10,7 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import AllOperativesTable from '../presentational/AllOperativesTable';
 import { CREATE_OPERATIVE } from 'constants/shared/modalTypes';
 import { isEmpty } from '../../../../../../../helpers/generic';
-import BlockContainer from '../../../../../../../components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 
 const AllOperativesTableContainer = ({ filteredUsers }) => {
     const { users, disabledUsers, isFetching, error, postSuccess } = useSelector(mapStateToProps);

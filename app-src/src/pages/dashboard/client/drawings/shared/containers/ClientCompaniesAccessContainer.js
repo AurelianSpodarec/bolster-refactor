@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import CompaniesAccessTable from 'components/shared/companies/presentational/CompaniesAccessTable';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import CompaniesAccessTable from 'components_DEPRECATED/shared/companies/presentational/CompaniesAccessTable';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 
 import { DELETE_COMPANY_PERMISSIONS } from 'constants/shared/modalTypes';
 

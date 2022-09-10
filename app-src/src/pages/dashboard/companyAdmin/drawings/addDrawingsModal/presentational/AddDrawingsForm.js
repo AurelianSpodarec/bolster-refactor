@@ -1,19 +1,19 @@
 import React from 'react';
 
-import SubmitContainer from 'components/shared/generic/form/containers/SubmitContainer.js';
-import Form from 'components/shared/generic/form/containers/Form';
-import Field from 'components/shared/generic/form/presentational/Field';
-import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
-import DatePickerPresentational from 'components/shared/generic/form/presentational/DatePicker';
-import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
-import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import SubmitContainer from 'components_DEPRECATED/shared/generic/form/containers/SubmitContainer.js';
+import Form from 'components_DEPRECATED/shared/generic/form/containers/Form';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
+import TextInputContainer from 'components_DEPRECATED/shared/generic/form/containers/TextInputContainer';
+import BlockButtonWrapper from 'components_DEPRECATED/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import FileUploadContainer from 'components_DEPRECATED/shared/generic/form/containers/FileUploadContainer';
+import DatePickerPresentational from 'components_DEPRECATED/shared/generic/form/presentational/DatePicker';
+import CheckboxContainer from 'components_DEPRECATED/shared/generic/form/containers/CheckboxContainer';
+import CheckboxListContainer from 'components_DEPRECATED/shared/generic/form/containers/CheckboxListContainer';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
 import { ReactComponent as TrashIcon } from 'assets/images/icons/trash.svg';
 import { ReactComponent as ArrowsRotate } from 'assets/images/icons/arrows-rotate.svg';
-import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import FlexWrapper from 'components_DEPRECATED/shared/generic/flexWrapper/FlexWrapper';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
 
 // * .*. in names is used for splitting up field validations without risking overlap with real names
 

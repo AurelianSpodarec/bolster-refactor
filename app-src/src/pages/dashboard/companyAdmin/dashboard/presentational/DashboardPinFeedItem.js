@@ -3,9 +3,9 @@ import React from 'react';
 import { PIN_STATUS_IDS as STATUS } from 'constants/companyAdmin/enums';
 import { pin2xImgs } from 'assets/images/map-markers';
 
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
-import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
+import LinkButton from 'components_DEPRECATED/shared/generic/button/presentational/LinkButton';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
 
 const DashboardPinFeedItem = ({ pin }) => {
     let pinColour;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
+import SwitchWith404 from 'components_DEPRECATED/appRoute/routes/presentational/SwitchWith404';
 import AllUsersContainer from 'pages/dashboard/superAdmin/users/allUsers/containers/AllUsersContainer';
 
 const UsersRoutes = ({ base = '/admin/users' }) => (

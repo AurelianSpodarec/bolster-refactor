@@ -1,7 +1,7 @@
 import React from 'react';
 
 import showModal from 'actions/shared/generic/modals/sync/showModal';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { BOLSTER_PLUS_UPGRADE_MODAL, GENERATE_TIMESHEET_REPORT } from 'constants/shared/modalTypes';
 import { selectTimesheetsReportDates } from 'selectors/companyAdmin/timesheets';

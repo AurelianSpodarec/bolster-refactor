@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import ClientsTable from 'components/shared/clients/presentational/ClientsTable';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import ClientsTable from 'components_DEPRECATED/shared/clients/presentational/ClientsTable';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 
 import { DELETE_CLIENT_FROM_DRAWING, ERROR_MODAL } from 'constants/shared/modalTypes';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';

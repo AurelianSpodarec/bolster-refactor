@@ -1,7 +1,7 @@
 import React from 'react';
 import LabelFieldRoute from '../containers/LabelFieldRoute';
-import Field from 'components/shared/generic/form/presentational/Field';
-import Select from 'components/shared/generic/form/presentational/Select';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
+import Select from 'components_DEPRECATED/shared/generic/form/presentational/Select';
 
 const LabelField = ({
     questionOptions,

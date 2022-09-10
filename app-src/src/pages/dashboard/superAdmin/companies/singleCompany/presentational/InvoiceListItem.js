@@ -1,9 +1,9 @@
 import React from 'react';
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
 import { PAYMENT_TYPES } from 'constants/companyAdmin/enums';
 import { formatNumber } from 'helpers/generic';
-import LinkWithPropsContainer from 'components/shared/generic/button/containers/LinkWithPropsContainer';
-import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
+import LinkWithPropsContainer from 'components_DEPRECATED/shared/generic/button/containers/LinkWithPropsContainer';
+import TooltipContainer from 'components_DEPRECATED/shared/generic/tooltip/containers/TooltipContainer';
 
 const InvoiceListItem = ({ invoice }) => (
     <tr className={invoice.isDeleted ? 'deleted-invoice' : ''}>

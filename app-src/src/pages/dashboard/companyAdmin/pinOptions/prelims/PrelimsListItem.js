@@ -3,13 +3,13 @@ import { useSelector } from 'react-redux';
 
 import { selectCompanySettings } from 'selectors/companyAdmin/companySettings';
 
-import ActionMenu from 'components/shared/actionMenu/ActionMenu';
-import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import ActionMenu from 'components_DEPRECATED/shared/actionMenu/ActionMenu';
+import ActionMenuActionButton from 'components_DEPRECATED/shared/actionMenu/ActionMenuActionButton';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
 import { CURRENCY_SYMBOLS, PRELIMS_TYPES } from 'constants/companyAdmin/enums';
 import percentSvg from 'assets/images/frontend/percentIcon.svg';
 import percentSvgForLightMode from 'assets/images/frontend/percentIconForLightMode.svg';
-import CurrencyIcon from 'components/shared/currencyIcon/CurrencyIcon';
+import CurrencyIcon from 'components_DEPRECATED/shared/currencyIcon/CurrencyIcon';
 import useColourTheme from '../../../../../hooks/useColourTheme';
 
 const PrelimsListItem = ({ set, showEditModal, showDeleteModal }) => {

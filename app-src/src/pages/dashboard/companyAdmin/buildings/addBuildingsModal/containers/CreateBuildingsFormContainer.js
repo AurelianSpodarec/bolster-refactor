@@ -8,7 +8,7 @@ import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import updateHierarchyAddState from 'actions/companyAdmin/hierarchy/sync/updateHierarchyAddState';
 import { useMultipleHierarchies } from 'helpers/hooks';
 import createBuilding from 'actions/companyAdmin/buildings/async/createBuilding';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 
 const CreateBuildingsFormContainer = ({
     siteID,

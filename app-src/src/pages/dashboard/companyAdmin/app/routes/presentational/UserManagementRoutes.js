@@ -1,11 +1,11 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
+import SwitchWith404 from 'components_DEPRECATED/appRoute/routes/presentational/SwitchWith404';
 import AllCompanyAdminsContainer from 'pages/dashboard/companyAdmin/userManagement/companyAdmins/allCompanyAdmins/containers/AllCompanyAdminsContainer';
 import AllOperatives from 'pages/dashboard/companyAdmin/userManagement/operatives/allOperatives/presentational/AllOperatives';
 import AllClientsContainer from 'pages/dashboard/companyAdmin/userManagement/clients/allClients/containers/AllClientsContainer';
-import ClientsAccessContainer from 'components/shared/clients/containers/ClientsAccessContainer';
+import ClientsAccessContainer from 'components_DEPRECATED/shared/clients/containers/ClientsAccessContainer';
 import CreateOperative from 'pages/dashboard/companyAdmin/userManagement/operatives/createOperative/presentational/CreateOperative';
 import CreateCompanyAdmin from 'pages/dashboard/companyAdmin/userManagement/companyAdmins/createCompanyAdmin/presentational/CreateCompanyAdmin';
 import EditOperativeContainer from 'pages/dashboard/companyAdmin/userManagement/operatives/editOperative/containers/EditOperativeContainer';

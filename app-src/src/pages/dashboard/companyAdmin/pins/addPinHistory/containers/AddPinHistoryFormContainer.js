@@ -9,14 +9,14 @@ import resetPinAnswers from 'actions/companyAdmin/drawings/sync/resetPinAnswers'
 import updateAddPinStatus from 'actions/companyAdmin/drawings/sync/updateAddPinStatus';
 import { QUESTION_TYPE_VALUES } from 'constants/shared/templateBuilder';
 
-import AddPinForm from 'components/shared/pins/addPin/presentational/AddPinForm';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
-import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
+import AddPinForm from 'components_DEPRECATED/shared/pins/addPin/presentational/AddPinForm';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import PageHeading from 'components_DEPRECATED/shared/generic/pageHeading/presentational/PageHeading';
+import BackButtonContainer from 'components_DEPRECATED/shared/generic/backButton/containers/BackButtonContainer';
 import {
     formatMeasurementsForPostBody,
     isAnswerValueEmpty,
-} from '../../../../../../components/shared/pins/addPin/fieldTypes/helpers';
+} from 'components_DEPRECATED/shared/pins/addPin/fieldTypes/helpers';
 
 const { SINGLE_PHOTO, MULTI_PHOTO, SIGNATURE } = QUESTION_TYPE_VALUES;
 

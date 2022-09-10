@@ -2,8 +2,8 @@ import React from 'react';
 
 import useBugReportsTable from './hooks/useBugReportsTable';
 
-import Table from 'components/shared/generic/tables/presentational/Table';
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import Table from 'components_DEPRECATED/shared/generic/tables/presentational/Table';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
 import { isEmpty } from 'helpers/generic';
 import useDeleteBugReport from './hooks/useDeleteBugReport';
 

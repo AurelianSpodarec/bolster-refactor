@@ -8,15 +8,15 @@ import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { ADD_BUILDINGS, ERROR_MODAL } from 'constants/shared/modalTypes';
 
 import BuildingsTableContainer from 'pages/dashboard/companyAdmin/buildings/shared/containers/BuildingsTableContainer';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
 import updateHierarchyAddState from 'actions/companyAdmin/hierarchy/sync/updateHierarchyAddState';
 import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
 import fetchAllBuildings from 'actions/companyAdmin/buildings/async/fetchAllBuildings';
 import fetchSingleSite from 'actions/companyAdmin/sites/async/fetchSingleSite';
 import setHierarchyIsSorting from 'actions/companyAdmin/hierarchy/sync/setHierarchyIsSorting';
 import BuildingFiltersContainer from './BuildingsFiltersContainer';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
 class SiteBuildingsTableContainer extends Component {
     render() {
         const { site, isSorting } = this.props;

@@ -6,8 +6,8 @@ import moment from 'moment';
 // import { isObjEmpty } from 'helpers/generic';
 
 import PinDetails from '../presentational/PinDetails';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
 
 class PinDetailsContainer extends Component {
     render() {

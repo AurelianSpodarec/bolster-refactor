@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
+import FlexWrapper from 'components_DEPRECATED/shared/generic/flexWrapper/FlexWrapper';
 import { formatCurrency } from 'helpers/generic';
 import { selectDrawing } from 'selectors/companyAdmin/drawings';
 import fetchSingleDrawing from 'actions/companyAdmin/drawings/async/fetchSingleDrawing';

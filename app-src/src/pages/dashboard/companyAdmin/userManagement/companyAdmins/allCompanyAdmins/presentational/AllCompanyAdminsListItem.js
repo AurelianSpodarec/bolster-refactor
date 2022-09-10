@@ -4,13 +4,13 @@ import { useHistory } from 'react-router-dom';
 import { getStorageString } from 'helpers/generic';
 
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
 import { getLowMemoryMessage } from 'constants/shared/messages';
-import LinkButton from '../../../../../../../components/shared/generic/button/presentational/LinkButton';
-import TooltipContainer from '../../../../../../../components/shared/generic/tooltip/containers/TooltipContainer';
+import LinkButton from 'components_DEPRECATED/shared/generic/button/presentational/LinkButton';
+import TooltipContainer from 'components_DEPRECATED/shared/generic/tooltip/containers/TooltipContainer';
 import CompanyAdminUserActionsMenu from './CompanyAdminUserActionsMenu';
 import { getDeviceNameColour, getTooltipRamText } from '../../../shared/utils';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
 
 const AllCompanyAdminsListItem = ({
     user,

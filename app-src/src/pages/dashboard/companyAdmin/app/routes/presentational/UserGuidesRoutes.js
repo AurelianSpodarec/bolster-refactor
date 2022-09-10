@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
+import SwitchWith404 from 'components_DEPRECATED/appRoute/routes/presentational/SwitchWith404';
 import UserGuidesContainer from 'pages/dashboard/companyAdmin/userGuides/containers/UserGuidesContainer';
 
 const UserGuidesRoutes = ({ base = '/company/user-guides' }) => (

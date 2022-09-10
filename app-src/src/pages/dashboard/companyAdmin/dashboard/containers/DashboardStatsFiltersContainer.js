@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import DashboardStatsFilters from '../presentational/DashboardStatsFilters';
 import updateDashboardFilters from 'actions/companyAdmin/dashboard/sync/updateDashboardFilters';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 import fetchPinStats from 'actions/companyAdmin/dashboard/async/fetchPinStats';
 import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
 import moment from 'moment';

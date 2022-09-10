@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ADMIN_EDIT_PAYMENT, ADMIN_DELETE_PAYMENT } from 'constants/shared/modalTypes';
 
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import BlockButtonWrapper from 'components_DEPRECATED/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import { DATE_TIME_DEFAULTS, PAYMENT_TYPES } from 'constants/companyAdmin/enums';
 import moment from 'moment';
 

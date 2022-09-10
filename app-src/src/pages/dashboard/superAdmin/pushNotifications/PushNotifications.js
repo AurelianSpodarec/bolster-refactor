@@ -5,10 +5,10 @@ import { isEmpty } from 'helpers/generic';
 import useFetchPushNotifications from './hooks/useFetchPushNotifications';
 import usePushNotificationActions from './hooks/usePushNotificationActions';
 
-import Table from 'components/shared/generic/tables/presentational/Table';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import FlexHeading from 'components/shared/generic/pageHeading/presentational/FlexHeading';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import Table from 'components_DEPRECATED/shared/generic/tables/presentational/Table';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import FlexHeading from 'components_DEPRECATED/shared/generic/pageHeading/presentational/FlexHeading';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
 import PushNotificationListItem from './PushNotificationListItem';
 
 const PushNotifications = () => {

@@ -1,13 +1,13 @@
 import React from 'react';
 
-import PieChart from 'components/shared/stats/presentational/PieChart';
+import PieChart from 'components_DEPRECATED/shared/stats/presentational/PieChart';
 import BuildingDetails from './BuildingDetails';
 import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
-import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
-import ActionMenu from 'components/shared/actionMenu/ActionMenu';
-import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
+import FlexWrapper from 'components_DEPRECATED/shared/generic/flexWrapper/FlexWrapper';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
+import ActionMenu from 'components_DEPRECATED/shared/actionMenu/ActionMenu';
+import ActionMenuActionButton from 'components_DEPRECATED/shared/actionMenu/ActionMenuActionButton';
 
 const BuildingStats = ({
     building,

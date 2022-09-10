@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import AccordionButton from 'components/shared/generic/button/presentational/AccordionButton';
-import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
+import AccordionButton from 'components_DEPRECATED/shared/generic/button/presentational/AccordionButton';
+import FlexWrapper from 'components_DEPRECATED/shared/generic/flexWrapper/FlexWrapper';
 import { formatCurrency } from 'helpers/generic';
 import CostingCartPinSummaryItem from './CostingCartPinSummaryItem';
 import { useSelector } from 'react-redux';

@@ -6,8 +6,8 @@ import { USERS_ADMIN_TABS } from 'constants/shared/tabNames';
 import AllCompanyAdminsTableContainer from '../containers/AllCompanyAdminsTableContainer';
 import InvitedCompanyAdminsTable from '../../invitedCompanyAdmins/presentational/InvitedCompanyAdminsTable';
 import DeletedCompanyAdminsTable from '../../deletedCompanyAdmins/presentational/DeletedCompanyAdminsTable';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import Search from 'components/shared/generic/form/presentational/Search';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import Search from 'components_DEPRECATED/shared/generic/form/presentational/Search';
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 import { nameSort } from 'helpers/generic';
 

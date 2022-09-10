@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import useMessageCentreTable from './hooks/useMessageCentreTable';
 
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 import MessageCentreTabs from './MessageCentreTabs';
 import MessagesList from './MessagesList';
 import SearchBar from 'pages/dashboard/companyAdmin/layout/header/presentational/SearchBar';

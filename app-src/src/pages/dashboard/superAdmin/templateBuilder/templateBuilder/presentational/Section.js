@@ -1,9 +1,9 @@
 import React from 'react';
 
 import QuestionList from './QuestionList';
-import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import TooltipContainer from 'components_DEPRECATED/shared/generic/tooltip/containers/TooltipContainer';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 
 const Section = ({
     isActive,

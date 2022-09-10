@@ -3,7 +3,7 @@ import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
 
 import showModal from 'actions/shared/generic/modals/sync/showModal';
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
 import { FILE_STORAGE_URL } from 'config';
 import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import { PIN_IMAGE } from 'constants/shared/modalTypes';

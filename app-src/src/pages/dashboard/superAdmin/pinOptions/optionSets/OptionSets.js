@@ -9,15 +9,15 @@ import { isEmpty } from 'helpers/generic';
 
 import useOptionSetActions from './hooks/useOptionSetActions';
 
-import FilterRow from 'components/shared/filters/FilterRow';
-import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import Table from 'components/shared/generic/tables/presentational/Table';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import FilterRow from 'components_DEPRECATED/shared/filters/FilterRow';
+import TextInputContainer from 'components_DEPRECATED/shared/generic/form/containers/TextInputContainer';
+import Table from 'components_DEPRECATED/shared/generic/tables/presentational/Table';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
 
 import OptionSetsListItem from './OptionSetsListItem';
-import TooltipFilters from 'components/shared/filters/TooltipFilters/TooltipFilters';
-import TooltipFiltersItem from 'components/shared/filters/TooltipFilters/TooltipFiltersItem';
+import TooltipFilters from 'components_DEPRECATED/shared/filters/TooltipFilters/TooltipFilters';
+import TooltipFiltersItem from 'components_DEPRECATED/shared/filters/TooltipFilters/TooltipFiltersItem';
 
 const OptionSets = ({ selectedTypeID }) => {
     const selectedPinOptionType = useSelector(state => selectPinOptionType(state, selectedTypeID));

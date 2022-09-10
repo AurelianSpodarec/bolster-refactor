@@ -5,7 +5,7 @@ import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import editBuilding from 'actions/companyAdmin/buildings/async/editBuilding';
 
 import BuildingEditForm from '../presentational/EditBuildingForm';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 
 class BuildingEditFormContainer extends Component {
     state = {

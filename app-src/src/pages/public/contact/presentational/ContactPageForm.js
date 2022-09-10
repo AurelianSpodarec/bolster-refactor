@@ -1,12 +1,12 @@
 import React from 'react';
 
-import ReCaptcha from 'components/shared/generic/form/presentational/ReCaptcha';
+import ReCaptcha from 'components_DEPRECATED/shared/generic/form/presentational/ReCaptcha';
 
-import Field from 'components/shared/generic/form/presentational/Field';
-import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
+import TextInputContainer from 'components_DEPRECATED/shared/generic/form/containers/TextInputContainer';
 import FrontEndButton from 'pages/public/shared/buttons/presentational/FrontEndButton';
-import Form from 'components/shared/generic/form/containers/Form';
-import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
+import Form from 'components_DEPRECATED/shared/generic/form/containers/Form';
+import LoadingIcon from 'components_DEPRECATED/shared/generic/misc/presentational/LoadingIcon';
 import FrontEndFormHeading from 'pages/public/shared/forms/presentational/FrontEndFormHeading';
 import ContactInfo from './ContactInfo';
 

@@ -2,8 +2,8 @@ import React from 'react';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import FrontEndFormHeading from 'pages/public/shared/forms/presentational/FrontEndFormHeading';
-import Field from 'components/shared/generic/form/presentational/Field';
-import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
+import LoadingIcon from 'components_DEPRECATED/shared/generic/misc/presentational/LoadingIcon';
 import { componentDidMount } from 'helpers/generic';
 import postConfirmChangeEmail from 'actions/shared/auth/async/postConfirmChangeEmail';
 

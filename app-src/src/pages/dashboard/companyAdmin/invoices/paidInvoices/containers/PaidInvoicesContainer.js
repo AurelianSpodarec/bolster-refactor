@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 import InvoicesTableContainer from 'pages/dashboard/companyAdmin/invoices/shared/invoiceListTable/containers/InvoicesTableContainer';
 import { sortArrayByField } from 'helpers/generic';
 

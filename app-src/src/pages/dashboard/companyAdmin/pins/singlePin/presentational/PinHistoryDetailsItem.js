@@ -4,12 +4,12 @@ import moment from 'moment';
 import { CURRENCY_SYMBOLS, PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
 import { formatCurrency } from 'helpers/generic';
 
-import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
+import FieldOutput from 'components_DEPRECATED/shared/generic/fieldOutput/presentational/FieldOutput';
 
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import BlockButtonWrapper from 'components_DEPRECATED/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
 import PinSectionsContainer from '../containers/PinSectionsContainer';
-import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
+import TooltipContainer from 'components_DEPRECATED/shared/generic/tooltip/containers/TooltipContainer';
 import useIsAdminPlus from '../../../../../../hooks/useIsAdminPlus';
 
 const PinHistoryDetailsItem = ({

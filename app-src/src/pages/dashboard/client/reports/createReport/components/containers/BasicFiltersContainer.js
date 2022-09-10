@@ -12,7 +12,7 @@ import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { CONFIRM_SUBMIT } from 'constants/shared/modalTypes';
 import clientFetchAllTemplates from 'actions/client/templates/async/clientFetchAllTemplates';
 import clientFetchTemplatesForDrawing from 'actions/client/templates/async/clientFetchTemplatesForDrawing';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 
 class BasicFiltersContainer extends Component {
     state = {

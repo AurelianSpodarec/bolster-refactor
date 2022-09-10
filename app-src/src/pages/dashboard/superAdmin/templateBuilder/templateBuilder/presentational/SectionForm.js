@@ -1,7 +1,7 @@
 import React from 'react';
 
 import AddPinQuestionRoute from '../containers/AddPinQuestionRoute';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
 
 const SectionForm = ({ section, questions }) => (
     <div key={section.value} className="size-lg-12">

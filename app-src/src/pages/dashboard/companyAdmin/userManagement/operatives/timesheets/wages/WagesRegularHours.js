@@ -1,11 +1,11 @@
 import React from 'react';
 
-import BlockHeading from '../../../../../../../components/shared/generic/blockHeading/presentational/BlockHeading';
-import Tickbox from '../../../../../../../components/shared/generic/form/presentational/Tickbox';
-import Select from '../../../../../../../components/shared/generic/form/presentational/Select';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import Tickbox from 'components_DEPRECATED/shared/generic/form/presentational/Tickbox';
+import Select from 'components_DEPRECATED/shared/generic/form/presentational/Select';
 import { breakOptions, timeOptions } from 'constants/companyAdmin/options';
 import useBolsterPlus from 'pages/dashboard/companyAdmin/subscription/addOns/hooks/useBolsterPlus';
-import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
+import TooltipContainer from 'components_DEPRECATED/shared/generic/tooltip/containers/TooltipContainer';
 
 const WagesRegularHours = ({ form, handleDayChange, handleChange, days, timeDifference }) => {
     const { isBolsterPlusActivated } = useBolsterPlus();

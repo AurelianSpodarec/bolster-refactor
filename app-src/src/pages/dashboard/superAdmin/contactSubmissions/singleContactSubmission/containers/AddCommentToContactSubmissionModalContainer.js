@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import ConfirmAddCommentModal from 'components/shared/generic/modals/presentational/ConfirmAddCommentModal';
+import ConfirmAddCommentModal from 'components_DEPRECATED/shared/generic/modals/presentational/ConfirmAddCommentModal';
 import addContactSubmissionComment from 'actions/superAdmin/contactSubmissions/async/addCommentToContactSubmission';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 

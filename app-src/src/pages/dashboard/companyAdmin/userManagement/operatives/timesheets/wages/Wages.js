@@ -5,9 +5,9 @@ import useWages from './hooks/useWages';
 import WagesUserList from './WagesUserList';
 import WagesPayDetails from './WagesPayDetails';
 import WagesRegularHours from './WagesRegularHours';
-import Field from '../../../../../../../components/shared/generic/form/presentational/Field';
-import ActionButton from '../../../../../../../components/shared/generic/button/presentational/ActionButton';
-import BlockContainer from '../../../../../../../components/shared/generic/block/containers/BlockContainer';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 
 const Wages = () => {
     const {

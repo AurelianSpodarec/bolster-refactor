@@ -1,8 +1,8 @@
-import Error from 'components/shared/generic/misc/presentational/Error';
+import Error from 'components_DEPRECATED/shared/generic/misc/presentational/Error';
 import { costingAndEstimatingType, CURRENCY_SYMBOLS } from 'constants/companyAdmin/enums';
 import { formatCurrency } from 'helpers/generic';
 import React from 'react';
-import BlockContainer from '../../../../../components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 import LoadingOverlay from '../LoadingOverlay';
 import CartReportForm from './CartReportForm';
 import CostingCartPinSummary from './CostingCartPinSummary';

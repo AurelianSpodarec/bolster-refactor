@@ -6,14 +6,14 @@ import { Map, TileLayer, Marker } from 'react-leaflet';
 import { FILE_STORAGE_URL } from 'config';
 import moment from 'moment';
 
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-// import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
-import Loading from 'components/shared/generic/misc/presentational/Loading';
-import MapPinContainer from 'components/shared/pins/map/containers/MapPinContainer';
-import RedX from 'components/shared/pins/map/presentational/RedX';
-import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
-import PinSelectorOptions from 'components/shared/pinSelector/presentational/PinSelectorOptions';
-import Rectangle from 'components/shared/pinSelector/presentational/Rectangle';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+// import LoadingIcon from 'components_DEPRECATED/shared/generic/misc/presentational/LoadingIcon';
+import Loading from 'components_DEPRECATED/shared/generic/misc/presentational/Loading';
+import MapPinContainer from 'components_DEPRECATED/shared/pins/map/containers/MapPinContainer';
+import RedX from 'components_DEPRECATED/shared/pins/map/presentational/RedX';
+import LoadingIcon from 'components_DEPRECATED/shared/generic/misc/presentational/LoadingIcon';
+import PinSelectorOptions from 'components_DEPRECATED/shared/pinSelector/presentational/PinSelectorOptions';
+import Rectangle from 'components_DEPRECATED/shared/pinSelector/presentational/Rectangle';
 
 const getDataUrl = src => `${FILE_STORAGE_URL}/${src}/{z}/{x}/{y}.jpg`;
 

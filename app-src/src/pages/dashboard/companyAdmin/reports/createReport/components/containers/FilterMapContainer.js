@@ -12,7 +12,7 @@ import removeAllRectangles from 'actions/companyAdmin/reports/sync/removeAllRect
 import fetchPinsForReport from 'actions/companyAdmin/pins/async/fetchPinsForReport';
 import updateFurtherFiltrationOption from 'actions/companyAdmin/reports/sync/updateFurtherFiltrationOption';
 import removeAllExcludedPins from 'actions/companyAdmin/reports/sync/removeAllExcludedPins';
-import FilterMap from 'components/shared/maps/presentational/FilterMap';
+import FilterMap from 'components_DEPRECATED/shared/maps/presentational/FilterMap';
 const { ADD, DELETE, EXCLUDE } = RECTANGLE_MODES;
 const { PIN_SELECTOR } = FURTHER_FILTRATION_OPTIONS;
 

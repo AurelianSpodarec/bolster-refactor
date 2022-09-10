@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ApprovedCompaniesListItem from '../presentational/ApprovedCompaniesListItem';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 
 const ApprovedCompaniesListContainer = ({
     companies,

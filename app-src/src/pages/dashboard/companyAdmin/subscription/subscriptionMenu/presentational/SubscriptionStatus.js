@@ -1,9 +1,9 @@
 import React from 'react';
 import moment from 'moment';
 
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import StatusIcon from 'components/shared/generic/statusIcon/presentationl/StatusIcon';
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import StatusIcon from 'components_DEPRECATED/shared/generic/statusIcon/presentationl/StatusIcon';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
 import { formatNumber } from 'helpers/generic';
 import { SUBSCRIPTION_RENEWAL_IDS } from 'constants/companyAdmin/enums';
 const { CARD, INVOICE } = SUBSCRIPTION_RENEWAL_IDS;

@@ -1,15 +1,15 @@
 import React from 'react';
 
-import ModalOuterContainer from '../../../../../../components/shared/generic/modals/containers/ModalOuterContainer';
-import Form from 'components/shared/generic/form/containers/Form';
-import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import Field from 'components/shared/generic/form/presentational/Field';
-import BlockButtonWrapper from '../../../../../../components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import ModalOuterContainer from 'components_DEPRECATED/shared/generic/modals/containers/ModalOuterContainer';
+import Form from 'components_DEPRECATED/shared/generic/form/containers/Form';
+import TextInputContainer from 'components_DEPRECATED/shared/generic/form/containers/TextInputContainer';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
+import BlockButtonWrapper from 'components_DEPRECATED/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
 import SpecificFieldsRoute from '../containers/SpecificFieldsRoute';
-import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
-import Select from 'components/shared/generic/form/presentational/Select';
-import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
+import CheckboxContainer from 'components_DEPRECATED/shared/generic/form/containers/CheckboxContainer';
+import Select from 'components_DEPRECATED/shared/generic/form/presentational/Select';
+import MultiSelect from 'components_DEPRECATED/shared/generic/form/presentational/MultiSelect';
 import { PIN_STATUS_TYPES } from 'constants/companyAdmin/enums';
 import { QUESTION_TYPE_NUMBERS } from 'constants/shared/templateBuilder';
 import { isObjEmpty } from 'helpers/generic';

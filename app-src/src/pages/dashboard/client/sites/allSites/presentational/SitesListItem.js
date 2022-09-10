@@ -1,8 +1,8 @@
 import React from 'react';
 
-import withToggleExpand from 'components/shared/generic/tables/hocs/withToggleExpand';
+import withToggleExpand from 'components_DEPRECATED/shared/generic/tables/hocs/withToggleExpand';
 
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import ButtonContainer from 'components_DEPRECATED/shared/generic/button/containers/ButtonContainer';
 import BuildingsTableContainer from 'pages/dashboard/client/buildings/shared/containers/BuildingsTableContainer';
 
 const SitesListItem = ({ toggleExpanded, isExpanded, site, colCount, onMobile, headers }) => {

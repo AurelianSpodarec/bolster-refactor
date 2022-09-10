@@ -1,9 +1,9 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
-import StatusIcon from 'components/shared/generic/statusIcon/presentationl/StatusIcon';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import StatusIcon from 'components_DEPRECATED/shared/generic/statusIcon/presentationl/StatusIcon';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
 import { ReactComponent as TrashIcon } from 'assets/images/icons/trash.svg';
 
 const CardListItem = ({

@@ -1,5 +1,5 @@
 import React from 'react';
-import CompaniesAccessContainer from 'components/shared/companies/containers/CompaniesAccessContainer';
+import CompaniesAccessContainer from 'components_DEPRECATED/shared/companies/containers/CompaniesAccessContainer';
 
 const DrawingCompaniesAccessContainer = ({ accessType }) => (
     <CompaniesAccessContainer smallPod={true} hierarchyType="drawing" accessType={accessType} />

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { usePrevious } from '../../../../../../helpers/hooks';
-import BlockContainer from '../../../../../../components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 import EditSitePinOptionSets from '../presentational/EditSitePinOptionSets';
 import { batch, useDispatch, useSelector } from 'react-redux';
 import { componentDidMount } from '../../../../../../helpers/generic';

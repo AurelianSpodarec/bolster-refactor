@@ -1,6 +1,6 @@
 import React from 'react';
 
-import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
+import FieldOutput from 'components_DEPRECATED/shared/generic/fieldOutput/presentational/FieldOutput';
 import { VAT_TYPE_NAME } from 'constants/companyAdmin/enums';
 import { needsVatCode } from 'constants/shared/vatTypes';
 

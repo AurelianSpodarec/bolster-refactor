@@ -18,7 +18,7 @@ import fetchOutgoingTransferRequests from 'actions/companyAdmin/transferRequests
 import fetchPendingInvites from 'actions/companyAdmin/pendingInvites/fetchPendingInvites';
 import fetchOutgoingInvites from 'actions/companyAdmin/pendingInvites/fetchOutgoingInvites';
 import fetchSingleCompanyUser from 'actions/companyAdmin/userManagement/async/fetchSingleCompanyUser';
-import withAuth from 'components/shared/auth/auth/hocs/withAuth';
+import withAuth from 'components_DEPRECATED/shared/auth/auth/hocs/withAuth';
 import { AUTH_TYPES } from 'constants/shared/auth';
 import fetchRecentUpdates from 'actions/companyAdmin/recentUpdates/async/fetchRecentUpdates';
 import resetFilterOptions from 'actions/companyAdmin/reports/sync/resetFilterOptions';

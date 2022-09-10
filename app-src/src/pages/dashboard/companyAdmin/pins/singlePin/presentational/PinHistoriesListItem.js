@@ -1,10 +1,10 @@
 import React from 'react';
 
-import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
+import FieldOutput from 'components_DEPRECATED/shared/generic/fieldOutput/presentational/FieldOutput';
 
 import { PIN_STATUS_TYPES as STATUS } from 'constants/companyAdmin/enums';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import BlockButtonWrapper from 'components_DEPRECATED/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
 
 const PinHistoriesListItem = ({
     history,

@@ -8,7 +8,7 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import updatePinCoordinates from 'actions/companyAdmin/drawings/sync/updatePinCoordinates';
 import DrawingMapViewSimple from '../presentational/DrawingMapViewSimple';
 import DrawingInspectionLogContainer from './DrawingInspectionLogContainer';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 import { convertArrToObj } from 'helpers/generic';
 import {
     COMPANY_USER_ROLE_TYPES as USER_ROLE,

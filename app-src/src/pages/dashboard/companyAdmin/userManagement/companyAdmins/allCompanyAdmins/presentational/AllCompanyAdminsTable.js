@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Table from 'components/shared/generic/tables/presentational/Table';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import ActionButton from '../../../../../../../components/shared/generic/button/presentational/ActionButton';
+import Table from 'components_DEPRECATED/shared/generic/tables/presentational/Table';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
 import AllCompanyAdminsListItemContainer from '../containers/AllCompanyAdminsListItemContainer';
 
 const AllCompanyAdminsTable = ({

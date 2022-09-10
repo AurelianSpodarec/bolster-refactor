@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
+import SwitchWith404 from 'components_DEPRECATED/appRoute/routes/presentational/SwitchWith404';
 import DashboardContainer from 'pages/dashboard/companyAdmin/dashboard/containers/DashboardContainer';
 
 import withSubscriptionAuth from '../../hocs/withSubscriptionAuth';
@@ -33,7 +33,7 @@ import DocumentLibraryRoutes from './DocumentLibraryRoutes';
 import PinOptionsRoutes from './PinOptionsRoutes';
 import PushNotificationsRoutes from './PushNotificationsRoutes';
 import withActiveAccount from '../../hocs/withActiveAccount';
-import AccountDeactivated from 'components/shared/accountDeactivated/AccountDeactivated';
+import AccountDeactivated from 'components_DEPRECATED/shared/accountDeactivated/AccountDeactivated';
 
 // import withTermsAuth from '../../hocs/withTermsAuth';
 

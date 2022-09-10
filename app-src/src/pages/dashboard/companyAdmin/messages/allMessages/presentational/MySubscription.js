@@ -1,13 +1,13 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import MySubscribedServicesList from './MySubscribedServicesList';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import BlockButtonWrapper from 'components_DEPRECATED/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
 import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import { formatNumber } from 'helpers/generic';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
-import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
+import LinkButton from 'components_DEPRECATED/shared/generic/button/presentational/LinkButton';
 
 const MySubscription = ({ services, daysleft, subscriptions, endOn }) => (
     <div className="size-lg-12">

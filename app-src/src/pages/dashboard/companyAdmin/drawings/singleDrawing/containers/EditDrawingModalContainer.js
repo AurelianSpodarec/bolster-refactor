@@ -11,7 +11,7 @@ import addFieldError from 'actions/shared/generic/fieldErrors/sync/addFieldError
 import showFieldErrors from 'actions/shared/generic/fieldErrors/sync/showFieldErrors';
 
 import EditDrawingModal from '../presentational/EditDrawingModal';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 
 class EditDrawingModalContainer extends Component {
     state = {

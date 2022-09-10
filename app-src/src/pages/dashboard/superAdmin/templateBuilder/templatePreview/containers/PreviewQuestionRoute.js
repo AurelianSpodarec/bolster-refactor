@@ -1,13 +1,13 @@
 import React from 'react';
 
 import { QUESTION_TYPE_VALUES } from 'constants/shared/templateBuilder';
-import Select from 'components/shared/generic/form/presentational/Select';
-import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
-import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
-import RadioButtonListContainer from 'components/shared/generic/form/containers/RadioButtonListContainer';
+import Select from 'components_DEPRECATED/shared/generic/form/presentational/Select';
+import TextInputContainer from 'components_DEPRECATED/shared/generic/form/containers/TextInputContainer';
+import TextAreaContainer from 'components_DEPRECATED/shared/generic/form/containers/TextAreaContainer';
+import MultiSelect from 'components_DEPRECATED/shared/generic/form/presentational/MultiSelect';
+import RadioButtonListContainer from 'components_DEPRECATED/shared/generic/form/containers/RadioButtonListContainer';
 import { RAW_S3_STORAGE_URL } from 'config';
-import Field from 'components/shared/generic/form/presentational/Field';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
 import MobileSwitch from 'assets/images/mobile-switch.png';
 
 const {

@@ -1,5 +1,5 @@
 import React from 'react';
-import Table from 'components/shared/generic/tables/presentational/Table';
+import Table from 'components_DEPRECATED/shared/generic/tables/presentational/Table';
 
 import DashboardDataByOperativeListItem from './DashboardDataByOperativeListItem';
 

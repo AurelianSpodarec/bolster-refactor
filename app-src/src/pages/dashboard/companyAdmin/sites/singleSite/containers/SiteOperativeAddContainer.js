@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import OperativesAdd from 'components/shared/operatives/presentational/OperativesAdd';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import OperativesAdd from 'components_DEPRECATED/shared/operatives/presentational/OperativesAdd';
 
 class SiteClientInviteContainer extends Component {
     render() {

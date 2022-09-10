@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect, useDispatch } from 'react-redux';
-import Search from 'components/shared/generic/form/presentational/Search';
-import Select from 'components/shared/generic/form/presentational/Select';
+import Search from 'components_DEPRECATED/shared/generic/form/presentational/Search';
+import Select from 'components_DEPRECATED/shared/generic/form/presentational/Select';
 import switchDocumentLibraryFilter from 'actions/companyAdmin/documentLibrary/sync/switchDocumentLibraryFilter';
 import switchDocumentLibrarySearchTerm from 'actions/companyAdmin/documentLibrary/sync/switchDocumentLibrarySearchTerm';
-import Form from 'components/shared/generic/form/containers/Form';
+import Form from 'components_DEPRECATED/shared/generic/form/containers/Form';
 
 const viewModeOptions = [
     { value: 'list', label: 'List View' },

@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
-import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
-import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
+import FlexModalOuter from 'components_DEPRECATED/shared/generic/modals/presentational/FlexModalOuter';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
+import FlexWrapper from 'components_DEPRECATED/shared/generic/flexWrapper/FlexWrapper';
 import AddCardFormContainer from '../../cardManagement/addCardModal/containers/AddCardFormContainer';
 import PaymentMethod from '../../paymentMethod/PaymentMethod';
 import usePaymentMethod from '../../paymentMethod/hooks/usePaymentMethod';

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import DashboardDataByDrawingTable from '../presentational/DashboardDataByDrawingTable';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 import { isEmpty } from 'helpers/generic';
 
 class DashboardDataByDrawingTableContainer extends Component {

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ReactComponent as BolsterPlusLogo } from 'assets/images/logos/bolster-plus-logo.svg';
 
-import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
+import FlexWrapper from 'components_DEPRECATED/shared/generic/flexWrapper/FlexWrapper';
 
 const BolsterPlusHeading = ({ bolsterPlusActivated, extraClasses = '' }) => (
     <FlexWrapper extraClasses={`bolster-plus-heading ${extraClasses}`} align="center">

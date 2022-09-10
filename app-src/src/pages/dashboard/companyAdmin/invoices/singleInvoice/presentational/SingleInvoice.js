@@ -4,12 +4,12 @@ import { withRouter } from 'react-router-dom';
 import { PAY_INVOICE } from 'constants/shared/modalTypes';
 import InvoiceDetailsContainer from '../containers/InvoiceDetailsContainer';
 import InvoiceItemsTableContainer from '../containers/InvoiceItemsTableContainer';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import PageHeading from 'components_DEPRECATED/shared/generic/pageHeading/presentational/PageHeading';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
 import InvoicePaymentsTableContainer from '../../invoicePayments/containers/InvoicePaymentsTableContainer';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import BlockButtonWrapper from 'components_DEPRECATED/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
 
 const SingleInvoice = ({ id, showModal, hasPayed }) => (
     <>

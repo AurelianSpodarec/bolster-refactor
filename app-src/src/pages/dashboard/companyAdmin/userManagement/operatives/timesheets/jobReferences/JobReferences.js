@@ -8,12 +8,12 @@ import { isEmpty } from 'helpers/generic';
 import useFetchJobReferences from './hooks/useFetchJobReferences';
 import useJobReferenceActions from './hooks/useJobReferenceActions';
 
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import Block from 'components/shared/generic/block/presentational/Block';
-import Table from 'components/shared/generic/tables/presentational/Table';
-import Loading from 'components/shared/generic/misc/presentational/Loading';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import Block from 'components_DEPRECATED/shared/generic/block/presentational/Block';
+import Table from 'components_DEPRECATED/shared/generic/tables/presentational/Table';
+import Loading from 'components_DEPRECATED/shared/generic/misc/presentational/Loading';
 import JobReferenceTableItem from './JobReferenceTableItem';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
 
 const headers = ['Name', 'Description', ''];
 

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
+import BlockButtonWrapper from 'components_DEPRECATED/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import FieldOutput from 'components_DEPRECATED/shared/generic/fieldOutput/presentational/FieldOutput';
 import moment from 'moment';
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
 
 const EnquiryDetails = ({
     handleShowModal,

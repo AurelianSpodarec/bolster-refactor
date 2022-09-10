@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
+import SwitchWith404 from 'components_DEPRECATED/appRoute/routes/presentational/SwitchWith404';
 import AddService from 'pages/dashboard/superAdmin/services/addService/presentational/AddService';
 import AllServicesContainer from 'pages/dashboard/superAdmin/services/shared/containers/AllServicesContainer';
 import EditService from 'pages/dashboard/superAdmin/services/editService/presentational/EditService';

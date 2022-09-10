@@ -1,7 +1,7 @@
 import React from 'react';
 import GoogleMapReact from 'google-map-react';
 // import BreakdownPositionCard from './BreakdownPositionCard';
-// import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+// import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
 // import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 import { pin2xImgs } from 'assets/images/map-markers';
 

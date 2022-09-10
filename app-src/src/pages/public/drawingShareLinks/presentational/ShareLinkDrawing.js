@@ -1,5 +1,5 @@
 import React from 'react';
-import FilterMap from 'components/shared/maps/presentational/FilterMap';
+import FilterMap from 'components_DEPRECATED/shared/maps/presentational/FilterMap';
 import PageMeta from 'pages/public/shared/meta/presentational/PageMeta';
 import { pageMeta } from 'constants/frontEnd/meta';
 

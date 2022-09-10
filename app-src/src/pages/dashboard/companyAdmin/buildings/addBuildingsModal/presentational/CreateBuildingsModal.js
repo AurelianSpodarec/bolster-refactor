@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import CreateBuildingsFormContainer from '../containers/CreateBuildingsFormContainer';
-import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
+import FlexModalOuter from 'components_DEPRECATED/shared/generic/modals/presentational/FlexModalOuter';
 
 const CreateBuildingsModal = ({ siteID, isUsingBolsterLabels }) => (
     <FlexModalOuter

@@ -2,12 +2,12 @@ import React from 'react';
 
 import useMergeOptionSets from '../hooks/useMergeOptionSets';
 
-import FlexModalOuter from '../../../../../../components/shared/generic/modals/presentational/FlexModalOuter';
-import Form from '../../../../../../components/shared/generic/form/containers/Form';
-import ButtonWrapper from '../../../../../../components/shared/generic/button/presentational/ButtonWrapper';
-import ActionButton from '../../../../../../components/shared/generic/button/presentational/ActionButton';
-import Field from '../../../../../../components/shared/generic/form/presentational/Field';
-import DropdownContainer from '../../../../../../components/shared/generic/form/containers/DropdownContainer';
+import FlexModalOuter from 'components_DEPRECATED/shared/generic/modals/presentational/FlexModalOuter';
+import Form from 'components_DEPRECATED/shared/generic/form/containers/Form';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
+import DropdownContainer from 'components_DEPRECATED/shared/generic/form/containers/DropdownContainer';
 
 const MergeOptionSetsModal = ({ set, hideModal }) => {
     const { setOptions, form, handleChange, handleSubmit, isPosting } = useMergeOptionSets(set);

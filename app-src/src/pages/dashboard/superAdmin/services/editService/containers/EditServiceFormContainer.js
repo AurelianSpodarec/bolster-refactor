@@ -8,7 +8,7 @@ import fetchSingleService from 'actions/superAdmin/services/async/fetchSingleSer
 import editService from 'actions/superAdmin/services/async/editService';
 import fetchTemplateForService from 'actions/superAdmin/services/async/fetchTemplateForService';
 import postTemplatesForService from 'actions/superAdmin/services/async/postTemplatesForService';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 import fetchTemplatesSimple from 'actions/superAdmin/templateBuilder/async/fetchTemplatesSimple';
 import removeTemplatesFromService from 'actions/superAdmin/services/async/removeTemplatesFromService';
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import ClientInvite from 'components/shared/clients/presentational/ClientInvite';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import ClientInvite from 'components_DEPRECATED/shared/clients/presentational/ClientInvite';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 
 class BuildingInviteClientContainer extends Component {
     render() {

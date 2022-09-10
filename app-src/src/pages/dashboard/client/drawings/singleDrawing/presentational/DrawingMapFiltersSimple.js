@@ -5,7 +5,7 @@ import GreenPin from 'assets/images/map-markers/green-pin2x.png';
 import BluePin from 'assets/images/map-markers/blue-pin2x.png';
 import YellowPin from 'assets/images/map-markers/yellow-pin2x.png';
 import PurplePin from 'assets/images/map-markers/purple-pin2x.png';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
 
 const DrawingMapFiltersSimple = ({ installed, inspected, noAction, action, other }) => (
     <BlockHeading>

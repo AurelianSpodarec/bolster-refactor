@@ -4,12 +4,12 @@ import { useHistory } from 'react-router-dom';
 import { getStorageString } from 'helpers/generic';
 import { getLowMemoryMessage } from 'constants/shared/messages';
 
-import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import TooltipContainer from 'components_DEPRECATED/shared/generic/tooltip/containers/TooltipContainer';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
 import { getDeviceNameColour, getTooltipRamText } from '../../../shared/utils';
-import LinkButton from '../../../../../../../components/shared/generic/button/presentational/LinkButton';
+import LinkButton from 'components_DEPRECATED/shared/generic/button/presentational/LinkButton';
 import OperativeUserActionsMenu from './OperativeUserActionsMenu';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
 
 const AllOperativesListItem = ({
     user,

@@ -2,8 +2,8 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import OperativesAdd from 'components/shared/operatives/presentational/OperativesAdd';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import OperativesAdd from 'components_DEPRECATED/shared/operatives/presentational/OperativesAdd';
 
 let OperativeAddContainer = ({ floor: { drawingIDs } }) => (
     <BlockContainer>

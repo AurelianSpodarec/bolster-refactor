@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import SingleTemplate from '../presentational/SingleTemplate';
 import fetchAllTemplates from 'actions/companyAdmin/templates/async/fetchAllTemplates';
-import Loading from 'components/shared/generic/misc/presentational/Loading';
+import Loading from 'components_DEPRECATED/shared/generic/misc/presentational/Loading';
 import { getLatestVersion, getVersionSections, getSectionQuestions } from 'helpers/templates';
 import selectQuestion from 'actions/companyAdmin/templates/sync/selectQuestion';
 

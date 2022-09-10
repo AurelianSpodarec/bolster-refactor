@@ -4,13 +4,13 @@ import L from 'leaflet';
 import { CRS } from 'leaflet';
 import ReactDOMServer from 'react-dom/server';
 
-import MapPin from 'components/shared/pins/map/presentational/MapPin';
+import MapPin from 'components_DEPRECATED/shared/pins/map/presentational/MapPin';
 import { FILE_STORAGE_URL } from 'config';
 import { PIN_STATUS_COLOURS as COLOURS } from 'constants/companyAdmin/enums';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
-import CustomPin from 'components/shared/pins/map/presentational/CustomPin';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
+import ButtonContainer from 'components_DEPRECATED/shared/generic/button/containers/ButtonContainer';
+import CustomPin from 'components_DEPRECATED/shared/pins/map/presentational/CustomPin';
 import SinglePinGenerateReportContainer from '../containers/SinglePinGenerateReportContainer';
 import DrawingMapViewZones from 'pages/dashboard/companyAdmin/drawings/singleDrawing/presentational/DrawingMapViewZones';
 

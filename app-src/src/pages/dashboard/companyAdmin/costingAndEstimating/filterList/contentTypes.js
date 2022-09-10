@@ -1,5 +1,5 @@
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
-import Tickbox from 'components/shared/generic/form/presentational/Tickbox';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
+import Tickbox from 'components_DEPRECATED/shared/generic/form/presentational/Tickbox';
 import { formatCurrency } from 'helpers/generic';
 import React from 'react';
 import { useSelector } from 'react-redux';

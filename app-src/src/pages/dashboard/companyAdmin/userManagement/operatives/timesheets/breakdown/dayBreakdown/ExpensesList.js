@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { formatCurrency } from 'helpers/generic';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
 import RemoveExpenseButton from './RemoveExpenseButton';
 
 const ExpensesList = ({ expenses = [], expensesTotal, currencySymbol = '£', shiftID }) => {

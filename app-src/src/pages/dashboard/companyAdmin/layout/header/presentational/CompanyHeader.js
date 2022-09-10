@@ -9,7 +9,7 @@ import useCompanyHeader from '../hooks/useCompanyHeader';
 import SearchContainer from '../containers/SearchContainer';
 import ExchangeIcon from 'assets/images/icons/exchange.png';
 import EnvelopeIcon from 'assets/images/icons/envelope.png';
-import CircleButton from 'components/shared/generic/button/presentational/CircleButton';
+import CircleButton from 'components_DEPRECATED/shared/generic/button/presentational/CircleButton';
 import CreditsButton from 'pages/dashboard/companyAdmin/generic/button/CreditsButton';
 import HeaderProfile from './HeaderProfile';
 

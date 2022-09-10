@@ -7,7 +7,7 @@ import fetchSingleClientBuilding from 'actions/client/buildings/async/clientFetc
 
 import { getSelectedCompanyForClient } from 'helpers/generic';
 
-import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
+import Breadcrumb from 'components_DEPRECATED/shared/generic/breadcrumb/presentational/Breadcrumb';
 
 class FloorBreadcrumbContainer extends Component {
     state = {

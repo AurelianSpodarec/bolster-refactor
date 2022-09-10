@@ -3,10 +3,10 @@ import React from 'react';
 import { pageMeta } from 'constants/frontEnd/meta';
 
 import AdminHeader from 'pages/dashboard/superAdmin/layout/header/presentational/AdminHeader';
-import MenuContainer from 'components/shared/layout/menu/containers/MenuContainer';
+import MenuContainer from 'components_DEPRECATED/shared/layout/menu/containers/MenuContainer';
 import AdminRoutes from '../../routes/presentational';
 import PageMeta from 'pages/public/shared/meta/presentational/PageMeta';
-import LoggedInFooter from 'components/shared/loggedInFooter/LoggedInFooter';
+import LoggedInFooter from 'components_DEPRECATED/shared/loggedInFooter/LoggedInFooter';
 
 import 'styles/dashboard.scss';
 

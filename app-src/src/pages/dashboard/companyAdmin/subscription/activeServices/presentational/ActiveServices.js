@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import Form from 'components/shared/generic/form/containers/Form';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import Form from 'components_DEPRECATED/shared/generic/form/containers/Form';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
 import CompanyServicesList from './CompanyServicesList';
-import StatusIcon from 'components/shared/generic/statusIcon/presentationl/StatusIcon';
+import StatusIcon from 'components_DEPRECATED/shared/generic/statusIcon/presentationl/StatusIcon';
 import AddServiceItem from './AddServiceItem';
 
 const ActiveServices = ({

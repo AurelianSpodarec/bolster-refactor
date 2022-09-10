@@ -1,8 +1,8 @@
 import React from 'react';
 
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
-import EditCompanyPermissionsFormContainer from 'components/shared/companies/containers/EditCompanyPermissionsFormContainer';
-import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
+import PageHeading from 'components_DEPRECATED/shared/generic/pageHeading/presentational/PageHeading';
+import EditCompanyPermissionsFormContainer from 'components_DEPRECATED/shared/companies/containers/EditCompanyPermissionsFormContainer';
+import BackButtonContainer from 'components_DEPRECATED/shared/generic/backButton/containers/BackButtonContainer';
 
 const EditCompanyPermissionsOnFloor = () => (
     <div className="size-lg-12">

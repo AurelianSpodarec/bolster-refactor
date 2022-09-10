@@ -1,14 +1,14 @@
 import React from 'react';
 
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import ButtonContainer from 'components_DEPRECATED/shared/generic/button/containers/ButtonContainer';
 import moment from 'moment';
 import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import MultiSelect from 'components_DEPRECATED/shared/generic/form/presentational/MultiSelect';
 import { useDispatch } from 'react-redux';
 import { setCompanyUserIDs } from 'actions/companyAdmin/timesheets/sync/setSelectedCompanyUserID';
-import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
+import FlexWrapper from 'components_DEPRECATED/shared/generic/flexWrapper/FlexWrapper';
 
 const Controls = ({
     startDate,

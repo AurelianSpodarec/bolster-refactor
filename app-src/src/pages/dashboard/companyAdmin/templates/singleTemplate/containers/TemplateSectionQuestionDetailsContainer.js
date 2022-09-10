@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import TemplateSectionQuestionDetails from '../presentational/TemplateSectionQuestionDetails';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 import { formatQuestions, getQuestionDetails } from 'helpers/templates';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { COMPANY_EDIT_TEMPLATE_QUESTION } from 'constants/shared/modalTypes';

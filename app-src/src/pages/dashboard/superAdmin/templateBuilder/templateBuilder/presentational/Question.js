@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { QUESTION_TYPES, QUESTION_TYPE_NUMBERS } from 'constants/shared/templateBuilder';
-import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
+import TooltipContainer from 'components_DEPRECATED/shared/generic/tooltip/containers/TooltipContainer';
 
 const style = {};
 

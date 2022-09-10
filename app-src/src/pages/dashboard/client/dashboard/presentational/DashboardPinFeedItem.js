@@ -1,10 +1,10 @@
 import React from 'react';
 
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import ButtonContainer from 'components_DEPRECATED/shared/generic/button/containers/ButtonContainer';
 import { PIN_STATUS_IDS as STATUS } from 'constants/companyAdmin/enums';
 import { pin2xImgs } from 'assets/images/map-markers';
 
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
 
 const DashboardPinFeedItem = ({ pin }) => {
     let pinColour;

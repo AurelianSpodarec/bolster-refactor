@@ -1,10 +1,10 @@
 import React from 'react';
 
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import PageHeading from 'components_DEPRECATED/shared/generic/pageHeading/presentational/PageHeading';
 import DashboardPinFeedContainer from '../containers/DashboardPinFeedContainer';
 import DashboardStatsFiltersContainer from '../containers/DashboardStatsFiltersContainer';
 import DashboardDataByContainer from '../containers/DashboardDataByContainer';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 import { useConfirmDarkTheme } from 'helpers/hooks';
 import DashboardPinHistoryCharts from '../containers/DashboardPinHistoryCharts';
 import { isIE } from 'react-device-detect';

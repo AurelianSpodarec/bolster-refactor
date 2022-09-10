@@ -2,27 +2,27 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import moment from 'moment';
 
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
 import getShiftPodData from '../../helpers/getShiftPodData';
 import { selectCompanyUsers } from 'selectors/companyAdmin/companyUsers';
 import { CURRENCY_SYMBOLS, SHIFT_STATUS, SHIFT_STATUS_REVERSE } from 'constants/companyAdmin/enums';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
 import {
     selectCompanyCurrency,
     selectCompanyTimeZone,
 } from 'selectors/companyAdmin/companySettings';
-import Table from 'components/shared/generic/tables/presentational/Table';
+import Table from 'components_DEPRECATED/shared/generic/tables/presentational/Table';
 import HoursWorkedList from './HoursWorkedList';
 import ExpensesList from './ExpensesList';
 import { formatAsHrsMinsSecs, formatCurrency } from 'helpers/generic';
 import useOverrideShift from './hooks/useOverrideShift';
-import ActionMenu from 'components/shared/actionMenu/ActionMenu';
-import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
+import ActionMenu from 'components_DEPRECATED/shared/actionMenu/ActionMenu';
+import ActionMenuActionButton from 'components_DEPRECATED/shared/actionMenu/ActionMenuActionButton';
 import WarningIcon from 'assets/images/icons/Triangle_Warning.svg';
-import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
-import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
+import FlexWrapper from 'components_DEPRECATED/shared/generic/flexWrapper/FlexWrapper';
+import TooltipContainer from 'components_DEPRECATED/shared/generic/tooltip/containers/TooltipContainer';
 import ApproveShiftButton from './ApproveShiftButton';
 import ApproveShiftMenuButton from './ApproveShiftMenuButton';
 import RejectShiftMenuButton from './RejectShiftMenuButton';

@@ -4,13 +4,13 @@ import ReactTooltip from 'react-tooltip';
 import { pageMeta } from 'constants/frontEnd/meta';
 
 import CompanyHeader from 'pages/dashboard/companyAdmin/layout/header/presentational/CompanyHeader';
-import MenuContainer from 'components/shared/layout/menu/containers/MenuContainer';
+import MenuContainer from 'components_DEPRECATED/shared/layout/menu/containers/MenuContainer';
 import Routes from 'pages/dashboard/companyAdmin/app/routes/presentational';
 import PageMeta from 'pages/public/shared/meta/presentational/PageMeta';
-import BannerNotificationContainer from 'components/shared/banners/containers/BannerNotificationContainer';
-import Banner from 'components/shared/generic/banner/Banner';
-import UnconfirmedEmailBanner from 'components/shared/generic/banner/UnconfirmedEmailBanner';
-import LoggedInFooter from 'components/shared/loggedInFooter/LoggedInFooter';
+import BannerNotificationContainer from 'components_DEPRECATED/shared/banners/containers/BannerNotificationContainer';
+import Banner from 'components_DEPRECATED/shared/generic/banner/Banner';
+import UnconfirmedEmailBanner from 'components_DEPRECATED/shared/generic/banner/UnconfirmedEmailBanner';
+import LoggedInFooter from 'components_DEPRECATED/shared/loggedInFooter/LoggedInFooter';
 
 import 'styles/dashboard.scss';
 

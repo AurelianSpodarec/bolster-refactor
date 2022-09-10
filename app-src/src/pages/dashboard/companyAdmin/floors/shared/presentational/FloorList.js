@@ -1,7 +1,7 @@
 import React from 'react';
 
 import FloorListItemContainer from '../containers/FloorListItemContainer';
-import withDropZone from 'components/shared/dragDrop/hocs/withDropZone';
+import withDropZone from 'components_DEPRECATED/shared/dragDrop/hocs/withDropZone';
 
 const FloorList = ({ floors, colCount, forwardRef, isSorting, headers, colSpanFirst }) => (
     <tbody ref={forwardRef} className={isSorting ? 'sorting' : ''}>

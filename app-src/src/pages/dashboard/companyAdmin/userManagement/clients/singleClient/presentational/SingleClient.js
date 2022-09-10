@@ -1,8 +1,8 @@
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
-import Table from 'components/shared/generic/tables/presentational/Table';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import FieldOutput from 'components_DEPRECATED/shared/generic/fieldOutput/presentational/FieldOutput';
+import PageHeading from 'components_DEPRECATED/shared/generic/pageHeading/presentational/PageHeading';
+import Table from 'components_DEPRECATED/shared/generic/tables/presentational/Table';
 import React from 'react';
 import SingleClientPermissionItem from './SingleClientPermissionItem';
 

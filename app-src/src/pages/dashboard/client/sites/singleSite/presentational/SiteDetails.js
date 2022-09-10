@@ -1,5 +1,5 @@
 import React from 'react';
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
 
 const SiteDetails = ({
     site: { addressLine1, addressLine2, city, postcode, client },

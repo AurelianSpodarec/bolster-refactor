@@ -1,9 +1,9 @@
 import React from 'react';
-import Block from 'components/shared/generic/block/presentational/Block';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import Block from 'components_DEPRECATED/shared/generic/block/presentational/Block';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
 
 import { FILE_STORAGE_URL } from 'config/index';
-import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
+import TooltipContainer from 'components_DEPRECATED/shared/generic/tooltip/containers/TooltipContainer';
 
 const CompaniesList = ({ companies, selectCompany }) => (
     <div className="flex-row flex-wrap width-12 size-lg-12">

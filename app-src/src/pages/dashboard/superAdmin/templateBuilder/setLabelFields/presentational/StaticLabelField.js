@@ -1,7 +1,7 @@
 import React from 'react';
-import Field from 'components/shared/generic/form/presentational/Field';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
 import { LABEL_STATIC_FIELDS } from 'constants/shared/templateBuilder';
-import Select from 'components/shared/generic/form/presentational/Select';
+import Select from 'components_DEPRECATED/shared/generic/form/presentational/Select';
 
 const staticFieldOptions = Object.entries(LABEL_STATIC_FIELDS).map(([value, label]) => ({
     value: +value,

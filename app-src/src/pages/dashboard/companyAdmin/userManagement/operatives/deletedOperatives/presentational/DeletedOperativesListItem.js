@@ -5,8 +5,8 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { RECOVER_USER } from 'constants/shared/modalTypes';
 import moment from 'moment';
 import fetchCompanyUsers from 'actions/superAdmin/users/async/fetchCompanyUsers';
-import ActionButton from '../../../../../../../components/shared/generic/button/presentational/ActionButton';
-import ButtonWrapper from '../../../../../../../components/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
 
 const DeletedOperativesListItem = ({
     user,

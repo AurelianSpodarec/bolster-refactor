@@ -1,12 +1,12 @@
 import React from 'react';
 
 import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
-import withDrag from 'components/shared/dragDrop/hocs/withDrag';
-import withToggleExpand from 'components/shared/generic/tables/hocs/withToggleExpand';
+import withDrag from 'components_DEPRECATED/shared/dragDrop/hocs/withDrag';
+import withToggleExpand from 'components_DEPRECATED/shared/generic/tables/hocs/withToggleExpand';
 import BuildingsTableContainer from 'pages/dashboard/companyAdmin/buildings/shared/containers/BuildingsTableContainer';
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
-import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
+import LinkButton from 'components_DEPRECATED/shared/generic/button/presentational/LinkButton';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
 
 let SitesListItem = ({
     toggleExpanded,

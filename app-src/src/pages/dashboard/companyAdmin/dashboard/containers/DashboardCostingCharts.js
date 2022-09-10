@@ -2,12 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { isIE } from 'react-device-detect';
 
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 import { isEmpty } from 'helpers/generic';
 import DashboardLineGraph from '../presentational/DashboardLineGraph';
 import DashboardBarChartContainer from './DashboardBarChartContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import Block from 'components/shared/generic/block/presentational/Block';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import Block from 'components_DEPRECATED/shared/generic/block/presentational/Block';
 
 const DashboardCostingCharts = ({
     isFetching,

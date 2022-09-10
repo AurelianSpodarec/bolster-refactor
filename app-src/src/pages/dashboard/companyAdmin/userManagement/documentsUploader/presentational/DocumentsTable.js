@@ -1,6 +1,6 @@
 import React from 'react';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import Table from 'components/shared/generic/tables/presentational/Table';
+import BlockButtonWrapper from 'components_DEPRECATED/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import Table from 'components_DEPRECATED/shared/generic/tables/presentational/Table';
 import moment from 'moment';
 
 const DocumentsTable = ({ documents, isFetching, error, deleteButton }) => {

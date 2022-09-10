@@ -9,7 +9,7 @@ import updateHierarchyAddState from 'actions/companyAdmin/hierarchy/sync/updateH
 import { useMultipleHierarchies } from 'helpers/hooks';
 import createFloor from 'actions/companyAdmin/floors/async/createFloor';
 
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 
 const CreateFloorsFormContainer = ({
     buildingID,

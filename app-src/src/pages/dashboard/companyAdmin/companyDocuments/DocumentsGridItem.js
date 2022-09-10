@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
 import { DATE_TIME_IDS, DOCUMENT_LIBRARY_TYPES } from 'constants/companyAdmin/enums';
 import React, { useState } from 'react';
 import FolderIcon from 'assets/images/icons/dl-folder-icon.svg';

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { batch, connect } from 'react-redux';
 
 import MoveToolBlocks from '../presentational/MoveToolBlocks';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 import fetchAllCompanies from 'actions/superAdmin/companies/async/fetchAllCompanies';
 import { isEmpty } from 'helpers/generic';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';

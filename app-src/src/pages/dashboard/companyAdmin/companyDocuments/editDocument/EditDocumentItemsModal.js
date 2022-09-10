@@ -2,25 +2,25 @@ import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import Form from 'components/shared/generic/form/containers/Form';
+import ModalOuterContainer from 'components_DEPRECATED/shared/generic/modals/containers/ModalOuterContainer';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import Form from 'components_DEPRECATED/shared/generic/form/containers/Form';
 import { useForm, usePrevious, useQueryParam } from 'helpers/hooks';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
-import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
+import CheckboxContainer from 'components_DEPRECATED/shared/generic/form/containers/CheckboxContainer';
 import editDocumentLibraryItems from 'actions/companyAdmin/documentLibrary/async/editDocumentLibraryItems';
 import editDocumentLibraryItem from 'actions/companyAdmin/documentLibrary/async/editDocumentLibraryItem';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import { SUCCESS_MODAL } from 'constants/shared/modalTypes';
-import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import Field from 'components/shared/generic/form/presentational/Field';
+import TextInputContainer from 'components_DEPRECATED/shared/generic/form/containers/TextInputContainer';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
 import {
     selectDocumentLibrary,
     selectDocumentLibraryPostError,
     selectDocumentLibraryPostSuccess,
 } from 'selectors/documentLibrary';
-import ButtonWrapper from '../../../../../components/shared/generic/button/presentational/ButtonWrapper';
-import ActionButton from '../../../../../components/shared/generic/button/presentational/ActionButton';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
 
 const EditDocumentItemsModal = ({ ids }) => {
     const dispatch = useDispatch();

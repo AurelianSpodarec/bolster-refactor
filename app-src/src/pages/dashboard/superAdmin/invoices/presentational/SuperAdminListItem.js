@@ -3,10 +3,10 @@ import { withRouter } from 'react-router-dom';
 
 import { PAYMENT_TYPES, DATE_TIME_IDS, INVOICE_TYPES } from 'constants/companyAdmin/enums';
 import { formatCurrency } from 'helpers/generic';
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import LinkWithPropsContainer from 'components/shared/generic/button/containers/LinkWithPropsContainer.js';
-import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
+import BlockButtonWrapper from 'components_DEPRECATED/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import LinkWithPropsContainer from 'components_DEPRECATED/shared/generic/button/containers/LinkWithPropsContainer.js';
+import TooltipContainer from 'components_DEPRECATED/shared/generic/tooltip/containers/TooltipContainer';
 
 const SuperAdminListItem = ({
     invoice: {

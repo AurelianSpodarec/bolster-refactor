@@ -1,7 +1,7 @@
 import React from 'react';
 
 import FloorTableContainer from 'pages/dashboard/client/floors/shared/containers/FloorTableContainer';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import ButtonContainer from 'components_DEPRECATED/shared/generic/button/containers/ButtonContainer';
 const BuldingsListItem = ({
     building,
     toggleExpanded,

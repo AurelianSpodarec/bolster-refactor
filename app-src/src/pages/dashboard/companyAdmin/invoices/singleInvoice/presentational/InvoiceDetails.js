@@ -1,17 +1,17 @@
 import React from 'react';
 
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 
 import { PAYMENT_TYPES, DATE_TIME_IDS, INVOICE_TYPES } from 'constants/companyAdmin/enums';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import FieldOutput from 'components_DEPRECATED/shared/generic/fieldOutput/presentational/FieldOutput';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
 import { formatCurrency } from 'helpers/generic';
 import { INVOICE_GEN_URL } from 'config';
 import { ReactComponent as TrashIcon } from 'assets/images/icons/trash.svg';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
-import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
+import LinkButton from 'components_DEPRECATED/shared/generic/button/presentational/LinkButton';
 
 const InvoiceDetails = ({
     isFetching,

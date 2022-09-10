@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
+import SwitchWith404 from 'components_DEPRECATED/appRoute/routes/presentational/SwitchWith404';
 import AllFaqsContainer from 'pages/dashboard/superAdmin/faqs/allFaqs/containers/AllFaqsContainer';
 import CreateFaqsContainer from 'pages/dashboard/superAdmin/faqs/createFaqs/containers/CreateFaqsContainer';
 import UpdateFaqsContainer from 'pages/dashboard/superAdmin/faqs/updateFaqs/containers/UpdateFaqsContainer';

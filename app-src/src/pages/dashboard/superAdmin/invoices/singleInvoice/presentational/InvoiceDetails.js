@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 
 import { PAYMENT_TYPES, DATE_TIME_IDS, INVOICE_TYPES } from 'constants/companyAdmin/enums';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import BlockButtonWrapper from 'components_DEPRECATED/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import FieldOutput from 'components_DEPRECATED/shared/generic/fieldOutput/presentational/FieldOutput';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
 import { formatCurrency } from 'helpers/generic';
 import {
     ADMIN_CONFIRM_FREE_INVOICE,
@@ -15,7 +15,7 @@ import {
     ADMIN_RESTORE_INVOICE,
 } from 'constants/shared/modalTypes';
 import { INVOICE_GEN_URL } from 'config';
-import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
+import TextAreaContainer from 'components_DEPRECATED/shared/generic/form/containers/TextAreaContainer';
 
 const InvoiceDetails = ({
     isFetching,

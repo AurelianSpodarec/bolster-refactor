@@ -1,15 +1,15 @@
 import React from 'react';
 
-import CheckboxListContainer from 'components/shared/generic/form/containers/CheckboxListContainer';
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
-import Form from 'components/shared/generic/form/containers/Form';
-import Field from 'components/shared/generic/form/presentational/Field';
-import Block from 'components/shared/generic/block/presentational/Block';
-import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
-import Loading from 'components/shared/generic/misc/presentational/Loading';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
-import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
+import CheckboxListContainer from 'components_DEPRECATED/shared/generic/form/containers/CheckboxListContainer';
+import PageHeading from 'components_DEPRECATED/shared/generic/pageHeading/presentational/PageHeading';
+import Form from 'components_DEPRECATED/shared/generic/form/containers/Form';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
+import Block from 'components_DEPRECATED/shared/generic/block/presentational/Block';
+import CheckboxContainer from 'components_DEPRECATED/shared/generic/form/containers/CheckboxContainer';
+import Loading from 'components_DEPRECATED/shared/generic/misc/presentational/Loading';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
+import LinkButton from 'components_DEPRECATED/shared/generic/button/presentational/LinkButton';
+import FlexWrapper from 'components_DEPRECATED/shared/generic/flexWrapper/FlexWrapper';
 
 const EditDrawingOperative = ({
     operative,

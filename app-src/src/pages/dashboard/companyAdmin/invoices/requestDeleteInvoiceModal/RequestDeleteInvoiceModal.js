@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import deleteInvoice from 'actions/companyAdmin/invoices/async/deleteInvoice';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import { usePrevious } from 'helpers/hooks';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
+import FlexModalOuter from 'components_DEPRECATED/shared/generic/modals/presentational/FlexModalOuter';
 
 const RequestDeleteInvoiceModal = ({ id }) => {
     const dispatch = useDispatch();

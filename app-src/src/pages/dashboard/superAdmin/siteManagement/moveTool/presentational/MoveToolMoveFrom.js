@@ -1,8 +1,8 @@
 import React from 'react';
-import Block from 'components/shared/generic/block/presentational/Block';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import Select from 'components/shared/generic/form/presentational/Select';
-import Field from 'components/shared/generic/form/presentational/Field';
+import Block from 'components_DEPRECATED/shared/generic/block/presentational/Block';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import Select from 'components_DEPRECATED/shared/generic/form/presentational/Select';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
 import MoveToolMoveFromOptionsRoute from '../containers/MoveToolMoveFromOptionsRoute';
 
 const MoveToolMoveFrom = ({

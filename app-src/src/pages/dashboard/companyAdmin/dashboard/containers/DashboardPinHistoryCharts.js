@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { connect, useSelector } from 'react-redux';
 import { isIE } from 'react-device-detect';
 
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 import { isEmpty } from 'helpers/generic';
 import DashboardPieChartContainer from './DashboardPieChartContainer';
 import DashboardBarChartContainer from './DashboardBarChartContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
 import { usePrevious } from 'helpers/hooks';
 import { selectUpdateDashboardFilters } from '../../../../../selectors/companyAdmin/dashboard';
 

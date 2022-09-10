@@ -1,7 +1,7 @@
 import React from 'react';
 
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
-// import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
+// import ButtonContainer from 'components_DEPRECATED/shared/generic/button/containers/ButtonContainer';
 import { roundToTwoPlacesMax } from 'helpers/generic';
 
 const OperativeAlertItem = ({

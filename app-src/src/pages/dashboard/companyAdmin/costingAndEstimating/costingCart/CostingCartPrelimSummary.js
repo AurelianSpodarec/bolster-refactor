@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
-import AccordionButton from 'components/shared/generic/button/presentational/AccordionButton';
-import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
+import AccordionButton from 'components_DEPRECATED/shared/generic/button/presentational/AccordionButton';
+import FlexWrapper from 'components_DEPRECATED/shared/generic/flexWrapper/FlexWrapper';
 import { formatCurrency } from 'helpers/generic';
 import CostingCartPrelimSummaryItem from './CostingCartPrelimSummaryItem';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
 import useCostingAndEstimatingPrelimsSetActions from '../_hooks/useCostingAndEstimatingPrelimsSetActions';
 import { useSelector } from 'react-redux';
 import { selectCompanyCurrency } from '../../../../../selectors/companyAdmin/companySettings';

@@ -1,5 +1,5 @@
 import React from 'react';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 
 import Controls from './Controls';
 import WeekTable from './WeekTable';

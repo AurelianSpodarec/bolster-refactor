@@ -1,8 +1,8 @@
 import React from 'react';
 
-import InviteClientFormContainer from 'components/shared/clients/containers/InviteClientFormContainer';
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
-import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
+import InviteClientFormContainer from 'components_DEPRECATED/shared/clients/containers/InviteClientFormContainer';
+import PageHeading from 'components_DEPRECATED/shared/generic/pageHeading/presentational/PageHeading';
+import BackButtonContainer from 'components_DEPRECATED/shared/generic/backButton/containers/BackButtonContainer';
 
 const InviteClientToSite = ({ siteName }) => (
     <>

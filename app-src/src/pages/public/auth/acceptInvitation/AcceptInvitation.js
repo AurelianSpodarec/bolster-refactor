@@ -1,7 +1,7 @@
 import postAcceptInvitation from 'actions/shared/auth/async/postAcceptInvitation';
 import FrontEndFormHeading from 'pages/public/shared/forms/presentational/FrontEndFormHeading';
 import PageMeta from 'pages/public/shared/meta/presentational/PageMeta';
-import Loading from 'components/shared/generic/misc/presentational/Loading';
+import Loading from 'components_DEPRECATED/shared/generic/misc/presentational/Loading';
 import { pageMeta } from 'constants/frontEnd/meta';
 import { authenticate } from 'helpers/api';
 import { componentDidMount } from 'helpers/generic';

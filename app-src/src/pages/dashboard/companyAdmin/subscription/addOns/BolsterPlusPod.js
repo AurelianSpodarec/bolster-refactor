@@ -8,7 +8,7 @@ import {
     selectSubscriptionsIsFetching,
 } from 'selectors/companyAdmin/subscriptions';
 
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 import BolsterPlusPodInner from './BolsterPlusPodInner';
 
 const BolsterPlusPod = () => {

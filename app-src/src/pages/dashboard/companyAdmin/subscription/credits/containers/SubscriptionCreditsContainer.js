@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import SubscriptionCredits from '../presentational/SubscriptionCredits';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { BUY_CREDITS } from 'constants/shared/modalTypes';
 

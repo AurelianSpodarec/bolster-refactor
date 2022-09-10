@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { withRouter } from 'react-router-dom';
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
 import { DATE_TIME_IDS, COMPANY_TYPES, getEnumKey } from 'constants/companyAdmin/enums';
 import { capitaliseWords } from 'helpers/generic';
-import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
+import LinkButton from 'components_DEPRECATED/shared/generic/button/presentational/LinkButton';
 
 const CompaniesListItem = ({
     company: {

@@ -20,17 +20,17 @@ import { selectCompanyUsers } from 'selectors/companyAdmin/companyUsers';
 
 import useCreatePushNotification from '../hooks/useCreatePushNotification';
 
-import Form from 'components/shared/generic/form/containers/Form';
-import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import TextAreaContainer from 'components/shared/generic/form/containers/TextAreaContainer';
-import Field from 'components/shared/generic/form/presentational/Field';
-import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import Select from 'components/shared/generic/form/presentational/Select';
-import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
-import PickListContainer from 'components/shared/generic/form/containers/PickListContainer';
-import DateTimePickerContainer from 'components/shared/generic/form/containers/DateTimePickerContainer';
+import Form from 'components_DEPRECATED/shared/generic/form/containers/Form';
+import TextInputContainer from 'components_DEPRECATED/shared/generic/form/containers/TextInputContainer';
+import TextAreaContainer from 'components_DEPRECATED/shared/generic/form/containers/TextAreaContainer';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
+import FlexModalOuter from 'components_DEPRECATED/shared/generic/modals/presentational/FlexModalOuter';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
+import Select from 'components_DEPRECATED/shared/generic/form/presentational/Select';
+import MultiSelect from 'components_DEPRECATED/shared/generic/form/presentational/MultiSelect';
+import PickListContainer from 'components_DEPRECATED/shared/generic/form/containers/PickListContainer';
+import DateTimePickerContainer from 'components_DEPRECATED/shared/generic/form/containers/DateTimePickerContainer';
 
 const CreatePushNotificationModal = () => {
     const { form, handleChange, handleSubmit, isPosting } = useCreatePushNotification();

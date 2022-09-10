@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
 
 const RecentlyExtendedList = ({ recentlyExtended }) => {
     return [...recentlyExtended]

@@ -1,9 +1,9 @@
 import React from 'react';
-import Table from 'components/shared/generic/tables/presentational/Table';
+import Table from 'components_DEPRECATED/shared/generic/tables/presentational/Table';
 import CompanyReportsListItem from './CompanyReportsListItem';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 import CompanyReportsFiltersContainer from '../containers/CompanyReportsFiltersContainer';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import ButtonContainer from 'components_DEPRECATED/shared/generic/button/containers/ButtonContainer';
 import { FETCH_STATUS } from 'constants/companyAdmin/enums';
 
 const CompanyReportsTable = ({

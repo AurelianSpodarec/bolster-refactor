@@ -1,0 +1,112 @@
+import React from 'react';
+import { Link, withRouter } from 'react-router-dom';
+
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
+import BlockButtonWrapper from 'components_DEPRECATED/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import Form from 'components_DEPRECATED/shared/generic/form/containers/Form';
+import TextInputContainer from 'components_DEPRECATED/shared/generic/form/containers/TextInputContainer';
+import FileUploadContainer from 'components_DEPRECATED/shared/generic/form/containers/FileUploadContainer';
+import RadioButton from '../../../generic/form/presentational/RadioButton';
+
+const EditProfileForm = ({
+    handleInputChange,
+    handleSubmit,
+    filesUploading,
+    firstName,
+    lastName,
+    phoneNumber,
+    profileImageS3Key,
+    location,
+    isDarkModeEnabled,
+}) => {
+    const backURL = location.pathname.includes('admin')
+        ? '/admin/profile'
+        : location.pathname.includes('client')
+        ? '/client/profile'
+        : '/company/profile';
+
+    return (
+        <Form onSubmit={handleSubmit} className="generic-form size-lg-12">
+            <div className="size-lg-12">
+                <div className="size-lg-6 size-md-12">
+                    <Field name="First Name" required>
+                        <TextInputContainer
+                            name="firstName"
+                            value={firstName}
+                            handleChange={handleInputChange}
+                            required
+                        />
+                    </Field>
+                </div>
+                <div className="size-lg-6 size-md-12">
+                    <Field name="Last Name" required>
+                        <TextInputContainer
+                            value={lastName}
+                            name="lastName"
+                            handleChange={handleInputChange}
+                            required
+                        />
+                    </Field>
+                </div>
+            </div>
+
+            <div className="size-lg-12">
+                <div className="size-lg-6 size-md-12">
+                    <Field name="Phone Number" required>
+                        <TextInputContainer
+                            value={phoneNumber}
+                            name="phoneNumber"
+                            handleChange={handleInputChange}
+                            required
+                        />
+                    </Field>
+                </div>
+                <div className="size-lg-6 size-md-12">
+                    <Field name="Upload New Profile Image">
+                        <FileUploadContainer
+                            name="profileImageS3Key"
+                            value={profileImageS3Key}
+                            handleChange={handleInputChange}
+                            acceptedTypes={['image/*']}
+                        />
+                    </Field>
+                </div>
+            </div>
+            <div className="size-lg-12">
+                <div className="size-lg-6 size-md-12">
+                    <Field name="Colour Theme" required>
+                        <div className="size-lg-2">
+                            <RadioButton
+                                name="isDarkModeEnabled"
+                                value={true}
+                                checked={isDarkModeEnabled}
+                                handleInputChange={handleInputChange}
+                                text="Dark"
+                            />
+                        </div>
+                        <div className="size-lg-2">
+                            <RadioButton
+                                name="isDarkModeEnabled"
+                                value={false}
+                                checked={!isDarkModeEnabled}
+                                handleInputChange={handleInputChange}
+                                text="Light"
+                            />
+                        </div>
+                    </Field>
+                </div>
+            </div>
+
+            <BlockButtonWrapper>
+                <button disabled={filesUploading} className="button green">
+                    {filesUploading ? 'Please wait...' : 'Confirm'}
+                </button>
+                <Link to={backURL} className="button">
+                    Cancel
+                </Link>
+            </BlockButtonWrapper>
+        </Form>
+    );
+};
+
+export default withRouter(EditProfileForm);

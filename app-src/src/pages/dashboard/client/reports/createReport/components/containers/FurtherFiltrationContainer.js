@@ -5,23 +5,23 @@ import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 import { CONFIRM_SUBMIT } from 'constants/shared/modalTypes';
 
 import FurtherFiltration from '../presentational/FurtherFiltration';
-import ClientPinSelectorContainer from 'components/shared/pinSelector/container/ClientPinSelectorContainer';
+import ClientPinSelectorContainer from 'components_DEPRECATED/shared/pinSelector/container/ClientPinSelectorContainer';
 import updateReportFilter from 'actions/client/reports/create/sync/clientUpdateReportFilter';
 import { convertEnumToDropdownOptions, removeDuplicates, isObjEmpty } from 'helpers/generic';
 import addFilterQuestion from 'actions/client/reports/create/sync/clientAddFilterQuestion';
 import removeFilterQuestion from 'actions/client/reports/create/sync/clientRemoveFilterQuestion';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import BlockButtonWrapper from 'components_DEPRECATED/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import { FURTHER_FILTRATION, FURTHER_FILTRATION_OPTIONS } from 'constants/companyAdmin/enums';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 import removeFilterQuestions from 'actions/client/reports/create/sync/clientRemoveFilterQuestions';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
 import FilterField from '../presentational/FilterField';
 import resetFilterOptions from 'actions/client/reports/create/sync/clientResetFilterOptions';
 import withUpdateOnChange from '../hocs/withUpdateOnChange';
-import MapPinSelectorContainer from 'components/shared/pinSelector/container/MapPinSelectorContainer';
+import MapPinSelectorContainer from 'components_DEPRECATED/shared/pinSelector/container/MapPinSelectorContainer';
 import updateFurtherFiltrationOption from 'actions/client/reports/create/sync/clientUpdateFurtherFiltrationOption';
 import FilterFieldsModalContainer from './FilterFieldsModalContainer';
-import ZoneSelectorContainer from 'components/shared/pinSelector/container/ZoneSelectorContainer';
+import ZoneSelectorContainer from 'components_DEPRECATED/shared/pinSelector/container/ZoneSelectorContainer';
 
 const { PIN_SELECTOR, INDIVIDUAL_PINS, FILTERS, ZONES } = FURTHER_FILTRATION_OPTIONS;
 

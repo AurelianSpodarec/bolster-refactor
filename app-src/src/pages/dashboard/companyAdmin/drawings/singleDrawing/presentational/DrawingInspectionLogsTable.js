@@ -1,9 +1,9 @@
 import React from 'react';
 
-import Table from 'components/shared/generic/tables/presentational/Table';
+import Table from 'components_DEPRECATED/shared/generic/tables/presentational/Table';
 import DrawingInspectionLogsListItem from './DrawingInspectionLogsListItem';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
 
 const DrawingInspectionLogsTable = ({ isFetching, error, pins, handleFilterChange, onMobile }) => (
     <BlockContainer containerClass="inspection-log flex-item size-lg-4 size-md-12">

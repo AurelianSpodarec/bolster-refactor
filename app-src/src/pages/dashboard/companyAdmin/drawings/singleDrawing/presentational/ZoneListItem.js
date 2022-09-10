@@ -1,7 +1,7 @@
 import React from 'react';
 
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
+import FlexWrapper from 'components_DEPRECATED/shared/generic/flexWrapper/FlexWrapper';
 
 const ZoneListItem = ({
     zone,

@@ -4,8 +4,8 @@ import { getLowMemoryMessage } from '../../../../../../constants/shared/messages
 
 import { getStorageString } from 'helpers/generic';
 
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
-import TooltipContainer from '../../../../../../components/shared/generic/tooltip/containers/TooltipContainer';
+import ButtonContainer from 'components_DEPRECATED/shared/generic/button/containers/ButtonContainer';
+import TooltipContainer from 'components_DEPRECATED/shared/generic/tooltip/containers/TooltipContainer';
 
 const CompanyUserListItem = ({ user, handleModalClick, tableColumnWidths }) => {
     const [rowHeight, setRowHeight] = useState(null);

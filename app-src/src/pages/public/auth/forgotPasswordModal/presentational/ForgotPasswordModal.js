@@ -1,12 +1,12 @@
 import React from 'react';
 
 import FrontEndFormHeading from 'pages/public/shared/forms/presentational/FrontEndFormHeading';
-import Form from 'components/shared/generic/form/containers/Form';
-import Field from 'components/shared/generic/form/presentational/Field';
-import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
+import Form from 'components_DEPRECATED/shared/generic/form/containers/Form';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
+import TextInputContainer from 'components_DEPRECATED/shared/generic/form/containers/TextInputContainer';
 import FrontEndButton from 'pages/public/shared/buttons/presentational/FrontEndButton';
 import FrontEndModalOuterContainer from 'pages/public/shared/modals/containers/FrontEndModalOuterContainer';
-import LoadingIcon from 'components/shared/generic/misc/presentational/LoadingIcon';
+import LoadingIcon from 'components_DEPRECATED/shared/generic/misc/presentational/LoadingIcon';
 
 const ForgotPasswordModal = ({ hideModal, handleChange, handleSubmit, email, isPosting }) => {
     return (

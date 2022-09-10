@@ -4,10 +4,10 @@ import { Redirect } from 'react-router-dom';
 import { isEmpty } from 'helpers/generic';
 import { getLatestVersionForPinOptionDocument } from 'helpers/pinOptions';
 
-import GridWrapper from 'components/shared/generic/gridWrapper/GridWrapper';
-import DocumentPod from 'components/shared/documentPods/DocumentPod';
-import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import GridWrapper from 'components_DEPRECATED/shared/generic/gridWrapper/GridWrapper';
+import DocumentPod from 'components_DEPRECATED/shared/documentPods/DocumentPod';
+import ActionMenuActionButton from 'components_DEPRECATED/shared/actionMenu/ActionMenuActionButton';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 import useShouldRedirectFromOptionDocuments from './hooks/useShouldRedirectFromOptionDocuments';
 
 const OptionDocumentsList = ({

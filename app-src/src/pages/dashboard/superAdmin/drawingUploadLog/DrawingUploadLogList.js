@@ -1,6 +1,6 @@
 import React from 'react';
 
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
 import { RAW_S3_STORAGE_URL } from 'config';
 import { DRAWINGS_STATE_MESSAGES } from 'constants/companyAdmin/enums';
 

@@ -1,11 +1,11 @@
 import React from 'react';
 
-import Field from 'components/shared/generic/form/presentational/Field';
-import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
-import Select from 'components/shared/generic/form/presentational/Select';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
+import DropdownContainer from 'components_DEPRECATED/shared/generic/form/containers/DropdownContainer';
+import Select from 'components_DEPRECATED/shared/generic/form/presentational/Select';
 import { useSelector } from 'react-redux';
 import { selectPinOptionSets } from '../../../../../../selectors/superAdmin/pinOptionSets';
-import MultiSelect from '../../../../../../components/shared/generic/form/presentational/MultiSelect';
+import MultiSelect from 'components_DEPRECATED/shared/generic/form/presentational/MultiSelect';
 import { selectPinOptions } from '../../../../../../selectors/superAdmin/pinOptions';
 import { selectPinOptionVersionsArr } from '../../../../../../selectors/superAdmin/pinOptionVersions';
 import { getLatestVersionForPinOption } from '../../../../../../helpers/pinOptions';

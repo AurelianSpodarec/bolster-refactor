@@ -1,9 +1,9 @@
 import React from 'react';
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import PageHeading from 'components_DEPRECATED/shared/generic/pageHeading/presentational/PageHeading';
 import OperativeAlertMetricsTable from './OperativeAlertMetricsTable';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import FieldOutput from 'components_DEPRECATED/shared/generic/fieldOutput/presentational/FieldOutput';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
 import OperativeAlertsChart from './OperativeAlertsChart';
 
 const OperativeAlertMetrics = ({ alertMetrics, isFetching, error, users, alert }) => (

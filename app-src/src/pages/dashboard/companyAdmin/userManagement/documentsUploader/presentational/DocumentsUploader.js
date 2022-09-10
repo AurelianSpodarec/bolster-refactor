@@ -1,9 +1,9 @@
 import React from 'react';
 
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import PageHeading from 'components_DEPRECATED/shared/generic/pageHeading/presentational/PageHeading';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import BackButtonContainer from 'components_DEPRECATED/shared/generic/backButton/containers/BackButtonContainer';
 import DocumentsTable from './DocumentsTable';
 
 const DocumentsUploader = ({ documents, adminName, newButton, deleteButton }) => (

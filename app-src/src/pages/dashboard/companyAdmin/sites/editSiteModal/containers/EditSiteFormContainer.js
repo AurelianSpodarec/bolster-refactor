@@ -5,7 +5,7 @@ import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 
 import editSite from 'actions/companyAdmin/sites/async/editSite';
 import EditSiteForm from '../presentational/EditSiteForm';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 
 class EditSiteFormContainer extends Component {
     state = {

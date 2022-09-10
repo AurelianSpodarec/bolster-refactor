@@ -1,6 +1,6 @@
 import React from 'react';
 import { QUESTION_TYPE_VALUES, QUESTION_TYPES } from 'constants/shared/templateBuilder';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import ButtonContainer from 'components_DEPRECATED/shared/generic/button/containers/ButtonContainer';
 
 const TemplateSectionQuestion = ({
     question: { id, name, isRequired, type, canCompanyEdit },

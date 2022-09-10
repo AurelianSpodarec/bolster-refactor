@@ -5,7 +5,7 @@ import BreakdownLayout from './BreakdownLayout';
 import WeekBreakdownOverview from './weekBreakdown/WeekBreakdownOverview';
 import DayBreakdownOverview from './dayBreakdown/DayBreakdownOverview';
 import DayBreakdownLocation from './dayBreakdown/DayBreakdownLocation';
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
 import { isEmpty } from 'helpers/generic';
 import moment from 'moment';
 

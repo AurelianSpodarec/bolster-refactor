@@ -2,8 +2,8 @@ import React from 'react';
 
 import { ADMIN_RECORD_PAYMENT, ADMIN_CONFIRM_FREE_INVOICE } from 'constants/shared/modalTypes';
 
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 import InvoicePaymentsTableContainer from '../containers/InvoicePaymentsTableContainer';
 
 const InvoicePayments = ({ handleOpenModal }) => {

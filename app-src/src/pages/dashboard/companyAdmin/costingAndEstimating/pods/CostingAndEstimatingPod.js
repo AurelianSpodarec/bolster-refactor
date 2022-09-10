@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-import BlockContainer from '../../../../../components/shared/generic/block/containers/BlockContainer';
-import FlexWrapper from '../../../../../components/shared/generic/flexWrapper/FlexWrapper';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import FlexWrapper from 'components_DEPRECATED/shared/generic/flexWrapper/FlexWrapper';
 
 import employeeIcon from 'assets/images/icons/person_icon.png';
 import buildingIcon from 'assets/images/icons/building_icon.png';

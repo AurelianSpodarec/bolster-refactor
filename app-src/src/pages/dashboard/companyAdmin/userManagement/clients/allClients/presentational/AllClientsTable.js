@@ -1,11 +1,11 @@
 import React from 'react';
 
-import Table from 'components/shared/generic/tables/presentational/Table';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import Table from 'components_DEPRECATED/shared/generic/tables/presentational/Table';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 import AllClientsList from './AllClientsList';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import LinkButton from 'components/shared/generic/button/presentational/LinkButton';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import LinkButton from 'components_DEPRECATED/shared/generic/button/presentational/LinkButton';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
 
 const AllClientsTable = ({ headers, clients, isFetching, error }) => (
     <BlockContainer>

@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 
 import dismissOperativeAlert from 'actions/companyAdmin/messageCentre/async/dismissOperativeAlert';
 
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
 import { DATE_TIME_IDS } from 'constants/companyAdmin/enums';
 
 const OperativeAlertsListItem = ({

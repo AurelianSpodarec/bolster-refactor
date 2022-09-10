@@ -1,6 +1,6 @@
 import React from 'react';
 
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 import PlusIcon from 'assets/images/frontend-new/why-use-our-system/plus-icon.png';
 
 const FrontEndModalOuter = ({ children, handleClose, extraClasses = '', hideCloseButton }) => (

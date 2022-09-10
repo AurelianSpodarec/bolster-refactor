@@ -1,14 +1,14 @@
 import React from 'react';
 
-import PieChart from 'components/shared/stats/presentational/PieChart';
+import PieChart from 'components_DEPRECATED/shared/stats/presentational/PieChart';
 import SiteDetails from './SiteDetails';
 import { ACCESS_TYPES_VALUES } from 'constants/companyAdmin/enums';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
-import ActionMenu from 'components/shared/actionMenu/ActionMenu';
-import ActionMenuLinkButton from 'components/shared/actionMenu/ActionMenuLinkButton';
-import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
+import FlexWrapper from 'components_DEPRECATED/shared/generic/flexWrapper/FlexWrapper';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
+import ActionMenu from 'components_DEPRECATED/shared/actionMenu/ActionMenu';
+import ActionMenuLinkButton from 'components_DEPRECATED/shared/actionMenu/ActionMenuLinkButton';
+import ActionMenuActionButton from 'components_DEPRECATED/shared/actionMenu/ActionMenuActionButton';
 
 const SiteStats = ({
     site,

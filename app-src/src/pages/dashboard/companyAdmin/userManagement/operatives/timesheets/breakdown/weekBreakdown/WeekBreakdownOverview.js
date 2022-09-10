@@ -6,9 +6,9 @@ import { useSelector } from 'react-redux';
 // import BreakdownSummary from '../BreakdownSummary';
 // import useWeekOverview from '../../hooks/useWeekOverview';
 // import { DATE_TIME_IDS, TIME_PERIOD } from 'constants/companyAdmin/enums';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-// import PieChart from 'components/shared/stats/presentational/PieChart';
-// import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+// import PieChart from 'components_DEPRECATED/shared/stats/presentational/PieChart';
+// import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
 import { isEmpty } from 'helpers/generic';
 // import usePinStats from '../../hooks/usePinStats';
 // import moment from 'moment';
@@ -21,7 +21,7 @@ import useOverviewFilters from '../dayBreakdown/hooks/useOverviewFilters';
 // } from 'selectors/companyAdmin/timesheets';
 import { days } from 'constants/companyAdmin/timesheets';
 import { selectCompanyUsers } from 'selectors/companyAdmin/companyUsers';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
 import DayShiftsTable from '../../dayShiftsTables/DayShiftsTable';
 
 const WeekBreakdownOverview = ({

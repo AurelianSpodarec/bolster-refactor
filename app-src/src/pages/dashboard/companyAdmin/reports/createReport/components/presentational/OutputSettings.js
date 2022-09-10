@@ -1,19 +1,19 @@
 import React from 'react';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import Field from 'components/shared/generic/form/presentational/Field';
-import DropdownContainer from 'components/shared/generic/form/containers/DropdownContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
+import DropdownContainer from 'components_DEPRECATED/shared/generic/form/containers/DropdownContainer';
 import ImageVisualContainer from '../containers/ImageVisualContainer';
-import OptionPodContainer from '../../../../../../../components/shared/generic/form/containers/OptionPodContainer';
+import OptionPodContainer from 'components_DEPRECATED/shared/generic/form/containers/OptionPodContainer';
 
 import { ReactComponent as PdfIcon } from 'assets/images/icons/PDF-Outline.svg';
 import { ReactComponent as FloorplanIcon } from 'assets/images/icons/pin-floorplan.svg';
 import { ReactComponent as CsvIcon } from 'assets/images/icons/CSV-Outline.svg';
 import { ReactComponent as DocIcon } from 'assets/images/icons/doc-Outline.svg';
-import FlexWrapper from '../../../../../../../components/shared/generic/flexWrapper/FlexWrapper';
-import Tickbox from '../../../../../../../components/shared/generic/form/presentational/Tickbox';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
+import FlexWrapper from 'components_DEPRECATED/shared/generic/flexWrapper/FlexWrapper';
+import Tickbox from 'components_DEPRECATED/shared/generic/form/presentational/Tickbox';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
+import TooltipContainer from 'components_DEPRECATED/shared/generic/tooltip/containers/TooltipContainer';
 import useBolsterPlus from 'pages/dashboard/companyAdmin/subscription/addOns/hooks/useBolsterPlus';
 import useIsAdminPlus from '../../../../../../../hooks/useIsAdminPlus';
 

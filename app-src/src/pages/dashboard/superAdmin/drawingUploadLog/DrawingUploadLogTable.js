@@ -1,11 +1,11 @@
 import React from 'react';
 
-import Table from 'components/shared/generic/tables/presentational/Table';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import Table from 'components_DEPRECATED/shared/generic/tables/presentational/Table';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
 import DrawingUploadLogList from './DrawingUploadLogList';
 import useDrawingUploadLog from './hooks/useDrawingUploadLog';
-import PageSelector from '../../../../components/shared/pagination/presentational/pageSelector';
+import PageSelector from 'components_DEPRECATED/shared/pagination/presentational/pageSelector';
 
 const DrawingUploadLogTable = () => {
     const { isFetching, fetchError, drawingsLogs, page, setPage, totalPages } =

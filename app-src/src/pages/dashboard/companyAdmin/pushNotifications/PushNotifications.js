@@ -10,13 +10,13 @@ import useFetchCompanyUsers from '../hooks/useFetchCompanyUsers';
 import useFetchSites from '../hooks/useFetchSites';
 // End
 
-import Table from 'components/shared/generic/tables/presentational/Table';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import FlexHeading from 'components/shared/generic/pageHeading/presentational/FlexHeading';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import Table from 'components_DEPRECATED/shared/generic/tables/presentational/Table';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import FlexHeading from 'components_DEPRECATED/shared/generic/pageHeading/presentational/FlexHeading';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
 import PushNotificationListItem from './PushNotificationListItem';
 import useIsAdminPlus from '../../../../hooks/useIsAdminPlus';
-import TooltipContainer from '../../../../components/shared/generic/tooltip/containers/TooltipContainer';
+import TooltipContainer from 'components_DEPRECATED/shared/generic/tooltip/containers/TooltipContainer';
 
 const PushNotifications = () => {
     const { pushNotifications, isFetching, error, isBolsterPlusActivated } =

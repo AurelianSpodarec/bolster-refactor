@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
-import ModalOuterContainer from '../../../../../components/shared/generic/modals/containers/ModalOuterContainer';
-import BlockHeading from '../../../../../components/shared/generic/blockHeading/presentational/BlockHeading';
-import Form from '../../../../../components/shared/generic/form/containers/Form';
-import Field from '../../../../../components/shared/generic/form/presentational/Field';
-import TextInputContainer from '../../../../../components/shared/generic/form/containers/TextInputContainer';
-import BlockButtonWrapper from '../../../../../components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import ModalOuterContainer from 'components_DEPRECATED/shared/generic/modals/containers/ModalOuterContainer';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import Form from 'components_DEPRECATED/shared/generic/form/containers/Form';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
+import TextInputContainer from 'components_DEPRECATED/shared/generic/form/containers/TextInputContainer';
+import BlockButtonWrapper from 'components_DEPRECATED/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import { useDispatch, useSelector } from 'react-redux';
 import { hideModal } from '../../../../../actions/shared/generic/modals/sync/hideModal';
 import { useForm, usePrevious } from '../../../../../helpers/hooks';
@@ -14,7 +14,7 @@ import {
     selectUsersPostSuccess,
     selectUsersShouldShowMergeModal,
 } from '../../../../../selectors/superAdmin/users';
-import CheckboxContainer from '../../../../../components/shared/generic/form/containers/CheckboxContainer';
+import CheckboxContainer from 'components_DEPRECATED/shared/generic/form/containers/CheckboxContainer';
 import editUserEmail from '../../../../../actions/superAdmin/users/async/editUserEmail';
 
 const EditUserEmailModal = ({ user }) => {

@@ -10,10 +10,10 @@ import { isEmpty } from '../../../../../helpers/generic';
 import { selectPinOptions } from '../../../../../selectors/superAdmin/pinOptions';
 import { selectLatestVersionForPinOption } from '../../../../../selectors/superAdmin/pinOptionVersions';
 
-import FlexHeading from '../../../../../components/shared/generic/pageHeading/presentational/FlexHeading';
-import ButtonWrapper from '../../../../../components/shared/generic/button/presentational/ButtonWrapper';
-import ActionButton from '../../../../../components/shared/generic/button/presentational/ActionButton';
-import BlockContainer from '../../../../../components/shared/generic/block/containers/BlockContainer';
+import FlexHeading from 'components_DEPRECATED/shared/generic/pageHeading/presentational/FlexHeading';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 import OptionDocumentsList from './OptionDocumentsList';
 
 const OptionDocuments = () => {

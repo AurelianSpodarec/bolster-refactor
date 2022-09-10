@@ -1,12 +1,12 @@
 import React from 'react';
 
-import Table from 'components/shared/generic/tables/presentational/Table';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import Table from 'components_DEPRECATED/shared/generic/tables/presentational/Table';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
 import RecentlyDeletedList from './RecentlyDeletedList';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
-import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import Select from 'components/shared/generic/form/presentational/Select';
+import ButtonContainer from 'components_DEPRECATED/shared/generic/button/containers/ButtonContainer';
+import TextInputContainer from 'components_DEPRECATED/shared/generic/form/containers/TextInputContainer';
+import Select from 'components_DEPRECATED/shared/generic/form/presentational/Select';
 
 const RecentlyDeletedTable = ({
     headers,

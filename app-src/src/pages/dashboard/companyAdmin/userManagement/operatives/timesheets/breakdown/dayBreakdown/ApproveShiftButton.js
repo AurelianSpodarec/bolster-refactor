@@ -1,5 +1,5 @@
 import postApproveShift from 'actions/companyAdmin/timesheets/async/postApproveShift';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTimesheetsIsPosting } from 'selectors/companyAdmin/timesheets';

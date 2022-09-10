@@ -6,8 +6,8 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { CONFIRM_DELETE } from 'constants/shared/modalTypes';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
-import ActionButton from '../../../../../../../components/shared/generic/button/presentational/ActionButton';
-import ButtonWrapper from '../../../../../../../components/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
 
 const SingleClientPermissionItem = ({ permission, user }) => {
     const dispatch = useDispatch();

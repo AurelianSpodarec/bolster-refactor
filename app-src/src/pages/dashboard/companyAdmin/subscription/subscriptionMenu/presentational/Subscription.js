@@ -5,7 +5,7 @@ import ActiveServicesContainer from '../../activeServices/containers/ActiveServi
 import PendingInvoicesContainer from 'pages/dashboard/companyAdmin/invoices/pendingInvoices/containers/PendingInvoicesContainer';
 import SubscriptionCreditsContainer from '../../credits/containers/SubscriptionCreditsContainer';
 import CardManagement from '../../cardManagement/presentational/CardManagement';
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import PageHeading from 'components_DEPRECATED/shared/generic/pageHeading/presentational/PageHeading';
 import BolsterPlusPod from '../../addOns/BolsterPlusPod';
 import SubscriptionAutoRenewal from '../../autoRenewal/SubscriptionAutoRenewal';
 

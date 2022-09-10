@@ -7,11 +7,11 @@ import fetchUserCreations from 'actions/superAdmin/users/async/fetchUserCreation
 import { ADMIN_API_URL } from 'config';
 import { getHeaders } from 'helpers/api';
 
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import PageHeading from 'components_DEPRECATED/shared/generic/pageHeading/presentational/PageHeading';
 import UserCreationsTable from './UserCreationsTable';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import PageSelector from 'components/shared/pagination/presentational/pageSelector';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import PageSelector from 'components_DEPRECATED/shared/pagination/presentational/pageSelector';
 
 const UserCreations = () => {
     const dispatch = useDispatch();

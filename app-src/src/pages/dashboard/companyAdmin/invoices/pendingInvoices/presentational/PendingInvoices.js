@@ -1,6 +1,6 @@
 import React from 'react';
 import InvoicesTableContainer from 'pages/dashboard/companyAdmin/invoices/shared/invoiceListTable/containers/InvoicesTableContainer';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 
 const PendingInvoices = ({ invoices }) => (
     <BlockContainer heading="Pending Invoices" contentClass="autoWidth">

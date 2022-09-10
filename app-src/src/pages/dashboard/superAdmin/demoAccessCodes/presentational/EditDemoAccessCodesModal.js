@@ -1,14 +1,14 @@
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import updateDemoAccessCodes from 'actions/superAdmin/demoAccessCodes/async/updateDemoAccessCodes';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import Form from 'components/shared/generic/form/containers/Form';
-import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import Field from 'components/shared/generic/form/presentational/Field';
-import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import Form from 'components_DEPRECATED/shared/generic/form/containers/Form';
+import TextInputContainer from 'components_DEPRECATED/shared/generic/form/containers/TextInputContainer';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
+import ModalOuterContainer from 'components_DEPRECATED/shared/generic/modals/containers/ModalOuterContainer';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import ButtonWrapper from '../../../../../components/shared/generic/button/presentational/ButtonWrapper';
-import ActionButton from '../../../../../components/shared/generic/button/presentational/ActionButton';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
 
 const EditDemoAccessCodesModal = ({ item }) => {
     const dispatch = useDispatch();

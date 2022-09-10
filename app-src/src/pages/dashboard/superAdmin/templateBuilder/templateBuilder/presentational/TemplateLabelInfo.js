@@ -1,6 +1,6 @@
 import React from 'react';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
 import LabelFieldList from './LabelFieldList';
 
 const TemplateLabelInfo = ({ showSetLabelsModal, fields }) => (

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import ConfirmDeleteModal from 'components/shared/generic/modals/presentational/ConfirmDeleteModal';
+import ConfirmDeleteModal from 'components_DEPRECATED/shared/generic/modals/presentational/ConfirmDeleteModal';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
 import removeUserDrawingsAccess from 'actions/companyAdmin/userManagement/async/removeUserDrawingsAccess';
 

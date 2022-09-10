@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import SinglePinMap from '../presentational/SinglePinMap';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 
 import fetchClientSingleDrawing from 'actions/client/drawings/async/clientFetchSingleDrawing';
 import { getSelectedCompanyForClient } from 'helpers/generic';

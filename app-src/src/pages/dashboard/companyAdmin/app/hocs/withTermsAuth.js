@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 
 import fetchTerms from 'actions/shared/legalDocuments/fetchTerms';
 
-import Error from 'components/shared/generic/misc/presentational/Error';
-import Block from 'components/shared/generic/block/presentational/Block';
+import Error from 'components_DEPRECATED/shared/generic/misc/presentational/Error';
+import Block from 'components_DEPRECATED/shared/generic/block/presentational/Block';
 import AgreeToTermsModal from 'pages/dashboard/companyAdmin/agreeToTerms/AgreeToTermsModal';
 import { COMPANY_USER_ROLE_TYPES } from 'constants/companyAdmin/enums';
 function withTermsAuth(ProtectedComponent) {

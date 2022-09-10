@@ -5,8 +5,8 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { RECOVER_USER } from 'constants/shared/modalTypes';
 import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCompanyUsers';
 import moment from 'moment';
-import ButtonWrapper from '../../../../../../../components/shared/generic/button/presentational/ButtonWrapper';
-import ActionButton from '../../../../../../../components/shared/generic/button/presentational/ActionButton';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
 
 const DeletedCompanyAdminsListItem = ({
     user,

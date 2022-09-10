@@ -1,11 +1,11 @@
 import React from 'react';
 
-import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
-import Form from 'components/shared/generic/form/containers/Form';
-import Field from 'components/shared/generic/form/presentational/Field';
-import Select from 'components/shared/generic/form/presentational/Select';
-import ButtonWrapper from '../../../../../../components/shared/generic/button/presentational/ButtonWrapper';
-import ActionButton from '../../../../../../components/shared/generic/button/presentational/ActionButton';
+import ModalOuterContainer from 'components_DEPRECATED/shared/generic/modals/containers/ModalOuterContainer';
+import Form from 'components_DEPRECATED/shared/generic/form/containers/Form';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
+import Select from 'components_DEPRECATED/shared/generic/form/presentational/Select';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
 
 const EditCompanyOwnerModal = ({ handleChange, handleSubmit, hideModal, form, userOptions }) => {
     return (

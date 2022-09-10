@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import BolsterLabelFieldsExample from 'components/shared/generic/form/presentational/BolsterLabelFieldsExample';
+import BolsterLabelFieldsExample from 'components_DEPRECATED/shared/generic/form/presentational/BolsterLabelFieldsExample';
 
 class LabelExampleContainer extends Component {
     render() {

@@ -6,13 +6,13 @@ import { formatUnderscoreToTitleCase } from 'helpers/generic';
 
 import useFetchActivityLog from '../hooks/useFetchActivityLog';
 
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
-import Block from 'components/shared/generic/block/presentational/Block';
-import Table from 'components/shared/generic/tables/presentational/Table';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import PageHeading from 'components_DEPRECATED/shared/generic/pageHeading/presentational/PageHeading';
+import Block from 'components_DEPRECATED/shared/generic/block/presentational/Block';
+import Table from 'components_DEPRECATED/shared/generic/tables/presentational/Table';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
 import ActivityLogItem from './ActivityLogItem';
-import Select from 'components/shared/generic/form/presentational/Select';
-import PageSelector from 'components/shared/pagination/presentational/pageSelector';
+import Select from 'components_DEPRECATED/shared/generic/form/presentational/Select';
+import PageSelector from 'components_DEPRECATED/shared/pagination/presentational/pageSelector';
 
 const headers = ['Name', 'Reference Type', 'Action Type', 'Action By', 'Date'];
 

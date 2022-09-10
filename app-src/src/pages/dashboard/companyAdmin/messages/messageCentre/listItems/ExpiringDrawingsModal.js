@@ -4,8 +4,8 @@ import { useHistory } from 'react-router-dom';
 
 import moment from 'moment';
 
-import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import ModalOuterContainer from 'components_DEPRECATED/shared/generic/modals/containers/ModalOuterContainer';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
 import hideModal from 'actions/shared/generic/modals/sync/hideModal';
 
 const ExpiringDrawingsModal = ({ drawings }) => {

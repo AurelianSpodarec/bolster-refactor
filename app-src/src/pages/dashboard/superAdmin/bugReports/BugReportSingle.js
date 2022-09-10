@@ -6,12 +6,12 @@ import { useParams } from 'react-router-dom';
 import useFetchBugReport from './hooks/useFetchBugReport';
 import useDeleteBugReport from './hooks/useDeleteBugReport';
 
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import Block from 'components/shared/generic/block/presentational/Block';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import PageHeading from 'components_DEPRECATED/shared/generic/pageHeading/presentational/PageHeading';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import Block from 'components_DEPRECATED/shared/generic/block/presentational/Block';
 import { FILE_STORAGE_URL, VIDEO_STORAGE_URL } from 'config';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import BlockButtonWrapper from 'components_DEPRECATED/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import { EXPANDED_MEDIA } from 'constants/shared/modalTypes';
 import { isVideo } from 'helpers/generic';

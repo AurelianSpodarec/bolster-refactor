@@ -1,12 +1,12 @@
 import React, { Fragment } from 'react';
 
-import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
+import FieldOutput from 'components_DEPRECATED/shared/generic/fieldOutput/presentational/FieldOutput';
 import { formatAsHrsMinsSecs, isEmpty } from 'helpers/generic';
 
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
 import { DATE_TIME_IDS, TIME_PERIOD } from 'constants/companyAdmin/enums';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import useDateTime from 'components/shared/dateTime/hooks/useDateTime';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import useDateTime from 'components_DEPRECATED/shared/dateTime/hooks/useDateTime';
 import { useSelector } from 'react-redux';
 import { selectJobReferences } from 'selectors/companyAdmin/jobReferences';
 

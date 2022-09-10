@@ -1,8 +1,8 @@
 import React from 'react';
 
-import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import FlexModalOuter from 'components_DEPRECATED/shared/generic/modals/presentational/FlexModalOuter';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
 
 const SinglePinGenerateReportSuccessModal = ({ handleViewReports, handleClose }) => (
     <FlexModalOuter title="Generating Report" extraClasses="response-modal">

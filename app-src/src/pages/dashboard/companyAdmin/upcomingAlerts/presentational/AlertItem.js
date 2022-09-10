@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Moment from 'react-moment';
 import 'moment-timezone';
 
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
 import {
     ALERT_FREQUENCY_SUFFIX_VALUES,
     ALERT_FREQUENCY_TYPES,
@@ -14,9 +14,9 @@ import {
 import { companyUser } from 'selectors/companyAdmin/companyUser';
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 import { DELETE_ALERT_MODAL, EDIT_ALERT_MODAL } from 'constants/shared/modalTypes';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
-import ActionMenu from 'components/shared/actionMenu/ActionMenu';
-import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
+import ActionMenu from 'components_DEPRECATED/shared/actionMenu/ActionMenu';
+import ActionMenuActionButton from 'components_DEPRECATED/shared/actionMenu/ActionMenuActionButton';
 
 const AlertItem = ({
     alert: {

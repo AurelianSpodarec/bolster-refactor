@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Prompt } from 'react-router-dom';
 
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import Form from 'components/shared/generic/form/containers/Form';
+import BlockButtonWrapper from 'components_DEPRECATED/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import Form from 'components_DEPRECATED/shared/generic/form/containers/Form';
 import EditPinVersionsContainer from '../containers/EditPinVersionsContainer';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import ButtonContainer from 'components_DEPRECATED/shared/generic/button/containers/ButtonContainer';
 
 const EditPinForm = ({
     location,

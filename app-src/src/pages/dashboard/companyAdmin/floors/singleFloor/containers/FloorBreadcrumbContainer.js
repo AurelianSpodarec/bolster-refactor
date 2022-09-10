@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import fetchSingleSite from 'actions/companyAdmin/sites/async/fetchSingleSite';
 import fetchSingleBuilding from 'actions/companyAdmin/buildings/async/fetchSingleBuilding';
 
-import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
+import Breadcrumb from 'components_DEPRECATED/shared/generic/breadcrumb/presentational/Breadcrumb';
 
 class FloorBreadcrumbContainer extends Component {
     state = {

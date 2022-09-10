@@ -1,6 +1,6 @@
 import React from 'react';
 
-import CustomLineBreak from 'components/shared/generic/linebreak/CustomLineBreak';
+import CustomLineBreak from 'components_DEPRECATED/shared/generic/linebreak/CustomLineBreak';
 
 const ContactInfo = () => {
     return (

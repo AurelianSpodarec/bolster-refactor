@@ -1,13 +1,13 @@
 import React from 'react';
-import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
-import Field from 'components/shared/generic/form/presentational/Field';
-import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import Form from 'components/shared/generic/form/containers/Form';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import ModalOuterContainer from 'components_DEPRECATED/shared/generic/modals/containers/ModalOuterContainer';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
+import TextInputContainer from 'components_DEPRECATED/shared/generic/form/containers/TextInputContainer';
+import BlockButtonWrapper from 'components_DEPRECATED/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import Form from 'components_DEPRECATED/shared/generic/form/containers/Form';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import ButtonContainer from 'components_DEPRECATED/shared/generic/button/containers/ButtonContainer';
 import { useState } from 'react';
-import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
+import FileUploadContainer from 'components_DEPRECATED/shared/generic/form/containers/FileUploadContainer';
 import { useDispatch } from 'react-redux';
 import postUploadUserDocuments from 'actions/companyAdmin/userManagement/async/postUploadUserDocuments';
 

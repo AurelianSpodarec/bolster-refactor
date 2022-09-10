@@ -1,7 +1,7 @@
 import React from 'react';
 
 import PreviewQuestionRoute from '../containers/PreviewQuestionRoute';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
 
 const PreviewSection = ({ section, questions }) => (
     <div className="phone-section size-lg-12">

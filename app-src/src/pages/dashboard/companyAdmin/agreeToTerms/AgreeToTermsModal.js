@@ -1,9 +1,9 @@
 import React from 'react';
 
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 import AgreeToTerms from 'pages/dashboard/companyAdmin/agreeToTerms/AgreeToTerms';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import ButtonContainer from 'components_DEPRECATED/shared/generic/button/containers/ButtonContainer';
+import BlockButtonWrapper from 'components_DEPRECATED/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
 const AgreeToTermsModal = ({ handleClick }) => {
     return (

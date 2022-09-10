@@ -6,9 +6,9 @@ import useFetchServices from 'pages/dashboard/companyAdmin/hooks/useFetchService
 import useFetchPinOptionTypes from '../hooks/useFetchPinOptionTypes';
 import usePinOptionsTabs from './hooks/usePinOptionsTabs';
 
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import BlockTabs from 'components/shared/tabs/BlockTabs';
-import FlexHeading from 'components/shared/generic/pageHeading/presentational/FlexHeading';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import BlockTabs from 'components_DEPRECATED/shared/tabs/BlockTabs';
+import FlexHeading from 'components_DEPRECATED/shared/generic/pageHeading/presentational/FlexHeading';
 
 const PinOptions = () => {
     const { pinOptionTypes, isFetchingPinOptionTypes, pinOptionTypesFetchError } =

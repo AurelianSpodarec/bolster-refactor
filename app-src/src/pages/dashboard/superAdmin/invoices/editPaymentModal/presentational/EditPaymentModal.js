@@ -1,12 +1,12 @@
 import React from 'react';
 
-import ModalOuterContainer from 'components/shared/generic/modals/containers/ModalOuterContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import Form from 'components/shared/generic/form/containers/Form';
-import CurrencyInput from 'components/shared/generic/form/presentational/CurrencyInput';
-import Field from 'components/shared/generic/form/presentational/Field';
-import ButtonWrapper from '../../../../../../components/shared/generic/button/presentational/ButtonWrapper';
-import ActionButton from '../../../../../../components/shared/generic/button/presentational/ActionButton';
+import ModalOuterContainer from 'components_DEPRECATED/shared/generic/modals/containers/ModalOuterContainer';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import Form from 'components_DEPRECATED/shared/generic/form/containers/Form';
+import CurrencyInput from 'components_DEPRECATED/shared/generic/form/presentational/CurrencyInput';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
 
 const EditPaymentModal = ({
     hideModal,

@@ -5,7 +5,7 @@ import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 
 import AllCompanyAdminsTable from '../presentational/AllCompanyAdminsTable';
 import { CREATE_COMPANY_ADMIN } from 'constants/shared/modalTypes';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 import { isEmpty } from 'helpers/generic';
 import useIsAdminPlus from '../../../../../../../hooks/useIsAdminPlus';
 import useBolsterPlus from '../../../../subscription/addOns/hooks/useBolsterPlus';

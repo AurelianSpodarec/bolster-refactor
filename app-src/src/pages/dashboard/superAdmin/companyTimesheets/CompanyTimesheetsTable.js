@@ -3,13 +3,13 @@ import React from 'react';
 import useCompanyTimesheetsTable from './_hooks/useCompanyTimesheetsTable';
 
 import { isEmpty } from 'helpers/generic';
-import Table from 'components/shared/generic/tables/presentational/Table';
-import PageSelector from 'components/shared/pagination/presentational/pageSelector';
-import Select from '../../../../components/shared/generic/form/presentational/Select';
-import DateTimeContainer from '../../../../components/shared/dateTime/containers/DateTimeContainer';
+import Table from 'components_DEPRECATED/shared/generic/tables/presentational/Table';
+import PageSelector from 'components_DEPRECATED/shared/pagination/presentational/pageSelector';
+import Select from 'components_DEPRECATED/shared/generic/form/presentational/Select';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
 import moment from 'moment';
 import { DATE_TIME_IDS } from '../../../../constants/companyAdmin/enums';
-import ButtonContainer from '../../../../components/shared/generic/button/containers/ButtonContainer';
+import ButtonContainer from 'components_DEPRECATED/shared/generic/button/containers/ButtonContainer';
 
 const CompanyTimesheetsTable = () => {
     const {

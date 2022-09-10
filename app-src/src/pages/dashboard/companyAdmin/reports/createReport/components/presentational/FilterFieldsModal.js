@@ -1,12 +1,12 @@
 import React from 'react';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import Field from 'components/shared/generic/form/presentational/Field';
-import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-// import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
-// import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
+import TextInputContainer from 'components_DEPRECATED/shared/generic/form/containers/TextInputContainer';
+import BlockButtonWrapper from 'components_DEPRECATED/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import MultiSelect from 'components_DEPRECATED/shared/generic/form/presentational/MultiSelect';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+// import CheckboxContainer from 'components_DEPRECATED/shared/generic/form/containers/CheckboxContainer';
+// import TooltipContainer from 'components_DEPRECATED/shared/generic/tooltip/containers/TooltipContainer';
 
 const FilterFieldsModal = ({
     showFreeForm,

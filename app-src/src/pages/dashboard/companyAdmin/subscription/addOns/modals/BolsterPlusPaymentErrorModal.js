@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
-import FlexModalOuter from 'components/shared/generic/modals/presentational/FlexModalOuter';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
+import FlexModalOuter from 'components_DEPRECATED/shared/generic/modals/presentational/FlexModalOuter';
 
 const BolsterPlusPaymentErrorModal = ({
     title = 'Payment Failed',

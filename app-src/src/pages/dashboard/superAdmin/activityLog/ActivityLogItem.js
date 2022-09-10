@@ -5,7 +5,7 @@ import {
     ACTIVITY_LOG_ACTION_VALUES,
 } from 'constants/companyAdmin/enums';
 
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
 
 const ActivityLogItem = ({
     log: {

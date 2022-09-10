@@ -1,6 +1,6 @@
 import React from 'react';
 
-import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
+import FlexWrapper from 'components_DEPRECATED/shared/generic/flexWrapper/FlexWrapper';
 import useAddOnProrata from './hooks/useAddOnProrata';
 import { formatNumber } from 'helpers/generic';
 

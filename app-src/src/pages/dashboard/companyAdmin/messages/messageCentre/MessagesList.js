@@ -1,6 +1,6 @@
 import React from 'react';
 
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 import { isEmpty } from 'helpers/generic';
 import { MESSAGE_CENTRE_NAMES, MESSAGE_CENTRE_TABS } from 'constants/companyAdmin/enums';
 

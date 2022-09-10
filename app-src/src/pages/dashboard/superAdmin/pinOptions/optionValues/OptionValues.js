@@ -9,8 +9,8 @@ import { selectPinOptionSets } from 'selectors/superAdmin/pinOptionSets';
 
 import useFetchBatchForOptionValues from './hooks/useFetchBatchForOptionValues';
 
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import FlexHeading from 'components/shared/generic/pageHeading/presentational/FlexHeading';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import FlexHeading from 'components_DEPRECATED/shared/generic/pageHeading/presentational/FlexHeading';
 import OptionValuesList from './OptionValuesList';
 
 const OptionValues = () => {

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import DrawingTableContainer from 'pages/dashboard/client/drawings/shared/containers/DrawingTableContainer';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import ButtonContainer from 'components_DEPRECATED/shared/generic/button/containers/ButtonContainer';
 
 const FloorListItem = ({ floor, isExpanded, colCount, toggleExpanded }) => (
     <>

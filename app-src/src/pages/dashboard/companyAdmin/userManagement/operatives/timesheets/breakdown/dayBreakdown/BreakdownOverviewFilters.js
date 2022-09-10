@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import Field from 'components/shared/generic/form/presentational/Field';
-import Select from 'components/shared/generic/form/presentational/Select';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
+import Select from 'components_DEPRECATED/shared/generic/form/presentational/Select';
 
 import { filterByOptions, sortByOptions } from './hooks/useOverviewFilters';
 import { timesheetSelectedCompanyIDs } from 'selectors/companyAdmin/timesheets';

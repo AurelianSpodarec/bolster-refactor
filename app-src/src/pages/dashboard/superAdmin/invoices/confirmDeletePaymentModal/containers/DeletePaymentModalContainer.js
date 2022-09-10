@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import deleteInvoicePayment from 'actions/superAdmin/invoices/async/deleteInvoicePayment';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
-import ConfirmDeleteModal from 'components/shared/generic/modals/presentational/ConfirmDeleteModal';
+import ConfirmDeleteModal from 'components_DEPRECATED/shared/generic/modals/presentational/ConfirmDeleteModal';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { SUCCESS_MODAL } from 'constants/shared/modalTypes';
 

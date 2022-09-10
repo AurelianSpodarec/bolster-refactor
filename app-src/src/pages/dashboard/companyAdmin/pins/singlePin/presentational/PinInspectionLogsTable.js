@@ -1,9 +1,9 @@
 import React from 'react';
 
-import Table from 'components/shared/generic/tables/presentational/Table';
+import Table from 'components_DEPRECATED/shared/generic/tables/presentational/Table';
 import PinInspectionLogsListItem from './PinInspectionLogsListItem';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
 import PinTaskListContainer from '../containers/PinTaskListContainer';
 
 const PinInspectionLogsTable = ({ isFetching, error, pins, handleFilterChange, onMobile }) => (

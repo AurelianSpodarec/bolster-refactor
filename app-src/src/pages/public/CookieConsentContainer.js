@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
+import ButtonContainer from 'components_DEPRECATED/shared/generic/button/containers/ButtonContainer';
 
 import { useLocalStorage } from 'helpers/frontEndHooks';
 import setCookieConsentClass from 'actions/frontEnd/layout/setCookieConsentClass';

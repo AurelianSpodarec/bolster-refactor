@@ -1,6 +1,6 @@
 import React from 'react';
 
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
 import BreakdownNote from './BreakdownNote';
 
 function BreakdownNotes({ notes, timeIn, timeOut }) {

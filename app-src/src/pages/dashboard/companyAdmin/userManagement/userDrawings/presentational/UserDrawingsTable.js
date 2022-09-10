@@ -1,10 +1,10 @@
 import React from 'react';
-import Table from 'components/shared/generic/tables/presentational/Table';
+import Table from 'components_DEPRECATED/shared/generic/tables/presentational/Table';
 
 import UserDrawingListItemContainer from '../containers/UserDrawingListItemContainer';
 import { REMOVE_DRAWINGS_ACCESS } from 'constants/shared/modalTypes';
-import ActionButton from '../../../../../../components/shared/generic/button/presentational/ActionButton';
-import ButtonWrapper from '../../../../../../components/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
 
 const UserDrawingsTable = ({
     headers,

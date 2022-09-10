@@ -2,10 +2,10 @@ import React from 'react';
 
 import SitesTableContainer from '../containers/SitesTableContainer';
 import SitesFiltersContainer from '../containers/SitesFiltersContainer';
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import PageHeading from 'components_DEPRECATED/shared/generic/pageHeading/presentational/PageHeading';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { ADD_SITE } from 'constants/shared/modalTypes';
 import { useDispatch } from 'react-redux';

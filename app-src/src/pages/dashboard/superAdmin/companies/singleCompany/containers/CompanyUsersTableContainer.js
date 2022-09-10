@@ -4,13 +4,13 @@ import { withRouter } from 'react-router-dom';
 import fetchCompanyUsers from 'actions/superAdmin/users/async/fetchCompanyUsers';
 
 import CompanyUsersTable from '../presentational/CompanyUsersTable';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import BlockButtonWrapper from 'components_DEPRECATED/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { ADMIN_CREATE_COMPANY_ADMIN, ADMIN_EDIT_COMPANY_OWNER } from 'constants/shared/modalTypes';
 
-import PageSelector from 'components/shared/pagination/presentational/pageSelector';
+import PageSelector from 'components_DEPRECATED/shared/pagination/presentational/pageSelector';
 import fetchCompanyAdminUsers from 'actions/superAdmin/users/async/fetchCompanyAdminUsers';
 
 const CompanyUsersTableContainer = ({

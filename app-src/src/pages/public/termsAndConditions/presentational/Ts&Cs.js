@@ -1,7 +1,7 @@
 import React from 'react';
 
 import PageMeta from 'pages/public/shared/meta/presentational/PageMeta';
-import Loading from 'components/shared/generic/misc/presentational/Loading';
+import Loading from 'components_DEPRECATED/shared/generic/misc/presentational/Loading';
 
 const Terms = ({ terms, privacy, eula, error, isFetching }) => {
     let pageTitle = 'Terms & Conditions';

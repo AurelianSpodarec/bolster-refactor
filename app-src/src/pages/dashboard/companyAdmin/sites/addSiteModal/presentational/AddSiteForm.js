@@ -1,13 +1,13 @@
 import React from 'react';
 
-import Field from 'components/shared/generic/form/presentational/Field';
-import Form from 'components/shared/generic/form/containers/Form';
-import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import BolsterLabelExample from 'components/shared/generic/form/presentational/BolsterLabelExample';
-import CheckboxContainer from '../../../../../../components/shared/generic/form/containers/CheckboxContainer';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import OptionsPodSetListContainer from 'components/shared/generic/form/containers/OptionPodSetListContainer';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
+import Form from 'components_DEPRECATED/shared/generic/form/containers/Form';
+import TextInputContainer from 'components_DEPRECATED/shared/generic/form/containers/TextInputContainer';
+import BolsterLabelExample from 'components_DEPRECATED/shared/generic/form/presentational/BolsterLabelExample';
+import CheckboxContainer from 'components_DEPRECATED/shared/generic/form/containers/CheckboxContainer';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
+import OptionsPodSetListContainer from 'components_DEPRECATED/shared/generic/form/containers/OptionPodSetListContainer';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
 
 const AddSiteForm = ({
     handleSubmit,

@@ -6,12 +6,12 @@ import { AMEND_JOB_REFERENCE_MODAL } from 'constants/shared/modalTypes';
 
 import showModal from 'actions/shared/generic/modals/sync/showModal';
 
-import TimePickerContainer from 'components/shared/generic/form/containers/TimePickerContainer';
-import CurrencyInput from 'components/shared/generic/form/presentational/CurrencyInput';
-import FlexWrapper from 'components/shared/generic/flexWrapper/FlexWrapper';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import TimePickerContainer from 'components_DEPRECATED/shared/generic/form/containers/TimePickerContainer';
+import CurrencyInput from 'components_DEPRECATED/shared/generic/form/presentational/CurrencyInput';
+import FlexWrapper from 'components_DEPRECATED/shared/generic/flexWrapper/FlexWrapper';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
 import useIsAdminPlus from '../../../../../../../../hooks/useIsAdminPlus';
-import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
+import TooltipContainer from 'components_DEPRECATED/shared/generic/tooltip/containers/TooltipContainer';
 import WarningIcon from 'assets/images/icons/Triangle_Warning.svg';
 
 const HoursWorkedList = ({

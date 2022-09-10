@@ -1,11 +1,11 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
+import SwitchWith404 from 'components_DEPRECATED/appRoute/routes/presentational/SwitchWith404';
 import SingleDrawingContainer from 'pages/dashboard/companyAdmin/drawings/singleDrawing/containers/SingleDrawingContainer';
 import AttachDrawingOperative from 'pages/dashboard/companyAdmin/drawings/attachDrawingOperative/presentational/AttachDrawingOperative';
 import InviteClientToDrawing from 'pages/dashboard/companyAdmin/drawings/inviteClientToDrawing/presentational/InviteClientToDrawing';
-import ClientEditContainer from 'components/shared/clients/containers/ClientEditContainer';
+import ClientEditContainer from 'components_DEPRECATED/shared/clients/containers/ClientEditContainer';
 
 import AttachDrawingDocument from 'pages/dashboard/companyAdmin/drawings/attachDrawingDocument/presentational/AttachDrawingDocument';
 import InviteCompanyToDrawing from 'pages/dashboard/companyAdmin/drawings/inviteCompanyToDrawing/presentational/InviteCompanyToDrawing';
@@ -15,7 +15,7 @@ import EditCompanyPermissionsOnDrawingContainer from 'pages/dashboard/companyAdm
 
 import AddPin from 'pages/dashboard/companyAdmin/pins/addPin/presentational/AddPin';
 import AddCompanyPermissionsToDrawing from 'pages/dashboard/companyAdmin/drawings/addCompanyPermissionsToDrawing/presentational/AddCompanyPermissionsToDrawing';
-import DocumentResponsesContainer from 'components/shared/documents/containers/DocumentResponsesContainer';
+import DocumentResponsesContainer from 'components_DEPRECATED/shared/documents/containers/DocumentResponsesContainer';
 import HierarchyAlerts from 'pages/dashboard/companyAdmin/upcomingAlerts/hierarchys/HierarchyAlerts';
 
 const DrawingsRoutes = ({ base = '/company/drawings' }) => (

@@ -2,9 +2,9 @@ import React from 'react';
 
 import moment from 'moment';
 
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
-import Table from 'components/shared/generic/tables/presentational/Table';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import ButtonContainer from 'components_DEPRECATED/shared/generic/button/containers/ButtonContainer';
+import Table from 'components_DEPRECATED/shared/generic/tables/presentational/Table';
 import { isEmpty } from 'lodash';
 
 import CalendarPinTask from './CalendarPinTask';

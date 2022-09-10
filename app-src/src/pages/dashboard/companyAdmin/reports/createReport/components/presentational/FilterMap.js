@@ -4,13 +4,13 @@ import ReactDOMServer from 'react-dom/server';
 import L from 'leaflet';
 import { CRS } from 'leaflet';
 
-import Block from 'components/shared/generic/block/presentational/Block';
+import Block from 'components_DEPRECATED/shared/generic/block/presentational/Block';
 import { FILE_STORAGE_URL } from 'config';
-import RedX from 'components/shared/pins/map/presentational/RedX';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
-import PinSelectorOptions from 'components/shared/pinSelector/presentational/PinSelectorOptions';
-import Rectangle from 'components/shared/pinSelector/presentational/Rectangle';
-import MapPinContainer from 'components/shared/pins/map/containers/MapPinContainer';
+import RedX from 'components_DEPRECATED/shared/pins/map/presentational/RedX';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
+import PinSelectorOptions from 'components_DEPRECATED/shared/pinSelector/presentational/PinSelectorOptions';
+import Rectangle from 'components_DEPRECATED/shared/pinSelector/presentational/Rectangle';
+import MapPinContainer from 'components_DEPRECATED/shared/pins/map/containers/MapPinContainer';
 
 const FilterMap = ({
     drawing,

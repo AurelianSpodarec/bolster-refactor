@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom';
 
 import DrawingMapViewSimple from '../presentational/DrawingMapViewSimple';
 import DrawingInspectionLogContainer from './DrawingInspectionLogContainer';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 import { convertEnumToDropdownOptions, momentComparisonFormat, isEmpty } from 'helpers/generic';
 import {
     PIN_STATUS_TYPES,

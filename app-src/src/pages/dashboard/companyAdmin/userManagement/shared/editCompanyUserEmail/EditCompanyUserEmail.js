@@ -1,19 +1,19 @@
 import editCompanyUserEmail from 'actions/companyAdmin/userManagement/async/editCompanyUserEmail';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import BackButtonContainer from 'components/shared/generic/backButton/containers/BackButtonContainer';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import Form from 'components/shared/generic/form/containers/Form';
-import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import Field from 'components/shared/generic/form/presentational/Field';
-import Error from 'components/shared/generic/misc/presentational/Error';
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import BackButtonContainer from 'components_DEPRECATED/shared/generic/backButton/containers/BackButtonContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import Form from 'components_DEPRECATED/shared/generic/form/containers/Form';
+import TextInputContainer from 'components_DEPRECATED/shared/generic/form/containers/TextInputContainer';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
+import Error from 'components_DEPRECATED/shared/generic/misc/presentational/Error';
+import PageHeading from 'components_DEPRECATED/shared/generic/pageHeading/presentational/PageHeading';
 import { SUCCESS_MODAL } from 'constants/shared/modalTypes';
 import { usePrevious } from 'helpers/hooks';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
-import ButtonWrapper from '../../../../../../components/shared/generic/button/presentational/ButtonWrapper';
-import ActionButton from '../../../../../../components/shared/generic/button/presentational/ActionButton';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
 
 const EditCompanyUserEmail = () => {
     const dispatch = useDispatch();

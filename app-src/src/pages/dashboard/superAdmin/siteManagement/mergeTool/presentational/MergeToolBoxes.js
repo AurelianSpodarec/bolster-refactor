@@ -1,11 +1,11 @@
 import React from 'react';
 import MergeDrawingMap from './MergeDrawingMap';
-import Field from 'components/shared/generic/form/presentational/Field';
-import Select from 'components/shared/generic/form/presentational/Select';
-import Loading from 'components/shared/generic/misc/presentational/Loading';
-import BlockContainerFetch from 'components/shared/generic/block/containers/BlockContainerFetch';
-import MultiSelect from 'components/shared/generic/form/presentational/MultiSelect';
-import MergeToolCSVUploader from 'components/shared/generic/form/containers/MergeToolCSVUploader';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
+import Select from 'components_DEPRECATED/shared/generic/form/presentational/Select';
+import Loading from 'components_DEPRECATED/shared/generic/misc/presentational/Loading';
+import BlockContainerFetch from 'components_DEPRECATED/shared/generic/block/containers/BlockContainerFetch';
+import MultiSelect from 'components_DEPRECATED/shared/generic/form/presentational/MultiSelect';
+import MergeToolCSVUploader from 'components_DEPRECATED/shared/generic/form/containers/MergeToolCSVUploader';
 
 const MergeToolBoxes = ({
     drawingsOptions,

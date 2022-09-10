@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Block from 'components/shared/generic/block/presentational/Block';
+import Block from 'components_DEPRECATED/shared/generic/block/presentational/Block';
 
 import DrawingMapAdvancedContainer from '../containers/DrawingMapAdvancedContainer';
 import DrawingPinSelectorContainer from '../containers/DrawingPinSelectorContainer';

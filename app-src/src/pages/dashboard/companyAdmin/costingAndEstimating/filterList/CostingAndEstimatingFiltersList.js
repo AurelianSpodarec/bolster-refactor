@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 import {
     hierarchyNames,
     hierarchyClassNames,
@@ -12,7 +12,7 @@ import {
     getItemType,
 } from '../_helpers/helpers';
 import { TopLevel } from './contentTypes';
-import Error from 'components/shared/generic/misc/presentational/Error';
+import Error from 'components_DEPRECATED/shared/generic/misc/presentational/Error';
 // import LoadingOverlay from '../LoadingOverlay';
 
 const tableHeaders = {

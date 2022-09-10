@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
+import SwitchWith404 from 'components_DEPRECATED/appRoute/routes/presentational/SwitchWith404';
 import AllCompaniesContainer from 'pages/dashboard/superAdmin/companies/allCompanies/containers/AllCompaniesContainer';
 import SingleCompanyContainer from 'pages/dashboard/superAdmin/companies/singleCompany/containers/SingleCompanyContainer';
 import TemplateBuilderContainer from 'pages/dashboard/superAdmin/templateBuilder/templateBuilder/containers/TemplateBuilderContainer';

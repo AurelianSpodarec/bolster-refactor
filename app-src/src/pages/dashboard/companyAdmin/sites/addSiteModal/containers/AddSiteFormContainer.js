@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import AddSiteForm from '../presentational/AddSiteForm';
 import createSite from 'actions/companyAdmin/sites/async/createSite';
 import { hideModal } from 'actions/shared/generic/modals/sync/hideModal';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 import fetchPinOptionSets from '../../../../../../actions/companyAdmin/pinOptions/async/fetchPinOptionSets';
 import fetchPinOptionTypes from '../../../../../../actions/companyAdmin/pinOptions/async/fetchPinOptionTypes';
 

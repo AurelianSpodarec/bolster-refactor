@@ -8,13 +8,13 @@ import useIsAdminPlus from '../../../../../hooks/useIsAdminPlus';
 
 import { isEmpty } from 'helpers/generic';
 
-import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import FilterRow from 'components/shared/filters/FilterRow';
-import Table from 'components/shared/generic/tables/presentational/Table';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import TextInputContainer from 'components_DEPRECATED/shared/generic/form/containers/TextInputContainer';
+import FilterRow from 'components_DEPRECATED/shared/filters/FilterRow';
+import Table from 'components_DEPRECATED/shared/generic/tables/presentational/Table';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
 import PrelimsListItem from './PrelimsListItem';
-import TooltipContainer from '../../../../../components/shared/generic/tooltip/containers/TooltipContainer';
+import TooltipContainer from 'components_DEPRECATED/shared/generic/tooltip/containers/TooltipContainer';
 
 const Prelims = () => {
     const { searchTerm, handleUpdateSearch } = useSearch();

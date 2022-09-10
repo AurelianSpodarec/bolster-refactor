@@ -5,7 +5,7 @@ import fetchCompanyUsers from 'actions/companyAdmin/userManagement/async/fetchCo
 import fetchAllServices from 'actions/superAdmin/services/async/fetchAllServices';
 import fetchAllSites from 'actions/companyAdmin/sites/async/fetchAllSites';
 
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 import LegendSegment from './views/calendar/LegendSegment';
 
 import { PIN_TASK_RECURRING_NAMES, PIN_TASK_STATUS_NAMES } from 'constants/companyAdmin/enums';

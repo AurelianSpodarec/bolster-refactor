@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 
 import SuperAdminInvoicesTable from '../presentational/SuperAdminInvoicesTable';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
 import {
     INVOICE_STATUS_TYPES,
     HAS_PAID_QUERIES,
@@ -12,7 +12,7 @@ import {
 } from 'constants/companyAdmin/enums';
 import fetchInvoicesBySearch from 'actions/superAdmin/invoices/async/fetchInvoicesBySearch';
 import updateInvoiceFilter from 'actions/superAdmin/invoices/sync/updateInvoiceFilter';
-import PageSelector from 'components/shared/pagination/presentational/pageSelector';
+import PageSelector from 'components_DEPRECATED/shared/pagination/presentational/pageSelector';
 import { useEffect } from 'react';
 
 const SuperAdminInvoicesTableContainer = ({

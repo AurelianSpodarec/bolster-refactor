@@ -1,5 +1,5 @@
 import postApproveShift from 'actions/companyAdmin/timesheets/async/postApproveShift';
-import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
+import ActionMenuActionButton from 'components_DEPRECATED/shared/actionMenu/ActionMenuActionButton';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import useIsAdminPlus from '../../../../../../../../hooks/useIsAdminPlus';

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import StatusIcon from 'components/shared/generic/statusIcon/presentationl/StatusIcon';
-import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
+import StatusIcon from 'components_DEPRECATED/shared/generic/statusIcon/presentationl/StatusIcon';
+import CheckboxContainer from 'components_DEPRECATED/shared/generic/form/containers/CheckboxContainer';
 
 const SubscribedServicesItem = ({ index, subscription, handleChange, isAutoRenew, canEdit }) => {
     return (

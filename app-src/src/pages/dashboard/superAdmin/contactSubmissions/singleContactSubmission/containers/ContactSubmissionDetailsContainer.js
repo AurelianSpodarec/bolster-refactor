@@ -9,7 +9,7 @@ import {
     ADD_CONTACT_SUBMISSION_COMMENT,
 } from 'constants/shared/modalTypes';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 import ContactSubmissionDetails from '../presentational/ContactSubmissionDetails';
 
 const ContactSubmissionDetailsContainer = ({

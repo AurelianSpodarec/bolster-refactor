@@ -1,6 +1,6 @@
 import React from 'react';
-import FieldOutput from 'components/shared/generic/fieldOutput/presentational/FieldOutput';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import FieldOutput from 'components_DEPRECATED/shared/generic/fieldOutput/presentational/FieldOutput';
+import BlockButtonWrapper from 'components_DEPRECATED/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
 const FilterField = ({
     field: { selectedValues = [], questionValues = [], selectedQuestions, id },

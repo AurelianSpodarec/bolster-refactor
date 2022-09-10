@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import OperativesTable from 'components/shared/operatives/presentational/OperativesTable';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import OperativesTable from 'components_DEPRECATED/shared/operatives/presentational/OperativesTable';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 
 import { ERROR_MODAL, DELETE_OPERATIVE } from 'constants/shared/modalTypes';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';

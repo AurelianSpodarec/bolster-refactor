@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
-import FlexWrapper from '../../../../../components/shared/generic/flexWrapper/FlexWrapper';
-import FilterInput from '../../../../../components/shared/filters/FilterInput';
-import Tickbox from '../../../../../components/shared/generic/form/presentational/Tickbox';
-import RangeSlider from '../../../../../components/shared/generic/form/presentational/RangeSlider';
+import FlexWrapper from 'components_DEPRECATED/shared/generic/flexWrapper/FlexWrapper';
+import FilterInput from 'components_DEPRECATED/shared/filters/FilterInput';
+import Tickbox from 'components_DEPRECATED/shared/generic/form/presentational/Tickbox';
+import RangeSlider from 'components_DEPRECATED/shared/generic/form/presentational/RangeSlider';
 import { COSTING_GRAPH_FILTER_VALUES } from '../../../../../constants/companyAdmin/enums';
 
 const CostingGraphFilterItem = ({

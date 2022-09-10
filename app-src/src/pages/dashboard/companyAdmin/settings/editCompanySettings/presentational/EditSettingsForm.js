@@ -2,16 +2,16 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { HuePicker } from 'react-color';
 
-import Form from 'components/shared/generic/form/containers/Form';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
-import Field from 'components/shared/generic/form/presentational/Field';
-import TextInputContainer from 'components/shared/generic/form/containers/TextInputContainer';
-import FileUploadContainer from 'components/shared/generic/form/containers/FileUploadContainer';
-import ButtonContainer from 'components/shared/generic/button/containers/ButtonContainer';
-import CheckboxContainer from 'components/shared/generic/form/containers/CheckboxContainer';
-import Select from 'components/shared/generic/form/presentational/Select';
+import Form from 'components_DEPRECATED/shared/generic/form/containers/Form';
+import BlockButtonWrapper from 'components_DEPRECATED/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
+import TextInputContainer from 'components_DEPRECATED/shared/generic/form/containers/TextInputContainer';
+import FileUploadContainer from 'components_DEPRECATED/shared/generic/form/containers/FileUploadContainer';
+import ButtonContainer from 'components_DEPRECATED/shared/generic/button/containers/ButtonContainer';
+import CheckboxContainer from 'components_DEPRECATED/shared/generic/form/containers/CheckboxContainer';
+import Select from 'components_DEPRECATED/shared/generic/form/presentational/Select';
 import { CURRENCY_NAMES, VAT_TYPES } from 'constants/companyAdmin/enums';
-import CountriesSelectList from 'components/shared/generic/form/presentational/CountriesSelectList';
+import CountriesSelectList from 'components_DEPRECATED/shared/generic/form/presentational/CountriesSelectList';
 import { needsVatCode } from 'constants/shared/vatTypes';
 import { enumFormat } from '../../../../../../helpers/generic';
 

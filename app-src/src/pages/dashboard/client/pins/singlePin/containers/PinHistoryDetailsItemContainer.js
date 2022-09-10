@@ -1,4 +1,4 @@
-import Loading from 'components/shared/generic/misc/presentational/Loading';
+import Loading from 'components_DEPRECATED/shared/generic/misc/presentational/Loading';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 

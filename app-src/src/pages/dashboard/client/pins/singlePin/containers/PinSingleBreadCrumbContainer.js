@@ -7,7 +7,7 @@ import clientFetchSingleBuilding from 'actions/client/buildings/async/clientFetc
 import clientFetchSingleFloor from 'actions/client/floors/async/clientFetchSingleFloor';
 import clientFetchSingleDrawing from 'actions/client/drawings/async/clientFetchSingleDrawing';
 
-import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
+import Breadcrumb from 'components_DEPRECATED/shared/generic/breadcrumb/presentational/Breadcrumb';
 import { getSelectedCompanyForClient } from 'helpers/generic';
 
 class PinSingleBreadCrumbContainer extends Component {

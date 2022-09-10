@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { Bar } from 'react-chartjs-2';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
-import BlockHeading from 'components/shared/generic/blockHeading/presentational/BlockHeading';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
+import BlockHeading from 'components_DEPRECATED/shared/generic/blockHeading/presentational/BlockHeading';
 import DashboardStatsOptionsContainer from '../containers/DashboardStatsOptionsContainer';
 
 const DashboardStats = ({ data, options }) => (

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import InviteCompany from 'components/shared/company/presentational/InviteCompanyForm';
+import InviteCompany from 'components_DEPRECATED/shared/company/presentational/InviteCompanyForm';
 
 class FloorInviteCompanyContainer extends Component {
     render() {

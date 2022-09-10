@@ -1,8 +1,8 @@
 import React from 'react';
 
-import AttachOperativesFormContainer from 'components/shared/operatives/containers/AttachOperativesFormContainer';
+import AttachOperativesFormContainer from 'components_DEPRECATED/shared/operatives/containers/AttachOperativesFormContainer';
 import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
-import PageHeading from 'components/shared/generic/pageHeading/presentational/PageHeading';
+import PageHeading from 'components_DEPRECATED/shared/generic/pageHeading/presentational/PageHeading';
 
 const AttachFloorOperative = () => (
     <>

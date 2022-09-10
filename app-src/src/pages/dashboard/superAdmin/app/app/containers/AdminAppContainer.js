@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import withAuth from 'components/shared/auth/auth/hocs/withAuth';
+import withAuth from 'components_DEPRECATED/shared/auth/auth/hocs/withAuth';
 import { MENU_TABS } from 'constants/shared/tabNames';
 import selectMenuTab from 'actions/shared/generic/tabs/sync/selectMenuTab';
 import AdminApp from '../presentational/AdminApp';

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
+import ActionMenuActionButton from 'components_DEPRECATED/shared/actionMenu/ActionMenuActionButton';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
 
 const AddCreditsToDrawingButton = ({ handleClick, isExpired }) =>
     isExpired ? (

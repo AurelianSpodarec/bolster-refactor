@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 
 import fetchSingleClientSite from 'actions/client/sites/async/clientFetchSingleSite';
 
-import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
+import Breadcrumb from 'components_DEPRECATED/shared/generic/breadcrumb/presentational/Breadcrumb';
 
 import { getSelectedCompanyForClient } from 'helpers/generic';
 

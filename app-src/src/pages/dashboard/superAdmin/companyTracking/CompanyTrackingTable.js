@@ -1,16 +1,16 @@
 import React, { useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { isEmpty } from 'helpers/generic';
-import Table from 'components/shared/generic/tables/presentational/Table';
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
-import DatePickerPresentational from 'components/shared/generic/form/presentational/DatePicker';
-import Select from 'components/shared/generic/form/presentational/Select';
+import Table from 'components_DEPRECATED/shared/generic/tables/presentational/Table';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
+import DatePickerPresentational from 'components_DEPRECATED/shared/generic/form/presentational/DatePicker';
+import Select from 'components_DEPRECATED/shared/generic/form/presentational/Select';
 import ContactContacted from './CompanyContacted';
 import {
     COMPANY_TRACKING_PERIOD_KEY,
     COMPANY_TRACKING_PERIOD_TYPE,
 } from 'constants/superAdmin/enums';
-import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
+import TooltipContainer from 'components_DEPRECATED/shared/generic/tooltip/containers/TooltipContainer';
 import { companyTrackingShowWarning } from 'helpers/general';
 import moment from 'moment';
 import { COMPANY_TYPES, COMPANY_TRACKING_TYPES_VALUES } from 'constants/companyAdmin/enums';

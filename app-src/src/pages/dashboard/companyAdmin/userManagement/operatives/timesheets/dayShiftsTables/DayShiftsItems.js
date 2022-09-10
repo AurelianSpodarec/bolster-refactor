@@ -7,11 +7,11 @@ import {
     selectCompanyCurrency,
     selectCompanyTimeZone,
 } from 'selectors/companyAdmin/companySettings';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import ActionMenu from 'components/shared/actionMenu/ActionMenu';
-import ActionMenuActionButton from 'components/shared/actionMenu/ActionMenuActionButton';
-import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
+import ActionMenu from 'components_DEPRECATED/shared/actionMenu/ActionMenu';
+import ActionMenuActionButton from 'components_DEPRECATED/shared/actionMenu/ActionMenuActionButton';
+import TooltipContainer from 'components_DEPRECATED/shared/generic/tooltip/containers/TooltipContainer';
 import ApproveShiftButton from '../breakdown/dayBreakdown/ApproveShiftButton';
 import useBolsterPlus from 'pages/dashboard/companyAdmin/subscription/addOns/hooks/useBolsterPlus';
 import ApproveShiftMenuButton from '../breakdown/dayBreakdown/ApproveShiftMenuButton';

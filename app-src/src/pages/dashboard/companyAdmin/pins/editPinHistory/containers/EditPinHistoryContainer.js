@@ -9,7 +9,7 @@ import EditPinFormContainer from './EditPinFormContainer';
 import { componentDidMount } from 'helpers/generic';
 import fetchPinOptions from '../../../../../../actions/companyAdmin/pinOptions/async/fetchPinOptions';
 import fetchPinOptionVersions from '../../../../../../actions/companyAdmin/pinOptions/async/fetchPinOptionVersions';
-import { useAddPinOptions } from '../../../../../../components/shared/pins/addPin/fieldTypes/helpers';
+import { useAddPinOptions } from 'components_DEPRECATED/shared/pins/addPin/fieldTypes/helpers';
 import fetchPinOptionTypes from '../../../../../../actions/companyAdmin/pinOptions/async/fetchPinOptionTypes';
 import fetchPinOptionSets from '../../../../../../actions/companyAdmin/pinOptions/async/fetchPinOptionSets';
 import { selectPinHistory } from '../../../../../../selectors/companyAdmin/pinHistories';

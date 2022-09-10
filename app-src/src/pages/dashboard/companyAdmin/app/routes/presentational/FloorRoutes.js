@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import SwitchWith404 from 'components/appRoute/routes/presentational/SwitchWith404';
+import SwitchWith404 from 'components_DEPRECATED/appRoute/routes/presentational/SwitchWith404';
 import SingleFloorContainer from 'pages/dashboard/companyAdmin/floors/singleFloor/containers/SingleFloorContainer';
 import AttachFloorOperative from 'pages/dashboard/companyAdmin/floors/attachFloorOperative/presentational/AttachFloorOperative';
 import InviteClientToFloor from 'pages/dashboard/companyAdmin/floors/inviteClientToFloor/presentational/InviteClientToFloor';
@@ -11,7 +11,7 @@ import AttachFloorDocument from 'pages/dashboard/companyAdmin/floors/attachFloor
 import EditFloorDocument from 'pages/dashboard/companyAdmin/floors/editFloorDocument/presentational/EditFloorDocument';
 import EditCompanyPermissionsOnFloorContainer from 'pages/dashboard/companyAdmin/floors/editCompanyOnFloor/containers/EditCompanyPermissionsOnFloorContainer';
 import AddCompanyPermissionsToFloor from 'pages/dashboard/companyAdmin/floors/addCompanyPermissionsToFloor/presentational/AddCompanyPermissionsToFloor';
-import DocumentResponsesContainer from 'components/shared/documents/containers/DocumentResponsesContainer';
+import DocumentResponsesContainer from 'components_DEPRECATED/shared/documents/containers/DocumentResponsesContainer';
 import HierarchyAlerts from 'pages/dashboard/companyAdmin/upcomingAlerts/hierarchys/HierarchyAlerts';
 
 const FloorRoutes = ({ base = '/company/floors' }) => (

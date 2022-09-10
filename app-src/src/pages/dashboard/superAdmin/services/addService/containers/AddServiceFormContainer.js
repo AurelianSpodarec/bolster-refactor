@@ -8,7 +8,7 @@ import createService from 'actions/superAdmin/services/async/createService';
 import postTemplatesForService from 'actions/superAdmin/services/async/postTemplatesForService';
 
 import { ADMIN_CREATE_SERVICE_SUCCESS } from 'constants/actionTypes/services';
-import BlockContainer from 'components/shared/generic/block/containers/BlockContainer';
+import BlockContainer from 'components_DEPRECATED/shared/generic/block/containers/BlockContainer';
 import fetchTemplatesSimple from 'actions/superAdmin/templateBuilder/async/fetchTemplatesSimple';
 
 class AddServiceFormContainer extends Component {

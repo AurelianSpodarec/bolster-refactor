@@ -6,7 +6,7 @@ import fetchSingleClientSite from 'actions/client/sites/async/clientFetchSingleS
 import fetchSingleClientBuilding from 'actions/client/buildings/async/clientFetchSingleBuilding';
 import fetchSingleClientFloor from 'actions/client/floors/async/clientFetchSingleFloor';
 
-import Breadcrumb from 'components/shared/generic/breadcrumb/presentational/Breadcrumb';
+import Breadcrumb from 'components_DEPRECATED/shared/generic/breadcrumb/presentational/Breadcrumb';
 import { getSelectedCompanyForClient } from 'helpers/generic';
 
 class DrawingBreadcrumbContainer extends Component {

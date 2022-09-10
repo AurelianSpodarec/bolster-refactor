@@ -1,6 +1,6 @@
 import React from 'react';
-import NewSelect from 'components/shared/generic/form/presentational/NewSelect';
-import DatePickerPresentational from 'components/shared/generic/form/presentational/DatePicker';
+import NewSelect from 'components_DEPRECATED/shared/generic/form/presentational/NewSelect';
+import DatePickerPresentational from 'components_DEPRECATED/shared/generic/form/presentational/DatePicker';
 
 import RedPin from 'assets/images/map-markers/red-pin2x.png';
 import GreenPin from 'assets/images/map-markers/green-pin2x.png';

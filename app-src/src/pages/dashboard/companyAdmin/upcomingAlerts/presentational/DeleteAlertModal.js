@@ -2,7 +2,7 @@ import React from 'react';
 
 import useDeleteAlert from 'pages/dashboard/companyAdmin/upcomingAlerts/hierarchys/hooks/useDeleteAlert';
 
-import ConfirmDeleteModal from 'components/shared/generic/modals/presentational/ConfirmDeleteModal';
+import ConfirmDeleteModal from 'components_DEPRECATED/shared/generic/modals/presentational/ConfirmDeleteModal';
 
 const DeleteAlertModal = ({ id, hideModal }) => {
     const { handleSubmit } = useDeleteAlert(id);

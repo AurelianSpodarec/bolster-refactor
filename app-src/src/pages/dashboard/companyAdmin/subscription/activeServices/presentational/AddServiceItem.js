@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { ADD_MULTIPLE_SERVICES_TO_SUBSCRIPTION } from 'constants/shared/modalTypes';
-import StatusIcon from 'components/shared/generic/statusIcon/presentationl/StatusIcon';
-import TooltipContainer from 'components/shared/generic/tooltip/containers/TooltipContainer';
-import ActionButton from 'components/shared/generic/button/presentational/ActionButton';
-import ButtonWrapper from 'components/shared/generic/button/presentational/ButtonWrapper';
+import StatusIcon from 'components_DEPRECATED/shared/generic/statusIcon/presentationl/StatusIcon';
+import TooltipContainer from 'components_DEPRECATED/shared/generic/tooltip/containers/TooltipContainer';
+import ActionButton from 'components_DEPRECATED/shared/generic/button/presentational/ActionButton';
+import ButtonWrapper from 'components_DEPRECATED/shared/generic/button/presentational/ButtonWrapper';
 
 const AddServiceItem = ({ service, showModal, canEdit }) => {
     if (canEdit)

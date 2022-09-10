@@ -10,7 +10,7 @@ import AddPinFormContainer from './AddPinFormContainer';
 import fetchPinOptionVersions from '../../../../../../actions/companyAdmin/pinOptions/async/fetchPinOptionVersions';
 import fetchPinOptions from '../../../../../../actions/companyAdmin/pinOptions/async/fetchPinOptions';
 import { componentDidMount } from '../../../../../../helpers/generic';
-import { useAddPinOptions } from '../../../../../../components/shared/pins/addPin/fieldTypes/helpers';
+import { useAddPinOptions } from 'components_DEPRECATED/shared/pins/addPin/fieldTypes/helpers';
 import fetchPinOptionTypes from '../../../../../../actions/companyAdmin/pinOptions/async/fetchPinOptionTypes';
 import { selectDrawing } from '../../../../../../selectors/companyAdmin/drawings';
 import fetchPinOptionSets from '../../../../../../actions/companyAdmin/pinOptions/async/fetchPinOptionSets';

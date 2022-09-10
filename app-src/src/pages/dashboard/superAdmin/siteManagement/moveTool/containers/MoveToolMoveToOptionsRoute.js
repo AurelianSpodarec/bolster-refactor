@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { HIERARCHY_IDS } from 'constants/companyAdmin/enums';
-import Field from 'components/shared/generic/form/presentational/Field';
+import Field from 'components_DEPRECATED/shared/generic/form/presentational/Field';
 import { showModal } from 'actions/shared/generic/modals/sync/showModal';
 import { CONFIRM_MOVE_HIERARCHY_TO_COMPANY } from 'constants/shared/modalTypes';
-import Loading from 'components/shared/generic/misc/presentational/Loading';
+import Loading from 'components_DEPRECATED/shared/generic/misc/presentational/Loading';
 
 const { BUILDING, FLOOR, DRAWING } = HIERARCHY_IDS;
 

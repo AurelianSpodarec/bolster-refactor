@@ -2,7 +2,7 @@ import React from 'react';
 import useDeletePinTask from '../../../hooks/useDeletePinTask';
 import useTypeAndStatus from '../hooks/useTypeAndStatus';
 
-import DateTimeContainer from 'components/shared/dateTime/containers/DateTimeContainer';
+import DateTimeContainer from 'components_DEPRECATED/shared/dateTime/containers/DateTimeContainer';
 import {
     DATE_TIME_IDS,
     PIN_TASK_RECURRING_NAMES,
@@ -12,7 +12,7 @@ import TaskStatusPill from '../../TaskStatusPill';
 import TaskRecurrencePill from '../../TaskRecurrencePill';
 
 import PinTaskNoteIcon from 'assets/images/icons/pinTaskNoteWhite.png';
-import BlockButtonWrapper from 'components/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
+import BlockButtonWrapper from 'components_DEPRECATED/shared/generic/blockButtonWrappers/presentational/BlockButtonWrapper';
 
 const ListTableRow = ({ pinTask, startEditPinTask, viewTaskNote }) => {
     const {

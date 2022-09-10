@@ -1,6 +1,6 @@
 import React from 'react';
 
-import TextInputContainer from '../../../../../../../../components/shared/generic/form/containers/TextInputContainer';
+import TextInputContainer from 'components_DEPRECATED/shared/generic/form/containers/TextInputContainer';
 import PayRateItemForm from './PayRateItemForm';
 
 const PayRateItem = ({
